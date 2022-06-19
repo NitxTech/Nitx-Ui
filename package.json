@@ -1,0 +1,30 @@
+{
+  "name": "nitx-ui",
+  "version": "1.0.0",
+  "description": "this is ui for nitx.io",
+  "main": "nuxt.js",
+  "scripts": {
+    "test": " "
+  },
+  "peerDependencies": {
+    "nuxt3": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NitxTech/Nitx-Ui.git"
+  },
+  "keywords": [
+    "nux3",
+    "ui",
+    "design-system",
+    "components",
+    "ui-library",
+    "theming"
+  ],
+  "author": "Khalid Shah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NitxTech/Nitx-Ui/issues"
+  },
+  "homepage": "https://github.com/NitxTech/Nitx-Ui#readme"
+}
