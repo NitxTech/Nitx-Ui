@@ -1,7 +1,7 @@
 {
-  "name": "nitx-ui",
-  "version": "1.0.0",
-  "description": "this is ui for nitx.io",
+  "name": "@nitx-tech/nitx-ui",
+  "version": "1.0.3",
+  "description": "NitxUI",
   "main": "nuxt.js",
   "scripts": {
     "test": " "
@@ -21,10 +21,19 @@
     "ui-library",
     "theming"
   ],
+  "publishConfig": {
+    "access": "public",
+    "branches": [
+      "main"
+    ]
+  },
   "author": "Khalid Shah",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/NitxTech/Nitx-Ui/issues"
   },
-  "homepage": "https://github.com/NitxTech/Nitx-Ui#readme"
+  "homepage": "https://github.com/NitxTech/Nitx-Ui#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.1.3"
+  }
 }
