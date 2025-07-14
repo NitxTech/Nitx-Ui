@@ -1,18 +1,22 @@
 {
     "name": "nitxui",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": false,
     "description": "The official UI component library for Nitx projects.",
-    "main": "dist/index.js",
+    "main": "dist/index.cjs",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        }
+    },
     "files": [
         "dist"
     ],
     "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist --esm-extension"
     },
     "repository": {
         "type": "git",
