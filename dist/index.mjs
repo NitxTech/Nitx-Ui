@@ -2632,7 +2632,11 @@ var require_image_component = __commonJS({
     Object.defineProperty(exports, "Image", {
       enumerable: true,
       get: function() {
+<<<<<<< HEAD
         return Image2;
+=======
+        return Image3;
+>>>>>>> fc2972cdfea83c8168f72c39dcaf168d2d56269f
       }
     });
     var _interop_require_default = require_interop_require_default();
@@ -2839,7 +2843,11 @@ var require_image_component = __commonJS({
         }, opts), "__nimg-" + imgAttributes.src + imgAttributes.srcSet + imgAttributes.sizes)
       });
     }
+<<<<<<< HEAD
     var Image2 = /* @__PURE__ */ (0, _react.forwardRef)((props, forwardedRef) => {
+=======
+    var Image3 = /* @__PURE__ */ (0, _react.forwardRef)((props, forwardedRef) => {
+>>>>>>> fc2972cdfea83c8168f72c39dcaf168d2d56269f
       const pagesRouter = (0, _react.useContext)(_routercontextsharedruntime.RouterContext);
       const isAppRouter = !pagesRouter;
       const configContext = (0, _react.useContext)(_imageconfigcontextsharedruntime.ImageConfigContext);
@@ -5636,6 +5644,138 @@ var require_link2 = __commonJS({
   }
 });
 
+<<<<<<< HEAD
+=======
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js
+var require_use_sync_external_store_shim_production = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js"(exports) {
+    "use strict";
+    var React38 = __require("react");
+    function is(x, y) {
+      return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+    }
+    var objectIs = "function" === typeof Object.is ? Object.is : is;
+    var useState17 = React38.useState;
+    var useEffect17 = React38.useEffect;
+    var useLayoutEffect5 = React38.useLayoutEffect;
+    var useDebugValue = React38.useDebugValue;
+    function useSyncExternalStore$2(subscribe2, getSnapshot) {
+      var value = getSnapshot(), _useState = useState17({ inst: { value, getSnapshot } }), inst = _useState[0].inst, forceUpdate = _useState[1];
+      useLayoutEffect5(
+        function() {
+          inst.value = value;
+          inst.getSnapshot = getSnapshot;
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+        },
+        [subscribe2, value, getSnapshot]
+      );
+      useEffect17(
+        function() {
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          return subscribe2(function() {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          });
+        },
+        [subscribe2]
+      );
+      useDebugValue(value);
+      return value;
+    }
+    function checkIfSnapshotChanged(inst) {
+      var latestGetSnapshot = inst.getSnapshot;
+      inst = inst.value;
+      try {
+        var nextValue = latestGetSnapshot();
+        return !objectIs(inst, nextValue);
+      } catch (error) {
+        return true;
+      }
+    }
+    function useSyncExternalStore$1(subscribe2, getSnapshot) {
+      return getSnapshot();
+    }
+    var shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+    exports.useSyncExternalStore = void 0 !== React38.useSyncExternalStore ? React38.useSyncExternalStore : shim;
+  }
+});
+
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
+var require_use_sync_external_store_shim_development = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js"(exports) {
+    "use strict";
+    "production" !== process.env.NODE_ENV && function() {
+      function is(x, y) {
+        return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+      }
+      function useSyncExternalStore$2(subscribe2, getSnapshot) {
+        didWarnOld18Alpha || void 0 === React38.startTransition || (didWarnOld18Alpha = true, console.error(
+          "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
+        ));
+        var value = getSnapshot();
+        if (!didWarnUncachedGetSnapshot) {
+          var cachedValue = getSnapshot();
+          objectIs(value, cachedValue) || (console.error(
+            "The result of getSnapshot should be cached to avoid an infinite loop"
+          ), didWarnUncachedGetSnapshot = true);
+        }
+        cachedValue = useState17({
+          inst: { value, getSnapshot }
+        });
+        var inst = cachedValue[0].inst, forceUpdate = cachedValue[1];
+        useLayoutEffect5(
+          function() {
+            inst.value = value;
+            inst.getSnapshot = getSnapshot;
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          },
+          [subscribe2, value, getSnapshot]
+        );
+        useEffect17(
+          function() {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+            return subscribe2(function() {
+              checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+            });
+          },
+          [subscribe2]
+        );
+        useDebugValue(value);
+        return value;
+      }
+      function checkIfSnapshotChanged(inst) {
+        var latestGetSnapshot = inst.getSnapshot;
+        inst = inst.value;
+        try {
+          var nextValue = latestGetSnapshot();
+          return !objectIs(inst, nextValue);
+        } catch (error) {
+          return true;
+        }
+      }
+      function useSyncExternalStore$1(subscribe2, getSnapshot) {
+        return getSnapshot();
+      }
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+      var React38 = __require("react"), objectIs = "function" === typeof Object.is ? Object.is : is, useState17 = React38.useState, useEffect17 = React38.useEffect, useLayoutEffect5 = React38.useLayoutEffect, useDebugValue = React38.useDebugValue, didWarnOld18Alpha = false, didWarnUncachedGetSnapshot = false, shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+      exports.useSyncExternalStore = void 0 !== React38.useSyncExternalStore ? React38.useSyncExternalStore : shim;
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+    }();
+  }
+});
+
+// node_modules/use-sync-external-store/shim/index.js
+var require_shim = __commonJS({
+  "node_modules/use-sync-external-store/shim/index.js"(exports, module) {
+    "use strict";
+    if (process.env.NODE_ENV === "production") {
+      module.exports = require_use_sync_external_store_shim_production();
+    } else {
+      module.exports = require_use_sync_external_store_shim_development();
+    }
+  }
+});
+
+>>>>>>> fc2972cdfea83c8168f72c39dcaf168d2d56269f
 // src/components/ui/dropdown-menu.tsx
 import * as React34 from "react";
 
@@ -14375,6 +14515,7 @@ var ProductIcon = ({
 var product_icon_default = ProductIcon;
 
 // src/assets/ads-logo.svg
+<<<<<<< HEAD
 var ads_logo_default = "./ads-logo-T3W3EQOF.svg";
 
 // src/assets/signage-icon.svg
@@ -14385,6 +14526,18 @@ var publisher_logo_default = "./publisher-logo-CDQW4NR4.svg";
 
 // src/assets/studio-logo.svg
 var studio_logo_default = "./studio-logo-UA7JT6UG.svg";
+=======
+var ads_logo_default = "./ads-logo-KU3MWH64.svg";
+
+// src/assets/signage-icon.svg
+var signage_icon_default = "./signage-icon-ZMVV6S3T.svg";
+
+// src/assets/publisher-logo.svg
+var publisher_logo_default = "./publisher-logo-RRVYVYLW.svg";
+
+// src/assets/studio-logo.svg
+var studio_logo_default = "./studio-logo-WT6UAQSQ.svg";
+>>>>>>> fc2972cdfea83c8168f72c39dcaf168d2d56269f
 
 // src/components/product-switcher/product-switcher.tsx
 import { jsx as jsx17, jsxs as jsxs3 } from "react/jsx-runtime";
@@ -14455,6 +14608,7 @@ var ProductSwitcher = () => {
     ] })
   ] });
 };
+<<<<<<< HEAD
 export {
   Button,
   ProductSwitcher,
@@ -14462,6 +14616,214 @@ export {
 };
 /*! Bundled license information:
 
+=======
+
+// src/components/user-account/account.tsx
+import { useState as useState16 } from "react";
+
+// src/components/ui/avatar.tsx
+import * as React37 from "react";
+
+// node_modules/@radix-ui/react-avatar/dist/index.mjs
+import * as React36 from "react";
+
+// node_modules/@radix-ui/react-use-is-hydrated/dist/index.mjs
+var import_shim = __toESM(require_shim(), 1);
+function useIsHydrated() {
+  return (0, import_shim.useSyncExternalStore)(
+    subscribe,
+    () => true,
+    () => false
+  );
+}
+function subscribe() {
+  return () => {
+  };
+}
+
+// node_modules/@radix-ui/react-avatar/dist/index.mjs
+import { jsx as jsx18 } from "react/jsx-runtime";
+var AVATAR_NAME = "Avatar";
+var [createAvatarContext, createAvatarScope] = createContextScope(AVATAR_NAME);
+var [AvatarProvider, useAvatarContext] = createAvatarContext(AVATAR_NAME);
+var Avatar = React36.forwardRef(
+  (props, forwardedRef) => {
+    const _a = props, { __scopeAvatar } = _a, avatarProps = __objRest(_a, ["__scopeAvatar"]);
+    const [imageLoadingStatus, setImageLoadingStatus] = React36.useState("idle");
+    return /* @__PURE__ */ jsx18(
+      AvatarProvider,
+      {
+        scope: __scopeAvatar,
+        imageLoadingStatus,
+        onImageLoadingStatusChange: setImageLoadingStatus,
+        children: /* @__PURE__ */ jsx18(Primitive.span, __spreadProps(__spreadValues({}, avatarProps), { ref: forwardedRef }))
+      }
+    );
+  }
+);
+Avatar.displayName = AVATAR_NAME;
+var IMAGE_NAME = "AvatarImage";
+var AvatarImage = React36.forwardRef(
+  (props, forwardedRef) => {
+    const _a = props, { __scopeAvatar, src, onLoadingStatusChange = () => {
+    } } = _a, imageProps = __objRest(_a, ["__scopeAvatar", "src", "onLoadingStatusChange"]);
+    const context = useAvatarContext(IMAGE_NAME, __scopeAvatar);
+    const imageLoadingStatus = useImageLoadingStatus(src, imageProps);
+    const handleLoadingStatusChange = useCallbackRef((status) => {
+      onLoadingStatusChange(status);
+      context.onImageLoadingStatusChange(status);
+    });
+    useLayoutEffect2(() => {
+      if (imageLoadingStatus !== "idle") {
+        handleLoadingStatusChange(imageLoadingStatus);
+      }
+    }, [imageLoadingStatus, handleLoadingStatusChange]);
+    return imageLoadingStatus === "loaded" ? /* @__PURE__ */ jsx18(Primitive.img, __spreadProps(__spreadValues({}, imageProps), { ref: forwardedRef, src })) : null;
+  }
+);
+AvatarImage.displayName = IMAGE_NAME;
+var FALLBACK_NAME = "AvatarFallback";
+var AvatarFallback = React36.forwardRef(
+  (props, forwardedRef) => {
+    const _a = props, { __scopeAvatar, delayMs } = _a, fallbackProps = __objRest(_a, ["__scopeAvatar", "delayMs"]);
+    const context = useAvatarContext(FALLBACK_NAME, __scopeAvatar);
+    const [canRender, setCanRender] = React36.useState(delayMs === void 0);
+    React36.useEffect(() => {
+      if (delayMs !== void 0) {
+        const timerId = window.setTimeout(() => setCanRender(true), delayMs);
+        return () => window.clearTimeout(timerId);
+      }
+    }, [delayMs]);
+    return canRender && context.imageLoadingStatus !== "loaded" ? /* @__PURE__ */ jsx18(Primitive.span, __spreadProps(__spreadValues({}, fallbackProps), { ref: forwardedRef })) : null;
+  }
+);
+AvatarFallback.displayName = FALLBACK_NAME;
+function resolveLoadingStatus(image, src) {
+  if (!image) {
+    return "idle";
+  }
+  if (!src) {
+    return "error";
+  }
+  if (image.src !== src) {
+    image.src = src;
+  }
+  return image.complete && image.naturalWidth > 0 ? "loaded" : "loading";
+}
+function useImageLoadingStatus(src, { referrerPolicy, crossOrigin }) {
+  const isHydrated = useIsHydrated();
+  const imageRef = React36.useRef(null);
+  const image = (() => {
+    if (!isHydrated) return null;
+    if (!imageRef.current) {
+      imageRef.current = new window.Image();
+    }
+    return imageRef.current;
+  })();
+  const [loadingStatus, setLoadingStatus] = React36.useState(
+    () => resolveLoadingStatus(image, src)
+  );
+  useLayoutEffect2(() => {
+    setLoadingStatus(resolveLoadingStatus(image, src));
+  }, [image, src]);
+  useLayoutEffect2(() => {
+    const updateStatus = (status) => () => {
+      setLoadingStatus(status);
+    };
+    if (!image) return;
+    const handleLoad = updateStatus("loaded");
+    const handleError = updateStatus("error");
+    image.addEventListener("load", handleLoad);
+    image.addEventListener("error", handleError);
+    if (referrerPolicy) {
+      image.referrerPolicy = referrerPolicy;
+    }
+    if (typeof crossOrigin === "string") {
+      image.crossOrigin = crossOrigin;
+    }
+    return () => {
+      image.removeEventListener("load", handleLoad);
+      image.removeEventListener("error", handleError);
+    };
+  }, [image, crossOrigin, referrerPolicy]);
+  return loadingStatus;
+}
+var Root4 = Avatar;
+var Image2 = AvatarImage;
+var Fallback = AvatarFallback;
+
+// src/components/ui/avatar.tsx
+import { jsx as jsx19 } from "react/jsx-runtime";
+var Avatar2 = React37.forwardRef((_a, ref) => {
+  var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
+  return /* @__PURE__ */ jsx19(
+    Root4,
+    __spreadValues({
+      ref,
+      className: cn(
+        "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+        className
+      )
+    }, props)
+  );
+});
+Avatar2.displayName = Root4.displayName;
+var AvatarImage2 = React37.forwardRef((_a, ref) => {
+  var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
+  return /* @__PURE__ */ jsx19(
+    Image2,
+    __spreadValues({
+      ref,
+      className: cn("aspect-square h-full w-full", className)
+    }, props)
+  );
+});
+AvatarImage2.displayName = Image2.displayName;
+var AvatarFallback2 = React37.forwardRef((_a, ref) => {
+  var _b = _a, { className } = _b, props = __objRest(_b, ["className"]);
+  return /* @__PURE__ */ jsx19(
+    Fallback,
+    __spreadValues({
+      ref,
+      className: cn(
+        "flex h-full w-full items-center justify-center rounded-full bg-muted",
+        className
+      )
+    }, props)
+  );
+});
+AvatarFallback2.displayName = Fallback.displayName;
+
+// src/components/user-account/account.tsx
+import { Fragment as Fragment6, jsx as jsx20, jsxs as jsxs4 } from "react/jsx-runtime";
+export {
+  ProductSwitcher
+};
+/*! Bundled license information:
+
+use-sync-external-store/cjs/use-sync-external-store-shim.production.js:
+  (**
+   * @license React
+   * use-sync-external-store-shim.production.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+use-sync-external-store/cjs/use-sync-external-store-shim.development.js:
+  (**
+   * @license React
+   * use-sync-external-store-shim.development.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+>>>>>>> fc2972cdfea83c8168f72c39dcaf168d2d56269f
 lucide-react/dist/esm/shared/src/utils.js:
 lucide-react/dist/esm/defaultAttributes.js:
 lucide-react/dist/esm/Icon.js:

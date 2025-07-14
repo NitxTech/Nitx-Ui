@@ -1,18 +1,17 @@
 {
-    "name": "nitx-ui",
-    "version": "1.0.0",
+    "name": "nitxui",
+    "version": "1.0.1",
+    "private": false,
+    "description": "The official UI component library for Nitx projects.",
     "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.js"
-        }
-    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsup src/index.ts --format cjs,esm --dts",
         "storybook": "storybook dev -p 6006",
-        "build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist",
         "build-storybook": "storybook build"
     },
     "repository": {
@@ -26,7 +25,6 @@
         "url": "https://github.com/NitxTech/Nitx-Ui/issues"
     },
     "homepage": "https://github.com/NitxTech/Nitx-Ui#readme",
-    "description": "",
     "peerDependencies": {
         "react": "^19.1.0",
         "react-dom": "^19.1.0"
@@ -55,5 +53,8 @@
         "tsup": "^8.5.0",
         "typescript": "^5.8.3",
         "webpack": "^5.100.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
