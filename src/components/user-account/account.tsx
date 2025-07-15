@@ -3,7 +3,7 @@
 import { cn } from "../../lib/utils";
 import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -26,8 +26,15 @@ interface UserAccountProps {
 
 export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
   const [onOpen, setOnOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   const activeAccount =
     accounts?.find((account) => account.active) || accounts[0];
