@@ -15,7 +15,7 @@ import {
 
 interface UserAccountProps {
   accounts: {
-    id: number;
+    id: string;
     name: string;
     email: string;
     imageUrl?: string;
