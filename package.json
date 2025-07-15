@@ -1,6 +1,6 @@
 {
     "name": "nitxui",
-    "version": "1.0.5",
+    "version": "1.0.8",
     "type": "module",
     "private": false,
     "description": "The official UI component library for Nitx projects.",
@@ -17,7 +17,9 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsup"
+        "build": "tsup",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build"
     },
     "repository": {
         "type": "git",
@@ -32,7 +34,8 @@
     "homepage": "https://github.com/NitxTech/Nitx-Ui#readme",
     "peerDependencies": {
         "react": ">=18",
-        "react-dom": ">=18"
+        "react-dom": ">=18",
+        "next": ">=13"
     },
     "devDependencies": {
         "@radix-ui/react-avatar": "^1.1.10",

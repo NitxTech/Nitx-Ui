@@ -1,2 +1,2 @@
 export * from "./components/product-switcher/product-switcher";
-export * from "./components/ui/button";
+export * from "./components/user-account/account";

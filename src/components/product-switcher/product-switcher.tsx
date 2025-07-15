@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,13 +12,22 @@ import adsLogo from "../../assets/ads-logo.svg";
 import signageIcon from "../../assets/signage-icon.svg";
 import publisherLogo from "../../assets/publisher-logo.svg";
 import studioLogo from "../../assets/studio-logo.svg";
-import nexusLogo from "../../assets/nexus-logo.svg";
+import { useEffect, useState } from "react";
+// import nexusLogo from "../../assets/nexus-logo.svg";
 
 // Profile icon (replace with your own if needed)
 const profileIcon =
   "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
 
 export const ProductSwitcher = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   const profile = {
     name: "Manage My Account",
     icon: profileIcon,

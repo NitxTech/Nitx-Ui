@@ -7,9 +7,9 @@ Reusable React components for Nitx products, including Product Switcher and User
 ## Installation
 
 ```bash
-npm install nitx-ui
+npm install nitxui
 # or
-yarn add nitx-ui
+yarn add nitxui
 ```
 
 ---
@@ -19,7 +19,7 @@ yarn add nitx-ui
 ### 1. ProductSwitcher
 
 ```tsx
-import { ProductSwitcher } from "nitx-ui";
+import { ProductSwitcher } from "nitxui";
 
 export default function Example() {
   return <ProductSwitcher />;
@@ -37,7 +37,7 @@ export default function Example() {
 ### 2. UserAccount
 
 ```tsx
-import UserAccount from "nitx-ui/user-account";
+import UserAccount from "nitxui";
 
 const accounts = [
   {

@@ -1,17 +1,16 @@
+"use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
-  if (typeof require !== "undefined") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
-var __commonJS = (cb, mod) => function __require2() {
+var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -29,5601 +28,162 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// node_modules/@swc/helpers/cjs/_interop_require_default.cjs
-var require_interop_require_default = __commonJS({
-  "node_modules/@swc/helpers/cjs/_interop_require_default.cjs"(exports) {
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js
+var require_use_sync_external_store_shim_production = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js"(exports2) {
     "use strict";
-    function _interop_require_default(obj) {
-      return obj && obj.__esModule ? obj : { default: obj };
+    var React38 = require("react");
+    function is(x, y) {
+      return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
     }
-    exports._ = _interop_require_default;
-  }
-});
-
-// node_modules/next/dist/shared/lib/utils/warn-once.js
-var require_warn_once = __commonJS({
-  "node_modules/next/dist/shared/lib/utils/warn-once.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "warnOnce", {
-      enumerable: true,
-      get: function() {
-        return warnOnce;
-      }
-    });
-    var warnOnce = (_) => {
-    };
-    if (process.env.NODE_ENV !== "production") {
-      const warnings = /* @__PURE__ */ new Set();
-      warnOnce = (msg) => {
-        if (!warnings.has(msg)) {
-          console.warn(msg);
-        }
-        warnings.add(msg);
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/image-blur-svg.js
-var require_image_blur_svg = __commonJS({
-  "node_modules/next/dist/shared/lib/image-blur-svg.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "getImageBlurSvg", {
-      enumerable: true,
-      get: function() {
-        return getImageBlurSvg;
-      }
-    });
-    function getImageBlurSvg(param) {
-      let { widthInt, heightInt, blurWidth, blurHeight, blurDataURL, objectFit } = param;
-      const std = 20;
-      const svgWidth = blurWidth ? blurWidth * 40 : widthInt;
-      const svgHeight = blurHeight ? blurHeight * 40 : heightInt;
-      const viewBox = svgWidth && svgHeight ? "viewBox='0 0 " + svgWidth + " " + svgHeight + "'" : "";
-      const preserveAspectRatio = viewBox ? "none" : objectFit === "contain" ? "xMidYMid" : objectFit === "cover" ? "xMidYMid slice" : "none";
-      return "%3Csvg xmlns='http://www.w3.org/2000/svg' " + viewBox + "%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='" + std + "'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 100 -1' result='s'/%3E%3CfeFlood x='0' y='0' width='100%25' height='100%25'/%3E%3CfeComposite operator='out' in='s'/%3E%3CfeComposite in2='SourceGraphic'/%3E%3CfeGaussianBlur stdDeviation='" + std + "'/%3E%3C/filter%3E%3Cimage width='100%25' height='100%25' x='0' y='0' preserveAspectRatio='" + preserveAspectRatio + "' style='filter: url(%23b);' href='" + blurDataURL + "'/%3E%3C/svg%3E";
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/image-config.js
-var require_image_config = __commonJS({
-  "node_modules/next/dist/shared/lib/image-config.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      VALID_LOADERS: function() {
-        return VALID_LOADERS;
-      },
-      imageConfigDefault: function() {
-        return imageConfigDefault;
-      }
-    });
-    var VALID_LOADERS = [
-      "default",
-      "imgix",
-      "cloudinary",
-      "akamai",
-      "custom"
-    ];
-    var imageConfigDefault = {
-      deviceSizes: [
-        640,
-        750,
-        828,
-        1080,
-        1200,
-        1920,
-        2048,
-        3840
-      ],
-      imageSizes: [
-        16,
-        32,
-        48,
-        64,
-        96,
-        128,
-        256,
-        384
-      ],
-      path: "/_next/image",
-      loader: "default",
-      loaderFile: "",
-      domains: [],
-      disableStaticImages: false,
-      minimumCacheTTL: 60,
-      formats: [
-        "image/webp"
-      ],
-      dangerouslyAllowSVG: false,
-      contentSecurityPolicy: "script-src 'none'; frame-src 'none'; sandbox;",
-      contentDispositionType: "attachment",
-      localPatterns: void 0,
-      remotePatterns: [],
-      qualities: void 0,
-      unoptimized: false
-    };
-  }
-});
-
-// node_modules/next/dist/shared/lib/get-img-props.js
-var require_get_img_props = __commonJS({
-  "node_modules/next/dist/shared/lib/get-img-props.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "getImgProps", {
-      enumerable: true,
-      get: function() {
-        return getImgProps;
-      }
-    });
-    var _warnonce = require_warn_once();
-    var _imageblursvg = require_image_blur_svg();
-    var _imageconfig = require_image_config();
-    var VALID_LOADING_VALUES = [
-      "lazy",
-      "eager",
-      void 0
-    ];
-    var INVALID_BACKGROUND_SIZE_VALUES = [
-      "-moz-initial",
-      "fill",
-      "none",
-      "scale-down",
-      void 0
-    ];
-    function isStaticRequire(src) {
-      return src.default !== void 0;
-    }
-    function isStaticImageData(src) {
-      return src.src !== void 0;
-    }
-    function isStaticImport(src) {
-      return !!src && typeof src === "object" && (isStaticRequire(src) || isStaticImageData(src));
-    }
-    var allImgs = /* @__PURE__ */ new Map();
-    var perfObserver;
-    function getInt(x) {
-      if (typeof x === "undefined") {
-        return x;
-      }
-      if (typeof x === "number") {
-        return Number.isFinite(x) ? x : NaN;
-      }
-      if (typeof x === "string" && /^[0-9]+$/.test(x)) {
-        return parseInt(x, 10);
-      }
-      return NaN;
-    }
-    function getWidths(param, width, sizes) {
-      let { deviceSizes, allSizes } = param;
-      if (sizes) {
-        const viewportWidthRe = /(^|\s)(1?\d?\d)vw/g;
-        const percentSizes = [];
-        for (let match; match = viewportWidthRe.exec(sizes); match) {
-          percentSizes.push(parseInt(match[2]));
-        }
-        if (percentSizes.length) {
-          const smallestRatio = Math.min(...percentSizes) * 0.01;
-          return {
-            widths: allSizes.filter((s) => s >= deviceSizes[0] * smallestRatio),
-            kind: "w"
-          };
-        }
-        return {
-          widths: allSizes,
-          kind: "w"
-        };
-      }
-      if (typeof width !== "number") {
-        return {
-          widths: deviceSizes,
-          kind: "w"
-        };
-      }
-      const widths = [
-        ...new Set(
-          // > This means that most OLED screens that say they are 3x resolution,
-          // > are actually 3x in the green color, but only 1.5x in the red and
-          // > blue colors. Showing a 3x resolution image in the app vs a 2x
-          // > resolution image will be visually the same, though the 3x image
-          // > takes significantly more data. Even true 3x resolution screens are
-          // > wasteful as the human eye cannot see that level of detail without
-          // > something like a magnifying glass.
-          // https://blog.twitter.com/engineering/en_us/topics/infrastructure/2019/capping-image-fidelity-on-ultra-high-resolution-devices.html
-          [
-            width,
-            width * 2
-            /*, width * 3*/
-          ].map((w) => allSizes.find((p) => p >= w) || allSizes[allSizes.length - 1])
-        )
-      ];
-      return {
-        widths,
-        kind: "x"
-      };
-    }
-    function generateImgAttrs(param) {
-      let { config, src, unoptimized, width, quality, sizes, loader } = param;
-      if (unoptimized) {
-        return {
-          src,
-          srcSet: void 0,
-          sizes: void 0
-        };
-      }
-      const { widths, kind } = getWidths(config, width, sizes);
-      const last = widths.length - 1;
-      return {
-        sizes: !sizes && kind === "w" ? "100vw" : sizes,
-        srcSet: widths.map((w, i) => loader({
-          config,
-          src,
-          quality,
-          width: w
-        }) + " " + (kind === "w" ? w : i + 1) + kind).join(", "),
-        // It's intended to keep `src` the last attribute because React updates
-        // attributes in order. If we keep `src` the first one, Safari will
-        // immediately start to fetch `src`, before `sizes` and `srcSet` are even
-        // updated by React. That causes multiple unnecessary requests if `srcSet`
-        // and `sizes` are defined.
-        // This bug cannot be reproduced in Chrome or Firefox.
-        src: loader({
-          config,
-          src,
-          quality,
-          width: widths[last]
-        })
-      };
-    }
-    function getImgProps(param, _state) {
-      let { src, sizes, unoptimized = false, priority = false, loading, className, quality, width, height, fill = false, style, overrideSrc, onLoad, onLoadingComplete, placeholder = "empty", blurDataURL, fetchPriority, decoding = "async", layout, objectFit, objectPosition, lazyBoundary, lazyRoot, ...rest } = param;
-      const { imgConf, showAltText, blurComplete, defaultLoader } = _state;
-      let config;
-      let c = imgConf || _imageconfig.imageConfigDefault;
-      if ("allSizes" in c) {
-        config = c;
-      } else {
-        var _c_qualities;
-        const allSizes = [
-          ...c.deviceSizes,
-          ...c.imageSizes
-        ].sort((a, b) => a - b);
-        const deviceSizes = c.deviceSizes.sort((a, b) => a - b);
-        const qualities = (_c_qualities = c.qualities) == null ? void 0 : _c_qualities.sort((a, b) => a - b);
-        config = {
-          ...c,
-          allSizes,
-          deviceSizes,
-          qualities
-        };
-      }
-      if (typeof defaultLoader === "undefined") {
-        throw Object.defineProperty(new Error("images.loaderFile detected but the file is missing default export.\nRead more: https://nextjs.org/docs/messages/invalid-images-config"), "__NEXT_ERROR_CODE", {
-          value: "E163",
-          enumerable: false,
-          configurable: true
-        });
-      }
-      let loader = rest.loader || defaultLoader;
-      delete rest.loader;
-      delete rest.srcSet;
-      const isDefaultLoader = "__next_img_default" in loader;
-      if (isDefaultLoader) {
-        if (config.loader === "custom") {
-          throw Object.defineProperty(new Error('Image with src "' + src + '" is missing "loader" prop.\nRead more: https://nextjs.org/docs/messages/next-image-missing-loader'), "__NEXT_ERROR_CODE", {
-            value: "E252",
-            enumerable: false,
-            configurable: true
-          });
-        }
-      } else {
-        const customImageLoader = loader;
-        loader = (obj) => {
-          const { config: _, ...opts } = obj;
-          return customImageLoader(opts);
-        };
-      }
-      if (layout) {
-        if (layout === "fill") {
-          fill = true;
-        }
-        const layoutToStyle = {
-          intrinsic: {
-            maxWidth: "100%",
-            height: "auto"
-          },
-          responsive: {
-            width: "100%",
-            height: "auto"
-          }
-        };
-        const layoutToSizes = {
-          responsive: "100vw",
-          fill: "100vw"
-        };
-        const layoutStyle = layoutToStyle[layout];
-        if (layoutStyle) {
-          style = {
-            ...style,
-            ...layoutStyle
-          };
-        }
-        const layoutSizes = layoutToSizes[layout];
-        if (layoutSizes && !sizes) {
-          sizes = layoutSizes;
-        }
-      }
-      let staticSrc = "";
-      let widthInt = getInt(width);
-      let heightInt = getInt(height);
-      let blurWidth;
-      let blurHeight;
-      if (isStaticImport(src)) {
-        const staticImageData = isStaticRequire(src) ? src.default : src;
-        if (!staticImageData.src) {
-          throw Object.defineProperty(new Error("An object should only be passed to the image component src parameter if it comes from a static image import. It must include src. Received " + JSON.stringify(staticImageData)), "__NEXT_ERROR_CODE", {
-            value: "E460",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (!staticImageData.height || !staticImageData.width) {
-          throw Object.defineProperty(new Error("An object should only be passed to the image component src parameter if it comes from a static image import. It must include height and width. Received " + JSON.stringify(staticImageData)), "__NEXT_ERROR_CODE", {
-            value: "E48",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        blurWidth = staticImageData.blurWidth;
-        blurHeight = staticImageData.blurHeight;
-        blurDataURL = blurDataURL || staticImageData.blurDataURL;
-        staticSrc = staticImageData.src;
-        if (!fill) {
-          if (!widthInt && !heightInt) {
-            widthInt = staticImageData.width;
-            heightInt = staticImageData.height;
-          } else if (widthInt && !heightInt) {
-            const ratio = widthInt / staticImageData.width;
-            heightInt = Math.round(staticImageData.height * ratio);
-          } else if (!widthInt && heightInt) {
-            const ratio = heightInt / staticImageData.height;
-            widthInt = Math.round(staticImageData.width * ratio);
-          }
-        }
-      }
-      src = typeof src === "string" ? src : staticSrc;
-      let isLazy = !priority && (loading === "lazy" || typeof loading === "undefined");
-      if (!src || src.startsWith("data:") || src.startsWith("blob:")) {
-        unoptimized = true;
-        isLazy = false;
-      }
-      if (config.unoptimized) {
-        unoptimized = true;
-      }
-      if (isDefaultLoader && !config.dangerouslyAllowSVG && src.split("?", 1)[0].endsWith(".svg")) {
-        unoptimized = true;
-      }
-      const qualityInt = getInt(quality);
-      if (process.env.NODE_ENV !== "production") {
-        if (config.output === "export" && isDefaultLoader && !unoptimized) {
-          throw Object.defineProperty(new Error("Image Optimization using the default loader is not compatible with `{ output: 'export' }`.\n  Possible solutions:\n    - Remove `{ output: 'export' }` and run \"next start\" to run server mode including the Image Optimization API.\n    - Configure `{ images: { unoptimized: true } }` in `next.config.js` to disable the Image Optimization API.\n  Read more: https://nextjs.org/docs/messages/export-image-api"), "__NEXT_ERROR_CODE", {
-            value: "E500",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (!src) {
-          unoptimized = true;
-        } else {
-          if (fill) {
-            if (width) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has both "width" and "fill" properties. Only one should be used.'), "__NEXT_ERROR_CODE", {
-                value: "E96",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if (height) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has both "height" and "fill" properties. Only one should be used.'), "__NEXT_ERROR_CODE", {
-                value: "E115",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if ((style == null ? void 0 : style.position) && style.position !== "absolute") {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has both "fill" and "style.position" properties. Images with "fill" always use position absolute - it cannot be modified.'), "__NEXT_ERROR_CODE", {
-                value: "E216",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if ((style == null ? void 0 : style.width) && style.width !== "100%") {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has both "fill" and "style.width" properties. Images with "fill" always use width 100% - it cannot be modified.'), "__NEXT_ERROR_CODE", {
-                value: "E73",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if ((style == null ? void 0 : style.height) && style.height !== "100%") {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has both "fill" and "style.height" properties. Images with "fill" always use height 100% - it cannot be modified.'), "__NEXT_ERROR_CODE", {
-                value: "E404",
-                enumerable: false,
-                configurable: true
-              });
-            }
-          } else {
-            if (typeof widthInt === "undefined") {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" is missing required "width" property.'), "__NEXT_ERROR_CODE", {
-                value: "E451",
-                enumerable: false,
-                configurable: true
-              });
-            } else if (isNaN(widthInt)) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has invalid "width" property. Expected a numeric value in pixels but received "' + width + '".'), "__NEXT_ERROR_CODE", {
-                value: "E66",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if (typeof heightInt === "undefined") {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" is missing required "height" property.'), "__NEXT_ERROR_CODE", {
-                value: "E397",
-                enumerable: false,
-                configurable: true
-              });
-            } else if (isNaN(heightInt)) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" has invalid "height" property. Expected a numeric value in pixels but received "' + height + '".'), "__NEXT_ERROR_CODE", {
-                value: "E444",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if (/^[\x00-\x20]/.test(src)) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" cannot start with a space or control character. Use src.trimStart() to remove it or encodeURIComponent(src) to keep it.'), "__NEXT_ERROR_CODE", {
-                value: "E176",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            if (/[\x00-\x20]$/.test(src)) {
-              throw Object.defineProperty(new Error('Image with src "' + src + '" cannot end with a space or control character. Use src.trimEnd() to remove it or encodeURIComponent(src) to keep it.'), "__NEXT_ERROR_CODE", {
-                value: "E21",
-                enumerable: false,
-                configurable: true
-              });
-            }
-          }
-        }
-        if (!VALID_LOADING_VALUES.includes(loading)) {
-          throw Object.defineProperty(new Error('Image with src "' + src + '" has invalid "loading" property. Provided "' + loading + '" should be one of ' + VALID_LOADING_VALUES.map(String).join(",") + "."), "__NEXT_ERROR_CODE", {
-            value: "E357",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (priority && loading === "lazy") {
-          throw Object.defineProperty(new Error('Image with src "' + src + `" has both "priority" and "loading='lazy'" properties. Only one should be used.`), "__NEXT_ERROR_CODE", {
-            value: "E218",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (placeholder !== "empty" && placeholder !== "blur" && !placeholder.startsWith("data:image/")) {
-          throw Object.defineProperty(new Error('Image with src "' + src + '" has invalid "placeholder" property "' + placeholder + '".'), "__NEXT_ERROR_CODE", {
-            value: "E431",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (placeholder !== "empty") {
-          if (widthInt && heightInt && widthInt * heightInt < 1600) {
-            (0, _warnonce.warnOnce)('Image with src "' + src + '" is smaller than 40x40. Consider removing the "placeholder" property to improve performance.');
-          }
-        }
-        if (placeholder === "blur" && !blurDataURL) {
-          const VALID_BLUR_EXT = [
-            "jpeg",
-            "png",
-            "webp",
-            "avif"
-          ];
-          throw Object.defineProperty(new Error('Image with src "' + src + `" has "placeholder='blur'" property but is missing the "blurDataURL" property.
-        Possible solutions:
-          - Add a "blurDataURL" property, the contents should be a small Data URL to represent the image
-          - Change the "src" property to a static import with one of the supported file types: ` + VALID_BLUR_EXT.join(",") + ' (animated images not supported)\n          - Remove the "placeholder" property, effectively no blur effect\n        Read more: https://nextjs.org/docs/messages/placeholder-blur-data-url'), "__NEXT_ERROR_CODE", {
-            value: "E371",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if ("ref" in rest) {
-          (0, _warnonce.warnOnce)('Image with src "' + src + '" is using unsupported "ref" property. Consider using the "onLoad" property instead.');
-        }
-        if (!unoptimized && !isDefaultLoader) {
-          const urlStr = loader({
-            config,
-            src,
-            width: widthInt || 400,
-            quality: qualityInt || 75
-          });
-          let url;
-          try {
-            url = new URL(urlStr);
-          } catch (err) {
-          }
-          if (urlStr === src || url && url.pathname === src && !url.search) {
-            (0, _warnonce.warnOnce)('Image with src "' + src + '" has a "loader" property that does not implement width. Please implement it or use the "unoptimized" property instead.\nRead more: https://nextjs.org/docs/messages/next-image-missing-loader-width');
-          }
-        }
-        if (onLoadingComplete) {
-          (0, _warnonce.warnOnce)('Image with src "' + src + '" is using deprecated "onLoadingComplete" property. Please use the "onLoad" property instead.');
-        }
-        for (const [legacyKey, legacyValue] of Object.entries({
-          layout,
-          objectFit,
-          objectPosition,
-          lazyBoundary,
-          lazyRoot
-        })) {
-          if (legacyValue) {
-            (0, _warnonce.warnOnce)('Image with src "' + src + '" has legacy prop "' + legacyKey + '". Did you forget to run the codemod?\nRead more: https://nextjs.org/docs/messages/next-image-upgrade-to-13');
-          }
-        }
-        if (typeof window !== "undefined" && !perfObserver && window.PerformanceObserver) {
-          perfObserver = new PerformanceObserver((entryList) => {
-            for (const entry of entryList.getEntries()) {
-              var _entry_element;
-              const imgSrc = (entry == null ? void 0 : (_entry_element = entry.element) == null ? void 0 : _entry_element.src) || "";
-              const lcpImage = allImgs.get(imgSrc);
-              if (lcpImage && !lcpImage.priority && lcpImage.placeholder === "empty" && !lcpImage.src.startsWith("data:") && !lcpImage.src.startsWith("blob:")) {
-                (0, _warnonce.warnOnce)('Image with src "' + lcpImage.src + '" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.\nRead more: https://nextjs.org/docs/api-reference/next/image#priority');
-              }
-            }
-          });
-          try {
-            perfObserver.observe({
-              type: "largest-contentful-paint",
-              buffered: true
-            });
-          } catch (err) {
-            console.error(err);
-          }
-        }
-      }
-      const imgStyle = Object.assign(fill ? {
-        position: "absolute",
-        height: "100%",
-        width: "100%",
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-        objectFit,
-        objectPosition
-      } : {}, showAltText ? {} : {
-        color: "transparent"
-      }, style);
-      const backgroundImage = !blurComplete && placeholder !== "empty" ? placeholder === "blur" ? 'url("data:image/svg+xml;charset=utf-8,' + (0, _imageblursvg.getImageBlurSvg)({
-        widthInt,
-        heightInt,
-        blurWidth,
-        blurHeight,
-        blurDataURL: blurDataURL || "",
-        objectFit: imgStyle.objectFit
-      }) + '")' : 'url("' + placeholder + '")' : null;
-      const backgroundSize = !INVALID_BACKGROUND_SIZE_VALUES.includes(imgStyle.objectFit) ? imgStyle.objectFit : imgStyle.objectFit === "fill" ? "100% 100%" : "cover";
-      let placeholderStyle = backgroundImage ? {
-        backgroundSize,
-        backgroundPosition: imgStyle.objectPosition || "50% 50%",
-        backgroundRepeat: "no-repeat",
-        backgroundImage
-      } : {};
-      if (process.env.NODE_ENV === "development") {
-        if (placeholderStyle.backgroundImage && placeholder === "blur" && (blurDataURL == null ? void 0 : blurDataURL.startsWith("/"))) {
-          placeholderStyle.backgroundImage = 'url("' + blurDataURL + '")';
-        }
-      }
-      const imgAttributes = generateImgAttrs({
-        config,
-        src,
-        unoptimized,
-        width: widthInt,
-        quality: qualityInt,
-        sizes,
-        loader
-      });
-      if (process.env.NODE_ENV !== "production") {
-        if (typeof window !== "undefined") {
-          let fullUrl;
-          try {
-            fullUrl = new URL(imgAttributes.src);
-          } catch (e) {
-            fullUrl = new URL(imgAttributes.src, window.location.href);
-          }
-          allImgs.set(fullUrl.href, {
-            src,
-            priority,
-            placeholder
-          });
-        }
-      }
-      const props = {
-        ...rest,
-        loading: isLazy ? "lazy" : loading,
-        fetchPriority,
-        width: widthInt,
-        height: heightInt,
-        decoding,
-        className,
-        style: {
-          ...imgStyle,
-          ...placeholderStyle
+    var objectIs = "function" === typeof Object.is ? Object.is : is;
+    var useState18 = React38.useState;
+    var useEffect18 = React38.useEffect;
+    var useLayoutEffect5 = React38.useLayoutEffect;
+    var useDebugValue = React38.useDebugValue;
+    function useSyncExternalStore$2(subscribe2, getSnapshot) {
+      var value = getSnapshot(), _useState = useState18({ inst: { value, getSnapshot } }), inst = _useState[0].inst, forceUpdate = _useState[1];
+      useLayoutEffect5(
+        function() {
+          inst.value = value;
+          inst.getSnapshot = getSnapshot;
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst });
         },
-        sizes: imgAttributes.sizes,
-        srcSet: imgAttributes.srcSet,
-        src: overrideSrc || imgAttributes.src
-      };
-      const meta = {
-        unoptimized,
-        priority,
-        placeholder,
-        fill
-      };
-      return {
-        props,
-        meta
-      };
+        [subscribe2, value, getSnapshot]
+      );
+      useEffect18(
+        function() {
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          return subscribe2(function() {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          });
+        },
+        [subscribe2]
+      );
+      useDebugValue(value);
+      return value;
     }
-  }
-});
-
-// node_modules/@swc/helpers/cjs/_interop_require_wildcard.cjs
-var require_interop_require_wildcard = __commonJS({
-  "node_modules/@swc/helpers/cjs/_interop_require_wildcard.cjs"(exports) {
-    "use strict";
-    function _getRequireWildcardCache(nodeInterop) {
-      if (typeof WeakMap !== "function") return null;
-      var cacheBabelInterop = /* @__PURE__ */ new WeakMap();
-      var cacheNodeInterop = /* @__PURE__ */ new WeakMap();
-      return (_getRequireWildcardCache = function(nodeInterop2) {
-        return nodeInterop2 ? cacheNodeInterop : cacheBabelInterop;
-      })(nodeInterop);
-    }
-    function _interop_require_wildcard(obj, nodeInterop) {
-      if (!nodeInterop && obj && obj.__esModule) return obj;
-      if (obj === null || typeof obj !== "object" && typeof obj !== "function") return { default: obj };
-      var cache = _getRequireWildcardCache(nodeInterop);
-      if (cache && cache.has(obj)) return cache.get(obj);
-      var newObj = { __proto__: null };
-      var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-      for (var key in obj) {
-        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
-          if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
-          else newObj[key] = obj[key];
-        }
-      }
-      newObj.default = obj;
-      if (cache) cache.set(obj, newObj);
-      return newObj;
-    }
-    exports._ = _interop_require_wildcard;
-  }
-});
-
-// node_modules/next/dist/shared/lib/side-effect.js
-var require_side_effect = __commonJS({
-  "node_modules/next/dist/shared/lib/side-effect.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "default", {
-      enumerable: true,
-      get: function() {
-        return SideEffect;
-      }
-    });
-    var _react = __require("react");
-    var isServer = typeof window === "undefined";
-    var useClientOnlyLayoutEffect = isServer ? () => {
-    } : _react.useLayoutEffect;
-    var useClientOnlyEffect = isServer ? () => {
-    } : _react.useEffect;
-    function SideEffect(props) {
-      const { headManager, reduceComponentsToState } = props;
-      function emitChange() {
-        if (headManager && headManager.mountedInstances) {
-          const headElements = _react.Children.toArray(Array.from(headManager.mountedInstances).filter(Boolean));
-          headManager.updateHead(reduceComponentsToState(headElements, props));
-        }
-      }
-      if (isServer) {
-        var _headManager_mountedInstances;
-        headManager == null ? void 0 : (_headManager_mountedInstances = headManager.mountedInstances) == null ? void 0 : _headManager_mountedInstances.add(props.children);
-        emitChange();
-      }
-      useClientOnlyLayoutEffect(() => {
-        var _headManager_mountedInstances2;
-        headManager == null ? void 0 : (_headManager_mountedInstances2 = headManager.mountedInstances) == null ? void 0 : _headManager_mountedInstances2.add(props.children);
-        return () => {
-          var _headManager_mountedInstances3;
-          headManager == null ? void 0 : (_headManager_mountedInstances3 = headManager.mountedInstances) == null ? void 0 : _headManager_mountedInstances3.delete(props.children);
-        };
-      });
-      useClientOnlyLayoutEffect(() => {
-        if (headManager) {
-          headManager._pendingUpdate = emitChange;
-        }
-        return () => {
-          if (headManager) {
-            headManager._pendingUpdate = emitChange;
-          }
-        };
-      });
-      useClientOnlyEffect(() => {
-        if (headManager && headManager._pendingUpdate) {
-          headManager._pendingUpdate();
-          headManager._pendingUpdate = null;
-        }
-        return () => {
-          if (headManager && headManager._pendingUpdate) {
-            headManager._pendingUpdate();
-            headManager._pendingUpdate = null;
-          }
-        };
-      });
-      return null;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/amp-context.shared-runtime.js
-var require_amp_context_shared_runtime = __commonJS({
-  "node_modules/next/dist/shared/lib/amp-context.shared-runtime.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "AmpStateContext", {
-      enumerable: true,
-      get: function() {
-        return AmpStateContext;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _react = /* @__PURE__ */ _interop_require_default._(__require("react"));
-    var AmpStateContext = _react.default.createContext({});
-    if (process.env.NODE_ENV !== "production") {
-      AmpStateContext.displayName = "AmpStateContext";
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/head-manager-context.shared-runtime.js
-var require_head_manager_context_shared_runtime = __commonJS({
-  "node_modules/next/dist/shared/lib/head-manager-context.shared-runtime.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "HeadManagerContext", {
-      enumerable: true,
-      get: function() {
-        return HeadManagerContext;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _react = /* @__PURE__ */ _interop_require_default._(__require("react"));
-    var HeadManagerContext = _react.default.createContext({});
-    if (process.env.NODE_ENV !== "production") {
-      HeadManagerContext.displayName = "HeadManagerContext";
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/amp-mode.js
-var require_amp_mode = __commonJS({
-  "node_modules/next/dist/shared/lib/amp-mode.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "isInAmpMode", {
-      enumerable: true,
-      get: function() {
-        return isInAmpMode;
-      }
-    });
-    function isInAmpMode(param) {
-      let { ampFirst = false, hybrid = false, hasQuery = false } = param === void 0 ? {} : param;
-      return ampFirst || hybrid && hasQuery;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/head.js
-var require_head = __commonJS({
-  "node_modules/next/dist/shared/lib/head.js"(exports, module) {
-    "use strict";
-    "use client";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      default: function() {
-        return _default;
-      },
-      defaultHead: function() {
-        return defaultHead;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _interop_require_wildcard = require_interop_require_wildcard();
-    var _jsxruntime = __require("react/jsx-runtime");
-    var _react = /* @__PURE__ */ _interop_require_wildcard._(__require("react"));
-    var _sideeffect = /* @__PURE__ */ _interop_require_default._(require_side_effect());
-    var _ampcontextsharedruntime = require_amp_context_shared_runtime();
-    var _headmanagercontextsharedruntime = require_head_manager_context_shared_runtime();
-    var _ampmode = require_amp_mode();
-    var _warnonce = require_warn_once();
-    function defaultHead(inAmpMode) {
-      if (inAmpMode === void 0) inAmpMode = false;
-      const head = [
-        /* @__PURE__ */ (0, _jsxruntime.jsx)("meta", {
-          charSet: "utf-8"
-        }, "charset")
-      ];
-      if (!inAmpMode) {
-        head.push(/* @__PURE__ */ (0, _jsxruntime.jsx)("meta", {
-          name: "viewport",
-          content: "width=device-width"
-        }, "viewport"));
-      }
-      return head;
-    }
-    function onlyReactElement(list, child) {
-      if (typeof child === "string" || typeof child === "number") {
-        return list;
-      }
-      if (child.type === _react.default.Fragment) {
-        return list.concat(
-          // @ts-expect-error @types/react does not remove fragments but this could also return ReactPortal[]
-          _react.default.Children.toArray(child.props.children).reduce(
-            // @ts-expect-error @types/react does not remove fragments but this could also return ReactPortal[]
-            (fragmentList, fragmentChild) => {
-              if (typeof fragmentChild === "string" || typeof fragmentChild === "number") {
-                return fragmentList;
-              }
-              return fragmentList.concat(fragmentChild);
-            },
-            []
-          )
-        );
-      }
-      return list.concat(child);
-    }
-    var METATYPES = [
-      "name",
-      "httpEquiv",
-      "charSet",
-      "itemProp"
-    ];
-    function unique() {
-      const keys = /* @__PURE__ */ new Set();
-      const tags = /* @__PURE__ */ new Set();
-      const metaTypes = /* @__PURE__ */ new Set();
-      const metaCategories = {};
-      return (h) => {
-        let isUnique = true;
-        let hasKey = false;
-        if (h.key && typeof h.key !== "number" && h.key.indexOf("$") > 0) {
-          hasKey = true;
-          const key = h.key.slice(h.key.indexOf("$") + 1);
-          if (keys.has(key)) {
-            isUnique = false;
-          } else {
-            keys.add(key);
-          }
-        }
-        switch (h.type) {
-          case "title":
-          case "base":
-            if (tags.has(h.type)) {
-              isUnique = false;
-            } else {
-              tags.add(h.type);
-            }
-            break;
-          case "meta":
-            for (let i = 0, len = METATYPES.length; i < len; i++) {
-              const metatype = METATYPES[i];
-              if (!h.props.hasOwnProperty(metatype)) continue;
-              if (metatype === "charSet") {
-                if (metaTypes.has(metatype)) {
-                  isUnique = false;
-                } else {
-                  metaTypes.add(metatype);
-                }
-              } else {
-                const category = h.props[metatype];
-                const categories = metaCategories[metatype] || /* @__PURE__ */ new Set();
-                if ((metatype !== "name" || !hasKey) && categories.has(category)) {
-                  isUnique = false;
-                } else {
-                  categories.add(category);
-                  metaCategories[metatype] = categories;
-                }
-              }
-            }
-            break;
-        }
-        return isUnique;
-      };
-    }
-    function reduceComponents(headChildrenElements, props) {
-      const { inAmpMode } = props;
-      return headChildrenElements.reduce(onlyReactElement, []).reverse().concat(defaultHead(inAmpMode).reverse()).filter(unique()).reverse().map((c, i) => {
-        const key = c.key || i;
-        if (process.env.NODE_ENV !== "development" && process.env.__NEXT_OPTIMIZE_FONTS && !inAmpMode) {
-          if (c.type === "link" && c.props["href"] && // TODO(prateekbh@): Replace this with const from `constants` when the tree shaking works.
-          [
-            "https://fonts.googleapis.com/css",
-            "https://use.typekit.net/"
-          ].some((url) => c.props["href"].startsWith(url))) {
-            const newProps = {
-              ...c.props || {}
-            };
-            newProps["data-href"] = newProps["href"];
-            newProps["href"] = void 0;
-            newProps["data-optimized-fonts"] = true;
-            return /* @__PURE__ */ _react.default.cloneElement(c, newProps);
-          }
-        }
-        if (process.env.NODE_ENV === "development") {
-          if (c.type === "script" && c.props["type"] !== "application/ld+json") {
-            const srcMessage = c.props["src"] ? '<script> tag with src="' + c.props["src"] + '"' : "inline <script>";
-            (0, _warnonce.warnOnce)("Do not add <script> tags using next/head (see " + srcMessage + "). Use next/script instead. \nSee more info here: https://nextjs.org/docs/messages/no-script-tags-in-head-component");
-          } else if (c.type === "link" && c.props["rel"] === "stylesheet") {
-            (0, _warnonce.warnOnce)('Do not add stylesheets using next/head (see <link rel="stylesheet"> tag with href="' + c.props["href"] + '"). Use Document instead. \nSee more info here: https://nextjs.org/docs/messages/no-stylesheets-in-head-component');
-          }
-        }
-        return /* @__PURE__ */ _react.default.cloneElement(c, {
-          key
-        });
-      });
-    }
-    function Head(param) {
-      let { children } = param;
-      const ampState = (0, _react.useContext)(_ampcontextsharedruntime.AmpStateContext);
-      const headManager = (0, _react.useContext)(_headmanagercontextsharedruntime.HeadManagerContext);
-      return /* @__PURE__ */ (0, _jsxruntime.jsx)(_sideeffect.default, {
-        reduceComponentsToState: reduceComponents,
-        headManager,
-        inAmpMode: (0, _ampmode.isInAmpMode)(ampState),
-        children
-      });
-    }
-    var _default = Head;
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/image-config-context.shared-runtime.js
-var require_image_config_context_shared_runtime = __commonJS({
-  "node_modules/next/dist/shared/lib/image-config-context.shared-runtime.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "ImageConfigContext", {
-      enumerable: true,
-      get: function() {
-        return ImageConfigContext;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _react = /* @__PURE__ */ _interop_require_default._(__require("react"));
-    var _imageconfig = require_image_config();
-    var ImageConfigContext = _react.default.createContext(_imageconfig.imageConfigDefault);
-    if (process.env.NODE_ENV !== "production") {
-      ImageConfigContext.displayName = "ImageConfigContext";
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router-context.shared-runtime.js
-var require_router_context_shared_runtime = __commonJS({
-  "node_modules/next/dist/shared/lib/router-context.shared-runtime.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "RouterContext", {
-      enumerable: true,
-      get: function() {
-        return RouterContext;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _react = /* @__PURE__ */ _interop_require_default._(__require("react"));
-    var RouterContext = _react.default.createContext(null);
-    if (process.env.NODE_ENV !== "production") {
-      RouterContext.displayName = "RouterContext";
-    }
-  }
-});
-
-// node_modules/next/dist/compiled/picomatch/index.js
-var require_picomatch = __commonJS({
-  "node_modules/next/dist/compiled/picomatch/index.js"(exports, module) {
-    "use strict";
-    (() => {
-      "use strict";
-      var t = { 170: (t2, e2, u2) => {
-        const n = u2(510);
-        const isWindows = () => {
-          if (typeof navigator !== "undefined" && navigator.platform) {
-            const t3 = navigator.platform.toLowerCase();
-            return t3 === "win32" || t3 === "windows";
-          }
-          if (typeof process !== "undefined" && process.platform) {
-            return process.platform === "win32";
-          }
-          return false;
-        };
-        function picomatch(t3, e3, u3 = false) {
-          if (e3 && (e3.windows === null || e3.windows === void 0)) {
-            e3 = { ...e3, windows: isWindows() };
-          }
-          return n(t3, e3, u3);
-        }
-        Object.assign(picomatch, n);
-        t2.exports = picomatch;
-      }, 154: (t2) => {
-        const e2 = "\\\\/";
-        const u2 = `[^${e2}]`;
-        const n = "\\.";
-        const o = "\\+";
-        const s = "\\?";
-        const r2 = "\\/";
-        const a = "(?=.)";
-        const i = "[^/]";
-        const c = `(?:${r2}|$)`;
-        const p = `(?:^|${r2})`;
-        const l = `${n}{1,2}${c}`;
-        const f = `(?!${n})`;
-        const A = `(?!${p}${l})`;
-        const _ = `(?!${n}{0,1}${c})`;
-        const R = `(?!${l})`;
-        const E = `[^.${r2}]`;
-        const h = `${i}*?`;
-        const g = "/";
-        const b = { DOT_LITERAL: n, PLUS_LITERAL: o, QMARK_LITERAL: s, SLASH_LITERAL: r2, ONE_CHAR: a, QMARK: i, END_ANCHOR: c, DOTS_SLASH: l, NO_DOT: f, NO_DOTS: A, NO_DOT_SLASH: _, NO_DOTS_SLASH: R, QMARK_NO_DOT: E, STAR: h, START_ANCHOR: p, SEP: g };
-        const C = { ...b, SLASH_LITERAL: `[${e2}]`, QMARK: u2, STAR: `${u2}*?`, DOTS_SLASH: `${n}{1,2}(?:[${e2}]|$)`, NO_DOT: `(?!${n})`, NO_DOTS: `(?!(?:^|[${e2}])${n}{1,2}(?:[${e2}]|$))`, NO_DOT_SLASH: `(?!${n}{0,1}(?:[${e2}]|$))`, NO_DOTS_SLASH: `(?!${n}{1,2}(?:[${e2}]|$))`, QMARK_NO_DOT: `[^.${e2}]`, START_ANCHOR: `(?:^|[${e2}])`, END_ANCHOR: `(?:[${e2}]|$)`, SEP: "\\" };
-        const y = { alnum: "a-zA-Z0-9", alpha: "a-zA-Z", ascii: "\\x00-\\x7F", blank: " \\t", cntrl: "\\x00-\\x1F\\x7F", digit: "0-9", graph: "\\x21-\\x7E", lower: "a-z", print: "\\x20-\\x7E ", punct: "\\-!\"#$%&'()\\*+,./:;<=>?@[\\]^_`{|}~", space: " \\t\\r\\n\\v\\f", upper: "A-Z", word: "A-Za-z0-9_", xdigit: "A-Fa-f0-9" };
-        t2.exports = { MAX_LENGTH: 1024 * 64, POSIX_REGEX_SOURCE: y, REGEX_BACKSLASH: /\\(?![*+?^${}(|)[\]])/g, REGEX_NON_SPECIAL_CHARS: /^[^@![\].,$*+?^{}()|\\/]+/, REGEX_SPECIAL_CHARS: /[-*+?.^${}(|)[\]]/, REGEX_SPECIAL_CHARS_BACKREF: /(\\?)((\W)(\3*))/g, REGEX_SPECIAL_CHARS_GLOBAL: /([-*+?.^${}(|)[\]])/g, REGEX_REMOVE_BACKSLASH: /(?:\[.*?[^\\]\]|\\(?=.))/g, REPLACEMENTS: { "***": "*", "**/**": "**", "**/**/**": "**" }, CHAR_0: 48, CHAR_9: 57, CHAR_UPPERCASE_A: 65, CHAR_LOWERCASE_A: 97, CHAR_UPPERCASE_Z: 90, CHAR_LOWERCASE_Z: 122, CHAR_LEFT_PARENTHESES: 40, CHAR_RIGHT_PARENTHESES: 41, CHAR_ASTERISK: 42, CHAR_AMPERSAND: 38, CHAR_AT: 64, CHAR_BACKWARD_SLASH: 92, CHAR_CARRIAGE_RETURN: 13, CHAR_CIRCUMFLEX_ACCENT: 94, CHAR_COLON: 58, CHAR_COMMA: 44, CHAR_DOT: 46, CHAR_DOUBLE_QUOTE: 34, CHAR_EQUAL: 61, CHAR_EXCLAMATION_MARK: 33, CHAR_FORM_FEED: 12, CHAR_FORWARD_SLASH: 47, CHAR_GRAVE_ACCENT: 96, CHAR_HASH: 35, CHAR_HYPHEN_MINUS: 45, CHAR_LEFT_ANGLE_BRACKET: 60, CHAR_LEFT_CURLY_BRACE: 123, CHAR_LEFT_SQUARE_BRACKET: 91, CHAR_LINE_FEED: 10, CHAR_NO_BREAK_SPACE: 160, CHAR_PERCENT: 37, CHAR_PLUS: 43, CHAR_QUESTION_MARK: 63, CHAR_RIGHT_ANGLE_BRACKET: 62, CHAR_RIGHT_CURLY_BRACE: 125, CHAR_RIGHT_SQUARE_BRACKET: 93, CHAR_SEMICOLON: 59, CHAR_SINGLE_QUOTE: 39, CHAR_SPACE: 32, CHAR_TAB: 9, CHAR_UNDERSCORE: 95, CHAR_VERTICAL_LINE: 124, CHAR_ZERO_WIDTH_NOBREAK_SPACE: 65279, extglobChars(t3) {
-          return { "!": { type: "negate", open: "(?:(?!(?:", close: `))${t3.STAR})` }, "?": { type: "qmark", open: "(?:", close: ")?" }, "+": { type: "plus", open: "(?:", close: ")+" }, "*": { type: "star", open: "(?:", close: ")*" }, "@": { type: "at", open: "(?:", close: ")" } };
-        }, globChars(t3) {
-          return t3 === true ? C : b;
-        } };
-      }, 697: (t2, e2, u2) => {
-        const n = u2(154);
-        const o = u2(96);
-        const { MAX_LENGTH: s, POSIX_REGEX_SOURCE: r2, REGEX_NON_SPECIAL_CHARS: a, REGEX_SPECIAL_CHARS_BACKREF: i, REPLACEMENTS: c } = n;
-        const expandRange = (t3, e3) => {
-          if (typeof e3.expandRange === "function") {
-            return e3.expandRange(...t3, e3);
-          }
-          t3.sort();
-          const u3 = `[${t3.join("-")}]`;
-          try {
-            new RegExp(u3);
-          } catch (e4) {
-            return t3.map((t4) => o.escapeRegex(t4)).join("..");
-          }
-          return u3;
-        };
-        const syntaxError = (t3, e3) => `Missing ${t3}: "${e3}" - use "\\\\${e3}" to match literal characters`;
-        const parse2 = (t3, e3) => {
-          if (typeof t3 !== "string") {
-            throw new TypeError("Expected a string");
-          }
-          t3 = c[t3] || t3;
-          const u3 = { ...e3 };
-          const p = typeof u3.maxLength === "number" ? Math.min(s, u3.maxLength) : s;
-          let l = t3.length;
-          if (l > p) {
-            throw new SyntaxError(`Input length: ${l}, exceeds maximum allowed length: ${p}`);
-          }
-          const f = { type: "bos", value: "", output: u3.prepend || "" };
-          const A = [f];
-          const _ = u3.capture ? "" : "?:";
-          const R = n.globChars(u3.windows);
-          const E = n.extglobChars(R);
-          const { DOT_LITERAL: h, PLUS_LITERAL: g, SLASH_LITERAL: b, ONE_CHAR: C, DOTS_SLASH: y, NO_DOT: $, NO_DOT_SLASH: x, NO_DOTS_SLASH: S, QMARK: H, QMARK_NO_DOT: v, STAR: d, START_ANCHOR: L } = R;
-          const globstar = (t4) => `(${_}(?:(?!${L}${t4.dot ? y : h}).)*?)`;
-          const T = u3.dot ? "" : $;
-          const O = u3.dot ? H : v;
-          let k = u3.bash === true ? globstar(u3) : d;
-          if (u3.capture) {
-            k = `(${k})`;
-          }
-          if (typeof u3.noext === "boolean") {
-            u3.noextglob = u3.noext;
-          }
-          const m = { input: t3, index: -1, start: 0, dot: u3.dot === true, consumed: "", output: "", prefix: "", backtrack: false, negated: false, brackets: 0, braces: 0, parens: 0, quotes: 0, globstar: false, tokens: A };
-          t3 = o.removePrefix(t3, m);
-          l = t3.length;
-          const w = [];
-          const N = [];
-          const I = [];
-          let B = f;
-          let G;
-          const eos = () => m.index === l - 1;
-          const D = m.peek = (e4 = 1) => t3[m.index + e4];
-          const M = m.advance = () => t3[++m.index] || "";
-          const remaining = () => t3.slice(m.index + 1);
-          const consume = (t4 = "", e4 = 0) => {
-            m.consumed += t4;
-            m.index += e4;
-          };
-          const append = (t4) => {
-            m.output += t4.output != null ? t4.output : t4.value;
-            consume(t4.value);
-          };
-          const negate = () => {
-            let t4 = 1;
-            while (D() === "!" && (D(2) !== "(" || D(3) === "?")) {
-              M();
-              m.start++;
-              t4++;
-            }
-            if (t4 % 2 === 0) {
-              return false;
-            }
-            m.negated = true;
-            m.start++;
-            return true;
-          };
-          const increment = (t4) => {
-            m[t4]++;
-            I.push(t4);
-          };
-          const decrement = (t4) => {
-            m[t4]--;
-            I.pop();
-          };
-          const push = (t4) => {
-            if (B.type === "globstar") {
-              const e4 = m.braces > 0 && (t4.type === "comma" || t4.type === "brace");
-              const u4 = t4.extglob === true || w.length && (t4.type === "pipe" || t4.type === "paren");
-              if (t4.type !== "slash" && t4.type !== "paren" && !e4 && !u4) {
-                m.output = m.output.slice(0, -B.output.length);
-                B.type = "star";
-                B.value = "*";
-                B.output = k;
-                m.output += B.output;
-              }
-            }
-            if (w.length && t4.type !== "paren") {
-              w[w.length - 1].inner += t4.value;
-            }
-            if (t4.value || t4.output) append(t4);
-            if (B && B.type === "text" && t4.type === "text") {
-              B.output = (B.output || B.value) + t4.value;
-              B.value += t4.value;
-              return;
-            }
-            t4.prev = B;
-            A.push(t4);
-            B = t4;
-          };
-          const extglobOpen = (t4, e4) => {
-            const n2 = { ...E[e4], conditions: 1, inner: "" };
-            n2.prev = B;
-            n2.parens = m.parens;
-            n2.output = m.output;
-            const o2 = (u3.capture ? "(" : "") + n2.open;
-            increment("parens");
-            push({ type: t4, value: e4, output: m.output ? "" : C });
-            push({ type: "paren", extglob: true, value: M(), output: o2 });
-            w.push(n2);
-          };
-          const extglobClose = (t4) => {
-            let n2 = t4.close + (u3.capture ? ")" : "");
-            let o2;
-            if (t4.type === "negate") {
-              let s2 = k;
-              if (t4.inner && t4.inner.length > 1 && t4.inner.includes("/")) {
-                s2 = globstar(u3);
-              }
-              if (s2 !== k || eos() || /^\)+$/.test(remaining())) {
-                n2 = t4.close = `)$))${s2}`;
-              }
-              if (t4.inner.includes("*") && (o2 = remaining()) && /^\.[^\\/.]+$/.test(o2)) {
-                const u4 = parse2(o2, { ...e3, fastpaths: false }).output;
-                n2 = t4.close = `)${u4})${s2})`;
-              }
-              if (t4.prev.type === "bos") {
-                m.negatedExtglob = true;
-              }
-            }
-            push({ type: "paren", extglob: true, value: G, output: n2 });
-            decrement("parens");
-          };
-          if (u3.fastpaths !== false && !/(^[*!]|[/()[\]{}"])/.test(t3)) {
-            let n2 = false;
-            let s2 = t3.replace(i, (t4, e4, u4, o2, s3, r3) => {
-              if (o2 === "\\") {
-                n2 = true;
-                return t4;
-              }
-              if (o2 === "?") {
-                if (e4) {
-                  return e4 + o2 + (s3 ? H.repeat(s3.length) : "");
-                }
-                if (r3 === 0) {
-                  return O + (s3 ? H.repeat(s3.length) : "");
-                }
-                return H.repeat(u4.length);
-              }
-              if (o2 === ".") {
-                return h.repeat(u4.length);
-              }
-              if (o2 === "*") {
-                if (e4) {
-                  return e4 + o2 + (s3 ? k : "");
-                }
-                return k;
-              }
-              return e4 ? t4 : `\\${t4}`;
-            });
-            if (n2 === true) {
-              if (u3.unescape === true) {
-                s2 = s2.replace(/\\/g, "");
-              } else {
-                s2 = s2.replace(/\\+/g, (t4) => t4.length % 2 === 0 ? "\\\\" : t4 ? "\\" : "");
-              }
-            }
-            if (s2 === t3 && u3.contains === true) {
-              m.output = t3;
-              return m;
-            }
-            m.output = o.wrapOutput(s2, m, e3);
-            return m;
-          }
-          while (!eos()) {
-            G = M();
-            if (G === "\0") {
-              continue;
-            }
-            if (G === "\\") {
-              const t4 = D();
-              if (t4 === "/" && u3.bash !== true) {
-                continue;
-              }
-              if (t4 === "." || t4 === ";") {
-                continue;
-              }
-              if (!t4) {
-                G += "\\";
-                push({ type: "text", value: G });
-                continue;
-              }
-              const e5 = /^\\+/.exec(remaining());
-              let n3 = 0;
-              if (e5 && e5[0].length > 2) {
-                n3 = e5[0].length;
-                m.index += n3;
-                if (n3 % 2 !== 0) {
-                  G += "\\";
-                }
-              }
-              if (u3.unescape === true) {
-                G = M();
-              } else {
-                G += M();
-              }
-              if (m.brackets === 0) {
-                push({ type: "text", value: G });
-                continue;
-              }
-            }
-            if (m.brackets > 0 && (G !== "]" || B.value === "[" || B.value === "[^")) {
-              if (u3.posix !== false && G === ":") {
-                const t4 = B.value.slice(1);
-                if (t4.includes("[")) {
-                  B.posix = true;
-                  if (t4.includes(":")) {
-                    const t5 = B.value.lastIndexOf("[");
-                    const e5 = B.value.slice(0, t5);
-                    const u4 = B.value.slice(t5 + 2);
-                    const n3 = r2[u4];
-                    if (n3) {
-                      B.value = e5 + n3;
-                      m.backtrack = true;
-                      M();
-                      if (!f.output && A.indexOf(B) === 1) {
-                        f.output = C;
-                      }
-                      continue;
-                    }
-                  }
-                }
-              }
-              if (G === "[" && D() !== ":" || G === "-" && D() === "]") {
-                G = `\\${G}`;
-              }
-              if (G === "]" && (B.value === "[" || B.value === "[^")) {
-                G = `\\${G}`;
-              }
-              if (u3.posix === true && G === "!" && B.value === "[") {
-                G = "^";
-              }
-              B.value += G;
-              append({ value: G });
-              continue;
-            }
-            if (m.quotes === 1 && G !== '"') {
-              G = o.escapeRegex(G);
-              B.value += G;
-              append({ value: G });
-              continue;
-            }
-            if (G === '"') {
-              m.quotes = m.quotes === 1 ? 0 : 1;
-              if (u3.keepQuotes === true) {
-                push({ type: "text", value: G });
-              }
-              continue;
-            }
-            if (G === "(") {
-              increment("parens");
-              push({ type: "paren", value: G });
-              continue;
-            }
-            if (G === ")") {
-              if (m.parens === 0 && u3.strictBrackets === true) {
-                throw new SyntaxError(syntaxError("opening", "("));
-              }
-              const t4 = w[w.length - 1];
-              if (t4 && m.parens === t4.parens + 1) {
-                extglobClose(w.pop());
-                continue;
-              }
-              push({ type: "paren", value: G, output: m.parens ? ")" : "\\)" });
-              decrement("parens");
-              continue;
-            }
-            if (G === "[") {
-              if (u3.nobracket === true || !remaining().includes("]")) {
-                if (u3.nobracket !== true && u3.strictBrackets === true) {
-                  throw new SyntaxError(syntaxError("closing", "]"));
-                }
-                G = `\\${G}`;
-              } else {
-                increment("brackets");
-              }
-              push({ type: "bracket", value: G });
-              continue;
-            }
-            if (G === "]") {
-              if (u3.nobracket === true || B && B.type === "bracket" && B.value.length === 1) {
-                push({ type: "text", value: G, output: `\\${G}` });
-                continue;
-              }
-              if (m.brackets === 0) {
-                if (u3.strictBrackets === true) {
-                  throw new SyntaxError(syntaxError("opening", "["));
-                }
-                push({ type: "text", value: G, output: `\\${G}` });
-                continue;
-              }
-              decrement("brackets");
-              const t4 = B.value.slice(1);
-              if (B.posix !== true && t4[0] === "^" && !t4.includes("/")) {
-                G = `/${G}`;
-              }
-              B.value += G;
-              append({ value: G });
-              if (u3.literalBrackets === false || o.hasRegexChars(t4)) {
-                continue;
-              }
-              const e5 = o.escapeRegex(B.value);
-              m.output = m.output.slice(0, -B.value.length);
-              if (u3.literalBrackets === true) {
-                m.output += e5;
-                B.value = e5;
-                continue;
-              }
-              B.value = `(${_}${e5}|${B.value})`;
-              m.output += B.value;
-              continue;
-            }
-            if (G === "{" && u3.nobrace !== true) {
-              increment("braces");
-              const t4 = { type: "brace", value: G, output: "(", outputIndex: m.output.length, tokensIndex: m.tokens.length };
-              N.push(t4);
-              push(t4);
-              continue;
-            }
-            if (G === "}") {
-              const t4 = N[N.length - 1];
-              if (u3.nobrace === true || !t4) {
-                push({ type: "text", value: G, output: G });
-                continue;
-              }
-              let e5 = ")";
-              if (t4.dots === true) {
-                const t5 = A.slice();
-                const n3 = [];
-                for (let e6 = t5.length - 1; e6 >= 0; e6--) {
-                  A.pop();
-                  if (t5[e6].type === "brace") {
-                    break;
-                  }
-                  if (t5[e6].type !== "dots") {
-                    n3.unshift(t5[e6].value);
-                  }
-                }
-                e5 = expandRange(n3, u3);
-                m.backtrack = true;
-              }
-              if (t4.comma !== true && t4.dots !== true) {
-                const u4 = m.output.slice(0, t4.outputIndex);
-                const n3 = m.tokens.slice(t4.tokensIndex);
-                t4.value = t4.output = "\\{";
-                G = e5 = "\\}";
-                m.output = u4;
-                for (const t5 of n3) {
-                  m.output += t5.output || t5.value;
-                }
-              }
-              push({ type: "brace", value: G, output: e5 });
-              decrement("braces");
-              N.pop();
-              continue;
-            }
-            if (G === "|") {
-              if (w.length > 0) {
-                w[w.length - 1].conditions++;
-              }
-              push({ type: "text", value: G });
-              continue;
-            }
-            if (G === ",") {
-              let t4 = G;
-              const e5 = N[N.length - 1];
-              if (e5 && I[I.length - 1] === "braces") {
-                e5.comma = true;
-                t4 = "|";
-              }
-              push({ type: "comma", value: G, output: t4 });
-              continue;
-            }
-            if (G === "/") {
-              if (B.type === "dot" && m.index === m.start + 1) {
-                m.start = m.index + 1;
-                m.consumed = "";
-                m.output = "";
-                A.pop();
-                B = f;
-                continue;
-              }
-              push({ type: "slash", value: G, output: b });
-              continue;
-            }
-            if (G === ".") {
-              if (m.braces > 0 && B.type === "dot") {
-                if (B.value === ".") B.output = h;
-                const t4 = N[N.length - 1];
-                B.type = "dots";
-                B.output += G;
-                B.value += G;
-                t4.dots = true;
-                continue;
-              }
-              if (m.braces + m.parens === 0 && B.type !== "bos" && B.type !== "slash") {
-                push({ type: "text", value: G, output: h });
-                continue;
-              }
-              push({ type: "dot", value: G, output: h });
-              continue;
-            }
-            if (G === "?") {
-              const t4 = B && B.value === "(";
-              if (!t4 && u3.noextglob !== true && D() === "(" && D(2) !== "?") {
-                extglobOpen("qmark", G);
-                continue;
-              }
-              if (B && B.type === "paren") {
-                const t5 = D();
-                let e5 = G;
-                if (B.value === "(" && !/[!=<:]/.test(t5) || t5 === "<" && !/<([!=]|\w+>)/.test(remaining())) {
-                  e5 = `\\${G}`;
-                }
-                push({ type: "text", value: G, output: e5 });
-                continue;
-              }
-              if (u3.dot !== true && (B.type === "slash" || B.type === "bos")) {
-                push({ type: "qmark", value: G, output: v });
-                continue;
-              }
-              push({ type: "qmark", value: G, output: H });
-              continue;
-            }
-            if (G === "!") {
-              if (u3.noextglob !== true && D() === "(") {
-                if (D(2) !== "?" || !/[!=<:]/.test(D(3))) {
-                  extglobOpen("negate", G);
-                  continue;
-                }
-              }
-              if (u3.nonegate !== true && m.index === 0) {
-                negate();
-                continue;
-              }
-            }
-            if (G === "+") {
-              if (u3.noextglob !== true && D() === "(" && D(2) !== "?") {
-                extglobOpen("plus", G);
-                continue;
-              }
-              if (B && B.value === "(" || u3.regex === false) {
-                push({ type: "plus", value: G, output: g });
-                continue;
-              }
-              if (B && (B.type === "bracket" || B.type === "paren" || B.type === "brace") || m.parens > 0) {
-                push({ type: "plus", value: G });
-                continue;
-              }
-              push({ type: "plus", value: g });
-              continue;
-            }
-            if (G === "@") {
-              if (u3.noextglob !== true && D() === "(" && D(2) !== "?") {
-                push({ type: "at", extglob: true, value: G, output: "" });
-                continue;
-              }
-              push({ type: "text", value: G });
-              continue;
-            }
-            if (G !== "*") {
-              if (G === "$" || G === "^") {
-                G = `\\${G}`;
-              }
-              const t4 = a.exec(remaining());
-              if (t4) {
-                G += t4[0];
-                m.index += t4[0].length;
-              }
-              push({ type: "text", value: G });
-              continue;
-            }
-            if (B && (B.type === "globstar" || B.star === true)) {
-              B.type = "star";
-              B.star = true;
-              B.value += G;
-              B.output = k;
-              m.backtrack = true;
-              m.globstar = true;
-              consume(G);
-              continue;
-            }
-            let e4 = remaining();
-            if (u3.noextglob !== true && /^\([^?]/.test(e4)) {
-              extglobOpen("star", G);
-              continue;
-            }
-            if (B.type === "star") {
-              if (u3.noglobstar === true) {
-                consume(G);
-                continue;
-              }
-              const n3 = B.prev;
-              const o2 = n3.prev;
-              const s2 = n3.type === "slash" || n3.type === "bos";
-              const r3 = o2 && (o2.type === "star" || o2.type === "globstar");
-              if (u3.bash === true && (!s2 || e4[0] && e4[0] !== "/")) {
-                push({ type: "star", value: G, output: "" });
-                continue;
-              }
-              const a2 = m.braces > 0 && (n3.type === "comma" || n3.type === "brace");
-              const i2 = w.length && (n3.type === "pipe" || n3.type === "paren");
-              if (!s2 && n3.type !== "paren" && !a2 && !i2) {
-                push({ type: "star", value: G, output: "" });
-                continue;
-              }
-              while (e4.slice(0, 3) === "/**") {
-                const u4 = t3[m.index + 4];
-                if (u4 && u4 !== "/") {
-                  break;
-                }
-                e4 = e4.slice(3);
-                consume("/**", 3);
-              }
-              if (n3.type === "bos" && eos()) {
-                B.type = "globstar";
-                B.value += G;
-                B.output = globstar(u3);
-                m.output = B.output;
-                m.globstar = true;
-                consume(G);
-                continue;
-              }
-              if (n3.type === "slash" && n3.prev.type !== "bos" && !r3 && eos()) {
-                m.output = m.output.slice(0, -(n3.output + B.output).length);
-                n3.output = `(?:${n3.output}`;
-                B.type = "globstar";
-                B.output = globstar(u3) + (u3.strictSlashes ? ")" : "|$)");
-                B.value += G;
-                m.globstar = true;
-                m.output += n3.output + B.output;
-                consume(G);
-                continue;
-              }
-              if (n3.type === "slash" && n3.prev.type !== "bos" && e4[0] === "/") {
-                const t4 = e4[1] !== void 0 ? "|$" : "";
-                m.output = m.output.slice(0, -(n3.output + B.output).length);
-                n3.output = `(?:${n3.output}`;
-                B.type = "globstar";
-                B.output = `${globstar(u3)}${b}|${b}${t4})`;
-                B.value += G;
-                m.output += n3.output + B.output;
-                m.globstar = true;
-                consume(G + M());
-                push({ type: "slash", value: "/", output: "" });
-                continue;
-              }
-              if (n3.type === "bos" && e4[0] === "/") {
-                B.type = "globstar";
-                B.value += G;
-                B.output = `(?:^|${b}|${globstar(u3)}${b})`;
-                m.output = B.output;
-                m.globstar = true;
-                consume(G + M());
-                push({ type: "slash", value: "/", output: "" });
-                continue;
-              }
-              m.output = m.output.slice(0, -B.output.length);
-              B.type = "globstar";
-              B.output = globstar(u3);
-              B.value += G;
-              m.output += B.output;
-              m.globstar = true;
-              consume(G);
-              continue;
-            }
-            const n2 = { type: "star", value: G, output: k };
-            if (u3.bash === true) {
-              n2.output = ".*?";
-              if (B.type === "bos" || B.type === "slash") {
-                n2.output = T + n2.output;
-              }
-              push(n2);
-              continue;
-            }
-            if (B && (B.type === "bracket" || B.type === "paren") && u3.regex === true) {
-              n2.output = G;
-              push(n2);
-              continue;
-            }
-            if (m.index === m.start || B.type === "slash" || B.type === "dot") {
-              if (B.type === "dot") {
-                m.output += x;
-                B.output += x;
-              } else if (u3.dot === true) {
-                m.output += S;
-                B.output += S;
-              } else {
-                m.output += T;
-                B.output += T;
-              }
-              if (D() !== "*") {
-                m.output += C;
-                B.output += C;
-              }
-            }
-            push(n2);
-          }
-          while (m.brackets > 0) {
-            if (u3.strictBrackets === true) throw new SyntaxError(syntaxError("closing", "]"));
-            m.output = o.escapeLast(m.output, "[");
-            decrement("brackets");
-          }
-          while (m.parens > 0) {
-            if (u3.strictBrackets === true) throw new SyntaxError(syntaxError("closing", ")"));
-            m.output = o.escapeLast(m.output, "(");
-            decrement("parens");
-          }
-          while (m.braces > 0) {
-            if (u3.strictBrackets === true) throw new SyntaxError(syntaxError("closing", "}"));
-            m.output = o.escapeLast(m.output, "{");
-            decrement("braces");
-          }
-          if (u3.strictSlashes !== true && (B.type === "star" || B.type === "bracket")) {
-            push({ type: "maybe_slash", value: "", output: `${b}?` });
-          }
-          if (m.backtrack === true) {
-            m.output = "";
-            for (const t4 of m.tokens) {
-              m.output += t4.output != null ? t4.output : t4.value;
-              if (t4.suffix) {
-                m.output += t4.suffix;
-              }
-            }
-          }
-          return m;
-        };
-        parse2.fastpaths = (t3, e3) => {
-          const u3 = { ...e3 };
-          const r3 = typeof u3.maxLength === "number" ? Math.min(s, u3.maxLength) : s;
-          const a2 = t3.length;
-          if (a2 > r3) {
-            throw new SyntaxError(`Input length: ${a2}, exceeds maximum allowed length: ${r3}`);
-          }
-          t3 = c[t3] || t3;
-          const { DOT_LITERAL: i2, SLASH_LITERAL: p, ONE_CHAR: l, DOTS_SLASH: f, NO_DOT: A, NO_DOTS: _, NO_DOTS_SLASH: R, STAR: E, START_ANCHOR: h } = n.globChars(u3.windows);
-          const g = u3.dot ? _ : A;
-          const b = u3.dot ? R : A;
-          const C = u3.capture ? "" : "?:";
-          const y = { negated: false, prefix: "" };
-          let $ = u3.bash === true ? ".*?" : E;
-          if (u3.capture) {
-            $ = `(${$})`;
-          }
-          const globstar = (t4) => {
-            if (t4.noglobstar === true) return $;
-            return `(${C}(?:(?!${h}${t4.dot ? f : i2}).)*?)`;
-          };
-          const create = (t4) => {
-            switch (t4) {
-              case "*":
-                return `${g}${l}${$}`;
-              case ".*":
-                return `${i2}${l}${$}`;
-              case "*.*":
-                return `${g}${$}${i2}${l}${$}`;
-              case "*/*":
-                return `${g}${$}${p}${l}${b}${$}`;
-              case "**":
-                return g + globstar(u3);
-              case "**/*":
-                return `(?:${g}${globstar(u3)}${p})?${b}${l}${$}`;
-              case "**/*.*":
-                return `(?:${g}${globstar(u3)}${p})?${b}${$}${i2}${l}${$}`;
-              case "**/.*":
-                return `(?:${g}${globstar(u3)}${p})?${i2}${l}${$}`;
-              default: {
-                const e4 = /^(.*?)\.(\w+)$/.exec(t4);
-                if (!e4) return;
-                const u4 = create(e4[1]);
-                if (!u4) return;
-                return u4 + i2 + e4[2];
-              }
-            }
-          };
-          const x = o.removePrefix(t3, y);
-          let S = create(x);
-          if (S && u3.strictSlashes !== true) {
-            S += `${p}?`;
-          }
-          return S;
-        };
-        t2.exports = parse2;
-      }, 510: (t2, e2, u2) => {
-        const n = u2(716);
-        const o = u2(697);
-        const s = u2(96);
-        const r2 = u2(154);
-        const isObject = (t3) => t3 && typeof t3 === "object" && !Array.isArray(t3);
-        const picomatch = (t3, e3, u3 = false) => {
-          if (Array.isArray(t3)) {
-            const n3 = t3.map((t4) => picomatch(t4, e3, u3));
-            const arrayMatcher = (t4) => {
-              for (const e4 of n3) {
-                const u4 = e4(t4);
-                if (u4) return u4;
-              }
-              return false;
-            };
-            return arrayMatcher;
-          }
-          const n2 = isObject(t3) && t3.tokens && t3.input;
-          if (t3 === "" || typeof t3 !== "string" && !n2) {
-            throw new TypeError("Expected pattern to be a non-empty string");
-          }
-          const o2 = e3 || {};
-          const s2 = o2.windows;
-          const r3 = n2 ? picomatch.compileRe(t3, e3) : picomatch.makeRe(t3, e3, false, true);
-          const a = r3.state;
-          delete r3.state;
-          let isIgnored = () => false;
-          if (o2.ignore) {
-            const t4 = { ...e3, ignore: null, onMatch: null, onResult: null };
-            isIgnored = picomatch(o2.ignore, t4, u3);
-          }
-          const matcher = (u4, n3 = false) => {
-            const { isMatch: i, match: c, output: p } = picomatch.test(u4, r3, e3, { glob: t3, posix: s2 });
-            const l = { glob: t3, state: a, regex: r3, posix: s2, input: u4, output: p, match: c, isMatch: i };
-            if (typeof o2.onResult === "function") {
-              o2.onResult(l);
-            }
-            if (i === false) {
-              l.isMatch = false;
-              return n3 ? l : false;
-            }
-            if (isIgnored(u4)) {
-              if (typeof o2.onIgnore === "function") {
-                o2.onIgnore(l);
-              }
-              l.isMatch = false;
-              return n3 ? l : false;
-            }
-            if (typeof o2.onMatch === "function") {
-              o2.onMatch(l);
-            }
-            return n3 ? l : true;
-          };
-          if (u3) {
-            matcher.state = a;
-          }
-          return matcher;
-        };
-        picomatch.test = (t3, e3, u3, { glob: n2, posix: o2 } = {}) => {
-          if (typeof t3 !== "string") {
-            throw new TypeError("Expected input to be a string");
-          }
-          if (t3 === "") {
-            return { isMatch: false, output: "" };
-          }
-          const r3 = u3 || {};
-          const a = r3.format || (o2 ? s.toPosixSlashes : null);
-          let i = t3 === n2;
-          let c = i && a ? a(t3) : t3;
-          if (i === false) {
-            c = a ? a(t3) : t3;
-            i = c === n2;
-          }
-          if (i === false || r3.capture === true) {
-            if (r3.matchBase === true || r3.basename === true) {
-              i = picomatch.matchBase(t3, e3, u3, o2);
-            } else {
-              i = e3.exec(c);
-            }
-          }
-          return { isMatch: Boolean(i), match: i, output: c };
-        };
-        picomatch.matchBase = (t3, e3, u3) => {
-          const n2 = e3 instanceof RegExp ? e3 : picomatch.makeRe(e3, u3);
-          return n2.test(s.basename(t3));
-        };
-        picomatch.isMatch = (t3, e3, u3) => picomatch(e3, u3)(t3);
-        picomatch.parse = (t3, e3) => {
-          if (Array.isArray(t3)) return t3.map((t4) => picomatch.parse(t4, e3));
-          return o(t3, { ...e3, fastpaths: false });
-        };
-        picomatch.scan = (t3, e3) => n(t3, e3);
-        picomatch.compileRe = (t3, e3, u3 = false, n2 = false) => {
-          if (u3 === true) {
-            return t3.output;
-          }
-          const o2 = e3 || {};
-          const s2 = o2.contains ? "" : "^";
-          const r3 = o2.contains ? "" : "$";
-          let a = `${s2}(?:${t3.output})${r3}`;
-          if (t3 && t3.negated === true) {
-            a = `^(?!${a}).*$`;
-          }
-          const i = picomatch.toRegex(a, e3);
-          if (n2 === true) {
-            i.state = t3;
-          }
-          return i;
-        };
-        picomatch.makeRe = (t3, e3 = {}, u3 = false, n2 = false) => {
-          if (!t3 || typeof t3 !== "string") {
-            throw new TypeError("Expected a non-empty string");
-          }
-          let s2 = { negated: false, fastpaths: true };
-          if (e3.fastpaths !== false && (t3[0] === "." || t3[0] === "*")) {
-            s2.output = o.fastpaths(t3, e3);
-          }
-          if (!s2.output) {
-            s2 = o(t3, e3);
-          }
-          return picomatch.compileRe(s2, e3, u3, n2);
-        };
-        picomatch.toRegex = (t3, e3) => {
-          try {
-            const u3 = e3 || {};
-            return new RegExp(t3, u3.flags || (u3.nocase ? "i" : ""));
-          } catch (t4) {
-            if (e3 && e3.debug === true) throw t4;
-            return /$^/;
-          }
-        };
-        picomatch.constants = r2;
-        t2.exports = picomatch;
-      }, 716: (t2, e2, u2) => {
-        const n = u2(96);
-        const { CHAR_ASTERISK: o, CHAR_AT: s, CHAR_BACKWARD_SLASH: r2, CHAR_COMMA: a, CHAR_DOT: i, CHAR_EXCLAMATION_MARK: c, CHAR_FORWARD_SLASH: p, CHAR_LEFT_CURLY_BRACE: l, CHAR_LEFT_PARENTHESES: f, CHAR_LEFT_SQUARE_BRACKET: A, CHAR_PLUS: _, CHAR_QUESTION_MARK: R, CHAR_RIGHT_CURLY_BRACE: E, CHAR_RIGHT_PARENTHESES: h, CHAR_RIGHT_SQUARE_BRACKET: g } = u2(154);
-        const isPathSeparator = (t3) => t3 === p || t3 === r2;
-        const depth = (t3) => {
-          if (t3.isPrefix !== true) {
-            t3.depth = t3.isGlobstar ? Infinity : 1;
-          }
-        };
-        const scan = (t3, e3) => {
-          const u3 = e3 || {};
-          const b = t3.length - 1;
-          const C = u3.parts === true || u3.scanToEnd === true;
-          const y = [];
-          const $ = [];
-          const x = [];
-          let S = t3;
-          let H = -1;
-          let v = 0;
-          let d = 0;
-          let L = false;
-          let T = false;
-          let O = false;
-          let k = false;
-          let m = false;
-          let w = false;
-          let N = false;
-          let I = false;
-          let B = false;
-          let G = false;
-          let D = 0;
-          let M;
-          let P;
-          let K = { value: "", depth: 0, isGlob: false };
-          const eos = () => H >= b;
-          const peek = () => S.charCodeAt(H + 1);
-          const advance = () => {
-            M = P;
-            return S.charCodeAt(++H);
-          };
-          while (H < b) {
-            P = advance();
-            let t4;
-            if (P === r2) {
-              N = K.backslashes = true;
-              P = advance();
-              if (P === l) {
-                w = true;
-              }
-              continue;
-            }
-            if (w === true || P === l) {
-              D++;
-              while (eos() !== true && (P = advance())) {
-                if (P === r2) {
-                  N = K.backslashes = true;
-                  advance();
-                  continue;
-                }
-                if (P === l) {
-                  D++;
-                  continue;
-                }
-                if (w !== true && P === i && (P = advance()) === i) {
-                  L = K.isBrace = true;
-                  O = K.isGlob = true;
-                  G = true;
-                  if (C === true) {
-                    continue;
-                  }
-                  break;
-                }
-                if (w !== true && P === a) {
-                  L = K.isBrace = true;
-                  O = K.isGlob = true;
-                  G = true;
-                  if (C === true) {
-                    continue;
-                  }
-                  break;
-                }
-                if (P === E) {
-                  D--;
-                  if (D === 0) {
-                    w = false;
-                    L = K.isBrace = true;
-                    G = true;
-                    break;
-                  }
-                }
-              }
-              if (C === true) {
-                continue;
-              }
-              break;
-            }
-            if (P === p) {
-              y.push(H);
-              $.push(K);
-              K = { value: "", depth: 0, isGlob: false };
-              if (G === true) continue;
-              if (M === i && H === v + 1) {
-                v += 2;
-                continue;
-              }
-              d = H + 1;
-              continue;
-            }
-            if (u3.noext !== true) {
-              const t5 = P === _ || P === s || P === o || P === R || P === c;
-              if (t5 === true && peek() === f) {
-                O = K.isGlob = true;
-                k = K.isExtglob = true;
-                G = true;
-                if (P === c && H === v) {
-                  B = true;
-                }
-                if (C === true) {
-                  while (eos() !== true && (P = advance())) {
-                    if (P === r2) {
-                      N = K.backslashes = true;
-                      P = advance();
-                      continue;
-                    }
-                    if (P === h) {
-                      O = K.isGlob = true;
-                      G = true;
-                      break;
-                    }
-                  }
-                  continue;
-                }
-                break;
-              }
-            }
-            if (P === o) {
-              if (M === o) m = K.isGlobstar = true;
-              O = K.isGlob = true;
-              G = true;
-              if (C === true) {
-                continue;
-              }
-              break;
-            }
-            if (P === R) {
-              O = K.isGlob = true;
-              G = true;
-              if (C === true) {
-                continue;
-              }
-              break;
-            }
-            if (P === A) {
-              while (eos() !== true && (t4 = advance())) {
-                if (t4 === r2) {
-                  N = K.backslashes = true;
-                  advance();
-                  continue;
-                }
-                if (t4 === g) {
-                  T = K.isBracket = true;
-                  O = K.isGlob = true;
-                  G = true;
-                  break;
-                }
-              }
-              if (C === true) {
-                continue;
-              }
-              break;
-            }
-            if (u3.nonegate !== true && P === c && H === v) {
-              I = K.negated = true;
-              v++;
-              continue;
-            }
-            if (u3.noparen !== true && P === f) {
-              O = K.isGlob = true;
-              if (C === true) {
-                while (eos() !== true && (P = advance())) {
-                  if (P === f) {
-                    N = K.backslashes = true;
-                    P = advance();
-                    continue;
-                  }
-                  if (P === h) {
-                    G = true;
-                    break;
-                  }
-                }
-                continue;
-              }
-              break;
-            }
-            if (O === true) {
-              G = true;
-              if (C === true) {
-                continue;
-              }
-              break;
-            }
-          }
-          if (u3.noext === true) {
-            k = false;
-            O = false;
-          }
-          let U = S;
-          let X = "";
-          let F = "";
-          if (v > 0) {
-            X = S.slice(0, v);
-            S = S.slice(v);
-            d -= v;
-          }
-          if (U && O === true && d > 0) {
-            U = S.slice(0, d);
-            F = S.slice(d);
-          } else if (O === true) {
-            U = "";
-            F = S;
-          } else {
-            U = S;
-          }
-          if (U && U !== "" && U !== "/" && U !== S) {
-            if (isPathSeparator(U.charCodeAt(U.length - 1))) {
-              U = U.slice(0, -1);
-            }
-          }
-          if (u3.unescape === true) {
-            if (F) F = n.removeBackslashes(F);
-            if (U && N === true) {
-              U = n.removeBackslashes(U);
-            }
-          }
-          const Q = { prefix: X, input: t3, start: v, base: U, glob: F, isBrace: L, isBracket: T, isGlob: O, isExtglob: k, isGlobstar: m, negated: I, negatedExtglob: B };
-          if (u3.tokens === true) {
-            Q.maxDepth = 0;
-            if (!isPathSeparator(P)) {
-              $.push(K);
-            }
-            Q.tokens = $;
-          }
-          if (u3.parts === true || u3.tokens === true) {
-            let e4;
-            for (let n2 = 0; n2 < y.length; n2++) {
-              const o2 = e4 ? e4 + 1 : v;
-              const s2 = y[n2];
-              const r3 = t3.slice(o2, s2);
-              if (u3.tokens) {
-                if (n2 === 0 && v !== 0) {
-                  $[n2].isPrefix = true;
-                  $[n2].value = X;
-                } else {
-                  $[n2].value = r3;
-                }
-                depth($[n2]);
-                Q.maxDepth += $[n2].depth;
-              }
-              if (n2 !== 0 || r3 !== "") {
-                x.push(r3);
-              }
-              e4 = s2;
-            }
-            if (e4 && e4 + 1 < t3.length) {
-              const n2 = t3.slice(e4 + 1);
-              x.push(n2);
-              if (u3.tokens) {
-                $[$.length - 1].value = n2;
-                depth($[$.length - 1]);
-                Q.maxDepth += $[$.length - 1].depth;
-              }
-            }
-            Q.slashes = y;
-            Q.parts = x;
-          }
-          return Q;
-        };
-        t2.exports = scan;
-      }, 96: (t2, e2, u2) => {
-        const { REGEX_BACKSLASH: n, REGEX_REMOVE_BACKSLASH: o, REGEX_SPECIAL_CHARS: s, REGEX_SPECIAL_CHARS_GLOBAL: r2 } = u2(154);
-        e2.isObject = (t3) => t3 !== null && typeof t3 === "object" && !Array.isArray(t3);
-        e2.hasRegexChars = (t3) => s.test(t3);
-        e2.isRegexChar = (t3) => t3.length === 1 && e2.hasRegexChars(t3);
-        e2.escapeRegex = (t3) => t3.replace(r2, "\\$1");
-        e2.toPosixSlashes = (t3) => t3.replace(n, "/");
-        e2.removeBackslashes = (t3) => t3.replace(o, (t4) => t4 === "\\" ? "" : t4);
-        e2.escapeLast = (t3, u3, n2) => {
-          const o2 = t3.lastIndexOf(u3, n2);
-          if (o2 === -1) return t3;
-          if (t3[o2 - 1] === "\\") return e2.escapeLast(t3, u3, o2 - 1);
-          return `${t3.slice(0, o2)}\\${t3.slice(o2)}`;
-        };
-        e2.removePrefix = (t3, e3 = {}) => {
-          let u3 = t3;
-          if (u3.startsWith("./")) {
-            u3 = u3.slice(2);
-            e3.prefix = "./";
-          }
-          return u3;
-        };
-        e2.wrapOutput = (t3, e3 = {}, u3 = {}) => {
-          const n2 = u3.contains ? "" : "^";
-          const o2 = u3.contains ? "" : "$";
-          let s2 = `${n2}(?:${t3})${o2}`;
-          if (e3.negated === true) {
-            s2 = `(?:^(?!${s2}).*$)`;
-          }
-          return s2;
-        };
-        e2.basename = (t3, { windows: e3 } = {}) => {
-          const u3 = t3.split(e3 ? /[\\/]/ : "/");
-          const n2 = u3[u3.length - 1];
-          if (n2 === "") {
-            return u3[u3.length - 2];
-          }
-          return n2;
-        };
-      } };
-      var e = {};
-      function __nccwpck_require__(u2) {
-        var n = e[u2];
-        if (n !== void 0) {
-          return n.exports;
-        }
-        var o = e[u2] = { exports: {} };
-        var s = true;
-        try {
-          t[u2](o, o.exports, __nccwpck_require__);
-          s = false;
-        } finally {
-          if (s) delete e[u2];
-        }
-        return o.exports;
-      }
-      if (typeof __nccwpck_require__ !== "undefined") __nccwpck_require__.ab = __dirname + "/";
-      var u = __nccwpck_require__(170);
-      module.exports = u;
-    })();
-  }
-});
-
-// node_modules/next/dist/shared/lib/match-local-pattern.js
-var require_match_local_pattern = __commonJS({
-  "node_modules/next/dist/shared/lib/match-local-pattern.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      hasLocalMatch: function() {
-        return hasLocalMatch;
-      },
-      matchLocalPattern: function() {
-        return matchLocalPattern;
-      }
-    });
-    var _picomatch = require_picomatch();
-    function matchLocalPattern(pattern, url) {
-      if (pattern.search !== void 0) {
-        if (pattern.search !== url.search) {
-          return false;
-        }
-      }
-      var _pattern_pathname;
-      if (!(0, _picomatch.makeRe)((_pattern_pathname = pattern.pathname) != null ? _pattern_pathname : "**", {
-        dot: true
-      }).test(url.pathname)) {
-        return false;
-      }
-      return true;
-    }
-    function hasLocalMatch(localPatterns, urlPathAndQuery) {
-      if (!localPatterns) {
+    function checkIfSnapshotChanged(inst) {
+      var latestGetSnapshot = inst.getSnapshot;
+      inst = inst.value;
+      try {
+        var nextValue = latestGetSnapshot();
+        return !objectIs(inst, nextValue);
+      } catch (error) {
         return true;
       }
-      const url = new URL(urlPathAndQuery, "http://n");
-      return localPatterns.some((p) => matchLocalPattern(p, url));
     }
+    function useSyncExternalStore$1(subscribe2, getSnapshot) {
+      return getSnapshot();
+    }
+    var shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+    exports2.useSyncExternalStore = void 0 !== React38.useSyncExternalStore ? React38.useSyncExternalStore : shim;
   }
 });
 
-// node_modules/next/dist/shared/lib/match-remote-pattern.js
-var require_match_remote_pattern = __commonJS({
-  "node_modules/next/dist/shared/lib/match-remote-pattern.js"(exports) {
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
+var require_use_sync_external_store_shim_development = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      hasRemoteMatch: function() {
-        return hasRemoteMatch;
-      },
-      matchRemotePattern: function() {
-        return matchRemotePattern;
+    "production" !== process.env.NODE_ENV && function() {
+      function is(x, y) {
+        return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
       }
-    });
-    var _picomatch = require_picomatch();
-    function matchRemotePattern(pattern, url) {
-      if (pattern.protocol !== void 0) {
-        if (pattern.protocol.replace(/:$/, "") !== url.protocol.replace(/:$/, "")) {
-          return false;
+      function useSyncExternalStore$2(subscribe2, getSnapshot) {
+        didWarnOld18Alpha || void 0 === React38.startTransition || (didWarnOld18Alpha = true, console.error(
+          "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
+        ));
+        var value = getSnapshot();
+        if (!didWarnUncachedGetSnapshot) {
+          var cachedValue = getSnapshot();
+          objectIs(value, cachedValue) || (console.error(
+            "The result of getSnapshot should be cached to avoid an infinite loop"
+          ), didWarnUncachedGetSnapshot = true);
         }
-      }
-      if (pattern.port !== void 0) {
-        if (pattern.port !== url.port) {
-          return false;
-        }
-      }
-      if (pattern.hostname === void 0) {
-        throw Object.defineProperty(new Error("Pattern should define hostname but found\n" + JSON.stringify(pattern)), "__NEXT_ERROR_CODE", {
-          value: "E410",
-          enumerable: false,
-          configurable: true
+        cachedValue = useState18({
+          inst: { value, getSnapshot }
         });
-      } else {
-        if (!(0, _picomatch.makeRe)(pattern.hostname).test(url.hostname)) {
-          return false;
-        }
-      }
-      if (pattern.search !== void 0) {
-        if (pattern.search !== url.search) {
-          return false;
-        }
-      }
-      var _pattern_pathname;
-      if (!(0, _picomatch.makeRe)((_pattern_pathname = pattern.pathname) != null ? _pattern_pathname : "**", {
-        dot: true
-      }).test(url.pathname)) {
-        return false;
-      }
-      return true;
-    }
-    function hasRemoteMatch(domains, remotePatterns, url) {
-      return domains.some((domain) => url.hostname === domain) || remotePatterns.some((p) => matchRemotePattern(p, url));
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/image-loader.js
-var require_image_loader = __commonJS({
-  "node_modules/next/dist/shared/lib/image-loader.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "default", {
-      enumerable: true,
-      get: function() {
-        return _default;
-      }
-    });
-    var DEFAULT_Q = 75;
-    function defaultLoader(param) {
-      let { config, src, width, quality } = param;
-      var _config_qualities;
-      if (process.env.NODE_ENV !== "production") {
-        const missingValues = [];
-        if (!src) missingValues.push("src");
-        if (!width) missingValues.push("width");
-        if (missingValues.length > 0) {
-          throw Object.defineProperty(new Error("Next Image Optimization requires " + missingValues.join(", ") + " to be provided. Make sure you pass them as props to the `next/image` component. Received: " + JSON.stringify({
-            src,
-            width,
-            quality
-          })), "__NEXT_ERROR_CODE", {
-            value: "E188",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (src.startsWith("//")) {
-          throw Object.defineProperty(new Error('Failed to parse src "' + src + '" on `next/image`, protocol-relative URL (//) must be changed to an absolute URL (http:// or https://)'), "__NEXT_ERROR_CODE", {
-            value: "E360",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        if (src.startsWith("/") && config.localPatterns) {
-          if (process.env.NODE_ENV !== "test" && // micromatch isn't compatible with edge runtime
-          process.env.NEXT_RUNTIME !== "edge") {
-            const { hasLocalMatch } = require_match_local_pattern();
-            if (!hasLocalMatch(config.localPatterns, src)) {
-              throw Object.defineProperty(new Error("Invalid src prop (" + src + ") on `next/image` does not match `images.localPatterns` configured in your `next.config.js`\nSee more info: https://nextjs.org/docs/messages/next-image-unconfigured-localpatterns"), "__NEXT_ERROR_CODE", {
-                value: "E426",
-                enumerable: false,
-                configurable: true
-              });
-            }
-          }
-        }
-        if (!src.startsWith("/") && (config.domains || config.remotePatterns)) {
-          let parsedSrc;
-          try {
-            parsedSrc = new URL(src);
-          } catch (err) {
-            console.error(err);
-            throw Object.defineProperty(new Error('Failed to parse src "' + src + '" on `next/image`, if using relative image it must start with a leading slash "/" or be an absolute URL (http:// or https://)'), "__NEXT_ERROR_CODE", {
-              value: "E63",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          if (process.env.NODE_ENV !== "test" && // micromatch isn't compatible with edge runtime
-          process.env.NEXT_RUNTIME !== "edge") {
-            const { hasRemoteMatch } = require_match_remote_pattern();
-            if (!hasRemoteMatch(config.domains, config.remotePatterns, parsedSrc)) {
-              throw Object.defineProperty(new Error("Invalid src prop (" + src + ') on `next/image`, hostname "' + parsedSrc.hostname + '" is not configured under images in your `next.config.js`\nSee more info: https://nextjs.org/docs/messages/next-image-unconfigured-host'), "__NEXT_ERROR_CODE", {
-                value: "E231",
-                enumerable: false,
-                configurable: true
-              });
-            }
-          }
-        }
-        if (quality && config.qualities && !config.qualities.includes(quality)) {
-          throw Object.defineProperty(new Error("Invalid quality prop (" + quality + ") on `next/image` does not match `images.qualities` configured in your `next.config.js`\nSee more info: https://nextjs.org/docs/messages/next-image-unconfigured-qualities"), "__NEXT_ERROR_CODE", {
-            value: "E623",
-            enumerable: false,
-            configurable: true
-          });
-        }
-      }
-      const q = quality || ((_config_qualities = config.qualities) == null ? void 0 : _config_qualities.reduce((prev, cur) => Math.abs(cur - DEFAULT_Q) < Math.abs(prev - DEFAULT_Q) ? cur : prev)) || DEFAULT_Q;
-      return config.path + "?url=" + encodeURIComponent(src) + "&w=" + width + "&q=" + q + (src.startsWith("/_next/static/media/") && process.env.NEXT_DEPLOYMENT_ID ? "&dpl=" + process.env.NEXT_DEPLOYMENT_ID : "");
-    }
-    defaultLoader.__next_img_default = true;
-    var _default = defaultLoader;
-  }
-});
-
-// node_modules/next/dist/client/use-merged-ref.js
-var require_use_merged_ref = __commonJS({
-  "node_modules/next/dist/client/use-merged-ref.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "useMergedRef", {
-      enumerable: true,
-      get: function() {
-        return useMergedRef;
-      }
-    });
-    var _react = __require("react");
-    function useMergedRef(refA, refB) {
-      const cleanupA = (0, _react.useRef)(null);
-      const cleanupB = (0, _react.useRef)(null);
-      return (0, _react.useCallback)((current) => {
-        if (current === null) {
-          const cleanupFnA = cleanupA.current;
-          if (cleanupFnA) {
-            cleanupA.current = null;
-            cleanupFnA();
-          }
-          const cleanupFnB = cleanupB.current;
-          if (cleanupFnB) {
-            cleanupB.current = null;
-            cleanupFnB();
-          }
-        } else {
-          if (refA) {
-            cleanupA.current = applyRef(refA, current);
-          }
-          if (refB) {
-            cleanupB.current = applyRef(refB, current);
-          }
-        }
-      }, [
-        refA,
-        refB
-      ]);
-    }
-    function applyRef(refA, current) {
-      if (typeof refA === "function") {
-        const cleanup = refA(current);
-        if (typeof cleanup === "function") {
-          return cleanup;
-        } else {
-          return () => refA(null);
-        }
-      } else {
-        refA.current = current;
-        return () => {
-          refA.current = null;
-        };
-      }
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/client/image-component.js
-var require_image_component = __commonJS({
-  "node_modules/next/dist/client/image-component.js"(exports, module) {
-    "use strict";
-    "use client";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "Image", {
-      enumerable: true,
-      get: function() {
-        return Image2;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _interop_require_wildcard = require_interop_require_wildcard();
-    var _jsxruntime = __require("react/jsx-runtime");
-    var _react = /* @__PURE__ */ _interop_require_wildcard._(__require("react"));
-    var _reactdom = /* @__PURE__ */ _interop_require_default._(__require("react-dom"));
-    var _head = /* @__PURE__ */ _interop_require_default._(require_head());
-    var _getimgprops = require_get_img_props();
-    var _imageconfig = require_image_config();
-    var _imageconfigcontextsharedruntime = require_image_config_context_shared_runtime();
-    var _warnonce = require_warn_once();
-    var _routercontextsharedruntime = require_router_context_shared_runtime();
-    var _imageloader = /* @__PURE__ */ _interop_require_default._(require_image_loader());
-    var _usemergedref = require_use_merged_ref();
-    var configEnv = process.env.__NEXT_IMAGE_OPTS;
-    if (typeof window === "undefined") {
-      ;
-      globalThis.__NEXT_IMAGE_IMPORTED = true;
-    }
-    function handleLoading(img, placeholder, onLoadRef, onLoadingCompleteRef, setBlurComplete, unoptimized, sizesInput) {
-      const src = img == null ? void 0 : img.src;
-      if (!img || img["data-loaded-src"] === src) {
-        return;
-      }
-      img["data-loaded-src"] = src;
-      const p = "decode" in img ? img.decode() : Promise.resolve();
-      p.catch(() => {
-      }).then(() => {
-        if (!img.parentElement || !img.isConnected) {
-          return;
-        }
-        if (placeholder !== "empty") {
-          setBlurComplete(true);
-        }
-        if (onLoadRef == null ? void 0 : onLoadRef.current) {
-          const event = new Event("load");
-          Object.defineProperty(event, "target", {
-            writable: false,
-            value: img
-          });
-          let prevented = false;
-          let stopped = false;
-          onLoadRef.current({
-            ...event,
-            nativeEvent: event,
-            currentTarget: img,
-            target: img,
-            isDefaultPrevented: () => prevented,
-            isPropagationStopped: () => stopped,
-            persist: () => {
-            },
-            preventDefault: () => {
-              prevented = true;
-              event.preventDefault();
-            },
-            stopPropagation: () => {
-              stopped = true;
-              event.stopPropagation();
-            }
-          });
-        }
-        if (onLoadingCompleteRef == null ? void 0 : onLoadingCompleteRef.current) {
-          onLoadingCompleteRef.current(img);
-        }
-        if (process.env.NODE_ENV !== "production") {
-          const origSrc = new URL(src, "http://n").searchParams.get("url") || src;
-          if (img.getAttribute("data-nimg") === "fill") {
-            if (!unoptimized && (!sizesInput || sizesInput === "100vw")) {
-              let widthViewportRatio = img.getBoundingClientRect().width / window.innerWidth;
-              if (widthViewportRatio < 0.6) {
-                if (sizesInput === "100vw") {
-                  (0, _warnonce.warnOnce)('Image with src "' + origSrc + '" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes');
-                } else {
-                  (0, _warnonce.warnOnce)('Image with src "' + origSrc + '" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes');
-                }
-              }
-            }
-            if (img.parentElement) {
-              const { position } = window.getComputedStyle(img.parentElement);
-              const valid = [
-                "absolute",
-                "fixed",
-                "relative"
-              ];
-              if (!valid.includes(position)) {
-                (0, _warnonce.warnOnce)('Image with src "' + origSrc + '" has "fill" and parent element with invalid "position". Provided "' + position + '" should be one of ' + valid.map(String).join(",") + ".");
-              }
-            }
-            if (img.height === 0) {
-              (0, _warnonce.warnOnce)('Image with src "' + origSrc + '" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.');
-            }
-          }
-          const heightModified = img.height.toString() !== img.getAttribute("height");
-          const widthModified = img.width.toString() !== img.getAttribute("width");
-          if (heightModified && !widthModified || !heightModified && widthModified) {
-            (0, _warnonce.warnOnce)('Image with src "' + origSrc + `" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.`);
-          }
-        }
-      });
-    }
-    function getDynamicProps(fetchPriority) {
-      if (Boolean(_react.use)) {
-        return {
-          fetchPriority
-        };
-      }
-      return {
-        fetchpriority: fetchPriority
-      };
-    }
-    var ImageElement = /* @__PURE__ */ (0, _react.forwardRef)((param, forwardedRef) => {
-      let { src, srcSet, sizes, height, width, decoding, className, style, fetchPriority, placeholder, loading, unoptimized, fill, onLoadRef, onLoadingCompleteRef, setBlurComplete, setShowAltText, sizesInput, onLoad, onError, ...rest } = param;
-      const ownRef = (0, _react.useCallback)((img) => {
-        if (!img) {
-          return;
-        }
-        if (onError) {
-          img.src = img.src;
-        }
-        if (process.env.NODE_ENV !== "production") {
-          if (!src) {
-            console.error('Image is missing required "src" property:', img);
-          }
-          if (img.getAttribute("alt") === null) {
-            console.error('Image is missing required "alt" property. Please add Alternative Text to describe the image for screen readers and search engines.');
-          }
-        }
-        if (img.complete) {
-          handleLoading(img, placeholder, onLoadRef, onLoadingCompleteRef, setBlurComplete, unoptimized, sizesInput);
-        }
-      }, [
-        src,
-        placeholder,
-        onLoadRef,
-        onLoadingCompleteRef,
-        setBlurComplete,
-        onError,
-        unoptimized,
-        sizesInput
-      ]);
-      const ref = (0, _usemergedref.useMergedRef)(forwardedRef, ownRef);
-      return /* @__PURE__ */ (0, _jsxruntime.jsx)("img", {
-        ...rest,
-        ...getDynamicProps(fetchPriority),
-        // It's intended to keep `loading` before `src` because React updates
-        // props in order which causes Safari/Firefox to not lazy load properly.
-        // See https://github.com/facebook/react/issues/25883
-        loading,
-        width,
-        height,
-        decoding,
-        "data-nimg": fill ? "fill" : "1",
-        className,
-        style,
-        // It's intended to keep `src` the last attribute because React updates
-        // attributes in order. If we keep `src` the first one, Safari will
-        // immediately start to fetch `src`, before `sizes` and `srcSet` are even
-        // updated by React. That causes multiple unnecessary requests if `srcSet`
-        // and `sizes` are defined.
-        // This bug cannot be reproduced in Chrome or Firefox.
-        sizes,
-        srcSet,
-        src,
-        ref,
-        onLoad: (event) => {
-          const img = event.currentTarget;
-          handleLoading(img, placeholder, onLoadRef, onLoadingCompleteRef, setBlurComplete, unoptimized, sizesInput);
-        },
-        onError: (event) => {
-          setShowAltText(true);
-          if (placeholder !== "empty") {
-            setBlurComplete(true);
-          }
-          if (onError) {
-            onError(event);
-          }
-        }
-      });
-    });
-    function ImagePreload(param) {
-      let { isAppRouter, imgAttributes } = param;
-      const opts = {
-        as: "image",
-        imageSrcSet: imgAttributes.srcSet,
-        imageSizes: imgAttributes.sizes,
-        crossOrigin: imgAttributes.crossOrigin,
-        referrerPolicy: imgAttributes.referrerPolicy,
-        ...getDynamicProps(imgAttributes.fetchPriority)
-      };
-      if (isAppRouter && _reactdom.default.preload) {
-        _reactdom.default.preload(
-          imgAttributes.src,
-          // @ts-expect-error TODO: upgrade to `@types/react-dom@18.3.x`
-          opts
+        var inst = cachedValue[0].inst, forceUpdate = cachedValue[1];
+        useLayoutEffect5(
+          function() {
+            inst.value = value;
+            inst.getSnapshot = getSnapshot;
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+          },
+          [subscribe2, value, getSnapshot]
         );
-        return null;
-      }
-      return /* @__PURE__ */ (0, _jsxruntime.jsx)(_head.default, {
-        children: /* @__PURE__ */ (0, _jsxruntime.jsx)("link", {
-          rel: "preload",
-          // Note how we omit the `href` attribute, as it would only be relevant
-          // for browsers that do not support `imagesrcset`, and in those cases
-          // it would cause the incorrect image to be preloaded.
-          //
-          // https://html.spec.whatwg.org/multipage/semantics.html#attr-link-imagesrcset
-          href: imgAttributes.srcSet ? void 0 : imgAttributes.src,
-          ...opts
-        }, "__nimg-" + imgAttributes.src + imgAttributes.srcSet + imgAttributes.sizes)
-      });
-    }
-    var Image2 = /* @__PURE__ */ (0, _react.forwardRef)((props, forwardedRef) => {
-      const pagesRouter = (0, _react.useContext)(_routercontextsharedruntime.RouterContext);
-      const isAppRouter = !pagesRouter;
-      const configContext = (0, _react.useContext)(_imageconfigcontextsharedruntime.ImageConfigContext);
-      const config = (0, _react.useMemo)(() => {
-        var _c_qualities;
-        const c = configEnv || configContext || _imageconfig.imageConfigDefault;
-        const allSizes = [
-          ...c.deviceSizes,
-          ...c.imageSizes
-        ].sort((a, b) => a - b);
-        const deviceSizes = c.deviceSizes.sort((a, b) => a - b);
-        const qualities = (_c_qualities = c.qualities) == null ? void 0 : _c_qualities.sort((a, b) => a - b);
-        return {
-          ...c,
-          allSizes,
-          deviceSizes,
-          qualities
-        };
-      }, [
-        configContext
-      ]);
-      const { onLoad, onLoadingComplete } = props;
-      const onLoadRef = (0, _react.useRef)(onLoad);
-      (0, _react.useEffect)(() => {
-        onLoadRef.current = onLoad;
-      }, [
-        onLoad
-      ]);
-      const onLoadingCompleteRef = (0, _react.useRef)(onLoadingComplete);
-      (0, _react.useEffect)(() => {
-        onLoadingCompleteRef.current = onLoadingComplete;
-      }, [
-        onLoadingComplete
-      ]);
-      const [blurComplete, setBlurComplete] = (0, _react.useState)(false);
-      const [showAltText, setShowAltText] = (0, _react.useState)(false);
-      const { props: imgAttributes, meta: imgMeta } = (0, _getimgprops.getImgProps)(props, {
-        defaultLoader: _imageloader.default,
-        imgConf: config,
-        blurComplete,
-        showAltText
-      });
-      return /* @__PURE__ */ (0, _jsxruntime.jsxs)(_jsxruntime.Fragment, {
-        children: [
-          /* @__PURE__ */ (0, _jsxruntime.jsx)(ImageElement, {
-            ...imgAttributes,
-            unoptimized: imgMeta.unoptimized,
-            placeholder: imgMeta.placeholder,
-            fill: imgMeta.fill,
-            onLoadRef,
-            onLoadingCompleteRef,
-            setBlurComplete,
-            setShowAltText,
-            sizesInput: props.sizes,
-            ref: forwardedRef
-          }),
-          imgMeta.priority ? /* @__PURE__ */ (0, _jsxruntime.jsx)(ImagePreload, {
-            isAppRouter,
-            imgAttributes
-          }) : null
-        ]
-      });
-    });
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/image-external.js
-var require_image_external = __commonJS({
-  "node_modules/next/dist/shared/lib/image-external.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      default: function() {
-        return _default;
-      },
-      getImageProps: function() {
-        return getImageProps;
-      }
-    });
-    var _interop_require_default = require_interop_require_default();
-    var _getimgprops = require_get_img_props();
-    var _imagecomponent = require_image_component();
-    var _imageloader = /* @__PURE__ */ _interop_require_default._(require_image_loader());
-    function getImageProps(imgProps) {
-      const { props } = (0, _getimgprops.getImgProps)(imgProps, {
-        defaultLoader: _imageloader.default,
-        // This is replaced by webpack define plugin
-        imgConf: process.env.__NEXT_IMAGE_OPTS
-      });
-      for (const [key, value] of Object.entries(props)) {
-        if (value === void 0) {
-          delete props[key];
-        }
-      }
-      return {
-        props
-      };
-    }
-    var _default = _imagecomponent.Image;
-  }
-});
-
-// node_modules/next/image.js
-var require_image = __commonJS({
-  "node_modules/next/image.js"(exports, module) {
-    "use strict";
-    module.exports = require_image_external();
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/querystring.js
-var require_querystring = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/querystring.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      assign: function() {
-        return assign;
-      },
-      searchParamsToUrlQuery: function() {
-        return searchParamsToUrlQuery;
-      },
-      urlQueryToSearchParams: function() {
-        return urlQueryToSearchParams;
-      }
-    });
-    function searchParamsToUrlQuery(searchParams) {
-      const query = {};
-      for (const [key, value] of searchParams.entries()) {
-        const existing = query[key];
-        if (typeof existing === "undefined") {
-          query[key] = value;
-        } else if (Array.isArray(existing)) {
-          existing.push(value);
-        } else {
-          query[key] = [
-            existing,
-            value
-          ];
-        }
-      }
-      return query;
-    }
-    function stringifyUrlQueryParam(param) {
-      if (typeof param === "string") {
-        return param;
-      }
-      if (typeof param === "number" && !isNaN(param) || typeof param === "boolean") {
-        return String(param);
-      } else {
-        return "";
-      }
-    }
-    function urlQueryToSearchParams(query) {
-      const searchParams = new URLSearchParams();
-      for (const [key, value] of Object.entries(query)) {
-        if (Array.isArray(value)) {
-          for (const item of value) {
-            searchParams.append(key, stringifyUrlQueryParam(item));
-          }
-        } else {
-          searchParams.set(key, stringifyUrlQueryParam(value));
-        }
-      }
-      return searchParams;
-    }
-    function assign(target) {
-      for (var _len = arguments.length, searchParamsList = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        searchParamsList[_key - 1] = arguments[_key];
-      }
-      for (const searchParams of searchParamsList) {
-        for (const key of searchParams.keys()) {
-          target.delete(key);
-        }
-        for (const [key, value] of searchParams.entries()) {
-          target.append(key, value);
-        }
-      }
-      return target;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/format-url.js
-var require_format_url = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/format-url.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      formatUrl: function() {
-        return formatUrl;
-      },
-      formatWithValidation: function() {
-        return formatWithValidation;
-      },
-      urlObjectKeys: function() {
-        return urlObjectKeys;
-      }
-    });
-    var _interop_require_wildcard = require_interop_require_wildcard();
-    var _querystring = /* @__PURE__ */ _interop_require_wildcard._(require_querystring());
-    var slashedProtocols = /https?|ftp|gopher|file/;
-    function formatUrl(urlObj) {
-      let { auth, hostname } = urlObj;
-      let protocol = urlObj.protocol || "";
-      let pathname = urlObj.pathname || "";
-      let hash = urlObj.hash || "";
-      let query = urlObj.query || "";
-      let host = false;
-      auth = auth ? encodeURIComponent(auth).replace(/%3A/i, ":") + "@" : "";
-      if (urlObj.host) {
-        host = auth + urlObj.host;
-      } else if (hostname) {
-        host = auth + (~hostname.indexOf(":") ? "[" + hostname + "]" : hostname);
-        if (urlObj.port) {
-          host += ":" + urlObj.port;
-        }
-      }
-      if (query && typeof query === "object") {
-        query = String(_querystring.urlQueryToSearchParams(query));
-      }
-      let search = urlObj.search || query && "?" + query || "";
-      if (protocol && !protocol.endsWith(":")) protocol += ":";
-      if (urlObj.slashes || (!protocol || slashedProtocols.test(protocol)) && host !== false) {
-        host = "//" + (host || "");
-        if (pathname && pathname[0] !== "/") pathname = "/" + pathname;
-      } else if (!host) {
-        host = "";
-      }
-      if (hash && hash[0] !== "#") hash = "#" + hash;
-      if (search && search[0] !== "?") search = "?" + search;
-      pathname = pathname.replace(/[?#]/g, encodeURIComponent);
-      search = search.replace("#", "%23");
-      return "" + protocol + host + pathname + search + hash;
-    }
-    var urlObjectKeys = [
-      "auth",
-      "hash",
-      "host",
-      "hostname",
-      "href",
-      "path",
-      "pathname",
-      "port",
-      "protocol",
-      "query",
-      "search",
-      "slashes"
-    ];
-    function formatWithValidation(url) {
-      if (process.env.NODE_ENV === "development") {
-        if (url !== null && typeof url === "object") {
-          Object.keys(url).forEach((key) => {
-            if (!urlObjectKeys.includes(key)) {
-              console.warn("Unknown key passed via urlObject into url.format: " + key);
-            }
-          });
-        }
-      }
-      return formatUrl(url);
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/omit.js
-var require_omit = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/omit.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "omit", {
-      enumerable: true,
-      get: function() {
-        return omit;
-      }
-    });
-    function omit(object, keys) {
-      const omitted = {};
-      Object.keys(object).forEach((key) => {
-        if (!keys.includes(key)) {
-          omitted[key] = object[key];
-        }
-      });
-      return omitted;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/utils.js
-var require_utils = __commonJS({
-  "node_modules/next/dist/shared/lib/utils.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      DecodeError: function() {
-        return DecodeError;
-      },
-      MiddlewareNotFoundError: function() {
-        return MiddlewareNotFoundError;
-      },
-      MissingStaticPage: function() {
-        return MissingStaticPage;
-      },
-      NormalizeError: function() {
-        return NormalizeError;
-      },
-      PageNotFoundError: function() {
-        return PageNotFoundError;
-      },
-      SP: function() {
-        return SP;
-      },
-      ST: function() {
-        return ST;
-      },
-      WEB_VITALS: function() {
-        return WEB_VITALS;
-      },
-      execOnce: function() {
-        return execOnce;
-      },
-      getDisplayName: function() {
-        return getDisplayName;
-      },
-      getLocationOrigin: function() {
-        return getLocationOrigin;
-      },
-      getURL: function() {
-        return getURL;
-      },
-      isAbsoluteUrl: function() {
-        return isAbsoluteUrl;
-      },
-      isResSent: function() {
-        return isResSent;
-      },
-      loadGetInitialProps: function() {
-        return loadGetInitialProps;
-      },
-      normalizeRepeatedSlashes: function() {
-        return normalizeRepeatedSlashes;
-      },
-      stringifyError: function() {
-        return stringifyError;
-      }
-    });
-    var WEB_VITALS = [
-      "CLS",
-      "FCP",
-      "FID",
-      "INP",
-      "LCP",
-      "TTFB"
-    ];
-    function execOnce(fn) {
-      let used = false;
-      let result;
-      return function() {
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-        if (!used) {
-          used = true;
-          result = fn(...args);
-        }
-        return result;
-      };
-    }
-    var ABSOLUTE_URL_REGEX = /^[a-zA-Z][a-zA-Z\d+\-.]*?:/;
-    var isAbsoluteUrl = (url) => ABSOLUTE_URL_REGEX.test(url);
-    function getLocationOrigin() {
-      const { protocol, hostname, port } = window.location;
-      return protocol + "//" + hostname + (port ? ":" + port : "");
-    }
-    function getURL() {
-      const { href } = window.location;
-      const origin = getLocationOrigin();
-      return href.substring(origin.length);
-    }
-    function getDisplayName(Component) {
-      return typeof Component === "string" ? Component : Component.displayName || Component.name || "Unknown";
-    }
-    function isResSent(res) {
-      return res.finished || res.headersSent;
-    }
-    function normalizeRepeatedSlashes(url) {
-      const urlParts = url.split("?");
-      const urlNoQuery = urlParts[0];
-      return urlNoQuery.replace(/\\/g, "/").replace(/\/\/+/g, "/") + (urlParts[1] ? "?" + urlParts.slice(1).join("?") : "");
-    }
-    async function loadGetInitialProps(App, ctx) {
-      if (process.env.NODE_ENV !== "production") {
-        var _App_prototype;
-        if ((_App_prototype = App.prototype) == null ? void 0 : _App_prototype.getInitialProps) {
-          const message = '"' + getDisplayName(App) + '.getInitialProps()" is defined as an instance method - visit https://nextjs.org/docs/messages/get-initial-props-as-an-instance-method for more information.';
-          throw Object.defineProperty(new Error(message), "__NEXT_ERROR_CODE", {
-            value: "E394",
-            enumerable: false,
-            configurable: true
-          });
-        }
-      }
-      const res = ctx.res || ctx.ctx && ctx.ctx.res;
-      if (!App.getInitialProps) {
-        if (ctx.ctx && ctx.Component) {
-          return {
-            pageProps: await loadGetInitialProps(ctx.Component, ctx.ctx)
-          };
-        }
-        return {};
-      }
-      const props = await App.getInitialProps(ctx);
-      if (res && isResSent(res)) {
-        return props;
-      }
-      if (!props) {
-        const message = '"' + getDisplayName(App) + '.getInitialProps()" should resolve to an object. But found "' + props + '" instead.';
-        throw Object.defineProperty(new Error(message), "__NEXT_ERROR_CODE", {
-          value: "E394",
-          enumerable: false,
-          configurable: true
-        });
-      }
-      if (process.env.NODE_ENV !== "production") {
-        if (Object.keys(props).length === 0 && !ctx.ctx) {
-          console.warn("" + getDisplayName(App) + " returned an empty object from `getInitialProps`. This de-optimizes and prevents automatic static optimization. https://nextjs.org/docs/messages/empty-object-getInitialProps");
-        }
-      }
-      return props;
-    }
-    var SP = typeof performance !== "undefined";
-    var ST = SP && [
-      "mark",
-      "measure",
-      "getEntriesByName"
-    ].every((method) => typeof performance[method] === "function");
-    var DecodeError = class extends Error {
-    };
-    var NormalizeError = class extends Error {
-    };
-    var PageNotFoundError = class extends Error {
-      constructor(page) {
-        super();
-        this.code = "ENOENT";
-        this.name = "PageNotFoundError";
-        this.message = "Cannot find module for page: " + page;
-      }
-    };
-    var MissingStaticPage = class extends Error {
-      constructor(page, message) {
-        super();
-        this.message = "Failed to load static file for page: " + page + " " + message;
-      }
-    };
-    var MiddlewareNotFoundError = class extends Error {
-      constructor() {
-        super();
-        this.code = "ENOENT";
-        this.message = "Cannot find the middleware module";
-      }
-    };
-    function stringifyError(error) {
-      return JSON.stringify({
-        message: error.message,
-        stack: error.stack
-      });
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/remove-trailing-slash.js
-var require_remove_trailing_slash = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/remove-trailing-slash.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "removeTrailingSlash", {
-      enumerable: true,
-      get: function() {
-        return removeTrailingSlash;
-      }
-    });
-    function removeTrailingSlash(route) {
-      return route.replace(/\/$/, "") || "/";
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/parse-path.js
-var require_parse_path = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/parse-path.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "parsePath", {
-      enumerable: true,
-      get: function() {
-        return parsePath;
-      }
-    });
-    function parsePath(path) {
-      const hashIndex = path.indexOf("#");
-      const queryIndex = path.indexOf("?");
-      const hasQuery = queryIndex > -1 && (hashIndex < 0 || queryIndex < hashIndex);
-      if (hasQuery || hashIndex > -1) {
-        return {
-          pathname: path.substring(0, hasQuery ? queryIndex : hashIndex),
-          query: hasQuery ? path.substring(queryIndex, hashIndex > -1 ? hashIndex : void 0) : "",
-          hash: hashIndex > -1 ? path.slice(hashIndex) : ""
-        };
-      }
-      return {
-        pathname: path,
-        query: "",
-        hash: ""
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/client/normalize-trailing-slash.js
-var require_normalize_trailing_slash = __commonJS({
-  "node_modules/next/dist/client/normalize-trailing-slash.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "normalizePathTrailingSlash", {
-      enumerable: true,
-      get: function() {
-        return normalizePathTrailingSlash;
-      }
-    });
-    var _removetrailingslash = require_remove_trailing_slash();
-    var _parsepath = require_parse_path();
-    var normalizePathTrailingSlash = (path) => {
-      if (!path.startsWith("/") || process.env.__NEXT_MANUAL_TRAILING_SLASH) {
-        return path;
-      }
-      const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-      if (process.env.__NEXT_TRAILING_SLASH) {
-        if (/\.[^/]+\/?$/.test(pathname)) {
-          return "" + (0, _removetrailingslash.removeTrailingSlash)(pathname) + query + hash;
-        } else if (pathname.endsWith("/")) {
-          return "" + pathname + query + hash;
-        } else {
-          return pathname + "/" + query + hash;
-        }
-      }
-      return "" + (0, _removetrailingslash.removeTrailingSlash)(pathname) + query + hash;
-    };
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/path-has-prefix.js
-var require_path_has_prefix = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/path-has-prefix.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "pathHasPrefix", {
-      enumerable: true,
-      get: function() {
-        return pathHasPrefix;
-      }
-    });
-    var _parsepath = require_parse_path();
-    function pathHasPrefix(path, prefix) {
-      if (typeof path !== "string") {
-        return false;
-      }
-      const { pathname } = (0, _parsepath.parsePath)(path);
-      return pathname === prefix || pathname.startsWith(prefix + "/");
-    }
-  }
-});
-
-// node_modules/next/dist/client/has-base-path.js
-var require_has_base_path = __commonJS({
-  "node_modules/next/dist/client/has-base-path.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "hasBasePath", {
-      enumerable: true,
-      get: function() {
-        return hasBasePath;
-      }
-    });
-    var _pathhasprefix = require_path_has_prefix();
-    var basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
-    function hasBasePath(path) {
-      return (0, _pathhasprefix.pathHasPrefix)(path, basePath);
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/is-local-url.js
-var require_is_local_url = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/is-local-url.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "isLocalURL", {
-      enumerable: true,
-      get: function() {
-        return isLocalURL;
-      }
-    });
-    var _utils = require_utils();
-    var _hasbasepath = require_has_base_path();
-    function isLocalURL(url) {
-      if (!(0, _utils.isAbsoluteUrl)(url)) return true;
-      try {
-        const locationOrigin = (0, _utils.getLocationOrigin)();
-        const resolved = new URL(url, locationOrigin);
-        return resolved.origin === locationOrigin && (0, _hasbasepath.hasBasePath)(resolved.pathname);
-      } catch (_) {
-        return false;
-      }
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/sorted-routes.js
-var require_sorted_routes = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/sorted-routes.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      getSortedRouteObjects: function() {
-        return getSortedRouteObjects;
-      },
-      getSortedRoutes: function() {
-        return getSortedRoutes;
-      }
-    });
-    var UrlNode = class _UrlNode {
-      insert(urlPath) {
-        this._insert(urlPath.split("/").filter(Boolean), [], false);
-      }
-      smoosh() {
-        return this._smoosh();
-      }
-      _smoosh(prefix) {
-        if (prefix === void 0) prefix = "/";
-        const childrenPaths = [
-          ...this.children.keys()
-        ].sort();
-        if (this.slugName !== null) {
-          childrenPaths.splice(childrenPaths.indexOf("[]"), 1);
-        }
-        if (this.restSlugName !== null) {
-          childrenPaths.splice(childrenPaths.indexOf("[...]"), 1);
-        }
-        if (this.optionalRestSlugName !== null) {
-          childrenPaths.splice(childrenPaths.indexOf("[[...]]"), 1);
-        }
-        const routes = childrenPaths.map((c) => this.children.get(c)._smoosh("" + prefix + c + "/")).reduce((prev, curr) => [
-          ...prev,
-          ...curr
-        ], []);
-        if (this.slugName !== null) {
-          routes.push(...this.children.get("[]")._smoosh(prefix + "[" + this.slugName + "]/"));
-        }
-        if (!this.placeholder) {
-          const r2 = prefix === "/" ? "/" : prefix.slice(0, -1);
-          if (this.optionalRestSlugName != null) {
-            throw Object.defineProperty(new Error('You cannot define a route with the same specificity as a optional catch-all route ("' + r2 + '" and "' + r2 + "[[..." + this.optionalRestSlugName + ']]").'), "__NEXT_ERROR_CODE", {
-              value: "E458",
-              enumerable: false,
-              configurable: true
+        useEffect18(
+          function() {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst });
+            return subscribe2(function() {
+              checkIfSnapshotChanged(inst) && forceUpdate({ inst });
             });
-          }
-          routes.unshift(r2);
-        }
-        if (this.restSlugName !== null) {
-          routes.push(...this.children.get("[...]")._smoosh(prefix + "[..." + this.restSlugName + "]/"));
-        }
-        if (this.optionalRestSlugName !== null) {
-          routes.push(...this.children.get("[[...]]")._smoosh(prefix + "[[..." + this.optionalRestSlugName + "]]/"));
-        }
-        return routes;
-      }
-      _insert(urlPaths, slugNames, isCatchAll) {
-        if (urlPaths.length === 0) {
-          this.placeholder = false;
-          return;
-        }
-        if (isCatchAll) {
-          throw Object.defineProperty(new Error("Catch-all must be the last part of the URL."), "__NEXT_ERROR_CODE", {
-            value: "E392",
-            enumerable: false,
-            configurable: true
-          });
-        }
-        let nextSegment = urlPaths[0];
-        if (nextSegment.startsWith("[") && nextSegment.endsWith("]")) {
-          let handleSlug = function(previousSlug, nextSlug) {
-            if (previousSlug !== null) {
-              if (previousSlug !== nextSlug) {
-                throw Object.defineProperty(new Error("You cannot use different slug names for the same dynamic path ('" + previousSlug + "' !== '" + nextSlug + "')."), "__NEXT_ERROR_CODE", {
-                  value: "E337",
-                  enumerable: false,
-                  configurable: true
-                });
-              }
-            }
-            slugNames.forEach((slug) => {
-              if (slug === nextSlug) {
-                throw Object.defineProperty(new Error('You cannot have the same slug name "' + nextSlug + '" repeat within a single dynamic path'), "__NEXT_ERROR_CODE", {
-                  value: "E247",
-                  enumerable: false,
-                  configurable: true
-                });
-              }
-              if (slug.replace(/\W/g, "") === nextSegment.replace(/\W/g, "")) {
-                throw Object.defineProperty(new Error('You cannot have the slug names "' + slug + '" and "' + nextSlug + '" differ only by non-word symbols within a single dynamic path'), "__NEXT_ERROR_CODE", {
-                  value: "E499",
-                  enumerable: false,
-                  configurable: true
-                });
-              }
-            });
-            slugNames.push(nextSlug);
-          };
-          let segmentName = nextSegment.slice(1, -1);
-          let isOptional = false;
-          if (segmentName.startsWith("[") && segmentName.endsWith("]")) {
-            segmentName = segmentName.slice(1, -1);
-            isOptional = true;
-          }
-          if (segmentName.startsWith("\u2026")) {
-            throw Object.defineProperty(new Error("Detected a three-dot character ('\u2026') at ('" + segmentName + "'). Did you mean ('...')?"), "__NEXT_ERROR_CODE", {
-              value: "E147",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          if (segmentName.startsWith("...")) {
-            segmentName = segmentName.substring(3);
-            isCatchAll = true;
-          }
-          if (segmentName.startsWith("[") || segmentName.endsWith("]")) {
-            throw Object.defineProperty(new Error("Segment names may not start or end with extra brackets ('" + segmentName + "')."), "__NEXT_ERROR_CODE", {
-              value: "E421",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          if (segmentName.startsWith(".")) {
-            throw Object.defineProperty(new Error("Segment names may not start with erroneous periods ('" + segmentName + "')."), "__NEXT_ERROR_CODE", {
-              value: "E288",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          if (isCatchAll) {
-            if (isOptional) {
-              if (this.restSlugName != null) {
-                throw Object.defineProperty(new Error('You cannot use both an required and optional catch-all route at the same level ("[...' + this.restSlugName + ']" and "' + urlPaths[0] + '" ).'), "__NEXT_ERROR_CODE", {
-                  value: "E299",
-                  enumerable: false,
-                  configurable: true
-                });
-              }
-              handleSlug(this.optionalRestSlugName, segmentName);
-              this.optionalRestSlugName = segmentName;
-              nextSegment = "[[...]]";
-            } else {
-              if (this.optionalRestSlugName != null) {
-                throw Object.defineProperty(new Error('You cannot use both an optional and required catch-all route at the same level ("[[...' + this.optionalRestSlugName + ']]" and "' + urlPaths[0] + '").'), "__NEXT_ERROR_CODE", {
-                  value: "E300",
-                  enumerable: false,
-                  configurable: true
-                });
-              }
-              handleSlug(this.restSlugName, segmentName);
-              this.restSlugName = segmentName;
-              nextSegment = "[...]";
-            }
-          } else {
-            if (isOptional) {
-              throw Object.defineProperty(new Error('Optional route parameters are not yet supported ("' + urlPaths[0] + '").'), "__NEXT_ERROR_CODE", {
-                value: "E435",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            handleSlug(this.slugName, segmentName);
-            this.slugName = segmentName;
-            nextSegment = "[]";
-          }
-        }
-        if (!this.children.has(nextSegment)) {
-          this.children.set(nextSegment, new _UrlNode());
-        }
-        this.children.get(nextSegment)._insert(urlPaths.slice(1), slugNames, isCatchAll);
-      }
-      constructor() {
-        this.placeholder = true;
-        this.children = /* @__PURE__ */ new Map();
-        this.slugName = null;
-        this.restSlugName = null;
-        this.optionalRestSlugName = null;
-      }
-    };
-    function getSortedRoutes(normalizedPages) {
-      const root = new UrlNode();
-      normalizedPages.forEach((pagePath) => root.insert(pagePath));
-      return root.smoosh();
-    }
-    function getSortedRouteObjects(objects, getter) {
-      const indexes = {};
-      const pathnames = [];
-      for (let i = 0; i < objects.length; i++) {
-        const pathname = getter(objects[i]);
-        indexes[pathname] = i;
-        pathnames[i] = pathname;
-      }
-      const sorted = getSortedRoutes(pathnames);
-      return sorted.map((pathname) => objects[indexes[pathname]]);
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/page-path/ensure-leading-slash.js
-var require_ensure_leading_slash = __commonJS({
-  "node_modules/next/dist/shared/lib/page-path/ensure-leading-slash.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "ensureLeadingSlash", {
-      enumerable: true,
-      get: function() {
-        return ensureLeadingSlash;
-      }
-    });
-    function ensureLeadingSlash(path) {
-      return path.startsWith("/") ? path : "/" + path;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/segment.js
-var require_segment = __commonJS({
-  "node_modules/next/dist/shared/lib/segment.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      DEFAULT_SEGMENT_KEY: function() {
-        return DEFAULT_SEGMENT_KEY;
-      },
-      PAGE_SEGMENT_KEY: function() {
-        return PAGE_SEGMENT_KEY;
-      },
-      addSearchParamsIfPageSegment: function() {
-        return addSearchParamsIfPageSegment;
-      },
-      isGroupSegment: function() {
-        return isGroupSegment;
-      },
-      isParallelRouteSegment: function() {
-        return isParallelRouteSegment;
-      }
-    });
-    function isGroupSegment(segment) {
-      return segment[0] === "(" && segment.endsWith(")");
-    }
-    function isParallelRouteSegment(segment) {
-      return segment.startsWith("@") && segment !== "@children";
-    }
-    function addSearchParamsIfPageSegment(segment, searchParams) {
-      const isPageSegment = segment.includes(PAGE_SEGMENT_KEY);
-      if (isPageSegment) {
-        const stringifiedQuery = JSON.stringify(searchParams);
-        return stringifiedQuery !== "{}" ? PAGE_SEGMENT_KEY + "?" + stringifiedQuery : PAGE_SEGMENT_KEY;
-      }
-      return segment;
-    }
-    var PAGE_SEGMENT_KEY = "__PAGE__";
-    var DEFAULT_SEGMENT_KEY = "__DEFAULT__";
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/app-paths.js
-var require_app_paths = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/app-paths.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      normalizeAppPath: function() {
-        return normalizeAppPath;
-      },
-      normalizeRscURL: function() {
-        return normalizeRscURL;
-      }
-    });
-    var _ensureleadingslash = require_ensure_leading_slash();
-    var _segment = require_segment();
-    function normalizeAppPath(route) {
-      return (0, _ensureleadingslash.ensureLeadingSlash)(route.split("/").reduce((pathname, segment, index2, segments) => {
-        if (!segment) {
-          return pathname;
-        }
-        if ((0, _segment.isGroupSegment)(segment)) {
-          return pathname;
-        }
-        if (segment[0] === "@") {
-          return pathname;
-        }
-        if ((segment === "page" || segment === "route") && index2 === segments.length - 1) {
-          return pathname;
-        }
-        return pathname + "/" + segment;
-      }, ""));
-    }
-    function normalizeRscURL(url) {
-      return url.replace(
-        /\.rsc($|\?)/,
-        // $1 ensures `?` is preserved
-        "$1"
-      );
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/interception-routes.js
-var require_interception_routes = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/interception-routes.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      INTERCEPTION_ROUTE_MARKERS: function() {
-        return INTERCEPTION_ROUTE_MARKERS;
-      },
-      extractInterceptionRouteInformation: function() {
-        return extractInterceptionRouteInformation;
-      },
-      isInterceptionRouteAppPath: function() {
-        return isInterceptionRouteAppPath;
-      }
-    });
-    var _apppaths = require_app_paths();
-    var INTERCEPTION_ROUTE_MARKERS = [
-      "(..)(..)",
-      "(.)",
-      "(..)",
-      "(...)"
-    ];
-    function isInterceptionRouteAppPath(path) {
-      return path.split("/").find((segment) => INTERCEPTION_ROUTE_MARKERS.find((m) => segment.startsWith(m))) !== void 0;
-    }
-    function extractInterceptionRouteInformation(path) {
-      let interceptingRoute, marker, interceptedRoute;
-      for (const segment of path.split("/")) {
-        marker = INTERCEPTION_ROUTE_MARKERS.find((m) => segment.startsWith(m));
-        if (marker) {
-          ;
-          [interceptingRoute, interceptedRoute] = path.split(marker, 2);
-          break;
-        }
-      }
-      if (!interceptingRoute || !marker || !interceptedRoute) {
-        throw Object.defineProperty(new Error("Invalid interception route: " + path + ". Must be in the format /<intercepting route>/(..|...|..)(..)/<intercepted route>"), "__NEXT_ERROR_CODE", {
-          value: "E269",
-          enumerable: false,
-          configurable: true
-        });
-      }
-      interceptingRoute = (0, _apppaths.normalizeAppPath)(interceptingRoute);
-      switch (marker) {
-        case "(.)":
-          if (interceptingRoute === "/") {
-            interceptedRoute = "/" + interceptedRoute;
-          } else {
-            interceptedRoute = interceptingRoute + "/" + interceptedRoute;
-          }
-          break;
-        case "(..)":
-          if (interceptingRoute === "/") {
-            throw Object.defineProperty(new Error("Invalid interception route: " + path + ". Cannot use (..) marker at the root level, use (.) instead."), "__NEXT_ERROR_CODE", {
-              value: "E207",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          interceptedRoute = interceptingRoute.split("/").slice(0, -1).concat(interceptedRoute).join("/");
-          break;
-        case "(...)":
-          interceptedRoute = "/" + interceptedRoute;
-          break;
-        case "(..)(..)":
-          const splitInterceptingRoute = interceptingRoute.split("/");
-          if (splitInterceptingRoute.length <= 2) {
-            throw Object.defineProperty(new Error("Invalid interception route: " + path + ". Cannot use (..)(..) marker at the root level or one level up."), "__NEXT_ERROR_CODE", {
-              value: "E486",
-              enumerable: false,
-              configurable: true
-            });
-          }
-          interceptedRoute = splitInterceptingRoute.slice(0, -2).concat(interceptedRoute).join("/");
-          break;
-        default:
-          throw Object.defineProperty(new Error("Invariant: unexpected marker"), "__NEXT_ERROR_CODE", {
-            value: "E112",
-            enumerable: false,
-            configurable: true
-          });
-      }
-      return {
-        interceptingRoute,
-        interceptedRoute
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/is-dynamic.js
-var require_is_dynamic = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/is-dynamic.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "isDynamicRoute", {
-      enumerable: true,
-      get: function() {
-        return isDynamicRoute;
-      }
-    });
-    var _interceptionroutes = require_interception_routes();
-    var TEST_ROUTE = /\/[^/]*\[[^/]+\][^/]*(?=\/|$)/;
-    var TEST_STRICT_ROUTE = /\/\[[^/]+\](?=\/|$)/;
-    function isDynamicRoute(route, strict) {
-      if (strict === void 0) strict = true;
-      if ((0, _interceptionroutes.isInterceptionRouteAppPath)(route)) {
-        route = (0, _interceptionroutes.extractInterceptionRouteInformation)(route).interceptedRoute;
-      }
-      if (strict) {
-        return TEST_STRICT_ROUTE.test(route);
-      }
-      return TEST_ROUTE.test(route);
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/index.js
-var require_utils2 = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/index.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      getSortedRouteObjects: function() {
-        return _sortedroutes.getSortedRouteObjects;
-      },
-      getSortedRoutes: function() {
-        return _sortedroutes.getSortedRoutes;
-      },
-      isDynamicRoute: function() {
-        return _isdynamic.isDynamicRoute;
-      }
-    });
-    var _sortedroutes = require_sorted_routes();
-    var _isdynamic = require_is_dynamic();
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/route-matcher.js
-var require_route_matcher = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/route-matcher.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "getRouteMatcher", {
-      enumerable: true,
-      get: function() {
-        return getRouteMatcher;
-      }
-    });
-    var _utils = require_utils();
-    function getRouteMatcher(param) {
-      let { re, groups } = param;
-      return (pathname) => {
-        const routeMatch = re.exec(pathname);
-        if (!routeMatch) return false;
-        const decode = (param2) => {
-          try {
-            return decodeURIComponent(param2);
-          } catch (e) {
-            throw Object.defineProperty(new _utils.DecodeError("failed to decode param"), "__NEXT_ERROR_CODE", {
-              value: "E528",
-              enumerable: false,
-              configurable: true
-            });
-          }
-        };
-        const params = {};
-        for (const [key, group] of Object.entries(groups)) {
-          const match = routeMatch[group.pos];
-          if (match !== void 0) {
-            if (group.repeat) {
-              params[key] = match.split("/").map((entry) => decode(entry));
-            } else {
-              params[key] = decode(match);
-            }
-          }
-        }
-        return params;
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/lib/constants.js
-var require_constants = __commonJS({
-  "node_modules/next/dist/lib/constants.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      ACTION_SUFFIX: function() {
-        return ACTION_SUFFIX;
-      },
-      APP_DIR_ALIAS: function() {
-        return APP_DIR_ALIAS;
-      },
-      CACHE_ONE_YEAR: function() {
-        return CACHE_ONE_YEAR;
-      },
-      DOT_NEXT_ALIAS: function() {
-        return DOT_NEXT_ALIAS;
-      },
-      ESLINT_DEFAULT_DIRS: function() {
-        return ESLINT_DEFAULT_DIRS;
-      },
-      GSP_NO_RETURNED_VALUE: function() {
-        return GSP_NO_RETURNED_VALUE;
-      },
-      GSSP_COMPONENT_MEMBER_ERROR: function() {
-        return GSSP_COMPONENT_MEMBER_ERROR;
-      },
-      GSSP_NO_RETURNED_VALUE: function() {
-        return GSSP_NO_RETURNED_VALUE;
-      },
-      INFINITE_CACHE: function() {
-        return INFINITE_CACHE;
-      },
-      INSTRUMENTATION_HOOK_FILENAME: function() {
-        return INSTRUMENTATION_HOOK_FILENAME;
-      },
-      MATCHED_PATH_HEADER: function() {
-        return MATCHED_PATH_HEADER;
-      },
-      MIDDLEWARE_FILENAME: function() {
-        return MIDDLEWARE_FILENAME;
-      },
-      MIDDLEWARE_LOCATION_REGEXP: function() {
-        return MIDDLEWARE_LOCATION_REGEXP;
-      },
-      NEXT_BODY_SUFFIX: function() {
-        return NEXT_BODY_SUFFIX;
-      },
-      NEXT_CACHE_IMPLICIT_TAG_ID: function() {
-        return NEXT_CACHE_IMPLICIT_TAG_ID;
-      },
-      NEXT_CACHE_REVALIDATED_TAGS_HEADER: function() {
-        return NEXT_CACHE_REVALIDATED_TAGS_HEADER;
-      },
-      NEXT_CACHE_REVALIDATE_TAG_TOKEN_HEADER: function() {
-        return NEXT_CACHE_REVALIDATE_TAG_TOKEN_HEADER;
-      },
-      NEXT_CACHE_SOFT_TAG_MAX_LENGTH: function() {
-        return NEXT_CACHE_SOFT_TAG_MAX_LENGTH;
-      },
-      NEXT_CACHE_TAGS_HEADER: function() {
-        return NEXT_CACHE_TAGS_HEADER;
-      },
-      NEXT_CACHE_TAG_MAX_ITEMS: function() {
-        return NEXT_CACHE_TAG_MAX_ITEMS;
-      },
-      NEXT_CACHE_TAG_MAX_LENGTH: function() {
-        return NEXT_CACHE_TAG_MAX_LENGTH;
-      },
-      NEXT_DATA_SUFFIX: function() {
-        return NEXT_DATA_SUFFIX;
-      },
-      NEXT_INTERCEPTION_MARKER_PREFIX: function() {
-        return NEXT_INTERCEPTION_MARKER_PREFIX;
-      },
-      NEXT_META_SUFFIX: function() {
-        return NEXT_META_SUFFIX;
-      },
-      NEXT_QUERY_PARAM_PREFIX: function() {
-        return NEXT_QUERY_PARAM_PREFIX;
-      },
-      NEXT_RESUME_HEADER: function() {
-        return NEXT_RESUME_HEADER;
-      },
-      NON_STANDARD_NODE_ENV: function() {
-        return NON_STANDARD_NODE_ENV;
-      },
-      PAGES_DIR_ALIAS: function() {
-        return PAGES_DIR_ALIAS;
-      },
-      PRERENDER_REVALIDATE_HEADER: function() {
-        return PRERENDER_REVALIDATE_HEADER;
-      },
-      PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER: function() {
-        return PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER;
-      },
-      PUBLIC_DIR_MIDDLEWARE_CONFLICT: function() {
-        return PUBLIC_DIR_MIDDLEWARE_CONFLICT;
-      },
-      ROOT_DIR_ALIAS: function() {
-        return ROOT_DIR_ALIAS;
-      },
-      RSC_ACTION_CLIENT_WRAPPER_ALIAS: function() {
-        return RSC_ACTION_CLIENT_WRAPPER_ALIAS;
-      },
-      RSC_ACTION_ENCRYPTION_ALIAS: function() {
-        return RSC_ACTION_ENCRYPTION_ALIAS;
-      },
-      RSC_ACTION_PROXY_ALIAS: function() {
-        return RSC_ACTION_PROXY_ALIAS;
-      },
-      RSC_ACTION_VALIDATE_ALIAS: function() {
-        return RSC_ACTION_VALIDATE_ALIAS;
-      },
-      RSC_CACHE_WRAPPER_ALIAS: function() {
-        return RSC_CACHE_WRAPPER_ALIAS;
-      },
-      RSC_MOD_REF_PROXY_ALIAS: function() {
-        return RSC_MOD_REF_PROXY_ALIAS;
-      },
-      RSC_PREFETCH_SUFFIX: function() {
-        return RSC_PREFETCH_SUFFIX;
-      },
-      RSC_SEGMENTS_DIR_SUFFIX: function() {
-        return RSC_SEGMENTS_DIR_SUFFIX;
-      },
-      RSC_SEGMENT_SUFFIX: function() {
-        return RSC_SEGMENT_SUFFIX;
-      },
-      RSC_SUFFIX: function() {
-        return RSC_SUFFIX;
-      },
-      SERVER_PROPS_EXPORT_ERROR: function() {
-        return SERVER_PROPS_EXPORT_ERROR;
-      },
-      SERVER_PROPS_GET_INIT_PROPS_CONFLICT: function() {
-        return SERVER_PROPS_GET_INIT_PROPS_CONFLICT;
-      },
-      SERVER_PROPS_SSG_CONFLICT: function() {
-        return SERVER_PROPS_SSG_CONFLICT;
-      },
-      SERVER_RUNTIME: function() {
-        return SERVER_RUNTIME;
-      },
-      SSG_FALLBACK_EXPORT_ERROR: function() {
-        return SSG_FALLBACK_EXPORT_ERROR;
-      },
-      SSG_GET_INITIAL_PROPS_CONFLICT: function() {
-        return SSG_GET_INITIAL_PROPS_CONFLICT;
-      },
-      STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR: function() {
-        return STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR;
-      },
-      UNSTABLE_REVALIDATE_RENAME_ERROR: function() {
-        return UNSTABLE_REVALIDATE_RENAME_ERROR;
-      },
-      WEBPACK_LAYERS: function() {
-        return WEBPACK_LAYERS;
-      },
-      WEBPACK_RESOURCE_QUERIES: function() {
-        return WEBPACK_RESOURCE_QUERIES;
-      }
-    });
-    var NEXT_QUERY_PARAM_PREFIX = "nxtP";
-    var NEXT_INTERCEPTION_MARKER_PREFIX = "nxtI";
-    var MATCHED_PATH_HEADER = "x-matched-path";
-    var PRERENDER_REVALIDATE_HEADER = "x-prerender-revalidate";
-    var PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER = "x-prerender-revalidate-if-generated";
-    var RSC_PREFETCH_SUFFIX = ".prefetch.rsc";
-    var RSC_SEGMENTS_DIR_SUFFIX = ".segments";
-    var RSC_SEGMENT_SUFFIX = ".segment.rsc";
-    var RSC_SUFFIX = ".rsc";
-    var ACTION_SUFFIX = ".action";
-    var NEXT_DATA_SUFFIX = ".json";
-    var NEXT_META_SUFFIX = ".meta";
-    var NEXT_BODY_SUFFIX = ".body";
-    var NEXT_CACHE_TAGS_HEADER = "x-next-cache-tags";
-    var NEXT_CACHE_REVALIDATED_TAGS_HEADER = "x-next-revalidated-tags";
-    var NEXT_CACHE_REVALIDATE_TAG_TOKEN_HEADER = "x-next-revalidate-tag-token";
-    var NEXT_RESUME_HEADER = "next-resume";
-    var NEXT_CACHE_TAG_MAX_ITEMS = 128;
-    var NEXT_CACHE_TAG_MAX_LENGTH = 256;
-    var NEXT_CACHE_SOFT_TAG_MAX_LENGTH = 1024;
-    var NEXT_CACHE_IMPLICIT_TAG_ID = "_N_T_";
-    var CACHE_ONE_YEAR = 31536e3;
-    var INFINITE_CACHE = 4294967294;
-    var MIDDLEWARE_FILENAME = "middleware";
-    var MIDDLEWARE_LOCATION_REGEXP = `(?:src/)?${MIDDLEWARE_FILENAME}`;
-    var INSTRUMENTATION_HOOK_FILENAME = "instrumentation";
-    var PAGES_DIR_ALIAS = "private-next-pages";
-    var DOT_NEXT_ALIAS = "private-dot-next";
-    var ROOT_DIR_ALIAS = "private-next-root-dir";
-    var APP_DIR_ALIAS = "private-next-app-dir";
-    var RSC_MOD_REF_PROXY_ALIAS = "private-next-rsc-mod-ref-proxy";
-    var RSC_ACTION_VALIDATE_ALIAS = "private-next-rsc-action-validate";
-    var RSC_ACTION_PROXY_ALIAS = "private-next-rsc-server-reference";
-    var RSC_CACHE_WRAPPER_ALIAS = "private-next-rsc-cache-wrapper";
-    var RSC_ACTION_ENCRYPTION_ALIAS = "private-next-rsc-action-encryption";
-    var RSC_ACTION_CLIENT_WRAPPER_ALIAS = "private-next-rsc-action-client-wrapper";
-    var PUBLIC_DIR_MIDDLEWARE_CONFLICT = `You can not have a '_next' folder inside of your public folder. This conflicts with the internal '/_next' route. https://nextjs.org/docs/messages/public-next-folder-conflict`;
-    var SSG_GET_INITIAL_PROPS_CONFLICT = `You can not use getInitialProps with getStaticProps. To use SSG, please remove your getInitialProps`;
-    var SERVER_PROPS_GET_INIT_PROPS_CONFLICT = `You can not use getInitialProps with getServerSideProps. Please remove getInitialProps.`;
-    var SERVER_PROPS_SSG_CONFLICT = `You can not use getStaticProps or getStaticPaths with getServerSideProps. To use SSG, please remove getServerSideProps`;
-    var STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR = `can not have getInitialProps/getServerSideProps, https://nextjs.org/docs/messages/404-get-initial-props`;
-    var SERVER_PROPS_EXPORT_ERROR = `pages with \`getServerSideProps\` can not be exported. See more info here: https://nextjs.org/docs/messages/gssp-export`;
-    var GSP_NO_RETURNED_VALUE = "Your `getStaticProps` function did not return an object. Did you forget to add a `return`?";
-    var GSSP_NO_RETURNED_VALUE = "Your `getServerSideProps` function did not return an object. Did you forget to add a `return`?";
-    var UNSTABLE_REVALIDATE_RENAME_ERROR = "The `unstable_revalidate` property is available for general use.\nPlease use `revalidate` instead.";
-    var GSSP_COMPONENT_MEMBER_ERROR = `can not be attached to a page's component and must be exported from the page. See more info here: https://nextjs.org/docs/messages/gssp-component-member`;
-    var NON_STANDARD_NODE_ENV = `You are using a non-standard "NODE_ENV" value in your environment. This creates inconsistencies in the project and is strongly advised against. Read more: https://nextjs.org/docs/messages/non-standard-node-env`;
-    var SSG_FALLBACK_EXPORT_ERROR = `Pages with \`fallback\` enabled in \`getStaticPaths\` can not be exported. See more info here: https://nextjs.org/docs/messages/ssg-fallback-true-export`;
-    var ESLINT_DEFAULT_DIRS = [
-      "app",
-      "pages",
-      "components",
-      "lib",
-      "src"
-    ];
-    var SERVER_RUNTIME = {
-      edge: "edge",
-      experimentalEdge: "experimental-edge",
-      nodejs: "nodejs"
-    };
-    var WEBPACK_LAYERS_NAMES = {
-      /**
-      * The layer for the shared code between the client and server bundles.
-      */
-      shared: "shared",
-      /**
-      * The layer for server-only runtime and picking up `react-server` export conditions.
-      * Including app router RSC pages and app router custom routes and metadata routes.
-      */
-      reactServerComponents: "rsc",
-      /**
-      * Server Side Rendering layer for app (ssr).
-      */
-      serverSideRendering: "ssr",
-      /**
-      * The browser client bundle layer for actions.
-      */
-      actionBrowser: "action-browser",
-      /**
-      * The Node.js bundle layer for the API routes.
-      */
-      apiNode: "api-node",
-      /**
-      * The Edge Lite bundle layer for the API routes.
-      */
-      apiEdge: "api-edge",
-      /**
-      * The layer for the middleware code.
-      */
-      middleware: "middleware",
-      /**
-      * The layer for the instrumentation hooks.
-      */
-      instrument: "instrument",
-      /**
-      * The layer for assets on the edge.
-      */
-      edgeAsset: "edge-asset",
-      /**
-      * The browser client bundle layer for App directory.
-      */
-      appPagesBrowser: "app-pages-browser",
-      /**
-      * The browser client bundle layer for Pages directory.
-      */
-      pagesDirBrowser: "pages-dir-browser",
-      /**
-      * The Edge Lite bundle layer for Pages directory.
-      */
-      pagesDirEdge: "pages-dir-edge",
-      /**
-      * The Node.js bundle layer for Pages directory.
-      */
-      pagesDirNode: "pages-dir-node"
-    };
-    var WEBPACK_LAYERS = {
-      ...WEBPACK_LAYERS_NAMES,
-      GROUP: {
-        builtinReact: [
-          WEBPACK_LAYERS_NAMES.reactServerComponents,
-          WEBPACK_LAYERS_NAMES.actionBrowser
-        ],
-        serverOnly: [
-          WEBPACK_LAYERS_NAMES.reactServerComponents,
-          WEBPACK_LAYERS_NAMES.actionBrowser,
-          WEBPACK_LAYERS_NAMES.instrument,
-          WEBPACK_LAYERS_NAMES.middleware
-        ],
-        neutralTarget: [
-          // pages api
-          WEBPACK_LAYERS_NAMES.apiNode,
-          WEBPACK_LAYERS_NAMES.apiEdge
-        ],
-        clientOnly: [
-          WEBPACK_LAYERS_NAMES.serverSideRendering,
-          WEBPACK_LAYERS_NAMES.appPagesBrowser
-        ],
-        bundled: [
-          WEBPACK_LAYERS_NAMES.reactServerComponents,
-          WEBPACK_LAYERS_NAMES.actionBrowser,
-          WEBPACK_LAYERS_NAMES.serverSideRendering,
-          WEBPACK_LAYERS_NAMES.appPagesBrowser,
-          WEBPACK_LAYERS_NAMES.shared,
-          WEBPACK_LAYERS_NAMES.instrument,
-          WEBPACK_LAYERS_NAMES.middleware
-        ],
-        appPages: [
-          // app router pages and layouts
-          WEBPACK_LAYERS_NAMES.reactServerComponents,
-          WEBPACK_LAYERS_NAMES.serverSideRendering,
-          WEBPACK_LAYERS_NAMES.appPagesBrowser,
-          WEBPACK_LAYERS_NAMES.actionBrowser
-        ]
-      }
-    };
-    var WEBPACK_RESOURCE_QUERIES = {
-      edgeSSREntry: "__next_edge_ssr_entry__",
-      metadata: "__next_metadata__",
-      metadataRoute: "__next_metadata_route__",
-      metadataImageMeta: "__next_metadata_image_meta__"
-    };
-  }
-});
-
-// node_modules/next/dist/shared/lib/escape-regexp.js
-var require_escape_regexp = __commonJS({
-  "node_modules/next/dist/shared/lib/escape-regexp.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "escapeStringRegexp", {
-      enumerable: true,
-      get: function() {
-        return escapeStringRegexp;
-      }
-    });
-    var reHasRegExp = /[|\\{}()[\]^$+*?.-]/;
-    var reReplaceRegExp = /[|\\{}()[\]^$+*?.-]/g;
-    function escapeStringRegexp(str) {
-      if (reHasRegExp.test(str)) {
-        return str.replace(reReplaceRegExp, "\\$&");
-      }
-      return str;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/route-regex.js
-var require_route_regex = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/route-regex.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      getNamedMiddlewareRegex: function() {
-        return getNamedMiddlewareRegex;
-      },
-      getNamedRouteRegex: function() {
-        return getNamedRouteRegex;
-      },
-      getRouteRegex: function() {
-        return getRouteRegex;
-      },
-      parseParameter: function() {
-        return parseParameter;
-      }
-    });
-    var _constants = require_constants();
-    var _interceptionroutes = require_interception_routes();
-    var _escaperegexp = require_escape_regexp();
-    var _removetrailingslash = require_remove_trailing_slash();
-    var PARAMETER_PATTERN = /^([^[]*)\[((?:\[[^\]]*\])|[^\]]+)\](.*)$/;
-    function parseParameter(param) {
-      const match = param.match(PARAMETER_PATTERN);
-      if (!match) {
-        return parseMatchedParameter(param);
-      }
-      return parseMatchedParameter(match[2]);
-    }
-    function parseMatchedParameter(param) {
-      const optional = param.startsWith("[") && param.endsWith("]");
-      if (optional) {
-        param = param.slice(1, -1);
-      }
-      const repeat = param.startsWith("...");
-      if (repeat) {
-        param = param.slice(3);
-      }
-      return {
-        key: param,
-        repeat,
-        optional
-      };
-    }
-    function getParametrizedRoute(route, includeSuffix, includePrefix) {
-      const groups = {};
-      let groupIndex = 1;
-      const segments = [];
-      for (const segment of (0, _removetrailingslash.removeTrailingSlash)(route).slice(1).split("/")) {
-        const markerMatch = _interceptionroutes.INTERCEPTION_ROUTE_MARKERS.find((m) => segment.startsWith(m));
-        const paramMatches = segment.match(PARAMETER_PATTERN);
-        if (markerMatch && paramMatches && paramMatches[2]) {
-          const { key, optional, repeat } = parseMatchedParameter(paramMatches[2]);
-          groups[key] = {
-            pos: groupIndex++,
-            repeat,
-            optional
-          };
-          segments.push("/" + (0, _escaperegexp.escapeStringRegexp)(markerMatch) + "([^/]+?)");
-        } else if (paramMatches && paramMatches[2]) {
-          const { key, repeat, optional } = parseMatchedParameter(paramMatches[2]);
-          groups[key] = {
-            pos: groupIndex++,
-            repeat,
-            optional
-          };
-          if (includePrefix && paramMatches[1]) {
-            segments.push("/" + (0, _escaperegexp.escapeStringRegexp)(paramMatches[1]));
-          }
-          let s = repeat ? optional ? "(?:/(.+?))?" : "/(.+?)" : "/([^/]+?)";
-          if (includePrefix && paramMatches[1]) {
-            s = s.substring(1);
-          }
-          segments.push(s);
-        } else {
-          segments.push("/" + (0, _escaperegexp.escapeStringRegexp)(segment));
-        }
-        if (includeSuffix && paramMatches && paramMatches[3]) {
-          segments.push((0, _escaperegexp.escapeStringRegexp)(paramMatches[3]));
-        }
-      }
-      return {
-        parameterizedRoute: segments.join(""),
-        groups
-      };
-    }
-    function getRouteRegex(normalizedRoute, param) {
-      let { includeSuffix = false, includePrefix = false, excludeOptionalTrailingSlash = false } = param === void 0 ? {} : param;
-      const { parameterizedRoute, groups } = getParametrizedRoute(normalizedRoute, includeSuffix, includePrefix);
-      let re = parameterizedRoute;
-      if (!excludeOptionalTrailingSlash) {
-        re += "(?:/)?";
-      }
-      return {
-        re: new RegExp("^" + re + "$"),
-        groups
-      };
-    }
-    function buildGetSafeRouteKey() {
-      let i = 0;
-      return () => {
-        let routeKey = "";
-        let j = ++i;
-        while (j > 0) {
-          routeKey += String.fromCharCode(97 + (j - 1) % 26);
-          j = Math.floor((j - 1) / 26);
-        }
-        return routeKey;
-      };
-    }
-    function getSafeKeyFromSegment(param) {
-      let { interceptionMarker, getSafeRouteKey, segment, routeKeys, keyPrefix, backreferenceDuplicateKeys } = param;
-      const { key, optional, repeat } = parseMatchedParameter(segment);
-      let cleanedKey = key.replace(/\W/g, "");
-      if (keyPrefix) {
-        cleanedKey = "" + keyPrefix + cleanedKey;
-      }
-      let invalidKey = false;
-      if (cleanedKey.length === 0 || cleanedKey.length > 30) {
-        invalidKey = true;
-      }
-      if (!isNaN(parseInt(cleanedKey.slice(0, 1)))) {
-        invalidKey = true;
-      }
-      if (invalidKey) {
-        cleanedKey = getSafeRouteKey();
-      }
-      const duplicateKey = cleanedKey in routeKeys;
-      if (keyPrefix) {
-        routeKeys[cleanedKey] = "" + keyPrefix + key;
-      } else {
-        routeKeys[cleanedKey] = key;
-      }
-      const interceptionPrefix = interceptionMarker ? (0, _escaperegexp.escapeStringRegexp)(interceptionMarker) : "";
-      let pattern;
-      if (duplicateKey && backreferenceDuplicateKeys) {
-        pattern = "\\k<" + cleanedKey + ">";
-      } else if (repeat) {
-        pattern = "(?<" + cleanedKey + ">.+?)";
-      } else {
-        pattern = "(?<" + cleanedKey + ">[^/]+?)";
-      }
-      return optional ? "(?:/" + interceptionPrefix + pattern + ")?" : "/" + interceptionPrefix + pattern;
-    }
-    function getNamedParametrizedRoute(route, prefixRouteKeys, includeSuffix, includePrefix, backreferenceDuplicateKeys) {
-      const getSafeRouteKey = buildGetSafeRouteKey();
-      const routeKeys = {};
-      const segments = [];
-      for (const segment of (0, _removetrailingslash.removeTrailingSlash)(route).slice(1).split("/")) {
-        const hasInterceptionMarker = _interceptionroutes.INTERCEPTION_ROUTE_MARKERS.some((m) => segment.startsWith(m));
-        const paramMatches = segment.match(PARAMETER_PATTERN);
-        if (hasInterceptionMarker && paramMatches && paramMatches[2]) {
-          segments.push(getSafeKeyFromSegment({
-            getSafeRouteKey,
-            interceptionMarker: paramMatches[1],
-            segment: paramMatches[2],
-            routeKeys,
-            keyPrefix: prefixRouteKeys ? _constants.NEXT_INTERCEPTION_MARKER_PREFIX : void 0,
-            backreferenceDuplicateKeys
-          }));
-        } else if (paramMatches && paramMatches[2]) {
-          if (includePrefix && paramMatches[1]) {
-            segments.push("/" + (0, _escaperegexp.escapeStringRegexp)(paramMatches[1]));
-          }
-          let s = getSafeKeyFromSegment({
-            getSafeRouteKey,
-            segment: paramMatches[2],
-            routeKeys,
-            keyPrefix: prefixRouteKeys ? _constants.NEXT_QUERY_PARAM_PREFIX : void 0,
-            backreferenceDuplicateKeys
-          });
-          if (includePrefix && paramMatches[1]) {
-            s = s.substring(1);
-          }
-          segments.push(s);
-        } else {
-          segments.push("/" + (0, _escaperegexp.escapeStringRegexp)(segment));
-        }
-        if (includeSuffix && paramMatches && paramMatches[3]) {
-          segments.push((0, _escaperegexp.escapeStringRegexp)(paramMatches[3]));
-        }
-      }
-      return {
-        namedParameterizedRoute: segments.join(""),
-        routeKeys
-      };
-    }
-    function getNamedRouteRegex(normalizedRoute, options) {
-      var _options_includeSuffix, _options_includePrefix, _options_backreferenceDuplicateKeys;
-      const result = getNamedParametrizedRoute(normalizedRoute, options.prefixRouteKeys, (_options_includeSuffix = options.includeSuffix) != null ? _options_includeSuffix : false, (_options_includePrefix = options.includePrefix) != null ? _options_includePrefix : false, (_options_backreferenceDuplicateKeys = options.backreferenceDuplicateKeys) != null ? _options_backreferenceDuplicateKeys : false);
-      let namedRegex = result.namedParameterizedRoute;
-      if (!options.excludeOptionalTrailingSlash) {
-        namedRegex += "(?:/)?";
-      }
-      return {
-        ...getRouteRegex(normalizedRoute, options),
-        namedRegex: "^" + namedRegex + "$",
-        routeKeys: result.routeKeys
-      };
-    }
-    function getNamedMiddlewareRegex(normalizedRoute, options) {
-      const { parameterizedRoute } = getParametrizedRoute(normalizedRoute, false, false);
-      const { catchAll = true } = options;
-      if (parameterizedRoute === "/") {
-        let catchAllRegex = catchAll ? ".*" : "";
-        return {
-          namedRegex: "^/" + catchAllRegex + "$"
-        };
-      }
-      const { namedParameterizedRoute } = getNamedParametrizedRoute(normalizedRoute, false, false, false, false);
-      let catchAllGroupedRegex = catchAll ? "(?:(/.*)?)" : "";
-      return {
-        namedRegex: "^" + namedParameterizedRoute + catchAllGroupedRegex + "$"
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/interpolate-as.js
-var require_interpolate_as = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/interpolate-as.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "interpolateAs", {
-      enumerable: true,
-      get: function() {
-        return interpolateAs;
-      }
-    });
-    var _routematcher = require_route_matcher();
-    var _routeregex = require_route_regex();
-    function interpolateAs(route, asPathname, query) {
-      let interpolatedRoute = "";
-      const dynamicRegex = (0, _routeregex.getRouteRegex)(route);
-      const dynamicGroups = dynamicRegex.groups;
-      const dynamicMatches = (
-        // Try to match the dynamic route against the asPath
-        (asPathname !== route ? (0, _routematcher.getRouteMatcher)(dynamicRegex)(asPathname) : "") || // Fall back to reading the values from the href
-        // TODO: should this take priority; also need to change in the router.
-        query
-      );
-      interpolatedRoute = route;
-      const params = Object.keys(dynamicGroups);
-      if (!params.every((param) => {
-        let value = dynamicMatches[param] || "";
-        const { repeat, optional } = dynamicGroups[param];
-        let replaced = "[" + (repeat ? "..." : "") + param + "]";
-        if (optional) {
-          replaced = (!value ? "/" : "") + "[" + replaced + "]";
-        }
-        if (repeat && !Array.isArray(value)) value = [
-          value
-        ];
-        return (optional || param in dynamicMatches) && // Interpolate group into data URL if present
-        (interpolatedRoute = interpolatedRoute.replace(replaced, repeat ? value.map(
-          // these values should be fully encoded instead of just
-          // path delimiter escaped since they are being inserted
-          // into the URL and we expect URL encoded segments
-          // when parsing dynamic route params
-          (segment) => encodeURIComponent(segment)
-        ).join("/") : encodeURIComponent(value)) || "/");
-      })) {
-        interpolatedRoute = "";
-      }
-      return {
-        params,
-        result: interpolatedRoute
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/client/resolve-href.js
-var require_resolve_href = __commonJS({
-  "node_modules/next/dist/client/resolve-href.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "resolveHref", {
-      enumerable: true,
-      get: function() {
-        return resolveHref;
-      }
-    });
-    var _querystring = require_querystring();
-    var _formaturl = require_format_url();
-    var _omit = require_omit();
-    var _utils = require_utils();
-    var _normalizetrailingslash = require_normalize_trailing_slash();
-    var _islocalurl = require_is_local_url();
-    var _utils1 = require_utils2();
-    var _interpolateas = require_interpolate_as();
-    function resolveHref(router, href, resolveAs) {
-      let base;
-      let urlAsString = typeof href === "string" ? href : (0, _formaturl.formatWithValidation)(href);
-      const urlProtoMatch = urlAsString.match(/^[a-zA-Z]{1,}:\/\//);
-      const urlAsStringNoProto = urlProtoMatch ? urlAsString.slice(urlProtoMatch[0].length) : urlAsString;
-      const urlParts = urlAsStringNoProto.split("?", 1);
-      if ((urlParts[0] || "").match(/(\/\/|\\)/)) {
-        console.error("Invalid href '" + urlAsString + "' passed to next/router in page: '" + router.pathname + "'. Repeated forward-slashes (//) or backslashes \\ are not valid in the href.");
-        const normalizedUrl = (0, _utils.normalizeRepeatedSlashes)(urlAsStringNoProto);
-        urlAsString = (urlProtoMatch ? urlProtoMatch[0] : "") + normalizedUrl;
-      }
-      if (!(0, _islocalurl.isLocalURL)(urlAsString)) {
-        return resolveAs ? [
-          urlAsString
-        ] : urlAsString;
-      }
-      try {
-        base = new URL(urlAsString.startsWith("#") ? router.asPath : router.pathname, "http://n");
-      } catch (_) {
-        base = new URL("/", "http://n");
-      }
-      try {
-        const finalUrl = new URL(urlAsString, base);
-        finalUrl.pathname = (0, _normalizetrailingslash.normalizePathTrailingSlash)(finalUrl.pathname);
-        let interpolatedAs = "";
-        if ((0, _utils1.isDynamicRoute)(finalUrl.pathname) && finalUrl.searchParams && resolveAs) {
-          const query = (0, _querystring.searchParamsToUrlQuery)(finalUrl.searchParams);
-          const { result, params } = (0, _interpolateas.interpolateAs)(finalUrl.pathname, finalUrl.pathname, query);
-          if (result) {
-            interpolatedAs = (0, _formaturl.formatWithValidation)({
-              pathname: result,
-              hash: finalUrl.hash,
-              query: (0, _omit.omit)(query, params)
-            });
-          }
-        }
-        const resolvedHref = finalUrl.origin === base.origin ? finalUrl.href.slice(finalUrl.origin.length) : finalUrl.href;
-        return resolveAs ? [
-          resolvedHref,
-          interpolatedAs || resolvedHref
-        ] : resolvedHref;
-      } catch (_) {
-        return resolveAs ? [
-          urlAsString
-        ] : urlAsString;
-      }
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/add-path-prefix.js
-var require_add_path_prefix = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/add-path-prefix.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "addPathPrefix", {
-      enumerable: true,
-      get: function() {
-        return addPathPrefix;
-      }
-    });
-    var _parsepath = require_parse_path();
-    function addPathPrefix(path, prefix) {
-      if (!path.startsWith("/") || !prefix) {
-        return path;
-      }
-      const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-      return "" + prefix + pathname + query + hash;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/router/utils/add-locale.js
-var require_add_locale = __commonJS({
-  "node_modules/next/dist/shared/lib/router/utils/add-locale.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "addLocale", {
-      enumerable: true,
-      get: function() {
-        return addLocale;
-      }
-    });
-    var _addpathprefix = require_add_path_prefix();
-    var _pathhasprefix = require_path_has_prefix();
-    function addLocale(path, locale, defaultLocale, ignorePrefix) {
-      if (!locale || locale === defaultLocale) return path;
-      const lower = path.toLowerCase();
-      if (!ignorePrefix) {
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/api")) return path;
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/" + locale.toLowerCase())) return path;
-      }
-      return (0, _addpathprefix.addPathPrefix)(path, "/" + locale);
-    }
-  }
-});
-
-// node_modules/next/dist/client/add-locale.js
-var require_add_locale2 = __commonJS({
-  "node_modules/next/dist/client/add-locale.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "addLocale", {
-      enumerable: true,
-      get: function() {
-        return addLocale;
-      }
-    });
-    var _normalizetrailingslash = require_normalize_trailing_slash();
-    var addLocale = function(path) {
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-      if (process.env.__NEXT_I18N_SUPPORT) {
-        return (0, _normalizetrailingslash.normalizePathTrailingSlash)(require_add_locale().addLocale(path, ...args));
-      }
-      return path;
-    };
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/client/request-idle-callback.js
-var require_request_idle_callback = __commonJS({
-  "node_modules/next/dist/client/request-idle-callback.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      cancelIdleCallback: function() {
-        return cancelIdleCallback;
-      },
-      requestIdleCallback: function() {
-        return requestIdleCallback;
-      }
-    });
-    var requestIdleCallback = typeof self !== "undefined" && self.requestIdleCallback && self.requestIdleCallback.bind(window) || function(cb) {
-      let start = Date.now();
-      return self.setTimeout(function() {
-        cb({
-          didTimeout: false,
-          timeRemaining: function() {
-            return Math.max(0, 50 - (Date.now() - start));
-          }
-        });
-      }, 1);
-    };
-    var cancelIdleCallback = typeof self !== "undefined" && self.cancelIdleCallback && self.cancelIdleCallback.bind(window) || function(id) {
-      return clearTimeout(id);
-    };
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/client/use-intersection.js
-var require_use_intersection = __commonJS({
-  "node_modules/next/dist/client/use-intersection.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "useIntersection", {
-      enumerable: true,
-      get: function() {
-        return useIntersection;
-      }
-    });
-    var _react = __require("react");
-    var _requestidlecallback = require_request_idle_callback();
-    var hasIntersectionObserver = typeof IntersectionObserver === "function";
-    var observers = /* @__PURE__ */ new Map();
-    var idList = [];
-    function createObserver(options) {
-      const id = {
-        root: options.root || null,
-        margin: options.rootMargin || ""
-      };
-      const existing = idList.find((obj) => obj.root === id.root && obj.margin === id.margin);
-      let instance;
-      if (existing) {
-        instance = observers.get(existing);
-        if (instance) {
-          return instance;
-        }
-      }
-      const elements = /* @__PURE__ */ new Map();
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const callback = elements.get(entry.target);
-          const isVisible = entry.isIntersecting || entry.intersectionRatio > 0;
-          if (callback && isVisible) {
-            callback(isVisible);
-          }
-        });
-      }, options);
-      instance = {
-        id,
-        observer,
-        elements
-      };
-      idList.push(id);
-      observers.set(id, instance);
-      return instance;
-    }
-    function observe(element, callback, options) {
-      const { id, observer, elements } = createObserver(options);
-      elements.set(element, callback);
-      observer.observe(element);
-      return function unobserve() {
-        elements.delete(element);
-        observer.unobserve(element);
-        if (elements.size === 0) {
-          observer.disconnect();
-          observers.delete(id);
-          const index2 = idList.findIndex((obj) => obj.root === id.root && obj.margin === id.margin);
-          if (index2 > -1) {
-            idList.splice(index2, 1);
-          }
-        }
-      };
-    }
-    function useIntersection(param) {
-      let { rootRef, rootMargin, disabled } = param;
-      const isDisabled = disabled || !hasIntersectionObserver;
-      const [visible, setVisible] = (0, _react.useState)(false);
-      const elementRef = (0, _react.useRef)(null);
-      const setElement = (0, _react.useCallback)((element) => {
-        elementRef.current = element;
-      }, []);
-      (0, _react.useEffect)(() => {
-        if (hasIntersectionObserver) {
-          if (isDisabled || visible) return;
-          const element = elementRef.current;
-          if (element && element.tagName) {
-            const unobserve = observe(element, (isVisible) => isVisible && setVisible(isVisible), {
-              root: rootRef == null ? void 0 : rootRef.current,
-              rootMargin
-            });
-            return unobserve;
-          }
-        } else {
-          if (!visible) {
-            const idleCallback = (0, _requestidlecallback.requestIdleCallback)(() => setVisible(true));
-            return () => (0, _requestidlecallback.cancelIdleCallback)(idleCallback);
-          }
-        }
-      }, [
-        isDisabled,
-        rootMargin,
-        rootRef,
-        visible,
-        elementRef.current
-      ]);
-      const resetVisible = (0, _react.useCallback)(() => {
-        setVisible(false);
-      }, []);
-      return [
-        setElement,
-        visible,
-        resetVisible
-      ];
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/i18n/normalize-locale-path.js
-var require_normalize_locale_path = __commonJS({
-  "node_modules/next/dist/shared/lib/i18n/normalize-locale-path.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "normalizeLocalePath", {
-      enumerable: true,
-      get: function() {
-        return normalizeLocalePath;
-      }
-    });
-    var cache = /* @__PURE__ */ new WeakMap();
-    function normalizeLocalePath(pathname, locales) {
-      if (!locales) return {
-        pathname
-      };
-      let lowercasedLocales = cache.get(locales);
-      if (!lowercasedLocales) {
-        lowercasedLocales = locales.map((locale) => locale.toLowerCase());
-        cache.set(locales, lowercasedLocales);
-      }
-      let detectedLocale;
-      const segments = pathname.split("/", 2);
-      if (!segments[1]) return {
-        pathname
-      };
-      const segment = segments[1].toLowerCase();
-      const index2 = lowercasedLocales.indexOf(segment);
-      if (index2 < 0) return {
-        pathname
-      };
-      detectedLocale = locales[index2];
-      pathname = pathname.slice(detectedLocale.length + 1) || "/";
-      return {
-        pathname,
-        detectedLocale
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/client/normalize-locale-path.js
-var require_normalize_locale_path2 = __commonJS({
-  "node_modules/next/dist/client/normalize-locale-path.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "normalizeLocalePath", {
-      enumerable: true,
-      get: function() {
-        return normalizeLocalePath;
-      }
-    });
-    var normalizeLocalePath = (pathname, locales) => {
-      if (process.env.__NEXT_I18N_SUPPORT) {
-        return require_normalize_locale_path().normalizeLocalePath(pathname, locales);
-      }
-      return {
-        pathname,
-        detectedLocale: void 0
-      };
-    };
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/i18n/detect-domain-locale.js
-var require_detect_domain_locale = __commonJS({
-  "node_modules/next/dist/shared/lib/i18n/detect-domain-locale.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "detectDomainLocale", {
-      enumerable: true,
-      get: function() {
-        return detectDomainLocale;
-      }
-    });
-    function detectDomainLocale(domainItems, hostname, detectedLocale) {
-      if (!domainItems) return;
-      if (detectedLocale) {
-        detectedLocale = detectedLocale.toLowerCase();
-      }
-      for (const item of domainItems) {
-        var _item_domain, _item_locales;
-        const domainHostname = (_item_domain = item.domain) == null ? void 0 : _item_domain.split(":", 1)[0].toLowerCase();
-        if (hostname === domainHostname || detectedLocale === item.defaultLocale.toLowerCase() || ((_item_locales = item.locales) == null ? void 0 : _item_locales.some((locale) => locale.toLowerCase() === detectedLocale))) {
-          return item;
-        }
-      }
-    }
-  }
-});
-
-// node_modules/next/dist/client/detect-domain-locale.js
-var require_detect_domain_locale2 = __commonJS({
-  "node_modules/next/dist/client/detect-domain-locale.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "detectDomainLocale", {
-      enumerable: true,
-      get: function() {
-        return detectDomainLocale;
-      }
-    });
-    var detectDomainLocale = function() {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-      if (process.env.__NEXT_I18N_SUPPORT) {
-        return require_detect_domain_locale().detectDomainLocale(...args);
-      }
-    };
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/client/get-domain-locale.js
-var require_get_domain_locale = __commonJS({
-  "node_modules/next/dist/client/get-domain-locale.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "getDomainLocale", {
-      enumerable: true,
-      get: function() {
-        return getDomainLocale;
-      }
-    });
-    var _normalizetrailingslash = require_normalize_trailing_slash();
-    var basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
-    function getDomainLocale(path, locale, locales, domainLocales) {
-      if (process.env.__NEXT_I18N_SUPPORT) {
-        const normalizeLocalePath = require_normalize_locale_path2().normalizeLocalePath;
-        const detectDomainLocale = require_detect_domain_locale2().detectDomainLocale;
-        const target = locale || normalizeLocalePath(path, locales).detectedLocale;
-        const domain = detectDomainLocale(domainLocales, void 0, target);
-        if (domain) {
-          const proto = "http" + (domain.http ? "" : "s") + "://";
-          const finalLocale = target === domain.defaultLocale ? "" : "/" + target;
-          return "" + proto + domain.domain + (0, _normalizetrailingslash.normalizePathTrailingSlash)("" + basePath + finalLocale + path);
-        }
-        return false;
-      } else {
-        return false;
-      }
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/client/add-base-path.js
-var require_add_base_path = __commonJS({
-  "node_modules/next/dist/client/add-base-path.js"(exports, module) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "addBasePath", {
-      enumerable: true,
-      get: function() {
-        return addBasePath;
-      }
-    });
-    var _addpathprefix = require_add_path_prefix();
-    var _normalizetrailingslash = require_normalize_trailing_slash();
-    var basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
-    function addBasePath(path, required) {
-      return (0, _normalizetrailingslash.normalizePathTrailingSlash)(process.env.__NEXT_MANUAL_CLIENT_BASE_PATH && !required ? path : (0, _addpathprefix.addPathPrefix)(path, basePath));
-    }
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
-    }
-  }
-});
-
-// node_modules/next/dist/shared/lib/utils/error-once.js
-var require_error_once = __commonJS({
-  "node_modules/next/dist/shared/lib/utils/error-once.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    Object.defineProperty(exports, "errorOnce", {
-      enumerable: true,
-      get: function() {
-        return errorOnce;
-      }
-    });
-    var errorOnce = (_) => {
-    };
-    if (process.env.NODE_ENV !== "production") {
-      const errors = /* @__PURE__ */ new Set();
-      errorOnce = (msg) => {
-        if (!errors.has(msg)) {
-          console.error(msg);
-        }
-        errors.add(msg);
-      };
-    }
-  }
-});
-
-// node_modules/next/dist/client/link.js
-var require_link = __commonJS({
-  "node_modules/next/dist/client/link.js"(exports, module) {
-    "use strict";
-    "use client";
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    function _export(target, all) {
-      for (var name in all) Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-      });
-    }
-    _export(exports, {
-      default: function() {
-        return _default;
-      },
-      useLinkStatus: function() {
-        return useLinkStatus;
-      }
-    });
-    var _interop_require_wildcard = require_interop_require_wildcard();
-    var _jsxruntime = __require("react/jsx-runtime");
-    var _react = /* @__PURE__ */ _interop_require_wildcard._(__require("react"));
-    var _resolvehref = require_resolve_href();
-    var _islocalurl = require_is_local_url();
-    var _formaturl = require_format_url();
-    var _utils = require_utils();
-    var _addlocale = require_add_locale2();
-    var _routercontextsharedruntime = require_router_context_shared_runtime();
-    var _useintersection = require_use_intersection();
-    var _getdomainlocale = require_get_domain_locale();
-    var _addbasepath = require_add_base_path();
-    var _usemergedref = require_use_merged_ref();
-    var _erroronce = require_error_once();
-    var prefetched = /* @__PURE__ */ new Set();
-    function prefetch(router, href, as, options) {
-      if (typeof window === "undefined") {
-        return;
-      }
-      if (!(0, _islocalurl.isLocalURL)(href)) {
-        return;
-      }
-      if (!options.bypassPrefetchedCheck) {
-        const locale = (
-          // Let the link's locale prop override the default router locale.
-          typeof options.locale !== "undefined" ? options.locale : "locale" in router ? router.locale : void 0
+          },
+          [subscribe2]
         );
-        const prefetchedKey = href + "%" + as + "%" + locale;
-        if (prefetched.has(prefetchedKey)) {
-          return;
-        }
-        prefetched.add(prefetchedKey);
+        useDebugValue(value);
+        return value;
       }
-      router.prefetch(href, as, options).catch((err) => {
-        if (process.env.NODE_ENV !== "production") {
-          throw err;
-        }
-      });
-    }
-    function isModifiedEvent(event) {
-      const eventTarget = event.currentTarget;
-      const target = eventTarget.getAttribute("target");
-      return target && target !== "_self" || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || // triggers resource download
-      event.nativeEvent && event.nativeEvent.which === 2;
-    }
-    function linkClicked(e, router, href, as, replace, shallow, scroll, locale, onNavigate) {
-      const { nodeName } = e.currentTarget;
-      const isAnchorNodeName = nodeName.toUpperCase() === "A";
-      if (isAnchorNodeName && isModifiedEvent(e) || e.currentTarget.hasAttribute("download")) {
-        return;
-      }
-      if (!(0, _islocalurl.isLocalURL)(href)) {
-        if (replace) {
-          e.preventDefault();
-          location.replace(href);
-        }
-        return;
-      }
-      e.preventDefault();
-      const navigate = () => {
-        if (onNavigate) {
-          let isDefaultPrevented = false;
-          onNavigate({
-            preventDefault: () => {
-              isDefaultPrevented = true;
-            }
-          });
-          if (isDefaultPrevented) {
-            return;
-          }
-        }
-        const routerScroll = scroll != null ? scroll : true;
-        if ("beforePopState" in router) {
-          router[replace ? "replace" : "push"](href, as, {
-            shallow,
-            locale,
-            scroll: routerScroll
-          });
-        } else {
-          router[replace ? "replace" : "push"](as || href, {
-            scroll: routerScroll
-          });
-        }
-      };
-      navigate();
-    }
-    function formatStringOrUrl(urlObjOrString) {
-      if (typeof urlObjOrString === "string") {
-        return urlObjOrString;
-      }
-      return (0, _formaturl.formatUrl)(urlObjOrString);
-    }
-    var Link2 = /* @__PURE__ */ _react.default.forwardRef(function LinkComponent(props, forwardedRef) {
-      let children;
-      const { href: hrefProp, as: asProp, children: childrenProp, prefetch: prefetchProp = null, passHref, replace, shallow, scroll, locale, onClick, onNavigate, onMouseEnter: onMouseEnterProp, onTouchStart: onTouchStartProp, legacyBehavior = false, ...restProps } = props;
-      children = childrenProp;
-      if (legacyBehavior && (typeof children === "string" || typeof children === "number")) {
-        children = /* @__PURE__ */ (0, _jsxruntime.jsx)("a", {
-          children
-        });
-      }
-      const router = _react.default.useContext(_routercontextsharedruntime.RouterContext);
-      const prefetchEnabled = prefetchProp !== false;
-      if (process.env.NODE_ENV !== "production") {
-        let createPropError = function(args) {
-          return Object.defineProperty(new Error("Failed prop type: The prop `" + args.key + "` expects a " + args.expected + " in `<Link>`, but got `" + args.actual + "` instead." + (typeof window !== "undefined" ? "\nOpen your browser's console to view the Component stack trace." : "")), "__NEXT_ERROR_CODE", {
-            value: "E319",
-            enumerable: false,
-            configurable: true
-          });
-        };
-        const requiredPropsGuard = {
-          href: true
-        };
-        const requiredProps = Object.keys(requiredPropsGuard);
-        requiredProps.forEach((key) => {
-          if (key === "href") {
-            if (props[key] == null || typeof props[key] !== "string" && typeof props[key] !== "object") {
-              throw createPropError({
-                key,
-                expected: "`string` or `object`",
-                actual: props[key] === null ? "null" : typeof props[key]
-              });
-            }
-          } else {
-            const _ = key;
-          }
-        });
-        const optionalPropsGuard = {
-          as: true,
-          replace: true,
-          scroll: true,
-          shallow: true,
-          passHref: true,
-          prefetch: true,
-          locale: true,
-          onClick: true,
-          onMouseEnter: true,
-          onTouchStart: true,
-          legacyBehavior: true,
-          onNavigate: true
-        };
-        const optionalProps = Object.keys(optionalPropsGuard);
-        optionalProps.forEach((key) => {
-          const valType = typeof props[key];
-          if (key === "as") {
-            if (props[key] && valType !== "string" && valType !== "object") {
-              throw createPropError({
-                key,
-                expected: "`string` or `object`",
-                actual: valType
-              });
-            }
-          } else if (key === "locale") {
-            if (props[key] && valType !== "string") {
-              throw createPropError({
-                key,
-                expected: "`string`",
-                actual: valType
-              });
-            }
-          } else if (key === "onClick" || key === "onMouseEnter" || key === "onTouchStart" || key === "onNavigate") {
-            if (props[key] && valType !== "function") {
-              throw createPropError({
-                key,
-                expected: "`function`",
-                actual: valType
-              });
-            }
-          } else if (key === "replace" || key === "scroll" || key === "shallow" || key === "passHref" || key === "prefetch" || key === "legacyBehavior") {
-            if (props[key] != null && valType !== "boolean") {
-              throw createPropError({
-                key,
-                expected: "`boolean`",
-                actual: valType
-              });
-            }
-          } else {
-            const _ = key;
-          }
-        });
-      }
-      const { href, as } = _react.default.useMemo(() => {
-        if (!router) {
-          const resolvedHref2 = formatStringOrUrl(hrefProp);
-          return {
-            href: resolvedHref2,
-            as: asProp ? formatStringOrUrl(asProp) : resolvedHref2
-          };
-        }
-        const [resolvedHref, resolvedAs] = (0, _resolvehref.resolveHref)(router, hrefProp, true);
-        return {
-          href: resolvedHref,
-          as: asProp ? (0, _resolvehref.resolveHref)(router, asProp) : resolvedAs || resolvedHref
-        };
-      }, [
-        router,
-        hrefProp,
-        asProp
-      ]);
-      const previousHref = _react.default.useRef(href);
-      const previousAs = _react.default.useRef(as);
-      let child;
-      if (legacyBehavior) {
-        if (process.env.NODE_ENV === "development") {
-          if (onClick) {
-            console.warn('"onClick" was passed to <Link> with `href` of `' + hrefProp + '` but "legacyBehavior" was set. The legacy behavior requires onClick be set on the child of next/link');
-          }
-          if (onMouseEnterProp) {
-            console.warn('"onMouseEnter" was passed to <Link> with `href` of `' + hrefProp + '` but "legacyBehavior" was set. The legacy behavior requires onMouseEnter be set on the child of next/link');
-          }
-          try {
-            child = _react.default.Children.only(children);
-          } catch (err) {
-            if (!children) {
-              throw Object.defineProperty(new Error("No children were passed to <Link> with `href` of `" + hrefProp + "` but one child is required https://nextjs.org/docs/messages/link-no-children"), "__NEXT_ERROR_CODE", {
-                value: "E320",
-                enumerable: false,
-                configurable: true
-              });
-            }
-            throw Object.defineProperty(new Error("Multiple children were passed to <Link> with `href` of `" + hrefProp + "` but only one child is supported https://nextjs.org/docs/messages/link-multiple-children" + (typeof window !== "undefined" ? " \nOpen your browser's console to view the Component stack trace." : "")), "__NEXT_ERROR_CODE", {
-              value: "E266",
-              enumerable: false,
-              configurable: true
-            });
-          }
-        } else {
-          child = _react.default.Children.only(children);
-        }
-      } else {
-        if (process.env.NODE_ENV === "development") {
-          if ((children == null ? void 0 : children.type) === "a") {
-            throw Object.defineProperty(new Error("Invalid <Link> with <a> child. Please remove <a> or use <Link legacyBehavior>.\nLearn more: https://nextjs.org/docs/messages/invalid-new-link-with-extra-anchor"), "__NEXT_ERROR_CODE", {
-              value: "E209",
-              enumerable: false,
-              configurable: true
-            });
-          }
+      function checkIfSnapshotChanged(inst) {
+        var latestGetSnapshot = inst.getSnapshot;
+        inst = inst.value;
+        try {
+          var nextValue = latestGetSnapshot();
+          return !objectIs(inst, nextValue);
+        } catch (error) {
+          return true;
         }
       }
-      const childRef = legacyBehavior ? child && typeof child === "object" && child.ref : forwardedRef;
-      const [setIntersectionRef, isVisible, resetVisible] = (0, _useintersection.useIntersection)({
-        rootMargin: "200px"
-      });
-      const setIntersectionWithResetRef = _react.default.useCallback((el) => {
-        if (previousAs.current !== as || previousHref.current !== href) {
-          resetVisible();
-          previousAs.current = as;
-          previousHref.current = href;
-        }
-        setIntersectionRef(el);
-      }, [
-        as,
-        href,
-        resetVisible,
-        setIntersectionRef
-      ]);
-      const setRef2 = (0, _usemergedref.useMergedRef)(setIntersectionWithResetRef, childRef);
-      _react.default.useEffect(() => {
-        if (process.env.NODE_ENV !== "production") {
-          return;
-        }
-        if (!router) {
-          return;
-        }
-        if (!isVisible || !prefetchEnabled) {
-          return;
-        }
-        prefetch(router, href, as, {
-          locale
-        });
-      }, [
-        as,
-        href,
-        isVisible,
-        locale,
-        prefetchEnabled,
-        router == null ? void 0 : router.locale,
-        router
-      ]);
-      const childProps = {
-        ref: setRef2,
-        onClick(e) {
-          if (process.env.NODE_ENV !== "production") {
-            if (!e) {
-              throw Object.defineProperty(new Error('Component rendered inside next/link has to pass click event to "onClick" prop.'), "__NEXT_ERROR_CODE", {
-                value: "E312",
-                enumerable: false,
-                configurable: true
-              });
-            }
-          }
-          if (!legacyBehavior && typeof onClick === "function") {
-            onClick(e);
-          }
-          if (legacyBehavior && child.props && typeof child.props.onClick === "function") {
-            child.props.onClick(e);
-          }
-          if (!router) {
-            return;
-          }
-          if (e.defaultPrevented) {
-            return;
-          }
-          linkClicked(e, router, href, as, replace, shallow, scroll, locale, onNavigate);
-        },
-        onMouseEnter(e) {
-          if (!legacyBehavior && typeof onMouseEnterProp === "function") {
-            onMouseEnterProp(e);
-          }
-          if (legacyBehavior && child.props && typeof child.props.onMouseEnter === "function") {
-            child.props.onMouseEnter(e);
-          }
-          if (!router) {
-            return;
-          }
-          prefetch(router, href, as, {
-            locale,
-            priority: true,
-            // @see {https://github.com/vercel/next.js/discussions/40268?sort=top#discussioncomment-3572642}
-            bypassPrefetchedCheck: true
-          });
-        },
-        onTouchStart: process.env.__NEXT_LINK_NO_TOUCH_START ? void 0 : function onTouchStart(e) {
-          if (!legacyBehavior && typeof onTouchStartProp === "function") {
-            onTouchStartProp(e);
-          }
-          if (legacyBehavior && child.props && typeof child.props.onTouchStart === "function") {
-            child.props.onTouchStart(e);
-          }
-          if (!router) {
-            return;
-          }
-          prefetch(router, href, as, {
-            locale,
-            priority: true,
-            // @see {https://github.com/vercel/next.js/discussions/40268?sort=top#discussioncomment-3572642}
-            bypassPrefetchedCheck: true
-          });
-        }
-      };
-      if ((0, _utils.isAbsoluteUrl)(as)) {
-        childProps.href = as;
-      } else if (!legacyBehavior || passHref || child.type === "a" && !("href" in child.props)) {
-        const curLocale = typeof locale !== "undefined" ? locale : router == null ? void 0 : router.locale;
-        const localeDomain = (router == null ? void 0 : router.isLocaleDomain) && (0, _getdomainlocale.getDomainLocale)(as, curLocale, router == null ? void 0 : router.locales, router == null ? void 0 : router.domainLocales);
-        childProps.href = localeDomain || (0, _addbasepath.addBasePath)((0, _addlocale.addLocale)(as, curLocale, router == null ? void 0 : router.defaultLocale));
+      function useSyncExternalStore$1(subscribe2, getSnapshot) {
+        return getSnapshot();
       }
-      if (legacyBehavior) {
-        if (process.env.NODE_ENV === "development") {
-          (0, _erroronce.errorOnce)("`legacyBehavior` is deprecated and will be removed in a future release. A codemod is available to upgrade your components:\n\nnpx @next/codemod@latest new-link .\n\nLearn more: https://nextjs.org/docs/app/building-your-application/upgrading/codemods#remove-a-tags-from-link-components");
-        }
-        return /* @__PURE__ */ _react.default.cloneElement(child, childProps);
-      }
-      return /* @__PURE__ */ (0, _jsxruntime.jsx)("a", {
-        ...restProps,
-        ...childProps,
-        children
-      });
-    });
-    var LinkStatusContext = /* @__PURE__ */ (0, _react.createContext)({
-      // We do not support link status in the Pages Router, so we always return false
-      pending: false
-    });
-    var useLinkStatus = () => {
-      return (0, _react.useContext)(LinkStatusContext);
-    };
-    var _default = Link2;
-    if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
-      Object.defineProperty(exports.default, "__esModule", { value: true });
-      Object.assign(exports.default, exports);
-      module.exports = exports.default;
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+      var React38 = require("react"), objectIs = "function" === typeof Object.is ? Object.is : is, useState18 = React38.useState, useEffect18 = React38.useEffect, useLayoutEffect5 = React38.useLayoutEffect, useDebugValue = React38.useDebugValue, didWarnOld18Alpha = false, didWarnUncachedGetSnapshot = false, shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+      exports2.useSyncExternalStore = void 0 !== React38.useSyncExternalStore ? React38.useSyncExternalStore : shim;
+      "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+    }();
+  }
+});
+
+// node_modules/use-sync-external-store/shim/index.js
+var require_shim = __commonJS({
+  "node_modules/use-sync-external-store/shim/index.js"(exports2, module2) {
+    "use strict";
+    if (process.env.NODE_ENV === "production") {
+      module2.exports = require_use_sync_external_store_shim_production();
+    } else {
+      module2.exports = require_use_sync_external_store_shim_development();
     }
   }
 });
 
-// node_modules/next/link.js
-var require_link2 = __commonJS({
-  "node_modules/next/link.js"(exports, module) {
-    "use strict";
-    module.exports = require_link();
-  }
+// src/index.ts
+var index_exports = {};
+__export(index_exports, {
+  ProductSwitcher: () => ProductSwitcher
 });
+module.exports = __toCommonJS(index_exports);
 
 // src/components/ui/dropdown-menu.tsx
-import * as React34 from "react";
+var React34 = __toESM(require("react"), 1);
 
 // node_modules/@radix-ui/react-dropdown-menu/dist/index.mjs
-import * as React33 from "react";
+var React33 = __toESM(require("react"), 1);
 
 // node_modules/@radix-ui/primitive/dist/index.mjs
 function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
   return function handleEvent(event) {
-    originalEventHandler == null ? void 0 : originalEventHandler(event);
+    originalEventHandler?.(event);
     if (checkForDefaultPrevented === false || !event.defaultPrevented) {
-      return ourEventHandler == null ? void 0 : ourEventHandler(event);
+      return ourEventHandler?.(event);
     }
   };
 }
 
 // node_modules/@radix-ui/react-compose-refs/dist/index.mjs
-import * as React from "react";
+var React = __toESM(require("react"), 1);
 function setRef(ref, value) {
   if (typeof ref === "function") {
     return ref(value);
@@ -5660,8 +220,8 @@ function useComposedRefs(...refs) {
 }
 
 // node_modules/@radix-ui/react-context/dist/index.mjs
-import * as React2 from "react";
-import { jsx } from "react/jsx-runtime";
+var React2 = __toESM(require("react"), 1);
+var import_jsx_runtime = require("react/jsx-runtime");
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
   function createContext32(rootComponentName, defaultContext) {
@@ -5669,16 +229,14 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
     const index2 = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
     const Provider = (props) => {
-      var _a;
       const { scope, children, ...context } = props;
-      const Context = ((_a = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a[index2]) || BaseContext;
+      const Context = scope?.[scopeName]?.[index2] || BaseContext;
       const value = React2.useMemo(() => context, Object.values(context));
-      return /* @__PURE__ */ jsx(Context.Provider, { value, children });
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Context.Provider, { value, children });
     };
     Provider.displayName = rootComponentName + "Provider";
     function useContext22(consumerName, scope) {
-      var _a;
-      const Context = ((_a = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a[index2]) || BaseContext;
+      const Context = scope?.[scopeName]?.[index2] || BaseContext;
       const context = React2.useContext(Context);
       if (context) return context;
       if (defaultContext !== void 0) return defaultContext;
@@ -5691,7 +249,7 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
       return React2.createContext(defaultContext);
     });
     return function useScope(scope) {
-      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
+      const contexts = scope?.[scopeName] || scopeContexts;
       return React2.useMemo(
         () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
         [scope, contexts]
@@ -5723,15 +281,15 @@ function composeContextScopes(...scopes) {
 }
 
 // node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-import * as React4 from "react";
+var React4 = __toESM(require("react"), 1);
 
 // node_modules/@radix-ui/react-use-layout-effect/dist/index.mjs
-import * as React3 from "react";
-var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? React3.useLayoutEffect : () => {
+var React3 = __toESM(require("react"), 1);
+var useLayoutEffect2 = globalThis?.document ? React3.useLayoutEffect : () => {
 };
 
 // node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs
-import * as React22 from "react";
+var React22 = __toESM(require("react"), 1);
 var useInsertionEffect = React4[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
 function useControllableState({
   prop,
@@ -5762,11 +320,10 @@ function useControllableState({
   }
   const setValue = React4.useCallback(
     (nextValue) => {
-      var _a;
       if (isControlled) {
         const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
         if (value2 !== prop) {
-          (_a = onChangeRef.current) == null ? void 0 : _a.call(onChangeRef, value2);
+          onChangeRef.current?.(value2);
         }
       } else {
         setUncontrolledProp(nextValue);
@@ -5787,9 +344,8 @@ function useUncontrolledState({
     onChangeRef.current = onChange;
   }, [onChange]);
   React4.useEffect(() => {
-    var _a;
     if (prevValueRef.current !== value) {
-      (_a = onChangeRef.current) == null ? void 0 : _a.call(onChangeRef, value);
+      onChangeRef.current?.(value);
       prevValueRef.current = value;
     }
   }, [value, prevValueRef]);
@@ -5801,12 +357,12 @@ function isFunction(value) {
 var SYNC_STATE = Symbol("RADIX:SYNC_STATE");
 
 // node_modules/@radix-ui/react-primitive/dist/index.mjs
-import * as React6 from "react";
-import * as ReactDOM from "react-dom";
+var React6 = __toESM(require("react"), 1);
+var ReactDOM = __toESM(require("react-dom"), 1);
 
 // node_modules/@radix-ui/react-slot/dist/index.mjs
-import * as React5 from "react";
-import { Fragment as Fragment2, jsx as jsx2 } from "react/jsx-runtime";
+var React5 = __toESM(require("react"), 1);
+var import_jsx_runtime2 = require("react/jsx-runtime");
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
@@ -5824,9 +380,9 @@ function createSlot(ownerName) {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx2(SlotClone, { ...slotProps, ref: forwardedRef, children: React5.isValidElement(newElement) ? React5.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children: React5.isValidElement(newElement) ? React5.cloneElement(newElement, void 0, newChildren) : null });
     }
-    return /* @__PURE__ */ jsx2(SlotClone, { ...slotProps, ref: forwardedRef, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
   Slot22.displayName = `${ownerName}.Slot`;
   return Slot22;
@@ -5878,13 +434,12 @@ function mergeProps(slotProps, childProps) {
   return { ...slotProps, ...overrideProps };
 }
 function getElementRef(element) {
-  var _a, _b;
-  let getter = (_a = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a.get;
+  let getter = Object.getOwnPropertyDescriptor(element.props, "ref")?.get;
   let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.ref;
   }
-  getter = (_b = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b.get;
+  getter = Object.getOwnPropertyDescriptor(element, "ref")?.get;
   mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.props.ref;
@@ -5893,7 +448,7 @@ function getElementRef(element) {
 }
 
 // node_modules/@radix-ui/react-primitive/dist/index.mjs
-import { jsx as jsx3 } from "react/jsx-runtime";
+var import_jsx_runtime3 = require("react/jsx-runtime");
 var NODES = [
   "a",
   "button",
@@ -5921,7 +476,7 @@ var Primitive = NODES.reduce((primitive, node) => {
     if (typeof window !== "undefined") {
       window[Symbol.for("radix-ui")] = true;
     }
-    return /* @__PURE__ */ jsx3(Comp, { ...primitiveProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Comp, { ...primitiveProps, ref: forwardedRef });
   });
   Node2.displayName = `Primitive.${node}`;
   return { ...primitive, [node]: Node2 };
@@ -5931,13 +486,13 @@ function dispatchDiscreteCustomEvent(target, event) {
 }
 
 // node_modules/@radix-ui/react-menu/dist/index.mjs
-import * as React32 from "react";
+var React32 = __toESM(require("react"), 1);
 
 // node_modules/@radix-ui/react-collection/dist/index.mjs
-import React7 from "react";
-import { jsx as jsx4 } from "react/jsx-runtime";
-import React23 from "react";
-import { jsx as jsx22 } from "react/jsx-runtime";
+var import_react = __toESM(require("react"), 1);
+var import_jsx_runtime4 = require("react/jsx-runtime");
+var import_react2 = __toESM(require("react"), 1);
+var import_jsx_runtime5 = require("react/jsx-runtime");
 function createCollection(name) {
   const PROVIDER_NAME = name + "CollectionProvider";
   const [createCollectionContext, createCollectionScope3] = createContextScope(PROVIDER_NAME);
@@ -5947,42 +502,42 @@ function createCollection(name) {
   );
   const CollectionProvider = (props) => {
     const { scope, children } = props;
-    const ref = React7.useRef(null);
-    const itemMap = React7.useRef(/* @__PURE__ */ new Map()).current;
-    return /* @__PURE__ */ jsx4(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
+    const ref = import_react.default.useRef(null);
+    const itemMap = import_react.default.useRef(/* @__PURE__ */ new Map()).current;
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
   };
   CollectionProvider.displayName = PROVIDER_NAME;
   const COLLECTION_SLOT_NAME = name + "CollectionSlot";
   const CollectionSlotImpl = createSlot(COLLECTION_SLOT_NAME);
-  const CollectionSlot = React7.forwardRef(
+  const CollectionSlot = import_react.default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children } = props;
       const context = useCollectionContext(COLLECTION_SLOT_NAME, scope);
       const composedRefs = useComposedRefs(forwardedRef, context.collectionRef);
-      return /* @__PURE__ */ jsx4(CollectionSlotImpl, { ref: composedRefs, children });
+      return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CollectionSlotImpl, { ref: composedRefs, children });
     }
   );
   CollectionSlot.displayName = COLLECTION_SLOT_NAME;
   const ITEM_SLOT_NAME = name + "CollectionItemSlot";
   const ITEM_DATA_ATTR = "data-radix-collection-item";
   const CollectionItemSlotImpl = createSlot(ITEM_SLOT_NAME);
-  const CollectionItemSlot = React7.forwardRef(
+  const CollectionItemSlot = import_react.default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children, ...itemData } = props;
-      const ref = React7.useRef(null);
+      const ref = import_react.default.useRef(null);
       const composedRefs = useComposedRefs(forwardedRef, ref);
       const context = useCollectionContext(ITEM_SLOT_NAME, scope);
-      React7.useEffect(() => {
+      import_react.default.useEffect(() => {
         context.itemMap.set(ref, { ref, ...itemData });
         return () => void context.itemMap.delete(ref);
       });
-      return /* @__PURE__ */ jsx4(CollectionItemSlotImpl, { ...{ [ITEM_DATA_ATTR]: "" }, ref: composedRefs, children });
+      return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CollectionItemSlotImpl, { ...{ [ITEM_DATA_ATTR]: "" }, ref: composedRefs, children });
     }
   );
   CollectionItemSlot.displayName = ITEM_SLOT_NAME;
   function useCollection3(scope) {
     const context = useCollectionContext(name + "CollectionConsumer", scope);
-    const getItems = React7.useCallback(() => {
+    const getItems = import_react.default.useCallback(() => {
       const collectionNode = context.collectionRef.current;
       if (!collectionNode) return [];
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`));
@@ -6002,8 +557,8 @@ function createCollection(name) {
 }
 
 // node_modules/@radix-ui/react-direction/dist/index.mjs
-import * as React8 from "react";
-import { jsx as jsx5 } from "react/jsx-runtime";
+var React8 = __toESM(require("react"), 1);
+var import_jsx_runtime6 = require("react/jsx-runtime");
 var DirectionContext = React8.createContext(void 0);
 function useDirection(localDir) {
   const globalDir = React8.useContext(DirectionContext);
@@ -6011,24 +566,21 @@ function useDirection(localDir) {
 }
 
 // node_modules/@radix-ui/react-dismissable-layer/dist/index.mjs
-import * as React11 from "react";
+var React11 = __toESM(require("react"), 1);
 
 // node_modules/@radix-ui/react-use-callback-ref/dist/index.mjs
-import * as React9 from "react";
+var React9 = __toESM(require("react"), 1);
 function useCallbackRef(callback) {
   const callbackRef = React9.useRef(callback);
   React9.useEffect(() => {
     callbackRef.current = callback;
   });
-  return React9.useMemo(() => (...args) => {
-    var _a;
-    return (_a = callbackRef.current) == null ? void 0 : _a.call(callbackRef, ...args);
-  }, []);
+  return React9.useMemo(() => (...args) => callbackRef.current?.(...args), []);
 }
 
 // node_modules/@radix-ui/react-use-escape-keydown/dist/index.mjs
-import * as React10 from "react";
-function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+var React10 = __toESM(require("react"), 1);
+function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.document) {
   const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
   React10.useEffect(() => {
     const handleKeyDown = (event) => {
@@ -6042,7 +594,7 @@ function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis == nul
 }
 
 // node_modules/@radix-ui/react-dismissable-layer/dist/index.mjs
-import { jsx as jsx6 } from "react/jsx-runtime";
+var import_jsx_runtime7 = require("react/jsx-runtime");
 var DISMISSABLE_LAYER_NAME = "DismissableLayer";
 var CONTEXT_UPDATE = "dismissableLayer.update";
 var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
@@ -6055,7 +607,6 @@ var DismissableLayerContext = React11.createContext({
 });
 var DismissableLayer = React11.forwardRef(
   (props, forwardedRef) => {
-    var _a;
     const {
       disableOutsidePointerEvents = false,
       onEscapeKeyDown,
@@ -6067,7 +618,7 @@ var DismissableLayer = React11.forwardRef(
     } = props;
     const context = React11.useContext(DismissableLayerContext);
     const [node, setNode] = React11.useState(null);
-    const ownerDocument = (_a = node == null ? void 0 : node.ownerDocument) != null ? _a : globalThis == null ? void 0 : globalThis.document;
+    const ownerDocument = node?.ownerDocument ?? globalThis?.document;
     const [, force] = React11.useState({});
     const composedRefs = useComposedRefs(forwardedRef, (node2) => setNode(node2));
     const layers = Array.from(context.layers);
@@ -6080,22 +631,22 @@ var DismissableLayer = React11.forwardRef(
       const target = event.target;
       const isPointerDownOnBranch = [...context.branches].some((branch) => branch.contains(target));
       if (!isPointerEventsEnabled || isPointerDownOnBranch) return;
-      onPointerDownOutside == null ? void 0 : onPointerDownOutside(event);
-      onInteractOutside == null ? void 0 : onInteractOutside(event);
-      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
+      onPointerDownOutside?.(event);
+      onInteractOutside?.(event);
+      if (!event.defaultPrevented) onDismiss?.();
     }, ownerDocument);
     const focusOutside = useFocusOutside((event) => {
       const target = event.target;
       const isFocusInBranch = [...context.branches].some((branch) => branch.contains(target));
       if (isFocusInBranch) return;
-      onFocusOutside == null ? void 0 : onFocusOutside(event);
-      onInteractOutside == null ? void 0 : onInteractOutside(event);
-      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
+      onFocusOutside?.(event);
+      onInteractOutside?.(event);
+      if (!event.defaultPrevented) onDismiss?.();
     }, ownerDocument);
     useEscapeKeydown((event) => {
       const isHighestLayer = index2 === context.layers.size - 1;
       if (!isHighestLayer) return;
-      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(event);
+      onEscapeKeyDown?.(event);
       if (!event.defaultPrevented && onDismiss) {
         event.preventDefault();
         onDismiss();
@@ -6131,7 +682,7 @@ var DismissableLayer = React11.forwardRef(
       document.addEventListener(CONTEXT_UPDATE, handleUpdate);
       return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
     }, []);
-    return /* @__PURE__ */ jsx6(
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
       Primitive.div,
       {
         ...layerProps,
@@ -6165,10 +716,10 @@ var DismissableLayerBranch = React11.forwardRef((props, forwardedRef) => {
       };
     }
   }, [context.branches]);
-  return /* @__PURE__ */ jsx6(Primitive.div, { ...props, ref: composedRefs });
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Primitive.div, { ...props, ref: composedRefs });
 });
 DismissableLayerBranch.displayName = BRANCH_NAME;
-function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?.document) {
   const handlePointerDownOutside = useCallbackRef(onPointerDownOutside);
   const isPointerInsideReactTreeRef = React11.useRef(false);
   const handleClickRef = React11.useRef(() => {
@@ -6212,7 +763,7 @@ function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis 
     onPointerDownCapture: () => isPointerInsideReactTreeRef.current = true
   };
 }
-function useFocusOutside(onFocusOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+function useFocusOutside(onFocusOutside, ownerDocument = globalThis?.document) {
   const handleFocusOutside = useCallbackRef(onFocusOutside);
   const isFocusInsideReactTreeRef = React11.useRef(false);
   React11.useEffect(() => {
@@ -6248,14 +799,13 @@ function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
 }
 
 // node_modules/@radix-ui/react-focus-guards/dist/index.mjs
-import * as React12 from "react";
+var React12 = __toESM(require("react"), 1);
 var count = 0;
 function useFocusGuards() {
   React12.useEffect(() => {
-    var _a, _b;
     const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
-    document.body.insertAdjacentElement("afterbegin", (_a = edgeGuards[0]) != null ? _a : createFocusGuard());
-    document.body.insertAdjacentElement("beforeend", (_b = edgeGuards[1]) != null ? _b : createFocusGuard());
+    document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
+    document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
     count++;
     return () => {
       if (count === 1) {
@@ -6277,8 +827,8 @@ function createFocusGuard() {
 }
 
 // node_modules/@radix-ui/react-focus-scope/dist/index.mjs
-import * as React13 from "react";
-import { jsx as jsx7 } from "react/jsx-runtime";
+var React13 = __toESM(require("react"), 1);
+var import_jsx_runtime8 = require("react/jsx-runtime");
 var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
 var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
 var EVENT_OPTIONS = { bubbles: false, cancelable: true };
@@ -6364,7 +914,7 @@ var FocusScope = React13.forwardRef((props, forwardedRef) => {
           container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
           container.dispatchEvent(unmountEvent);
           if (!unmountEvent.defaultPrevented) {
-            focus(previouslyFocusedElement != null ? previouslyFocusedElement : document.body, { select: true });
+            focus(previouslyFocusedElement ?? document.body, { select: true });
           }
           container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
           focusScopesStack.remove(focusScope);
@@ -6397,7 +947,7 @@ var FocusScope = React13.forwardRef((props, forwardedRef) => {
     },
     [loop, trapped, focusScope.paused]
   );
-  return /* @__PURE__ */ jsx7(Primitive.div, { tabIndex: -1, ...scopeProps, ref: composedRefs, onKeyDown: handleKeyDown });
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Primitive.div, { tabIndex: -1, ...scopeProps, ref: composedRefs, onKeyDown: handleKeyDown });
 });
 FocusScope.displayName = FOCUS_SCOPE_NAME;
 function focusFirst(candidates, { select = false } = {}) {
@@ -6457,15 +1007,14 @@ function createFocusScopesStack() {
     add(focusScope) {
       const activeFocusScope = stack[0];
       if (focusScope !== activeFocusScope) {
-        activeFocusScope == null ? void 0 : activeFocusScope.pause();
+        activeFocusScope?.pause();
       }
       stack = arrayRemove(stack, focusScope);
       stack.unshift(focusScope);
     },
     remove(focusScope) {
-      var _a;
       stack = arrayRemove(stack, focusScope);
-      (_a = stack[0]) == null ? void 0 : _a.resume();
+      stack[0]?.resume();
     }
   };
 }
@@ -6482,19 +1031,19 @@ function removeLinks(items) {
 }
 
 // node_modules/@radix-ui/react-id/dist/index.mjs
-import * as React14 from "react";
+var React14 = __toESM(require("react"), 1);
 var useReactId = React14[" useId ".trim().toString()] || (() => void 0);
 var count2 = 0;
 function useId(deterministicId) {
   const [id, setId] = React14.useState(useReactId());
   useLayoutEffect2(() => {
-    if (!deterministicId) setId((reactId) => reactId != null ? reactId : String(count2++));
+    if (!deterministicId) setId((reactId) => reactId ?? String(count2++));
   }, [deterministicId]);
   return deterministicId || (id ? `radix-${id}` : "");
 }
 
 // node_modules/@radix-ui/react-popper/dist/index.mjs
-import * as React18 from "react";
+var React18 = __toESM(require("react"), 1);
 
 // node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs
 var sides = ["top", "right", "bottom", "left"];
@@ -8095,13 +2644,13 @@ var computePosition2 = (reference, floating, options) => {
 };
 
 // node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs
-import * as React15 from "react";
-import { useLayoutEffect as useLayoutEffect3 } from "react";
-import * as ReactDOM2 from "react-dom";
+var React15 = __toESM(require("react"), 1);
+var import_react3 = require("react");
+var ReactDOM2 = __toESM(require("react-dom"), 1);
 var isClient = typeof document !== "undefined";
 var noop = function noop2() {
 };
-var index = isClient ? useLayoutEffect3 : noop;
+var index = isClient ? import_react3.useLayoutEffect : noop;
 function deepEqual(a, b) {
   if (a === b) {
     return true;
@@ -8379,12 +2928,12 @@ var arrow3 = (options, deps) => ({
 });
 
 // node_modules/@radix-ui/react-arrow/dist/index.mjs
-import * as React16 from "react";
-import { jsx as jsx8 } from "react/jsx-runtime";
+var React16 = __toESM(require("react"), 1);
+var import_jsx_runtime9 = require("react/jsx-runtime");
 var NAME = "Arrow";
 var Arrow = React16.forwardRef((props, forwardedRef) => {
   const { children, width = 10, height = 5, ...arrowProps } = props;
-  return /* @__PURE__ */ jsx8(
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
     Primitive.svg,
     {
       ...arrowProps,
@@ -8393,7 +2942,7 @@ var Arrow = React16.forwardRef((props, forwardedRef) => {
       height,
       viewBox: "0 0 30 10",
       preserveAspectRatio: "none",
-      children: props.asChild ? children : /* @__PURE__ */ jsx8("polygon", { points: "0,0 30,0 15,10" })
+      children: props.asChild ? children : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("polygon", { points: "0,0 30,0 15,10" })
     }
   );
 });
@@ -8401,7 +2950,7 @@ Arrow.displayName = NAME;
 var Root = Arrow;
 
 // node_modules/@radix-ui/react-use-size/dist/index.mjs
-import * as React17 from "react";
+var React17 = __toESM(require("react"), 1);
 function useSize(element) {
   const [size4, setSize] = React17.useState(void 0);
   useLayoutEffect2(() => {
@@ -8438,14 +2987,14 @@ function useSize(element) {
 }
 
 // node_modules/@radix-ui/react-popper/dist/index.mjs
-import { jsx as jsx9 } from "react/jsx-runtime";
+var import_jsx_runtime10 = require("react/jsx-runtime");
 var POPPER_NAME = "Popper";
 var [createPopperContext, createPopperScope] = createContextScope(POPPER_NAME);
 var [PopperProvider, usePopperContext] = createPopperContext(POPPER_NAME);
 var Popper = (props) => {
   const { __scopePopper, children } = props;
   const [anchor, setAnchor] = React18.useState(null);
-  return /* @__PURE__ */ jsx9(PopperProvider, { scope: __scopePopper, anchor, onAnchorChange: setAnchor, children });
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(PopperProvider, { scope: __scopePopper, anchor, onAnchorChange: setAnchor, children });
 };
 Popper.displayName = POPPER_NAME;
 var ANCHOR_NAME = "PopperAnchor";
@@ -8456,9 +3005,9 @@ var PopperAnchor = React18.forwardRef(
     const ref = React18.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
     React18.useEffect(() => {
-      context.onAnchorChange((virtualRef == null ? void 0 : virtualRef.current) || ref.current);
+      context.onAnchorChange(virtualRef?.current || ref.current);
     });
-    return virtualRef ? null : /* @__PURE__ */ jsx9(Primitive.div, { ...anchorProps, ref: composedRefs });
+    return virtualRef ? null : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Primitive.div, { ...anchorProps, ref: composedRefs });
   }
 );
 PopperAnchor.displayName = ANCHOR_NAME;
@@ -8466,7 +3015,6 @@ var CONTENT_NAME = "PopperContent";
 var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME);
 var PopperContent = React18.forwardRef(
   (props, forwardedRef) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
     const {
       __scopePopper,
       side = "bottom",
@@ -8488,8 +3036,8 @@ var PopperContent = React18.forwardRef(
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
     const [arrow4, setArrow] = React18.useState(null);
     const arrowSize = useSize(arrow4);
-    const arrowWidth = (_a = arrowSize == null ? void 0 : arrowSize.width) != null ? _a : 0;
-    const arrowHeight = (_b = arrowSize == null ? void 0 : arrowSize.height) != null ? _b : 0;
+    const arrowWidth = arrowSize?.width ?? 0;
+    const arrowHeight = arrowSize?.height ?? 0;
     const desiredPlacement = side + (align !== "center" ? "-" + align : "");
     const collisionPadding = typeof collisionPaddingProp === "number" ? collisionPaddingProp : { top: 0, right: 0, bottom: 0, left: 0, ...collisionPaddingProp };
     const boundary = Array.isArray(collisionBoundary) ? collisionBoundary : [collisionBoundary];
@@ -8542,17 +3090,17 @@ var PopperContent = React18.forwardRef(
     const handlePlaced = useCallbackRef(onPlaced);
     useLayoutEffect2(() => {
       if (isPositioned) {
-        handlePlaced == null ? void 0 : handlePlaced();
+        handlePlaced?.();
       }
     }, [isPositioned, handlePlaced]);
-    const arrowX = (_c = middlewareData.arrow) == null ? void 0 : _c.x;
-    const arrowY = (_d = middlewareData.arrow) == null ? void 0 : _d.y;
-    const cannotCenterArrow = ((_e = middlewareData.arrow) == null ? void 0 : _e.centerOffset) !== 0;
+    const arrowX = middlewareData.arrow?.x;
+    const arrowY = middlewareData.arrow?.y;
+    const cannotCenterArrow = middlewareData.arrow?.centerOffset !== 0;
     const [contentZIndex, setContentZIndex] = React18.useState();
     useLayoutEffect2(() => {
       if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [content]);
-    return /* @__PURE__ */ jsx9(
+    return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
       "div",
       {
         ref: refs.setFloating,
@@ -8564,19 +3112,19 @@ var PopperContent = React18.forwardRef(
           minWidth: "max-content",
           zIndex: contentZIndex,
           ["--radix-popper-transform-origin"]: [
-            (_f = middlewareData.transformOrigin) == null ? void 0 : _f.x,
-            (_g = middlewareData.transformOrigin) == null ? void 0 : _g.y
+            middlewareData.transformOrigin?.x,
+            middlewareData.transformOrigin?.y
           ].join(" "),
           // hide the content if using the hide middleware and should be hidden
           // set visibility to hidden and disable pointer events so the UI behaves
           // as if the PopperContent isn't there at all
-          ...((_h = middlewareData.hide) == null ? void 0 : _h.referenceHidden) && {
+          ...middlewareData.hide?.referenceHidden && {
             visibility: "hidden",
             pointerEvents: "none"
           }
         },
         dir: props.dir,
-        children: /* @__PURE__ */ jsx9(
+        children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
           PopperContentProvider,
           {
             scope: __scopePopper,
@@ -8585,7 +3133,7 @@ var PopperContent = React18.forwardRef(
             arrowX,
             arrowY,
             shouldHideArrow: cannotCenterArrow,
-            children: /* @__PURE__ */ jsx9(
+            children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
               Primitive.div,
               {
                 "data-side": placedSide,
@@ -8622,7 +3170,7 @@ var PopperArrow = React18.forwardRef(function PopperArrow2(props, forwardedRef) 
     // we have to use an extra wrapper because `ResizeObserver` (used by `useSize`)
     // doesn't report size as we'd expect on SVG elements.
     // it reports their bounding box which is effectively the largest path inside the SVG.
-    /* @__PURE__ */ jsx9(
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
       "span",
       {
         ref: contentContext.onArrowChange,
@@ -8645,7 +3193,7 @@ var PopperArrow = React18.forwardRef(function PopperArrow2(props, forwardedRef) 
           }[contentContext.placedSide],
           visibility: contentContext.shouldHideArrow ? "hidden" : void 0
         },
-        children: /* @__PURE__ */ jsx9(
+        children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
           Root,
           {
             ...arrowProps,
@@ -8669,16 +3217,15 @@ var transformOrigin = (options) => ({
   name: "transformOrigin",
   options,
   fn(data) {
-    var _a, _b, _c, _d, _e;
     const { placement, rects, middlewareData } = data;
-    const cannotCenterArrow = ((_a = middlewareData.arrow) == null ? void 0 : _a.centerOffset) !== 0;
+    const cannotCenterArrow = middlewareData.arrow?.centerOffset !== 0;
     const isArrowHidden = cannotCenterArrow;
     const arrowWidth = isArrowHidden ? 0 : options.arrowWidth;
     const arrowHeight = isArrowHidden ? 0 : options.arrowHeight;
     const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
     const noArrowAlign = { start: "0%", center: "50%", end: "100%" }[placedAlign];
-    const arrowXCenter = ((_c = (_b = middlewareData.arrow) == null ? void 0 : _b.x) != null ? _c : 0) + arrowWidth / 2;
-    const arrowYCenter = ((_e = (_d = middlewareData.arrow) == null ? void 0 : _d.y) != null ? _e : 0) + arrowHeight / 2;
+    const arrowXCenter = (middlewareData.arrow?.x ?? 0) + arrowWidth / 2;
+    const arrowYCenter = (middlewareData.arrow?.y ?? 0) + arrowHeight / 2;
     let x = "";
     let y = "";
     if (placedSide === "bottom") {
@@ -8707,27 +3254,26 @@ var Content = PopperContent;
 var Arrow2 = PopperArrow;
 
 // node_modules/@radix-ui/react-portal/dist/index.mjs
-import * as React19 from "react";
-import ReactDOM3 from "react-dom";
-import { jsx as jsx10 } from "react/jsx-runtime";
+var React19 = __toESM(require("react"), 1);
+var import_react_dom2 = __toESM(require("react-dom"), 1);
+var import_jsx_runtime11 = require("react/jsx-runtime");
 var PORTAL_NAME = "Portal";
 var Portal = React19.forwardRef((props, forwardedRef) => {
-  var _a;
   const { container: containerProp, ...portalProps } = props;
   const [mounted, setMounted] = React19.useState(false);
   useLayoutEffect2(() => setMounted(true), []);
-  const container = containerProp || mounted && ((_a = globalThis == null ? void 0 : globalThis.document) == null ? void 0 : _a.body);
-  return container ? ReactDOM3.createPortal(/* @__PURE__ */ jsx10(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
+  const container = containerProp || mounted && globalThis?.document?.body;
+  return container ? import_react_dom2.default.createPortal(/* @__PURE__ */ (0, import_jsx_runtime11.jsx)(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
 });
 Portal.displayName = PORTAL_NAME;
 
 // node_modules/@radix-ui/react-presence/dist/index.mjs
-import * as React24 from "react";
-import * as React20 from "react";
+var React24 = __toESM(require("react"), 1);
+var React20 = __toESM(require("react"), 1);
 function useStateMachine(initialState, machine) {
   return React20.useReducer((state, event) => {
     const nextState = machine[state][event];
-    return nextState != null ? nextState : state;
+    return nextState ?? state;
   }, initialState);
 }
 var Presence = (props) => {
@@ -8771,7 +3317,7 @@ function usePresence(present) {
       const currentAnimationName = getAnimationName(styles);
       if (present) {
         send("MOUNT");
-      } else if (currentAnimationName === "none" || (styles == null ? void 0 : styles.display) === "none") {
+      } else if (currentAnimationName === "none" || styles?.display === "none") {
         send("UNMOUNT");
       } else {
         const isAnimating = prevAnimationName !== currentAnimationName;
@@ -8785,10 +3331,9 @@ function usePresence(present) {
     }
   }, [present, send]);
   useLayoutEffect2(() => {
-    var _a;
     if (node) {
       let timeoutId;
-      const ownerWindow = (_a = node.ownerDocument.defaultView) != null ? _a : window;
+      const ownerWindow = node.ownerDocument.defaultView ?? window;
       const handleAnimationEnd = (event) => {
         const currentAnimationName = getAnimationName(stylesRef.current);
         const isCurrentAnimation = currentAnimationName.includes(event.animationName);
@@ -8832,16 +3377,15 @@ function usePresence(present) {
   };
 }
 function getAnimationName(styles) {
-  return (styles == null ? void 0 : styles.animationName) || "none";
+  return styles?.animationName || "none";
 }
 function getElementRef2(element) {
-  var _a, _b;
-  let getter = (_a = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a.get;
+  let getter = Object.getOwnPropertyDescriptor(element.props, "ref")?.get;
   let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.ref;
   }
-  getter = (_b = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b.get;
+  getter = Object.getOwnPropertyDescriptor(element, "ref")?.get;
   mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.props.ref;
@@ -8850,8 +3394,8 @@ function getElementRef2(element) {
 }
 
 // node_modules/@radix-ui/react-roving-focus/dist/index.mjs
-import * as React21 from "react";
-import { jsx as jsx11 } from "react/jsx-runtime";
+var React21 = __toESM(require("react"), 1);
+var import_jsx_runtime12 = require("react/jsx-runtime");
 var ENTRY_FOCUS = "rovingFocusGroup.onEntryFocus";
 var EVENT_OPTIONS2 = { bubbles: false, cancelable: true };
 var GROUP_NAME = "RovingFocusGroup";
@@ -8863,7 +3407,7 @@ var [createRovingFocusGroupContext, createRovingFocusGroupScope] = createContext
 var [RovingFocusProvider, useRovingFocusContext] = createRovingFocusGroupContext(GROUP_NAME);
 var RovingFocusGroup = React21.forwardRef(
   (props, forwardedRef) => {
-    return /* @__PURE__ */ jsx11(Collection.Provider, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsx11(Collection.Slot, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsx11(RovingFocusGroupImpl, { ...props, ref: forwardedRef }) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Collection.Provider, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Collection.Slot, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(RovingFocusGroupImpl, { ...props, ref: forwardedRef }) }) });
   }
 );
 RovingFocusGroup.displayName = GROUP_NAME;
@@ -8885,7 +3429,7 @@ var RovingFocusGroupImpl = React21.forwardRef((props, forwardedRef) => {
   const direction = useDirection(dir);
   const [currentTabStopId, setCurrentTabStopId] = useControllableState({
     prop: currentTabStopIdProp,
-    defaultProp: defaultCurrentTabStopId != null ? defaultCurrentTabStopId : null,
+    defaultProp: defaultCurrentTabStopId ?? null,
     onChange: onCurrentTabStopIdChange,
     caller: GROUP_NAME
   });
@@ -8901,7 +3445,7 @@ var RovingFocusGroupImpl = React21.forwardRef((props, forwardedRef) => {
       return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus);
     }
   }, [handleEntryFocus]);
-  return /* @__PURE__ */ jsx11(
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
     RovingFocusProvider,
     {
       scope: __scopeRovingFocusGroup,
@@ -8922,7 +3466,7 @@ var RovingFocusGroupImpl = React21.forwardRef((props, forwardedRef) => {
         () => setFocusableItemsCount((prevCount) => prevCount - 1),
         []
       ),
-      children: /* @__PURE__ */ jsx11(
+      children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         Primitive.div,
         {
           tabIndex: isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0,
@@ -8980,14 +3524,14 @@ var RovingFocusGroupItem = React21.forwardRef(
         return () => onFocusableItemRemove();
       }
     }, [focusable, onFocusableItemAdd, onFocusableItemRemove]);
-    return /* @__PURE__ */ jsx11(
+    return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
       Collection.ItemSlot,
       {
         scope: __scopeRovingFocusGroup,
         id,
         focusable,
         active,
-        children: /* @__PURE__ */ jsx11(
+        children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
           Primitive.span,
           {
             tabIndex: isCurrentTabStop ? 0 : -1,
@@ -9216,10 +3760,10 @@ function __spreadArray(to, from, pack) {
 }
 
 // node_modules/react-remove-scroll/dist/es2015/Combination.js
-import * as React31 from "react";
+var React31 = __toESM(require("react"));
 
 // node_modules/react-remove-scroll/dist/es2015/UI.js
-import * as React27 from "react";
+var React27 = __toESM(require("react"));
 
 // node_modules/react-remove-scroll-bar/dist/es2015/constants.js
 var zeroRightClassName = "right-scroll-bar-position";
@@ -9238,9 +3782,9 @@ function assignRef(ref, value) {
 }
 
 // node_modules/use-callback-ref/dist/es2015/useRef.js
-import { useState as useState11 } from "react";
+var import_react4 = require("react");
 function useCallbackRef2(initialValue, callback) {
-  var ref = useState11(function() {
+  var ref = (0, import_react4.useState)(function() {
     return {
       // value
       value: initialValue,
@@ -9266,7 +3810,7 @@ function useCallbackRef2(initialValue, callback) {
 }
 
 // node_modules/use-callback-ref/dist/es2015/useMergeRef.js
-import * as React25 from "react";
+var React25 = __toESM(require("react"));
 var useIsomorphicLayoutEffect = typeof window !== "undefined" ? React25.useLayoutEffect : React25.useEffect;
 var currentValues = /* @__PURE__ */ new WeakMap();
 function useMergeRefs(refs, defaultValue) {
@@ -9384,7 +3928,7 @@ function createSidecarMedium(options) {
 }
 
 // node_modules/use-sidecar/dist/es2015/exports.js
-import * as React26 from "react";
+var React26 = __toESM(require("react"));
 var SideCar = function(_a) {
   var sideCar = _a.sideCar, rest = __rest(_a, ["sideCar"]);
   if (!sideCar) {
@@ -9438,13 +3982,13 @@ RemoveScroll.classNames = {
 };
 
 // node_modules/react-remove-scroll/dist/es2015/SideEffect.js
-import * as React30 from "react";
+var React30 = __toESM(require("react"));
 
 // node_modules/react-remove-scroll-bar/dist/es2015/component.js
-import * as React29 from "react";
+var React29 = __toESM(require("react"));
 
 // node_modules/react-style-singleton/dist/es2015/hook.js
-import * as React28 from "react";
+var React28 = __toESM(require("react"));
 
 // node_modules/get-nonce/dist/es2015/index.js
 var currentNonce;
@@ -9898,7 +4442,7 @@ ReactRemoveScroll.classNames = RemoveScroll.classNames;
 var Combination_default = ReactRemoveScroll;
 
 // node_modules/@radix-ui/react-menu/dist/index.mjs
-import { jsx as jsx12 } from "react/jsx-runtime";
+var import_jsx_runtime13 = require("react/jsx-runtime");
 var SELECTION_KEYS = ["Enter", " "];
 var FIRST_KEYS = ["ArrowDown", "PageUp", "Home"];
 var LAST_KEYS = ["ArrowUp", "PageDown", "End"];
@@ -9943,7 +4487,7 @@ var Menu = (props) => {
       document.removeEventListener("pointermove", handlePointer, { capture: true });
     };
   }, []);
-  return /* @__PURE__ */ jsx12(Root2, { ...popperScope, children: /* @__PURE__ */ jsx12(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
     MenuProvider,
     {
       scope: __scopeMenu,
@@ -9951,7 +4495,7 @@ var Menu = (props) => {
       onOpenChange: handleOpenChange,
       content,
       onContentChange: setContent,
-      children: /* @__PURE__ */ jsx12(
+      children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
         MenuRootProvider,
         {
           scope: __scopeMenu,
@@ -9971,7 +4515,7 @@ var MenuAnchor = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...anchorProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
-    return /* @__PURE__ */ jsx12(Anchor, { ...popperScope, ...anchorProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Anchor, { ...popperScope, ...anchorProps, ref: forwardedRef });
   }
 );
 MenuAnchor.displayName = ANCHOR_NAME2;
@@ -9982,7 +4526,7 @@ var [PortalProvider, usePortalContext] = createMenuContext(PORTAL_NAME2, {
 var MenuPortal = (props) => {
   const { __scopeMenu, forceMount, children, container } = props;
   const context = useMenuContext(PORTAL_NAME2, __scopeMenu);
-  return /* @__PURE__ */ jsx12(PortalProvider, { scope: __scopeMenu, forceMount, children: /* @__PURE__ */ jsx12(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsx12(Portal, { asChild: true, container, children }) }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(PortalProvider, { scope: __scopeMenu, forceMount, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Portal, { asChild: true, container, children }) }) });
 };
 MenuPortal.displayName = PORTAL_NAME2;
 var CONTENT_NAME2 = "MenuContent";
@@ -9993,7 +4537,7 @@ var MenuContent = React32.forwardRef(
     const { forceMount = portalContext.forceMount, ...contentProps } = props;
     const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
     const rootContext = useMenuRootContext(CONTENT_NAME2, props.__scopeMenu);
-    return /* @__PURE__ */ jsx12(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx12(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsx12(Collection2.Slot, { scope: props.__scopeMenu, children: rootContext.modal ? /* @__PURE__ */ jsx12(MenuRootContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ jsx12(MenuRootContentNonModal, { ...contentProps, ref: forwardedRef }) }) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Collection2.Slot, { scope: props.__scopeMenu, children: rootContext.modal ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MenuRootContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MenuRootContentNonModal, { ...contentProps, ref: forwardedRef }) }) }) });
   }
 );
 var MenuRootContentModal = React32.forwardRef(
@@ -10005,7 +4549,7 @@ var MenuRootContentModal = React32.forwardRef(
       const content = ref.current;
       if (content) return hideOthers(content);
     }, []);
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuContentImpl,
       {
         ...props,
@@ -10025,7 +4569,7 @@ var MenuRootContentModal = React32.forwardRef(
 );
 var MenuRootContentNonModal = React32.forwardRef((props, forwardedRef) => {
   const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
-  return /* @__PURE__ */ jsx12(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
     MenuContentImpl,
     {
       ...props,
@@ -10073,14 +4617,13 @@ var MenuContentImpl = React32.forwardRef(
     const ScrollLockWrapper = disableOutsideScroll ? Combination_default : React32.Fragment;
     const scrollLockWrapperProps = disableOutsideScroll ? { as: Slot2, allowPinchZoom: true } : void 0;
     const handleTypeaheadSearch = (key) => {
-      var _a, _b;
       const search = searchRef.current + key;
       const items = getItems().filter((item) => !item.disabled);
       const currentItem = document.activeElement;
-      const currentMatch = (_a = items.find((item) => item.ref.current === currentItem)) == null ? void 0 : _a.textValue;
+      const currentMatch = items.find((item) => item.ref.current === currentItem)?.textValue;
       const values = items.map((item) => item.textValue);
       const nextMatch = getNextMatch(values, search, currentMatch);
-      const newItem = (_b = items.find((item) => item.textValue === nextMatch)) == null ? void 0 : _b.ref.current;
+      const newItem = items.find((item) => item.textValue === nextMatch)?.ref.current;
       (function updateSearch(value) {
         searchRef.current = value;
         window.clearTimeout(timerRef.current);
@@ -10095,11 +4638,10 @@ var MenuContentImpl = React32.forwardRef(
     }, []);
     useFocusGuards();
     const isPointerMovingToSubmenu = React32.useCallback((event) => {
-      var _a, _b;
-      const isMovingTowards = pointerDirRef.current === ((_a = pointerGraceIntentRef.current) == null ? void 0 : _a.side);
-      return isMovingTowards && isPointerInGraceArea(event, (_b = pointerGraceIntentRef.current) == null ? void 0 : _b.area);
+      const isMovingTowards = pointerDirRef.current === pointerGraceIntentRef.current?.side;
+      return isMovingTowards && isPointerInGraceArea(event, pointerGraceIntentRef.current?.area);
     }, []);
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuContentProvider,
       {
         scope: __scopeMenu,
@@ -10112,9 +4654,8 @@ var MenuContentImpl = React32.forwardRef(
         ),
         onItemLeave: React32.useCallback(
           (event) => {
-            var _a;
             if (isPointerMovingToSubmenu(event)) return;
-            (_a = contentRef.current) == null ? void 0 : _a.focus();
+            contentRef.current?.focus();
             setCurrentItemId(null);
           },
           [isPointerMovingToSubmenu]
@@ -10129,18 +4670,17 @@ var MenuContentImpl = React32.forwardRef(
         onPointerGraceIntentChange: React32.useCallback((intent) => {
           pointerGraceIntentRef.current = intent;
         }, []),
-        children: /* @__PURE__ */ jsx12(ScrollLockWrapper, { ...scrollLockWrapperProps, children: /* @__PURE__ */ jsx12(
+        children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ScrollLockWrapper, { ...scrollLockWrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
           FocusScope,
           {
             asChild: true,
             trapped: trapFocus,
             onMountAutoFocus: composeEventHandlers(onOpenAutoFocus, (event) => {
-              var _a;
               event.preventDefault();
-              (_a = contentRef.current) == null ? void 0 : _a.focus({ preventScroll: true });
+              contentRef.current?.focus({ preventScroll: true });
             }),
             onUnmountAutoFocus: onCloseAutoFocus,
-            children: /* @__PURE__ */ jsx12(
+            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
               DismissableLayer,
               {
                 asChild: true,
@@ -10150,7 +4690,7 @@ var MenuContentImpl = React32.forwardRef(
                 onFocusOutside,
                 onInteractOutside,
                 onDismiss,
-                children: /* @__PURE__ */ jsx12(
+                children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
                   Root3,
                   {
                     asChild: true,
@@ -10164,7 +4704,7 @@ var MenuContentImpl = React32.forwardRef(
                       if (!rootContext.isUsingKeyboardRef.current) event.preventDefault();
                     }),
                     preventScrollOnEntryFocus: true,
-                    children: /* @__PURE__ */ jsx12(
+                    children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
                       Content,
                       {
                         role: "menu",
@@ -10229,7 +4769,7 @@ var GROUP_NAME2 = "MenuGroup";
 var MenuGroup = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...groupProps } = props;
-    return /* @__PURE__ */ jsx12(Primitive.div, { role: "group", ...groupProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Primitive.div, { role: "group", ...groupProps, ref: forwardedRef });
   }
 );
 MenuGroup.displayName = GROUP_NAME2;
@@ -10237,7 +4777,7 @@ var LABEL_NAME = "MenuLabel";
 var MenuLabel = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...labelProps } = props;
-    return /* @__PURE__ */ jsx12(Primitive.div, { ...labelProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Primitive.div, { ...labelProps, ref: forwardedRef });
   }
 );
 MenuLabel.displayName = LABEL_NAME;
@@ -10255,7 +4795,7 @@ var MenuItem = React32.forwardRef(
       const menuItem = ref.current;
       if (!disabled && menuItem) {
         const itemSelectEvent = new CustomEvent(ITEM_SELECT, { bubbles: true, cancelable: true });
-        menuItem.addEventListener(ITEM_SELECT, (event) => onSelect == null ? void 0 : onSelect(event), { once: true });
+        menuItem.addEventListener(ITEM_SELECT, (event) => onSelect?.(event), { once: true });
         dispatchDiscreteCustomEvent(menuItem, itemSelectEvent);
         if (itemSelectEvent.defaultPrevented) {
           isPointerDownRef.current = false;
@@ -10264,7 +4804,7 @@ var MenuItem = React32.forwardRef(
         }
       }
     };
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuItemImpl,
       {
         ...itemProps,
@@ -10272,13 +4812,11 @@ var MenuItem = React32.forwardRef(
         disabled,
         onClick: composeEventHandlers(props.onClick, handleSelect),
         onPointerDown: (event) => {
-          var _a;
-          (_a = props.onPointerDown) == null ? void 0 : _a.call(props, event);
+          props.onPointerDown?.(event);
           isPointerDownRef.current = true;
         },
         onPointerUp: composeEventHandlers(props.onPointerUp, (event) => {
-          var _a;
-          if (!isPointerDownRef.current) (_a = event.currentTarget) == null ? void 0 : _a.click();
+          if (!isPointerDownRef.current) event.currentTarget?.click();
         }),
         onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
           const isTypingAhead = contentContext.searchRef.current !== "";
@@ -10303,19 +4841,18 @@ var MenuItemImpl = React32.forwardRef(
     const [isFocused, setIsFocused] = React32.useState(false);
     const [textContent, setTextContent] = React32.useState("");
     React32.useEffect(() => {
-      var _a;
       const menuItem = ref.current;
       if (menuItem) {
-        setTextContent(((_a = menuItem.textContent) != null ? _a : "").trim());
+        setTextContent((menuItem.textContent ?? "").trim());
       }
     }, [itemProps.children]);
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       Collection2.ItemSlot,
       {
         scope: __scopeMenu,
         disabled,
-        textValue: textValue != null ? textValue : textContent,
-        children: /* @__PURE__ */ jsx12(Item, { asChild: true, ...rovingFocusGroupScope, focusable: !disabled, children: /* @__PURE__ */ jsx12(
+        textValue: textValue ?? textContent,
+        children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Item, { asChild: true, ...rovingFocusGroupScope, focusable: !disabled, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
           Primitive.div,
           {
             role: "menuitem",
@@ -10354,7 +4891,7 @@ var CHECKBOX_ITEM_NAME = "MenuCheckboxItem";
 var MenuCheckboxItem = React32.forwardRef(
   (props, forwardedRef) => {
     const { checked = false, onCheckedChange, ...checkboxItemProps } = props;
-    return /* @__PURE__ */ jsx12(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuItem,
       {
         role: "menuitemcheckbox",
@@ -10364,7 +4901,7 @@ var MenuCheckboxItem = React32.forwardRef(
         "data-state": getCheckedState(checked),
         onSelect: composeEventHandlers(
           checkboxItemProps.onSelect,
-          () => onCheckedChange == null ? void 0 : onCheckedChange(isIndeterminate(checked) ? true : !checked),
+          () => onCheckedChange?.(isIndeterminate(checked) ? true : !checked),
           { checkForDefaultPrevented: false }
         )
       }
@@ -10382,7 +4919,7 @@ var MenuRadioGroup = React32.forwardRef(
   (props, forwardedRef) => {
     const { value, onValueChange, ...groupProps } = props;
     const handleValueChange = useCallbackRef(onValueChange);
-    return /* @__PURE__ */ jsx12(RadioGroupProvider, { scope: props.__scopeMenu, value, onValueChange: handleValueChange, children: /* @__PURE__ */ jsx12(MenuGroup, { ...groupProps, ref: forwardedRef }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(RadioGroupProvider, { scope: props.__scopeMenu, value, onValueChange: handleValueChange, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MenuGroup, { ...groupProps, ref: forwardedRef }) });
   }
 );
 MenuRadioGroup.displayName = RADIO_GROUP_NAME;
@@ -10392,7 +4929,7 @@ var MenuRadioItem = React32.forwardRef(
     const { value, ...radioItemProps } = props;
     const context = useRadioGroupContext(RADIO_ITEM_NAME, props.__scopeMenu);
     const checked = value === context.value;
-    return /* @__PURE__ */ jsx12(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuItem,
       {
         role: "menuitemradio",
@@ -10402,10 +4939,7 @@ var MenuRadioItem = React32.forwardRef(
         "data-state": getCheckedState(checked),
         onSelect: composeEventHandlers(
           radioItemProps.onSelect,
-          () => {
-            var _a;
-            return (_a = context.onValueChange) == null ? void 0 : _a.call(context, value);
-          },
+          () => context.onValueChange?.(value),
           { checkForDefaultPrevented: false }
         )
       }
@@ -10422,11 +4956,11 @@ var MenuItemIndicator = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, forceMount, ...itemIndicatorProps } = props;
     const indicatorContext = useItemIndicatorContext(ITEM_INDICATOR_NAME, __scopeMenu);
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       Presence,
       {
         present: forceMount || isIndeterminate(indicatorContext.checked) || indicatorContext.checked === true,
-        children: /* @__PURE__ */ jsx12(
+        children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
           Primitive.span,
           {
             ...itemIndicatorProps,
@@ -10443,7 +4977,7 @@ var SEPARATOR_NAME = "MenuSeparator";
 var MenuSeparator = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...separatorProps } = props;
-    return /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       Primitive.div,
       {
         role: "separator",
@@ -10460,7 +4994,7 @@ var MenuArrow = React32.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...arrowProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
-    return /* @__PURE__ */ jsx12(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Arrow2, { ...popperScope, ...arrowProps, ref: forwardedRef });
   }
 );
 MenuArrow.displayName = ARROW_NAME2;
@@ -10477,7 +5011,7 @@ var MenuSub = (props) => {
     if (parentMenuContext.open === false) handleOpenChange(false);
     return () => handleOpenChange(false);
   }, [parentMenuContext.open, handleOpenChange]);
-  return /* @__PURE__ */ jsx12(Root2, { ...popperScope, children: /* @__PURE__ */ jsx12(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Root2, { ...popperScope, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
     MenuProvider,
     {
       scope: __scopeMenu,
@@ -10485,7 +5019,7 @@ var MenuSub = (props) => {
       onOpenChange: handleOpenChange,
       content,
       onContentChange: setContent,
-      children: /* @__PURE__ */ jsx12(
+      children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
         MenuSubProvider,
         {
           scope: __scopeMenu,
@@ -10522,7 +5056,7 @@ var MenuSubTrigger = React32.forwardRef(
         onPointerGraceIntentChange(null);
       };
     }, [pointerGraceTimerRef, onPointerGraceIntentChange]);
-    return /* @__PURE__ */ jsx12(MenuAnchor, { asChild: true, ...scope, children: /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MenuAnchor, { asChild: true, ...scope, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuItemImpl,
       {
         id: subContext.triggerId,
@@ -10533,8 +5067,7 @@ var MenuSubTrigger = React32.forwardRef(
         ...props,
         ref: composeRefs(forwardedRef, subContext.onTriggerChange),
         onClick: (event) => {
-          var _a;
-          (_a = props.onClick) == null ? void 0 : _a.call(props, event);
+          props.onClick?.(event);
           if (props.disabled || event.defaultPrevented) return;
           event.currentTarget.focus();
           if (!context.open) context.onOpenChange(true);
@@ -10556,11 +5089,10 @@ var MenuSubTrigger = React32.forwardRef(
         onPointerLeave: composeEventHandlers(
           props.onPointerLeave,
           whenMouse((event) => {
-            var _a, _b;
             clearOpenTimer();
-            const contentRect = (_a = context.content) == null ? void 0 : _a.getBoundingClientRect();
+            const contentRect = context.content?.getBoundingClientRect();
             if (contentRect) {
-              const side = (_b = context.content) == null ? void 0 : _b.dataset.side;
+              const side = context.content?.dataset.side;
               const rightSide = side === "right";
               const bleed = rightSide ? -5 : 5;
               const contentNearEdge = contentRect[rightSide ? "left" : "right"];
@@ -10590,12 +5122,11 @@ var MenuSubTrigger = React32.forwardRef(
           })
         ),
         onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
-          var _a;
           const isTypingAhead = contentContext.searchRef.current !== "";
           if (props.disabled || isTypingAhead && event.key === " ") return;
           if (SUB_OPEN_KEYS[rootContext.dir].includes(event.key)) {
             context.onOpenChange(true);
-            (_a = context.content) == null ? void 0 : _a.focus();
+            context.content?.focus();
             event.preventDefault();
           }
         })
@@ -10614,7 +5145,7 @@ var MenuSubContent = React32.forwardRef(
     const subContext = useMenuSubContext(SUB_CONTENT_NAME, props.__scopeMenu);
     const ref = React32.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    return /* @__PURE__ */ jsx12(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx12(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsx12(Collection2.Slot, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx12(
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Collection2.Slot, { scope: props.__scopeMenu, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       MenuContentImpl,
       {
         id: subContext.contentId,
@@ -10627,8 +5158,7 @@ var MenuSubContent = React32.forwardRef(
         disableOutsideScroll: false,
         trapFocus: false,
         onOpenAutoFocus: (event) => {
-          var _a;
-          if (rootContext.isUsingKeyboardRef.current) (_a = ref.current) == null ? void 0 : _a.focus();
+          if (rootContext.isUsingKeyboardRef.current) ref.current?.focus();
           event.preventDefault();
         },
         onCloseAutoFocus: (event) => event.preventDefault(),
@@ -10640,12 +5170,11 @@ var MenuSubContent = React32.forwardRef(
           event.preventDefault();
         }),
         onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
-          var _a;
           const isKeyDownInside = event.currentTarget.contains(event.target);
           const isCloseKey = SUB_CLOSE_KEYS[rootContext.dir].includes(event.key);
           if (isKeyDownInside && isCloseKey) {
             context.onOpenChange(false);
-            (_a = subContext.trigger) == null ? void 0 : _a.focus();
+            subContext.trigger?.focus();
             event.preventDefault();
           }
         })
@@ -10726,7 +5255,7 @@ var SubTrigger = MenuSubTrigger;
 var SubContent = MenuSubContent;
 
 // node_modules/@radix-ui/react-dropdown-menu/dist/index.mjs
-import { jsx as jsx13 } from "react/jsx-runtime";
+var import_jsx_runtime14 = require("react/jsx-runtime");
 var DROPDOWN_MENU_NAME = "DropdownMenu";
 var [createDropdownMenuContext, createDropdownMenuScope] = createContextScope(
   DROPDOWN_MENU_NAME,
@@ -10748,11 +5277,11 @@ var DropdownMenu = (props) => {
   const triggerRef = React33.useRef(null);
   const [open, setOpen] = useControllableState({
     prop: openProp,
-    defaultProp: defaultOpen != null ? defaultOpen : false,
+    defaultProp: defaultOpen ?? false,
     onChange: onOpenChange,
     caller: DROPDOWN_MENU_NAME
   });
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
     DropdownMenuProvider,
     {
       scope: __scopeDropdownMenu,
@@ -10763,7 +5292,7 @@ var DropdownMenu = (props) => {
       onOpenChange: setOpen,
       onOpenToggle: React33.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
       modal,
-      children: /* @__PURE__ */ jsx13(Root32, { ...menuScope, open, onOpenChange: setOpen, dir, modal, children })
+      children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Root32, { ...menuScope, open, onOpenChange: setOpen, dir, modal, children })
     }
   );
 };
@@ -10774,7 +5303,7 @@ var DropdownMenuTrigger = React33.forwardRef(
     const { __scopeDropdownMenu, disabled = false, ...triggerProps } = props;
     const context = useDropdownMenuContext(TRIGGER_NAME, __scopeDropdownMenu);
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    return /* @__PURE__ */ jsx13(Anchor2, { asChild: true, ...menuScope, children: /* @__PURE__ */ jsx13(
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Anchor2, { asChild: true, ...menuScope, children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
       Primitive.button,
       {
         type: "button",
@@ -10808,7 +5337,7 @@ var PORTAL_NAME3 = "DropdownMenuPortal";
 var DropdownMenuPortal = (props) => {
   const { __scopeDropdownMenu, ...portalProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(Portal2, { ...menuScope, ...portalProps });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Portal2, { ...menuScope, ...portalProps });
 };
 DropdownMenuPortal.displayName = PORTAL_NAME3;
 var CONTENT_NAME3 = "DropdownMenuContent";
@@ -10818,7 +5347,7 @@ var DropdownMenuContent = React33.forwardRef(
     const context = useDropdownMenuContext(CONTENT_NAME3, __scopeDropdownMenu);
     const menuScope = useMenuScope(__scopeDropdownMenu);
     const hasInteractedOutsideRef = React33.useRef(false);
-    return /* @__PURE__ */ jsx13(
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
       Content2,
       {
         id: context.contentId,
@@ -10827,8 +5356,7 @@ var DropdownMenuContent = React33.forwardRef(
         ...contentProps,
         ref: forwardedRef,
         onCloseAutoFocus: composeEventHandlers(props.onCloseAutoFocus, (event) => {
-          var _a;
-          if (!hasInteractedOutsideRef.current) (_a = context.triggerRef.current) == null ? void 0 : _a.focus();
+          if (!hasInteractedOutsideRef.current) context.triggerRef.current?.focus();
           hasInteractedOutsideRef.current = false;
           event.preventDefault();
         }),
@@ -10859,7 +5387,7 @@ var DropdownMenuGroup = React33.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...groupProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    return /* @__PURE__ */ jsx13(Group, { ...menuScope, ...groupProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Group, { ...menuScope, ...groupProps, ref: forwardedRef });
   }
 );
 DropdownMenuGroup.displayName = GROUP_NAME3;
@@ -10868,7 +5396,7 @@ var DropdownMenuLabel = React33.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...labelProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    return /* @__PURE__ */ jsx13(Label, { ...menuScope, ...labelProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Label, { ...menuScope, ...labelProps, ref: forwardedRef });
   }
 );
 DropdownMenuLabel.displayName = LABEL_NAME2;
@@ -10877,7 +5405,7 @@ var DropdownMenuItem = React33.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...itemProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    return /* @__PURE__ */ jsx13(Item2, { ...menuScope, ...itemProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Item2, { ...menuScope, ...itemProps, ref: forwardedRef });
   }
 );
 DropdownMenuItem.displayName = ITEM_NAME3;
@@ -10885,35 +5413,35 @@ var CHECKBOX_ITEM_NAME2 = "DropdownMenuCheckboxItem";
 var DropdownMenuCheckboxItem = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...checkboxItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(CheckboxItem, { ...menuScope, ...checkboxItemProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(CheckboxItem, { ...menuScope, ...checkboxItemProps, ref: forwardedRef });
 });
 DropdownMenuCheckboxItem.displayName = CHECKBOX_ITEM_NAME2;
 var RADIO_GROUP_NAME2 = "DropdownMenuRadioGroup";
 var DropdownMenuRadioGroup = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioGroupProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(RadioGroup, { ...menuScope, ...radioGroupProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(RadioGroup, { ...menuScope, ...radioGroupProps, ref: forwardedRef });
 });
 DropdownMenuRadioGroup.displayName = RADIO_GROUP_NAME2;
 var RADIO_ITEM_NAME2 = "DropdownMenuRadioItem";
 var DropdownMenuRadioItem = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(RadioItem, { ...menuScope, ...radioItemProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(RadioItem, { ...menuScope, ...radioItemProps, ref: forwardedRef });
 });
 DropdownMenuRadioItem.displayName = RADIO_ITEM_NAME2;
 var INDICATOR_NAME = "DropdownMenuItemIndicator";
 var DropdownMenuItemIndicator = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...itemIndicatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(ItemIndicator, { ...menuScope, ...itemIndicatorProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(ItemIndicator, { ...menuScope, ...itemIndicatorProps, ref: forwardedRef });
 });
 DropdownMenuItemIndicator.displayName = INDICATOR_NAME;
 var SEPARATOR_NAME2 = "DropdownMenuSeparator";
 var DropdownMenuSeparator = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...separatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(Separator, { ...menuScope, ...separatorProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Separator, { ...menuScope, ...separatorProps, ref: forwardedRef });
 });
 DropdownMenuSeparator.displayName = SEPARATOR_NAME2;
 var ARROW_NAME3 = "DropdownMenuArrow";
@@ -10921,7 +5449,7 @@ var DropdownMenuArrow = React33.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...arrowProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    return /* @__PURE__ */ jsx13(Arrow22, { ...menuScope, ...arrowProps, ref: forwardedRef });
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Arrow22, { ...menuScope, ...arrowProps, ref: forwardedRef });
   }
 );
 DropdownMenuArrow.displayName = ARROW_NAME3;
@@ -10929,14 +5457,14 @@ var SUB_TRIGGER_NAME2 = "DropdownMenuSubTrigger";
 var DropdownMenuSubTrigger = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subTriggerProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(SubTrigger, { ...menuScope, ...subTriggerProps, ref: forwardedRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SubTrigger, { ...menuScope, ...subTriggerProps, ref: forwardedRef });
 });
 DropdownMenuSubTrigger.displayName = SUB_TRIGGER_NAME2;
 var SUB_CONTENT_NAME2 = "DropdownMenuSubContent";
 var DropdownMenuSubContent = React33.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subContentProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
     SubContent,
     {
       ...menuScope,
@@ -10971,7 +5499,7 @@ var SubTrigger2 = DropdownMenuSubTrigger;
 var SubContent2 = DropdownMenuSubContent;
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
-import { forwardRef as forwardRef14, createElement as createElement7 } from "react";
+var import_react6 = require("react");
 
 // node_modules/lucide-react/dist/esm/shared/src/utils.js
 var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
@@ -10995,7 +5523,7 @@ var hasA11yProp = (props) => {
 };
 
 // node_modules/lucide-react/dist/esm/Icon.js
-import { forwardRef as forwardRef13, createElement as createElement6 } from "react";
+var import_react5 = require("react");
 
 // node_modules/lucide-react/dist/esm/defaultAttributes.js
 var defaultAttributes = {
@@ -11011,7 +5539,7 @@ var defaultAttributes = {
 };
 
 // node_modules/lucide-react/dist/esm/Icon.js
-var Icon = forwardRef13(
+var Icon = (0, import_react5.forwardRef)(
   ({
     color = "currentColor",
     size: size4 = 24,
@@ -11021,7 +5549,7 @@ var Icon = forwardRef13(
     children,
     iconNode,
     ...rest
-  }, ref) => createElement6(
+  }, ref) => (0, import_react5.createElement)(
     "svg",
     {
       ref,
@@ -11035,7 +5563,7 @@ var Icon = forwardRef13(
       ...rest
     },
     [
-      ...iconNode.map(([tag, attrs]) => createElement6(tag, attrs)),
+      ...iconNode.map(([tag, attrs]) => (0, import_react5.createElement)(tag, attrs)),
       ...Array.isArray(children) ? children : [children]
     ]
   )
@@ -11043,8 +5571,8 @@ var Icon = forwardRef13(
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
 var createLucideIcon = (iconName, iconNode) => {
-  const Component = forwardRef14(
-    ({ className, ...props }, ref) => createElement7(Icon, {
+  const Component = (0, import_react6.forwardRef)(
+    ({ className, ...props }, ref) => (0, import_react6.createElement)(Icon, {
       ref,
       iconNode,
       className: mergeClasses(
@@ -11128,7 +5656,6 @@ var createClassGroupUtils = (config) => {
   };
 };
 var getGroupRecursive = (classParts, classPartObject) => {
-  var _a;
   if (classParts.length === 0) {
     return classPartObject.classGroupId;
   }
@@ -11142,15 +5669,15 @@ var getGroupRecursive = (classParts, classPartObject) => {
     return void 0;
   }
   const classRest = classParts.join(CLASS_PART_SEPARATOR);
-  return (_a = classPartObject.validators.find(({
+  return classPartObject.validators.find(({
     validator
-  }) => validator(classRest))) == null ? void 0 : _a.classGroupId;
+  }) => validator(classRest))?.classGroupId;
 };
 var arbitraryPropertyRegex = /^\[(.+)\]$/;
 var getGroupIdForArbitraryProperty = (className) => {
   if (arbitraryPropertyRegex.test(className)) {
     const arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
-    const property = arbitraryPropertyClassName == null ? void 0 : arbitraryPropertyClassName.substring(0, arbitraryPropertyClassName.indexOf(":"));
+    const property = arbitraryPropertyClassName?.substring(0, arbitraryPropertyClassName.indexOf(":"));
     if (property) {
       return "arbitrary.." + property;
     }
@@ -14060,10 +8587,10 @@ function cn(...inputs) {
 }
 
 // src/components/ui/dropdown-menu.tsx
-import { jsx as jsx14, jsxs } from "react/jsx-runtime";
+var import_jsx_runtime15 = require("react/jsx-runtime");
 var DropdownMenu2 = Root22;
 var DropdownMenuTrigger2 = Trigger;
-var DropdownMenuSubTrigger2 = React34.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ jsxs(
+var DropdownMenuSubTrigger2 = React34.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
   SubTrigger2,
   {
     ref,
@@ -14075,12 +8602,12 @@ var DropdownMenuSubTrigger2 = React34.forwardRef(({ className, inset, children, 
     ...props,
     children: [
       children,
-      /* @__PURE__ */ jsx14(ChevronRight, { className: "ml-auto" })
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ChevronRight, { className: "ml-auto" })
     ]
   }
 ));
 DropdownMenuSubTrigger2.displayName = SubTrigger2.displayName;
-var DropdownMenuSubContent2 = React34.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx14(
+var DropdownMenuSubContent2 = React34.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
   SubContent2,
   {
     ref,
@@ -14092,7 +8619,7 @@ var DropdownMenuSubContent2 = React34.forwardRef(({ className, ...props }, ref) 
   }
 ));
 DropdownMenuSubContent2.displayName = SubContent2.displayName;
-var DropdownMenuContent2 = React34.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx14(Portal22, { children: /* @__PURE__ */ jsx14(
+var DropdownMenuContent2 = React34.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Portal22, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
   Content22,
   {
     ref,
@@ -14105,7 +8632,7 @@ var DropdownMenuContent2 = React34.forwardRef(({ className, sideOffset = 4, ...p
   }
 ) }));
 DropdownMenuContent2.displayName = Content22.displayName;
-var DropdownMenuItem2 = React34.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx14(
+var DropdownMenuItem2 = React34.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
   Item22,
   {
     ref,
@@ -14118,7 +8645,7 @@ var DropdownMenuItem2 = React34.forwardRef(({ className, inset, ...props }, ref)
   }
 ));
 DropdownMenuItem2.displayName = Item22.displayName;
-var DropdownMenuCheckboxItem2 = React34.forwardRef(({ className, children, checked, ...props }, ref) => /* @__PURE__ */ jsxs(
+var DropdownMenuCheckboxItem2 = React34.forwardRef(({ className, children, checked, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
   CheckboxItem2,
   {
     ref,
@@ -14129,13 +8656,13 @@ var DropdownMenuCheckboxItem2 = React34.forwardRef(({ className, children, check
     checked,
     ...props,
     children: [
-      /* @__PURE__ */ jsx14("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx14(ItemIndicator2, { children: /* @__PURE__ */ jsx14(Check, { className: "h-4 w-4" }) }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ItemIndicator2, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Check, { className: "h-4 w-4" }) }) }),
       children
     ]
   }
 ));
 DropdownMenuCheckboxItem2.displayName = CheckboxItem2.displayName;
-var DropdownMenuRadioItem2 = React34.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(
+var DropdownMenuRadioItem2 = React34.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
   RadioItem2,
   {
     ref,
@@ -14145,13 +8672,13 @@ var DropdownMenuRadioItem2 = React34.forwardRef(({ className, children, ...props
     ),
     ...props,
     children: [
-      /* @__PURE__ */ jsx14("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx14(ItemIndicator2, { children: /* @__PURE__ */ jsx14(Circle, { className: "h-2 w-2 fill-current" }) }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(ItemIndicator2, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Circle, { className: "h-2 w-2 fill-current" }) }) }),
       children
     ]
   }
 ));
 DropdownMenuRadioItem2.displayName = RadioItem2.displayName;
-var DropdownMenuLabel2 = React34.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx14(
+var DropdownMenuLabel2 = React34.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
   Label2,
   {
     ref,
@@ -14164,7 +8691,7 @@ var DropdownMenuLabel2 = React34.forwardRef(({ className, inset, ...props }, ref
   }
 ));
 DropdownMenuLabel2.displayName = Label2.displayName;
-var DropdownMenuSeparator2 = React34.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx14(
+var DropdownMenuSeparator2 = React34.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
   Separator2,
   {
     ref,
@@ -14177,7 +8704,7 @@ var DropdownMenuShortcut = ({
   className,
   ...props
 }) => {
-  return /* @__PURE__ */ jsx14(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     "span",
     {
       className: cn("ml-auto text-xs tracking-widest opacity-60", className),
@@ -14188,7 +8715,7 @@ var DropdownMenuShortcut = ({
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 
 // src/components/ui/button.tsx
-import * as React35 from "react";
+var React35 = __toESM(require("react"), 1);
 
 // node_modules/class-variance-authority/dist/index.mjs
 var falsyToString = (value) => typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
@@ -14233,7 +8760,7 @@ var cva = (base, config) => (props) => {
 };
 
 // src/components/ui/button.tsx
-import { jsx as jsx15 } from "react/jsx-runtime";
+var import_jsx_runtime16 = require("react/jsx-runtime");
 var buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
@@ -14262,7 +8789,7 @@ var buttonVariants = cva(
 var Button = React35.forwardRef(
   ({ className, variant, size: size4, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return /* @__PURE__ */ jsx15(
+    return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       Comp,
       {
         className: cn(buttonVariants({ variant, size: size4, className })),
@@ -14275,16 +8802,16 @@ var Button = React35.forwardRef(
 Button.displayName = "Button";
 
 // src/components/product-switcher/product-icon.tsx
-var import_image = __toESM(require_image(), 1);
-var import_link = __toESM(require_link2(), 1);
-import { jsx as jsx16, jsxs as jsxs2 } from "react/jsx-runtime";
+var import_image = __toESM(require("next/image"), 1);
+var import_link = __toESM(require("next/link"), 1);
+var import_jsx_runtime17 = require("react/jsx-runtime");
 var ProductIcon = ({
   image,
   title,
   url,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsxs2(
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
     import_link.default,
     {
       href: url,
@@ -14292,8 +8819,8 @@ var ProductIcon = ({
       rel: "noopener noreferrer",
       className: `flex items-center w-full p-3 rounded-xl border hover:bg-gray-50 transition ${className}`,
       children: [
-        /* @__PURE__ */ jsx16(import_image.default, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
-        /* @__PURE__ */ jsx16("span", { className: "font-medium text-sm", children: title })
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(import_image.default, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "font-medium text-sm", children: title })
       ]
     }
   );
@@ -14313,9 +8840,15 @@ var publisher_logo_default = "./publisher-logo-CDQW4NR4.svg";
 var studio_logo_default = "./studio-logo-UA7JT6UG.svg";
 
 // src/components/product-switcher/product-switcher.tsx
-import { jsx as jsx17, jsxs as jsxs3 } from "react/jsx-runtime";
+var import_react7 = require("react");
+var import_jsx_runtime18 = require("react/jsx-runtime");
 var profileIcon = "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
 var ProductSwitcher = () => {
+  const [isMounted, setIsMounted] = (0, import_react7.useState)(false);
+  (0, import_react7.useEffect)(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) return null;
   const profile = {
     name: "Manage My Account",
     icon: profileIcon,
@@ -14351,17 +8884,17 @@ var ProductSwitcher = () => {
       url: "#"
     }
   ];
-  return /* @__PURE__ */ jsxs3(DropdownMenu2, { children: [
-    /* @__PURE__ */ jsx17(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx17(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx17(Grip, { className: "w-6 h-6" }) }) }),
-    /* @__PURE__ */ jsxs3(DropdownMenuContent2, { align: "end", className: "w-80 p-4 rounded-2xl", children: [
-      /* @__PURE__ */ jsxs3(
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(DropdownMenu2, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(Grip, { className: "w-6 h-6" }) }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(DropdownMenuContent2, { align: "end", className: "w-80 p-4 rounded-2xl", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
         "a",
         {
           href: profile.url,
           target: "_blank",
           className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-gray-50 transition",
           children: [
-            /* @__PURE__ */ jsx17(
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
               "img",
               {
                 src: profile.icon,
@@ -14369,24 +8902,218 @@ var ProductSwitcher = () => {
                 className: "w-8 h-8 rounded-full mr-3"
               }
             ),
-            /* @__PURE__ */ jsx17("span", { className: "flex-1 text-left font-medium", children: profile.name }),
-            /* @__PURE__ */ jsx17(ChevronRight, { className: "size-4" })
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "flex-1 text-left font-medium", children: profile.name }),
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(ChevronRight, { className: "size-4" })
           ]
         }
       ),
-      /* @__PURE__ */ jsx17("div", { className: "mb-2 text-sm font-semibold text-gray-700", children: "Media Owner" }),
-      /* @__PURE__ */ jsx17("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx17(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx17("div", { className: "mb-2 mt-10 text-sm font-semibold text-gray-700", children: "Advertiser" }),
-      /* @__PURE__ */ jsx17("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx17(product_icon_default, { ...product }, product.title)) })
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-2 text-sm font-semibold text-gray-700", children: "Media Owner" }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(product_icon_default, { ...product }, product.title)) }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-2 mt-10 text-sm font-semibold text-gray-700", children: "Advertiser" }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(product_icon_default, { ...product }, product.title)) })
     ] })
   ] });
 };
-export {
-  Button,
-  ProductSwitcher,
-  buttonVariants
-};
+
+// src/components/user-account/account.tsx
+var import_react8 = require("react");
+
+// src/components/ui/avatar.tsx
+var React37 = __toESM(require("react"), 1);
+
+// node_modules/@radix-ui/react-avatar/dist/index.mjs
+var React36 = __toESM(require("react"), 1);
+
+// node_modules/@radix-ui/react-use-is-hydrated/dist/index.mjs
+var import_shim = __toESM(require_shim(), 1);
+function useIsHydrated() {
+  return (0, import_shim.useSyncExternalStore)(
+    subscribe,
+    () => true,
+    () => false
+  );
+}
+function subscribe() {
+  return () => {
+  };
+}
+
+// node_modules/@radix-ui/react-avatar/dist/index.mjs
+var import_jsx_runtime19 = require("react/jsx-runtime");
+var AVATAR_NAME = "Avatar";
+var [createAvatarContext, createAvatarScope] = createContextScope(AVATAR_NAME);
+var [AvatarProvider, useAvatarContext] = createAvatarContext(AVATAR_NAME);
+var Avatar = React36.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeAvatar, ...avatarProps } = props;
+    const [imageLoadingStatus, setImageLoadingStatus] = React36.useState("idle");
+    return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      AvatarProvider,
+      {
+        scope: __scopeAvatar,
+        imageLoadingStatus,
+        onImageLoadingStatusChange: setImageLoadingStatus,
+        children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.span, { ...avatarProps, ref: forwardedRef })
+      }
+    );
+  }
+);
+Avatar.displayName = AVATAR_NAME;
+var IMAGE_NAME = "AvatarImage";
+var AvatarImage = React36.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeAvatar, src, onLoadingStatusChange = () => {
+    }, ...imageProps } = props;
+    const context = useAvatarContext(IMAGE_NAME, __scopeAvatar);
+    const imageLoadingStatus = useImageLoadingStatus(src, imageProps);
+    const handleLoadingStatusChange = useCallbackRef((status) => {
+      onLoadingStatusChange(status);
+      context.onImageLoadingStatusChange(status);
+    });
+    useLayoutEffect2(() => {
+      if (imageLoadingStatus !== "idle") {
+        handleLoadingStatusChange(imageLoadingStatus);
+      }
+    }, [imageLoadingStatus, handleLoadingStatusChange]);
+    return imageLoadingStatus === "loaded" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.img, { ...imageProps, ref: forwardedRef, src }) : null;
+  }
+);
+AvatarImage.displayName = IMAGE_NAME;
+var FALLBACK_NAME = "AvatarFallback";
+var AvatarFallback = React36.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeAvatar, delayMs, ...fallbackProps } = props;
+    const context = useAvatarContext(FALLBACK_NAME, __scopeAvatar);
+    const [canRender, setCanRender] = React36.useState(delayMs === void 0);
+    React36.useEffect(() => {
+      if (delayMs !== void 0) {
+        const timerId = window.setTimeout(() => setCanRender(true), delayMs);
+        return () => window.clearTimeout(timerId);
+      }
+    }, [delayMs]);
+    return canRender && context.imageLoadingStatus !== "loaded" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(Primitive.span, { ...fallbackProps, ref: forwardedRef }) : null;
+  }
+);
+AvatarFallback.displayName = FALLBACK_NAME;
+function resolveLoadingStatus(image, src) {
+  if (!image) {
+    return "idle";
+  }
+  if (!src) {
+    return "error";
+  }
+  if (image.src !== src) {
+    image.src = src;
+  }
+  return image.complete && image.naturalWidth > 0 ? "loaded" : "loading";
+}
+function useImageLoadingStatus(src, { referrerPolicy, crossOrigin }) {
+  const isHydrated = useIsHydrated();
+  const imageRef = React36.useRef(null);
+  const image = (() => {
+    if (!isHydrated) return null;
+    if (!imageRef.current) {
+      imageRef.current = new window.Image();
+    }
+    return imageRef.current;
+  })();
+  const [loadingStatus, setLoadingStatus] = React36.useState(
+    () => resolveLoadingStatus(image, src)
+  );
+  useLayoutEffect2(() => {
+    setLoadingStatus(resolveLoadingStatus(image, src));
+  }, [image, src]);
+  useLayoutEffect2(() => {
+    const updateStatus = (status) => () => {
+      setLoadingStatus(status);
+    };
+    if (!image) return;
+    const handleLoad = updateStatus("loaded");
+    const handleError = updateStatus("error");
+    image.addEventListener("load", handleLoad);
+    image.addEventListener("error", handleError);
+    if (referrerPolicy) {
+      image.referrerPolicy = referrerPolicy;
+    }
+    if (typeof crossOrigin === "string") {
+      image.crossOrigin = crossOrigin;
+    }
+    return () => {
+      image.removeEventListener("load", handleLoad);
+      image.removeEventListener("error", handleError);
+    };
+  }, [image, crossOrigin, referrerPolicy]);
+  return loadingStatus;
+}
+var Root4 = Avatar;
+var Image2 = AvatarImage;
+var Fallback = AvatarFallback;
+
+// src/components/ui/avatar.tsx
+var import_jsx_runtime20 = require("react/jsx-runtime");
+var Avatar2 = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+  Root4,
+  {
+    ref,
+    className: cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    ),
+    ...props
+  }
+));
+Avatar2.displayName = Root4.displayName;
+var AvatarImage2 = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+  Image2,
+  {
+    ref,
+    className: cn("aspect-square h-full w-full", className),
+    ...props
+  }
+));
+AvatarImage2.displayName = Image2.displayName;
+var AvatarFallback2 = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+  Fallback,
+  {
+    ref,
+    className: cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      className
+    ),
+    ...props
+  }
+));
+AvatarFallback2.displayName = Fallback.displayName;
+
+// src/components/user-account/account.tsx
+var import_jsx_runtime21 = require("react/jsx-runtime");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ProductSwitcher
+});
 /*! Bundled license information:
+
+use-sync-external-store/cjs/use-sync-external-store-shim.production.js:
+  (**
+   * @license React
+   * use-sync-external-store-shim.production.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+use-sync-external-store/cjs/use-sync-external-store-shim.development.js:
+  (**
+   * @license React
+   * use-sync-external-store-shim.development.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
 
 lucide-react/dist/esm/shared/src/utils.js:
 lucide-react/dist/esm/defaultAttributes.js:
@@ -14404,3 +9131,4 @@ lucide-react/dist/esm/lucide-react.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 */
+//# sourceMappingURL=index.js.map
