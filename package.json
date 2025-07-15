@@ -1,6 +1,6 @@
 {
     "name": "nitxui",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "type": "module",
     "private": false,
     "description": "The official UI component library for Nitx projects.",
@@ -9,6 +9,7 @@
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
+            "type": "./dist/index.d.ts",
             "import": "./dist/index.mjs",
             "require": "./dist/index.js"
         }
@@ -64,5 +65,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "typesVersion": {
+        "*": {
+            "*": [
+                "dist/index.d.ts"
+            ]
+        }
     }
 }

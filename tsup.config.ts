@@ -8,6 +8,7 @@ export default defineConfig({
   target: "es2020",
   splitting: false, // UI libs rarely need code-splitting
   clean: true,
+  define: {},
   outDir: "dist",
   outExtension({ format }) {
     return { js: format === "esm" ? ".mjs" : ".js" };
