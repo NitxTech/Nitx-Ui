@@ -8,10 +8,6 @@ import { Button } from "../ui/button";
 import { ChevronRight, Grip } from "lucide-react";
 import ProductIcon from "./product-icon";
 
-import adsLogo from "../../assets/ads-logo.svg";
-import signageIcon from "../../assets/signage-icon.svg";
-import publisherLogo from "../../assets/publisher-logo.svg";
-import studioLogo from "../../assets/studio-logo.svg";
 import { useEffect, useState } from "react";
 // import nexusLogo from "../../assets/nexus-logo.svg";
 
@@ -37,31 +33,31 @@ export const ProductSwitcher = () => {
   const mediaOwner = [
     {
       title: "Nitx Signage",
-      image: signageIcon,
-      url: process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL || "#",
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
+      url: "#",
     },
     {
       title: "Nitx Publisher",
-      image: publisherLogo,
-      url: process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL || "#",
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
+      url: "#",
     },
     // {
     //   title: "Nitx Nexus",
-    //   image: nexusLogo,
-    //   url: process.env.NEXT_PUBLIC_NEXUS_URL || "#",
+    //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
+    //   url: "#",
     // },
   ];
 
   const advertiser = [
     {
       title: "Nitx Ads",
-      image: adsLogo,
-      url: process.env.NEXT_PUBLIC_NITX_ADS_URL || "#",
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
+      url: "#",
     },
     {
       title: "Nitx Studio",
-      image: studioLogo,
-      url: process.env.NEXT_PUBLIC_NITX_STUDIO_URL || "#",
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
+      url: "#",
     },
   ];
 
