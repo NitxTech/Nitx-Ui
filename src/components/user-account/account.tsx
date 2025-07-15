@@ -24,7 +24,7 @@ interface UserAccountProps {
   router?: { replace: (url: string) => void };
 }
 
-const UserAccount = ({
+export const UserAccount = ({
   accounts,
   isExpanded,
   router: routerProp,
@@ -140,5 +140,3 @@ const UserAccount = ({
     </div>
   );
 };
-
-export default UserAccount;

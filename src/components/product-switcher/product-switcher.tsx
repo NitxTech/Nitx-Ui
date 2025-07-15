@@ -31,24 +31,24 @@ export const ProductSwitcher = () => {
   const profile = {
     name: "Manage My Account",
     icon: profileIcon,
-    url: "#", // Replace with actual profile/account URL if needed
+    url: process.env.NEXT_PUBLIC_MY_NITX_URL || "#",
   };
 
   const mediaOwner = [
     {
       title: "Nitx Signage",
       image: signageIcon,
-      url: "#",
+      url: process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL || "#",
     },
     {
       title: "Nitx Publisher",
       image: publisherLogo,
-      url: "#",
+      url: process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL || "#",
     },
     // {
     //   title: "Nitx Nexus",
     //   image: nexusLogo,
-    //   url: "#",
+    //   url: process.env.NEXT_PUBLIC_NEXUS_URL || "#",
     // },
   ];
 
@@ -56,12 +56,12 @@ export const ProductSwitcher = () => {
     {
       title: "Nitx Ads",
       image: adsLogo,
-      url: "#",
+      url: process.env.NEXT_PUBLIC_NITX_ADS_URL || "#",
     },
     {
       title: "Nitx Studio",
       image: studioLogo,
-      url: "#",
+      url: process.env.NEXT_PUBLIC_NITX_STUDIO_URL || "#",
     },
   ];
 
@@ -111,5 +111,3 @@ export const ProductSwitcher = () => {
     </DropdownMenu>
   );
 };
-
-// export default ProductSwitcher;
