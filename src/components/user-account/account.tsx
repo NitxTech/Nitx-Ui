@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "../../lib/utils";
+import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -21,32 +22,18 @@ interface UserAccountProps {
     active: boolean;
   }[];
   isExpanded: boolean;
-  router?: { replace: (url: string) => void };
 }
 
-export const UserAccount = ({
-  accounts,
-  isExpanded,
-  router: routerProp,
-}: UserAccountProps) => {
+export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
   const [onOpen, setOnOpen] = useState(false);
-  let router = routerProp;
-  if (!router) {
-    try {
-      // @ts-ignore
-      router = require("next/navigation").useRouter();
-    } catch (e) {
-      router = { replace: () => {} };
-    }
-  }
+
+  const router = useRouter();
 
   const activeAccount =
     accounts?.find((account) => account.active) || accounts[0];
 
   const handleSignOut = async () => {
-    if (router && typeof router.replace === "function") {
-      router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
-    }
+    router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
   };
 
   if (!activeAccount) return null;
