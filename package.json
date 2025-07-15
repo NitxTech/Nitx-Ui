@@ -1,10 +1,10 @@
 {
     "name": "nitxui",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "type": "module",
     "private": false,
     "description": "The official UI component library for Nitx projects.",
-    "main": "./dist/index.js",
+    "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "exports": {

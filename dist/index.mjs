@@ -1,10 +1,3 @@
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
-  if (typeof require !== "undefined") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
-
 // src/components/ui/dropdown-menu.tsx
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
@@ -233,18 +226,6 @@ var ProductIcon = ({
 };
 var product_icon_default = ProductIcon;
 
-// src/assets/ads-logo.svg
-var ads_logo_default = "./ads-logo-T3W3EQOF.svg";
-
-// src/assets/signage-icon.svg
-var signage_icon_default = "./signage-icon-Y3AVAB37.svg";
-
-// src/assets/publisher-logo.svg
-var publisher_logo_default = "./publisher-logo-CDQW4NR4.svg";
-
-// src/assets/studio-logo.svg
-var studio_logo_default = "./studio-logo-UA7JT6UG.svg";
-
 // src/components/product-switcher/product-switcher.tsx
 import { useEffect, useState } from "react";
 import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
@@ -263,30 +244,30 @@ var ProductSwitcher = () => {
   const mediaOwner = [
     {
       title: "Nitx Signage",
-      image: signage_icon_default,
-      url: process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL || "#"
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
+      url: "#"
     },
     {
       title: "Nitx Publisher",
-      image: publisher_logo_default,
-      url: process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL || "#"
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
+      url: "#"
     }
     // {
     //   title: "Nitx Nexus",
-    //   image: nexusLogo,
-    //   url: process.env.NEXT_PUBLIC_NEXUS_URL || "#",
+    //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
+    //   url: "#",
     // },
   ];
   const advertiser = [
     {
       title: "Nitx Ads",
-      image: ads_logo_default,
-      url: process.env.NEXT_PUBLIC_NITX_ADS_URL || "#"
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
+      url: "#"
     },
     {
       title: "Nitx Studio",
-      image: studio_logo_default,
-      url: process.env.NEXT_PUBLIC_NITX_STUDIO_URL || "#"
+      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
+      url: "#"
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
@@ -321,8 +302,9 @@ var ProductSwitcher = () => {
 };
 
 // src/components/user-account/account.tsx
+import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
-import { useState as useState2 } from "react";
+import { useEffect as useEffect2, useState as useState2 } from "react";
 
 // src/components/ui/avatar.tsx
 import * as React3 from "react";
@@ -364,26 +346,17 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 // src/components/user-account/account.tsx
 import { Fragment, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
-var UserAccount = ({
-  accounts,
-  isExpanded,
-  router: routerProp
-}) => {
+var UserAccount = ({ accounts, isExpanded }) => {
   const [onOpen, setOnOpen] = useState2(false);
-  let router = routerProp;
-  if (!router) {
-    try {
-      router = __require("next/navigation").useRouter();
-    } catch (e) {
-      router = { replace: () => {
-      } };
-    }
-  }
+  const [isMounted, setIsMounted] = useState2(false);
+  const router = useRouter();
+  useEffect2(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) return null;
   const activeAccount = accounts?.find((account) => account.active) || accounts[0];
   const handleSignOut = async () => {
-    if (router && typeof router.replace === "function") {
-      router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
-    }
+    router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
   };
   if (!activeAccount) return null;
   return /* @__PURE__ */ jsx6("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs4(DropdownMenu, { onOpenChange: () => setOnOpen(!onOpen), children: [

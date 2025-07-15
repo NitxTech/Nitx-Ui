@@ -9,10 +9,6 @@ export default defineConfig({
   clean: true,
   outDir: "dist",
   outExtension: () => ({ js: ".mjs" }),
-  /**
-   *  List **all** packages that import React so tsup
-   *  leaves them as plain `import … from 'pkg'`
-   */
   external: [
     /^react/, // react, react-dom, react/jsx-runtime
     /^next/, // next & next/* helpers
