@@ -18,7 +18,7 @@ interface UserAccountProps {
     id: string;
     name: string;
     email: string;
-    imageUrl?: string;
+    imageUrl?: string | null;
     active: boolean;
   }[];
   isExpanded: boolean;
