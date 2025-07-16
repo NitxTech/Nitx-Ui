@@ -373,12 +373,12 @@ var UserAccount = ({ accounts, isExpanded }) => {
             Avatar,
             {
               className: cn(
-                "rounded-[10px] size-12",
+                "rounded-[10px] size-12 overflow-clip",
                 !isExpanded && "size-[40px] mx-auto"
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "bg-primary text-white", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
               ]
             }
           ),
