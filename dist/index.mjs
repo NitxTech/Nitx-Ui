@@ -278,7 +278,7 @@ var ProductSwitcher = () => {
         {
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 rounded-xl border dark:shadow-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
+          className: "flex items-center w-full p-3 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
             /* @__PURE__ */ jsx4(
               "img",
