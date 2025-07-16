@@ -378,7 +378,7 @@ var UserAccount = ({ accounts, isExpanded }) => {
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "size-full rounded-[10px] bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "w-full h-full rounded-[10px] bg-primary text-white", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
               ]
             }
           ),

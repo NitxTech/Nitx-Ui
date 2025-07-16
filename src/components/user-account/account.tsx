@@ -63,7 +63,7 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
               )}
             >
               <AvatarImage src={`${activeAccount?.imageUrl}`} />
-              <AvatarFallback className="size-full rounded-[10px] bg-primary text-white ">{`${activeAccount.name
+              <AvatarFallback className="w-full h-full rounded-[10px] bg-primary text-white">{`${activeAccount.name
                 .split(" ")
                 .map((n) => n[0].toUpperCase())
                 .join("")}`}</AvatarFallback>
