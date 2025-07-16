@@ -50,7 +50,7 @@ var DropdownMenuSubContent = React.forwardRef(({ className, ...props }, ref) => 
   {
     ref,
     className: cn(
-      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover dark:border-zinc-700/50 p-1 text-popover-foreground shadow-lg dark:shadow-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     ),
     ...props
@@ -63,7 +63,7 @@ var DropdownMenuContent = React.forwardRef(({ className, sideOffset = 4, ...prop
     ref,
     sideOffset,
     className: cn(
-      "z-50 w-full min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg shadow-zinc-200/50 border-zinc-300/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "z-50 w-full min-w-[8rem] overflow-hidden rounded-md border bg-white dark:bg-zinc-800 p-1 text-popover-foreground shadow-lg shadow-zinc-200/50 dark:shadow-none border-zinc-300/50 dark:border-zinc-700/300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     ),
     ...props
@@ -133,7 +133,7 @@ var DropdownMenuSeparator = React.forwardRef(({ className, ...props }, ref) => /
   DropdownMenuPrimitive.Separator,
   {
     ref,
-    className: cn("-mx-1 my-1 h-px bg-muted", className),
+    className: cn("-mx-1 my-1 h-px bg-muted dark:bg-zinc-700", className),
     ...props
   }
 ));
@@ -162,10 +162,10 @@ var buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline: "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-zinc-100 text-secondary-foreground shadow-sm hover:bg-zinc-100/80 border border-zinc-200/50",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-zinc-100 text-secondary-foreground hover:bg-zinc-100/80 border border-zinc-200/50",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline"
       },
@@ -216,7 +216,7 @@ var ProductIcon = ({
       href: url,
       target: "_blank",
       rel: "noopener noreferrer",
-      className: `flex items-center w-full p-3 rounded-xl border hover:bg-gray-50 transition ${className}`,
+      className: `flex items-center w-full p-3 rounded-xl border hover:bg-gray-50 dark:bg-gray-700/50 transition ${className}`,
       children: [
         /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
         /* @__PURE__ */ jsx3("span", { className: "font-medium text-sm", children: title })
@@ -278,7 +278,7 @@ var ProductSwitcher = () => {
         {
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-gray-50 transition",
+          className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:hover:text-black transition",
           children: [
             /* @__PURE__ */ jsx4(
               "img",
@@ -293,9 +293,9 @@ var ProductSwitcher = () => {
           ]
         }
       ),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 text-sm font-semibold text-gray-700", children: "Media Owner" }),
+      /* @__PURE__ */ jsx4("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
       /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 mt-10 text-sm font-semibold text-gray-700", children: "Advertiser" }),
+      /* @__PURE__ */ jsx4("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
       /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) })
     ] })
   ] });
@@ -364,7 +364,7 @@ var UserAccount = ({ accounts, isExpanded }) => {
       "div",
       {
         className: cn(
-          "w-full h-auto bg-gray-100 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
+          "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
           !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
           onOpen && "border border-primary"
         ),
@@ -400,11 +400,11 @@ var UserAccount = ({ accounts, isExpanded }) => {
         ]
       }
     ) }),
-    /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm border mb-1 flex-col gap-1", children: [
+    /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
       accounts.map((account) => /* @__PURE__ */ jsxs4(
         DropdownMenuItem,
         {
-          className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 cursor-pointer transition duration-300",
+          className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
           children: [
             /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
               /* @__PURE__ */ jsx6(
@@ -420,12 +420,12 @@ var UserAccount = ({ accounts, isExpanded }) => {
               /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: activeAccount.name }),
               /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: activeAccount.email })
             ] }),
-            account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
+            account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-primary fill-primary" })
           ]
         },
         account.id
       )),
-      /* @__PURE__ */ jsxs4(DropdownMenuItem, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1", children: [
+      /* @__PURE__ */ jsxs4(DropdownMenuItem, { className: "xl:min-w-[260px] w-full bg-white dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1", children: [
         /* @__PURE__ */ jsx6(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
         "Add another account"
       ] }),
@@ -434,7 +434,7 @@ var UserAccount = ({ accounts, isExpanded }) => {
         DropdownMenuItem,
         {
           onClick: handleSignOut,
-          className: "w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60",
+          className: "w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60 dark:hover:bg-zinc-700/60",
           children: [
             /* @__PURE__ */ jsx6(LogOut, { className: "w-4 h-4 stroke-[1.5]" }),
             "Sign Out"

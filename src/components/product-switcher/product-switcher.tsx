@@ -73,7 +73,7 @@ export const ProductSwitcher = () => {
         <a
           href={profile.url}
           target="_blank"
-          className="flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-gray-50 transition"
+          className="flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:hover:text-black transition"
         >
           <img
             src={profile.icon}
@@ -85,7 +85,7 @@ export const ProductSwitcher = () => {
         </a>
 
         {/* Media Owner Section */}
-        <div className="mb-2 text-sm font-semibold text-gray-700">
+        <div className="mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400">
           Media Owner
         </div>
         <div className="grid grid-cols-2 gap-3 mb-4">
@@ -95,7 +95,7 @@ export const ProductSwitcher = () => {
         </div>
 
         {/* Advertiser Section */}
-        <div className="mb-2 mt-10 text-sm font-semibold text-gray-700">
+        <div className="mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200">
           Advertiser
         </div>
         <div className="grid grid-cols-2 gap-3">

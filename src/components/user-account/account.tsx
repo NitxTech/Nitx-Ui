@@ -51,7 +51,7 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
         <DropdownMenuTrigger asChild>
           <div
             className={cn(
-              "w-full h-auto bg-gray-100 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
+              "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
               !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
               onOpen && "border border-primary"
             )}
@@ -90,11 +90,11 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
             )}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm border mb-1 flex-col gap-1">
+        <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
           {accounts.map((account) => (
             <DropdownMenuItem
               key={account.id}
-              className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 cursor-pointer transition duration-300"
+              className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
             >
               <Avatar className="rounded-sm size-12">
                 <AvatarImage
@@ -112,11 +112,11 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
               </div>
 
               {account.active && (
-                <BadgeCheck className="w-4 h-4 mr-1 text-white fill-primary" />
+                <BadgeCheck className="w-4 h-4 mr-1 text-primary fill-primary" />
               )}
             </DropdownMenuItem>
           ))}
-          <DropdownMenuItem className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1">
+          <DropdownMenuItem className="xl:min-w-[260px] w-full bg-white dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1">
             <PlusSquare className="w-4 h-4 stroke-[1.5]" />
             Add another account
           </DropdownMenuItem>
@@ -124,7 +124,7 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}
-            className="w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60"
+            className="w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60 dark:hover:bg-zinc-700/60"
           >
             <LogOut className="w-4 h-4 stroke-[1.5]" />
             Sign Out
