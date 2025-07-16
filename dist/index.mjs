@@ -63,7 +63,7 @@ var DropdownMenuContent = React.forwardRef(({ className, sideOffset = 4, ...prop
     ref,
     sideOffset,
     className: cn(
-      "z-50 w-full min-w-[8rem] overflow-hidden rounded-md border bg-white dark:bg-zinc-800 p-1 text-popover-foreground shadow-lg shadow-zinc-200/50 dark:shadow-none border-zinc-300/50 dark:border-zinc-700/300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "z-50 w-full min-w-[8rem] overflow-hidden rounded-md border bg-white dark:bg-zinc-800 p-1 text-popover-foreground shadow-lg shadow-zinc-200/50 dark:shadow-none border-zinc-300/50 dark:border-zinc-700/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     ),
     ...props
@@ -216,7 +216,7 @@ var ProductIcon = ({
       href: url,
       target: "_blank",
       rel: "noopener noreferrer",
-      className: `flex items-center w-full p-3 rounded-xl border hover:bg-gray-50 dark:bg-gray-700/50 transition ${className}`,
+      className: `flex items-center w-full p-3 rounded-xl border hover:bg-zinc-50 dark:bg-zinc-700/50 transition ${className}`,
       children: [
         /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
         /* @__PURE__ */ jsx3("span", { className: "font-medium text-sm", children: title })
@@ -278,7 +278,7 @@ var ProductSwitcher = () => {
         {
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:hover:text-black transition",
+          className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
             /* @__PURE__ */ jsx4(
               "img",
@@ -420,12 +420,12 @@ var UserAccount = ({ accounts, isExpanded }) => {
               /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: activeAccount.name }),
               /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: activeAccount.email })
             ] }),
-            account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-primary fill-primary" })
+            account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
           ]
         },
         account.id
       )),
-      /* @__PURE__ */ jsxs4(DropdownMenuItem, { className: "xl:min-w-[260px] w-full bg-white dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1", children: [
+      /* @__PURE__ */ jsxs4(DropdownMenuItem, { className: "xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1", children: [
         /* @__PURE__ */ jsx6(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
         "Add another account"
       ] }),

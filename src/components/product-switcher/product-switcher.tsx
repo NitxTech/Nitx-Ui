@@ -73,7 +73,7 @@ export const ProductSwitcher = () => {
         <a
           href={profile.url}
           target="_blank"
-          className="flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:hover:text-black transition"
+          className="flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition"
         >
           <img
             src={profile.icon}

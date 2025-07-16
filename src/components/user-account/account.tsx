@@ -112,11 +112,11 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
               </div>
 
               {account.active && (
-                <BadgeCheck className="w-4 h-4 mr-1 text-primary fill-primary" />
+                <BadgeCheck className="w-4 h-4 mr-1 text-white fill-primary" />
               )}
             </DropdownMenuItem>
           ))}
-          <DropdownMenuItem className="xl:min-w-[260px] w-full bg-white dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1">
+          <DropdownMenuItem className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1">
             <PlusSquare className="w-4 h-4 stroke-[1.5]" />
             Add another account
           </DropdownMenuItem>
