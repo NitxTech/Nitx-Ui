@@ -216,7 +216,7 @@ var ProductIcon = ({
       href: url,
       target: "_blank",
       rel: "noopener noreferrer",
-      className: `flex items-center w-full p-3 rounded-xl border hover:bg-zinc-50 dark:bg-zinc-800 dark:border-zinc-700/50 transition ${className}`,
+      className: `flex items-center w-full p-3 rounded-xl border hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:border-zinc-700/50 transition ${className}`,
       children: [
         /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
         /* @__PURE__ */ jsx3("span", { className: "font-medium text-sm", children: title })
@@ -278,7 +278,7 @@ var ProductSwitcher = () => {
         {
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 rounded-xl border mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
+          className: "flex items-center w-full p-3 rounded-xl border dark:shadow-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
             /* @__PURE__ */ jsx4(
               "img",
