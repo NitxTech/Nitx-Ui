@@ -1,6 +1,9 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
-declare const ProductSwitcher: () => react_jsx_runtime.JSX.Element | null;
+interface ProductSwitcherProps {
+    auth_user: number | string;
+}
+declare const ProductSwitcher: ({ auth_user }: ProductSwitcherProps) => react_jsx_runtime.JSX.Element | null;
 
 interface UserAccountProps {
     accounts: {

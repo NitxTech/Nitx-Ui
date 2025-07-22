@@ -15,7 +15,11 @@ import { useEffect, useState } from "react";
 const profileIcon =
   "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
 
-export const ProductSwitcher = () => {
+interface ProductSwitcherProps {
+  auth_user: number | string;
+}
+
+export const ProductSwitcher = ({ auth_user }: ProductSwitcherProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -27,24 +31,24 @@ export const ProductSwitcher = () => {
   const profile = {
     name: "Manage My Account",
     icon: profileIcon,
-    url: process.env.NEXT_PUBLIC_MY_NITX_URL || "#",
+    url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#",
   };
 
   const mediaOwner = [
     {
       title: "Nitx Signage",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
-      url: process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL || "#",
+      url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#",
     },
     {
       title: "Nitx Publisher",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL || "#",
+      url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#",
     },
     // {
     //   title: "Nitx Nexus",
     //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-    //   url: process.env.NEXT_PUBLIC_NEXUS_URL || "#",
+    //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
     // },
   ];
 
@@ -52,12 +56,12 @@ export const ProductSwitcher = () => {
     {
       title: "Nitx Ads",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_ADS_URL || "#",
+      url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#",
     },
     {
       title: "Nitx Studio",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_STUDIO_URL || "#",
+      url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#",
     },
   ];
 

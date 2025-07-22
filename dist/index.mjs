@@ -230,7 +230,7 @@ var product_icon_default = ProductIcon;
 import { useEffect, useState } from "react";
 import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
 var profileIcon = "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
-var ProductSwitcher = () => {
+var ProductSwitcher = ({ auth_user }) => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -239,35 +239,35 @@ var ProductSwitcher = () => {
   const profile = {
     name: "Manage My Account",
     icon: profileIcon,
-    url: process.env.NEXT_PUBLIC_MY_NITX_URL || "#"
+    url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#"
   };
   const mediaOwner = [
     {
       title: "Nitx Signage",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
-      url: process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL || "#"
+      url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#"
     },
     {
       title: "Nitx Publisher",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL || "#"
+      url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#"
     }
     // {
     //   title: "Nitx Nexus",
     //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-    //   url: process.env.NEXT_PUBLIC_NEXUS_URL || "#",
+    //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
     // },
   ];
   const advertiser = [
     {
       title: "Nitx Ads",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_ADS_URL || "#"
+      url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#"
     },
     {
       title: "Nitx Studio",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
-      url: process.env.NEXT_PUBLIC_NITX_STUDIO_URL || "#"
+      url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#"
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
@@ -405,42 +405,70 @@ var UserAccount = ({ accounts, isExpanded }) => {
       }
     ) }),
     /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
-      sortedAccounts.map((account, idx) => /* @__PURE__ */ jsx6(
-        DropdownMenuItem,
-        {
-          className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
-          asChild: true,
-          children: /* @__PURE__ */ jsxs4(
-            "a",
-            {
-              href: `${window.location.origin}/${accounts.indexOf(
-                account
-              )}/1`,
-              target: "_blank",
-              rel: "noopener noreferrer",
-              style: { display: "flex", alignItems: "center", width: "100%" },
-              children: [
-                /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
-                  /* @__PURE__ */ jsx6(
-                    AvatarImage,
-                    {
-                      className: "rounded-[10px] size-12 overflow-clip",
-                      src: `${account.imageUrl}`
-                    }
-                  ),
-                  /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
-                ] }),
-                /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
-                  /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
-                  /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
-                ] }),
-                account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
-              ]
-            }
-          )
-        },
-        account.id
-      )),
+      sortedAccounts.map(
+        (account, idx) => account.active ? /* @__PURE__ */ jsxs4(
+          DropdownMenuItem,
+          {
+            className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
+            children: [
+              /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
+                /* @__PURE__ */ jsx6(
+                  AvatarImage,
+                  {
+                    className: "rounded-[10px] size-12 overflow-clip",
+                    src: `${account.imageUrl}`
+                  }
+                ),
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+              ] }),
+              /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
+                /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
+                /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
+              ] }),
+              /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
+            ]
+          },
+          account.id
+        ) : /* @__PURE__ */ jsx6(
+          DropdownMenuItem,
+          {
+            className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
+            asChild: true,
+            children: /* @__PURE__ */ jsxs4(
+              "a",
+              {
+                href: `${window.location.origin}/${accounts.indexOf(
+                  account
+                )}/1`,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                style: {
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%"
+                },
+                children: [
+                  /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
+                    /* @__PURE__ */ jsx6(
+                      AvatarImage,
+                      {
+                        className: "rounded-[10px] size-12 overflow-clip",
+                        src: `${account.imageUrl}`
+                      }
+                    ),
+                    /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                  ] }),
+                  /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
+                    /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
+                    /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
+                  ] })
+                ]
+              }
+            )
+          },
+          account.id
+        )
+      ),
       /* @__PURE__ */ jsx6(
         DropdownMenuItem,
         {

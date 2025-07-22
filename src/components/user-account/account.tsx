@@ -96,19 +96,11 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
-          {sortedAccounts.map((account, idx) => (
-            <DropdownMenuItem
-              key={account.id}
-              className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
-              asChild
-            >
-              <a
-                href={`${window.location.origin}/${accounts.indexOf(
-                  account
-                )}/1`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
+          {sortedAccounts.map((account, idx) =>
+            account.active ? (
+              <DropdownMenuItem
+                key={account.id}
+                className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
               >
                 <Avatar className="rounded-sm size-12">
                   <AvatarImage
@@ -124,12 +116,44 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
                   <span className="text-sm truncate">{account.name}</span>
                   <p className="text-xs truncate">{account.email}</p>
                 </div>
-                {account.active && (
-                  <BadgeCheck className="w-4 h-4 mr-1 text-white fill-primary" />
-                )}
-              </a>
-            </DropdownMenuItem>
-          ))}
+                <BadgeCheck className="w-4 h-4 mr-1 text-white fill-primary" />
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                key={account.id}
+                className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
+                asChild
+              >
+                <a
+                  href={`${window.location.origin}/${accounts.indexOf(
+                    account
+                  )}/1`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Avatar className="rounded-sm size-12">
+                    <AvatarImage
+                      className="rounded-[10px] size-12 overflow-clip"
+                      src={`${account.imageUrl}`}
+                    />
+                    <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
+                      .split(" ")
+                      .map((n) => n[0].toUpperCase())
+                      .join("")}`}</AvatarFallback>
+                  </Avatar>
+                  <div className="w-full flex flex-col gap-0.5">
+                    <span className="text-sm truncate">{account.name}</span>
+                    <p className="text-xs truncate">{account.email}</p>
+                  </div>
+                </a>
+              </DropdownMenuItem>
+            )
+          )}
           <DropdownMenuItem
             asChild
             className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1"
