@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import Link from "next/link";
 
 interface UserAccountProps {
   accounts: {
@@ -99,16 +100,16 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
               <Avatar className="rounded-sm size-12">
                 <AvatarImage
                   className="rounded-[10px] size-12 overflow-clip"
-                  src={`${activeAccount.imageUrl}`}
+                  src={`${account.imageUrl}`}
                 />
-                <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+                <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
                   .split(" ")
                   .map((n) => n[0].toUpperCase())
                   .join("")}`}</AvatarFallback>
               </Avatar>
               <div className="w-full flex flex-col gap-0.5">
-                <span className="text-sm truncate">{activeAccount.name}</span>
-                <p className="text-xs truncate">{activeAccount.email}</p>
+                <span className="text-sm truncate">{account.name}</span>
+                <p className="text-xs truncate">{account.email}</p>
               </div>
 
               {account.active && (
@@ -116,9 +117,17 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
               )}
             </DropdownMenuItem>
           ))}
-          <DropdownMenuItem className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1">
-            <PlusSquare className="w-4 h-4 stroke-[1.5]" />
-            Add another account
+          <DropdownMenuItem
+            asChild
+            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1"
+          >
+            <Link
+              target="_blank"
+              href={`${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`}
+            >
+              <PlusSquare className="w-4 h-4 stroke-[1.5]" />
+              Add another account
+            </Link>
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
