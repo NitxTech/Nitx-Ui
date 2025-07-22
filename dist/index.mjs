@@ -345,6 +345,7 @@ var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__P
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 // src/components/user-account/account.tsx
+import Link2 from "next/link";
 import { Fragment, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var UserAccount = ({ accounts, isExpanded }) => {
   const [onOpen, setOnOpen] = useState2(false);
@@ -411,24 +412,38 @@ var UserAccount = ({ accounts, isExpanded }) => {
                 AvatarImage,
                 {
                   className: "rounded-[10px] size-12 overflow-clip",
-                  src: `${activeAccount.imageUrl}`
+                  src: `${account.imageUrl}`
                 }
               ),
-              /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+              /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
             ] }),
             /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
-              /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: activeAccount.name }),
-              /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: activeAccount.email })
+              /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
+              /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
             ] }),
             account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
           ]
         },
         account.id
       )),
-      /* @__PURE__ */ jsxs4(DropdownMenuItem, { className: "xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1", children: [
-        /* @__PURE__ */ jsx6(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
-        "Add another account"
-      ] }),
+      /* @__PURE__ */ jsx6(
+        DropdownMenuItem,
+        {
+          asChild: true,
+          className: "xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1",
+          children: /* @__PURE__ */ jsxs4(
+            Link2,
+            {
+              target: "_blank",
+              href: `${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`,
+              children: [
+                /* @__PURE__ */ jsx6(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
+                "Add another account"
+              ]
+            }
+          )
+        }
+      ),
       /* @__PURE__ */ jsx6(DropdownMenuSeparator, {}),
       /* @__PURE__ */ jsxs4(
         DropdownMenuItem,
