@@ -355,7 +355,10 @@ var UserAccount = ({ accounts, isExpanded }) => {
     setIsMounted(true);
   }, []);
   if (!isMounted) return null;
-  const activeAccount = accounts?.find((account) => account.active) || accounts[0];
+  const sortedAccounts = [...accounts].sort(
+    (a, b) => (b.active ? 1 : 0) - (a.active ? 1 : 0)
+  );
+  const activeAccount = sortedAccounts?.find((account) => account.active) || sortedAccounts[0];
   const handleSignOut = async () => {
     router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
   };
@@ -402,27 +405,39 @@ var UserAccount = ({ accounts, isExpanded }) => {
       }
     ) }),
     /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
-      accounts.map((account) => /* @__PURE__ */ jsxs4(
+      sortedAccounts.map((account, idx) => /* @__PURE__ */ jsx6(
         DropdownMenuItem,
         {
           className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
-          children: [
-            /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
-              /* @__PURE__ */ jsx6(
-                AvatarImage,
-                {
-                  className: "rounded-[10px] size-12 overflow-clip",
-                  src: `${account.imageUrl}`
-                }
-              ),
-              /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
-            ] }),
-            /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
-              /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
-              /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
-            ] }),
-            account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
-          ]
+          asChild: true,
+          children: /* @__PURE__ */ jsxs4(
+            "a",
+            {
+              href: `${window.location.origin}/${accounts.indexOf(
+                account
+              )}/1`,
+              target: "_blank",
+              rel: "noopener noreferrer",
+              style: { display: "flex", alignItems: "center", width: "100%" },
+              children: [
+                /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-sm size-12", children: [
+                  /* @__PURE__ */ jsx6(
+                    AvatarImage,
+                    {
+                      className: "rounded-[10px] size-12 overflow-clip",
+                      src: `${account.imageUrl}`
+                    }
+                  ),
+                  /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                ] }),
+                /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
+                  /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
+                  /* @__PURE__ */ jsx6("p", { className: "text-xs truncate", children: account.email })
+                ] }),
+                account.active && /* @__PURE__ */ jsx6(BadgeCheck, { className: "w-4 h-4 mr-1 text-white fill-primary" })
+              ]
+            }
+          )
         },
         account.id
       )),
