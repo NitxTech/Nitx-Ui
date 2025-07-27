@@ -14,7 +14,8 @@ interface UserAccountProps {
         active: boolean;
     }[];
     isExpanded: boolean;
+    auth_user: string | number;
 }
-declare const UserAccount: ({ accounts, isExpanded }: UserAccountProps) => react_jsx_runtime.JSX.Element | null;
+declare const UserAccount: ({ accounts, isExpanded, auth_user, }: UserAccountProps) => react_jsx_runtime.JSX.Element | null;
 
 export { ProductSwitcher, UserAccount };

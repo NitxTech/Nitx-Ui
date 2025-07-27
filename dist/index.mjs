@@ -347,7 +347,11 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 // src/components/user-account/account.tsx
 import Link2 from "next/link";
 import { Fragment, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
-var UserAccount = ({ accounts, isExpanded }) => {
+var UserAccount = ({
+  accounts,
+  isExpanded,
+  auth_user
+}) => {
   const [onOpen, setOnOpen] = useState2(false);
   const [isMounted, setIsMounted] = useState2(false);
   const router = useRouter();
@@ -360,7 +364,9 @@ var UserAccount = ({ accounts, isExpanded }) => {
   );
   const activeAccount = sortedAccounts?.find((account) => account.active) || sortedAccounts[0];
   const handleSignOut = async () => {
-    router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
+    router.replace(
+      `${process.env.NEXT_PUBLIC_AUTH_URL}/signout?session=${auth_user}`
+    );
   };
   if (!activeAccount) return null;
   return /* @__PURE__ */ jsx6("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs4(DropdownMenu, { onOpenChange: () => setOnOpen(!onOpen), children: [
