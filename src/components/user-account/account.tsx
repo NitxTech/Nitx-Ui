@@ -23,9 +23,14 @@ interface UserAccountProps {
     active: boolean;
   }[];
   isExpanded: boolean;
+  auth_user: string | number;
 }
 
-export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
+export const UserAccount = ({
+  accounts,
+  isExpanded,
+  auth_user,
+}: UserAccountProps) => {
   const [onOpen, setOnOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -45,7 +50,9 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
     sortedAccounts?.find((account) => account.active) || sortedAccounts[0];
 
   const handleSignOut = async () => {
-    router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
+    router.replace(
+      `${process.env.NEXT_PUBLIC_AUTH_URL}/signout?session=${auth_user}`
+    );
   };
 
   if (!activeAccount) return null;
