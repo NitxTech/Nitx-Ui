@@ -117,7 +117,8 @@ export const UserAccount = ({
                   <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
                     .split(" ")
                     .map((n) => n[0].toUpperCase())
-                    .join("")}`}</AvatarFallback>
+                    .join("")
+                    .slice(0, 2)}`}</AvatarFallback>
                 </Avatar>
                 <div className="w-full flex flex-col gap-0.5">
                   <span className="text-sm truncate">{account.name}</span>

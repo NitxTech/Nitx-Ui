@@ -425,7 +425,7 @@ var UserAccount = ({
                     src: `${account.imageUrl}`
                   }
                 ),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("").slice(0, 2)}` })
               ] }),
               /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                 /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
