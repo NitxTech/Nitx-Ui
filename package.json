@@ -1,6 +1,6 @@
 {
     "name": "nitxui",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "type": "module",
     "private": false,
     "description": "The official UI component library for Nitx projects.",
