@@ -346,7 +346,7 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 // src/components/user-account/account.tsx
 import Link2 from "next/link";
-import { Fragment, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var UserAccount = ({
   accounts,
   isExpanded,
@@ -374,17 +374,17 @@ var UserAccount = ({
       "div",
       {
         className: cn(
-          "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
+          "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
           !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
-          onOpen && "border border-primary"
+          onOpen && "border-primary"
         ),
         children: [
           /* @__PURE__ */ jsxs4(
             Avatar,
             {
               className: cn(
-                "rounded-[10px] size-12 overflow-clip",
-                !isExpanded && "size-[40px] mx-auto"
+                "rounded-[10px] size-10 lg:size-12 overflow-clip",
+                !isExpanded && "lg:size-[40px] mx-auto"
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
@@ -392,7 +392,7 @@ var UserAccount = ({
               ]
             }
           ),
-          isExpanded && /* @__PURE__ */ jsxs4(Fragment, { children: [
+          isExpanded && /* @__PURE__ */ jsxs4("div", { className: "w-full hidden lg:flex items-center gap-2", children: [
             /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
               /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
               /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
