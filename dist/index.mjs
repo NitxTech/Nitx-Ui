@@ -332,7 +332,7 @@ var ProductSwitcher = ({
                   src: `${profileImage}`
                 }
               ),
-              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${profileName || "User".split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${(profileName || "User").split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
             ] }),
             /* @__PURE__ */ jsx5("span", { className: "flex-1 text-left font-medium", children: profile.name }),
             /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4" })

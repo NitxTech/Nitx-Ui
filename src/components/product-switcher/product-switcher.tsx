@@ -92,14 +92,11 @@ export const ProductSwitcher = ({
               src={`${profileImage}`}
             />
             <AvatarFallback className="rounded-none bg-primary text-white ">
-              {`${
-                profileName ||
-                "User"
-                  .split(" ")
-                  .slice(0, 2)
-                  .map((n) => n[0].toUpperCase())
-                  .join("")
-              }`}
+              {`${(profileName || "User")
+                .split(" ")
+                .slice(0, 2)
+                .map((n) => n[0].toUpperCase())
+                .join("")}`}
             </AvatarFallback>
           </Avatar>
           <span className="flex-1 text-left font-medium">{profile.name}</span>
