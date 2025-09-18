@@ -18,13 +18,13 @@ const profileIcon =
 
 interface ProductSwitcherProps {
   auth_user: number | string;
-  profilePic?: string;
+  profileImage?: string;
   profileName?: string;
 }
 
 export const ProductSwitcher = ({
   auth_user,
-  profilePic,
+  profileImage,
   profileName,
 }: ProductSwitcherProps) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -89,7 +89,7 @@ export const ProductSwitcher = ({
           <Avatar className="rounded-[4px] size-8">
             <AvatarImage
               className="rounded-[4px] size-8 overflow-clip"
-              src={`${profilePic}`}
+              src={`${profileImage}`}
             />
             <AvatarFallback className="rounded-none bg-primary text-white ">
               {`${

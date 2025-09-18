@@ -272,7 +272,7 @@ import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var profileIcon = "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
 var ProductSwitcher = ({
   auth_user,
-  profilePic,
+  profileImage,
   profileName
 }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -329,7 +329,7 @@ var ProductSwitcher = ({
                 AvatarImage,
                 {
                   className: "rounded-[4px] size-8 overflow-clip",
-                  src: `${profilePic}`
+                  src: `${profileImage}`
                 }
               ),
               /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${profileName || "User".split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
