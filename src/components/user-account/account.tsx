@@ -114,11 +114,13 @@ export const UserAccount = ({
                     className="rounded-[10px] size-12 overflow-clip"
                     src={`${account.imageUrl}`}
                   />
-                  <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
-                    .split(" ")
-                    .map((n) => n[0].toUpperCase())
-                    .join("")
-                    .slice(0, 2)}`}</AvatarFallback>
+                  <AvatarFallback className="rounded-none bg-primary text-white ">
+                    {`${account.name
+                      .split(" ")
+                      .slice(0, 2)
+                      .map((n) => n[0].toUpperCase())
+                      .join("")}`}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="w-full flex flex-col gap-0.5">
                   <span className="text-sm truncate">{account.name}</span>

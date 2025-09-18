@@ -228,9 +228,53 @@ var product_icon_default = ProductIcon;
 
 // src/components/product-switcher/product-switcher.tsx
 import { useEffect, useState } from "react";
-import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+
+// src/components/ui/avatar.tsx
+import * as React3 from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { jsx as jsx4 } from "react/jsx-runtime";
+var Avatar = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Root,
+  {
+    ref,
+    className: cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    ),
+    ...props
+  }
+));
+Avatar.displayName = AvatarPrimitive.Root.displayName;
+var AvatarImage = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Image,
+  {
+    ref,
+    className: cn("aspect-square h-full w-full", className),
+    ...props
+  }
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Fallback,
+  {
+    ref,
+    className: cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      className
+    ),
+    ...props
+  }
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
+
+// src/components/product-switcher/product-switcher.tsx
+import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var profileIcon = "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
-var ProductSwitcher = ({ auth_user }) => {
+var ProductSwitcher = ({
+  auth_user,
+  profilePic,
+  profileName
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -271,7 +315,7 @@ var ProductSwitcher = ({ auth_user }) => {
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
-    /* @__PURE__ */ jsx4(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx4(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx4(Grip, { className: "w-6 h-6" }) }) }),
+    /* @__PURE__ */ jsx5(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx5(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx5(Grip, { className: "w-6 h-6" }) }) }),
     /* @__PURE__ */ jsxs3(DropdownMenuContent, { align: "end", className: "w-80 p-4 rounded-2xl", children: [
       /* @__PURE__ */ jsxs3(
         "a",
@@ -280,23 +324,25 @@ var ProductSwitcher = ({ auth_user }) => {
           target: "_blank",
           className: "flex items-center w-full p-3 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
-            /* @__PURE__ */ jsx4(
-              "img",
-              {
-                src: profile.icon,
-                alt: "Profile",
-                className: "w-8 h-8 rounded-full mr-3"
-              }
-            ),
-            /* @__PURE__ */ jsx4("span", { className: "flex-1 text-left font-medium", children: profile.name }),
-            /* @__PURE__ */ jsx4(ChevronRight2, { className: "size-4" })
+            /* @__PURE__ */ jsxs3(Avatar, { className: "rounded-sm size-12", children: [
+              /* @__PURE__ */ jsx5(
+                AvatarImage,
+                {
+                  className: "rounded-[10px] size-12 overflow-clip",
+                  src: `${profilePic}`
+                }
+              ),
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${profileName || "User".split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+            ] }),
+            /* @__PURE__ */ jsx5("span", { className: "flex-1 text-left font-medium", children: profile.name }),
+            /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4" })
           ]
         }
       ),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
-      /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
-      /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) })
+      /* @__PURE__ */ jsx5("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) }),
+      /* @__PURE__ */ jsx5("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
     ] })
   ] });
 };
@@ -305,46 +351,6 @@ var ProductSwitcher = ({ auth_user }) => {
 import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
 import { useEffect as useEffect2, useState as useState2 } from "react";
-
-// src/components/ui/avatar.tsx
-import * as React3 from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { jsx as jsx5 } from "react/jsx-runtime";
-var Avatar = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Root,
-  {
-    ref,
-    className: cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    ),
-    ...props
-  }
-));
-Avatar.displayName = AvatarPrimitive.Root.displayName;
-var AvatarImage = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Image,
-  {
-    ref,
-    className: cn("aspect-square h-full w-full", className),
-    ...props
-  }
-));
-AvatarImage.displayName = AvatarPrimitive.Image.displayName;
-var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Fallback,
-  {
-    ref,
-    className: cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
-    ),
-    ...props
-  }
-));
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
-
-// src/components/user-account/account.tsx
 import Link2 from "next/link";
 import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var UserAccount = ({
@@ -425,7 +431,7 @@ var UserAccount = ({
                     src: `${account.imageUrl}`
                   }
                 ),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("").slice(0, 2)}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
               ] }),
               /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                 /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
