@@ -324,11 +324,11 @@ var ProductSwitcher = ({
           target: "_blank",
           className: "flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
-            /* @__PURE__ */ jsxs3(Avatar, { className: "rounded-sm size-8", children: [
+            /* @__PURE__ */ jsxs3(Avatar, { className: "rounded-[4px] size-8", children: [
               /* @__PURE__ */ jsx5(
                 AvatarImage,
                 {
-                  className: "rounded-[10px] size-8 overflow-clip",
+                  className: "rounded-[4px] size-8 overflow-clip",
                   src: `${profilePic}`
                 }
               ),
