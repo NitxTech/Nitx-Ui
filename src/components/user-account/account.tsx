@@ -77,6 +77,7 @@ export const UserAccount = ({
               <AvatarImage src={`${activeAccount?.imageUrl}`} />
               <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
                 .split(" ")
+                .slice(0, 2)
                 .map((n) => n[0].toUpperCase())
                 .join("")}`}</AvatarFallback>
             </Avatar>
