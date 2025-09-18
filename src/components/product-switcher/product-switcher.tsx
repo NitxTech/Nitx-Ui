@@ -84,11 +84,11 @@ export const ProductSwitcher = ({
         <a
           href={profile.url}
           target="_blank"
-          className="flex items-center w-full p-3 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition"
+          className="flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition"
         >
-          <Avatar className="rounded-sm size-12">
+          <Avatar className="rounded-sm size-8">
             <AvatarImage
-              className="rounded-[10px] size-12 overflow-clip"
+              className="rounded-[10px] size-8 overflow-clip"
               src={`${profilePic}`}
             />
             <AvatarFallback className="rounded-none bg-primary text-white ">
