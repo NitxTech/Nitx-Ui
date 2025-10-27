@@ -346,13 +346,20 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 // src/components/user-account/account.tsx
 import Link2 from "next/link";
-import { Fragment, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var UserAccount = ({ accounts, isExpanded }) => {
   const [onOpen, setOnOpen] = useState2(false);
   const [isMounted, setIsMounted] = useState2(false);
+  const [isMobile, setIsMobile] = useState2(false);
   const router = useRouter();
   useEffect2(() => {
     setIsMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
   if (!isMounted) return null;
   const sortedAccounts = [...accounts].sort(
@@ -363,50 +370,42 @@ var UserAccount = ({ accounts, isExpanded }) => {
     router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
   };
   if (!activeAccount) return null;
+  const shouldShowCompact = !isExpanded || isMobile;
   return /* @__PURE__ */ jsx6("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs4(DropdownMenu, { onOpenChange: () => setOnOpen(!onOpen), children: [
-    /* @__PURE__ */ jsx6(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs4(
+    /* @__PURE__ */ jsx6(DropdownMenuTrigger, { asChild: true, children: shouldShowCompact ? /* @__PURE__ */ jsx6("button", { className: "cursor-pointer", children: /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-[10px] size-[40px] overflow-clip", children: [
+      /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+      /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+    ] }) }) : /* @__PURE__ */ jsxs4(
       "div",
       {
         className: cn(
           "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
-          !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
           onOpen && "border border-primary"
         ),
         children: [
-          /* @__PURE__ */ jsxs4(
-            Avatar,
+          /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-[10px] size-12 overflow-clip", children: [
+            /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+            /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+          ] }),
+          /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
+            /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
+            /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
+          ] }),
+          /* @__PURE__ */ jsx6("div", { children: /* @__PURE__ */ jsx6(
+            ChevronDown,
             {
               className: cn(
-                "rounded-[10px] size-12 overflow-clip",
-                !isExpanded && "size-[40px] mx-auto"
-              ),
-              children: [
-                /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
-              ]
+                "size-4 transition ease-linear duration-300",
+                onOpen && "-scale-y-100"
+              )
             }
-          ),
-          isExpanded && /* @__PURE__ */ jsxs4(Fragment, { children: [
-            /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
-              /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
-              /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
-            ] }),
-            /* @__PURE__ */ jsx6("div", { children: /* @__PURE__ */ jsx6(
-              ChevronDown,
-              {
-                className: cn(
-                  "size-4 transition ease-linear duration-300",
-                  onOpen && "-scale-y-100"
-                )
-              }
-            ) })
-          ] })
+          ) })
         ]
       }
     ) }),
     /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
       sortedAccounts.map(
-        (account, idx) => account.active ? /* @__PURE__ */ jsxs4(
+        (account) => account.active ? /* @__PURE__ */ jsxs4(
           DropdownMenuItem,
           {
             className: "w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",

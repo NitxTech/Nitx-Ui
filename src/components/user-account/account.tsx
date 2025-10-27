@@ -28,11 +28,21 @@ interface UserAccountProps {
 export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
   const [onOpen, setOnOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
+
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   if (!isMounted) return null;
@@ -50,53 +60,61 @@ export const UserAccount = ({ accounts, isExpanded }: UserAccountProps) => {
 
   if (!activeAccount) return null;
 
+  const shouldShowCompact = !isExpanded || isMobile;
+
   return (
     <div className="relative w-full">
       <DropdownMenu onOpenChange={() => setOnOpen(!onOpen)}>
         <DropdownMenuTrigger asChild>
-          <div
-            className={cn(
-              "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
-              !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
-              onOpen && "border border-primary"
-            )}
-          >
-            <Avatar
+          {shouldShowCompact ? (
+            <button className="cursor-pointer">
+              <Avatar className="rounded-[10px] size-[40px] overflow-clip">
+                <AvatarImage src={`${activeAccount?.imageUrl}`} />
+                <AvatarFallback className="rounded-none bg-primary text-white ">
+                  {`${activeAccount.name
+                    .split(" ")
+                    .map((n) => n[0].toUpperCase())
+                    .join("")}`}
+                </AvatarFallback>
+              </Avatar>
+            </button>
+          ) : (
+            <div
               className={cn(
-                "rounded-[10px] size-12 overflow-clip",
-                !isExpanded && "size-[40px] mx-auto"
+                "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
+                onOpen && "border border-primary"
               )}
             >
-              <AvatarImage src={`${activeAccount?.imageUrl}`} />
-              <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
-                .split(" ")
-                .map((n) => n[0].toUpperCase())
-                .join("")}`}</AvatarFallback>
-            </Avatar>
-            {isExpanded && (
-              <>
-                <div className="w-full flex flex-col gap-0.5">
-                  <span className="text-sm max-w-[80%] truncate ">
-                    {activeAccount.name}
-                  </span>
-                  <p className="text-xs max-w-[80%] truncate">
-                    {activeAccount.email}
-                  </p>
-                </div>
-                <div>
-                  <ChevronDown
-                    className={cn(
-                      "size-4 transition ease-linear duration-300",
-                      onOpen && "-scale-y-100"
-                    )}
-                  />
-                </div>
-              </>
-            )}
-          </div>
+              <Avatar className="rounded-[10px] size-12 overflow-clip">
+                <AvatarImage src={`${activeAccount?.imageUrl}`} />
+                <AvatarFallback className="rounded-none bg-primary text-white ">
+                  {`${activeAccount.name
+                    .split(" ")
+                    .map((n) => n[0].toUpperCase())
+                    .join("")}`}
+                </AvatarFallback>
+              </Avatar>
+              <div className="w-full flex flex-col gap-0.5">
+                <span className="text-sm max-w-[80%] truncate ">
+                  {activeAccount.name}
+                </span>
+                <p className="text-xs max-w-[80%] truncate">
+                  {activeAccount.email}
+                </p>
+              </div>
+              <div>
+                <ChevronDown
+                  className={cn(
+                    "size-4 transition ease-linear duration-300",
+                    onOpen && "-scale-y-100"
+                  )}
+                />
+              </div>
+            </div>
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
-          {sortedAccounts.map((account, idx) =>
+          {sortedAccounts.map((account) =>
             account.active ? (
               <DropdownMenuItem
                 key={account.id}
