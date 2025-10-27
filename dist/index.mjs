@@ -353,15 +353,11 @@ import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
 import { useEffect as useEffect2, useState as useState2 } from "react";
 import Link2 from "next/link";
 import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
-<<<<<<< HEAD
-var UserAccount = ({ accounts, isExpanded }) => {
-=======
 var UserAccount = ({
   accounts,
   isExpanded,
   auth_user
 }) => {
->>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
   const [onOpen, setOnOpen] = useState2(false);
   const [isMounted, setIsMounted] = useState2(false);
   const [isMobile, setIsMobile] = useState2(false);
@@ -388,44 +384,30 @@ var UserAccount = ({
   if (!activeAccount) return null;
   const shouldShowCompact = !isExpanded || isMobile;
   return /* @__PURE__ */ jsx6("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs4(DropdownMenu, { onOpenChange: () => setOnOpen(!onOpen), children: [
-    /* @__PURE__ */ jsx6(DropdownMenuTrigger, { asChild: true, children: shouldShowCompact ? /* @__PURE__ */ jsx6("button", { className: "cursor-pointer", children: /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-[10px] size-[40px] overflow-clip", children: [
-      /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-      /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
-    ] }) }) : /* @__PURE__ */ jsxs4(
+    /* @__PURE__ */ jsx6(DropdownMenuTrigger, { asChild: true, children: shouldShowCompact ? /* @__PURE__ */ jsxs4(
+      Avatar,
+      {
+        className: cn(
+          "rounded-[10px] size-10 lg:size-[40px] overflow-clip cursor-pointer mx-auto"
+        ),
+        children: [
+          /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+          /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+        ]
+      }
+    ) : /* @__PURE__ */ jsxs4(
       "div",
       {
         className: cn(
-<<<<<<< HEAD
-          "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
-          onOpen && "border border-primary"
-=======
           "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
-          !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
           onOpen && "border-primary"
->>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
         ),
         children: [
-          /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-[10px] size-12 overflow-clip", children: [
-            /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-            /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
-          ] }),
-          /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
-            /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
-            /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
-          ] }),
-          /* @__PURE__ */ jsx6("div", { children: /* @__PURE__ */ jsx6(
-            ChevronDown,
+          /* @__PURE__ */ jsxs4(
+            Avatar,
             {
               className: cn(
-<<<<<<< HEAD
-                "size-4 transition ease-linear duration-300",
-                onOpen && "-scale-y-100"
-              )
-            }
-          ) })
-=======
-                "rounded-[10px] size-10 lg:size-12 overflow-clip",
-                !isExpanded && "lg:size-[40px] mx-auto"
+                "rounded-[10px] size-10 lg:size-12 overflow-clip"
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
@@ -433,7 +415,7 @@ var UserAccount = ({
               ]
             }
           ),
-          isExpanded && /* @__PURE__ */ jsxs4("div", { className: "w-full hidden lg:flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxs4("div", { className: "w-full hidden lg:flex items-center gap-2", children: [
             /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
               /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
               /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
@@ -448,7 +430,6 @@ var UserAccount = ({
               }
             ) })
           ] })
->>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
         ]
       }
     ) }),

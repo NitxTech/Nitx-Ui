@@ -73,17 +73,10 @@ export const UserAccount = ({
     <div className="relative w-full">
       <DropdownMenu onOpenChange={() => setOnOpen(!onOpen)}>
         <DropdownMenuTrigger asChild>
-          <div
-            className={cn(
-              "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
-              !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
-              onOpen && "border-primary"
-            )}
-          >
+          {shouldShowCompact ? (
             <Avatar
               className={cn(
-                "rounded-[10px] size-10 lg:size-12 overflow-clip",
-                !isExpanded && "lg:size-[40px] mx-auto"
+                "rounded-[10px] size-10 lg:size-[40px] overflow-clip cursor-pointer mx-auto"
               )}
             >
               <AvatarImage src={`${activeAccount?.imageUrl}`} />
@@ -93,7 +86,25 @@ export const UserAccount = ({
                 .map((n) => n[0].toUpperCase())
                 .join("")}`}</AvatarFallback>
             </Avatar>
-            {isExpanded && (
+          ) : (
+            <div
+              className={cn(
+                "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
+                onOpen && "border-primary"
+              )}
+            >
+              <Avatar
+                className={cn(
+                  "rounded-[10px] size-10 lg:size-12 overflow-clip"
+                )}
+              >
+                <AvatarImage src={`${activeAccount?.imageUrl}`} />
+                <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+                  .split(" ")
+                  .slice(0, 2)
+                  .map((n) => n[0].toUpperCase())
+                  .join("")}`}</AvatarFallback>
+              </Avatar>
               <div className="w-full hidden lg:flex items-center gap-2">
                 <div className="w-full flex flex-col gap-0.5">
                   <span className="text-sm max-w-[80%] truncate ">
@@ -112,8 +123,8 @@ export const UserAccount = ({
                   />
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
           {sortedAccounts.map((account) =>
