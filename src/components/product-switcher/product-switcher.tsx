@@ -9,6 +9,7 @@ import { ChevronRight, Grip } from "lucide-react";
 import ProductIcon from "./product-icon";
 
 import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 // import nexusLogo from "../../assets/nexus-logo.svg";
 
 // Profile icon (replace with your own if needed)
@@ -17,9 +18,15 @@ const profileIcon =
 
 interface ProductSwitcherProps {
   auth_user: number | string;
+  profileImage?: string;
+  profileName?: string;
 }
 
-export const ProductSwitcher = ({ auth_user }: ProductSwitcherProps) => {
+export const ProductSwitcher = ({
+  auth_user,
+  profileImage,
+  profileName,
+}: ProductSwitcherProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -77,13 +84,21 @@ export const ProductSwitcher = ({ auth_user }: ProductSwitcherProps) => {
         <a
           href={profile.url}
           target="_blank"
-          className="flex items-center w-full p-3 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition"
+          className="flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition"
         >
-          <img
-            src={profile.icon}
-            alt="Profile"
-            className="w-8 h-8 rounded-full mr-3"
-          />
+          <Avatar className="rounded-[6px] size-8">
+            <AvatarImage
+              className="rounded-[6px] size-8 overflow-clip"
+              src={`${profileImage}`}
+            />
+            <AvatarFallback className="rounded-none bg-primary text-white ">
+              {`${(profileName || "User")
+                .split(" ")
+                .slice(0, 2)
+                .map((n) => n[0].toUpperCase())
+                .join("")}`}
+            </AvatarFallback>
+          </Avatar>
           <span className="flex-1 text-left font-medium">{profile.name}</span>
           <ChevronRight className="size-4" />
         </a>

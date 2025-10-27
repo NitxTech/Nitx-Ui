@@ -228,9 +228,53 @@ var product_icon_default = ProductIcon;
 
 // src/components/product-switcher/product-switcher.tsx
 import { useEffect, useState } from "react";
-import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+
+// src/components/ui/avatar.tsx
+import * as React3 from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { jsx as jsx4 } from "react/jsx-runtime";
+var Avatar = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Root,
+  {
+    ref,
+    className: cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    ),
+    ...props
+  }
+));
+Avatar.displayName = AvatarPrimitive.Root.displayName;
+var AvatarImage = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Image,
+  {
+    ref,
+    className: cn("aspect-square h-full w-full", className),
+    ...props
+  }
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx4(
+  AvatarPrimitive.Fallback,
+  {
+    ref,
+    className: cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      className
+    ),
+    ...props
+  }
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
+
+// src/components/product-switcher/product-switcher.tsx
+import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var profileIcon = "https://ui-avatars.com/api/?name=SALT&background=000&color=fff&rounded=true";
-var ProductSwitcher = ({ auth_user }) => {
+var ProductSwitcher = ({
+  auth_user,
+  profileImage,
+  profileName
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -271,32 +315,34 @@ var ProductSwitcher = ({ auth_user }) => {
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
-    /* @__PURE__ */ jsx4(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx4(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx4(Grip, { className: "w-6 h-6" }) }) }),
+    /* @__PURE__ */ jsx5(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx5(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx5(Grip, { className: "w-6 h-6" }) }) }),
     /* @__PURE__ */ jsxs3(DropdownMenuContent, { align: "end", className: "w-80 p-4 rounded-2xl", children: [
       /* @__PURE__ */ jsxs3(
         "a",
         {
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
+          className: "flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
           children: [
-            /* @__PURE__ */ jsx4(
-              "img",
-              {
-                src: profile.icon,
-                alt: "Profile",
-                className: "w-8 h-8 rounded-full mr-3"
-              }
-            ),
-            /* @__PURE__ */ jsx4("span", { className: "flex-1 text-left font-medium", children: profile.name }),
-            /* @__PURE__ */ jsx4(ChevronRight2, { className: "size-4" })
+            /* @__PURE__ */ jsxs3(Avatar, { className: "rounded-[6px] size-8", children: [
+              /* @__PURE__ */ jsx5(
+                AvatarImage,
+                {
+                  className: "rounded-[6px] size-8 overflow-clip",
+                  src: `${profileImage}`
+                }
+              ),
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${(profileName || "User").split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+            ] }),
+            /* @__PURE__ */ jsx5("span", { className: "flex-1 text-left font-medium", children: profile.name }),
+            /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4" })
           ]
         }
       ),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
-      /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx4("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
-      /* @__PURE__ */ jsx4("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx4(product_icon_default, { ...product }, product.title)) })
+      /* @__PURE__ */ jsx5("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) }),
+      /* @__PURE__ */ jsx5("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
     ] })
   ] });
 };
@@ -305,49 +351,17 @@ var ProductSwitcher = ({ auth_user }) => {
 import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
 import { useEffect as useEffect2, useState as useState2 } from "react";
-
-// src/components/ui/avatar.tsx
-import * as React3 from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { jsx as jsx5 } from "react/jsx-runtime";
-var Avatar = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Root,
-  {
-    ref,
-    className: cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    ),
-    ...props
-  }
-));
-Avatar.displayName = AvatarPrimitive.Root.displayName;
-var AvatarImage = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Image,
-  {
-    ref,
-    className: cn("aspect-square h-full w-full", className),
-    ...props
-  }
-));
-AvatarImage.displayName = AvatarPrimitive.Image.displayName;
-var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx5(
-  AvatarPrimitive.Fallback,
-  {
-    ref,
-    className: cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
-    ),
-    ...props
-  }
-));
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
-
-// src/components/user-account/account.tsx
 import Link2 from "next/link";
 import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+<<<<<<< HEAD
 var UserAccount = ({ accounts, isExpanded }) => {
+=======
+var UserAccount = ({
+  accounts,
+  isExpanded,
+  auth_user
+}) => {
+>>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
   const [onOpen, setOnOpen] = useState2(false);
   const [isMounted, setIsMounted] = useState2(false);
   const [isMobile, setIsMobile] = useState2(false);
@@ -367,7 +381,9 @@ var UserAccount = ({ accounts, isExpanded }) => {
   );
   const activeAccount = sortedAccounts?.find((account) => account.active) || sortedAccounts[0];
   const handleSignOut = async () => {
-    router.replace(`${process.env.NEXT_PUBLIC_AUTH_URL}/signout`);
+    router.replace(
+      `${process.env.NEXT_PUBLIC_AUTH_URL}/signout?session=${auth_user}`
+    );
   };
   if (!activeAccount) return null;
   const shouldShowCompact = !isExpanded || isMobile;
@@ -379,8 +395,14 @@ var UserAccount = ({ accounts, isExpanded }) => {
       "div",
       {
         className: cn(
+<<<<<<< HEAD
           "w-full h-auto bg-zinc-100 dark:bg-zinc-700/50 p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border hover:border-primary ",
           onOpen && "border border-primary"
+=======
+          "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
+          !isExpanded && "p-0 bg-transparent size-[40px] mx-auto",
+          onOpen && "border-primary"
+>>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
         ),
         children: [
           /* @__PURE__ */ jsxs4(Avatar, { className: "rounded-[10px] size-12 overflow-clip", children: [
@@ -395,11 +417,38 @@ var UserAccount = ({ accounts, isExpanded }) => {
             ChevronDown,
             {
               className: cn(
+<<<<<<< HEAD
                 "size-4 transition ease-linear duration-300",
                 onOpen && "-scale-y-100"
               )
             }
           ) })
+=======
+                "rounded-[10px] size-10 lg:size-12 overflow-clip",
+                !isExpanded && "lg:size-[40px] mx-auto"
+              ),
+              children: [
+                /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+              ]
+            }
+          ),
+          isExpanded && /* @__PURE__ */ jsxs4("div", { className: "w-full hidden lg:flex items-center gap-2", children: [
+            /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
+              /* @__PURE__ */ jsx6("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
+              /* @__PURE__ */ jsx6("p", { className: "text-xs max-w-[80%] truncate", children: activeAccount.email })
+            ] }),
+            /* @__PURE__ */ jsx6("div", { children: /* @__PURE__ */ jsx6(
+              ChevronDown,
+              {
+                className: cn(
+                  "size-4 transition ease-linear duration-300",
+                  onOpen && "-scale-y-100"
+                )
+              }
+            ) })
+          ] })
+>>>>>>> d159a5b40037ccb8e51344db246dfc33c58f2796
         ]
       }
     ) }),
@@ -418,7 +467,7 @@ var UserAccount = ({ accounts, isExpanded }) => {
                     src: `${account.imageUrl}`
                   }
                 ),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
               ] }),
               /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                 /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
