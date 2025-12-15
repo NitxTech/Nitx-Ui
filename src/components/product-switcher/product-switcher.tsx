@@ -41,7 +41,38 @@ export const ProductSwitcher = ({
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#",
   };
 
-  const mediaOwner = [
+  // const mediaOwner = [
+  //   {
+  //     title: "Nitx Signage",
+  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
+  //     url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#",
+  //   },
+  //   {
+  //     title: "Nitx Publisher",
+  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
+  //     url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#",
+  //   },
+  //   // {
+  //   //   title: "Nitx Nexus",
+  //   //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
+  //   //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
+  //   // },
+  // ];
+
+  // const advertiser = [
+  //   {
+  //     title: "Nitx Ads",
+  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
+  //     url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#",
+  //   },
+  //   {
+  //     title: "Nitx Studio",
+  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
+  //     url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#",
+  //   },
+  // ];
+
+  const products = [
     {
       title: "Nitx Signage",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
@@ -52,14 +83,6 @@ export const ProductSwitcher = ({
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#",
     },
-    // {
-    //   title: "Nitx Nexus",
-    //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-    //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
-    // },
-  ];
-
-  const advertiser = [
     {
       title: "Nitx Ads",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
@@ -69,6 +92,12 @@ export const ProductSwitcher = ({
       title: "Nitx Studio",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#",
+    },
+    {
+      title: "Nitx Reach",
+      image:
+        "https://res.cloudinary.com/dj3rzny5p/image/upload/v1765777010/Nitx_Reach_Group_1_h6bsbj.svg",
+      url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#",
     },
   ];
 
@@ -103,22 +132,8 @@ export const ProductSwitcher = ({
           <ChevronRight className="size-4" />
         </a>
 
-        {/* Media Owner Section */}
-        <div className="mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400">
-          Media Owner
-        </div>
         <div className="grid grid-cols-2 gap-3 mb-4">
-          {mediaOwner.map((product) => (
-            <ProductIcon key={product.title} {...product} />
-          ))}
-        </div>
-
-        {/* Advertiser Section */}
-        <div className="mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200">
-          Advertiser
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {advertiser.map((product) => (
+          {products.map((product) => (
             <ProductIcon key={product.title} {...product} />
           ))}
         </div>
