@@ -285,7 +285,7 @@ var ProductSwitcher = ({
     icon: profileIcon,
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#"
   };
-  const mediaOwner = [
+  const products = [
     {
       title: "Nitx Signage",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
@@ -295,14 +295,7 @@ var ProductSwitcher = ({
       title: "Nitx Publisher",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#"
-    }
-    // {
-    //   title: "Nitx Nexus",
-    //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-    //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
-    // },
-  ];
-  const advertiser = [
+    },
     {
       title: "Nitx Ads",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
@@ -312,6 +305,11 @@ var ProductSwitcher = ({
       title: "Nitx Studio",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#"
+    },
+    {
+      title: "Nitx Reach",
+      image: "https://res.cloudinary.com/dj3rzny5p/image/upload/v1765777010/Nitx_Reach_Group_1_h6bsbj.svg",
+      url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#"
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
@@ -339,10 +337,7 @@ var ProductSwitcher = ({
           ]
         }
       ),
-      /* @__PURE__ */ jsx5("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx5("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
     ] })
   ] });
 };
