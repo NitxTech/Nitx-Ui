@@ -1,18 +1,16 @@
 {
-    "name": "nitxui",
-    "version": "1.5.3",
-    "type": "module",
-    "private": false,
-    "description": "The official UI component library for Nitx projects.",
-    "main": "./dist/index.mjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs"
-        },
-        "./package.json": "./package.json"
+  "name": "nitxui",
+  "version": "1.5.4",
+  "type": "module",
+  "private": false,
+  "description": "The official UI component library for Nitx projects.",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     },
     "files": [
         "dist"
