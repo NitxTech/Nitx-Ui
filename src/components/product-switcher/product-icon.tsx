@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductIconProps {
+  id: string;
   image: string;
   title: string;
   url: string;
@@ -9,6 +10,7 @@ interface ProductIconProps {
 }
 
 const ProductIcon = ({
+  id,
   image,
   title,
   url,
@@ -16,6 +18,8 @@ const ProductIcon = ({
 }: ProductIconProps) => {
   return (
     <Link
+      id={id}
+      data-testid={`product-${id}`}
       href={url}
       target="_blank"
       rel="noopener noreferrer"
