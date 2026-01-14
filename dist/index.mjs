@@ -205,6 +205,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { jsx as jsx3, jsxs as jsxs2 } from "react/jsx-runtime";
 var ProductIcon = ({
+  id,
   image,
   title,
   url,
@@ -213,6 +214,8 @@ var ProductIcon = ({
   return /* @__PURE__ */ jsxs2(
     Link,
     {
+      id,
+      "data-testid": `product-${id}`,
       href: url,
       target: "_blank",
       rel: "noopener noreferrer",
@@ -285,33 +288,36 @@ var ProductSwitcher = ({
     icon: profileIcon,
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#"
   };
-  const mediaOwner = [
+  const products = [
     {
+      id: "nitx-signage",
       title: "Nitx Signage",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#"
     },
     {
+      id: "nitx-publisher",
       title: "Nitx Publisher",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#"
-    }
-    // {
-    //   title: "Nitx Nexus",
-    //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-    //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
-    // },
-  ];
-  const advertiser = [
+    },
     {
+      id: "nitx-ads",
       title: "Nitx Ads",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#"
     },
     {
+      id: "nitx-studio",
       title: "Nitx Studio",
       image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#"
+    },
+    {
+      id: "nitx-reach",
+      title: "Nitx Reach",
+      image: "https://res.cloudinary.com/dj3rzny5p/image/upload/v1765777010/Nitx_Reach_Group_1_h6bsbj.svg",
+      url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#"
     }
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
@@ -320,6 +326,8 @@ var ProductSwitcher = ({
       /* @__PURE__ */ jsxs3(
         "a",
         {
+          id: "manage-my-account",
+          "data-testid": "product-manage-my-account",
           href: profile.url,
           target: "_blank",
           className: "flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
@@ -339,10 +347,7 @@ var ProductSwitcher = ({
           ]
         }
       ),
-      /* @__PURE__ */ jsx5("div", { className: "mb-2 text-sm font-semibold text-zinc-700 dark:text-zinc-400", children: "Media Owner" }),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: mediaOwner.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) }),
-      /* @__PURE__ */ jsx5("div", { className: "mb-2 mt-10 text-sm font-semibold text-zinc-700 dark:text-zinc-200", children: "Advertiser" }),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3", children: advertiser.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.id)) })
     ] })
   ] });
 };
