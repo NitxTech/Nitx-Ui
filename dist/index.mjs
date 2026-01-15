@@ -333,7 +333,6 @@ var ProductSwitcher = ({
           ]
         }
       ),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.title)) })
       /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.id)) })
     ] })
   ] });

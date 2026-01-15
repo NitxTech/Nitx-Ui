@@ -36,7 +36,8 @@
   "peerDependencies": {
     "next": "^15.2.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-i18next": "^16.5.2"
   },
   "devDependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
@@ -76,7 +77,6 @@
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "react-i18next": "^16.5.2",
     "sonner": "^2.0.7",
     "usehooks-ts": "^3.1.1",
     "vaul": "^1.1.2"
