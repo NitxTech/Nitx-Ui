@@ -1510,10 +1510,10 @@ var NewSpaceModal = () => {
       onClose: () => setModal(null),
       title: t("newSpaceModal.title"),
       className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
-      children: /* @__PURE__ */ jsx21("div", { className: "w-full flex flex-col gap-5 mt-5 relative min-h-[23rem]", children: /* @__PURE__ */ jsxs13(
+      children: /* @__PURE__ */ jsx21("div", { className: "w-full flex flex-col", children: /* @__PURE__ */ jsxs13(
         "form",
         {
-          className: "flex-1 px-2 flex flex-col justify-between gap-3 lg:gap-9",
+          className: "flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]",
           onSubmit: handleCreateSpace,
           children: [
             /* @__PURE__ */ jsx21("div", { className: "flex flex-col gap-5", children: /* @__PURE__ */ jsxs13("div", { className: "flex flex-col gap-3", children: [
@@ -1528,7 +1528,7 @@ var NewSpaceModal = () => {
                 }
               )
             ] }) }),
-            /* @__PURE__ */ jsxs13("div", { className: "flex justify-end gap-3 pb-7", children: [
+            /* @__PURE__ */ jsxs13("div", { className: "flex justify-end gap-3", children: [
               /* @__PURE__ */ jsx21(
                 Button2,
                 {
@@ -1543,7 +1543,8 @@ var NewSpaceModal = () => {
                 {
                   type: "submit",
                   disabled: !name || isLoading,
-                  className: "min-w-20",
+                  size: "smlg",
+                  className: "min-w-24 text-white",
                   children: isLoading ? t("newSpaceModal.creating") : t("newSpaceModal.create")
                 }
               )

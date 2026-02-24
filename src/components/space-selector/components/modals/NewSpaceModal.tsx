@@ -71,9 +71,9 @@ const NewSpaceModal = () => {
       title={t("newSpaceModal.title")}
       className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
-      <div className="w-full flex flex-col gap-5 mt-5 relative min-h-[23rem]">
+      <div className="w-full flex flex-col">
         <form
-          className="flex-1 px-2 flex flex-col justify-between gap-3 lg:gap-9"
+          className="flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]"
           onSubmit={handleCreateSpace}
         >
           <div className="flex flex-col gap-5">
@@ -88,7 +88,7 @@ const NewSpaceModal = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pb-7">
+          <div className="flex justify-end gap-3">
             <Button
               type="button"
               onClick={() => setModal(null)}
@@ -99,7 +99,8 @@ const NewSpaceModal = () => {
             <Button
               type="submit"
               disabled={!name || isLoading}
-              className="min-w-20"
+              size="smlg"
+              className="min-w-24 text-white"
             >
               {isLoading
                 ? t("newSpaceModal.creating")
