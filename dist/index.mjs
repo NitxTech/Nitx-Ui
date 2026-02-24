@@ -1384,6 +1384,7 @@ var BrowseSpaceModal = () => {
       open: true,
       onClose: () => setModal(null),
       title: t("browseSpacesModal.title"),
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
       children: /* @__PURE__ */ jsx19("div", { className: "w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden", children: /* @__PURE__ */ jsxs12("div", { className: "px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", children: [
         /* @__PURE__ */ jsxs12("div", { className: "flex gap-3 items-center", children: [
           /* @__PURE__ */ jsx19(
@@ -1500,6 +1501,7 @@ var NewSpaceModal = () => {
       open: isModalOpen,
       onClose: () => setModal(null),
       title: t("newSpaceModal.title"),
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
       children: /* @__PURE__ */ jsx21("div", { className: "w-full flex flex-col gap-5 mt-5 relative min-h-[23rem]", children: /* @__PURE__ */ jsxs13(
         "form",
         {

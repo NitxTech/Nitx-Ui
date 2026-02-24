@@ -40,6 +40,7 @@ const BrowseSpaceModal = () => {
       open={true}
       onClose={() => setModal(null)}
       title={t("browseSpacesModal.title")}
+      className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
       <div className="w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden">
         <div className="px-3 lg:px-7 flex flex-col gap-3 lg:gap-9">

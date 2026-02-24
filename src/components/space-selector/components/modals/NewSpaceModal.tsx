@@ -69,6 +69,7 @@ const NewSpaceModal = () => {
       open={isModalOpen}
       onClose={() => setModal(null)}
       title={t("newSpaceModal.title")}
+      className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
       <div className="w-full flex flex-col gap-5 mt-5 relative min-h-[23rem]">
         <form
