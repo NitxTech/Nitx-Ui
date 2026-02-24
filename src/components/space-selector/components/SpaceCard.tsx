@@ -52,7 +52,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
   return (
     <Card
       className={cn(
-        "shadow-none bg-white border-[.5px] p-3 w-full lg:w-auto min-w-72 flex gap-4",
+        "shadow-none bg-neutral-50 border-[.5px] border-neutral-200 p-3 w-full lg:w-auto min-w-72 flex gap-4 text-neutral-900 dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-50",
         className
       )}
     >
@@ -82,7 +82,11 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
         </div>
         <div className="flex flex-col w-full">
           <p className="text-sm max-w-[10rem] truncate">{name}</p>
-          <h2 className={cn("text-[12.42px] text-zinc-500")}>
+          <h2
+            className={cn(
+              "text-[12.42px] text-neutral-500 dark:text-neutral-400"
+            )}
+          >
             {members} {t("spaceCard.members")}
           </h2>
         </div>
@@ -91,7 +95,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
-            className="size-10 hover:bg-gray-300/20 flex items-center justify-center rounded-sm"
+            className="size-10 hover:bg-neutral-200/40 text-neutral-700 flex items-center justify-center rounded-sm dark:hover:bg-neutral-800 dark:text-neutral-200"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();

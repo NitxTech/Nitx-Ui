@@ -1106,11 +1106,11 @@ var SearchInput = (props) => {
       {
         type: "search",
         placeholder: "Search...",
-        className: "w-full p-6 border-gray-300 rounded-lg shadow-none",
+        className: "w-full p-6 border-neutral-200 bg-neutral-50 text-neutral-900 rounded-lg shadow-none placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 dark:placeholder:text-neutral-500",
         ...props
       }
     ),
-    /* @__PURE__ */ jsx15(SearchIcon, { className: "w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-gray-400" })
+    /* @__PURE__ */ jsx15(SearchIcon, { className: "w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500" })
   ] });
 };
 var search_input_default = SearchInput;
@@ -1208,7 +1208,7 @@ var SpaceCard = ({ id, name, members, className }) => {
     Card,
     {
       className: cn2(
-        "shadow-none bg-white border-[.5px] p-3 w-full lg:w-auto min-w-72 flex gap-4",
+        "shadow-none bg-neutral-50 border-[.5px] border-neutral-200 p-3 w-full lg:w-auto min-w-72 flex gap-4 text-neutral-900 dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-50",
         className
       ),
       children: [
@@ -1244,18 +1244,26 @@ var SpaceCard = ({ id, name, members, className }) => {
           ) }) }),
           /* @__PURE__ */ jsxs10("div", { className: "flex flex-col w-full", children: [
             /* @__PURE__ */ jsx17("p", { className: "text-sm max-w-[10rem] truncate", children: name }),
-            /* @__PURE__ */ jsxs10("h2", { className: cn2("text-[12.42px] text-zinc-500"), children: [
-              members,
-              " ",
-              t("spaceCard.members")
-            ] })
+            /* @__PURE__ */ jsxs10(
+              "h2",
+              {
+                className: cn2(
+                  "text-[12.42px] text-neutral-500 dark:text-neutral-400"
+                ),
+                children: [
+                  members,
+                  " ",
+                  t("spaceCard.members")
+                ]
+              }
+            )
           ] })
         ] }),
         /* @__PURE__ */ jsxs10(DropdownMenu2, { children: [
           /* @__PURE__ */ jsx17(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx17(
             "button",
             {
-              className: "size-10 hover:bg-gray-300/20 flex items-center justify-center rounded-sm",
+              className: "size-10 hover:bg-neutral-200/40 text-neutral-700 flex items-center justify-center rounded-sm dark:hover:bg-neutral-800 dark:text-neutral-200",
               onClick: (e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -1349,9 +1357,9 @@ var EmptyList = ({
   const defaultTitle = title || t("emptyList.noItemsFound");
   const defaultDescription = description || t("emptyList.defaultDescription");
   return /* @__PURE__ */ jsxs11("div", { className: "w-full h-full flex flex-col items-center justify-center gap-5", children: [
-    /* @__PURE__ */ jsx18("div", { className: "relative w-[214px] h-[170px] bg-gray-100 rounded-md flex items-center justify-center text-gray-400", children: /* @__PURE__ */ jsx18("span", { children: "No Image" }) }),
-    /* @__PURE__ */ jsx18("p", { className: "text-lg font-semibold text-center", children: defaultTitle }),
-    /* @__PURE__ */ jsx18("p", { className: "text-zinc-600 text-sm max-w-[499px] text-center", children: defaultDescription })
+    /* @__PURE__ */ jsx18("div", { className: "relative w-[214px] h-[170px] bg-neutral-100 rounded-md flex items-center justify-center text-neutral-400 dark:bg-neutral-800 dark:text-neutral-500", children: /* @__PURE__ */ jsx18("span", { children: "No Image" }) }),
+    /* @__PURE__ */ jsx18("p", { className: "text-lg font-semibold text-center text-neutral-900 dark:text-neutral-50", children: defaultTitle }),
+    /* @__PURE__ */ jsx18("p", { className: "text-neutral-600 dark:text-neutral-400 text-sm max-w-[499px] text-center", children: defaultDescription })
   ] });
 };
 var EmptyList_default = EmptyList;
