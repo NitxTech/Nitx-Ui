@@ -147,7 +147,7 @@ const ManageMembersModal = ({
       <DrawerDialog
         open={effectiveOpen}
         onClose={onClose || (() => setModal(null))}
-        className="sm:max-w-[425px] p-6 z-[10011]"
+        className="sm:max-w-[425px] p-6 z-[10011] bg-neutral-50 dark:bg-neutral-900"
         overlayClassName="z-[10010]"
       >
         <div className="flex flex-col items-center justify-center py-6 gap-4 text-center">
@@ -165,10 +165,10 @@ const ManageMembersModal = ({
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
             Invitations sent successfully
           </h2>
-          <p className="text-sm text-gray-500 max-w-[250px]">
+          <p className="text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400">
             Invited users will receive an email to join your Space
           </p>
 
@@ -196,13 +196,13 @@ const ManageMembersModal = ({
     isLoading || (pendingEmails.length === 0 && !isInputValidEmail);
 
   return (
-    <DrawerDialog
-      open={effectiveOpen}
-      onClose={onClose || (() => setModal(null))}
-      className="sm:max-w-[500px] p-0 overflow-hidden z-[10011]"
-      overlayClassName="z-[10010]"
-    >
-      <div className="w-full flex flex-col">
+      <DrawerDialog
+        open={effectiveOpen}
+        onClose={onClose || (() => setModal(null))}
+        className="sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900"
+        overlayClassName="z-[10010]"
+      >
+        <div className="w-full flex flex-col">
         {/* Header */}
         <div className="flex flex-col items-center gap-3 pt-8 pb-4 px-6 md:px-10">
           <svg
@@ -248,8 +248,10 @@ const ManageMembersModal = ({
             />
           </svg>
 
-          <h2 className="text-2xl font-medium text-gray-900">Add Members</h2>
-          <p className="text-center text-sm text-gray-600 max-w-sm leading-relaxed">
+          <h2 className="text-2xl font-medium text-neutral-900 dark:text-neutral-50">
+            Add Members
+          </h2>
+          <p className="text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400">
             Type or paste in emails below, separated by commas. Your workspace
             will be billed by members.
           </p>
@@ -260,7 +262,7 @@ const ManageMembersModal = ({
           className="flex flex-col gap-6 px-6 md:px-10 pb-10"
         >
           {/* Email Input */}
-          <div className="flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-white sticky top-0">
+          <div className="flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-neutral-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-neutral-50 sticky top-0 dark:border-neutral-700 dark:bg-neutral-900">
             {pendingEmails.map((item) => (
               <div
                 key={item.id}
@@ -285,13 +287,13 @@ const ManageMembersModal = ({
               placeholder={
                 pendingEmails.length === 0 ? "Search names or emails" : ""
               }
-              className="flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-gray-400 h-8"
+              className="flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-neutral-400 h-8 dark:text-neutral-50 dark:placeholder:text-neutral-500"
             />
           </div>
 
           {/* Role Selection */}
           <div className="flex flex-col gap-2">
-            <Label className="text-sm font-medium text-gray-600">
+            <Label className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
               Select Role
             </Label>
             <div className="relative">
@@ -301,7 +303,7 @@ const ManageMembersModal = ({
               >
                 <SelectTrigger
                   type="button"
-                  className="w-full h-auto p-4 flex items-start text-left bg-gray-50 border-gray-200 rounded-xl hover:border-primary/50 hover:bg-white data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full"
+                  className="w-full h-auto p-4 flex items-start text-left bg-neutral-50 border-neutral-200 rounded-xl hover:border-primary/50 hover:bg-neutral-50 data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800"
                 >
                   <div className="flex gap-4 items-center w-full">
                     <div className="flex items-start justify-start">
@@ -354,11 +356,11 @@ const ManageMembersModal = ({
                       </div>
                     </div>
                     <div className="flex flex-col gap-0.5 flex-1">
-                      <span className="font-medium capitalize text-sm text-gray-700">
+                      <span className="font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200">
                         {pendingRole}
                       </span>
                       {/* Description based on role */}
-                      <span className="text-xs text-gray-500 font-medium line-clamp-1">
+                      <span className="text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400">
                         {pendingRole === "viewer" &&
                           "Can view content and data only, without making any changes."}
                         {pendingRole === "editor" &&
@@ -369,19 +371,19 @@ const ManageMembersModal = ({
                     </div>
                   </div>
                 </SelectTrigger>
-                <SelectContent className="p-1">
+                <SelectContent className="p-1 bg-neutral-50 dark:bg-neutral-900">
                   <SelectItem
                     value="viewer"
-                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary"
+                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
                   >
                     <div className="flex gap-3 items-center">
-                      <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          className="w-4 h-4 text-gray-600"
+                              className="w-4 h-4 text-neutral-600 dark:text-neutral-300"
                         >
                           <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
                           <circle cx="12" cy="12" r="3" />
@@ -389,7 +391,7 @@ const ManageMembersModal = ({
                       </div>
                       <div className="flex flex-col gap-0.5 text-left">
                         <span className="font-semibold text-sm">Viewer</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-neutral-500 dark:text-neutral-400">
                           Can view content only
                         </span>
                       </div>
@@ -397,23 +399,23 @@ const ManageMembersModal = ({
                   </SelectItem>
                   <SelectItem
                     value="editor"
-                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary"
+                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
                   >
                     <div className="flex gap-3 items-center">
-                      <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          className="w-4 h-4 text-gray-600"
+                              className="w-4 h-4 text-neutral-600 dark:text-neutral-300"
                         >
                           <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                         </svg>
                       </div>
                       <div className="flex flex-col gap-0.5 text-left">
                         <span className="font-semibold text-sm">Editor</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-neutral-500 dark:text-neutral-400">
                           Can edit content
                         </span>
                       </div>
@@ -421,10 +423,10 @@ const ManageMembersModal = ({
                   </SelectItem>
                   <SelectItem
                     value="manager"
-                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary"
+                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
                   >
                     <div className="flex gap-3 items-center">
-                      <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
@@ -437,7 +439,7 @@ const ManageMembersModal = ({
                       </div>
                       <div className="flex flex-col gap-0.5 text-left">
                         <span className="font-semibold text-sm">Manager</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-neutral-500 dark:text-neutral-400">
                           Full control
                         </span>
                       </div>
@@ -464,7 +466,7 @@ const ManageMembersModal = ({
               type="button"
               variant="ghost"
               onClick={() => (onClose ? onClose() : setModal(null))}
-              className="w-full text-gray-500 font-normal hover:bg-gray-50 hover:text-gray-900 rounded-xl h-11"
+              className="w-full text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50"
             >
               Cancel
             </Button>

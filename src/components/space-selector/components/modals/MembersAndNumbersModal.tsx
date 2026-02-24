@@ -244,9 +244,9 @@ const MembersAndNumbersModal = () => {
         open={modal === "membersAndNumbers"}
         onClose={() => setModal(null)}
       >
-        <div className="flex flex-col sm:flex-row w-full h-[650px] sm:h-[960px]">
+        <div className="flex flex-col sm:flex-row w-full h-[650px] sm:h-[960px] bg-neutral-50 dark:bg-neutral-900">
           {/* Sidebar */}
-          <div className="w-full sm:w-64 bg-white border-b sm:border-b-0 sm:border-r border-gray-100 p-4 flex flex-col gap-2 shrink-0">
+          <div className="w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800">
             <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block">
               {props?.manageSpaceMembers?.spaceName || "Space Nitx"}
             </h3>
@@ -256,7 +256,7 @@ const MembersAndNumbersModal = () => {
                 className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${
                   activeTab === "members"
                     ? "bg-primary text-white "
-                    : "text-gray-600 hover:bg-gray-50"
+                    : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                 }`}
               >
                 <div className="w-5 h-5 flex items-center justify-center">
@@ -270,7 +270,7 @@ const MembersAndNumbersModal = () => {
                 className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${
                   activeTab === "settings"
                     ? "bg-primary text-white shadow-sm"
-                    : "text-gray-600 hover:bg-gray-50"
+                    : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                 }`}
               >
                 <div className="w-5 h-5 flex items-center justify-center">
@@ -316,8 +316,8 @@ const MembersAndNumbersModal = () => {
                     <Skeleton className="h-8 w-32" />
                   </div>
                   {/* Stats Loading */}
-                  <div className="border border-gray-100 rounded-lg overflow-hidden">
-                    <div className="bg-gray-50/50 p-4 border-b border-gray-100 hidden sm:block">
+                  <div className="border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800">
+                    <div className="bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800">
                       <div className="grid grid-cols-[1fr_200px_100px] gap-4">
                         <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-4 w-20" />
@@ -327,7 +327,7 @@ const MembersAndNumbersModal = () => {
                     {[1].map((i) => (
                       <div
                         key={i}
-                        className="p-4 border-b border-gray-100 last:border-0 relative"
+                        className="p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800"
                       >
                         <div className="flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center">
                           <div className="flex items-center gap-3 w-full">
@@ -349,8 +349,8 @@ const MembersAndNumbersModal = () => {
                       <Skeleton className="h-10 w-64" /> {/* Search */}
                       <Skeleton className="h-10 w-32" /> {/* Invite Button */}
                     </div>
-                    <div className="border border-gray-100 rounded-lg overflow-hidden">
-                      <div className="bg-gray-50/50 p-4 border-b border-gray-100 hidden sm:block">
+                    <div className="border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800">
+                      <div className="bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800">
                         <div className="grid grid-cols-[1fr_200px_100px] gap-4">
                           <Skeleton className="h-4 w-20" />
                           <Skeleton className="h-4 w-20" />
@@ -360,7 +360,7 @@ const MembersAndNumbersModal = () => {
                       {[1, 2, 3, 4, 5].map((i) => (
                         <div
                           key={i}
-                          className="p-4 border-b border-gray-100 last:border-0 relative"
+                          className="p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800"
                         >
                           <div className="flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center">
                             <div className="flex items-center gap-3 w-full">
@@ -386,37 +386,37 @@ const MembersAndNumbersModal = () => {
                       <h3 className="text-base font-semibold">
                         Pending Invite
                       </h3>
-                      <p className="text-xs text-gray-500 -mt-3">
+                      <p className="text-xs text-neutral-500 -mt-3 dark:text-neutral-400">
                         Invite teammates to start collaborating
                       </p>
 
                       {/* Table Header */}
-                      <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-gray-700">
+                      <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-neutral-700 dark:bg-primary/10 dark:text-neutral-200">
                         <div>Person</div>
                         <div>Roles</div>
                         <div className="text-right">Action</div>
                       </div>
 
-                      <div className="w-full bg-white border border-gray-100 rounded-b-lg overflow-hidden sm:-mt-4">
+                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-b-lg overflow-hidden sm:-mt-4 dark:bg-neutral-900 dark:border-neutral-800">
                         {paginatedInvitations.map((invite) => (
                           <div
                             key={invite.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
+                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 text-xs font-medium">
+                              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-600 text-xs font-medium dark:bg-neutral-800 dark:text-neutral-200">
                                 {invite.email.substring(0, 2).toUpperCase()}
                               </div>
                               <div className="flex flex-col">
-                                <span className="text-sm font-medium text-gray-900">
+                                <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
                                   Member
                                 </span>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
                                   {invite.email}
                                 </span>
                               </div>
                             </div>
-                            <div className="text-sm text-gray-600 capitalize ml-11 sm:ml-0">
+                            <div className="text-sm text-neutral-600 capitalize ml-11 sm:ml-0 dark:text-neutral-300">
                               {invite.role}
                             </div>
                             <div className="absolute right-2 top-2 sm:static flex justify-end">
@@ -425,9 +425,9 @@ const MembersAndNumbersModal = () => {
                                   <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-8 w-8 hover:bg-gray-100"
+                                    className="h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                                   >
-                                    <MoreVertical className="w-4 h-4 text-gray-500" />
+                                    <MoreVertical className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
@@ -548,10 +548,10 @@ const MembersAndNumbersModal = () => {
 
                       {/* Pagination Footer */}
                       {invitations.length > 0 && (
-                        <div className="flex items-center justify-between px-2 text-xs text-gray-500 mt-2">
+                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400">
                           <div className="flex items-center gap-2">
                             <select
-                              className="border border-gray-200 rounded p-1 bg-white focus:outline-none focus:border-primary"
+                              className="border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900"
                               value={invitesRowsPerPage}
                               onChange={(e) => {
                                 setInvitesRowsPerPage(Number(e.target.value));
@@ -592,7 +592,7 @@ const MembersAndNumbersModal = () => {
                                 <span className="sr-only">Previous</span>
                                 &lsaquo;
                               </Button>
-                              <span className="text-gray-900 font-medium">
+                              <span className="text-neutral-900 font-medium dark:text-neutral-50">
                                 {invitesCurrentPage} / {totalInvitePages || 1}{" "}
                                 pages
                               </span>
@@ -623,19 +623,19 @@ const MembersAndNumbersModal = () => {
                   {members.length === 0 && invitations.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-10 min-h-[300px]">
                       {/* Empty state illustration */}
-                      <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
+                        <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
                         <div className="w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" />
-                        <div className="w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white" />
-                        <div className="w-24 h-12 bg-white border border-gray-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2">
-                          <div className="w-6 h-6 bg-gray-200 rounded-full" />
-                          <div className="h-2 w-10 bg-gray-200 rounded-full" />
+                        <div className="w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" />
+                        <div className="w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700">
+                          <div className="w-6 h-6 bg-neutral-200 rounded-full dark:bg-neutral-700" />
+                          <div className="h-2 w-10 bg-neutral-200 rounded-full dark:bg-neutral-700" />
                         </div>
                       </div>
 
                       <h3 className="text-lg font-semibold mt-4">
                         {t("manageMembersModal.noMembersYet")}
                       </h3>
-                      <p className="text-sm text-gray-500 text-center max-w-sm mt-2">
+                      <p className="text-sm text-neutral-500 text-center max-w-sm mt-2 dark:text-neutral-400">
                         {t("manageMembersModal.inviteTeammatesDescription")}
                       </p>
                       <Button
@@ -653,7 +653,7 @@ const MembersAndNumbersModal = () => {
                           <h3 className="text-base font-semibold">
                             Members {members.length}
                           </h3>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
                             Invite teammates to start collaborating
                           </p>
                         </div>
@@ -661,10 +661,10 @@ const MembersAndNumbersModal = () => {
 
                       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2">
                         <div className="relative flex-1">
-                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-500" />
                           <Input
                             placeholder="Search"
-                            className="pl-9 h-10 bg-white border-gray-200 rounded-sm text-sm"
+                            className="pl-9 h-10 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
@@ -679,9 +679,9 @@ const MembersAndNumbersModal = () => {
                       </div>
 
                       {/* Members Table */}
-                      <div className="w-full bg-white border border-gray-100 rounded-lg overflow-hidden">
+                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
                         {/* Table Header */}
-                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-gray-50/50 border-b border-gray-100 text-xs font-semibold text-gray-500">
+                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-neutral-900/40 dark:border-neutral-800 dark:text-neutral-400">
                           <div>Person</div>
                           <div>Roles</div>
                           <div className="text-right">Action</div>
@@ -690,7 +690,7 @@ const MembersAndNumbersModal = () => {
                         {paginatedMembers.map((member) => (
                           <div
                             key={member.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
+                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
                           >
                             <div className="flex items-center gap-3">
                               <Avatar className="size-10 ">
@@ -700,10 +700,10 @@ const MembersAndNumbersModal = () => {
                                 </AvatarFallback>
                               </Avatar>
                               <div className="flex flex-col">
-                                <span className="text-sm font-medium text-gray-900">
+                                <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
                                   {member.name}
                                 </span>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
                                   {member.email}
                                 </span>
                               </div>
@@ -713,7 +713,7 @@ const MembersAndNumbersModal = () => {
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     variant="ghost"
-                                    className="h-8 px-2 text-sm font-normal text-gray-700 hover:bg-gray-100 capitalize justify-start w-24"
+                                    className="h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800"
                                   >
                                     {member.role}
                                     <ChevronDown className="w-4 h-4 ml-2" />
@@ -750,9 +750,9 @@ const MembersAndNumbersModal = () => {
                                   <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-8 w-8 hover:bg-gray-100"
+                                    className="h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                                   >
-                                    <MoreVertical className="w-4 h-4 text-gray-500" />
+                                    <MoreVertical className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
@@ -832,7 +832,7 @@ const MembersAndNumbersModal = () => {
                         ))}
 
                         {filteredMembers.length === 0 && (
-                          <div className="p-8 text-center text-gray-500 text-sm">
+                          <div className="p-8 text-center text-neutral-500 text-sm dark:text-neutral-400">
                             No members found matching "{searchQuery}"
                           </div>
                         )}
@@ -840,10 +840,10 @@ const MembersAndNumbersModal = () => {
 
                       {/* Pagination Footer */}
                       {filteredMembers.length > 0 && (
-                        <div className="flex items-center justify-between px-2 text-xs text-gray-500 mt-2">
+                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400">
                           <div className="flex items-center gap-2">
                             <select
-                              className="border border-gray-200 rounded p-1 bg-white focus:outline-none focus:border-primary"
+                              className="border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900"
                               value={rowsPerPage}
                               onChange={(e) => {
                                 setRowsPerPage(Number(e.target.value));
@@ -879,7 +879,7 @@ const MembersAndNumbersModal = () => {
                                 <span className="sr-only">Previous</span>
                                 &lsaquo;
                               </Button>
-                              <span className="text-gray-900 font-medium">
+                              <span className="text-neutral-900 font-medium dark:text-neutral-50">
                                 {currentPage} / {totalPages || 1} pages
                               </span>
                               <Button
@@ -918,7 +918,7 @@ const MembersAndNumbersModal = () => {
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Label
                     htmlFor="spaceName"
-                    className="text-sm font-medium text-gray-700"
+                    className="text-sm font-medium text-neutral-700 dark:text-neutral-200"
                   >
                     Space Name
                   </Label>
@@ -928,7 +928,7 @@ const MembersAndNumbersModal = () => {
                     placeholder="Enter space name"
                     value={settingsSpaceName}
                     onChange={(e) => setSettingsSpaceName(e.target.value)}
-                    className="bg-white"
+                    className="bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
                   />
                 </div>
 
@@ -966,10 +966,10 @@ const MembersAndNumbersModal = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
                 Remove {memberToRemove.email} from Space?
               </h3>
-              <p className="text-sm text-gray-500 max-w-[300px] mx-auto leading-relaxed">
+              <p className="text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400">
                 They have been an active Nitx member. Removing them may cause
                 loss of private pages.
               </p>
@@ -985,7 +985,7 @@ const MembersAndNumbersModal = () => {
               <Button
                 variant="ghost"
                 onClick={() => setMemberToRemove(null)}
-                className="w-full text-gray-600 font-normal hover:bg-gray-50 rounded-lg h-11"
+                className="w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >
                 Cancel
               </Button>

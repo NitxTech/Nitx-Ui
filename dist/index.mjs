@@ -1854,7 +1854,7 @@ var ManageMembersModal = ({
       {
         open: effectiveOpen,
         onClose: onClose || (() => setModal(null)),
-        className: "sm:max-w-[425px] p-6 z-[10011]",
+        className: "sm:max-w-[425px] p-6 z-[10011] bg-neutral-50 dark:bg-neutral-900",
         overlayClassName: "z-[10010]",
         children: /* @__PURE__ */ jsxs15("div", { className: "flex flex-col items-center justify-center py-6 gap-4 text-center", children: [
           /* @__PURE__ */ jsx24("div", { className: "w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx24(
@@ -1871,8 +1871,8 @@ var ManageMembersModal = ({
               children: /* @__PURE__ */ jsx24("polyline", { points: "20 6 9 17 4 12" })
             }
           ) }),
-          /* @__PURE__ */ jsx24("h2", { className: "text-xl font-bold text-gray-900", children: "Invitations sent successfully" }),
-          /* @__PURE__ */ jsx24("p", { className: "text-sm text-gray-500 max-w-[250px]", children: "Invited users will receive an email to join your Space" }),
+          /* @__PURE__ */ jsx24("h2", { className: "text-xl font-bold text-neutral-900 dark:text-neutral-50", children: "Invitations sent successfully" }),
+          /* @__PURE__ */ jsx24("p", { className: "text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400", children: "Invited users will receive an email to join your Space" }),
           /* @__PURE__ */ jsx24(
             Button2,
             {
@@ -1900,7 +1900,7 @@ var ManageMembersModal = ({
     {
       open: effectiveOpen,
       onClose: onClose || (() => setModal(null)),
-      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011]",
+      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900",
       overlayClassName: "z-[10010]",
       children: /* @__PURE__ */ jsxs15("div", { className: "w-full flex flex-col", children: [
         /* @__PURE__ */ jsxs15("div", { className: "flex flex-col items-center gap-3 pt-8 pb-4 px-6 md:px-10", children: [
@@ -1968,8 +1968,8 @@ var ManageMembersModal = ({
               ]
             }
           ),
-          /* @__PURE__ */ jsx24("h2", { className: "text-2xl font-medium text-gray-900", children: "Add Members" }),
-          /* @__PURE__ */ jsx24("p", { className: "text-center text-sm text-gray-600 max-w-sm leading-relaxed", children: "Type or paste in emails below, separated by commas. Your workspace will be billed by members." })
+          /* @__PURE__ */ jsx24("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: "Add Members" }),
+          /* @__PURE__ */ jsx24("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: "Type or paste in emails below, separated by commas. Your workspace will be billed by members." })
         ] }),
         /* @__PURE__ */ jsxs15(
           "form",
@@ -1977,7 +1977,7 @@ var ManageMembersModal = ({
             onSubmit: handleFormSubmit,
             className: "flex flex-col gap-6 px-6 md:px-10 pb-10",
             children: [
-              /* @__PURE__ */ jsxs15("div", { className: "flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-white sticky top-0", children: [
+              /* @__PURE__ */ jsxs15("div", { className: "flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-neutral-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-neutral-50 sticky top-0 dark:border-neutral-700 dark:bg-neutral-900", children: [
                 pendingEmails.map((item) => /* @__PURE__ */ jsxs15(
                   "div",
                   {
@@ -2005,12 +2005,12 @@ var ManageMembersModal = ({
                     onKeyDown: handleEmailSubmit,
                     onBlur: handleEmailBlur,
                     placeholder: pendingEmails.length === 0 ? "Search names or emails" : "",
-                    className: "flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-gray-400 h-8"
+                    className: "flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-neutral-400 h-8 dark:text-neutral-50 dark:placeholder:text-neutral-500"
                   }
                 )
               ] }),
               /* @__PURE__ */ jsxs15("div", { className: "flex flex-col gap-2", children: [
-                /* @__PURE__ */ jsx24(Label3, { className: "text-sm font-medium text-gray-600", children: "Select Role" }),
+                /* @__PURE__ */ jsx24(Label3, { className: "text-sm font-medium text-neutral-600 dark:text-neutral-300", children: "Select Role" }),
                 /* @__PURE__ */ jsx24("div", { className: "relative", children: /* @__PURE__ */ jsxs15(
                   Select,
                   {
@@ -2021,7 +2021,7 @@ var ManageMembersModal = ({
                         SelectTrigger,
                         {
                           type: "button",
-                          className: "w-full h-auto p-4 flex items-start text-left bg-gray-50 border-gray-200 rounded-xl hover:border-primary/50 hover:bg-white data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full",
+                          className: "w-full h-auto p-4 flex items-start text-left bg-neutral-50 border-neutral-200 rounded-xl hover:border-primary/50 hover:bg-neutral-50 data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800",
                           children: /* @__PURE__ */ jsxs15("div", { className: "flex gap-4 items-center w-full", children: [
                             /* @__PURE__ */ jsx24("div", { className: "flex items-start justify-start", children: /* @__PURE__ */ jsx24("div", { className: "w-5 h-5 text-gray-600", children: pendingRole === "viewer" ? /* @__PURE__ */ jsxs15(
                               "svg",
@@ -2076,8 +2076,8 @@ var ManageMembersModal = ({
                               }
                             ) }) }),
                             /* @__PURE__ */ jsxs15("div", { className: "flex flex-col gap-0.5 flex-1", children: [
-                              /* @__PURE__ */ jsx24("span", { className: "font-medium capitalize text-sm text-gray-700", children: pendingRole }),
-                              /* @__PURE__ */ jsxs15("span", { className: "text-xs text-gray-500 font-medium line-clamp-1", children: [
+                              /* @__PURE__ */ jsx24("span", { className: "font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200", children: pendingRole }),
+                              /* @__PURE__ */ jsxs15("span", { className: "text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400", children: [
                                 pendingRole === "viewer" && "Can view content and data only, without making any changes.",
                                 pendingRole === "editor" && "Can edit and update content, but cannot manage settings or users.",
                                 pendingRole === "manager" && "Full control to manage content, settings, and user permissions."
@@ -2086,21 +2086,21 @@ var ManageMembersModal = ({
                           ] })
                         }
                       ),
-                      /* @__PURE__ */ jsxs15(SelectContent, { className: "p-1", children: [
+                      /* @__PURE__ */ jsxs15(SelectContent, { className: "p-1 bg-neutral-50 dark:bg-neutral-900", children: [
                         /* @__PURE__ */ jsx24(
                           SelectItem,
                           {
                             value: "viewer",
-                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary",
+                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
                             children: /* @__PURE__ */ jsxs15("div", { className: "flex gap-3 items-center", children: [
-                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsxs15(
+                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsxs15(
                                 "svg",
                                 {
                                   viewBox: "0 0 24 24",
                                   fill: "none",
                                   stroke: "currentColor",
                                   strokeWidth: "2",
-                                  className: "w-4 h-4 text-gray-600",
+                                  className: "w-4 h-4 text-neutral-600 dark:text-neutral-300",
                                   children: [
                                     /* @__PURE__ */ jsx24("path", { d: "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" }),
                                     /* @__PURE__ */ jsx24("circle", { cx: "12", cy: "12", r: "3" })
@@ -2109,7 +2109,7 @@ var ManageMembersModal = ({
                               ) }),
                               /* @__PURE__ */ jsxs15("div", { className: "flex flex-col gap-0.5 text-left", children: [
                                 /* @__PURE__ */ jsx24("span", { className: "font-semibold text-sm", children: "Viewer" }),
-                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-gray-500", children: "Can view content only" })
+                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: "Can view content only" })
                               ] })
                             ] })
                           }
@@ -2118,22 +2118,22 @@ var ManageMembersModal = ({
                           SelectItem,
                           {
                             value: "editor",
-                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary",
+                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
                             children: /* @__PURE__ */ jsxs15("div", { className: "flex gap-3 items-center", children: [
-                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsx24(
+                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsx24(
                                 "svg",
                                 {
                                   viewBox: "0 0 24 24",
                                   fill: "none",
                                   stroke: "currentColor",
                                   strokeWidth: "2",
-                                  className: "w-4 h-4 text-gray-600",
+                                  className: "w-4 h-4 text-neutral-600 dark:text-neutral-300",
                                   children: /* @__PURE__ */ jsx24("path", { d: "M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" })
                                 }
                               ) }),
                               /* @__PURE__ */ jsxs15("div", { className: "flex flex-col gap-0.5 text-left", children: [
                                 /* @__PURE__ */ jsx24("span", { className: "font-semibold text-sm", children: "Editor" }),
-                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-gray-500", children: "Can edit content" })
+                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: "Can edit content" })
                               ] })
                             ] })
                           }
@@ -2142,9 +2142,9 @@ var ManageMembersModal = ({
                           SelectItem,
                           {
                             value: "manager",
-                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary",
+                            className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
                             children: /* @__PURE__ */ jsxs15("div", { className: "flex gap-3 items-center", children: [
-                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsx24(
+                              /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsx24(
                                 "svg",
                                 {
                                   viewBox: "0 0 24 24",
@@ -2157,7 +2157,7 @@ var ManageMembersModal = ({
                               ) }),
                               /* @__PURE__ */ jsxs15("div", { className: "flex flex-col gap-0.5 text-left", children: [
                                 /* @__PURE__ */ jsx24("span", { className: "font-semibold text-sm", children: "Manager" }),
-                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-gray-500", children: "Full control" })
+                                /* @__PURE__ */ jsx24("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: "Full control" })
                               ] })
                             ] })
                           }
@@ -2186,7 +2186,7 @@ var ManageMembersModal = ({
                     type: "button",
                     variant: "ghost",
                     onClick: () => onClose ? onClose() : setModal(null),
-                    className: "w-full text-gray-500 font-normal hover:bg-gray-50 hover:text-gray-900 rounded-xl h-11",
+                    className: "w-full text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
                     children: "Cancel"
                   }
                 )
@@ -2383,15 +2383,15 @@ var MembersAndNumbersModal = () => {
         className: "p-0 overflow-hidden sm:max-w-[1280px]",
         open: modal === "membersAndNumbers",
         onClose: () => setModal(null),
-        children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col sm:flex-row w-full h-[650px] sm:h-[960px]", children: [
-          /* @__PURE__ */ jsxs16("div", { className: "w-full sm:w-64 bg-white border-b sm:border-b-0 sm:border-r border-gray-100 p-4 flex flex-col gap-2 shrink-0", children: [
+        children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col sm:flex-row w-full h-[650px] sm:h-[960px] bg-neutral-50 dark:bg-neutral-900", children: [
+          /* @__PURE__ */ jsxs16("div", { className: "w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800", children: [
             /* @__PURE__ */ jsx25("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block", children: props?.manageSpaceMembers?.spaceName || "Space Nitx" }),
             /* @__PURE__ */ jsxs16("div", { className: "flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full", children: [
               /* @__PURE__ */ jsxs16(
                 "button",
                 {
                   onClick: () => setActiveTab("members"),
-                  className: `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "members" ? "bg-primary text-white " : "text-gray-600 hover:bg-gray-50"}`,
+                  className: `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "members" ? "bg-primary text-white " : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"}`,
                   children: [
                     /* @__PURE__ */ jsx25("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx25(UserPlus, { className: "w-4 h-4" }) }),
                     t("manageMembersModal.title")
@@ -2402,7 +2402,7 @@ var MembersAndNumbersModal = () => {
                 "button",
                 {
                   onClick: () => setActiveTab("settings"),
-                  className: `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "settings" ? "bg-primary text-white shadow-sm" : "text-gray-600 hover:bg-gray-50"}`,
+                  className: `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "settings" ? "bg-primary text-white shadow-sm" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"}`,
                   children: [
                     /* @__PURE__ */ jsx25("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsxs16(
                       "svg",
@@ -2444,8 +2444,8 @@ var MembersAndNumbersModal = () => {
             /* @__PURE__ */ jsx25("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx25("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.title") }) }),
             loading ? /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-6", children: [
               /* @__PURE__ */ jsx25("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx25(Skeleton, { className: "h-8 w-32" }) }),
-              /* @__PURE__ */ jsxs16("div", { className: "border border-gray-100 rounded-lg overflow-hidden", children: [
-                /* @__PURE__ */ jsx25("div", { className: "bg-gray-50/50 p-4 border-b border-gray-100 hidden sm:block", children: /* @__PURE__ */ jsxs16("div", { className: "grid grid-cols-[1fr_200px_100px] gap-4", children: [
+              /* @__PURE__ */ jsxs16("div", { className: "border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800", children: [
+                /* @__PURE__ */ jsx25("div", { className: "bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800", children: /* @__PURE__ */ jsxs16("div", { className: "grid grid-cols-[1fr_200px_100px] gap-4", children: [
                   /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-20" }),
                   /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-20" }),
                   /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-10 ml-auto" })
@@ -2453,7 +2453,7 @@ var MembersAndNumbersModal = () => {
                 [1].map((i) => /* @__PURE__ */ jsx25(
                   "div",
                   {
-                    className: "p-4 border-b border-gray-100 last:border-0 relative",
+                    className: "p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800",
                     children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center", children: [
                       /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-3 w-full", children: [
                         /* @__PURE__ */ jsx25(Skeleton, { className: "w-8 h-8 rounded-md" }),
@@ -2476,8 +2476,8 @@ var MembersAndNumbersModal = () => {
                   /* @__PURE__ */ jsx25(Skeleton, { className: "h-10 w-32" }),
                   " "
                 ] }),
-                /* @__PURE__ */ jsxs16("div", { className: "border border-gray-100 rounded-lg overflow-hidden", children: [
-                  /* @__PURE__ */ jsx25("div", { className: "bg-gray-50/50 p-4 border-b border-gray-100 hidden sm:block", children: /* @__PURE__ */ jsxs16("div", { className: "grid grid-cols-[1fr_200px_100px] gap-4", children: [
+                /* @__PURE__ */ jsxs16("div", { className: "border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800", children: [
+                  /* @__PURE__ */ jsx25("div", { className: "bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800", children: /* @__PURE__ */ jsxs16("div", { className: "grid grid-cols-[1fr_200px_100px] gap-4", children: [
                     /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-20" }),
                     /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-20" }),
                     /* @__PURE__ */ jsx25(Skeleton, { className: "h-4 w-10 ml-auto" })
@@ -2485,7 +2485,7 @@ var MembersAndNumbersModal = () => {
                   [1, 2, 3, 4, 5].map((i) => /* @__PURE__ */ jsx25(
                     "div",
                     {
-                      className: "p-4 border-b border-gray-100 last:border-0 relative",
+                      className: "p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800",
                       children: /* @__PURE__ */ jsxs16("div", { className: "flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center", children: [
                         /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-3 w-full", children: [
                           /* @__PURE__ */ jsx25(Skeleton, { className: "w-8 h-8 rounded-md" }),
@@ -2505,33 +2505,33 @@ var MembersAndNumbersModal = () => {
             ] }) : /* @__PURE__ */ jsxs16(Fragment, { children: [
               invitations.length > 0 && /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-4", children: [
                 /* @__PURE__ */ jsx25("h3", { className: "text-base font-semibold", children: "Pending Invite" }),
-                /* @__PURE__ */ jsx25("p", { className: "text-xs text-gray-500 -mt-3", children: "Invite teammates to start collaborating" }),
-                /* @__PURE__ */ jsxs16("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-gray-700", children: [
+                /* @__PURE__ */ jsx25("p", { className: "text-xs text-neutral-500 -mt-3 dark:text-neutral-400", children: "Invite teammates to start collaborating" }),
+                /* @__PURE__ */ jsxs16("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-neutral-700 dark:bg-primary/10 dark:text-neutral-200", children: [
                   /* @__PURE__ */ jsx25("div", { children: "Person" }),
                   /* @__PURE__ */ jsx25("div", { children: "Roles" }),
                   /* @__PURE__ */ jsx25("div", { className: "text-right", children: "Action" })
                 ] }),
-                /* @__PURE__ */ jsx25("div", { className: "w-full bg-white border border-gray-100 rounded-b-lg overflow-hidden sm:-mt-4", children: paginatedInvitations.map((invite) => /* @__PURE__ */ jsxs16(
+                /* @__PURE__ */ jsx25("div", { className: "w-full bg-neutral-50 border border-neutral-200 rounded-b-lg overflow-hidden sm:-mt-4 dark:bg-neutral-900 dark:border-neutral-800", children: paginatedInvitations.map((invite) => /* @__PURE__ */ jsxs16(
                   "div",
                   {
-                    className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors",
+                    className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800",
                     children: [
                       /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-3", children: [
-                        /* @__PURE__ */ jsx25("div", { className: "w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 text-xs font-medium", children: invite.email.substring(0, 2).toUpperCase() }),
+                        /* @__PURE__ */ jsx25("div", { className: "w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-600 text-xs font-medium dark:bg-neutral-800 dark:text-neutral-200", children: invite.email.substring(0, 2).toUpperCase() }),
                         /* @__PURE__ */ jsxs16("div", { className: "flex flex-col", children: [
-                          /* @__PURE__ */ jsx25("span", { className: "text-sm font-medium text-gray-900", children: "Member" }),
-                          /* @__PURE__ */ jsx25("span", { className: "text-xs text-gray-500", children: invite.email })
+                          /* @__PURE__ */ jsx25("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: "Member" }),
+                          /* @__PURE__ */ jsx25("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: invite.email })
                         ] })
                       ] }),
-                      /* @__PURE__ */ jsx25("div", { className: "text-sm text-gray-600 capitalize ml-11 sm:ml-0", children: invite.role }),
+                      /* @__PURE__ */ jsx25("div", { className: "text-sm text-neutral-600 capitalize ml-11 sm:ml-0 dark:text-neutral-300", children: invite.role }),
                       /* @__PURE__ */ jsx25("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { children: [
                         /* @__PURE__ */ jsx25(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx25(
                           Button2,
                           {
                             variant: "ghost",
                             size: "icon",
-                            className: "h-8 w-8 hover:bg-gray-100",
-                            children: /* @__PURE__ */ jsx25(MoreVertical, { className: "w-4 h-4 text-gray-500" })
+                            className: "h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800",
+                            children: /* @__PURE__ */ jsx25(MoreVertical, { className: "w-4 h-4 text-neutral-500 dark:text-neutral-400" })
                           }
                         ) }),
                         /* @__PURE__ */ jsxs16(
@@ -2671,12 +2671,12 @@ var MembersAndNumbersModal = () => {
                   },
                   invite.id
                 )) }),
-                invitations.length > 0 && /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between px-2 text-xs text-gray-500 mt-2", children: [
+                invitations.length > 0 && /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400", children: [
                   /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-2", children: [
                     /* @__PURE__ */ jsxs16(
                       "select",
                       {
-                        className: "border border-gray-200 rounded p-1 bg-white focus:outline-none focus:border-primary",
+                        className: "border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900",
                         value: invitesRowsPerPage,
                         onChange: (e) => {
                           setInvitesRowsPerPage(Number(e.target.value));
@@ -2721,7 +2721,7 @@ var MembersAndNumbersModal = () => {
                           ]
                         }
                       ),
-                      /* @__PURE__ */ jsxs16("span", { className: "text-gray-900 font-medium", children: [
+                      /* @__PURE__ */ jsxs16("span", { className: "text-neutral-900 font-medium dark:text-neutral-50", children: [
                         invitesCurrentPage,
                         " / ",
                         totalInvitePages || 1,
@@ -2751,14 +2751,14 @@ var MembersAndNumbersModal = () => {
               members.length === 0 && invitations.length === 0 ? /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center justify-center py-10 min-h-[300px]", children: [
                 /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-2 mb-4 opacity-50", children: [
                   /* @__PURE__ */ jsx25("div", { className: "w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" }),
-                  /* @__PURE__ */ jsx25("div", { className: "w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white" }),
-                  /* @__PURE__ */ jsxs16("div", { className: "w-24 h-12 bg-white border border-gray-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2", children: [
-                    /* @__PURE__ */ jsx25("div", { className: "w-6 h-6 bg-gray-200 rounded-full" }),
-                    /* @__PURE__ */ jsx25("div", { className: "h-2 w-10 bg-gray-200 rounded-full" })
+                  /* @__PURE__ */ jsx25("div", { className: "w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" }),
+                  /* @__PURE__ */ jsxs16("div", { className: "w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700", children: [
+                    /* @__PURE__ */ jsx25("div", { className: "w-6 h-6 bg-neutral-200 rounded-full dark:bg-neutral-700" }),
+                    /* @__PURE__ */ jsx25("div", { className: "h-2 w-10 bg-neutral-200 rounded-full dark:bg-neutral-700" })
                   ] })
                 ] }),
                 /* @__PURE__ */ jsx25("h3", { className: "text-lg font-semibold mt-4", children: t("manageMembersModal.noMembersYet") }),
-                /* @__PURE__ */ jsx25("p", { className: "text-sm text-gray-500 text-center max-w-sm mt-2", children: t("manageMembersModal.inviteTeammatesDescription") }),
+                /* @__PURE__ */ jsx25("p", { className: "text-sm text-neutral-500 text-center max-w-sm mt-2 dark:text-neutral-400", children: t("manageMembersModal.inviteTeammatesDescription") }),
                 /* @__PURE__ */ jsxs16(
                   Button2,
                   {
@@ -2776,16 +2776,16 @@ var MembersAndNumbersModal = () => {
                     "Members ",
                     members.length
                   ] }),
-                  /* @__PURE__ */ jsx25("p", { className: "text-xs text-gray-500", children: "Invite teammates to start collaborating" })
+                  /* @__PURE__ */ jsx25("p", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: "Invite teammates to start collaborating" })
                 ] }) }),
                 /* @__PURE__ */ jsxs16("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2", children: [
                   /* @__PURE__ */ jsxs16("div", { className: "relative flex-1", children: [
-                    /* @__PURE__ */ jsx25(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" }),
+                    /* @__PURE__ */ jsx25(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-500" }),
                     /* @__PURE__ */ jsx25(
                       Input,
                       {
                         placeholder: "Search",
-                        className: "pl-9 h-10 bg-white border-gray-200 rounded-sm text-sm",
+                        className: "pl-9 h-10 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700",
                         value: searchQuery,
                         onChange: (e) => setSearchQuery(e.target.value)
                       }
@@ -2803,8 +2803,8 @@ var MembersAndNumbersModal = () => {
                     }
                   )
                 ] }),
-                /* @__PURE__ */ jsxs16("div", { className: "w-full bg-white border border-gray-100 rounded-lg overflow-hidden", children: [
-                  /* @__PURE__ */ jsxs16("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-gray-50/50 border-b border-gray-100 text-xs font-semibold text-gray-500", children: [
+                /* @__PURE__ */ jsxs16("div", { className: "w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800", children: [
+                  /* @__PURE__ */ jsxs16("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-neutral-900/40 dark:border-neutral-800 dark:text-neutral-400", children: [
                     /* @__PURE__ */ jsx25("div", { children: "Person" }),
                     /* @__PURE__ */ jsx25("div", { children: "Roles" }),
                     /* @__PURE__ */ jsx25("div", { className: "text-right", children: "Action" })
@@ -2812,7 +2812,7 @@ var MembersAndNumbersModal = () => {
                   paginatedMembers.map((member) => /* @__PURE__ */ jsxs16(
                     "div",
                     {
-                      className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors",
+                      className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800",
                       children: [
                         /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-3", children: [
                           /* @__PURE__ */ jsxs16(Avatar2, { className: "size-10 ", children: [
@@ -2820,8 +2820,8 @@ var MembersAndNumbersModal = () => {
                             /* @__PURE__ */ jsx25(AvatarFallback2, { className: "bg-primary/10 text-primary text-xs ", children: member.name.slice(0, 2).toUpperCase() })
                           ] }),
                           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col", children: [
-                            /* @__PURE__ */ jsx25("span", { className: "text-sm font-medium text-gray-900", children: member.name }),
-                            /* @__PURE__ */ jsx25("span", { className: "text-xs text-gray-500", children: member.email })
+                            /* @__PURE__ */ jsx25("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: member.name }),
+                            /* @__PURE__ */ jsx25("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: member.email })
                           ] })
                         ] }),
                         /* @__PURE__ */ jsx25("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { children: [
@@ -2829,7 +2829,7 @@ var MembersAndNumbersModal = () => {
                             Button2,
                             {
                               variant: "ghost",
-                              className: "h-8 px-2 text-sm font-normal text-gray-700 hover:bg-gray-100 capitalize justify-start w-24",
+                              className: "h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800",
                               children: [
                                 member.role,
                                 /* @__PURE__ */ jsx25(ChevronDown3, { className: "w-4 h-4 ml-2" })
@@ -2866,8 +2866,8 @@ var MembersAndNumbersModal = () => {
                             {
                               variant: "ghost",
                               size: "icon",
-                              className: "h-8 w-8 hover:bg-gray-100",
-                              children: /* @__PURE__ */ jsx25(MoreVertical, { className: "w-4 h-4 text-gray-500" })
+                              className: "h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800",
+                              children: /* @__PURE__ */ jsx25(MoreVertical, { className: "w-4 h-4 text-neutral-500 dark:text-neutral-400" })
                             }
                           ) }),
                           /* @__PURE__ */ jsxs16(
@@ -2964,18 +2964,18 @@ var MembersAndNumbersModal = () => {
                     },
                     member.id
                   )),
-                  filteredMembers.length === 0 && /* @__PURE__ */ jsxs16("div", { className: "p-8 text-center text-gray-500 text-sm", children: [
+                  filteredMembers.length === 0 && /* @__PURE__ */ jsxs16("div", { className: "p-8 text-center text-neutral-500 text-sm dark:text-neutral-400", children: [
                     'No members found matching "',
                     searchQuery,
                     '"'
                   ] })
                 ] }),
-                filteredMembers.length > 0 && /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between px-2 text-xs text-gray-500 mt-2", children: [
+                filteredMembers.length > 0 && /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400", children: [
                   /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-2", children: [
                     /* @__PURE__ */ jsxs16(
                       "select",
                       {
-                        className: "border border-gray-200 rounded p-1 bg-white focus:outline-none focus:border-primary",
+                        className: "border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900",
                         value: rowsPerPage,
                         onChange: (e) => {
                           setRowsPerPage(Number(e.target.value));
@@ -3017,7 +3017,7 @@ var MembersAndNumbersModal = () => {
                           ]
                         }
                       ),
-                      /* @__PURE__ */ jsxs16("span", { className: "text-gray-900 font-medium", children: [
+                      /* @__PURE__ */ jsxs16("span", { className: "text-neutral-900 font-medium dark:text-neutral-50", children: [
                         currentPage,
                         " / ",
                         totalPages || 1,
@@ -3053,7 +3053,7 @@ var MembersAndNumbersModal = () => {
                   Label3,
                   {
                     htmlFor: "spaceName",
-                    className: "text-sm font-medium text-gray-700",
+                    className: "text-sm font-medium text-neutral-700 dark:text-neutral-200",
                     children: "Space Name"
                   }
                 ),
@@ -3065,7 +3065,7 @@ var MembersAndNumbersModal = () => {
                     placeholder: "Enter space name",
                     value: settingsSpaceName,
                     onChange: (e) => setSettingsSpaceName(e.target.value),
-                    className: "bg-white"
+                    className: "bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
                   }
                 )
               ] }),
@@ -3096,12 +3096,12 @@ var MembersAndNumbersModal = () => {
             children: [
               /* @__PURE__ */ jsx25("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 font-bold text-lg", children: memberToRemove.name.substring(0, 2).toUpperCase() }),
               /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-1", children: [
-                /* @__PURE__ */ jsxs16("h3", { className: "text-lg font-semibold text-gray-900", children: [
+                /* @__PURE__ */ jsxs16("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: [
                   "Remove ",
                   memberToRemove.email,
                   " from Space?"
                 ] }),
-                /* @__PURE__ */ jsx25("p", { className: "text-sm text-gray-500 max-w-[300px] mx-auto leading-relaxed", children: "They have been an active Nitx member. Removing them may cause loss of private pages." })
+                /* @__PURE__ */ jsx25("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: "They have been an active Nitx member. Removing them may cause loss of private pages." })
               ] }),
               /* @__PURE__ */ jsxs16("div", { className: "flex flex-col w-full gap-2 mt-2", children: [
                 /* @__PURE__ */ jsx25(
@@ -3117,7 +3117,7 @@ var MembersAndNumbersModal = () => {
                   {
                     variant: "ghost",
                     onClick: () => setMemberToRemove(null),
-                    className: "w-full text-gray-600 font-normal hover:bg-gray-50 rounded-lg h-11",
+                    className: "w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800",
                     children: "Cancel"
                   }
                 )
@@ -3171,12 +3171,12 @@ var DeleteConfirmationModal = () => {
     DialogContent,
     {
       overlayClassName: "z-[10010]",
-      className: "sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 text-black z-[10010]",
+      className: "sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 text-neutral-900 bg-neutral-50 z-[10010] dark:text-neutral-50 dark:bg-neutral-900",
       children: [
-        /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1", children: /* @__PURE__ */ jsx26(Trash22, { className: "w-6 h-6" }) }),
+        /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 dark:bg-red-500/10", children: /* @__PURE__ */ jsx26(Trash22, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs17("div", { className: "flex flex-col gap-1", children: [
-          /* @__PURE__ */ jsx26("h3", { className: "text-lg font-semibold text-gray-900", children: title || t("deleteConfirmation") }),
-          /* @__PURE__ */ jsx26("p", { className: "text-sm text-gray-500 max-w-[300px] mx-auto leading-relaxed", children: description })
+          /* @__PURE__ */ jsx26("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: title || t("deleteConfirmation") }),
+          /* @__PURE__ */ jsx26("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: description })
         ] }),
         /* @__PURE__ */ jsxs17("div", { className: "flex flex-col w-full gap-2 mt-2", children: [
           /* @__PURE__ */ jsx26(
@@ -3193,7 +3193,7 @@ var DeleteConfirmationModal = () => {
             {
               variant: "ghost",
               onClick: () => setModal(null),
-              className: "w-full text-gray-600 font-normal hover:bg-gray-50 rounded-lg h-11",
+              className: "w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800",
               disabled: isLoading,
               children: t("cancel")
             }
