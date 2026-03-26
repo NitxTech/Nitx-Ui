@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSpaceSelector } from "../../context"; 
-import { DrawerDialog } from "../../ui/drawer-dialog"; 
-import { Button } from "../../ui/button"; 
+import { useSpaceSelector } from "../../context";
+import { DrawerDialog } from "../../ui/drawer-dialog";
+import { Button } from "../../ui/button";
 import {
   UserPlus,
   MoreVertical,
@@ -12,20 +12,20 @@ import {
   Loader2,
   ChevronDown,
 } from "lucide-react";
-import { Invitation, Member, MemberRole } from "../../types"; 
-import { Input } from "../../ui/input"; 
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar"; 
+import { Invitation, Member, MemberRole } from "../../types";
+import { Input } from "../../ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";  
+} from "../../ui/dropdown-menu";
 import { toast } from "sonner";
-import { Dialog, DialogContent } from "../../ui/dialog"; 
-import { Label } from "../../ui/label"; 
-import ManageMembersModal from "./ManageMembersModal"; 
-import { Skeleton } from "../../ui/skeleton"; 
+import { Dialog, DialogContent } from "../../ui/dialog";
+import { Label } from "../../ui/label";
+import ManageMembersModal from "./ManageMembersModal";
+import { Skeleton } from "../../ui/skeleton";
 
 const MembersAndNumbersModal = () => {
   const { t } = useTranslation("modals");
@@ -36,7 +36,7 @@ const MembersAndNumbersModal = () => {
     modalProps: props,
     setModal,
     setModalProps: setProps,
-    refreshSpaces, 
+    refreshSpaces,
     api,
   } = useSpaceSelector();
 
@@ -133,19 +133,19 @@ const MembersAndNumbersModal = () => {
   const filteredMembers = members.filter(
     (m) =>
       m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      m.email.toLowerCase().includes(searchQuery.toLowerCase())
+      m.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const totalPages = Math.ceil(filteredMembers.length / rowsPerPage);
   const paginatedMembers = filteredMembers.slice(
     (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
+    currentPage * rowsPerPage,
   );
 
   const totalInvitePages = Math.ceil(invitations.length / invitesRowsPerPage);
   const paginatedInvitations = invitations.slice(
     (invitesCurrentPage - 1) * invitesRowsPerPage,
-    invitesCurrentPage * invitesRowsPerPage
+    invitesCurrentPage * invitesRowsPerPage,
   );
 
   const handleRolesUpdate = async (memberId: string, newRole: MemberRole) => {
@@ -155,7 +155,7 @@ const MembersAndNumbersModal = () => {
       if (!member) return;
 
       setMembers((prev) =>
-        prev.map((m) => (m.id === memberId ? { ...m, role: newRole } : m))
+        prev.map((m) => (m.id === memberId ? { ...m, role: newRole } : m)),
       );
 
       await api.updateMemberRole(spaceId, memberId, newRole, member.email);
@@ -420,7 +420,7 @@ const MembersAndNumbersModal = () => {
                               {invite.role}
                             </div>
                             <div className="absolute right-2 top-2 sm:static flex justify-end">
-                              <DropdownMenu>
+                              <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     variant="ghost"
@@ -573,7 +573,7 @@ const MembersAndNumbersModal = () => {
                               -
                               {Math.min(
                                 invitesCurrentPage * invitesRowsPerPage,
-                                invitations.length
+                                invitations.length,
                               )}{" "}
                               of {invitations.length}
                             </span>
@@ -585,7 +585,7 @@ const MembersAndNumbersModal = () => {
                                 disabled={invitesCurrentPage === 1}
                                 onClick={() =>
                                   setInvitesCurrentPage((p) =>
-                                    Math.max(1, p - 1)
+                                    Math.max(1, p - 1),
                                   )
                                 }
                               >
@@ -605,7 +605,7 @@ const MembersAndNumbersModal = () => {
                                 }
                                 onClick={() =>
                                   setInvitesCurrentPage((p) =>
-                                    Math.min(totalInvitePages, p + 1)
+                                    Math.min(totalInvitePages, p + 1),
                                   )
                                 }
                               >
@@ -623,7 +623,7 @@ const MembersAndNumbersModal = () => {
                   {members.length === 0 && invitations.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-10 min-h-[300px]">
                       {/* Empty state illustration */}
-                        <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
+                      <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
                         <div className="w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" />
                         <div className="w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" />
                         <div className="w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700">
@@ -709,7 +709,7 @@ const MembersAndNumbersModal = () => {
                               </div>
                             </div>
                             <div className="ml-14 sm:ml-0">
-                              <DropdownMenu>
+                              <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     variant="ghost"
@@ -745,7 +745,7 @@ const MembersAndNumbersModal = () => {
                               </DropdownMenu>
                             </div>
                             <div className="absolute right-2 top-2 sm:static flex justify-end">
-                              <DropdownMenu>
+                              <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                   <Button
                                     variant="ghost"
@@ -862,7 +862,7 @@ const MembersAndNumbersModal = () => {
                               {(currentPage - 1) * rowsPerPage + 1}-
                               {Math.min(
                                 currentPage * rowsPerPage,
-                                filteredMembers.length
+                                filteredMembers.length,
                               )}{" "}
                               of {filteredMembers.length}
                             </span>
@@ -889,7 +889,7 @@ const MembersAndNumbersModal = () => {
                                 disabled={currentPage === totalPages}
                                 onClick={() =>
                                   setCurrentPage((p) =>
-                                    Math.min(totalPages, p + 1)
+                                    Math.min(totalPages, p + 1),
                                   )
                                 }
                               >
