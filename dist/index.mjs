@@ -2535,7 +2535,7 @@ var MembersAndNumbersModal = () => {
                         ] })
                       ] }),
                       /* @__PURE__ */ jsx25("div", { className: "text-sm text-neutral-600 capitalize ml-11 sm:ml-0 dark:text-neutral-300", children: invite.role }),
-                      /* @__PURE__ */ jsx25("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { children: [
+                      /* @__PURE__ */ jsx25("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { modal: false, children: [
                         /* @__PURE__ */ jsx25(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx25(
                           Button2,
                           {
@@ -2835,7 +2835,7 @@ var MembersAndNumbersModal = () => {
                             /* @__PURE__ */ jsx25("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: member.email })
                           ] })
                         ] }),
-                        /* @__PURE__ */ jsx25("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { children: [
+                        /* @__PURE__ */ jsx25("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { modal: false, children: [
                           /* @__PURE__ */ jsx25(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsxs16(
                             Button2,
                             {
@@ -2871,7 +2871,7 @@ var MembersAndNumbersModal = () => {
                             )
                           ] })
                         ] }) }),
-                        /* @__PURE__ */ jsx25("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { children: [
+                        /* @__PURE__ */ jsx25("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs16(DropdownMenu2, { modal: false, children: [
                           /* @__PURE__ */ jsx25(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx25(
                             Button2,
                             {
