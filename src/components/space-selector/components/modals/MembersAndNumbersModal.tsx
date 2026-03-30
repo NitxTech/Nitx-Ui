@@ -432,7 +432,7 @@ const MembersAndNumbersModal = () => {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
                                   align="end"
-                                  className="w-[200px] p-2"
+                                  className="w-[200px] p-2 z-[10005]"
                                 >
                                   <DropdownMenuItem
                                     className="gap-2 cursor-pointer py-2.5"
@@ -719,7 +719,7 @@ const MembersAndNumbersModal = () => {
                                     <ChevronDown className="w-4 h-4 ml-2" />
                                   </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent>
+                                <DropdownMenuContent className="z-[10005]">
                                   <DropdownMenuItem
                                     onClick={() =>
                                       handleRolesUpdate(member.id, "viewer")
@@ -757,7 +757,7 @@ const MembersAndNumbersModal = () => {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
                                   align="end"
-                                  className="w-[200px] p-2"
+                                  className="w-[200px] p-2 z-[10005]"
                                 >
                                   <DropdownMenuItem
                                     className="gap-2 cursor-pointer py-2.5"

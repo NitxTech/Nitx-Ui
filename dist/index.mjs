@@ -2549,7 +2549,7 @@ var MembersAndNumbersModal = () => {
                           DropdownMenuContent2,
                           {
                             align: "end",
-                            className: "w-[200px] p-2",
+                            className: "w-[200px] p-2 z-[10005]",
                             children: [
                               /* @__PURE__ */ jsxs16(
                                 DropdownMenuItem2,
@@ -2847,7 +2847,7 @@ var MembersAndNumbersModal = () => {
                               ]
                             }
                           ) }),
-                          /* @__PURE__ */ jsxs16(DropdownMenuContent2, { children: [
+                          /* @__PURE__ */ jsxs16(DropdownMenuContent2, { className: "z-[10005]", children: [
                             /* @__PURE__ */ jsx25(
                               DropdownMenuItem2,
                               {
@@ -2885,7 +2885,7 @@ var MembersAndNumbersModal = () => {
                             DropdownMenuContent2,
                             {
                               align: "end",
-                              className: "w-[200px] p-2",
+                              className: "w-[200px] p-2 z-[10005]",
                               children: [
                                 /* @__PURE__ */ jsxs16(
                                   DropdownMenuItem2,
