@@ -140,4 +140,34 @@ declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSe
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
-export { type Invitation, type Member, type MemberRole, ProductSwitcher, type ProxySpace, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
+interface ManageMembersProps {
+    /** The space to invite members into */
+    spaceId: string;
+    /** API implementation provided by the library consumer */
+    /** Pre-fill a specific email address */
+    initialEmail?: string;
+    /** Pre-select a specific role */
+    initialRole?: MemberRole;
+    /** Called after invitations are sent successfully */
+    onSuccess?: () => void;
+    /** Called when the user clicks Cancel */
+    onCancel?: () => void;
+}
+/**
+ * ManageMembers
+ *
+ * A fully self-contained member-invitation UI.
+ * It does NOT depend on the SpaceSelectorContext and can be embedded
+ * anywhere — inside a modal, a sidebar panel, a settings page, etc.
+ */
+declare const ManageMembers: ({ spaceId, initialEmail, initialRole, onSuccess, onCancel, }: ManageMembersProps) => react_jsx_runtime.JSX.Element | null;
+
+interface SpaceBrowserProps {
+    className?: string;
+    searchStyle?: string;
+    spacesContainerStyle?: string;
+    spaceCardStyle?: string;
+}
+declare const SpaceBrowser: ({ className, searchStyle, spacesContainerStyle, spaceCardStyle }: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
+
+export { type Invitation, ManageMembers, type ManageMembersProps, type Member, type MemberRole, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
