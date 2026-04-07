@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Label } from "../ui/label";
-import { MemberRole, SpaceSelectorApi } from "../spaceSelector/types";
+import { Label } from "../../ui/label";
+import { MemberRole, SpaceSelectorApi } from "../../space-selector/types";
 import { Loader2, X } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -9,11 +9,11 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-} from "../ui/select";
-import { Button } from "../ui/button";
+} from "../../ui/select";
+import { Button } from "../../ui/button";
 import { toast } from "sonner";
 
-import { useSpaceSelector } from "../spaceSelector/context";
+import { useSpaceSelector } from "../../space-selector/context";
 
 export interface ManageMembersProps {
     /** The space to invite members into */

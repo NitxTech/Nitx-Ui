@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSpaceSelector } from "../spaceSelector/context";
-import { Button } from "../ui/button";
-import SearchInput from "../ui/search-input";
+import { useSpaceSelector } from "../../space-selector/context";
+import { Button } from "../../ui/button";
+import SearchInput from "../../space-selector/ui/search-input";
 import { SquarePlusIcon } from "lucide-react";
-import SpaceCard from "../spaceSelector/components/SpaceCard";
-import EmptyList from "../spaceSelector/components/EmptyList";
-import { ProxySpace } from "../spaceSelector/types";
+import SpaceCard from "../../space-selector/components/SpaceCard";
+import EmptyList from "../../space-selector/components/EmptyList";
+import { ProxySpace } from "../../space-selector/types";
 import { cn } from "../../../lib/utils";
 
 export interface SpaceBrowserProps {
