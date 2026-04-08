@@ -8,7 +8,6 @@ import SpaceCard, { SpaceCardSkeleton } from "../../space-selector/components/Sp
 import EmptyList from "../../space-selector/components/EmptyList";
 import { ProxySpace } from "../../space-selector/types";
 import { cn } from "../../../lib/utils";
-import { Card } from "../../ui/card";
 
 export interface SpaceBrowserClasses {
   className?: string;
@@ -85,18 +84,62 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
 
         {/* space list */}
         {error ? (
-          <Card className="w-full shadow-md lg:rounded-[18px] shadow-zinc-200/50 p-8">
-            <div className="flex flex-col items-center justify-center gap-4">
-              <div className="text-sm text-red-500">{error}</div>
-              <button
-                onClick={() => { onFail?.() }}
-                className="text-sm text-primary hover:underline"
-                id="refetch-spaces-again"
+          <div className="w-full flex flex-col items-center justify-center gap-5 py-14 px-6">
+            {/* Calm icon */}
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/60">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-7 w-7 text-muted-foreground"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                {t("buttons.try_again")}
-              </button>
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                <line x1="2" y1="2" x2="22" y2="22" />
+              </svg>
+            </span>
+
+            {/* Error text */}
+            <div className="flex flex-col items-center gap-1.5 text-center max-w-[260px]">
+              <p className="text-sm font-medium text-foreground/80">
+                {t("browseSpacesModal.errorTitle", "Couldn't load spaces")}
+              </p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{error}</p>
             </div>
-          </Card>
+
+            {/* Retry button */}
+            <button
+              onClick={() => { onFail?.() }}
+              id="refetch-spaces-again"
+              className={[
+                "group inline-flex items-center gap-2 rounded-lg px-4 py-2",
+                "border border-border bg-background",
+                "text-xs font-medium text-foreground/70",
+                "transition-all duration-150 ease-out",
+                "hover:bg-muted hover:text-foreground",
+                "active:scale-[0.97]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+              ].join(" ")}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M1 4v6h6" />
+                <path d="M3.51 15a9 9 0 1 0 .49-3.41" />
+              </svg>
+              {t("buttons.try_again")}
+            </button>
+          </div>
         ) : isLoading ? (
           <div className={cn([
             "grid grid-cols-1 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto",
