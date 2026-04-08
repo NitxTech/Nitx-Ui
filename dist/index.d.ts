@@ -100,6 +100,15 @@ interface SpaceSelectorApi {
     }>;
 }
 
+interface SpaceBrowserProps {
+    className?: string;
+    internalContainerStyle?: string;
+    searchStyle?: string;
+    spacesContainerStyle?: string;
+    spaceCardStyle?: string;
+}
+declare const SpaceBrowser: ({ className, searchStyle, spacesContainerStyle, spaceCardStyle, internalContainerStyle }: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
+
 interface SpaceSelectorProps {
     spaces: ProxySpace[];
     activeSpace: ProxySpace | undefined;
@@ -109,6 +118,8 @@ interface SpaceSelectorProps {
     isExpanded?: boolean;
     className?: string;
     onRefreshSpaces?: () => void;
+    showtype?: "DropDown" | "Browser";
+    browserClassNames?: SpaceBrowserProps;
 }
 declare const SpaceSelector: (props: SpaceSelectorProps) => react_jsx_runtime.JSX.Element;
 
@@ -161,13 +172,5 @@ interface ManageMembersProps {
  * anywhere — inside a modal, a sidebar panel, a settings page, etc.
  */
 declare const ManageMembers: ({ spaceId, initialEmail, initialRole, onSuccess, onCancel, }: ManageMembersProps) => react_jsx_runtime.JSX.Element | null;
-
-interface SpaceBrowserProps {
-    className?: string;
-    searchStyle?: string;
-    spacesContainerStyle?: string;
-    spaceCardStyle?: string;
-}
-declare const SpaceBrowser: ({ className, searchStyle, spacesContainerStyle, spaceCardStyle }: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
 
 export { type Invitation, ManageMembers, type ManageMembersProps, type Member, type MemberRole, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
