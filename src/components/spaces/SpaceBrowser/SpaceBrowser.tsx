@@ -11,12 +11,13 @@ import { cn } from "../../../lib/utils";
 
 export interface SpaceBrowserProps {
   className?: string;
+  internalContainerStyle?: string;
   searchStyle?: string;
   spacesContainerStyle?: string;
   spaceCardStyle?: string;
 }
 
-const SpaceBrowser = ({ className, searchStyle, spacesContainerStyle, spaceCardStyle }: SpaceBrowserProps) => {
+const SpaceBrowser = ({ className, searchStyle, spacesContainerStyle, spaceCardStyle, internalContainerStyle }: SpaceBrowserProps) => {
   const { t } = useTranslation("modals");
 
   const { spaces, activeModal, setModal, setActiveSpace } = useSpaceSelector();
@@ -45,7 +46,7 @@ const SpaceBrowser = ({ className, searchStyle, spacesContainerStyle, spaceCardS
       "w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden",
       className
     ])}>
-      <div className="px-3 lg:px-7 flex flex-col gap-3 lg:gap-9">
+      <div className={cn(["px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", internalContainerStyle])}>
         {/* search */}
         <div className={cn([
           "flex gap-3 items-center",
