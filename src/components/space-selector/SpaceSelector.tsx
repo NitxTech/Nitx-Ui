@@ -9,6 +9,7 @@ import ManageMembersModal from "./components/modals/ManageMembersModal";
 import DeleteConfirmationModal from "./components/modals/DeleteConfirmationModal";
 import { SpaceBrowser, SpaceBrowserProps } from "../spaces/SpaceBrowser";
 import { SpaceSelectorContent } from "./components/SpaceSelectorContent";
+import { SpaceBrowserClasses } from "../spaces/SpaceBrowser/SpaceBrowser";
 
 interface SpaceSelectorProps {
   spaces: ProxySpace[];
@@ -20,7 +21,8 @@ interface SpaceSelectorProps {
   className?: string;
   onRefreshSpaces?: () => void; // Explicit prop
   showtype?: "DropDown" | "Browser";
-  browserClassNames?: SpaceBrowserProps;
+  browserClassNames?: SpaceBrowserClasses;
+  isLoading?: boolean;
 }
 
 
@@ -29,7 +31,7 @@ export const SpaceSelector = (props: SpaceSelectorProps) => {
     <SpaceSelectorProvider {...props}>
 
       {props?.showtype == "Browser" ? (
-        <SpaceBrowser {...(props?.browserClassNames)}/>
+        <SpaceBrowser browserClassNames={props?.browserClassNames} isLoading={props?.isLoading ?? false} />
       ) : (
         <SpaceSelectorContent />
       )}

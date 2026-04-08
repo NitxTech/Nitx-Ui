@@ -22,6 +22,7 @@ interface SpaceSelectorContextType {
 
   // Utils
   authUser?: string | number;
+  isLoading?: boolean;
 }
 
 const SpaceSelectorContext = createContext<
@@ -47,6 +48,7 @@ interface SpaceSelectorProviderProps {
   authUser?: string | number;
   api?: SpaceSelectorApi;
   isExpanded?: boolean;
+  isLoading?: boolean;
 }
 
 export const SpaceSelectorProvider = ({
@@ -58,6 +60,7 @@ export const SpaceSelectorProvider = ({
   authUser,
   api,
   isExpanded = true,
+  isLoading = false,
 }: SpaceSelectorProviderProps) => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalProps, setModalProps] = useState<any>({});
@@ -74,13 +77,14 @@ export const SpaceSelectorProvider = ({
         spaces,
         isExpanded,
         setActiveSpace: onSpaceSelect,
-        refreshSpaces: onRefreshSpaces || (() => {}),
+        refreshSpaces: onRefreshSpaces || (() => { }),
         activeModal,
         setModal,
         modalProps,
         setModalProps,
         api,
         authUser,
+        isLoading,
       }}
     >
       {children}
