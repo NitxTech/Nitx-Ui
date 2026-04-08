@@ -23,6 +23,8 @@ interface SpaceSelectorProps {
   showtype?: "DropDown" | "Browser";
   browserClassNames?: SpaceBrowserClasses;
   isLoading?: boolean;
+  error?: string | null,
+  onFail?: () => void,
 }
 
 
@@ -31,7 +33,7 @@ export const SpaceSelector = (props: SpaceSelectorProps) => {
     <SpaceSelectorProvider {...props}>
 
       {props?.showtype == "Browser" ? (
-        <SpaceBrowser browserClassNames={props?.browserClassNames} isLoading={props?.isLoading ?? false} />
+        <SpaceBrowser browserClassNames={props?.browserClassNames} isLoading={props?.isLoading ?? false} error={props.error} onFail={props.onFail} />
       ) : (
         <SpaceSelectorContent />
       )}

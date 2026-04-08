@@ -22,7 +22,11 @@ interface SpaceSelectorContextType {
 
   // Utils
   authUser?: string | number;
+
+
   isLoading?: boolean;
+  error?: string | null;
+  onFail?: () => void,
 }
 
 const SpaceSelectorContext = createContext<
@@ -49,6 +53,8 @@ interface SpaceSelectorProviderProps {
   api?: SpaceSelectorApi;
   isExpanded?: boolean;
   isLoading?: boolean;
+  error?: string | null;
+  onFail?: () => void,
 }
 
 export const SpaceSelectorProvider = ({
@@ -61,6 +67,8 @@ export const SpaceSelectorProvider = ({
   api,
   isExpanded = true,
   isLoading = false,
+  error = null,
+  onFail = () => { },
 }: SpaceSelectorProviderProps) => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalProps, setModalProps] = useState<any>({});
@@ -85,6 +93,8 @@ export const SpaceSelectorProvider = ({
         api,
         authUser,
         isLoading,
+        error,
+        onFail,
       }}
     >
       {children}
