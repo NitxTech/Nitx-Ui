@@ -110,6 +110,8 @@ interface SpaceBrowserClasses {
 interface SpaceBrowserProps {
     browserClassNames?: SpaceBrowserClasses;
     isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
 declare const SpaceBrowser: (props: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
 
@@ -125,6 +127,8 @@ interface SpaceSelectorProps {
     showtype?: "DropDown" | "Browser";
     browserClassNames?: SpaceBrowserClasses;
     isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
 declare const SpaceSelector: (props: SpaceSelectorProps) => react_jsx_runtime.JSX.Element;
 
@@ -141,6 +145,8 @@ interface SpaceSelectorContextType {
     api?: SpaceSelectorApi;
     authUser?: string | number;
     isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
 declare const useSpaceSelector: () => SpaceSelectorContextType;
 interface SpaceSelectorProviderProps {
@@ -153,8 +159,10 @@ interface SpaceSelectorProviderProps {
     api?: SpaceSelectorApi;
     isExpanded?: boolean;
     isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
-declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, isLoading, }: SpaceSelectorProviderProps) => react_jsx_runtime.JSX.Element;
+declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, isLoading, error, onFail, }: SpaceSelectorProviderProps) => react_jsx_runtime.JSX.Element;
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
