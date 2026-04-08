@@ -188,4 +188,16 @@ interface ManageMembersProps {
  */
 declare const ManageMembers: ({ spaceId, initialEmail, initialRole, onSuccess, onCancel, }: ManageMembersProps) => react_jsx_runtime.JSX.Element | null;
 
-export { type Invitation, ManageMembers, type ManageMembersProps, type Member, type MemberRole, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
+interface ErrorStateProps {
+    /** Short description text shown below the icon */
+    message: string;
+    /** Optional heading — defaults to "Couldn't load data" */
+    title?: string;
+    /** Called when the user clicks the retry button. If omitted the button is hidden. */
+    onRetry?: () => void;
+    /** Label for the retry button — defaults to "Try again" */
+    retryLabel?: string;
+}
+declare const ErrorState: ({ message, title, onRetry, retryLabel }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
+
+export { ErrorState, type ErrorStateProps, type Invitation, ManageMembers, type ManageMembersProps, type Member, type MemberRole, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
