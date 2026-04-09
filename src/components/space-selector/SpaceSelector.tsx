@@ -10,7 +10,7 @@ import DeleteConfirmationModal from "./components/modals/DeleteConfirmationModal
 import { SpaceBrowser, SpaceBrowserProps } from "../spaces/SpaceBrowser";
 import { SpaceSelectorContent } from "./components/SpaceSelectorContent";
 import { SpaceBrowserClasses } from "../spaces/SpaceBrowser/SpaceBrowser";
-import { MembersManagerProps } from "../spaces/MembersManager/MembersManager";
+import MembersManager, { MembersManagerProps } from "../spaces/MembersManager/MembersManager";
 
 interface SpaceSelectorProps {
   spaces: ProxySpace[];
@@ -39,8 +39,6 @@ export const SpaceSelector = (props: SpaceSelectorProps) => {
 
       {props?.showtype == "Browser" ? (
         <SpaceBrowser browserClassNames={props?.browserClassNames} isLoading={props?.isLoading ?? false} error={props.error} onFail={props.onFail} />
-      ) : props?.showtype == "SpaceManager" ? (
-        <MembersManager />
       ) : (
         <SpaceSelectorContent />
       )}

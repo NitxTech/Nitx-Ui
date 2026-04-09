@@ -1,2 +1,2 @@
-export { default as ManageMembers } from './MembersManager';
+export { default as MembersManager } from './MembersManager';
 export type { MembersManagerProps } from './MembersManager';
