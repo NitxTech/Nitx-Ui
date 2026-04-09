@@ -1730,7 +1730,7 @@ AvatarFallback2.displayName = AvatarPrimitive2.Fallback.displayName;
 // src/components/space-selector/components/modals/MembersAndNumbersModal.tsx
 import { toast as toast4 } from "sonner";
 
-// src/components/spaces/ManageMembers/ManageMembers.tsx
+// src/components/spaces/MembersManager/MembersManager.tsx
 import { useEffect as useEffect6, useState as useState8 } from "react";
 import { useTranslation as useTranslation8 } from "react-i18next";
 
@@ -1752,7 +1752,7 @@ var Label4 = React16.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
 ));
 Label4.displayName = LabelPrimitive2.Root.displayName;
 
-// src/components/spaces/ManageMembers/ManageMembers.tsx
+// src/components/spaces/MembersManager/MembersManager.tsx
 import { Loader2, X as X2 } from "lucide-react";
 
 // node_modules/uuid/dist/esm-node/rng.js
@@ -1914,10 +1914,10 @@ var SelectSeparator = React17.forwardRef(({ className, ...props }, ref) => /* @_
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
-// src/components/spaces/ManageMembers/ManageMembers.tsx
+// src/components/spaces/MembersManager/MembersManager.tsx
 import { toast as toast3 } from "sonner";
 import { jsx as jsx27, jsxs as jsxs16 } from "react/jsx-runtime";
-var ManageMembers = ({
+var MembersManager = ({
   spaceId,
   initialEmail,
   initialRole,
@@ -2322,7 +2322,7 @@ var ManageMembers = ({
     )
   ] });
 };
-var ManageMembers_default = ManageMembers;
+var MembersManager_default = MembersManager;
 
 // src/components/space-selector/components/modals/ManageMembersModal.tsx
 import { jsx as jsx28 } from "react/jsx-runtime";
@@ -2348,7 +2348,7 @@ var ManageMembersModal = ({
       className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900",
       overlayClassName: "z-[10010]",
       children: /* @__PURE__ */ jsx28(
-        ManageMembers_default,
+        MembersManager_default,
         {
           spaceId,
           initialEmail: editEmail,
@@ -3600,7 +3600,7 @@ var createSpaceSelectorApi = (client) => {
 };
 export {
   error_state_default as ErrorState,
-  ManageMembers_default as ManageMembers,
+  MembersManager_default as MembersManager,
   ProductSwitcher,
   SpaceBrowser_default as SpaceBrowser,
   SpaceSelector,

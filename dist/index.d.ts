@@ -124,7 +124,7 @@ interface SpaceSelectorProps {
     isExpanded?: boolean;
     className?: string;
     onRefreshSpaces?: () => void;
-    showtype?: "DropDown" | "Browser";
+    showtype?: "DropDown" | "Browser" | "SpaceManager";
     browserClassNames?: SpaceBrowserClasses;
     isLoading?: boolean;
     error?: string | null;
@@ -166,7 +166,7 @@ declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSe
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
-interface ManageMembersProps {
+interface MembersManagerProps {
     /** The space to invite members into */
     spaceId: string;
     /** API implementation provided by the library consumer */
@@ -180,13 +180,13 @@ interface ManageMembersProps {
     onCancel?: () => void;
 }
 /**
- * ManageMembers
+ * MembersManager
  *
  * A fully self-contained member-invitation UI.
  * It does NOT depend on the SpaceSelectorContext and can be embedded
  * anywhere — inside a modal, a sidebar panel, a settings page, etc.
  */
-declare const ManageMembers: ({ spaceId, initialEmail, initialRole, onSuccess, onCancel, }: ManageMembersProps) => react_jsx_runtime.JSX.Element | null;
+declare const MembersManager: ({ spaceId, initialEmail, initialRole, onSuccess, onCancel, }: MembersManagerProps) => react_jsx_runtime.JSX.Element | null;
 
 interface ErrorStateProps {
     /** Short description text shown below the icon */
@@ -200,4 +200,4 @@ interface ErrorStateProps {
 }
 declare const ErrorState: ({ message, title, onRetry, retryLabel }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
 
-export { ErrorState, type ErrorStateProps, type Invitation, ManageMembers, type ManageMembersProps, type Member, type MemberRole, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
+export { ErrorState, type ErrorStateProps, type Invitation, type Member, type MemberRole, MembersManager, type MembersManagerProps, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
