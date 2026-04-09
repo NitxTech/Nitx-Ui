@@ -2,7 +2,7 @@ import React from "react";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import { MemberRole } from "../../types";
-import ManageMembers from "../../../spaces/ManageMembers/ManageMembers";
+import MembersManager from "../../../spaces/MembersManager/MembersManager";
 
 interface ManageMembersModalProps {
   isOpen?: boolean;
@@ -44,7 +44,7 @@ const ManageMembersModal = ({
       className="sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900"
       overlayClassName="z-[10010]"
     >
-      <ManageMembers
+      <MembersManager
         spaceId={spaceId}
         initialEmail={editEmail}
         initialRole={editRole}

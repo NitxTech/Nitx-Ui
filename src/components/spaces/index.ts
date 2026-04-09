@@ -1,2 +1,2 @@
-export * from "./ManageMembers";
+export * from "./MembersManager";
 export * from "./SpaceBrowser";

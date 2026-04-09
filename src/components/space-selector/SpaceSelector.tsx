@@ -10,6 +10,7 @@ import DeleteConfirmationModal from "./components/modals/DeleteConfirmationModal
 import { SpaceBrowser, SpaceBrowserProps } from "../spaces/SpaceBrowser";
 import { SpaceSelectorContent } from "./components/SpaceSelectorContent";
 import { SpaceBrowserClasses } from "../spaces/SpaceBrowser/SpaceBrowser";
+import { MembersManagerProps } from "../spaces/MembersManager/MembersManager";
 
 interface SpaceSelectorProps {
   spaces: ProxySpace[];
@@ -20,11 +21,15 @@ interface SpaceSelectorProps {
   isExpanded?: boolean;
   className?: string;
   onRefreshSpaces?: () => void; // Explicit prop
-  showtype?: "DropDown" | "Browser";
+
+  showtype?: "DropDown" | "Browser" | "SpaceManager";
   browserClassNames?: SpaceBrowserClasses;
+
   isLoading?: boolean;
   error?: string | null,
   onFail?: () => void,
+
+  MembersManager?: MembersManagerProps,
 }
 
 
@@ -34,6 +39,8 @@ export const SpaceSelector = (props: SpaceSelectorProps) => {
 
       {props?.showtype == "Browser" ? (
         <SpaceBrowser browserClassNames={props?.browserClassNames} isLoading={props?.isLoading ?? false} error={props.error} onFail={props.onFail} />
+      ) : props?.showtype == "SpaceManager" ? (
+        <MembersManager />
       ) : (
         <SpaceSelectorContent />
       )}

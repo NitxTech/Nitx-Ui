@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 import { useSpaceSelector } from "../../space-selector/context";
 
-export interface ManageMembersProps {
+export interface MembersManagerProps {
     /** The space to invite members into */
     spaceId: string;
     /** API implementation provided by the library consumer */
@@ -31,19 +31,20 @@ export interface ManageMembersProps {
 }
 
 /**
- * ManageMembers
+ * MembersManager
  *
  * A fully self-contained member-invitation UI.
  * It does NOT depend on the SpaceSelectorContext and can be embedded
  * anywhere — inside a modal, a sidebar panel, a settings page, etc.
  */
-const ManageMembers = ({
+
+const MembersManager = ({
     spaceId,
     initialEmail,
     initialRole,
     onSuccess,
     onCancel,
-}: ManageMembersProps) => {
+}: MembersManagerProps) => {
     const { t } = useTranslation("modals");
     const { api } = useSpaceSelector();
     if (!spaceId || !api?.inviteMembers) return null;
@@ -456,4 +457,4 @@ const ManageMembers = ({
     );
 };
 
-export default ManageMembers;
+export default MembersManager;
