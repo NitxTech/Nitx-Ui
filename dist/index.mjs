@@ -527,8 +527,11 @@ var UserAccount = ({
 import { createContext, useContext, useState as useState3 } from "react";
 import { jsx as jsx7 } from "react/jsx-runtime";
 var SpaceSelectorContext = createContext(void 0);
+var useOptionalSpaceSelector = () => {
+  return useContext(SpaceSelectorContext);
+};
 var useSpaceSelector = () => {
-  const context = useContext(SpaceSelectorContext);
+  const context = useOptionalSpaceSelector();
   if (!context) {
     throw new Error(
       "useSpaceSelector must be used within a SpaceSelectorProvider"
@@ -1919,13 +1922,15 @@ import { toast as toast3 } from "sonner";
 import { jsx as jsx27, jsxs as jsxs16 } from "react/jsx-runtime";
 var MembersManager = ({
   spaceId,
+  api: apiProp,
   initialEmail,
   initialRole,
   onSuccess,
   onCancel
 }) => {
   const { t } = useTranslation8("modals");
-  const { api } = useSpaceSelector();
+  const spaceSelector = useOptionalSpaceSelector();
+  const api = apiProp ?? spaceSelector?.api;
   if (!spaceId || !api?.inviteMembers) return null;
   const [email, setEmail] = useState8("");
   const [pendingEmails, setPendingEmails] = useState8([]);
@@ -2351,6 +2356,7 @@ var ManageMembersModal = ({
         MembersManager_default,
         {
           spaceId,
+          api,
           initialEmail: editEmail,
           initialRole: editRole,
           onSuccess: () => setModal("membersAndNumbers"),
@@ -3607,5 +3613,6 @@ export {
   SpaceSelectorProvider,
   UserAccount,
   createSpaceSelectorApi,
+  useOptionalSpaceSelector,
   useSpaceSelector
 };
