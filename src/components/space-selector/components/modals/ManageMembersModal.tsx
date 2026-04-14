@@ -46,6 +46,7 @@ const ManageMembersModal = ({
     >
       <MembersManager
         spaceId={spaceId}
+        api={api}
         initialEmail={editEmail}
         initialRole={editRole}
         onSuccess={() => setModal("membersAndNumbers")}

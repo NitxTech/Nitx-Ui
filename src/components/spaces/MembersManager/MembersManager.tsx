@@ -13,13 +13,13 @@ import {
 import { Button } from "../../ui/button";
 import { toast } from "sonner";
 
-import { useSpaceSelector } from "../../space-selector/context";
+import { useOptionalSpaceSelector } from "../../space-selector/context";
 
 export interface MembersManagerProps {
     /** The space to invite members into */
     spaceId: string;
     /** API implementation provided by the library consumer */
-    // api: Pick<SpaceSelectorApi, "inviteMembers">;
+    api?: Pick<SpaceSelectorApi, "inviteMembers">;
     /** Pre-fill a specific email address */
     initialEmail?: string;
     /** Pre-select a specific role */
@@ -40,13 +40,15 @@ export interface MembersManagerProps {
 
 const MembersManager = ({
     spaceId,
+    api: apiProp,
     initialEmail,
     initialRole,
     onSuccess,
     onCancel,
 }: MembersManagerProps) => {
     const { t } = useTranslation("modals");
-    const { api } = useSpaceSelector();
+    const spaceSelector = useOptionalSpaceSelector();
+    const api = apiProp ?? spaceSelector?.api;
     if (!spaceId || !api?.inviteMembers) return null;
 
     const [email, setEmail] = useState("");

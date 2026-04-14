@@ -33,8 +33,12 @@ const SpaceSelectorContext = createContext<
   SpaceSelectorContextType | undefined
 >(undefined);
 
+export const useOptionalSpaceSelector = () => {
+  return useContext(SpaceSelectorContext);
+};
+
 export const useSpaceSelector = () => {
-  const context = useContext(SpaceSelectorContext);
+  const context = useOptionalSpaceSelector();
   if (!context) {
     throw new Error(
       "useSpaceSelector must be used within a SpaceSelectorProvider"
