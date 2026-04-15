@@ -1,14 +1,17 @@
 import React from "react";
-import { useSpaceSelector } from "../../context";
+import { useOptionalSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
-import { MemberRole } from "../../types";
+import { MemberRole, SpaceSelectorApi } from "../../types";
 import MembersManager from "../../../spaces/MembersManager/MembersManager";
 
 interface ManageMembersModalProps {
   isOpen?: boolean;
   onClose?: () => void;
+  spaceId?: string;
+  api?: Pick<SpaceSelectorApi, "inviteMembers">;
   initialEmail?: string;
   initialRole?: MemberRole;
+  onSuccess?: () => void;
 }
 
 /**
@@ -21,21 +24,29 @@ interface ManageMembersModalProps {
 const ManageMembersModal = ({
   isOpen,
   onClose,
+  spaceId: spaceIdProp,
+  api: apiProp,
   initialEmail,
   initialRole,
+  onSuccess,
 }: ManageMembersModalProps) => {
-  const { activeModal, modalProps, setModal, api } = useSpaceSelector();
+  const spaceSelector = useOptionalSpaceSelector();
+  const activeModal = spaceSelector?.activeModal;
+  const modalProps = spaceSelector?.modalProps;
+  const setModal = spaceSelector?.setModal;
+  const api = apiProp ?? spaceSelector?.api;
 
   const effectiveOpen = isOpen || activeModal === "manageMembers";
-  const spaceId = modalProps?.manageSpaceMembers?.spaceId;
+  const spaceId = spaceIdProp ?? modalProps?.manageSpaceMembers?.spaceId;
   const editEmail =
-    initialEmail || modalProps?.manageMembersProps?.initialEmail;
-  const editRole = initialRole || modalProps?.manageMembersProps?.initialRole;
+    initialEmail ?? modalProps?.manageMembersProps?.initialEmail;
+  const editRole = initialRole ?? modalProps?.manageMembersProps?.initialRole;
 
-  if (!modalProps?.manageSpaceMembers && !isOpen) return null;
+  if (!effectiveOpen) return null;
   if (!spaceId || !api?.inviteMembers) return null;
 
-  const handleClose = onClose ?? (() => setModal(null));
+  const handleClose = onClose ?? (() => setModal?.(null));
+  const handleSuccess = onSuccess ?? (() => setModal?.("membersAndNumbers"));
 
   return (
     <DrawerDialog
@@ -49,7 +60,7 @@ const ManageMembersModal = ({
         api={api}
         initialEmail={editEmail}
         initialRole={editRole}
-        onSuccess={() => setModal("membersAndNumbers")}
+        onSuccess={handleSuccess}
         onCancel={handleClose}
       />
     </DrawerDialog>
