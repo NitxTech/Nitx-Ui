@@ -191,6 +191,16 @@ declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSe
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
+interface MembersAndNumbersProps {
+    spaceId: string;
+    spaceName?: string;
+    api?: SpaceSelectorApi;
+    isOpen?: boolean;
+    onRefreshSpaces?: () => void;
+    onSpaceNameChange?: (spaceName: string) => void;
+}
+declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => react_jsx_runtime.JSX.Element | null;
+
 interface ErrorStateProps {
     /** Short description text shown below the icon */
     message: string;
@@ -203,4 +213,4 @@ interface ErrorStateProps {
 }
 declare const ErrorState: ({ message, title, onRetry, retryLabel }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
 
-export { ErrorState, type ErrorStateProps, type Invitation, type Member, type MemberRole, MembersManager, type MembersManagerProps, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useOptionalSpaceSelector, useSpaceSelector };
+export { ErrorState, type ErrorStateProps, type Invitation, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useOptionalSpaceSelector, useSpaceSelector };
