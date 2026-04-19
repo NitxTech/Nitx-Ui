@@ -17,7 +17,6 @@ import ManageMembersModal from "../space-selector/components/modals/ManageMember
 import {
   InvitationsTable,
   MembersAndNumbersLayout,
-  MembersEmptyState,
   MembersTable,
   MembersTabContent,
   RemoveMemberDialog,
@@ -251,36 +250,31 @@ const MembersAndNumbers = ({
       />
     ) : null;
 
-  const membersContent =
-    members.length === 0 && invitations.length === 0 ? (
-      <MembersEmptyState
-        title={t("manageMembersModal.noMembersYet")}
-        description={t("manageMembersModal.inviteTeammatesDescription")}
-        actionLabel={t("manageMembersModal.invite")}
-        onInvite={() => setShowInviteModal(true)}
-      />
-    ) : (
-      <MembersTable
-        items={paginatedMembers}
-        memberCount={members.length}
-        totalItems={filteredMembers.length}
-        searchQuery={searchQuery}
-        inviteLabel={t("manageMembersModal.invite")}
-        currentPage={currentPage}
-        rowsPerPage={rowsPerPage}
-        totalPages={totalPages}
-        onSearchQueryChange={setSearchQuery}
-        onPageChange={setCurrentPage}
-        onRowsPerPageChange={(nextRowsPerPage) => {
-          setRowsPerPage(nextRowsPerPage);
-          setCurrentPage(1);
-        }}
-        onOpenInviteModal={() => setShowInviteModal(true)}
-        onRoleChange={handleRolesUpdate}
-        onCopyEmail={handleCopyEmail}
-        onRemove={setMemberToRemove}
-      />
-    );
+  const membersContent = (
+    <MembersTable
+      items={paginatedMembers}
+      memberCount={members.length}
+      totalItems={filteredMembers.length}
+      showEmptyState={members.length === 0 && invitations.length === 0}
+      searchQuery={searchQuery}
+      inviteLabel={t("manageMembersModal.invite")}
+      emptyTitle={t("manageMembersModal.noMembersYet")}
+      emptyDescription={t("manageMembersModal.inviteTeammatesDescription")}
+      currentPage={currentPage}
+      rowsPerPage={rowsPerPage}
+      totalPages={totalPages}
+      onSearchQueryChange={setSearchQuery}
+      onPageChange={setCurrentPage}
+      onRowsPerPageChange={(nextRowsPerPage) => {
+        setRowsPerPage(nextRowsPerPage);
+        setCurrentPage(1);
+      }}
+      onOpenInviteModal={() => setShowInviteModal(true)}
+      onRoleChange={handleRolesUpdate}
+      onCopyEmail={handleCopyEmail}
+      onRemove={setMemberToRemove}
+    />
+  );
 
   return (
     <>
