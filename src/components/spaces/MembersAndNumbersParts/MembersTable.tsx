@@ -80,7 +80,7 @@ const MemberRowActions = ({
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            className="gap-2 cursor-pointer py-2.5 text-red-600 focus:text-red-600 focus:bg-red-50"
+            className="gap-2 cursor-pointer py-2.5 text-red-600 dark:text-red-500 focus:text-red-600 focus:bg-red-50"
             onClick={() => onRemove(member)}
           >
             <div className="w-4 h-4 flex items-center justify-center">
