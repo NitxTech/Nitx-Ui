@@ -132,8 +132,13 @@ const MembersAndNumbers = ({
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
       toast.success("Space name updated successfully");
-    } catch (error) {
-      toast.error("Failed to update space name");
+    } catch (error: any) {
+      const renameErrorMessage =
+        error?.response?.data?.errors?.name?.[0] ??
+        error?.response?.data?.message ??
+        "Failed to update space name";
+
+      toast.error(renameErrorMessage);
     } finally {
       setSavingSettings(false);
     }

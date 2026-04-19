@@ -18,5 +18,6 @@ export default defineConfig({
     "lucide-react",
     "class-variance-authority",
     "tailwind-merge",
+    "sonner",
   ],
 });
