@@ -17,7 +17,7 @@ import {
   SpaceSelectorApi,
 } from "../space-selector/types";
 import { Input } from "../ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +29,10 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { Label } from "../ui/label";
 import ManageMembersModal from "../space-selector/components/modals/ManageMembersModal";
 import { Skeleton } from "../ui/skeleton";
+
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Copy02Icon } from '@hugeicons/core-free-icons';
+
 
 export interface MembersAndNumbersProps {
   spaceId: string;
@@ -293,7 +297,7 @@ const MembersAndNumbers = ({
 
           {/* Main Content */}
           {activeTab === "members" && (
-            <div className="flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
+            <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
               {/* Header */}
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold capitalize">
@@ -630,7 +634,7 @@ const MembersAndNumbers = ({
                         {t("manageMembersModal.inviteTeammatesDescription")}
                       </p>
                       <Button
-                        className="mt-6 bg-primary hover:bg-primary/90 text-white rounded-md px-8 h-10"
+                        className="mt-6 bg-primary hover:bg-primary/90 text-white rounded-md px-8 !h-12"
                         onClick={() => setShowInviteModal(true)}
                       >
                         <UserPlus className="w-4 h-4 mr-2" />
@@ -655,13 +659,13 @@ const MembersAndNumbers = ({
                           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-500" />
                           <Input
                             placeholder="Search"
-                            className="pl-9 h-10 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700"
+                            className="pl-9 !h-12 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
                         </div>
                         <Button
-                          className="bg-primary hover:bg-primary/90 text-white h-10 px-6 rounded-sm font-normal"
+                          className="bg-primary hover:bg-primary/90 text-white px-6 rounded-sm font-normal !h-12"
                           onClick={() => setShowInviteModal(true)}
                         >
                           <UserPlus className="w-4 h-4 mr-2" />
@@ -681,12 +685,12 @@ const MembersAndNumbers = ({
                         {paginatedMembers.map((member) => (
                           <div
                             key={member.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
+                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-6 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
                           >
                             <div className="flex items-center gap-3">
-                              <Avatar className="size-10 ">
-                                <AvatarImage src={member.imageURL} />
-                                <AvatarFallback className="bg-primary/10 text-primary text-xs ">
+                              <Avatar className="size-10 h-12 w-12 !rounded-sm">
+                                <AvatarImage src={member.imageURL}/>
+                                <AvatarFallback className="bg-primary/10 text-primary text-sm !rounded-sm">
                                   {member.name.slice(0, 2).toUpperCase()}
                                 </AvatarFallback>
                               </Avatar>
@@ -694,7 +698,7 @@ const MembersAndNumbers = ({
                                 <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
                                   {member.name}
                                 </span>
-                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                                <span className="text-sm text-neutral-500 dark:text-neutral-300">
                                   {member.email}
                                 </span>
                               </div>
@@ -757,38 +761,7 @@ const MembersAndNumbers = ({
                                     }
                                   >
                                     <div className="w-4 h-4 flex items-center justify-center">
-                                      {/* Icon for copy */}
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 14 14"
-                                        fill="none"
-                                      >
-                                        <g clipPath="url(#clip0_7149_14050)">
-                                          <path
-                                            d="M9.89553 5.23975C9.89413 3.51883 9.86811 2.62744 9.36708 2.01709C9.27037 1.89922 9.16228 1.79114 9.04444 1.69441C8.4005 1.16602 7.44389 1.16602 5.53054 1.16602C3.61722 1.16602 2.66056 1.16602 2.01666 1.69441C1.89878 1.79114 1.7907 1.89922 1.69396 2.01709C1.16553 2.66095 1.16553 3.61754 1.16553 5.53073C1.16553 7.44394 1.16553 8.40049 1.69396 9.04438C1.79069 9.16221 1.89878 9.2703 2.01666 9.36702C2.62705 9.86798 3.51851 9.894 5.23954 9.8954"
-                                            stroke="#212121"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                          />
-                                          <path
-                                            d="M8.18321 5.26412L9.9132 5.23926M8.17504 12.8339L9.90498 12.809M12.8168 8.17936L12.8005 9.90585M5.25606 8.18729L5.23975 9.91372M6.70096 5.26412C6.21516 5.35113 5.43543 5.44062 5.25606 6.44493M11.3719 12.809C11.859 12.7295 12.64 12.6519 12.8348 11.6505M11.3719 5.26412C11.8577 5.35113 12.6374 5.44062 12.8168 6.44493M6.70837 12.8082C6.22257 12.7215 5.44276 12.6324 5.26285 11.6282"
-                                            stroke="#212121"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                          />
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_7149_14050">
-                                            <rect
-                                              width="14"
-                                              height="14"
-                                              fill="white"
-                                            />
-                                          </clipPath>
-                                        </defs>
-                                      </svg>
+                                      <HugeiconsIcon icon={Copy02Icon} />
                                     </div>
                                     <span>Copy Email</span>
                                   </DropdownMenuItem>
@@ -900,12 +873,12 @@ const MembersAndNumbers = ({
 
           {/* Settings Tab Content (Placeholder) */}
           {activeTab === "settings" && (
-            <div className="flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
+            <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
               <h2 className="text-xl font-semibold capitalize">
                 {t("manageMembersModal.settings")}
               </h2>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-1 flex-col gap-4">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Label
                     htmlFor="spaceName"

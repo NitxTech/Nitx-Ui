@@ -2452,6 +2452,15 @@ var ManageMembersModal = ({
 var ManageMembersModal_default = ManageMembersModal;
 
 // src/components/spaces/MembersAndNumbers.tsx
+import { HugeiconsIcon } from "@hugeicons/react";
+
+// ../node_modules/@hugeicons/core-free-icons/dist/esm/Copy02Icon.js
+var Copy02Icon = [
+  ["path", { d: "M16.9637 8.98209C16.9613 6.03194 16.9167 4.50384 16.0578 3.45753C15.892 3.25546 15.7067 3.07019 15.5047 2.90436C14.4008 1.99854 12.7609 1.99854 9.48087 1.99854C6.20089 1.99854 4.5609 1.99854 3.45708 2.90436C3.255 3.07018 3.06971 3.25546 2.90387 3.45753C1.99799 4.56128 1.99799 6.20116 1.99799 9.48091C1.99799 12.7607 1.99799 14.4005 2.90387 15.5043C3.0697 15.7063 3.255 15.8916 3.45708 16.0574C4.50346 16.9162 6.03167 16.9608 8.98201 16.9632", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", key: "0" }],
+  ["path", { d: "M14.0283 9.02455L16.994 8.98193M14.0143 22.0013L16.9799 21.9586M21.9716 14.0221L21.9436 16.9818M9.01033 14.0357L8.98236 16.9953M11.4873 9.02455C10.6545 9.17371 9.31781 9.32713 9.01033 11.0488M19.4946 21.9586C20.3296 21.8223 21.6685 21.6894 22.0025 19.9726M19.4946 9.02455C20.3274 9.17371 21.6641 9.32713 21.9716 11.0488M11.5 21.9573C10.6672 21.8086 9.33039 21.6559 9.02197 19.9344", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", key: "1" }]
+];
+
+// src/components/spaces/MembersAndNumbers.tsx
 import { Fragment, jsx as jsx30, jsxs as jsxs18 } from "react/jsx-runtime";
 var MembersAndNumbers = ({
   spaceId,
@@ -2673,7 +2682,7 @@ var MembersAndNumbers = ({
           )
         ] })
       ] }),
-      activeTab === "members" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
+      activeTab === "members" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
         /* @__PURE__ */ jsx30("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx30("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.title") }) }),
         loading ? /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-6", children: [
           /* @__PURE__ */ jsx30("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx30(Skeleton, { className: "h-8 w-32" }) }),
@@ -2995,7 +3004,7 @@ var MembersAndNumbers = ({
             /* @__PURE__ */ jsxs18(
               Button,
               {
-                className: "mt-6 bg-primary hover:bg-primary/90 text-white rounded-md px-8 h-10",
+                className: "mt-6 bg-primary hover:bg-primary/90 text-white rounded-md px-8 !h-12",
                 onClick: () => setShowInviteModal(true),
                 children: [
                   /* @__PURE__ */ jsx30(UserPlus, { className: "w-4 h-4 mr-2" }),
@@ -3018,7 +3027,7 @@ var MembersAndNumbers = ({
                   Input2,
                   {
                     placeholder: "Search",
-                    className: "pl-9 h-10 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700",
+                    className: "pl-9 !h-12 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700",
                     value: searchQuery,
                     onChange: (e) => setSearchQuery(e.target.value)
                   }
@@ -3027,7 +3036,7 @@ var MembersAndNumbers = ({
               /* @__PURE__ */ jsxs18(
                 Button,
                 {
-                  className: "bg-primary hover:bg-primary/90 text-white h-10 px-6 rounded-sm font-normal",
+                  className: "bg-primary hover:bg-primary/90 text-white px-6 rounded-sm font-normal !h-12",
                   onClick: () => setShowInviteModal(true),
                   children: [
                     /* @__PURE__ */ jsx30(UserPlus, { className: "w-4 h-4 mr-2" }),
@@ -3045,16 +3054,16 @@ var MembersAndNumbers = ({
               paginatedMembers.map((member) => /* @__PURE__ */ jsxs18(
                 "div",
                 {
-                  className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800",
+                  className: "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-6 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800",
                   children: [
                     /* @__PURE__ */ jsxs18("div", { className: "flex items-center gap-3", children: [
-                      /* @__PURE__ */ jsxs18(Avatar, { className: "size-10 ", children: [
+                      /* @__PURE__ */ jsxs18(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
                         /* @__PURE__ */ jsx30(AvatarImage, { src: member.imageURL }),
-                        /* @__PURE__ */ jsx30(AvatarFallback, { className: "bg-primary/10 text-primary text-xs ", children: member.name.slice(0, 2).toUpperCase() })
+                        /* @__PURE__ */ jsx30(AvatarFallback, { className: "bg-primary/10 text-primary text-sm !rounded-sm", children: member.name.slice(0, 2).toUpperCase() })
                       ] }),
                       /* @__PURE__ */ jsxs18("div", { className: "flex flex-col", children: [
                         /* @__PURE__ */ jsx30("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: member.name }),
-                        /* @__PURE__ */ jsx30("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: member.email })
+                        /* @__PURE__ */ jsx30("span", { className: "text-sm text-neutral-500 dark:text-neutral-300", children: member.email })
                       ] })
                     ] }),
                     /* @__PURE__ */ jsx30("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsxs18(DropdownMenu, { modal: false, children: [
@@ -3115,46 +3124,7 @@ var MembersAndNumbers = ({
                                 className: "gap-2 cursor-pointer py-2.5",
                                 onClick: () => handleCopyEmail(member.email),
                                 children: [
-                                  /* @__PURE__ */ jsx30("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsxs18(
-                                    "svg",
-                                    {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      width: "14",
-                                      height: "14",
-                                      viewBox: "0 0 14 14",
-                                      fill: "none",
-                                      children: [
-                                        /* @__PURE__ */ jsxs18("g", { clipPath: "url(#clip0_7149_14050)", children: [
-                                          /* @__PURE__ */ jsx30(
-                                            "path",
-                                            {
-                                              d: "M9.89553 5.23975C9.89413 3.51883 9.86811 2.62744 9.36708 2.01709C9.27037 1.89922 9.16228 1.79114 9.04444 1.69441C8.4005 1.16602 7.44389 1.16602 5.53054 1.16602C3.61722 1.16602 2.66056 1.16602 2.01666 1.69441C1.89878 1.79114 1.7907 1.89922 1.69396 2.01709C1.16553 2.66095 1.16553 3.61754 1.16553 5.53073C1.16553 7.44394 1.16553 8.40049 1.69396 9.04438C1.79069 9.16221 1.89878 9.2703 2.01666 9.36702C2.62705 9.86798 3.51851 9.894 5.23954 9.8954",
-                                              stroke: "#212121",
-                                              strokeLinecap: "round",
-                                              strokeLinejoin: "round"
-                                            }
-                                          ),
-                                          /* @__PURE__ */ jsx30(
-                                            "path",
-                                            {
-                                              d: "M8.18321 5.26412L9.9132 5.23926M8.17504 12.8339L9.90498 12.809M12.8168 8.17936L12.8005 9.90585M5.25606 8.18729L5.23975 9.91372M6.70096 5.26412C6.21516 5.35113 5.43543 5.44062 5.25606 6.44493M11.3719 12.809C11.859 12.7295 12.64 12.6519 12.8348 11.6505M11.3719 5.26412C11.8577 5.35113 12.6374 5.44062 12.8168 6.44493M6.70837 12.8082C6.22257 12.7215 5.44276 12.6324 5.26285 11.6282",
-                                              stroke: "#212121",
-                                              strokeLinecap: "round",
-                                              strokeLinejoin: "round"
-                                            }
-                                          )
-                                        ] }),
-                                        /* @__PURE__ */ jsx30("defs", { children: /* @__PURE__ */ jsx30("clipPath", { id: "clip0_7149_14050", children: /* @__PURE__ */ jsx30(
-                                          "rect",
-                                          {
-                                            width: "14",
-                                            height: "14",
-                                            fill: "white"
-                                          }
-                                        ) }) })
-                                      ]
-                                    }
-                                  ) }),
+                                  /* @__PURE__ */ jsx30("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Copy02Icon }) }),
                                   /* @__PURE__ */ jsx30("span", { children: "Copy Email" })
                                 ]
                               }
@@ -3278,9 +3248,9 @@ var MembersAndNumbers = ({
           ] })
         ] })
       ] }),
-      activeTab === "settings" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
+      activeTab === "settings" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
         /* @__PURE__ */ jsx30("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.settings") }),
-        /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-4", children: [
+        /* @__PURE__ */ jsxs18("div", { className: "flex flex-1 flex-col gap-4", children: [
           /* @__PURE__ */ jsxs18("div", { className: "grid w-full max-w-sm items-center gap-1.5", children: [
             /* @__PURE__ */ jsx30(
               Label4,
