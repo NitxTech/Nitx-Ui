@@ -7,6 +7,7 @@ import NewSpaceModal from "./components/modals/NewSpaceModal";
 import MembersAndNumbersModal from "./components/modals/MembersAndNumbersModal";
 import ManageMembersModal from "./components/modals/ManageMembersModal";
 import DeleteConfirmationModal from "./components/modals/DeleteConfirmationModal";
+import RenameSpaceModal from "./components/modals/RenameSpaceModal";
 import SpaceBrowser, {SpaceBrowserProps } from "../spaces/SpaceBrowser";
 import { SpaceSelectorContent } from "./components/SpaceSelectorContent";
 import { SpaceBrowserClasses } from "../spaces/SpaceBrowser";
@@ -45,6 +46,7 @@ export const SpaceSelector = (props: SpaceSelectorProps) => {
 
       <BrowseSpaceModal />
       <NewSpaceModal />
+      <RenameSpaceModal />
       <MembersAndNumbersModal />
       <ManageMembersModal />
       <DeleteConfirmationModal />
