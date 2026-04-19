@@ -135,11 +135,11 @@ export const ProductSwitcher = ({
                 .join("")}`}
             </AvatarFallback>
           </Avatar>
-          <span className="flex-1 text-left font-medium">{profile.name}</span>
-          <ChevronRight className="size-4" />
+          <span className="flex-1 text-start font-medium">{profile.name}</span>
+          <ChevronRight className="size-4 rtl:rotate-180" />
         </a>
 
-        <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="grid grid-cols-2 gap-3 mb-4 ltr" dir="ltr">
           {products.map((product) => (
             <ProductIcon key={product.id} {...product} />
           ))}
