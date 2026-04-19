@@ -34,7 +34,7 @@ const DeleteConfirmationModal = () => {
     <Dialog open={true} onOpenChange={(open) => !open && setModal(null)}>
       <DialogContent
         overlayClassName="z-[10010]"
-        className="sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 text-neutral-900 bg-neutral-50 z-[10010] dark:text-neutral-50 dark:bg-neutral-900"
+        className="sm:max-w-[400px] border-none shadow-none p-6 flex flex-col items-center text-center gap-4 text-neutral-900 bg-neutral-50 z-[10010] dark:text-neutral-50 dark:bg-neutral-900"
       >
         <div className="w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 dark:bg-red-500/10">
           <Trash2 className="w-6 h-6" />

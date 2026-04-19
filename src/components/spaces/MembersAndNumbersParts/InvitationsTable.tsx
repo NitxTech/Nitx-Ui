@@ -130,7 +130,7 @@ const InvitationsTable = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-base font-semibold">Pending Invite</h3>
+      <h3 className="text-base font-semibold">Pending Invite {totalItems}</h3>
       <p className="text-xs text-neutral-500 -mt-3 dark:text-neutral-400">
         {SECTION_DESCRIPTION}
       </p>

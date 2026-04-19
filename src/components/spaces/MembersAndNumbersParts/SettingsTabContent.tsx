@@ -28,7 +28,7 @@ const SettingsTabContent = ({
 
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-          <div className="w-[70px] h-[70px] shrink-0 rounded-2xl bg-neutral-900 text-white flex items-center justify-center text-lg font-semibold tracking-tight shadow-sm dark:bg-primarylight dark:text-primary">
+          <div className="w-[70px] h-[70px] shrink-0 rounded-2xl bg-neutral-900 text-white flex items-center justify-center text-lg font-semibold tracking-tight shadow-sm dark:bg-secondary dark:text-white">
             {logoText}
           </div>
 

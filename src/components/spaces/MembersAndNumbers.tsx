@@ -122,16 +122,18 @@ const MembersAndNumbers = ({
   );
 
   const handleUpdateSpace = async () => {
-    if (!spaceId || !settingsSpaceName.trim() || !api) return;
+    const nextSpaceName = settingsSpaceName.trim();
+    if (!spaceId || !nextSpaceName || !api) return;
 
     setSavingSettings(true);
     try {
-      await api.renameSpace(spaceId, settingsSpaceName);
+      await api.renameSpace(spaceId, nextSpaceName);
       onRefreshSpaces?.();
-      onSpaceNameChange?.(settingsSpaceName);
-      toast.success(t("renameSpaceModal.spaceRenamedSuccessfully"));
+      onSpaceNameChange?.(nextSpaceName);
+      setSettingsSpaceName(nextSpaceName);
+      toast.success("Space name updated successfully");
     } catch (error) {
-      toast.error(t("renameSpaceModal.failedToRenameSpace"));
+      toast.error("Failed to update space name");
     } finally {
       setSavingSettings(false);
     }
@@ -164,10 +166,10 @@ const MembersAndNumbers = ({
         prev.filter((invite) => invite.id !== invitationToCancel.id),
       );
       await api.revokeInvitation(spaceId, invitationToCancel.id);
-      toast.success("Invitation revoked successfully");
+      toast.success("Invitation cancelled successfully");
       setInvitationToCancel(null);
     } catch (error) {
-      toast.error("Failed to revoke invitation");
+      toast.error("Failed to cancel invitation");
       fetchData();
     }
   };
@@ -340,6 +342,7 @@ const MembersAndNumbers = ({
         onClose={() => setShowInviteModal(false)}
         spaceId={spaceId}
         api={api}
+        onSuccess={fetchData}
       />
     </>
   );
