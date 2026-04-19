@@ -15,6 +15,7 @@ import type {
 import ManageMembersModal from "../space-selector/components/modals/ManageMembersModal";
 
 import {
+  CancelInvitationDialog,
   InvitationsTable,
   MembersAndNumbersLayout,
   MembersTable,
@@ -52,6 +53,9 @@ const MembersAndNumbers = ({
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [memberToRemove, setMemberToRemove] = useState<Member | null>(null);
+  const [invitationToCancel, setInvitationToCancel] = useState<Invitation | null>(
+    null,
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [invitesCurrentPage, setInvitesCurrentPage] = useState(1);
@@ -152,11 +156,16 @@ const MembersAndNumbers = ({
     }
   };
 
-  const handleRevokeInvitation = async (invitationId: string) => {
+  const confirmCancelInvitation = async () => {
+    if (!invitationToCancel) return;
+
     try {
-      setInvitations((prev) => prev.filter((invite) => invite.id !== invitationId));
-      await api.revokeInvitation(spaceId, invitationId);
+      setInvitations((prev) =>
+        prev.filter((invite) => invite.id !== invitationToCancel.id),
+      );
+      await api.revokeInvitation(spaceId, invitationToCancel.id);
       toast.success("Invitation revoked successfully");
+      setInvitationToCancel(null);
     } catch (error) {
       toast.error("Failed to revoke invitation");
       fetchData();
@@ -246,7 +255,7 @@ const MembersAndNumbers = ({
         onResend={handleResendInvitation}
         onCopyEmail={handleCopyEmail}
         onCopyInviteLink={handleCopyInviteLink}
-        onRevoke={handleRevokeInvitation}
+        onRevoke={setInvitationToCancel}
       />
     ) : null;
 
@@ -314,6 +323,16 @@ const MembersAndNumbers = ({
           }
         }}
         onConfirm={confirmRemoveMember}
+      />
+
+      <CancelInvitationDialog
+        invitation={invitationToCancel}
+        onOpenChange={(open) => {
+          if (!open) {
+            setInvitationToCancel(null);
+          }
+        }}
+        onConfirm={confirmCancelInvitation}
       />
 
       <ManageMembersModal

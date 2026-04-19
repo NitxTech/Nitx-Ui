@@ -37,7 +37,7 @@ interface InvitationsTableProps {
   onResend: (id: string) => void;
   onCopyEmail: (email: string) => void;
   onCopyInviteLink: (invite: Invitation) => void;
-  onRevoke: (id: string) => void;
+  onRevoke: (invite: Invitation) => void;
 }
 
 interface InvitationRowActionsProps {
@@ -45,7 +45,7 @@ interface InvitationRowActionsProps {
   onResend: (id: string) => void;
   onCopyEmail: (email: string) => void;
   onCopyInviteLink: (invite: Invitation) => void;
-  onRevoke: (id: string) => void;
+  onRevoke: (invite: Invitation) => void;
 }
 
 const InvitationRowActions = ({
@@ -100,7 +100,7 @@ const InvitationRowActions = ({
 
           <DropdownMenuItem
             className="gap-2 cursor-pointer py-2.5 text-red-600 focus:text-red-600 focus:bg-red-50"
-            onClick={() => onRevoke(invite.id)}
+            onClick={() => onRevoke(invite)}
           >
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Cancel01Icon} />

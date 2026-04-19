@@ -1,3 +1,4 @@
+export { default as CancelInvitationDialog } from "./CancelInvitationDialog";
 export { default as DataTableShell } from "./DataTableShell";
 export { default as InvitationsTable } from "./InvitationsTable";
 export { default as MembersAndNumbersLayout } from "./MembersAndNumbersLayout";
