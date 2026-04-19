@@ -1,38 +1,30 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../ui/button";
-import {
-  UserPlus,
-  MoreVertical,
-  Search,
-  Loader2,
-  ChevronDown,
-} from "lucide-react";
-import {
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Key01Icon, Tv01Icon } from "@hugeicons/core-free-icons";
+import { toast } from "sonner";
+
+import type {
   Invitation,
   Member,
   MemberRole,
   SpaceSelectorApi,
 } from "../space-selector/types";
-import { Input } from "../ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { toast } from "sonner";
-import { Dialog, DialogContent } from "../ui/dialog";
-import { Label } from "../ui/label";
 import ManageMembersModal from "../space-selector/components/modals/ManageMembersModal";
-import { Skeleton } from "../ui/skeleton";
 
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Copy02Icon, Tv01Icon, Key01Icon, UserAdd01Icon, MoreVerticalIcon, Search01Icon, ArrowDown01Icon, Settings01Icon, Link01Icon, Cancel01Icon, Delete01Icon, Refresh01Icon } from '@hugeicons/core-free-icons';
-
+import {
+  InvitationsTable,
+  MembersAndNumbersLayout,
+  MembersEmptyState,
+  MembersTable,
+  MembersTabContent,
+  RemoveMemberDialog,
+  SettingsTabContent,
+  type MembersAndNumbersTab,
+  type StatCardProps,
+} from "./MembersAndNumbersParts";
 
 export interface MembersAndNumbersProps {
   spaceId: string;
@@ -53,26 +45,18 @@ const MembersAndNumbers = ({
 }: MembersAndNumbersProps) => {
   const { t } = useTranslation("modals");
 
-  const [activeTab, setActiveTab] = useState<"members" | "settings">("members");
-
-  const [licenseCount, setLicenseCount] = useState(0); // Fetched via APi
+  const [activeTab, setActiveTab] = useState<MembersAndNumbersTab>("members");
+  const [licenseCount, setLicenseCount] = useState(0);
   const [screensCount, setScreensCount] = useState(0);
   const [members, setMembers] = useState<Member[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [memberToRemove, setMemberToRemove] = useState<Member | null>(null);
-  const [memberToEdit, setMemberToEdit] = useState<Member | null>(null);
-
-  // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  // Pagination State for Invitations
   const [invitesCurrentPage, setInvitesCurrentPage] = useState(1);
   const [invitesRowsPerPage, setInvitesRowsPerPage] = useState(5);
-
-  // Settings State
   const [settingsSpaceName, setSettingsSpaceName] = useState("");
   const [savingSettings, setSavingSettings] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -83,23 +67,9 @@ const MembersAndNumbers = ({
     }
   }, [spaceName]);
 
-  const handleUpdateSpace = async () => {
-    if (!spaceId || !settingsSpaceName.trim() || !api) return;
-    setSavingSettings(true);
-    try {
-      await api.renameSpace(spaceId, settingsSpaceName);
-      onRefreshSpaces?.();
-      onSpaceNameChange?.(settingsSpaceName);
-      toast.success(t("renameSpaceModal.spaceRenamedSuccessfully"));
-    } catch (error) {
-      toast.error(t("renameSpaceModal.failedToRenameSpace"));
-    } finally {
-      setSavingSettings(false);
-    }
-  };
-
   const fetchData = async () => {
     if (!spaceId || !api) return;
+
     setLoading(true);
     try {
       const [membersData, invitationsData] = await Promise.all([
@@ -115,8 +85,8 @@ const MembersAndNumbers = ({
         setScreensCount(stats.screens);
         setLicenseCount(stats.licenses);
       }
-    } catch (e) {
-      console.error("Failed to fetch data", e);
+    } catch (error) {
+      console.error("Failed to fetch data", error);
     } finally {
       setLoading(false);
     }
@@ -130,11 +100,10 @@ const MembersAndNumbers = ({
 
   if (!isOpen || !spaceId || !api) return null;
 
-  // Pagination Logic
   const filteredMembers = members.filter(
-    (m) =>
-      m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      m.email.toLowerCase().includes(searchQuery.toLowerCase()),
+    (member) =>
+      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const totalPages = Math.ceil(filteredMembers.length / rowsPerPage);
@@ -149,14 +118,31 @@ const MembersAndNumbers = ({
     invitesCurrentPage * invitesRowsPerPage,
   );
 
+  const handleUpdateSpace = async () => {
+    if (!spaceId || !settingsSpaceName.trim() || !api) return;
+
+    setSavingSettings(true);
+    try {
+      await api.renameSpace(spaceId, settingsSpaceName);
+      onRefreshSpaces?.();
+      onSpaceNameChange?.(settingsSpaceName);
+      toast.success(t("renameSpaceModal.spaceRenamedSuccessfully"));
+    } catch (error) {
+      toast.error(t("renameSpaceModal.failedToRenameSpace"));
+    } finally {
+      setSavingSettings(false);
+    }
+  };
+
   const handleRolesUpdate = async (memberId: string, newRole: MemberRole) => {
     try {
-      if (!api) return;
-      const member = members.find((m) => m.id === memberId);
+      const member = members.find((entry) => entry.id === memberId);
       if (!member) return;
 
       setMembers((prev) =>
-        prev.map((m) => (m.id === memberId ? { ...m, role: newRole } : m)),
+        prev.map((entry) =>
+          entry.id === memberId ? { ...entry, role: newRole } : entry,
+        ),
       );
 
       await api.updateMemberRole(spaceId, memberId, newRole, member.email);
@@ -167,23 +153,9 @@ const MembersAndNumbers = ({
     }
   };
 
-  const handleRemoveMember = async (memberId: string) => {
-    // Kept for reference, used in Confirm Dialog
-    try {
-      if (!spaceId || !api) return;
-      setMembers((prev) => prev.filter((m) => m.id !== memberId));
-      await api.removeMember(spaceId, memberId);
-      toast.success(t("manageMembersModal.removed"));
-    } catch (error) {
-      toast.error(t("manageMembersModal.error_remove"));
-      fetchData();
-    }
-  };
-
   const handleRevokeInvitation = async (invitationId: string) => {
     try {
-      if (!spaceId || !api) return;
-      setInvitations((prev) => prev.filter((i) => i.id !== invitationId));
+      setInvitations((prev) => prev.filter((invite) => invite.id !== invitationId));
       await api.revokeInvitation(spaceId, invitationId);
       toast.success("Invitation revoked successfully");
     } catch (error) {
@@ -198,22 +170,21 @@ const MembersAndNumbers = ({
   };
 
   const confirmRemoveMember = async () => {
-    if (!memberToRemove || !api) return;
+    if (!memberToRemove) return;
+
     try {
-      if (!spaceId) return;
-      setMembers((prev) => prev.filter((m) => m.id !== memberToRemove.id));
+      setMembers((prev) => prev.filter((member) => member.id !== memberToRemove.id));
       await api.removeMember(spaceId, memberToRemove.id);
       toast.success(t("manageMembersModal.removed"));
       setMemberToRemove(null);
     } catch (error) {
       toast.error(t("manageMembersModal.error_remove"));
-      fetchData(); // Revert
+      fetchData();
     }
   };
 
   const handleResendInvitation = async (id: string) => {
     try {
-      if (!spaceId || !api) return;
       await api.resendInvitation(spaceId, id);
       toast.success("Invitation resent successfully");
     } catch (error) {
@@ -223,778 +194,137 @@ const MembersAndNumbers = ({
 
   const handleCopyInviteLink = async (invite: Invitation) => {
     try {
-      if (!spaceId || !api) return;
       const link = await api.getInviteLink(spaceId, invite.id);
-      if (link) {
-        await navigator.clipboard.writeText(link);
-        toast.success("Invite link copied to clipboard");
-      } else {
+      if (!link) {
         toast.error("Failed to get invite link");
+        return;
       }
+
+      await navigator.clipboard.writeText(link);
+      toast.success("Invite link copied to clipboard");
     } catch (error) {
       console.error(error);
       toast.error("Failed to get invite link");
     }
   };
 
+  const stats: StatCardProps[] = [
+    {
+      label: "Total Screen",
+      value: screensCount,
+      icon: <HugeiconsIcon icon={Tv01Icon} className="w-5 h-5" />,
+    },
+    {
+      label: "Total License",
+      value: licenseCount,
+      icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
+    },
+    {
+      label: "Total Active License",
+      value: null,
+      icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
+    },
+    {
+      label: "Unused Licenses",
+      value: null,
+      icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
+    },
+  ];
+
+  const pendingInvitesContent =
+    invitations.length > 0 ? (
+      <InvitationsTable
+        items={paginatedInvitations}
+        totalItems={invitations.length}
+        currentPage={invitesCurrentPage}
+        rowsPerPage={invitesRowsPerPage}
+        totalPages={totalInvitePages}
+        onPageChange={setInvitesCurrentPage}
+        onRowsPerPageChange={(nextRowsPerPage) => {
+          setInvitesRowsPerPage(nextRowsPerPage);
+          setInvitesCurrentPage(1);
+        }}
+        onResend={handleResendInvitation}
+        onCopyEmail={handleCopyEmail}
+        onCopyInviteLink={handleCopyInviteLink}
+        onRevoke={handleRevokeInvitation}
+      />
+    ) : null;
+
+  const membersContent =
+    members.length === 0 && invitations.length === 0 ? (
+      <MembersEmptyState
+        title={t("manageMembersModal.noMembersYet")}
+        description={t("manageMembersModal.inviteTeammatesDescription")}
+        actionLabel={t("manageMembersModal.invite")}
+        onInvite={() => setShowInviteModal(true)}
+      />
+    ) : (
+      <MembersTable
+        items={paginatedMembers}
+        memberCount={members.length}
+        totalItems={filteredMembers.length}
+        searchQuery={searchQuery}
+        inviteLabel={t("manageMembersModal.invite")}
+        currentPage={currentPage}
+        rowsPerPage={rowsPerPage}
+        totalPages={totalPages}
+        onSearchQueryChange={setSearchQuery}
+        onPageChange={setCurrentPage}
+        onRowsPerPageChange={(nextRowsPerPage) => {
+          setRowsPerPage(nextRowsPerPage);
+          setCurrentPage(1);
+        }}
+        onOpenInviteModal={() => setShowInviteModal(true)}
+        onRoleChange={handleRolesUpdate}
+        onCopyEmail={handleCopyEmail}
+        onRemove={setMemberToRemove}
+      />
+    );
+
   return (
     <>
-      <div className="flex flex-col sm:flex-row w-full min-h-full h-full bg-neutral-50 dark:bg-neutral-900">
-        {/* Sidebar */}
-        <div className="w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800">
-          <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block">
-            {spaceName || "Space Nitx"}
-          </h3>
-          <div className="flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full">
-            <button
-              onClick={() => setActiveTab("members")}
-              className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "members"
-                ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
-                : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                }`}
-            >
-              <div className="w-5 h-5 flex items-center justify-center">
-                <UserPlus className="w-4 h-4" />
-              </div>
-              {t("manageMembersModal.title")}
-            </button>
+      <MembersAndNumbersLayout
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        spaceName={spaceName}
+        membersLabel={t("manageMembersModal.title")}
+        settingsLabel={t("manageMembersModal.settings")}
+        membersContent={
+          <MembersTabContent
+            title={t("manageMembersModal.title") || "Members & Numbers"}
+            stats={stats}
+            loading={loading}
+            pendingInvitesContent={pendingInvitesContent}
+            membersContent={membersContent}
+          />
+        }
+        settingsContent={
+          <SettingsTabContent
+            title={t("manageMembersModal.settings")}
+            spaceName={settingsSpaceName}
+            isSaving={savingSettings}
+            onSpaceNameChange={setSettingsSpaceName}
+            onSave={handleUpdateSpace}
+          />
+        }
+      />
 
-            <button
-              onClick={() => setActiveTab("settings")}
-              className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "settings"
-                ? "bg-primary text-white shadow-sm dark:bg-primarylight dark:hover:bg-primarylighter dark:hover:bg-white dark:text-primary"
-                : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                }`}
-            >
-              <div className="w-5 h-5 flex items-center justify-center">
-                <HugeiconsIcon icon={Settings01Icon} />
-              </div>
-              {t("manageMembersModal.settings")}
-            </button>
-          </div>
-        </div>
-
-        {/* Contents and tabs */}
-        <div className="overflow-y-auto w-full">
-          {/* Main Content */}
-          {activeTab === "members" && (
-            <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
-              {/* Header */}
-              <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold capitalize">
-                  {t("manageMembersModal.title") || "Members & Numbers"}
-                </h2>
-              </div>
-
-              {/* Stats Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
-                <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <HugeiconsIcon icon={Tv01Icon} className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{null}</span>
-                    <span className="text-xs text-neutral-500 font-medium dark:text-neutral-400">Total Screen</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{null}</span>
-                    <span className="text-xs text-neutral-500 font-medium dark:text-neutral-400">Total License</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{null}</span>
-                    <span className="text-xs text-neutral-500 font-medium dark:text-neutral-400">Total Active License</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{null}</span>
-                    <span className="text-xs text-neutral-500 font-medium dark:text-neutral-400">Unused Licenses</span>
-                  </div>
-                </div>
-              </div>
-
-              {loading ? (
-                <div className="flex flex-col gap-6">
-                  <div className="flex justify-between items-center">
-                    <Skeleton className="h-8 w-32" />
-                  </div>
-                  {/* Stats Loading */}
-                  <div className="border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800">
-                    <div className="bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800">
-                      <div className="grid grid-cols-[1fr_200px_100px] gap-4">
-                        <Skeleton className="h-4 w-20" />
-                        <Skeleton className="h-4 w-20" />
-                        <Skeleton className="h-4 w-10 ml-auto" />
-                      </div>
-                    </div>
-                    {[1].map((i) => (
-                      <div
-                        key={i}
-                        className="p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800"
-                      >
-                        <div className="flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center">
-                          <div className="flex items-center gap-3 w-full">
-                            <Skeleton className="w-8 h-8 rounded-md" />
-                            <div className="flex flex-col gap-1 flex-1">
-                              <Skeleton className="h-4 w-32" />
-                              <Skeleton className="h-3 w-48" />
-                            </div>
-                          </div>
-                          <Skeleton className="h-8 w-20 ml-11 sm:ml-0" />
-                          <Skeleton className="h-8 w-8 absolute right-4 top-4 sm:static sm:ml-auto" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Table Loading */}
-                  <div className="flex flex-col gap-4 mt-4">
-                    <div className="flex justify-between">
-                      <Skeleton className="h-10 w-64" /> {/* Search */}
-                      <Skeleton className="h-10 w-32" /> {/* Invite Button */}
-                    </div>
-                    <div className="border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800">
-                      <div className="bg-neutral-50/50 p-4 border-b border-neutral-200 hidden sm:block dark:bg-neutral-900/40 dark:border-neutral-800">
-                        <div className="grid grid-cols-[1fr_200px_100px] gap-4">
-                          <Skeleton className="h-4 w-20" />
-                          <Skeleton className="h-4 w-20" />
-                          <Skeleton className="h-4 w-10 ml-auto" />
-                        </div>
-                      </div>
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <div
-                          key={i}
-                          className="p-4 border-b border-neutral-200 last:border-0 relative dark:border-neutral-800"
-                        >
-                          <div className="flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center">
-                            <div className="flex items-center gap-3 w-full">
-                              <Skeleton className="w-8 h-8 rounded-md" />
-                              <div className="flex flex-col gap-1 flex-1">
-                                <Skeleton className="h-4 w-32" />
-                                <Skeleton className="h-3 w-48" />
-                              </div>
-                            </div>
-                            <Skeleton className="h-8 w-20 ml-11 sm:ml-0" />
-                            <Skeleton className="h-8 w-8 absolute right-4 top-4 sm:static sm:ml-auto" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {/* Pending Invites Section */}
-                  {invitations.length > 0 && (
-                    <div className="flex flex-col gap-4">
-                      <h3 className="text-base font-semibold">
-                        Pending Invite
-                      </h3>
-                      <p className="text-xs text-neutral-500 -mt-3 dark:text-neutral-400">
-                        Invite teammates to start collaborating
-                      </p>
-
-                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
-                        {/* Table Header */}
-                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-zinc-800 dark:border-neutral-800 dark:text-neutral-400">
-                          <div>Person</div>
-                          <div>Roles</div>
-                          <div className="text-right">Action</div>
-                        </div>
-
-                        {paginatedInvitations.map((invite) => (
-                          <div
-                            key={invite.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
-                          >
-                            <div className="flex items-center gap-3">
-                              <Avatar className="size-10 h-12 w-12 !rounded-sm">
-                                <AvatarImage src={""} />
-                                <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
-                                  {invite.email.slice(0, 2).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div className="flex flex-col">
-                                <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
-                                  Member
-                                </span>
-                                <span className="text-sm text-neutral-500 dark:text-neutral-300">
-                                  {invite.email}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="ml-14 sm:ml-0">
-                              <div className="h-8 px-2 text-sm font-normal text-neutral-700 capitalize flex items-center justify-start w-24 dark:text-neutral-200">
-                                {invite.role}
-                              </div>
-                            </div>
-                            <div className="absolute right-2 top-2 sm:static flex justify-end">
-                              <DropdownMenu modal={false}>
-                                <DropdownMenuTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                                  >
-                                    <MoreVertical className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent
-                                  align="end"
-                                  className="w-[200px] p-2 z-[10005]"
-                                >
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5"
-                                    onClick={() =>
-                                      handleResendInvitation(invite.id)
-                                    }
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z" />
-                                        <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10" />
-                                      </svg>
-                                    </div>
-                                    <span>Resend Invitation</span>
-                                  </DropdownMenuItem>
-
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5"
-                                    onClick={() =>
-                                      handleCopyEmail(invite.email)
-                                    }
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <rect
-                                          width="14"
-                                          height="14"
-                                          x="8"
-                                          y="8"
-                                          rx="2"
-                                          ry="2"
-                                        />
-                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                                      </svg>
-                                    </div>
-                                    <span>Copy Email</span>
-                                  </DropdownMenuItem>
-
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5"
-                                    onClick={() => handleCopyInviteLink(invite)}
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                                      </svg>
-                                    </div>
-                                    <span>Copy Invite Link</span>
-                                  </DropdownMenuItem>
-
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5 text-red-600 focus:text-red-600 focus:bg-red-50"
-                                    onClick={() =>
-                                      handleRevokeInvitation(invite.id)
-                                    }
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <circle cx="12" cy="12" r="10" />
-                                        <path d="m15 9-6 6" />
-                                        <path d="m9 9 6 6" />
-                                      </svg>
-                                    </div>
-                                    <span>Cancel Invitation</span>
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Pagination Footer */}
-                      {invitations.length > 0 && (
-                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400 ">
-                          <div className="flex items-center gap-2">
-                            <select
-                              className="border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900"
-                              value={invitesRowsPerPage}
-                              onChange={(e) => {
-                                setInvitesRowsPerPage(Number(e.target.value));
-                                setInvitesCurrentPage(1);
-                              }}
-                            >
-                              <option value={5}>5</option>
-                              <option value={10}>10</option>
-                              <option value={20}>20</option>
-                              <option value={50}>50</option>
-                            </select>
-                            <span>Rows per page</span>
-                          </div>
-
-                          <div className="flex items-center gap-4">
-                            <span>
-                              {(invitesCurrentPage - 1) * invitesRowsPerPage +
-                                1}
-                              -
-                              {Math.min(
-                                invitesCurrentPage * invitesRowsPerPage,
-                                invitations.length,
-                              )}{" "}
-                              of {invitations.length}
-                            </span>
-                            <div className="flex items-center gap-1">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-6 w-6"
-                                disabled={invitesCurrentPage === 1}
-                                onClick={() =>
-                                  setInvitesCurrentPage((p) =>
-                                    Math.max(1, p - 1),
-                                  )
-                                }
-                              >
-                                <span className="sr-only">Previous</span>
-                                &lsaquo;
-                              </Button>
-                              <span className="text-neutral-900 font-medium dark:text-neutral-50">
-                                {invitesCurrentPage} / {totalInvitePages || 1}{" "}
-                                pages
-                              </span>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-6 w-6"
-                                disabled={
-                                  invitesCurrentPage === totalInvitePages
-                                }
-                                onClick={() =>
-                                  setInvitesCurrentPage((p) =>
-                                    Math.min(totalInvitePages, p + 1),
-                                  )
-                                }
-                              >
-                                <span className="sr-only">Next</span>
-                                &rsaquo;
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Members Section / Empty State logic */}
-                  {members.length === 0 && invitations.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-10 min-h-[300px]">
-                      {/* Empty state illustration */}
-                      <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
-                        <div className="w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" />
-                        <div className="w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" />
-                        <div className="w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700">
-                          <div className="w-6 h-6 bg-neutral-200 rounded-full dark:bg-neutral-700" />
-                          <div className="h-2 w-10 bg-neutral-200 rounded-full dark:bg-neutral-700" />
-                        </div>
-                      </div>
-
-                      <h3 className="text-lg font-semibold mt-4">
-                        {t("manageMembersModal.noMembersYet")}
-                      </h3>
-                      <p className="text-sm text-neutral-500 text-center max-w-sm mt-2 dark:text-neutral-400">
-                        {t("manageMembersModal.inviteTeammatesDescription")}
-                      </p>
-                      <Button
-                        className="mt-6 bg-primary hover:bg-primary/90 dark:hover:bg-white dark:text-primary text-white rounded-md px-8 !h-12"
-                        onClick={() => setShowInviteModal(true)}
-                      >
-                        <UserPlus className="w-4 h-4 mr-2" />
-                        {t("manageMembersModal.invite")}
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-4 mt-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <h3 className="text-base font-semibold">
-                            Members {members.length}
-                          </h3>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                            Invite teammates to start collaborating
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2">
-                        <div className="relative flex-1">
-                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-500" />
-                          <Input
-                            placeholder="Search"
-                            className="pl-9 !h-12 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                          />
-                        </div>
-                        <Button
-                          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm font-normal !h-12"
-                          onClick={() => setShowInviteModal(true)}
-                        >
-                          <UserPlus className="w-4 h-4 mr-2" />
-                          {t("manageMembersModal.invite")}
-                        </Button>
-                      </div>
-
-                      {/* Members Table */}
-                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
-                        {/* Table Header */}
-                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-zinc-800 dark:border-neutral-800 dark:text-neutral-400">
-                          <div>Person</div>
-                          <div>Roles</div>
-                          <div className="text-right">Action</div>
-                        </div>
-
-                        {paginatedMembers.map((member) => (
-                          <div
-                            key={member.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
-                          >
-                            <div className="flex items-center gap-3">
-                              <Avatar className="size-10 h-12 w-12 !rounded-sm">
-                                <AvatarImage src={member.imageURL} />
-                                <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
-                                  {member.name.slice(0, 2).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div className="flex flex-col">
-                                <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
-                                  {member.name}
-                                </span>
-                                <span className="text-sm text-neutral-500 dark:text-neutral-300">
-                                  {member.email}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="ml-14 sm:ml-0">
-                              <DropdownMenu modal={false}>
-                                <DropdownMenuTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    className="h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                                  >
-                                    {member.role}
-                                    <ChevronDown className="w-4 h-4 ml-2" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="z-[10005]">
-                                  <DropdownMenuItem
-                                    onClick={() =>
-                                      handleRolesUpdate(member.id, "viewer")
-                                    }
-                                  >
-                                    Viewer
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    onClick={() =>
-                                      handleRolesUpdate(member.id, "editor")
-                                    }
-                                  >
-                                    Editor
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    onClick={() =>
-                                      handleRolesUpdate(member.id, "manager")
-                                    }
-                                  >
-                                    Manager
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </div>
-                            <div className="absolute right-2 top-2 sm:static flex justify-end">
-                              <DropdownMenu modal={false}>
-                                <DropdownMenuTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                                  >
-                                    <MoreVertical className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent
-                                  align="end"
-                                  className="w-[200px] p-2 z-[10005]"
-                                >
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5"
-                                    onClick={() =>
-                                      handleCopyEmail(member.email)
-                                    }
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <HugeiconsIcon icon={Copy02Icon} />
-                                    </div>
-                                    <span>Copy Email</span>
-                                  </DropdownMenuItem>
-
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer py-2.5 text-red-600 focus:text-red-600 focus:bg-red-50"
-                                    onClick={() => setMemberToRemove(member)}
-                                  >
-                                    <div className="w-4 h-4 flex items-center justify-center">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="13"
-                                        height="14"
-                                        viewBox="0 0 13 14"
-                                        fill="none"
-                                      >
-                                        <path
-                                          d="M0.879331 6.34768L1.91868 9.13184C2.40271 10.4285 2.64476 11.0768 3.03998 11.5211C3.64442 12.2004 4.51484 12.5977 5.43492 12.6144C6.03661 12.6252 6.69948 12.39 8.02521 11.9195C8.72048 11.6728 9.06812 11.5494 9.36568 11.3651C9.81966 11.0838 10.1948 10.6965 10.4573 10.2381C10.6294 9.93764 10.7365 9.59162 10.9505 8.89957L11.8938 5.85011C12.0388 5.38158 11.8408 4.87587 11.4125 4.62071C10.8528 4.28722 10.1217 4.5027 9.84555 5.08255L9.21565 6.40503L7.44206 1.65401C7.25756 1.15976 6.69705 0.904925 6.19011 1.08482C5.68317 1.26471 5.42185 1.81121 5.60635 2.30545M5.60635 2.30545L5.16087 1.11223C4.97636 0.617985 4.41585 0.363153 3.90898 0.543045C3.40204 0.722931 3.14065 1.26943 3.32515 1.76368L3.77057 2.95689M5.60635 2.30545L6.60857 4.99019M3.77057 2.95689C3.58607 2.46265 3.02556 2.20781 2.51868 2.3877C2.01174 2.56759 1.75035 3.11409 1.93485 3.60833L2.38027 4.80155M3.77057 2.95689L4.77286 5.64162M2.38027 4.80155C2.19577 4.3073 1.63526 4.05247 1.12839 4.23236C0.621447 4.41225 0.360058 4.95875 0.544559 5.453L1.10137 6.94451M2.38027 4.80155L2.93708 6.2931"
-                                          stroke="#F44336"
-                                          strokeWidth="0.97035"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
-                                    </div>
-                                    <span>Remove From Space</span>
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </div>
-                          </div>
-                        ))}
-
-                        {filteredMembers.length === 0 && (
-                          <div className="p-8 text-center text-neutral-500 text-sm dark:text-neutral-400">
-                            No members found matching "{searchQuery}"
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Pagination Footer */}
-                      {filteredMembers.length > 0 && (
-                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400">
-                          <div className="flex items-center gap-2">
-                            <select
-                              className="border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900"
-                              value={rowsPerPage}
-                              onChange={(e) => {
-                                setRowsPerPage(Number(e.target.value));
-                                setCurrentPage(1);
-                              }}
-                            >
-                              <option value={10}>10</option>
-                              <option value={20}>20</option>
-                              <option value={50}>50</option>
-                            </select>
-                            <span>Rows per page</span>
-                          </div>
-
-                          <div className="flex items-center gap-4">
-                            <span>
-                              {(currentPage - 1) * rowsPerPage + 1}-
-                              {Math.min(
-                                currentPage * rowsPerPage,
-                                filteredMembers.length,
-                              )}{" "}
-                              of {filteredMembers.length}
-                            </span>
-                            <div className="flex items-center gap-1">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-6 w-6"
-                                disabled={currentPage === 1}
-                                onClick={() =>
-                                  setCurrentPage((p) => Math.max(1, p - 1))
-                                }
-                              >
-                                <span className="sr-only">Previous</span>
-                                &lsaquo;
-                              </Button>
-                              <span className="text-neutral-900 font-medium dark:text-neutral-50">
-                                {currentPage} / {totalPages || 1} pages
-                              </span>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-6 w-6"
-                                disabled={currentPage === totalPages}
-                                onClick={() =>
-                                  setCurrentPage((p) =>
-                                    Math.min(totalPages, p + 1),
-                                  )
-                                }
-                              >
-                                <span className="sr-only">Next</span>
-                                &rsaquo;
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          )}
-
-          {/* Settings Tab Content (Placeholder) */}
-          {activeTab === "settings" && (
-            <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
-              <h2 className="text-xl font-semibold capitalize">
-                {t("manageMembersModal.settings")}
-              </h2>
-
-              <div className="flex flex-1 flex-col gap-4">
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <Label
-                    htmlFor="spaceName"
-                    className="text-sm font-medium text-neutral-700 dark:text-neutral-200"
-                  >
-                    Space Name
-                  </Label>
-                  <Input
-                    type="text"
-                    id="spaceName"
-                    placeholder="Enter space name"
-                    value={settingsSpaceName}
-                    onChange={(e) => setSettingsSpaceName(e.target.value)}
-                    className="bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
-                  />
-                </div>
-
-                <div className="pt-4">
-                  <Button
-                    onClick={handleUpdateSpace}
-                    disabled={savingSettings || !settingsSpaceName.trim()}
-                    className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]"
-                  >
-                    {savingSettings ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      "Save Changes"
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Confirmation Dialog */}
-      {memberToRemove && (
-        <Dialog
-          open={!!memberToRemove}
-          onOpenChange={(open) => !open && setMemberToRemove(null)}
-        >
-          <DialogContent
-            overlayClassName="z-[10010]"
-            className="sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 text-black z-[10010]"
-          >
-            <div className="w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 font-bold text-lg">
-              {memberToRemove.name.substring(0, 2).toUpperCase()}
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Remove {memberToRemove.email} from Space?
-              </h3>
-              <p className="text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400">
-                They have been an active Nitx member. Removing them may cause
-                loss of private pages.
-              </p>
-            </div>
-
-            <div className="flex flex-col w-full gap-2 mt-2">
-              <Button
-                onClick={confirmRemoveMember}
-                className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11"
-              >
-                Remove
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => setMemberToRemove(null)}
-                className="w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800"
-              >
-                Cancel
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
-
-      {/* Invite Member Modal - Stacked */}
-      <ManageMembersModal // Fixed Name
-        isOpen={showInviteModal}
-        onClose={() => {
-          setShowInviteModal(false);
-          setMemberToEdit(null);
+      <RemoveMemberDialog
+        member={memberToRemove}
+        onOpenChange={(open) => {
+          if (!open) {
+            setMemberToRemove(null);
+          }
         }}
+        onConfirm={confirmRemoveMember}
+      />
+
+      <ManageMembersModal
+        isOpen={showInviteModal}
+        onClose={() => setShowInviteModal(false)}
         spaceId={spaceId}
         api={api}
-        initialEmail={memberToEdit?.email}
-        initialRole={memberToEdit?.role}
       />
     </>
   );
