@@ -2453,14 +2453,7 @@ var ManageMembersModal_default = ManageMembersModal;
 
 // src/components/spaces/MembersAndNumbers.tsx
 import { HugeiconsIcon } from "@hugeicons/react";
-
-// ../node_modules/@hugeicons/core-free-icons/dist/esm/Copy02Icon.js
-var Copy02Icon = [
-  ["path", { d: "M16.9637 8.98209C16.9613 6.03194 16.9167 4.50384 16.0578 3.45753C15.892 3.25546 15.7067 3.07019 15.5047 2.90436C14.4008 1.99854 12.7609 1.99854 9.48087 1.99854C6.20089 1.99854 4.5609 1.99854 3.45708 2.90436C3.255 3.07018 3.06971 3.25546 2.90387 3.45753C1.99799 4.56128 1.99799 6.20116 1.99799 9.48091C1.99799 12.7607 1.99799 14.4005 2.90387 15.5043C3.0697 15.7063 3.255 15.8916 3.45708 16.0574C4.50346 16.9162 6.03167 16.9608 8.98201 16.9632", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", key: "0" }],
-  ["path", { d: "M14.0283 9.02455L16.994 8.98193M14.0143 22.0013L16.9799 21.9586M21.9716 14.0221L21.9436 16.9818M9.01033 14.0357L8.98236 16.9953M11.4873 9.02455C10.6545 9.17371 9.31781 9.32713 9.01033 11.0488M19.4946 21.9586C20.3296 21.8223 21.6685 21.6894 22.0025 19.9726M19.4946 9.02455C20.3274 9.17371 21.6641 9.32713 21.9716 11.0488M11.5 21.9573C10.6672 21.8086 9.33039 21.6559 9.02197 19.9344", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", key: "1" }]
-];
-
-// src/components/spaces/MembersAndNumbers.tsx
+import { Copy02Icon, Tv01Icon, Key01Icon, Settings01Icon } from "@hugeicons/core-free-icons";
 import { Fragment, jsx as jsx30, jsxs as jsxs18 } from "react/jsx-runtime";
 var MembersAndNumbers = ({
   spaceId,
@@ -2646,36 +2639,7 @@ var MembersAndNumbers = ({
               onClick: () => setActiveTab("settings"),
               className: `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "settings" ? "bg-primary text-white shadow-sm" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"}`,
               children: [
-                /* @__PURE__ */ jsx30("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsxs18(
-                  "svg",
-                  {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    width: "16",
-                    height: "16",
-                    viewBox: "0 0 16 16",
-                    fill: "none",
-                    children: [
-                      /* @__PURE__ */ jsx30(
-                        "path",
-                        {
-                          d: "M13.5013 4.52275L13.1887 3.98024C12.9523 3.56995 12.8341 3.3648 12.633 3.28299C12.4318 3.20119 12.2043 3.26574 11.7494 3.39484L10.9766 3.61252C10.6862 3.6795 10.3814 3.6415 10.1162 3.50524L9.90287 3.38214C9.67544 3.23648 9.50051 3.02171 9.40368 2.76927L9.19221 2.1376C9.05313 1.71959 8.98359 1.51058 8.81803 1.39103C8.65254 1.27148 8.43265 1.27148 7.99286 1.27148H7.28682C6.8471 1.27148 6.62721 1.27148 6.46165 1.39103C6.29613 1.51058 6.2266 1.71959 6.08754 2.1376L5.87603 2.76927C5.7792 3.02171 5.60428 3.23648 5.37686 3.38214L5.1635 3.50524C4.89829 3.6415 4.59357 3.6795 4.30311 3.61252L3.5303 3.39484C3.07535 3.26574 2.84788 3.20119 2.64675 3.28299C2.44562 3.3648 2.32741 3.56995 2.09099 3.98024L1.77839 4.52275C1.55678 4.90734 1.44597 5.09964 1.46748 5.30435C1.48898 5.50905 1.63732 5.67402 1.93399 6.00395L2.58698 6.73398C2.74658 6.93601 2.85989 7.28814 2.85989 7.60475C2.85989 7.92148 2.74662 8.27348 2.587 8.47558L1.93399 9.20562C1.63732 9.53559 1.48899 9.70051 1.46748 9.90527C1.44597 10.11 1.55678 10.3022 1.77839 10.6868L2.09098 11.2293C2.3274 11.6396 2.44562 11.8448 2.64675 11.9265C2.84788 12.0084 3.07536 11.9438 3.53031 11.8147L4.30309 11.597C4.59359 11.53 4.89838 11.5681 5.16362 11.7044L5.37694 11.8275C5.60432 11.9732 5.7792 12.1879 5.87601 12.4403L6.08754 13.0721C6.2266 13.4901 6.29613 13.6991 6.46165 13.8186C6.62721 13.9381 6.8471 13.9381 7.28682 13.9381H7.99286C8.43265 13.9381 8.65254 13.9381 8.81803 13.8186C8.98359 13.6991 9.05313 13.4901 9.19221 13.0721L9.40374 12.4403C9.50051 12.1879 9.67538 11.9732 9.90281 11.8275L10.1161 11.7044C10.3814 11.5681 10.6861 11.53 10.9766 11.597L11.7494 11.8147C12.2043 11.9438 12.4318 12.0084 12.633 11.9265C12.8341 11.8448 12.9523 11.6396 13.1887 11.2293L13.5013 10.6868C13.7229 10.3022 13.8337 10.11 13.8122 9.90527C13.7907 9.70051 13.6424 9.53559 13.3457 9.20562L12.6927 8.47558C12.5331 8.27348 12.4198 7.92148 12.4198 7.60475C12.4198 7.28814 12.5332 6.93601 12.6927 6.73398L13.3457 6.00395C13.6424 5.67402 13.7907 5.50905 13.8122 5.30435C13.8337 5.09964 13.7229 4.90734 13.5013 4.52275Z",
-                          stroke: "currentColor",
-                          strokeWidth: "0.96",
-                          strokeLinecap: "round"
-                        }
-                      ),
-                      /* @__PURE__ */ jsx30(
-                        "path",
-                        {
-                          d: "M9.82882 7.59948C9.82882 8.82371 8.83639 9.81615 7.61216 9.81615C6.38792 9.81615 5.39551 8.82371 5.39551 7.59948C5.39551 6.37525 6.38792 5.38281 7.61216 5.38281C8.83639 5.38281 9.82882 6.37525 9.82882 7.59948Z",
-                          stroke: "currentColor",
-                          strokeWidth: "0.96",
-                          strokeLinecap: "round"
-                        }
-                      )
-                    ]
-                  }
-                ) }),
+                /* @__PURE__ */ jsx30("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Settings01Icon }) }),
                 t("manageMembersModal.settings")
               ]
             }
@@ -2683,7 +2647,37 @@ var MembersAndNumbers = ({
         ] })
       ] }),
       activeTab === "members" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
-        /* @__PURE__ */ jsx30("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx30("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.title") }) }),
+        /* @__PURE__ */ jsx30("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx30("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.title") || "Members & Numbers" }) }),
+        /* @__PURE__ */ jsxs18("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-2", children: [
+          /* @__PURE__ */ jsxs18("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+            /* @__PURE__ */ jsx30("div", { className: "w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Tv01Icon, className: "w-5 h-5" }) }),
+            /* @__PURE__ */ jsxs18("div", { className: "flex flex-col", children: [
+              /* @__PURE__ */ jsx30("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: null }),
+              /* @__PURE__ */ jsx30("span", { className: "text-xs text-neutral-500 font-medium dark:text-neutral-400", children: "Total Screen" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs18("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+            /* @__PURE__ */ jsx30("div", { className: "w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Key01Icon, className: "w-5 h-5" }) }),
+            /* @__PURE__ */ jsxs18("div", { className: "flex flex-col", children: [
+              /* @__PURE__ */ jsx30("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: null }),
+              /* @__PURE__ */ jsx30("span", { className: "text-xs text-neutral-500 font-medium dark:text-neutral-400", children: "Total License" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs18("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+            /* @__PURE__ */ jsx30("div", { className: "w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Key01Icon, className: "w-5 h-5" }) }),
+            /* @__PURE__ */ jsxs18("div", { className: "flex flex-col", children: [
+              /* @__PURE__ */ jsx30("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: null }),
+              /* @__PURE__ */ jsx30("span", { className: "text-xs text-neutral-500 font-medium dark:text-neutral-400", children: "Total Active License" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs18("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+            /* @__PURE__ */ jsx30("div", { className: "w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsx30(HugeiconsIcon, { icon: Key01Icon, className: "w-5 h-5" }) }),
+            /* @__PURE__ */ jsxs18("div", { className: "flex flex-col", children: [
+              /* @__PURE__ */ jsx30("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: null }),
+              /* @__PURE__ */ jsx30("span", { className: "text-xs text-neutral-500 font-medium dark:text-neutral-400", children: "Unused Licenses" })
+            ] })
+          ] })
+        ] }),
         loading ? /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-6", children: [
           /* @__PURE__ */ jsx30("div", { className: "flex justify-between items-center", children: /* @__PURE__ */ jsx30(Skeleton, { className: "h-8 w-32" }) }),
           /* @__PURE__ */ jsxs18("div", { className: "border border-neutral-200 rounded-lg overflow-hidden dark:border-neutral-800", children: [
@@ -2748,7 +2742,7 @@ var MembersAndNumbers = ({
           invitations.length > 0 && /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-4", children: [
             /* @__PURE__ */ jsx30("h3", { className: "text-base font-semibold", children: "Pending Invite" }),
             /* @__PURE__ */ jsx30("p", { className: "text-xs text-neutral-500 -mt-3 dark:text-neutral-400", children: "Invite teammates to start collaborating" }),
-            /* @__PURE__ */ jsxs18("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-neutral-700 dark:bg-primary/10 dark:text-neutral-200", children: [
+            /* @__PURE__ */ jsxs18("div", { className: "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-neutral-700 dark:bg-primary/5 dark:text-neutral-200", children: [
               /* @__PURE__ */ jsx30("div", { children: "Person" }),
               /* @__PURE__ */ jsx30("div", { children: "Roles" }),
               /* @__PURE__ */ jsx30("div", { className: "text-right", children: "Action" })
@@ -3363,7 +3357,7 @@ var MembersAndNumbersModal = () => {
     DrawerDialog,
     {
       size: "2xl",
-      className: "p-0 overflow-hidden sm:max-w-[1280px]",
+      className: "p-0 overflow-hidden sm:max-w-7xl h-[80vh] sm:max-h-[800px] flex flex-col",
       open: modal === "membersAndNumbers",
       onClose: () => setModal(null),
       children: /* @__PURE__ */ jsx31(

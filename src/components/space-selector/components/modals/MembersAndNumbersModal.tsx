@@ -22,7 +22,7 @@ const MembersAndNumbersModal = () => {
   return (
     <DrawerDialog
       size="2xl"
-      className="p-0 overflow-hidden sm:max-w-[1280px]"
+      className="p-0 overflow-hidden sm:max-w-7xl h-[80vh] sm:max-h-[800px] flex flex-col"
       open={modal === "membersAndNumbers"}
       onClose={() => setModal(null)}
     >
