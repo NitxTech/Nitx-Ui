@@ -30,7 +30,7 @@ const MembersAndNumbersLayout = ({
   return (
     <div className="flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900">
       <div className="w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800">
-        <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block">
+        <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block truncate">
           {spaceName || "Space Nitx"}
         </h3>
 

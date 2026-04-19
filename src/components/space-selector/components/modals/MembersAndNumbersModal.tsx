@@ -34,14 +34,16 @@ const MembersAndNumbersModal = () => {
         isOpen={modal === "membersAndNumbers"}
         onRefreshSpaces={refreshSpaces}
         onSpaceNameChange={(nextSpaceName) => {
-          if (!props?.manageSpaceMembers) return;
+          setProps((currentProps: any) => {
+            if (!currentProps?.manageSpaceMembers) return currentProps;
 
-          setProps({
-            ...props,
-            manageSpaceMembers: {
-              ...props.manageSpaceMembers,
-              spaceName: nextSpaceName,
-            },
+            return {
+              ...currentProps,
+              manageSpaceMembers: {
+                ...currentProps.manageSpaceMembers,
+                spaceName: nextSpaceName,
+              },
+            };
           });
         }}
       />

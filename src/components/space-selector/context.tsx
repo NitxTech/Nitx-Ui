@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { ProxySpace, SpaceSelectorApi } from "./types";
 
 interface SpaceSelectorContextType {
@@ -9,13 +16,13 @@ interface SpaceSelectorContextType {
 
   // Actions
   setActiveSpace: (space: ProxySpace) => void;
-  refreshSpaces: () => void;
+  refreshSpaces: () => void | Promise<void>;
 
   // Modal State
   activeModal: string | null;
   setModal: (modal: string | null) => void;
   modalProps: any;
-  setModalProps: (props: any) => void;
+  setModalProps: Dispatch<SetStateAction<any>>;
 
   // API
   api?: SpaceSelectorApi;
@@ -52,7 +59,7 @@ interface SpaceSelectorProviderProps {
   activeSpace: ProxySpace | undefined;
   spaces: ProxySpace[];
   onSpaceSelect: (space: ProxySpace) => void;
-  onRefreshSpaces?: () => void;
+  onRefreshSpaces?: () => void | Promise<void>;
   authUser?: string | number;
   api?: SpaceSelectorApi;
   isExpanded?: boolean;

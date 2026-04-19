@@ -19,7 +19,7 @@ const TablePersonCell = ({
     <div className="flex items-center gap-3">
       <Avatar className="size-10 h-12 w-12 !rounded-sm">
         <AvatarImage src={avatarSrc} />
-        <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
+        <AvatarFallback className="bg-primary/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold">
           {getFallbackText(fallbackValue)}
         </AvatarFallback>
       </Avatar>

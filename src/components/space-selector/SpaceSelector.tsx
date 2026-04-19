@@ -20,7 +20,7 @@ interface SpaceSelectorProps {
   authUser?: string | number;
   isExpanded?: boolean;
   className?: string;
-  onRefreshSpaces?: () => void; // Explicit prop
+  onRefreshSpaces?: () => void | Promise<void>;
 
   showtype?: "DropDown" | "Browser" | "SpaceManager";
   browserClassNames?: SpaceBrowserClasses;

@@ -12,7 +12,7 @@ const StatCard = ({ label, value, icon }: StatCardProps) => {
     <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
       <Avatar className="size-10 h-12 w-12 !rounded-sm">
         <AvatarImage src={""} />
-        <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
+        <AvatarFallback className="bg-primary/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold">
           {icon}
         </AvatarFallback>
       </Avatar>

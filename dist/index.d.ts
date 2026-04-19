@@ -1,5 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import { ReactNode } from 'react';
+import { Dispatch, SetStateAction, ReactNode } from 'react';
 
 interface ProductSwitcherProps {
     auth_user: number | string;
@@ -146,7 +146,7 @@ interface SpaceSelectorProps {
     authUser?: string | number;
     isExpanded?: boolean;
     className?: string;
-    onRefreshSpaces?: () => void;
+    onRefreshSpaces?: () => void | Promise<void>;
     showtype?: "DropDown" | "Browser" | "SpaceManager";
     browserClassNames?: SpaceBrowserClasses;
     isLoading?: boolean;
@@ -161,11 +161,11 @@ interface SpaceSelectorContextType {
     spaces: ProxySpace[];
     isExpanded: boolean;
     setActiveSpace: (space: ProxySpace) => void;
-    refreshSpaces: () => void;
+    refreshSpaces: () => void | Promise<void>;
     activeModal: string | null;
     setModal: (modal: string | null) => void;
     modalProps: any;
-    setModalProps: (props: any) => void;
+    setModalProps: Dispatch<SetStateAction<any>>;
     api?: SpaceSelectorApi;
     authUser?: string | number;
     isLoading?: boolean;
@@ -179,7 +179,7 @@ interface SpaceSelectorProviderProps {
     activeSpace: ProxySpace | undefined;
     spaces: ProxySpace[];
     onSpaceSelect: (space: ProxySpace) => void;
-    onRefreshSpaces?: () => void;
+    onRefreshSpaces?: () => void | Promise<void>;
     authUser?: string | number;
     api?: SpaceSelectorApi;
     isExpanded?: boolean;
@@ -196,7 +196,7 @@ interface MembersAndNumbersProps {
     spaceName?: string;
     api?: SpaceSelectorApi;
     isOpen?: boolean;
-    onRefreshSpaces?: () => void;
+    onRefreshSpaces?: () => void | Promise<void>;
     onSpaceNameChange?: (spaceName: string) => void;
 }
 declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => react_jsx_runtime.JSX.Element | null;

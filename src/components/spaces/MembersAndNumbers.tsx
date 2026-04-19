@@ -31,7 +31,7 @@ export interface MembersAndNumbersProps {
   spaceName?: string;
   api?: SpaceSelectorApi;
   isOpen?: boolean;
-  onRefreshSpaces?: () => void;
+  onRefreshSpaces?: () => void | Promise<void>;
   onSpaceNameChange?: (spaceName: string) => void;
 }
 
@@ -128,7 +128,7 @@ const MembersAndNumbers = ({
     setSavingSettings(true);
     try {
       await api.renameSpace(spaceId, nextSpaceName);
-      onRefreshSpaces?.();
+      await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
       toast.success("Space name updated successfully");
