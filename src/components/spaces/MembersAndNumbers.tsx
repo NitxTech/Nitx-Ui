@@ -249,7 +249,7 @@ const MembersAndNumbers = ({
             <button
               onClick={() => setActiveTab("members")}
               className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "members"
-                ? "bg-primary text-white "
+                ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                 }`}
             >
@@ -262,7 +262,7 @@ const MembersAndNumbers = ({
             <button
               onClick={() => setActiveTab("settings")}
               className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start ${activeTab === "settings"
-                ? "bg-primary text-white shadow-sm"
+                ? "bg-primary text-white shadow-sm dark:bg-primarylight dark:hover:bg-primarylighter dark:hover:bg-white dark:text-primary"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                 }`}
             >
@@ -407,7 +407,7 @@ const MembersAndNumbers = ({
                       </p>
 
                       {/* Table Header */}
-                      <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-neutral-700 dark:bg-primary/5 dark:text-neutral-200">
+                      <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-zinc-700 dark:bg-neutral-800 dark:text-neutral-200">
                         <div>Person</div>
                         <div>Roles</div>
                         <div className="text-right">Action</div>
@@ -420,9 +420,12 @@ const MembersAndNumbers = ({
                             className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-600 text-xs font-medium dark:bg-neutral-800 dark:text-neutral-200">
-                                {invite.email.substring(0, 2).toUpperCase()}
-                              </div>
+                              <Avatar className="size-10 h-12 w-12 !rounded-sm">
+                                <AvatarImage src={""} />
+                                <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
+                                  {invite.email.slice(0, 2).toUpperCase()}
+                                </AvatarFallback>
+                              </Avatar>
                               <div className="flex flex-col">
                                 <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
                                   Member
@@ -564,7 +567,7 @@ const MembersAndNumbers = ({
 
                       {/* Pagination Footer */}
                       {invitations.length > 0 && (
-                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400">
+                        <div className="flex items-center justify-between px-2 text-xs text-neutral-500 mt-2 dark:text-neutral-400 ">
                           <div className="flex items-center gap-2">
                             <select
                               className="border border-neutral-200 rounded p-1 bg-neutral-50 focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-neutral-900"
@@ -655,7 +658,7 @@ const MembersAndNumbers = ({
                         {t("manageMembersModal.inviteTeammatesDescription")}
                       </p>
                       <Button
-                        className="mt-6 bg-primary hover:bg-primary/90 text-white rounded-md px-8 !h-12"
+                        className="mt-6 bg-primary hover:bg-primary/90 dark:hover:bg-white dark:text-primary text-white rounded-md px-8 !h-12"
                         onClick={() => setShowInviteModal(true)}
                       >
                         <UserPlus className="w-4 h-4 mr-2" />
@@ -686,7 +689,7 @@ const MembersAndNumbers = ({
                           />
                         </div>
                         <Button
-                          className="bg-primary hover:bg-primary/90 text-white px-6 rounded-sm font-normal !h-12"
+                          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm font-normal !h-12"
                           onClick={() => setShowInviteModal(true)}
                         >
                           <UserPlus className="w-4 h-4 mr-2" />
@@ -697,7 +700,7 @@ const MembersAndNumbers = ({
                       {/* Members Table */}
                       <div className="w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
                         {/* Table Header */}
-                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-neutral-900/40 dark:border-neutral-800 dark:text-neutral-400">
+                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-zinc-800 dark:border-neutral-800 dark:text-neutral-400">
                           <div>Person</div>
                           <div>Roles</div>
                           <div className="text-right">Action</div>
@@ -706,12 +709,12 @@ const MembersAndNumbers = ({
                         {paginatedMembers.map((member) => (
                           <div
                             key={member.id}
-                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-6 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
+                            className="relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_100px] gap-4 items-start sm:items-center p-4 border-b border-neutral-200 last:border-0 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:hover:bg-neutral-800"
                           >
                             <div className="flex items-center gap-3">
                               <Avatar className="size-10 h-12 w-12 !rounded-sm">
                                 <AvatarImage src={member.imageURL} />
-                                <AvatarFallback className="bg-primary/10 text-primary text-sm !rounded-sm">
+                                <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
                                   {member.name.slice(0, 2).toUpperCase()}
                                 </AvatarFallback>
                               </Avatar>
@@ -921,7 +924,7 @@ const MembersAndNumbers = ({
                   <Button
                     onClick={handleUpdateSpace}
                     disabled={savingSettings || !settingsSpaceName.trim()}
-                    className="bg-primary hover:bg-primary/90 text-white min-w-[120px]"
+                    className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]"
                   >
                     {savingSettings ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
