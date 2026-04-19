@@ -1,7 +1,7 @@
 import { ChevronDown, Search, UserPlus } from "lucide-react";
 import { MoreVertical } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Copy02Icon } from "@hugeicons/core-free-icons";
+import { Copy02Icon, Delete01Icon } from "@hugeicons/core-free-icons";
 
 import type { Member, MemberRole } from "../../space-selector/types";
 import { Button } from "../../ui/button";

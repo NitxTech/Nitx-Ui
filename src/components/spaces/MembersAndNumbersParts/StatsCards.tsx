@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
 interface StatCardProps {
   label: string;
@@ -9,9 +10,12 @@ interface StatCardProps {
 const StatCard = ({ label, value, icon }: StatCardProps) => {
   return (
     <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800">
-      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-        {icon}
-      </div>
+      <Avatar className="size-10 h-12 w-12 !rounded-sm">
+        <AvatarImage src={""} />
+        <AvatarFallback className="bg-primary/10 text-primary dark:bg-primarylight text-sm !rounded-sm font-semibold">
+          {icon}
+        </AvatarFallback>
+      </Avatar>
       <div className="flex flex-col">
         <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
           {value}
