@@ -406,14 +406,14 @@ const MembersAndNumbers = ({
                         Invite teammates to start collaborating
                       </p>
 
-                      {/* Table Header */}
-                      <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-primary/5 rounded-t-lg text-xs font-semibold text-zinc-700 dark:bg-neutral-800 dark:text-neutral-200">
-                        <div>Person</div>
-                        <div>Roles</div>
-                        <div className="text-right">Action</div>
-                      </div>
+                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+                        {/* Table Header */}
+                        <div className="hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-zinc-800 dark:border-neutral-800 dark:text-neutral-400">
+                          <div>Person</div>
+                          <div>Roles</div>
+                          <div className="text-right">Action</div>
+                        </div>
 
-                      <div className="w-full bg-neutral-50 border border-neutral-200 rounded-b-lg overflow-hidden sm:-mt-4 dark:bg-neutral-900 dark:border-neutral-800">
                         {paginatedInvitations.map((invite) => (
                           <div
                             key={invite.id}
@@ -430,13 +430,15 @@ const MembersAndNumbers = ({
                                 <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
                                   Member
                                 </span>
-                                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                                <span className="text-sm text-neutral-500 dark:text-neutral-300">
                                   {invite.email}
                                 </span>
                               </div>
                             </div>
-                            <div className="text-sm text-neutral-600 capitalize ml-11 sm:ml-0 dark:text-neutral-300">
-                              {invite.role}
+                            <div className="ml-14 sm:ml-0">
+                              <div className="h-8 px-2 text-sm font-normal text-neutral-700 capitalize flex items-center justify-start w-24 dark:text-neutral-200">
+                                {invite.role}
+                              </div>
                             </div>
                             <div className="absolute right-2 top-2 sm:static flex justify-end">
                               <DropdownMenu modal={false}>
