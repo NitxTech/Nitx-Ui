@@ -2,7 +2,7 @@ import React from "react";
 import { useOptionalSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import { MemberRole, SpaceSelectorApi } from "../../types";
-import MembersManager from "../../../spaces/MembersManager/MembersManager";
+import MembersManager from "../../../spaces/MembersManager";
 
 interface ManageMembersModalProps {
   isOpen?: boolean;

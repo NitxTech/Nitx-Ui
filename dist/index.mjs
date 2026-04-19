@@ -871,7 +871,7 @@ function DrawerDialog({
   ] }) });
 }
 
-// src/components/spaces/SpaceBrowser/SpaceBrowser.tsx
+// src/components/spaces/SpaceBrowser.tsx
 import { useEffect as useEffect4, useState as useState6 } from "react";
 import { useTranslation as useTranslation5 } from "react-i18next";
 
@@ -917,7 +917,7 @@ var SearchInput = (props) => {
 };
 var search_input_default = SearchInput;
 
-// src/components/spaces/SpaceBrowser/SpaceBrowser.tsx
+// src/components/spaces/SpaceBrowser.tsx
 import { SquarePlusIcon } from "lucide-react";
 
 // src/components/space-selector/ui/card.tsx
@@ -1399,7 +1399,7 @@ var ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel =
 };
 var error_state_default = ErrorState;
 
-// src/components/spaces/SpaceBrowser/SpaceBrowser.tsx
+// src/components/spaces/SpaceBrowser.tsx
 import { jsx as jsx19, jsxs as jsxs13 } from "react/jsx-runtime";
 function renderSearchBar(searchStyle, isLoading, error, onSearch, onNewSpace, t) {
   const shouldShow = isLoading || !isLoading && true;
@@ -1681,7 +1681,7 @@ var NewSpaceModal = () => {
 };
 var NewSpaceModal_default = NewSpaceModal;
 
-// src/components/spaces/MembersAndNumbers/MembersAndNumbers.tsx
+// src/components/spaces/MembersAndNumbers.tsx
 import { useEffect as useEffect7, useState as useState9 } from "react";
 import { useTranslation as useTranslation10 } from "react-i18next";
 import {
@@ -1713,7 +1713,7 @@ var Input2 = React15.forwardRef(
 );
 Input2.displayName = "Input";
 
-// src/components/spaces/MembersAndNumbers/MembersAndNumbers.tsx
+// src/components/spaces/MembersAndNumbers.tsx
 import { toast as toast4 } from "sonner";
 
 // src/components/ui/dialog.tsx
@@ -1828,7 +1828,7 @@ var Label4 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
 ));
 Label4.displayName = LabelPrimitive2.Root.displayName;
 
-// src/components/spaces/MembersManager/MembersManager.tsx
+// src/components/spaces/MembersManager.tsx
 import { useEffect as useEffect6, useState as useState8 } from "react";
 import { useTranslation as useTranslation9 } from "react-i18next";
 import { Loader2, X as X3 } from "lucide-react";
@@ -1992,7 +1992,7 @@ var SelectSeparator = React18.forwardRef(({ className, ...props }, ref) => /* @_
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
-// src/components/spaces/MembersManager/MembersManager.tsx
+// src/components/spaces/MembersManager.tsx
 import { toast as toast3 } from "sonner";
 import { jsx as jsx28, jsxs as jsxs17 } from "react/jsx-runtime";
 var MembersManager = ({
@@ -2451,7 +2451,7 @@ var ManageMembersModal = ({
 };
 var ManageMembersModal_default = ManageMembersModal;
 
-// src/components/spaces/MembersAndNumbers/MembersAndNumbers.tsx
+// src/components/spaces/MembersAndNumbers.tsx
 import { Fragment, jsx as jsx30, jsxs as jsxs18 } from "react/jsx-runtime";
 var MembersAndNumbers = ({
   spaceId,
@@ -2616,7 +2616,7 @@ var MembersAndNumbers = ({
     }
   };
   return /* @__PURE__ */ jsxs18(Fragment, { children: [
-    /* @__PURE__ */ jsxs18("div", { className: "flex flex-col sm:flex-row w-full h-full bg-neutral-50 dark:bg-neutral-900", children: [
+    /* @__PURE__ */ jsxs18("div", { className: "flex flex-col sm:flex-row w-full min-h-full h-full bg-neutral-50 dark:bg-neutral-900", children: [
       /* @__PURE__ */ jsxs18("div", { className: "w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800", children: [
         /* @__PURE__ */ jsx30("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block", children: spaceName || "Space Nitx" }),
         /* @__PURE__ */ jsxs18("div", { className: "flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full", children: [
@@ -3278,7 +3278,7 @@ var MembersAndNumbers = ({
           ] })
         ] })
       ] }),
-      activeTab === "settings" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto", children: [
+      activeTab === "settings" && /* @__PURE__ */ jsxs18("div", { className: "flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
         /* @__PURE__ */ jsx30("h2", { className: "text-xl font-semibold capitalize", children: t("manageMembersModal.settings") }),
         /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-4", children: [
           /* @__PURE__ */ jsxs18("div", { className: "grid w-full max-w-sm items-center gap-1.5", children: [

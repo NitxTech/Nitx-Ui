@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
-import SpaceBrowser from "../../../spaces/SpaceBrowser/SpaceBrowser";
+import SpaceBrowser from "../../../spaces/SpaceBrowser";
 
 const BrowseSpaceModal = () => {
   const { t } = useTranslation("modals");

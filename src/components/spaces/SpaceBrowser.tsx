@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSpaceSelector } from "../../space-selector/context";
-import { Button } from "../../ui/button";
-import SearchInput from "../../space-selector/ui/search-input";
+import { useSpaceSelector } from "../space-selector/context";
+import { Button } from "../ui/button";
+import SearchInput from "../space-selector/ui/search-input";
 import { SquarePlusIcon } from "lucide-react";
-import SpaceCard, { SpaceCardSkeleton } from "../../space-selector/components/SpaceCard";
-import EmptyList from "../../space-selector/components/EmptyList";
-import ErrorState from "../../ui/error-state";
-import { ProxySpace } from "../../space-selector/types";
-import { cn } from "../../../lib/utils";
+import SpaceCard, { SpaceCardSkeleton } from "../space-selector/components/SpaceCard";
+import EmptyList from "../space-selector/components/EmptyList";
+import ErrorState from "../ui/error-state";
+import { ProxySpace } from "../space-selector/types";
+import { cn } from "../../lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

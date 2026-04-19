@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import {
   UserPlus,
   MoreVertical,
@@ -15,20 +15,20 @@ import {
   Member,
   MemberRole,
   SpaceSelectorApi,
-} from "../../space-selector/types";
-import { Input } from "../../ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+} from "../space-selector/types";
+import { Input } from "../ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 import { toast } from "sonner";
-import { Dialog, DialogContent } from "../../ui/dialog";
-import { Label } from "../../ui/label";
-import ManageMembersModal from "../../space-selector/components/modals/ManageMembersModal";
-import { Skeleton } from "../../ui/skeleton";
+import { Dialog, DialogContent } from "../ui/dialog";
+import { Label } from "../ui/label";
+import ManageMembersModal from "../space-selector/components/modals/ManageMembersModal";
+import { Skeleton } from "../ui/skeleton";
 
 export interface MembersAndNumbersProps {
   spaceId: string;
@@ -235,7 +235,7 @@ const MembersAndNumbers = ({
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row w-full h-full bg-neutral-50 dark:bg-neutral-900">
+      <div className="flex flex-col sm:flex-row w-full min-h-full h-full bg-neutral-50 dark:bg-neutral-900">
           {/* Sidebar */}
           <div className="w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800">
             <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block">
@@ -900,7 +900,7 @@ const MembersAndNumbers = ({
 
           {/* Settings Tab Content (Placeholder) */}
           {activeTab === "settings" && (
-            <div className="flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto">
+            <div className="flex-1 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
               <h2 className="text-xl font-semibold capitalize">
                 {t("manageMembersModal.settings")}
               </h2>

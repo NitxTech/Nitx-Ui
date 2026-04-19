@@ -7,10 +7,10 @@ import NewSpaceModal from "./components/modals/NewSpaceModal";
 import MembersAndNumbersModal from "./components/modals/MembersAndNumbersModal";
 import ManageMembersModal from "./components/modals/ManageMembersModal";
 import DeleteConfirmationModal from "./components/modals/DeleteConfirmationModal";
-import { SpaceBrowser, SpaceBrowserProps } from "../spaces/SpaceBrowser";
+import SpaceBrowser, {SpaceBrowserProps } from "../spaces/SpaceBrowser";
 import { SpaceSelectorContent } from "./components/SpaceSelectorContent";
-import { SpaceBrowserClasses } from "../spaces/SpaceBrowser/SpaceBrowser";
-import MembersManager, { MembersManagerProps } from "../spaces/MembersManager/MembersManager";
+import { SpaceBrowserClasses } from "../spaces/SpaceBrowser";
+import MembersManager, { MembersManagerProps } from "../spaces/MembersManager";
 
 interface SpaceSelectorProps {
   spaces: ProxySpace[];

@@ -3,7 +3,7 @@
 import React from "react";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
-import MembersAndNumbers from "../../../spaces/MembersAndNumbers/MembersAndNumbers";
+import MembersAndNumbers from "../../../spaces/MembersAndNumbers";
 
 const MembersAndNumbersModal = () => {
   const {
