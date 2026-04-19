@@ -24,7 +24,7 @@ const SettingsTabContent = ({
 
   return (
     <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
-      <h2 className="text-xl font-semibold capitalize">{title}</h2>
+      <h2 className="text-xl font-semibold capitalize mt-4">{title}</h2>
 
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">

@@ -278,31 +278,33 @@ const MembersAndNumbers = ({
 
   return (
     <>
-      <MembersAndNumbersLayout
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        spaceName={spaceName}
-        membersLabel={t("manageMembersModal.title")}
-        settingsLabel={t("manageMembersModal.settings")}
-        membersContent={
-          <MembersTabContent
-            title={t("manageMembersModal.title") || "Members & Numbers"}
-            stats={stats}
-            loading={loading}
-            pendingInvitesContent={pendingInvitesContent}
-            membersContent={membersContent}
-          />
-        }
-        settingsContent={
-          <SettingsTabContent
-            title={t("manageMembersModal.settings")}
-            spaceName={settingsSpaceName}
-            isSaving={savingSettings}
-            onSpaceNameChange={setSettingsSpaceName}
-            onSave={handleUpdateSpace}
-          />
-        }
-      />
+      <div className="h-full min-h-0 overflow-hidden">
+        <MembersAndNumbersLayout
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          spaceName={spaceName}
+          membersLabel={t("manageMembersModal.title")}
+          settingsLabel={t("manageMembersModal.settings")}
+          membersContent={
+            <MembersTabContent
+              title={t("manageMembersModal.title") || "Members & Numbers"}
+              stats={stats}
+              loading={loading}
+              pendingInvitesContent={pendingInvitesContent}
+              membersContent={membersContent}
+            />
+          }
+          settingsContent={
+            <SettingsTabContent
+              title={t("manageMembersModal.settings")}
+              spaceName={settingsSpaceName}
+              isSaving={savingSettings}
+              onSpaceNameChange={setSettingsSpaceName}
+              onSave={handleUpdateSpace}
+            />
+          }
+        />
+      </div>
 
       <RemoveMemberDialog
         member={memberToRemove}

@@ -21,7 +21,7 @@ const RemoveMemberDialog = ({
     <Dialog open={!!member} onOpenChange={onOpenChange}>
       <DialogContent
         overlayClassName="z-[10010]"
-        className="sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 text-black z-[10010]"
+        className="sm:max-w-[400px] p-6 flex flex-col items-center text-center gap-4 z-[10010] border-none shadow-none bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50"
       >
         <div className="w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 font-bold text-lg">
           {getFallbackText(member.name)}
