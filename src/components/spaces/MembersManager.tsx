@@ -214,7 +214,7 @@ const MembersManager = ({
 
                 <Button
                     variant="default"
-                    className="bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11"
+                    className="bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                     onClick={handleReset}
                 >
                     Done
@@ -230,9 +230,9 @@ const MembersManager = ({
     return (
         <div className="w-full flex flex-col">
             {/* Header */}
-            <div className="flex flex-col items-center gap-3 pt-8 pb-4 px-6 md:px-10">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                    <HugeiconsIcon icon={UserAdd01Icon} className="h-6 w-6" />
+            <div className="flex flex-col items-center gap-3 p-6">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white">
+                    <HugeiconsIcon icon={UserAdd01Icon} className="h-8 w-8" />
                 </div>
 
                 <h2 className="text-2xl font-medium text-neutral-900 dark:text-neutral-50">
@@ -246,14 +246,14 @@ const MembersManager = ({
 
             <form
                 onSubmit={handleFormSubmit}
-                className="flex flex-col gap-6 px-6 md:px-10 pb-10"
+                className="flex flex-col gap-6 p-6"
             >
                 {/* Email Input */}
                 <div className="flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-neutral-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-neutral-50 sticky top-0 dark:border-neutral-700 dark:bg-neutral-900">
                     {pendingEmails.map((item) => (
                         <div
                             key={item.id}
-                            className="bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200"
+                            className="bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                         >
                             <span>{item.email}</span>
                             <button
@@ -385,7 +385,7 @@ const MembersManager = ({
                     <Button
                         type="submit"
                         disabled={isButtonDisabled}
-                        className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50"
+                        className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                     >
                         {isLoading ? (
                             <Loader2 className="w-5 h-5 animate-spin mr-2" />
@@ -397,7 +397,7 @@ const MembersManager = ({
                             type="button"
                             variant="ghost"
                             onClick={onCancel}
-                            className="w-full text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50"
+                            className="w-full h-12 text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50"
                         >
                             Cancel
                         </Button>

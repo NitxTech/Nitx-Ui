@@ -71,7 +71,7 @@ const NewSpaceModal = () => {
       title={t("newSpaceModal.title")}
       className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col p-6">
         <form
           className="flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]"
           onSubmit={handleCreateSpace}
@@ -84,6 +84,7 @@ const NewSpaceModal = () => {
                 placeholder={t("newSpaceModal.spaceNamePlaceholder")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
               />
             </div>
           </div>
@@ -92,7 +93,8 @@ const NewSpaceModal = () => {
             <Button
               type="button"
               onClick={() => setModal(null)}
-              variant="outline"
+              variant="ghost"
+              className="h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
             >
               {t("newSpaceModal.cancel")}
             </Button>
@@ -100,7 +102,7 @@ const NewSpaceModal = () => {
               type="submit"
               disabled={!name || isLoading}
               size="smlg"
-              className="min-w-24 text-white"
+              className="min-w-24 h-11 text-white bg-primary dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
             >
               {isLoading
                 ? t("newSpaceModal.creating")

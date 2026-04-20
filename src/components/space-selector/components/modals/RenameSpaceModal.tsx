@@ -82,7 +82,7 @@ const RenameSpaceFormState = ({
           type="button"
           onClick={onSubmit}
           disabled={isSaving || !spaceName.trim()}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90"
+          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
         >
           {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Changes"}
         </Button>
@@ -101,7 +101,7 @@ const RenameSpaceSuccessState = ({
   onDone,
 }: RenameSpaceSuccessStateProps) => {
   return (
-    <div className="flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8">
+    <div className="flex w-full flex-col items-center gap-4 p-6 text-center">
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
         <Check className="h-7 w-7" />
       </div>
@@ -118,7 +118,7 @@ const RenameSpaceSuccessState = ({
       <Button
         type="button"
         onClick={onDone}
-        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90"
+        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
       >
         Done
       </Button>
@@ -142,7 +142,7 @@ const RenameSpaceErrorState = ({
   onBack,
 }: RenameSpaceErrorStateProps) => {
   return (
-    <div className="flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8">
+    <div className="flex w-full flex-col items-center gap-4 p-6 text-center">
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">
         <TriangleAlert className="h-7 w-7" />
       </div>
@@ -176,7 +176,7 @@ const RenameSpaceErrorState = ({
           type="button"
           onClick={onRetry}
           disabled={isSaving}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90"
+          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" 
         >
           {isSaving ? (
             <Loader2 className="h-4 w-4 animate-spin" />

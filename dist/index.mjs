@@ -1434,7 +1434,7 @@ function renderSearchBar(searchStyle, isLoading, error, onSearch, onNewSpace, t)
         disabled: isLoading || error != null
       }
     ),
-    /* @__PURE__ */ jsxs13(Button, { onClick: onNewSpace, size: "lg", disabled: isLoading, children: [
+    /* @__PURE__ */ jsxs13(Button, { onClick: onNewSpace, size: "lg", disabled: isLoading, className: "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary", children: [
       /* @__PURE__ */ jsx19(SquarePlusIcon, { className: "stroke-[1.8] mr-2" }),
       t("browseSpacesModal.newSpace")
     ] })
@@ -1655,7 +1655,7 @@ var NewSpaceModal = () => {
       onClose: () => setModal(null),
       title: t("newSpaceModal.title"),
       className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
-      children: /* @__PURE__ */ jsx23("div", { className: "w-full flex flex-col", children: /* @__PURE__ */ jsxs14(
+      children: /* @__PURE__ */ jsx23("div", { className: "w-full flex flex-col p-6", children: /* @__PURE__ */ jsxs14(
         "form",
         {
           className: "flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]",
@@ -1669,7 +1669,8 @@ var NewSpaceModal = () => {
                   id: "name",
                   placeholder: t("newSpaceModal.spaceNamePlaceholder"),
                   value: name,
-                  onChange: (e) => setName(e.target.value)
+                  onChange: (e) => setName(e.target.value),
+                  className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
                 }
               )
             ] }) }),
@@ -1679,7 +1680,8 @@ var NewSpaceModal = () => {
                 {
                   type: "button",
                   onClick: () => setModal(null),
-                  variant: "outline",
+                  variant: "ghost",
+                  className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
                   children: t("newSpaceModal.cancel")
                 }
               ),
@@ -1689,7 +1691,7 @@ var NewSpaceModal = () => {
                   type: "submit",
                   disabled: !name || isLoading,
                   size: "smlg",
-                  className: "min-w-24 text-white",
+                  className: "min-w-24 h-11 text-white bg-primary dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
                   children: isLoading ? t("newSpaceModal.creating") : t("newSpaceModal.create")
                 }
               )
@@ -2027,7 +2029,7 @@ var MembersManager = ({
         Button,
         {
           variant: "default",
-          className: "bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11",
+          className: "bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
           onClick: handleReset,
           children: "Done"
         }
@@ -2037,8 +2039,8 @@ var MembersManager = ({
   const isInputValidEmail = email.trim() && emailRegex.test(email.trim());
   const isButtonDisabled = isLoading || pendingEmails.length === 0 && !isInputValidEmail;
   return /* @__PURE__ */ jsxs16("div", { className: "w-full flex flex-col", children: [
-    /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 pt-8 pb-4 px-6 md:px-10", children: [
-      /* @__PURE__ */ jsx26("div", { className: "flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: UserAdd01Icon, className: "h-6 w-6" }) }),
+    /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 p-6", children: [
+      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: "Add Members" }),
       /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: "Type or paste in emails below, separated by commas. Your workspace will be billed by members." })
     ] }),
@@ -2046,13 +2048,13 @@ var MembersManager = ({
       "form",
       {
         onSubmit: handleFormSubmit,
-        className: "flex flex-col gap-6 px-6 md:px-10 pb-10",
+        className: "flex flex-col gap-6 p-6",
         children: [
           /* @__PURE__ */ jsxs16("div", { className: "flex flex-wrap items-center gap-2 min-h-[50px] p-2.5 border border-neutral-200 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all bg-neutral-50 sticky top-0 dark:border-neutral-700 dark:bg-neutral-900", children: [
             pendingEmails.map((item) => /* @__PURE__ */ jsxs16(
               "div",
               {
-                className: "bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200",
+                className: "bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
                 children: [
                   /* @__PURE__ */ jsx26("span", { children: item.email }),
                   /* @__PURE__ */ jsx26(
@@ -2180,7 +2182,7 @@ var MembersManager = ({
               {
                 type: "submit",
                 disabled: isButtonDisabled,
-                className: "w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50",
+                className: "w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
                 children: [
                   isLoading ? /* @__PURE__ */ jsx26(Loader2, { className: "w-5 h-5 animate-spin mr-2" }) : null,
                   isLoading ? "Sending invites..." : "Send invite"
@@ -3140,7 +3142,7 @@ var SettingsTabContent = ({
         {
           onClick: onSave,
           disabled: isSaving || !spaceName.trim(),
-          className: "bg-primary h-12 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]",
+          className: "bg-primary h-11 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]",
           children: isSaving ? /* @__PURE__ */ jsx41(Loader22, { className: "w-4 h-4 animate-spin" }) : "Save Changes"
         }
       ) })
@@ -3615,7 +3617,7 @@ var RenameSpaceFormState = ({
           type: "button",
           onClick: onSubmit,
           disabled: isSaving || !spaceName.trim(),
-          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
           children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : "Save Changes"
         }
       )
@@ -3626,7 +3628,7 @@ var RenameSpaceSuccessState = ({
   spaceName,
   onDone
 }) => {
-  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8", children: [
+  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 p-6 text-center", children: [
     /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400", children: /* @__PURE__ */ jsx45(Check4, { className: "h-7 w-7" }) }),
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
       /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Space Renamed Successfully" }),
@@ -3641,7 +3643,7 @@ var RenameSpaceSuccessState = ({
       {
         type: "button",
         onClick: onDone,
-        className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+        className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
         children: "Done"
       }
     )
@@ -3654,7 +3656,7 @@ var RenameSpaceErrorState = ({
   onRetry,
   onBack
 }) => {
-  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8", children: [
+  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 p-6 text-center", children: [
     /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400", children: /* @__PURE__ */ jsx45(TriangleAlert, { className: "h-7 w-7" }) }),
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
       /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Rename Failed" }),
@@ -3683,7 +3685,7 @@ var RenameSpaceErrorState = ({
           type: "button",
           onClick: onRetry,
           disabled: isSaving,
-          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
           children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs32(Fragment3, { children: [
             /* @__PURE__ */ jsx45(RefreshCw, { className: "mr-2 h-4 w-4" }),
             "Retry"
