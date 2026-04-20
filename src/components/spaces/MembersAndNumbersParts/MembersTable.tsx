@@ -183,7 +183,7 @@ const MembersTable = ({
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h3 className="text-base font-semibold">Members {memberCount}</h3>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
             {SECTION_DESCRIPTION}
           </p>
         </div>
