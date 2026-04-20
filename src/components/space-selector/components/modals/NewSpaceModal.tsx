@@ -71,10 +71,13 @@ const NewSpaceModal = () => {
       className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
       <div className="w-full flex flex-col p-6">
-        <div className="flex flex-col mb-2">
+        <div className="flex flex-col mb-4 gap-2">
           <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
             {t("newSpaceModal.title")}
           </h2>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            Create spaces to help managing screens and content.
+          </p>
         </div>
         <form
           className="flex flex-col flex-1 justify-between gap-6"
