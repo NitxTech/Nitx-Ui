@@ -41,37 +41,6 @@ export const ProductSwitcher = ({
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#",
   };
 
-  // const mediaOwner = [
-  //   {
-  //     title: "Nitx Signage",
-  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
-  //     url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#",
-  //   },
-  //   {
-  //     title: "Nitx Publisher",
-  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
-  //     url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#",
-  //   },
-  //   // {
-  //   //   title: "Nitx Nexus",
-  //   //   image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/nexus-logo.svg",
-  //   //   url: `${process.env.NEXT_PUBLIC_NEXUS_URL}/${auth_user}` || "#",
-  //   // },
-  // ];
-
-  // const advertiser = [
-  //   {
-  //     title: "Nitx Ads",
-  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
-  //     url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#",
-  //   },
-  //   {
-  //     title: "Nitx Studio",
-  //     image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
-  //     url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#",
-  //   },
-  // ];
-
   const products = [
     {
       id: "nitx-signage",
