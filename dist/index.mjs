@@ -1653,52 +1653,57 @@ var NewSpaceModal = () => {
     {
       open: isModalOpen,
       onClose: () => setModal(null),
-      title: t("newSpaceModal.title"),
       className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
-      children: /* @__PURE__ */ jsx23("div", { className: "w-full flex flex-col p-6", children: /* @__PURE__ */ jsxs14(
-        "form",
-        {
-          className: "flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]",
-          onSubmit: handleCreateSpace,
-          children: [
-            /* @__PURE__ */ jsx23("div", { className: "flex flex-col gap-5", children: /* @__PURE__ */ jsxs14("div", { className: "flex flex-col gap-3", children: [
-              /* @__PURE__ */ jsx23(Label3, { htmlFor: "name", children: t("newSpaceModal.typeName") }),
-              /* @__PURE__ */ jsx23(
-                Input,
-                {
-                  id: "name",
-                  placeholder: t("newSpaceModal.spaceNamePlaceholder"),
-                  value: name,
-                  onChange: (e) => setName(e.target.value),
-                  className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
-                }
-              )
-            ] }) }),
-            /* @__PURE__ */ jsxs14("div", { className: "flex justify-end gap-3", children: [
-              /* @__PURE__ */ jsx23(
-                Button2,
-                {
-                  type: "button",
-                  onClick: () => setModal(null),
-                  variant: "ghost",
-                  className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
-                  children: t("newSpaceModal.cancel")
-                }
-              ),
-              /* @__PURE__ */ jsx23(
-                Button2,
-                {
-                  type: "submit",
-                  disabled: !name || isLoading,
-                  size: "smlg",
-                  className: "min-w-24 h-11 text-white bg-primary dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
-                  children: isLoading ? t("newSpaceModal.creating") : t("newSpaceModal.create")
-                }
-              )
-            ] })
-          ]
-        }
-      ) })
+      children: /* @__PURE__ */ jsxs14("div", { className: "w-full flex flex-col p-6", children: [
+        /* @__PURE__ */ jsxs14("div", { className: "flex flex-col mb-4 gap-2", children: [
+          /* @__PURE__ */ jsx23("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("newSpaceModal.title") }),
+          /* @__PURE__ */ jsx23("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: "Create spaces to help managing screens and content." })
+        ] }),
+        /* @__PURE__ */ jsxs14(
+          "form",
+          {
+            className: "flex flex-col flex-1 justify-between gap-6",
+            onSubmit: handleCreateSpace,
+            children: [
+              /* @__PURE__ */ jsx23("div", { className: "flex flex-col gap-5", children: /* @__PURE__ */ jsxs14("div", { className: "flex flex-col gap-3 mt-2", children: [
+                /* @__PURE__ */ jsx23(Label3, { htmlFor: "name", children: t("newSpaceModal.typeName") }),
+                /* @__PURE__ */ jsx23(
+                  Input,
+                  {
+                    id: "name",
+                    placeholder: t("newSpaceModal.spaceNamePlaceholder"),
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+                  }
+                )
+              ] }) }),
+              /* @__PURE__ */ jsxs14("div", { className: "flex justify-end gap-3", children: [
+                /* @__PURE__ */ jsx23(
+                  Button2,
+                  {
+                    type: "button",
+                    onClick: () => setModal(null),
+                    variant: "ghost",
+                    className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
+                    children: t("newSpaceModal.cancel")
+                  }
+                ),
+                /* @__PURE__ */ jsx23(
+                  Button2,
+                  {
+                    type: "submit",
+                    disabled: !name || isLoading,
+                    size: "smlg",
+                    className: "min-w-24 h-11 text-white bg-primary dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+                    children: isLoading ? t("newSpaceModal.creating") : t("newSpaceModal.create")
+                  }
+                )
+              ] })
+            ]
+          }
+        )
+      ] })
     }
   );
 };
@@ -2195,7 +2200,7 @@ var MembersManager = ({
                 type: "button",
                 variant: "ghost",
                 onClick: onCancel,
-                className: "w-full text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+                className: "w-full h-12 text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
                 children: "Cancel"
               }
             )
@@ -2626,7 +2631,7 @@ var InvitationsTable = ({
       "Pending Invite ",
       totalItems
     ] }),
-    /* @__PURE__ */ jsx33("p", { className: "text-xs text-neutral-500 -mt-3 dark:text-neutral-400", children: SECTION_DESCRIPTION }),
+    /* @__PURE__ */ jsx33("p", { className: "text-sm text-neutral-500 -mt-3 dark:text-neutral-400", children: SECTION_DESCRIPTION }),
     /* @__PURE__ */ jsx33(DataTableShell_default, { columns: SHARED_TABLE_COLUMNS, children: items.map((invite) => /* @__PURE__ */ jsxs22("div", { className: TABLE_ROW_CLASS, children: [
       /* @__PURE__ */ jsx33(
         TablePersonCell_default,
@@ -2917,7 +2922,7 @@ var MembersTable = ({
         "Members ",
         memberCount
       ] }),
-      /* @__PURE__ */ jsx37("p", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: SECTION_DESCRIPTION })
+      /* @__PURE__ */ jsx37("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: SECTION_DESCRIPTION })
     ] }) }),
     /* @__PURE__ */ jsxs25("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2", children: [
       /* @__PURE__ */ jsxs25("div", { className: "relative flex-1", children: [
