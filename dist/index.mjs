@@ -193,6 +193,7 @@ import { jsx as jsx3, jsxs as jsxs2 } from "react/jsx-runtime";
 var ProductIcon = ({
   id,
   image,
+  dark_image,
   title,
   url,
   className = ""
@@ -207,7 +208,8 @@ var ProductIcon = ({
       rel: "noopener noreferrer",
       className: `flex items-center ltr:flex-row rtl:flex-row-reverse w-full p-3 rounded-xl border hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:border-zinc-700/50 transition ${className}`,
       children: [
-        /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: image, alt: title, className: "mr-3" }),
+        /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: image, alt: title, className: "mr-3 dark:hidden" }),
+        /* @__PURE__ */ jsx3(Image, { width: 28, height: 28, src: dark_image, alt: title, className: "mr-3 hidden dark:block" }),
         /* @__PURE__ */ jsx3("span", { className: "font-medium text-sm text-left", children: title })
       ]
     }
@@ -278,31 +280,36 @@ var ProductSwitcher = ({
     {
       id: "nitx-signage",
       title: "Nitx Signage",
-      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/signage-icon.svg",
+      image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/signage-icon.svg",
+      dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/signage-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_SIGNAGE_URL}/${auth_user}` || "#"
     },
     {
       id: "nitx-publisher",
       title: "Nitx Publisher",
-      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/publisher-logo.svg",
+      image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/publisher-logo.svg",
+      dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/publisher-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_PUBLISHER_URL}/${auth_user}` || "#"
     },
     {
       id: "nitx-ads",
       title: "Nitx Ads",
-      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/ads-logo.svg",
+      image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/ads-logo.svg",
+      dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/ads-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_ADS_URL}/${auth_user}` || "#"
     },
     {
       id: "nitx-studio",
       title: "Nitx Studio",
-      image: "https://nitx-icons.s3.eu-west-1.amazonaws.com/studio-logo.svg",
+      image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/studio-logo.svg",
+      dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/studio-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_STUDIO_URL}/${auth_user}` || "#"
     },
     {
       id: "nitx-reach",
       title: "Nitx Reach",
       image: "https://res.cloudinary.com/dj3rzny5p/image/upload/v1765777010/Nitx_Reach_Group_1_h6bsbj.svg",
+      dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/reach-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#"
     }
   ];
@@ -3547,8 +3554,248 @@ var DeleteConfirmationModal = () => {
 };
 var DeleteConfirmationModal_default = DeleteConfirmationModal;
 
+// src/components/space-selector/components/modals/RenameSpaceModal.tsx
+import { useEffect as useEffect8, useMemo, useState as useState10 } from "react";
+import { Check as Check4, Loader2 as Loader24, RefreshCw, TriangleAlert } from "lucide-react";
+import { Fragment as Fragment3, jsx as jsx45, jsxs as jsxs32 } from "react/jsx-runtime";
+var getFallbackText2 = (value) => value.trim().slice(0, 2).toUpperCase();
+var RenameSpaceFormState = ({
+  spaceName,
+  logoName,
+  isSaving,
+  onSpaceNameChange,
+  onSubmit,
+  onCancel
+}) => {
+  const logoText = getFallbackText2(logoName || "SP");
+  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col gap-6 p-6", children: [
+    /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Rename Space" }),
+      /* @__PURE__ */ jsx45("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: "Update the space name to keep your workspace organized and easy to find." })
+    ] }),
+    /* @__PURE__ */ jsx45("div", { className: "flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40", children: /* @__PURE__ */ jsxs32("div", { className: "flex flex-col items-start gap-3 sm:flex-row sm:gap-4", children: [
+      /* @__PURE__ */ jsx45("div", { className: "flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-neutral-900 text-lg font-semibold tracking-tight text-white shadow-sm dark:bg-secondary dark:text-white", children: logoText || "SP" }),
+      /* @__PURE__ */ jsxs32("div", { className: "grid flex-1 items-center gap-1.5", children: [
+        /* @__PURE__ */ jsx45(
+          Label3,
+          {
+            htmlFor: "rename-space-name",
+            className: "text-sm font-medium text-neutral-700 dark:text-neutral-200",
+            children: "Space Name"
+          }
+        ),
+        /* @__PURE__ */ jsx45(
+          Input,
+          {
+            id: "rename-space-name",
+            type: "text",
+            placeholder: "Enter space name",
+            value: spaceName,
+            onChange: (event) => onSpaceNameChange(event.target.value),
+            className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxs32("div", { className: "flex flex-col-reverse gap-3 sm:flex-row sm:justify-end", children: [
+      /* @__PURE__ */ jsx45(
+        Button2,
+        {
+          type: "button",
+          variant: "ghost",
+          onClick: onCancel,
+          disabled: isSaving,
+          className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
+          children: "Cancel"
+        }
+      ),
+      /* @__PURE__ */ jsx45(
+        Button2,
+        {
+          type: "button",
+          onClick: onSubmit,
+          disabled: isSaving || !spaceName.trim(),
+          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+          children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : "Save Changes"
+        }
+      )
+    ] })
+  ] });
+};
+var RenameSpaceSuccessState = ({
+  spaceName,
+  onDone
+}) => {
+  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8", children: [
+    /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400", children: /* @__PURE__ */ jsx45(Check4, { className: "h-7 w-7" }) }),
+    /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Space Renamed Successfully" }),
+      /* @__PURE__ */ jsxs32("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: [
+        "Your space is now named ",
+        /* @__PURE__ */ jsx45("span", { className: "font-medium text-neutral-800 dark:text-neutral-200", children: spaceName }),
+        "."
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx45(
+      Button2,
+      {
+        type: "button",
+        onClick: onDone,
+        className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+        children: "Done"
+      }
+    )
+  ] });
+};
+var RenameSpaceErrorState = ({
+  attemptedName,
+  errorMessage,
+  isSaving,
+  onRetry,
+  onBack
+}) => {
+  return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 px-6 pb-8 pt-4 text-center sm:px-8", children: [
+    /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400", children: /* @__PURE__ */ jsx45(TriangleAlert, { className: "h-7 w-7" }) }),
+    /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Rename Failed" }),
+      /* @__PURE__ */ jsxs32("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: [
+        "We couldn't rename ",
+        /* @__PURE__ */ jsx45("span", { className: "font-medium text-neutral-800 dark:text-neutral-200", children: attemptedName || "this space" }),
+        "."
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx45("div", { className: "w-full rounded-2xl border border-red-100 bg-red-50/80 p-4 text-left dark:border-red-500/20 dark:bg-red-500/10", children: /* @__PURE__ */ jsx45("p", { className: "text-sm font-medium text-red-700 dark:text-red-300", children: errorMessage }) }),
+    /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col-reverse gap-3 sm:flex-row sm:justify-center", children: [
+      /* @__PURE__ */ jsx45(
+        Button2,
+        {
+          type: "button",
+          variant: "ghost",
+          onClick: onBack,
+          disabled: isSaving,
+          className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
+          children: "Back to Edit"
+        }
+      ),
+      /* @__PURE__ */ jsx45(
+        Button2,
+        {
+          type: "button",
+          onClick: onRetry,
+          disabled: isSaving,
+          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90",
+          children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs32(Fragment3, { children: [
+            /* @__PURE__ */ jsx45(RefreshCw, { className: "mr-2 h-4 w-4" }),
+            "Retry"
+          ] })
+        }
+      )
+    ] })
+  ] });
+};
+var RenameSpaceModal = () => {
+  const {
+    activeModal,
+    modalProps,
+    setModal,
+    api,
+    activeSpace,
+    setActiveSpace,
+    refreshSpaces
+  } = useSpaceSelector();
+  const renameProps = modalProps?.renameSpaceModalProps;
+  const isOpen = activeModal === "renameSpace" && !!renameProps?.spaceId;
+  const initialName = renameProps?.initialName ?? "";
+  const [draftName, setDraftName] = useState10(initialName);
+  const [lastAttemptedName, setLastAttemptedName] = useState10(initialName);
+  const [view, setView] = useState10("form");
+  const [isSaving, setIsSaving] = useState10(false);
+  const [errorMessage, setErrorMessage] = useState10("");
+  useEffect8(() => {
+    if (!isOpen) {
+      setDraftName("");
+      setLastAttemptedName("");
+      setView("form");
+      setIsSaving(false);
+      setErrorMessage("");
+      return;
+    }
+    setDraftName(initialName);
+    setLastAttemptedName(initialName);
+    setView("form");
+    setIsSaving(false);
+    setErrorMessage("");
+  }, [initialName, isOpen]);
+  const logoName = useMemo(() => draftName.trim() || initialName || "Space", [
+    draftName,
+    initialName
+  ]);
+  if (!isOpen) return null;
+  const closeModal = () => setModal(null);
+  const submitRename = async (nameToSubmit) => {
+    if (!renameProps?.spaceId || !nameToSubmit.trim() || !api?.renameSpace) return;
+    const nextName = nameToSubmit.trim();
+    setIsSaving(true);
+    setLastAttemptedName(nextName);
+    try {
+      await api.renameSpace(renameProps.spaceId, nextName);
+      await refreshSpaces?.();
+      if (activeSpace && (activeSpace.space_uuid === renameProps.spaceId || activeSpace.proxyId === renameProps.spaceId || activeSpace.uuid === renameProps.spaceId)) {
+        setActiveSpace({
+          ...activeSpace,
+          name: nextName
+        });
+      }
+      setDraftName(nextName);
+      setView("success");
+      setErrorMessage("");
+    } catch (error) {
+      const nextErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? "Failed to rename this space. Please try again.";
+      setErrorMessage(nextErrorMessage);
+      setView("error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  return /* @__PURE__ */ jsx45(
+    DrawerDialog,
+    {
+      open: isOpen,
+      onClose: closeModal,
+      className: "overflow-hidden border-none bg-neutral-50 p-0 shadow-none dark:bg-neutral-900",
+      children: /* @__PURE__ */ jsx45("div", { className: "w-full", children: view === "form" ? /* @__PURE__ */ jsx45(
+        RenameSpaceFormState,
+        {
+          spaceName: draftName,
+          logoName,
+          isSaving,
+          onSpaceNameChange: setDraftName,
+          onSubmit: () => submitRename(draftName),
+          onCancel: closeModal
+        }
+      ) : view === "success" ? /* @__PURE__ */ jsx45(
+        RenameSpaceSuccessState,
+        {
+          spaceName: lastAttemptedName,
+          onDone: closeModal
+        }
+      ) : /* @__PURE__ */ jsx45(
+        RenameSpaceErrorState,
+        {
+          attemptedName: lastAttemptedName,
+          errorMessage,
+          isSaving,
+          onRetry: () => submitRename(lastAttemptedName),
+          onBack: () => setView("form")
+        }
+      ) })
+    }
+  );
+};
+var RenameSpaceModal_default = RenameSpaceModal;
+
 // src/components/space-selector/components/SpaceSelectorContent.tsx
-import { useMemo, useState as useState10 } from "react";
+import { useMemo as useMemo2, useState as useState11 } from "react";
 import {
   Building2,
   CheckCircle,
@@ -3559,12 +3806,12 @@ import {
 } from "lucide-react";
 
 // src/components/space-selector/ui/skeleton.tsx
-import { jsx as jsx45 } from "react/jsx-runtime";
+import { jsx as jsx46 } from "react/jsx-runtime";
 function Skeleton2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx45(
+  return /* @__PURE__ */ jsx46(
     "div",
     {
       className: cn2(
@@ -3578,7 +3825,7 @@ function Skeleton2({
 
 // src/components/space-selector/components/SpaceSelectorContent.tsx
 import { useTranslation as useTranslation12 } from "react-i18next";
-import { Fragment as Fragment3, jsx as jsx46, jsxs as jsxs32 } from "react/jsx-runtime";
+import { Fragment as Fragment4, jsx as jsx47, jsxs as jsxs33 } from "react/jsx-runtime";
 var SpaceSelectorContent = () => {
   const { t } = useTranslation12("shared");
   const {
@@ -3589,9 +3836,9 @@ var SpaceSelectorContent = () => {
     setModal,
     setModalProps
   } = useSpaceSelector();
-  const [showOptions, setShowOptions] = useState10(false);
+  const [showOptions, setShowOptions] = useState11(false);
   const isRTL = typeof document !== "undefined" && document.dir === "rtl";
-  const sortedSpaces = useMemo(() => {
+  const sortedSpaces = useMemo2(() => {
     return [...spaces].sort((a, b) => {
       if (a.proxyId === activeSpace?.proxyId) return -1;
       if (b.proxyId === activeSpace?.proxyId) return 1;
@@ -3602,8 +3849,8 @@ var SpaceSelectorContent = () => {
     setShowOptions(false);
     setActiveSpace(space);
   };
-  return /* @__PURE__ */ jsx46(Fragment3, { children: /* @__PURE__ */ jsx46("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs32(DropdownMenu2, { onOpenChange: setShowOptions, children: [
-    /* @__PURE__ */ jsx46(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx46(
+  return /* @__PURE__ */ jsx47(Fragment4, { children: /* @__PURE__ */ jsx47("div", { className: "relative w-full", children: /* @__PURE__ */ jsxs33(DropdownMenu2, { onOpenChange: setShowOptions, children: [
+    /* @__PURE__ */ jsx47(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx47(
       "div",
       {
         className: cn2(
@@ -3611,15 +3858,15 @@ var SpaceSelectorContent = () => {
           !isExpanded && "items-center justify-center w-[40px] h-[40px] mx-auto",
           showOptions && "border-primary"
         ),
-        children: isExpanded ? /* @__PURE__ */ jsxs32(Fragment3, { children: [
-          /* @__PURE__ */ jsxs32("div", { className: "w-full flex flex-col gap-1", children: [
-            /* @__PURE__ */ jsx46("span", { className: "text-xs", children: t("sidebar.Space") }),
-            /* @__PURE__ */ jsxs32("div", { className: "text-sm xl:text-base w-full max-w-40 capitalize truncate", children: [
-              /* @__PURE__ */ jsx46("p", { children: activeSpace?.name }),
-              !activeSpace?.name && /* @__PURE__ */ jsx46(Skeleton2, { className: "h-4 w-3/4 bg-gray-300/80" })
+        children: isExpanded ? /* @__PURE__ */ jsxs33(Fragment4, { children: [
+          /* @__PURE__ */ jsxs33("div", { className: "w-full flex flex-col gap-1", children: [
+            /* @__PURE__ */ jsx47("span", { className: "text-xs", children: t("sidebar.Space") }),
+            /* @__PURE__ */ jsxs33("div", { className: "text-sm xl:text-base w-full max-w-40 capitalize truncate", children: [
+              /* @__PURE__ */ jsx47("p", { children: activeSpace?.name }),
+              !activeSpace?.name && /* @__PURE__ */ jsx47(Skeleton2, { className: "h-4 w-3/4 bg-gray-300/80" })
             ] })
           ] }),
-          /* @__PURE__ */ jsx46(
+          /* @__PURE__ */ jsx47(
             ChevronDown4,
             {
               className: cn2(
@@ -3628,26 +3875,26 @@ var SpaceSelectorContent = () => {
               )
             }
           )
-        ] }) : /* @__PURE__ */ jsx46("div", { children: /* @__PURE__ */ jsx46(Building2, { className: "w-5 h-5" }) })
+        ] }) : /* @__PURE__ */ jsx47("div", { children: /* @__PURE__ */ jsx47(Building2, { className: "w-5 h-5" }) })
       }
     ) }),
-    /* @__PURE__ */ jsxs32(DropdownMenuContent2, { className: "w-full min-w-[260px] bg-white rounded-lg p-1 border flex-col gap-1 text-sm shadow-lg z-[100]", children: [
-      /* @__PURE__ */ jsx46(
+    /* @__PURE__ */ jsxs33(DropdownMenuContent2, { className: "w-full min-w-[260px] bg-white rounded-lg p-1 border flex-col gap-1 text-sm shadow-lg z-[100]", children: [
+      /* @__PURE__ */ jsx47(
         "p",
         {
           className: `text-[11px] text-zinc-600 uppercase p-3 ${isRTL ? "!text-right" : "!text-left"}`,
           children: t("sidebar.Recently Spaces")
         }
       ),
-      sortedSpaces.slice(0, 3).map((option, key) => /* @__PURE__ */ jsxs32(
+      sortedSpaces.slice(0, 3).map((option, key) => /* @__PURE__ */ jsxs33(
         DropdownMenuItem2,
         {
           onClick: () => handleChange(option),
           className: "w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
           children: [
-            /* @__PURE__ */ jsx46(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
-            /* @__PURE__ */ jsx46("p", { className: "max-w-[8rem] truncate", children: option.name }),
-            /* @__PURE__ */ jsx46(
+            /* @__PURE__ */ jsx47(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
+            /* @__PURE__ */ jsx47("p", { className: "max-w-[8rem] truncate", children: option.name }),
+            /* @__PURE__ */ jsx47(
               CheckCircle,
               {
                 className: cn2(
@@ -3660,33 +3907,33 @@ var SpaceSelectorContent = () => {
         },
         key
       )),
-      /* @__PURE__ */ jsx46(DropdownMenuSeparator2, {}),
-      /* @__PURE__ */ jsxs32("div", { className: "w-full flex flex-col", children: [
-        /* @__PURE__ */ jsx46(
+      /* @__PURE__ */ jsx47(DropdownMenuSeparator2, {}),
+      /* @__PURE__ */ jsxs33("div", { className: "w-full flex flex-col", children: [
+        /* @__PURE__ */ jsx47(
           DropdownMenuItem2,
           {
             onClick: () => setModal("browseSpace"),
             className: "w-full p-2 transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
-            children: /* @__PURE__ */ jsxs32("div", { className: "w-full flex gap-3 justify-start items-center", children: [
-              /* @__PURE__ */ jsx46(SquareArrowOutUpRight, { className: "w-4 h-4 stroke-[1.5]" }),
+            children: /* @__PURE__ */ jsxs33("div", { className: "w-full flex gap-3 justify-start items-center", children: [
+              /* @__PURE__ */ jsx47(SquareArrowOutUpRight, { className: "w-4 h-4 stroke-[1.5]" }),
               t("sidebar.Browse More")
             ] })
           }
         ),
-        /* @__PURE__ */ jsxs32(
+        /* @__PURE__ */ jsxs33(
           DropdownMenuItem2,
           {
             onClick: () => setModal("newSpace"),
             className: "w-full flex justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
             children: [
-              /* @__PURE__ */ jsx46(SquarePlus, { className: "w-4 h-4 stroke-[1.5]" }),
+              /* @__PURE__ */ jsx47(SquarePlus, { className: "w-4 h-4 stroke-[1.5]" }),
               t("sidebar.New Space")
             ]
           }
         )
       ] }),
-      /* @__PURE__ */ jsx46(DropdownMenuSeparator2, {}),
-      /* @__PURE__ */ jsxs32(
+      /* @__PURE__ */ jsx47(DropdownMenuSeparator2, {}),
+      /* @__PURE__ */ jsxs33(
         DropdownMenuItem2,
         {
           onClick: () => {
@@ -3700,7 +3947,7 @@ var SpaceSelectorContent = () => {
           },
           className: "w-full flex justify-start mt-1 px-2 py-4 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
           children: [
-            /* @__PURE__ */ jsx46(Users22, { className: "w-4 h-4 stroke-[1.5]" }),
+            /* @__PURE__ */ jsx47(Users22, { className: "w-4 h-4 stroke-[1.5]" }),
             t("sidebar.Manage Members")
           ]
         }
@@ -3710,15 +3957,16 @@ var SpaceSelectorContent = () => {
 };
 
 // src/components/space-selector/SpaceSelector.tsx
-import { jsx as jsx47, jsxs as jsxs33 } from "react/jsx-runtime";
+import { jsx as jsx48, jsxs as jsxs34 } from "react/jsx-runtime";
 var SpaceSelector = (props) => {
-  return /* @__PURE__ */ jsxs33(SpaceSelectorProvider, { ...props, children: [
-    props?.showtype == "Browser" ? /* @__PURE__ */ jsx47(SpaceBrowser_default, { browserClassNames: props?.browserClassNames, isLoading: props?.isLoading ?? false, error: props.error, onFail: props.onFail }) : /* @__PURE__ */ jsx47(SpaceSelectorContent, {}),
-    /* @__PURE__ */ jsx47(BrowseSpaceModal_default, {}),
-    /* @__PURE__ */ jsx47(NewSpaceModal_default, {}),
-    /* @__PURE__ */ jsx47(MembersAndNumbersModal_default, {}),
-    /* @__PURE__ */ jsx47(ManageMembersModal_default, {}),
-    /* @__PURE__ */ jsx47(DeleteConfirmationModal_default, {})
+  return /* @__PURE__ */ jsxs34(SpaceSelectorProvider, { ...props, children: [
+    props?.showtype == "Browser" ? /* @__PURE__ */ jsx48(SpaceBrowser_default, { browserClassNames: props?.browserClassNames, isLoading: props?.isLoading ?? false, error: props.error, onFail: props.onFail }) : /* @__PURE__ */ jsx48(SpaceSelectorContent, {}),
+    /* @__PURE__ */ jsx48(BrowseSpaceModal_default, {}),
+    /* @__PURE__ */ jsx48(NewSpaceModal_default, {}),
+    /* @__PURE__ */ jsx48(RenameSpaceModal_default, {}),
+    /* @__PURE__ */ jsx48(MembersAndNumbersModal_default, {}),
+    /* @__PURE__ */ jsx48(ManageMembersModal_default, {}),
+    /* @__PURE__ */ jsx48(DeleteConfirmationModal_default, {})
   ] });
 };
 
