@@ -68,16 +68,20 @@ const NewSpaceModal = () => {
     <DrawerDialog
       open={isModalOpen}
       onClose={() => setModal(null)}
-      title={t("newSpaceModal.title")}
       className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
     >
       <div className="w-full flex flex-col p-6">
+        <div className="flex flex-col mb-2">
+          <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            {t("newSpaceModal.title")}
+          </h2>
+        </div>
         <form
-          className="flex flex-col flex-1 justify-between gap-6 px-6 md:px-10 pb-10 pt-2 min-h-[23rem]"
+          className="flex flex-col flex-1 justify-between gap-6"
           onSubmit={handleCreateSpace}
         >
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mt-2">
               <Label htmlFor="name">{t("newSpaceModal.typeName")}</Label>
               <Input
                 id="name"
