@@ -8,7 +8,6 @@
     "strict": true,
     "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true, // Generates .d.ts files

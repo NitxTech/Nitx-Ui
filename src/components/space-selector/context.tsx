@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { ProxySpace, SpaceSelectorApi } from "./types";
 
 interface SpaceSelectorContextType {
@@ -16,36 +9,27 @@ interface SpaceSelectorContextType {
 
   // Actions
   setActiveSpace: (space: ProxySpace) => void;
-  refreshSpaces: () => void | Promise<void>;
+  refreshSpaces: () => void;
 
   // Modal State
   activeModal: string | null;
   setModal: (modal: string | null) => void;
   modalProps: any;
-  setModalProps: Dispatch<SetStateAction<any>>;
+  setModalProps: (props: any) => void;
 
   // API
   api?: SpaceSelectorApi;
 
   // Utils
   authUser?: string | number;
-
-
-  isLoading?: boolean;
-  error?: string | null;
-  onFail?: () => void,
 }
 
 const SpaceSelectorContext = createContext<
   SpaceSelectorContextType | undefined
 >(undefined);
 
-export const useOptionalSpaceSelector = () => {
-  return useContext(SpaceSelectorContext);
-};
-
 export const useSpaceSelector = () => {
-  const context = useOptionalSpaceSelector();
+  const context = useContext(SpaceSelectorContext);
   if (!context) {
     throw new Error(
       "useSpaceSelector must be used within a SpaceSelectorProvider"
@@ -59,13 +43,10 @@ interface SpaceSelectorProviderProps {
   activeSpace: ProxySpace | undefined;
   spaces: ProxySpace[];
   onSpaceSelect: (space: ProxySpace) => void;
-  onRefreshSpaces?: () => void | Promise<void>;
+  onRefreshSpaces?: () => void;
   authUser?: string | number;
   api?: SpaceSelectorApi;
   isExpanded?: boolean;
-  isLoading?: boolean;
-  error?: string | null;
-  onFail?: () => void,
 }
 
 export const SpaceSelectorProvider = ({
@@ -77,9 +58,6 @@ export const SpaceSelectorProvider = ({
   authUser,
   api,
   isExpanded = true,
-  isLoading = false,
-  error = null,
-  onFail = () => { },
 }: SpaceSelectorProviderProps) => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalProps, setModalProps] = useState<any>({});
@@ -96,16 +74,13 @@ export const SpaceSelectorProvider = ({
         spaces,
         isExpanded,
         setActiveSpace: onSpaceSelect,
-        refreshSpaces: onRefreshSpaces || (() => { }),
+        refreshSpaces: onRefreshSpaces || (() => {}),
         activeModal,
         setModal,
         modalProps,
         setModalProps,
         api,
         authUser,
-        isLoading,
-        error,
-        onFail,
       }}
     >
       {children}

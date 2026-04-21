@@ -1,6 +1,8 @@
 import { Member } from "../types";
+import { useSpaceSelector } from "../context";
 
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -12,11 +14,6 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "../lib/utils";
 import { ChevronDown, Loader2 } from "lucide-react";
-import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
-import {
-  DEFAULT_MEMBER_ROLE_OPTIONS,
-  getMemberRoleDefinitions,
-} from "../../spaces/member-role-config";
 
 interface MemberItemProps {
   member: Member;
@@ -24,11 +21,21 @@ interface MemberItemProps {
   onRemove: (memberId: string) => Promise<void>;
 }
 
+type Role = {
+  title: string; // MemberRole in actual type but string compatible
+  description: string;
+};
+
 const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
-  const { t } = useNitxUiTranslation();
+  const { t } = useTranslation("components");
+  const { setModalProps } = useSpaceSelector(); // Replaces useModal
   const [isLoading, setIsLoading] = useState(false);
 
-  const roles = getMemberRoleDefinitions(DEFAULT_MEMBER_ROLE_OPTIONS);
+  const roles: Role[] = [
+    { title: "viewer", description: t("memberItem.viewerDescription") },
+    { title: "editor", description: t("memberItem.editorDescription") },
+    { title: "manager", description: t("memberItem.managerDescription") },
+  ];
 
   const handleRemoveMember = async () => {
     // Confirmation handled by parent or simple confirm here?
@@ -72,27 +79,27 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
           className="text-xs flex items-center capitalize cursor-pointer p-2 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={member.role === "owner"}
         >
-          {t(`roles.${member.role}`)}
+          {member.role}
           <ChevronDown className="w-3 h-3 ml-1" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {roles.map((role) => (
             <DropdownMenuItem
-              key={role.value}
+              key={role.title}
               disabled={member.role === "owner"}
-              onClick={() => handleUpdateRole(role.value)}
+              onClick={() => handleUpdateRole(role.title)}
               className="cursor-pointer"
             >
               <div className="flex flex-col gap-1 w-full">
                 <div className="w-full flex justify-between items-center gap-4">
                   <span className="text-xs capitalize font-medium">
-                    {t(role.labelKey)}
+                    {role.title}
                   </span>
                   <Checkbox
-                    checked={member.role === role.value}
+                    checked={member.role === role.title}
                     className={cn(
                       "w-4 h-4 scale-75 border-zinc-400",
-                      member.role === role.value && "border-primary"
+                      member.role === role.title && "border-primary"
                     )}
                   />
                 </div>

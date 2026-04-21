@@ -10,10 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useSpaceSelector } from "../context";
-import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface SpaceCardProps {
   id: string;
@@ -22,31 +22,8 @@ interface SpaceCardProps {
   className?: string;
 }
 
-import { Skeleton } from "../../ui/skeleton";
-
-export const SpaceCardSkeleton = () => {
-  return (
-    <Card className="shadow-none bg-neutral-50 border-[.5px] border-neutral-200 p-3 w-full lg:w-auto min-w-72 flex gap-4 dark:bg-neutral-900 dark:border-neutral-800">
-      {/* Icon placeholder */}
-      <div className="w-full flex-1 flex gap-4 items-center">
-        <Skeleton className="w-10 h-10 lg:w-[50px] lg:h-[50px] rounded-lg shrink-0" />
-
-        {/* Name + members placeholder */}
-        <div className="flex flex-col gap-2 w-full">
-          <Skeleton className="h-3.5 w-32 rounded" />
-          <Skeleton className="h-3 w-20 rounded" />
-        </div>
-      </div>
-
-      {/* Dropdown button placeholder */}
-      <Skeleton className="size-10 rounded-sm shrink-0" />
-    </Card>
-  );
-};
-
-
 const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
-  const { t } = useNitxUiTranslation();
+  const { t } = useTranslation("components");
   const [isLoading, setIsLoading] = useState(false);
   // Use package context instead of global hooks
   const {

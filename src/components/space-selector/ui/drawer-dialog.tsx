@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { cn } from "../lib/utils";
@@ -18,7 +19,6 @@ import {
   DrawerHeader,
 } from "./drawer"; // Local import
 import { ChevronLeft } from "lucide-react";
-import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 const sizeVariants = {
   default: "sm:max-w-[500px]",
@@ -34,7 +34,6 @@ interface DrawerDialogProps {
   description?: string;
   children: React.ReactNode;
   className?: string;
-  bodyClassName?: string;
   size?: keyof typeof sizeVariants;
   back?: () => void;
   onClose?: () => void;
@@ -47,14 +46,13 @@ export function DrawerDialog({
   description,
   children,
   className,
-  bodyClassName,
   size = "default",
   back,
   onClose,
   open = true,
   overlayClassName,
 }: DrawerDialogProps) {
-  const { t } = useNitxUiTranslation();
+  const { t } = useTranslation("components");
   const [isMounted, setIsMounted] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 1140px)");
 
@@ -113,12 +111,7 @@ export function DrawerDialog({
               <DialogTitle>{t("drawerDialog.modalTitle")}</DialogTitle>
             </VisuallyHidden.Root>
           )}
-          <div
-            className={cn(
-              "flex-grow flex flex-col min-h-0 w-full overflow-y-auto",
-              bodyClassName,
-            )}
-          >
+          <div className="flex-grow flex flex-col min-h-0 w-full overflow-y-auto">
             {children}
           </div>
         </DialogContent>
@@ -134,9 +127,7 @@ export function DrawerDialog({
           {title}
           <DrawerDescription>{description}</DrawerDescription>
         </DrawerHeader>
-        <div className={cn("flex flex-col h-auto overflow-y-auto", bodyClassName)}>
-          {children}
-        </div>
+        <div className="flex flex-col h-auto overflow-y-auto">{children}</div>
       </DrawerContent>
     </Drawer>
   );

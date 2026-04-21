@@ -29,9 +29,7 @@
     --chart-3: 216 92% 60%;
     --chart-4: 210 98% 78%;
     --chart-5: 212 97% 87%;
-    --primarylight: 240 100% 95.3%;
   }
-
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -57,20 +55,5 @@
     --chart-3: 216 92% 60%;
     --chart-4: 210 98% 78%;
     --chart-5: 212 97% 87%;
-    --primarylight: 240 100% 95.3%;
-    --primarylighter: 240 100% 98%;
   }
 }
-
-.bg-primarylight {
-  background-color: hsl(var(--primarylight));
-}
-.bg-primarylighter {
-  background-color: hsl(var(--primarylighter));
-}
-/* .dark .button.primary{
-  background-color: hsl(var(--primarylight));
-} */
-/* .dark .button.primary{
-  background-color: hsl(var(--primarylighter));
-} */

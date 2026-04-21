@@ -1,18 +1,15 @@
 import React, { InputHTMLAttributes } from "react";
 import { SearchIcon } from "lucide-react";
 import { Input } from "./input"; // Local import expectation
-import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const SearchInput: React.FC<SearchInputProps> = (props) => {
-  const { t } = useNitxUiTranslation();
-
   return (
     <div className="relative flex-grow">
       <Input
         type="search"
-        placeholder={props.placeholder ?? t("searchInput.placeholder")}
+        placeholder="Search..."
         className="w-full p-6 border-neutral-200 bg-neutral-50 text-neutral-900 rounded-lg shadow-none placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 dark:placeholder:text-neutral-500"
         {...props}
       />
