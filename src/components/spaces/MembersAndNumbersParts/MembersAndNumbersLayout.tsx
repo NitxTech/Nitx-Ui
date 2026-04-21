@@ -41,7 +41,7 @@ const MembersAndNumbersLayout = ({
           <button
             onClick={() => onTabChange("members")}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 rounded-md text-sm transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
+              "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
               activeTab === "members"
                 ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
