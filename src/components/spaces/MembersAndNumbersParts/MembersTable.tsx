@@ -2,6 +2,7 @@ import { ChevronDown, Search, UserPlus } from "lucide-react";
 import { MoreVertical } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Copy02Icon, Delete01Icon } from "@hugeicons/core-free-icons";
+import { useTranslation } from "react-i18next";
 
 import type { Member, MemberRole } from "../../space-selector/types";
 import { Button } from "../../ui/button";
@@ -17,10 +18,10 @@ import DataTableShell from "./DataTableShell";
 import TablePagination from "./TablePagination";
 import TablePersonCell from "./TablePersonCell";
 import {
+  getSectionDescription,
+  getSharedTableColumns,
   MEMBER_PAGE_SIZE_OPTIONS,
   MEMBER_ROLE_OPTIONS,
-  SECTION_DESCRIPTION,
-  SHARED_TABLE_COLUMNS,
   TABLE_ROW_CLASS,
 } from "./constants";
 
@@ -56,6 +57,8 @@ const MemberRowActions = ({
   onCopyEmail,
   onRemove,
 }: MemberRowActionsProps) => {
+  const { t } = useTranslation("nitxuilib");
+
   return (
     <div className="absolute right-2 top-2 sm:static flex justify-end">
       <DropdownMenu modal={false}>
@@ -76,7 +79,7 @@ const MemberRowActions = ({
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Copy02Icon} />
             </div>
-            <span>Copy Email</span>
+            <span>{t("membersAndNumbers.table.actions.copyEmail")}</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -100,7 +103,7 @@ const MemberRowActions = ({
                 />
               </svg>
             </div>
-            <span>Remove From Space</span>
+            <span>{t("membersAndNumbers.table.actions.removeFromSpace")}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -167,6 +170,10 @@ const MembersTable = ({
   onCopyEmail,
   onRemove,
 }: MembersTableProps) => {
+  const { t } = useTranslation("nitxuilib");
+  const columns = getSharedTableColumns(t);
+  const sectionDescription = getSectionDescription(t);
+
   if (showEmptyState) {
     return (
       <MembersEmptyState
@@ -182,9 +189,11 @@ const MembersTable = ({
     <div className="flex flex-col gap-4 mt-2">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <h3 className="text-base font-semibold">Members {memberCount}</h3>
+          <h3 className="text-base font-semibold">
+            {t("membersAndNumbers.membersCount", { count: memberCount })}
+          </h3>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            {SECTION_DESCRIPTION}
+            {sectionDescription}
           </p>
         </div>
       </div>
@@ -193,7 +202,7 @@ const MembersTable = ({
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-500" />
           <Input
-            placeholder="Search"
+            placeholder={t("membersAndNumbers.table.searchPlaceholder")}
             className="pl-9 !h-12 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700"
             value={searchQuery}
             onChange={(event) => onSearchQueryChange(event.target.value)}
@@ -209,11 +218,11 @@ const MembersTable = ({
       </div>
 
       <DataTableShell
-        columns={SHARED_TABLE_COLUMNS}
+        columns={columns}
         hasRows={items.length > 0}
         emptyState={
           <div className="p-8 text-center text-neutral-500 text-sm dark:text-neutral-400">
-            No members found matching "{searchQuery}"
+            {t("membersAndNumbers.table.noMembersFound", { query: searchQuery })}
           </div>
         }
       >
@@ -233,7 +242,7 @@ const MembersTable = ({
                     variant="ghost"
                     className="h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800"
                   >
-                    {member.role}
+                    {t(`roles.${member.role}`)}
                     <ChevronDown className="w-4 h-4 ml-2" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -243,7 +252,7 @@ const MembersTable = ({
                       key={role}
                       onClick={() => onRoleChange(member.id, role)}
                     >
-                      {role.charAt(0).toUpperCase() + role.slice(1)}
+                      {t(`roles.${role}`)}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>

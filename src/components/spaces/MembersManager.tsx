@@ -41,43 +41,24 @@ export interface MembersManagerProps {
 
 const roleDisplay = {
     viewer: {
-        label: "Viewer",
-        description:
-            "Can view content and data only, without making any changes.",
-        shortDescription: "Can view content only",
         triggerIcon: User02Icon,
         menuIcon: EyeIcon,
     },
     editor: {
-        label: "Editor",
-        description:
-            "Can edit and update content, but cannot manage settings or users.",
-        shortDescription: "Can edit content",
         triggerIcon: PencilEdit01Icon,
         menuIcon: PencilEdit01Icon,
     },
     manager: {
-        label: "Manager",
-        description:
-            "Full control to manage content, settings, and user permissions.",
-        shortDescription: "Full control",
         triggerIcon: Shield01Icon,
         menuIcon: Shield01Icon,
     },
     owner: {
-        label: "Owner",
-        description:
-            "Full ownership of the space, including billing, settings, and member permissions.",
-        shortDescription: "Full ownership",
         triggerIcon: Shield01Icon,
         menuIcon: Shield01Icon,
     },
 } as const satisfies Record<
     MemberRole,
     {
-        label: string;
-        description: string;
-        shortDescription: string;
         triggerIcon: typeof User02Icon;
         menuIcon: typeof User02Icon;
     }
@@ -99,7 +80,7 @@ const MembersManager = ({
     onSuccess,
     onCancel,
 }: MembersManagerProps) => {
-    const { t } = useTranslation("modals");
+    const { t } = useTranslation("nitxuilib");
     const spaceSelector = useOptionalSpaceSelector();
     const api = apiProp ?? spaceSelector?.api;
     if (!spaceId || !api?.inviteMembers) return null;
@@ -206,10 +187,10 @@ const MembersManager = ({
                     <HugeiconsIcon icon={Tick02Icon} className="w-6 h-6" />
                 </div>
                 <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
-                    Invitations sent successfully
+                    {t("membersManager.successTitle")}
                 </h2>
                 <p className="text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400">
-                    Invited users will receive an email to join your Space
+                    {t("membersManager.successDescription")}
                 </p>
 
                 <Button
@@ -217,7 +198,7 @@ const MembersManager = ({
                     className="bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                     onClick={handleReset}
                 >
-                    Done
+                    {t("membersManager.done")}
                 </Button>
             </div>
         );
@@ -236,11 +217,10 @@ const MembersManager = ({
                 </div>
 
                 <h2 className="text-2xl font-medium text-neutral-900 dark:text-neutral-50">
-                    Add Members
+                    {t("membersManager.title")}
                 </h2>
                 <p className="text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400">
-                    Type or paste in emails below, separated by commas. Your workspace
-                    will be billed by members.
+                    {t("membersManager.description")}
                 </p>
             </div>
 
@@ -272,7 +252,9 @@ const MembersManager = ({
                         onKeyDown={handleEmailKeyDown}
                         onBlur={handleEmailBlur}
                         placeholder={
-                            pendingEmails.length === 0 ? "Search names or emails" : ""
+                            pendingEmails.length === 0
+                                ? t("membersManager.emailPlaceholder")
+                                : ""
                         }
                         className="flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-neutral-400 h-8 dark:text-neutral-50 dark:placeholder:text-neutral-500"
                     />
@@ -281,7 +263,7 @@ const MembersManager = ({
                 {/* Role Selection */}
                 <div className="flex flex-col gap-2">
                     <Label className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
-                        Select Role
+                        {t("membersManager.selectRole")}
                     </Label>
                     <div className="relative">
                         <Select
@@ -303,10 +285,10 @@ const MembersManager = ({
                                     </div>
                                     <div className="flex flex-col gap-0.5 flex-1">
                                         <span className="font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200">
-                                            {selectedRole.label}
+                                            {t(`roles.${pendingRole}`)}
                                         </span>
                                         <span className="text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400">
-                                            {selectedRole.description}
+                                            {t(`membersManager.roles.${pendingRole}.description`)}
                                         </span>
                                     </div>
                                 </div>
@@ -325,10 +307,10 @@ const MembersManager = ({
                                         </div>
                                         <div className="flex flex-col gap-0.5 text-left">
                                             <span className="font-semibold text-sm">
-                                                {roleDisplay.viewer.label}
+                                                {t("roles.viewer")}
                                             </span>
                                             <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {roleDisplay.viewer.shortDescription}
+                                                {t("membersManager.roles.viewer.shortDescription")}
                                             </span>
                                         </div>
                                     </div>
@@ -346,10 +328,10 @@ const MembersManager = ({
                                         </div>
                                         <div className="flex flex-col gap-0.5 text-left">
                                             <span className="font-semibold text-sm">
-                                                {roleDisplay.editor.label}
+                                                {t("roles.editor")}
                                             </span>
                                             <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {roleDisplay.editor.shortDescription}
+                                                {t("membersManager.roles.editor.shortDescription")}
                                             </span>
                                         </div>
                                     </div>
@@ -367,10 +349,10 @@ const MembersManager = ({
                                         </div>
                                         <div className="flex flex-col gap-0.5 text-left">
                                             <span className="font-semibold text-sm">
-                                                {roleDisplay.manager.label}
+                                                {t("roles.manager")}
                                             </span>
                                             <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {roleDisplay.manager.shortDescription}
+                                                {t("membersManager.roles.manager.shortDescription")}
                                             </span>
                                         </div>
                                     </div>
@@ -390,7 +372,9 @@ const MembersManager = ({
                         {isLoading ? (
                             <Loader2 className="w-5 h-5 animate-spin mr-2" />
                         ) : null}
-                        {isLoading ? "Sending invites..." : "Send invite"}
+                        {isLoading
+                            ? t("membersManager.sendingInvites")
+                            : t("membersManager.sendInvite")}
                     </Button>
                     {onCancel && (
                         <Button
@@ -399,7 +383,7 @@ const MembersManager = ({
                             onClick={onCancel}
                             className="w-full h-12 text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50"
                         >
-                            Cancel
+                            {t("membersManager.cancel")}
                         </Button>
                     )}
                 </div>

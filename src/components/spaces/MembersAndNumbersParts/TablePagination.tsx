@@ -1,4 +1,5 @@
 import { Button } from "../../ui/button";
+import { useTranslation } from "react-i18next";
 
 interface TablePaginationProps {
   currentPage: number;
@@ -19,6 +20,7 @@ const TablePagination = ({
   onPageChange,
   onRowsPerPageChange,
 }: TablePaginationProps) => {
+  const { t } = useTranslation("nitxuilib");
   if (totalItems === 0) return null;
 
   const safeTotalPages = totalPages || 1;
@@ -39,12 +41,16 @@ const TablePagination = ({
             </option>
           ))}
         </select>
-        <span>Rows per page</span>
+        <span>{t("membersAndNumbers.table.rowsPerPage")}</span>
       </div>
 
       <div className="flex items-center gap-4">
         <span>
-          {startItem}-{endItem} of {totalItems}
+          {t("membersAndNumbers.table.range", {
+            start: startItem,
+            end: endItem,
+            total: totalItems,
+          })}
         </span>
         <div className="flex items-center gap-1">
           <Button
@@ -54,11 +60,14 @@ const TablePagination = ({
             disabled={currentPage === 1}
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
           >
-            <span className="sr-only">Previous</span>
+            <span className="sr-only">{t("membersAndNumbers.table.previous")}</span>
             &lsaquo;
           </Button>
           <span className="text-neutral-900 font-medium dark:text-neutral-50">
-            {currentPage} / {safeTotalPages} pages
+            {t("membersAndNumbers.table.pageCount", {
+              current: currentPage,
+              total: safeTotalPages,
+            })}
           </span>
           <Button
             variant="ghost"
@@ -67,7 +76,7 @@ const TablePagination = ({
             disabled={currentPage >= safeTotalPages}
             onClick={() => onPageChange(Math.min(safeTotalPages, currentPage + 1))}
           >
-            <span className="sr-only">Next</span>
+            <span className="sr-only">{t("membersAndNumbers.table.next")}</span>
             &rsaquo;
           </Button>
         </div>

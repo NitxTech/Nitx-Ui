@@ -12,13 +12,16 @@ const EmptyList = ({
   description,
   image = "/empty-list.png", // Asset handling in package might be tricky
 }: EmptyListProps) => {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation("nitxuilib");
   const defaultTitle = title || t("emptyList.noItemsFound");
   const defaultDescription = description || t("emptyList.defaultDescription");
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-      <img src="/illustrations/empty-spaces.svg" alt="" />
+      <img
+        src="/illustrations/empty-spaces.svg"
+        alt={t("emptyList.imageAlt")}
+      />
       <p className="text-lg font-semibold text-center text-neutral-900 dark:text-neutral-50">
         {defaultTitle}
       </p>

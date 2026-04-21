@@ -1,4 +1,5 @@
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
@@ -20,6 +21,7 @@ const SettingsTabContent = ({
   onSpaceNameChange,
   onSave,
 }: SettingsTabContentProps) => {
+  const { t } = useTranslation("nitxuilib");
   const logoText = getFallbackText(spaceName || "SP");
 
   return (
@@ -37,12 +39,12 @@ const SettingsTabContent = ({
               htmlFor="spaceName"
               className="text-sm font-medium text-neutral-700 dark:text-neutral-200"
             >
-              Space Name
+              {t("renameSpaceModal.spaceNameLabel")}
             </Label>
             <Input
               type="text"
               id="spaceName"
-              placeholder="Enter space name"
+              placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
               className="bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
@@ -56,7 +58,11 @@ const SettingsTabContent = ({
             disabled={isSaving || !spaceName.trim()}
             className="bg-primary h-11 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]"
           >
-            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Changes"}
+            {isSaving ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              t("renameSpaceModal.saveChanges")
+            )}
           </Button>
         </div>
       </div>

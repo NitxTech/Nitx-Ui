@@ -8,7 +8,7 @@ import { Input } from "../../ui/input";
 import { toast } from "sonner";
 
 const NewSpaceModal = () => {
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation("nitxuilib");
 
   const {
     activeModal,
@@ -76,7 +76,7 @@ const NewSpaceModal = () => {
             {t("newSpaceModal.title")}
           </h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            Create spaces to help managing screens and content.
+            {t("newSpaceModal.description")}
           </p>
         </div>
         <form

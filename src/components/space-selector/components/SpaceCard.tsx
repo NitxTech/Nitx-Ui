@@ -46,7 +46,7 @@ export const SpaceCardSkeleton = () => {
 
 
 const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation("nitxuilib");
   const [isLoading, setIsLoading] = useState(false);
   // Use package context instead of global hooks
   const {

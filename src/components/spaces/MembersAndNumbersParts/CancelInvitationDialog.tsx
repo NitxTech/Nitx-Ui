@@ -1,4 +1,5 @@
 import type { Invitation } from "../../space-selector/types";
+import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/button";
 import { Dialog, DialogContent } from "../../ui/dialog";
 
@@ -15,6 +16,7 @@ const CancelInvitationDialog = ({
   onOpenChange,
   onConfirm,
 }: CancelInvitationDialogProps) => {
+  const { t } = useTranslation("nitxuilib");
   if (!invitation) return null;
 
   return (
@@ -29,11 +31,10 @@ const CancelInvitationDialog = ({
 
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-            Cancel invitation for {invitation.email}?
+            {t("cancelInvitationDialog.title", { email: invitation.email })}
           </h3>
           <p className="text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400">
-            This invite is still pending. Cancelling it will remove access to
-            this invitation link.
+            {t("cancelInvitationDialog.description")}
           </p>
         </div>
 
@@ -42,14 +43,14 @@ const CancelInvitationDialog = ({
             onClick={onConfirm}
             className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11"
           >
-            Cancel Invitation
+            {t("cancelInvitationDialog.confirm")}
           </Button>
           <Button
             variant="ghost"
             onClick={() => onOpenChange(false)}
             className="w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
-            Keep Invitation
+            {t("cancelInvitationDialog.cancel")}
           </Button>
         </div>
       </DialogContent>

@@ -9,6 +9,7 @@ import { ChevronRight, Grip } from "lucide-react";
 import ProductIcon from "./product-icon";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 // import nexusLogo from "../../assets/nexus-logo.svg";
 
@@ -27,6 +28,7 @@ export const ProductSwitcher = ({
   profileImage,
   profileName,
 }: ProductSwitcherProps) => {
+  const { t } = useTranslation("nitxuilib");
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export const ProductSwitcher = ({
   if (!isMounted) return null;
 
   const profile = {
-    name: "Manage My Account",
+    name: t("productSwitcher.manageMyAccount"),
     icon: profileIcon,
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#",
   };
@@ -101,7 +103,7 @@ export const ProductSwitcher = ({
               src={`${profileImage}`}
             />
             <AvatarFallback className="rounded-none bg-primary text-white ">
-              {`${(profileName || "User")
+              {`${(profileName || t("productSwitcher.userFallback"))
                 .split(" ")
                 .slice(0, 2)
                 .map((n) => n[0].toUpperCase())

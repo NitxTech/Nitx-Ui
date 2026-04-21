@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 
 const DeleteConfirmationModal = () => {
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation("nitxuilib");
   const { activeModal, modalProps, setModal } = useSpaceSelector();
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -58,7 +58,7 @@ const DeleteConfirmationModal = () => {
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
-              t("remove", "Remove")
+              t("remove")
             )}
           </Button>
           <Button

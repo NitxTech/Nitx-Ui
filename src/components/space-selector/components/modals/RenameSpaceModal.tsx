@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Check, Loader2, PencilLine, RefreshCw, TriangleAlert } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
@@ -14,6 +15,7 @@ type RenameModalView = "form" | "success" | "error";
 const getFallbackText = (value: string) => value.trim().slice(0, 2).toUpperCase();
 
 interface RenameSpaceFormStateProps {
+  t: (key: string, options?: Record<string, unknown>) => string;
   spaceName: string;
   logoName: string;
   isSaving: boolean;
@@ -23,6 +25,7 @@ interface RenameSpaceFormStateProps {
 }
 
 const RenameSpaceFormState = ({
+  t,
   spaceName,
   logoName,
   isSaving,
@@ -36,10 +39,10 @@ const RenameSpaceFormState = ({
     <div className="flex w-full flex-col gap-6 p-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-          Rename Space
+          {t("renameSpaceModal.title")}
         </h2>
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          Update the space name to keep your workspace organized and easy to find.
+          {t("renameSpaceModal.description")}
         </p>
       </div>
 
@@ -54,12 +57,12 @@ const RenameSpaceFormState = ({
               htmlFor="rename-space-name"
               className="text-sm font-medium text-neutral-700 dark:text-neutral-200"
             >
-              Space Name
+              {t("renameSpaceModal.spaceNameLabel")}
             </Label>
             <Input
               id="rename-space-name"
               type="text"
-              placeholder="Enter space name"
+              placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
               className="h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
@@ -76,7 +79,7 @@ const RenameSpaceFormState = ({
           disabled={isSaving}
           className="h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
         >
-          Cancel
+          {t("renameSpaceModal.cancel")}
         </Button>
         <Button
           type="button"
@@ -84,7 +87,11 @@ const RenameSpaceFormState = ({
           disabled={isSaving || !spaceName.trim()}
           className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
         >
-          {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Changes"}
+          {isSaving ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            t("renameSpaceModal.saveChanges")
+          )}
         </Button>
       </div>
     </div>
@@ -92,11 +99,13 @@ const RenameSpaceFormState = ({
 };
 
 interface RenameSpaceSuccessStateProps {
+  t: (key: string, options?: Record<string, unknown>) => string;
   spaceName: string;
   onDone: () => void;
 }
 
 const RenameSpaceSuccessState = ({
+  t,
   spaceName,
   onDone,
 }: RenameSpaceSuccessStateProps) => {
@@ -108,10 +117,10 @@ const RenameSpaceSuccessState = ({
 
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-          Space Renamed Successfully
+          {t("renameSpaceModal.successTitle")}
         </h2>
         <p className="max-w-sm text-sm text-neutral-500 dark:text-neutral-400">
-          Your space is now named <span className="font-medium text-neutral-800 dark:text-neutral-200">{spaceName}</span>.
+          {t("renameSpaceModal.successDescription", { name: spaceName })}
         </p>
       </div>
 
@@ -120,13 +129,14 @@ const RenameSpaceSuccessState = ({
         onClick={onDone}
         className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
       >
-        Done
+        {t("renameSpaceModal.done")}
       </Button>
     </div>
   );
 };
 
 interface RenameSpaceErrorStateProps {
+  t: (key: string, options?: Record<string, unknown>) => string;
   attemptedName: string;
   errorMessage: string;
   isSaving: boolean;
@@ -135,6 +145,7 @@ interface RenameSpaceErrorStateProps {
 }
 
 const RenameSpaceErrorState = ({
+  t,
   attemptedName,
   errorMessage,
   isSaving,
@@ -149,10 +160,12 @@ const RenameSpaceErrorState = ({
 
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-          Rename Failed
+          {t("renameSpaceModal.errorTitle")}
         </h2>
         <p className="max-w-sm text-sm text-neutral-500 dark:text-neutral-400">
-          We couldn&apos;t rename <span className="font-medium text-neutral-800 dark:text-neutral-200">{attemptedName || "this space"}</span>.
+          {t("renameSpaceModal.errorDescription", {
+            name: attemptedName || t("renameSpaceModal.thisSpace"),
+          })}
         </p>
       </div>
 
@@ -170,7 +183,7 @@ const RenameSpaceErrorState = ({
           disabled={isSaving}
           className="h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
         >
-          Back to Edit
+          {t("renameSpaceModal.backToEdit")}
         </Button>
         <Button
           type="button"
@@ -183,7 +196,7 @@ const RenameSpaceErrorState = ({
           ) : (
             <>
               <RefreshCw className="mr-2 h-4 w-4" />
-              Retry
+              {t("renameSpaceModal.retry")}
             </>
           )}
         </Button>
@@ -193,6 +206,7 @@ const RenameSpaceErrorState = ({
 };
 
 const RenameSpaceModal = () => {
+  const { t } = useTranslation("nitxuilib");
   const {
     activeModal,
     modalProps,
@@ -270,7 +284,7 @@ const RenameSpaceModal = () => {
       const nextErrorMessage =
         error?.response?.data?.errors?.name?.[0] ??
         error?.response?.data?.message ??
-        "Failed to rename this space. Please try again.";
+        t("renameSpaceModal.defaultError");
 
       setErrorMessage(nextErrorMessage);
       setView("error");
@@ -288,6 +302,7 @@ const RenameSpaceModal = () => {
       <div className="w-full">
         {view === "form" ? (
           <RenameSpaceFormState
+            t={t}
             spaceName={draftName}
             logoName={logoName}
             isSaving={isSaving}
@@ -297,11 +312,13 @@ const RenameSpaceModal = () => {
           />
         ) : view === "success" ? (
           <RenameSpaceSuccessState
+            t={t}
             spaceName={lastAttemptedName}
             onDone={closeModal}
           />
         ) : (
           <RenameSpaceErrorState
+            t={t}
             attemptedName={lastAttemptedName}
             errorMessage={errorMessage}
             isSaving={isSaving}

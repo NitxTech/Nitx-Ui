@@ -211,6 +211,6 @@ interface ErrorStateProps {
     /** Label for the retry button — defaults to "Try again" */
     retryLabel?: string;
 }
-declare const ErrorState: ({ message, title, onRetry, retryLabel }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
+declare const ErrorState: ({ message, title, onRetry, retryLabel, }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
 
 export { ErrorState, type ErrorStateProps, type Invitation, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useOptionalSpaceSelector, useSpaceSelector };

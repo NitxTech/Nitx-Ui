@@ -20,11 +20,12 @@ import TablePagination from "./TablePagination";
 import TablePersonCell from "./TablePersonCell";
 import {
   INVITATION_PAGE_SIZE_OPTIONS,
-  SECTION_DESCRIPTION,
-  SHARED_TABLE_COLUMNS,
+  getSectionDescription,
+  getSharedTableColumns,
   TABLE_ROLE_CELL_CLASS,
   TABLE_ROW_CLASS,
 } from "./constants";
+import { useTranslation } from "react-i18next";
 
 interface InvitationsTableProps {
   items: Invitation[];
@@ -55,6 +56,8 @@ const InvitationRowActions = ({
   onCopyInviteLink,
   onRevoke,
 }: InvitationRowActionsProps) => {
+  const { t } = useTranslation("nitxuilib");
+
   return (
     <div className="absolute right-2 top-2 sm:static flex justify-end">
       <DropdownMenu modal={false}>
@@ -75,7 +78,7 @@ const InvitationRowActions = ({
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Refresh01Icon} />
             </div>
-            <span>Resend Invitation</span>
+            <span>{t("membersAndNumbers.table.actions.resendInvitation")}</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -85,7 +88,7 @@ const InvitationRowActions = ({
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Copy02Icon} />
             </div>
-            <span>Copy Email</span>
+            <span>{t("membersAndNumbers.table.actions.copyEmail")}</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -95,7 +98,7 @@ const InvitationRowActions = ({
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Link01Icon} />
             </div>
-            <span>Copy Invite Link</span>
+            <span>{t("membersAndNumbers.table.actions.copyInviteLink")}</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -105,7 +108,7 @@ const InvitationRowActions = ({
             <div className="w-4 h-4 flex items-center justify-center">
               <HugeiconsIcon icon={Cancel01Icon} />
             </div>
-            <span>Cancel Invitation</span>
+            <span>{t("membersAndNumbers.table.actions.cancelInvitation")}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -126,26 +129,32 @@ const InvitationsTable = ({
   onCopyInviteLink,
   onRevoke,
 }: InvitationsTableProps) => {
+  const { t } = useTranslation("nitxuilib");
+  const columns = getSharedTableColumns(t);
+  const sectionDescription = getSectionDescription(t);
+
   if (totalItems === 0) return null;
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-base font-semibold">Pending Invite {totalItems}</h3>
+      <h3 className="text-base font-semibold">
+        {t("membersAndNumbers.pendingInvitesCount", { count: totalItems })}
+      </h3>
       <p className="text-sm text-neutral-500 -mt-3 dark:text-neutral-400">
-        {SECTION_DESCRIPTION}
+        {sectionDescription}
       </p>
 
-      <DataTableShell columns={SHARED_TABLE_COLUMNS}>
+      <DataTableShell columns={columns}>
         {items.map((invite) => (
           <div key={invite.id} className={TABLE_ROW_CLASS}>
             <TablePersonCell
-              title="Member"
+              title={t("membersAndNumbers.table.pendingMemberTitle")}
               subtitle={invite.email}
               fallbackValue={invite.email}
             />
 
             <div className="ml-14 sm:ml-0">
-              <div className={TABLE_ROLE_CELL_CLASS}>{invite.role}</div>
+              <div className={TABLE_ROLE_CELL_CLASS}>{t(`roles.${invite.role}`)}</div>
             </div>
 
             <InvitationRowActions

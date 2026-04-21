@@ -117,7 +117,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
   const { className, internalContainerStyle, searchStyle, spacesContainerStyle, spaceCardStyle } =
     browserClassNames ?? {};
 
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation("nitxuilib");
   const { spaces, setModal, setActiveSpace } = useSpaceSelector();
 
   const [filteredSpaces, setFilteredSpaces] = useState<ProxySpace[]>(spaces);
@@ -144,7 +144,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
           title={t("browseSpacesModal.errorTitle")}
           message={error}
           onRetry={onFail}
-          retryLabel={t("buttons.try_again")}
+          retryLabel={t("buttons.tryAgain")}
         />
       );
     }

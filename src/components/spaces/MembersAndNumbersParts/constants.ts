@@ -5,12 +5,17 @@ export interface DataTableColumn {
   className?: string;
 }
 
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
 export type MembersAndNumbersTab = "members" | "settings";
 
-export const SHARED_TABLE_COLUMNS: DataTableColumn[] = [
-  { label: "Person" },
-  { label: "Roles" },
-  { label: "Action", className: "text-right" },
+export const getSharedTableColumns = (t: TranslateFn): DataTableColumn[] => [
+  { label: t("membersAndNumbers.table.columns.person") },
+  { label: t("membersAndNumbers.table.columns.roles") },
+  {
+    label: t("membersAndNumbers.table.columns.actions"),
+    className: "text-right",
+  },
 ];
 
 export const TABLE_CONTAINER_CLASS =
@@ -28,7 +33,8 @@ export const TABLE_ROLE_CELL_CLASS =
 export const MEMBER_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 export const INVITATION_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
-export const SECTION_DESCRIPTION = "Invite teammates to start collaborating";
+export const getSectionDescription = (t: TranslateFn) =>
+  t("membersAndNumbers.sectionDescription");
 
 export const MEMBER_ROLE_OPTIONS: MemberRole[] = [
   "viewer",

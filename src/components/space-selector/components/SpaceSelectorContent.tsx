@@ -25,7 +25,7 @@ import { ProxySpace } from "../types";
 
 
 export const SpaceSelectorContent = () => {
-  const { t } = useTranslation("shared");
+  const { t } = useTranslation("nitxuilib");
   const {
     spaces,
     activeSpace,

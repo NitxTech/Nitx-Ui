@@ -54,7 +54,7 @@ export function DrawerDialog({
   open = true,
   overlayClassName,
 }: DrawerDialogProps) {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation("nitxuilib");
   const [isMounted, setIsMounted] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 1140px)");
 

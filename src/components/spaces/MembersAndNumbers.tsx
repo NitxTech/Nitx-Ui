@@ -43,7 +43,7 @@ const MembersAndNumbers = ({
   onRefreshSpaces,
   onSpaceNameChange,
 }: MembersAndNumbersProps) => {
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation("nitxuilib");
 
   const [activeTab, setActiveTab] = useState<MembersAndNumbersTab>("members");
   const [licenseCount, setLicenseCount] = useState(0);
@@ -131,12 +131,12 @@ const MembersAndNumbers = ({
       await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
-      toast.success("Space name updated successfully");
+      toast.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
     } catch (error: any) {
       const renameErrorMessage =
         error?.response?.data?.errors?.name?.[0] ??
         error?.response?.data?.message ??
-        "Failed to update space name";
+        t("membersAndNumbers.toasts.failedToUpdateSpaceName");
 
       toast.error(renameErrorMessage);
     } finally {
@@ -171,17 +171,17 @@ const MembersAndNumbers = ({
         prev.filter((invite) => invite.id !== invitationToCancel.id),
       );
       await api.revokeInvitation(spaceId, invitationToCancel.id);
-      toast.success("Invitation cancelled successfully");
+      toast.success(t("membersAndNumbers.toasts.invitationCancelled"));
       setInvitationToCancel(null);
     } catch (error) {
-      toast.error("Failed to cancel invitation");
+      toast.error(t("membersAndNumbers.toasts.failedToCancelInvitation"));
       fetchData();
     }
   };
 
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email);
-    toast.success("Email copied to clipboard");
+    toast.success(t("membersAndNumbers.toasts.emailCopied"));
   };
 
   const confirmRemoveMember = async () => {
@@ -201,9 +201,9 @@ const MembersAndNumbers = ({
   const handleResendInvitation = async (id: string) => {
     try {
       await api.resendInvitation(spaceId, id);
-      toast.success("Invitation resent successfully");
+      toast.success(t("membersAndNumbers.toasts.invitationResent"));
     } catch (error) {
-      toast.error("Failed to resend invitation");
+      toast.error(t("membersAndNumbers.toasts.failedToResendInvitation"));
     }
   };
 
@@ -211,36 +211,36 @@ const MembersAndNumbers = ({
     try {
       const link = await api.getInviteLink(spaceId, invite.id);
       if (!link) {
-        toast.error("Failed to get invite link");
+        toast.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
         return;
       }
 
       await navigator.clipboard.writeText(link);
-      toast.success("Invite link copied to clipboard");
+      toast.success(t("membersAndNumbers.toasts.inviteLinkCopied"));
     } catch (error) {
       console.error(error);
-      toast.error("Failed to get invite link");
+      toast.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
     }
   };
 
   const stats: StatCardProps[] = [
     {
-      label: "Total Screen",
+      label: t("membersAndNumbers.stats.totalScreens"),
       value: screensCount,
       icon: <HugeiconsIcon icon={Tv01Icon} className="w-5 h-5" />,
     },
     {
-      label: "Total License",
+      label: t("membersAndNumbers.stats.totalLicenses"),
       value: licenseCount,
       icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
     },
     {
-      label: "Total Active License",
+      label: t("membersAndNumbers.stats.totalActiveLicenses"),
       value: null,
       icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
     },
     {
-      label: "Unused Licenses",
+      label: t("membersAndNumbers.stats.unusedLicenses"),
       value: null,
       icon: <HugeiconsIcon icon={Key01Icon} className="w-5 h-5" />,
     },
@@ -303,7 +303,7 @@ const MembersAndNumbers = ({
           settingsLabel={t("manageMembersModal.settings")}
           membersContent={
             <MembersTabContent
-              title={t("manageMembersModal.title") || "Members & Numbers"}
+              title={t("manageMembersModal.title")}
               stats={stats}
               loading={loading}
               pendingInvitesContent={pendingInvitesContent}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { cn } from "../../lib/utils";
 
 export interface ErrorStateProps {
@@ -12,7 +13,16 @@ export interface ErrorStateProps {
   retryLabel?: string;
 }
 
-const ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel = "Try again" }: ErrorStateProps) => {
+const ErrorState = ({
+  message,
+  title,
+  onRetry,
+  retryLabel,
+}: ErrorStateProps) => {
+  const { t } = useTranslation("nitxuilib");
+  const resolvedTitle = title ?? t("errorState.title");
+  const resolvedRetryLabel = retryLabel ?? t("buttons.tryAgain");
+
   return (
     <div className="w-full flex flex-col items-center justify-center gap-5 py-14 px-6">
       {/* Icon */}
@@ -34,7 +44,7 @@ const ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel
 
       {/* Text */}
       <div className="flex flex-col items-center gap-1.5 text-center max-w-[260px]">
-        <p className="text-sm font-medium text-foreground/80">{title}</p>
+        <p className="text-sm font-medium text-foreground/80">{resolvedTitle}</p>
         <p className="text-xs text-muted-foreground leading-relaxed">{message}</p>
       </div>
 
@@ -65,7 +75,7 @@ const ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel
             <path d="M1 4v6h6" />
             <path d="M3.51 15a9 9 0 1 0 .49-3.41" />
           </svg>
-          {retryLabel}
+          {resolvedRetryLabel}
         </button>
       )}
     </div>

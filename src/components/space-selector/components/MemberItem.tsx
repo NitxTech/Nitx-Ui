@@ -1,5 +1,4 @@
 import { Member } from "../types";
-import { useSpaceSelector } from "../context";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,8 +26,7 @@ type Role = {
 };
 
 const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
-  const { t } = useTranslation("components");
-  const { setModalProps } = useSpaceSelector(); // Replaces useModal
+  const { t } = useTranslation("nitxuilib");
   const [isLoading, setIsLoading] = useState(false);
 
   const roles: Role[] = [
@@ -79,7 +77,7 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
           className="text-xs flex items-center capitalize cursor-pointer p-2 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={member.role === "owner"}
         >
-          {member.role}
+          {t(`roles.${member.role}`)}
           <ChevronDown className="w-3 h-3 ml-1" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -93,7 +91,7 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
               <div className="flex flex-col gap-1 w-full">
                 <div className="w-full flex justify-between items-center gap-4">
                   <span className="text-xs capitalize font-medium">
-                    {role.title}
+                    {t(`roles.${role.title}`)}
                   </span>
                   <Checkbox
                     checked={member.role === role.title}

@@ -219,6 +219,7 @@ var product_icon_default = ProductIcon;
 
 // src/components/product-switcher/product-switcher.tsx
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // src/components/ui/avatar.tsx
 import * as React3 from "react";
@@ -266,13 +267,14 @@ var ProductSwitcher = ({
   profileImage,
   profileName
 }) => {
+  const { t } = useTranslation("nitxuilib");
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
   if (!isMounted) return null;
   const profile = {
-    name: "Manage My Account",
+    name: t("productSwitcher.manageMyAccount"),
     icon: profileIcon,
     url: `${process.env.NEXT_PUBLIC_MY_NITX_URL}/${auth_user}` || "#"
   };
@@ -333,7 +335,7 @@ var ProductSwitcher = ({
                   src: `${profileImage}`
                 }
               ),
-              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${(profileName || "User").split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${(profileName || t("productSwitcher.userFallback")).split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
             ] }),
             /* @__PURE__ */ jsx5("span", { className: "flex-1 text-start font-medium", children: profile.name }),
             /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4 rtl:rotate-180" })
@@ -350,12 +352,14 @@ import { useRouter } from "next/navigation";
 import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
 import { useEffect as useEffect2, useState as useState2 } from "react";
 import Link2 from "next/link";
+import { useTranslation as useTranslation2 } from "react-i18next";
 import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var UserAccount = ({
   accounts,
   isExpanded,
   auth_user
 }) => {
+  const { t } = useTranslation2("nitxuilib");
   const [onOpen, setOnOpen] = useState2(false);
   const [isMounted, setIsMounted] = useState2(false);
   const [isMobile, setIsMobile] = useState2(false);
@@ -508,7 +512,7 @@ var UserAccount = ({
               href: `${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`,
               children: [
                 /* @__PURE__ */ jsx6(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
-                "Add another account"
+                t("userAccount.addAnotherAccount")
               ]
             }
           )
@@ -522,7 +526,7 @@ var UserAccount = ({
           className: "w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60 dark:hover:bg-zinc-700/60",
           children: [
             /* @__PURE__ */ jsx6(LogOut, { className: "w-4 h-4 stroke-[1.5]" }),
-            "Sign Out"
+            t("userAccount.signOut")
           ]
         }
       )
@@ -596,11 +600,11 @@ var SpaceSelectorProvider = ({
 };
 
 // src/components/space-selector/components/modals/BrowseSpaceModal.tsx
-import { useTranslation as useTranslation6 } from "react-i18next";
+import { useTranslation as useTranslation10 } from "react-i18next";
 
 // src/components/space-selector/ui/drawer-dialog.tsx
 import * as React7 from "react";
-import { useTranslation as useTranslation2 } from "react-i18next";
+import { useTranslation as useTranslation4 } from "react-i18next";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 // src/components/space-selector/lib/utils.ts
@@ -615,7 +619,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 // src/components/space-selector/ui/dialog.tsx
 import * as React5 from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation as useTranslation3 } from "react-i18next";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { jsx as jsx8, jsxs as jsxs5 } from "react/jsx-runtime";
@@ -636,7 +640,7 @@ var DialogOverlay = React5.forwardRef(({ className, ...props }, ref) => /* @__PU
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 var DialogContent = React5.forwardRef(({ className, children, overlayClassName, ...props }, ref) => {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation3("nitxuilib");
   return /* @__PURE__ */ jsxs5(DialogPortal, { children: [
     /* @__PURE__ */ jsx8(DialogOverlay, { className: overlayClassName }),
     /* @__PURE__ */ jsxs5(
@@ -823,7 +827,7 @@ function DrawerDialog({
   open = true,
   overlayClassName
 }) {
-  const { t } = useTranslation2("components");
+  const { t } = useTranslation4("nitxuilib");
   const [isMounted, setIsMounted] = React7.useState(false);
   const isDesktop = useMediaQuery("(min-width: 1140px)");
   const handleChange = (isOpen) => {
@@ -894,10 +898,11 @@ function DrawerDialog({
 
 // src/components/spaces/SpaceBrowser.tsx
 import { useEffect as useEffect4, useState as useState6 } from "react";
-import { useTranslation as useTranslation5 } from "react-i18next";
+import { useTranslation as useTranslation9 } from "react-i18next";
 
 // src/components/space-selector/ui/search-input.tsx
 import { SearchIcon } from "lucide-react";
+import { useTranslation as useTranslation5 } from "react-i18next";
 
 // src/components/space-selector/ui/input.tsx
 import * as React8 from "react";
@@ -923,12 +928,13 @@ Input.displayName = "Input";
 // src/components/space-selector/ui/search-input.tsx
 import { jsx as jsx12, jsxs as jsxs8 } from "react/jsx-runtime";
 var SearchInput = (props) => {
+  const { t } = useTranslation5("nitxuilib");
   return /* @__PURE__ */ jsxs8("div", { className: "relative flex-grow", children: [
     /* @__PURE__ */ jsx12(
       Input,
       {
         type: "search",
-        placeholder: "Search...",
+        placeholder: props.placeholder ?? t("searchInput.placeholder"),
         className: "w-full p-6 border-neutral-200 bg-neutral-50 text-neutral-900 rounded-lg shadow-none placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 dark:placeholder:text-neutral-500",
         ...props
       }
@@ -1137,7 +1143,7 @@ var DropdownMenuShortcut2 = ({
 DropdownMenuShortcut2.displayName = "DropdownMenuShortcut";
 
 // src/components/space-selector/components/SpaceCard.tsx
-import { useTranslation as useTranslation3 } from "react-i18next";
+import { useTranslation as useTranslation6 } from "react-i18next";
 import { useState as useState5 } from "react";
 import { toast } from "sonner";
 
@@ -1174,7 +1180,7 @@ var SpaceCardSkeleton = () => {
   ] });
 };
 var SpaceCard = ({ id, name, members, className }) => {
-  const { t } = useTranslation3("components");
+  const { t } = useTranslation6("nitxuilib");
   const [isLoading, setIsLoading] = useState5(false);
   const {
     setModal,
@@ -1337,7 +1343,7 @@ var SpaceCard = ({ id, name, members, className }) => {
 var SpaceCard_default = SpaceCard;
 
 // src/components/space-selector/components/EmptyList.tsx
-import { useTranslation as useTranslation4 } from "react-i18next";
+import { useTranslation as useTranslation7 } from "react-i18next";
 import { jsx as jsx17, jsxs as jsxs11 } from "react/jsx-runtime";
 var EmptyList = ({
   title,
@@ -1345,11 +1351,17 @@ var EmptyList = ({
   image = "/empty-list.png"
   // Asset handling in package might be tricky
 }) => {
-  const { t } = useTranslation4("components");
+  const { t } = useTranslation7("nitxuilib");
   const defaultTitle = title || t("emptyList.noItemsFound");
   const defaultDescription = description || t("emptyList.defaultDescription");
   return /* @__PURE__ */ jsxs11("div", { className: "w-full h-full flex flex-col items-center justify-center gap-5", children: [
-    /* @__PURE__ */ jsx17("img", { src: "/illustrations/empty-spaces.svg", alt: "" }),
+    /* @__PURE__ */ jsx17(
+      "img",
+      {
+        src: "/illustrations/empty-spaces.svg",
+        alt: t("emptyList.imageAlt")
+      }
+    ),
     /* @__PURE__ */ jsx17("p", { className: "text-lg font-semibold text-center text-neutral-900 dark:text-neutral-50", children: defaultTitle }),
     /* @__PURE__ */ jsx17("p", { className: "text-neutral-600 dark:text-neutral-400 text-sm max-w-[499px] text-center", children: defaultDescription })
   ] });
@@ -1357,8 +1369,17 @@ var EmptyList = ({
 var EmptyList_default = EmptyList;
 
 // src/components/ui/error-state.tsx
+import { useTranslation as useTranslation8 } from "react-i18next";
 import { jsx as jsx18, jsxs as jsxs12 } from "react/jsx-runtime";
-var ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel = "Try again" }) => {
+var ErrorState = ({
+  message,
+  title,
+  onRetry,
+  retryLabel
+}) => {
+  const { t } = useTranslation8("nitxuilib");
+  const resolvedTitle = title ?? t("errorState.title");
+  const resolvedRetryLabel = retryLabel ?? t("buttons.tryAgain");
   return /* @__PURE__ */ jsxs12("div", { className: "w-full flex flex-col items-center justify-center gap-5 py-14 px-6", children: [
     /* @__PURE__ */ jsx18("span", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/60", children: /* @__PURE__ */ jsxs12(
       "svg",
@@ -1378,7 +1399,7 @@ var ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel =
       }
     ) }),
     /* @__PURE__ */ jsxs12("div", { className: "flex flex-col items-center gap-1.5 text-center max-w-[260px]", children: [
-      /* @__PURE__ */ jsx18("p", { className: "text-sm font-medium text-foreground/80", children: title }),
+      /* @__PURE__ */ jsx18("p", { className: "text-sm font-medium text-foreground/80", children: resolvedTitle }),
       /* @__PURE__ */ jsx18("p", { className: "text-xs text-muted-foreground leading-relaxed", children: message })
     ] }),
     onRetry && /* @__PURE__ */ jsxs12(
@@ -1412,7 +1433,7 @@ var ErrorState = ({ message, title = "Couldn't load data", onRetry, retryLabel =
               ]
             }
           ),
-          retryLabel
+          resolvedRetryLabel
         ]
       }
     )
@@ -1475,7 +1496,7 @@ function renderSpaceList(filteredSpaces, spacesContainerStyle, spaceCardStyle, o
 var SpaceBrowser = (props) => {
   const { browserClassNames, isLoading, error, onFail } = props;
   const { className, internalContainerStyle, searchStyle, spacesContainerStyle, spaceCardStyle } = browserClassNames ?? {};
-  const { t } = useTranslation5("modals");
+  const { t } = useTranslation9("nitxuilib");
   const { spaces, setModal, setActiveSpace } = useSpaceSelector();
   const [filteredSpaces, setFilteredSpaces] = useState6(spaces);
   useEffect4(() => {
@@ -1497,7 +1518,7 @@ var SpaceBrowser = (props) => {
           title: t("browseSpacesModal.errorTitle"),
           message: error,
           onRetry: onFail,
-          retryLabel: t("buttons.try_again")
+          retryLabel: t("buttons.tryAgain")
         }
       );
     }
@@ -1517,7 +1538,7 @@ var SpaceBrowser_default = SpaceBrowser;
 // src/components/space-selector/components/modals/BrowseSpaceModal.tsx
 import { jsx as jsx20 } from "react/jsx-runtime";
 var BrowseSpaceModal = () => {
-  const { t } = useTranslation6("modals");
+  const { t } = useTranslation10("nitxuilib");
   const { activeModal, setModal } = useSpaceSelector();
   if (activeModal !== "browseSpace") return null;
   return /* @__PURE__ */ jsx20(
@@ -1536,7 +1557,7 @@ var BrowseSpaceModal_default = BrowseSpaceModal;
 
 // src/components/space-selector/components/modals/NewSpaceModal.tsx
 import { useEffect as useEffect5, useState as useState7 } from "react";
-import { useTranslation as useTranslation7 } from "react-i18next";
+import { useTranslation as useTranslation11 } from "react-i18next";
 
 // src/components/space-selector/ui/button.tsx
 import * as React12 from "react";
@@ -1606,7 +1627,7 @@ Label3.displayName = LabelPrimitive.Root.displayName;
 import { toast as toast2 } from "sonner";
 import { jsx as jsx23, jsxs as jsxs14 } from "react/jsx-runtime";
 var NewSpaceModal = () => {
-  const { t } = useTranslation7("modals");
+  const { t } = useTranslation11("nitxuilib");
   const {
     activeModal,
     setModal,
@@ -1657,7 +1678,7 @@ var NewSpaceModal = () => {
       children: /* @__PURE__ */ jsxs14("div", { className: "w-full flex flex-col p-6", children: [
         /* @__PURE__ */ jsxs14("div", { className: "flex flex-col mb-4 gap-2", children: [
           /* @__PURE__ */ jsx23("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("newSpaceModal.title") }),
-          /* @__PURE__ */ jsx23("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: "Create spaces to help managing screens and content." })
+          /* @__PURE__ */ jsx23("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: t("newSpaceModal.description") })
         ] }),
         /* @__PURE__ */ jsxs14(
           "form",
@@ -1711,7 +1732,7 @@ var NewSpaceModal_default = NewSpaceModal;
 
 // src/components/spaces/MembersAndNumbers.tsx
 import { useEffect as useEffect7, useState as useState9 } from "react";
-import { useTranslation as useTranslation10 } from "react-i18next";
+import { useTranslation as useTranslation21 } from "react-i18next";
 import { HugeiconsIcon as HugeiconsIcon5 } from "@hugeicons/react";
 import { Key01Icon, Tv01Icon } from "@hugeicons/core-free-icons";
 import { toast as toast4 } from "sonner";
@@ -1727,7 +1748,7 @@ import {
   User02Icon,
   UserAdd01Icon
 } from "@hugeicons/core-free-icons";
-import { useTranslation as useTranslation8 } from "react-i18next";
+import { useTranslation as useTranslation12 } from "react-i18next";
 
 // src/components/ui/label.tsx
 import * as React15 from "react";
@@ -1914,30 +1935,18 @@ import { toast as toast3 } from "sonner";
 import { jsx as jsx26, jsxs as jsxs16 } from "react/jsx-runtime";
 var roleDisplay = {
   viewer: {
-    label: "Viewer",
-    description: "Can view content and data only, without making any changes.",
-    shortDescription: "Can view content only",
     triggerIcon: User02Icon,
     menuIcon: EyeIcon
   },
   editor: {
-    label: "Editor",
-    description: "Can edit and update content, but cannot manage settings or users.",
-    shortDescription: "Can edit content",
     triggerIcon: PencilEdit01Icon,
     menuIcon: PencilEdit01Icon
   },
   manager: {
-    label: "Manager",
-    description: "Full control to manage content, settings, and user permissions.",
-    shortDescription: "Full control",
     triggerIcon: Shield01Icon,
     menuIcon: Shield01Icon
   },
   owner: {
-    label: "Owner",
-    description: "Full ownership of the space, including billing, settings, and member permissions.",
-    shortDescription: "Full ownership",
     triggerIcon: Shield01Icon,
     menuIcon: Shield01Icon
   }
@@ -1950,7 +1959,7 @@ var MembersManager = ({
   onSuccess,
   onCancel
 }) => {
-  const { t } = useTranslation8("modals");
+  const { t } = useTranslation12("nitxuilib");
   const spaceSelector = useOptionalSpaceSelector();
   const api = apiProp ?? spaceSelector?.api;
   if (!spaceId || !api?.inviteMembers) return null;
@@ -2028,15 +2037,15 @@ var MembersManager = ({
   if (isSuccess) {
     return /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center justify-center py-6 gap-4 text-center", children: [
       /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: Tick02Icon, className: "w-6 h-6" }) }),
-      /* @__PURE__ */ jsx26("h2", { className: "text-xl font-bold text-neutral-900 dark:text-neutral-50", children: "Invitations sent successfully" }),
-      /* @__PURE__ */ jsx26("p", { className: "text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400", children: "Invited users will receive an email to join your Space" }),
+      /* @__PURE__ */ jsx26("h2", { className: "text-xl font-bold text-neutral-900 dark:text-neutral-50", children: t("membersManager.successTitle") }),
+      /* @__PURE__ */ jsx26("p", { className: "text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400", children: t("membersManager.successDescription") }),
       /* @__PURE__ */ jsx26(
         Button,
         {
           variant: "default",
           className: "bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
           onClick: handleReset,
-          children: "Done"
+          children: t("membersManager.done")
         }
       )
     ] });
@@ -2046,8 +2055,8 @@ var MembersManager = ({
   return /* @__PURE__ */ jsxs16("div", { className: "w-full flex flex-col", children: [
     /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 p-6", children: [
       /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
-      /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: "Add Members" }),
-      /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: "Type or paste in emails below, separated by commas. Your workspace will be billed by members." })
+      /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: t("membersManager.title") }),
+      /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: t("membersManager.description") })
     ] }),
     /* @__PURE__ */ jsxs16(
       "form",
@@ -2082,13 +2091,13 @@ var MembersManager = ({
                 onChange: (e) => setEmail(e.target.value),
                 onKeyDown: handleEmailKeyDown,
                 onBlur: handleEmailBlur,
-                placeholder: pendingEmails.length === 0 ? "Search names or emails" : "",
+                placeholder: pendingEmails.length === 0 ? t("membersManager.emailPlaceholder") : "",
                 className: "flex-1 border-0 focus:ring-0 outline-none text-sm min-w-[150px] bg-transparent placeholder:text-neutral-400 h-8 dark:text-neutral-50 dark:placeholder:text-neutral-500"
               }
             )
           ] }),
           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-2", children: [
-            /* @__PURE__ */ jsx26(Label4, { className: "text-sm font-medium text-neutral-600 dark:text-neutral-300", children: "Select Role" }),
+            /* @__PURE__ */ jsx26(Label4, { className: "text-sm font-medium text-neutral-600 dark:text-neutral-300", children: t("membersManager.selectRole") }),
             /* @__PURE__ */ jsx26("div", { className: "relative", children: /* @__PURE__ */ jsxs16(
               Select,
               {
@@ -2109,8 +2118,8 @@ var MembersManager = ({
                           }
                         ) }) }),
                         /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 flex-1", children: [
-                          /* @__PURE__ */ jsx26("span", { className: "font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200", children: selectedRole.label }),
-                          /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400", children: selectedRole.description })
+                          /* @__PURE__ */ jsx26("span", { className: "font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200", children: t(`roles.${pendingRole}`) }),
+                          /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400", children: t(`membersManager.roles.${pendingRole}.description`) })
                         ] })
                       ] })
                     }
@@ -2130,8 +2139,8 @@ var MembersManager = ({
                             }
                           ) }),
                           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: roleDisplay.viewer.label }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: roleDisplay.viewer.shortDescription })
+                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.viewer") }),
+                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.viewer.shortDescription") })
                           ] })
                         ] })
                       }
@@ -2150,8 +2159,8 @@ var MembersManager = ({
                             }
                           ) }),
                           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: roleDisplay.editor.label }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: roleDisplay.editor.shortDescription })
+                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.editor") }),
+                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.editor.shortDescription") })
                           ] })
                         ] })
                       }
@@ -2170,8 +2179,8 @@ var MembersManager = ({
                             }
                           ) }),
                           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: roleDisplay.manager.label }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: roleDisplay.manager.shortDescription })
+                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.manager") }),
+                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.manager.shortDescription") })
                           ] })
                         ] })
                       }
@@ -2190,7 +2199,7 @@ var MembersManager = ({
                 className: "w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
                 children: [
                   isLoading ? /* @__PURE__ */ jsx26(Loader2, { className: "w-5 h-5 animate-spin mr-2" }) : null,
-                  isLoading ? "Sending invites..." : "Send invite"
+                  isLoading ? t("membersManager.sendingInvites") : t("membersManager.sendInvite")
                 ]
               }
             ),
@@ -2201,7 +2210,7 @@ var MembersManager = ({
                 variant: "ghost",
                 onClick: onCancel,
                 className: "w-full h-12 text-neutral-500 font-normal hover:bg-neutral-100 hover:text-neutral-900 rounded-xl h-11 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
-                children: "Cancel"
+                children: t("membersManager.cancel")
               }
             )
           ] })
@@ -2259,9 +2268,12 @@ var ManageMembersModal = ({
 };
 var ManageMembersModal_default = ManageMembersModal;
 
+// src/components/spaces/MembersAndNumbersParts/CancelInvitationDialog.tsx
+import { useTranslation as useTranslation14 } from "react-i18next";
+
 // src/components/ui/dialog.tsx
 import * as React18 from "react";
-import { useTranslation as useTranslation9 } from "react-i18next";
+import { useTranslation as useTranslation13 } from "react-i18next";
 import * as DialogPrimitive2 from "@radix-ui/react-dialog";
 import { X as X3 } from "lucide-react";
 import { jsx as jsx28, jsxs as jsxs17 } from "react/jsx-runtime";
@@ -2281,7 +2293,7 @@ var DialogOverlay2 = React18.forwardRef(({ className, ...props }, ref) => /* @__
 ));
 DialogOverlay2.displayName = DialogPrimitive2.Overlay.displayName;
 var DialogContent2 = React18.forwardRef(({ className, children, overlayClassName, ...props }, ref) => {
-  const { t } = useTranslation9("components");
+  const { t } = useTranslation13("nitxuilib");
   return /* @__PURE__ */ jsxs17(DialogPortal2, { children: [
     /* @__PURE__ */ jsx28(DialogOverlay2, { className: overlayClassName }),
     /* @__PURE__ */ jsxs17(
@@ -2354,10 +2366,13 @@ var DialogDescription2 = React18.forwardRef(({ className, ...props }, ref) => /*
 DialogDescription2.displayName = DialogPrimitive2.Description.displayName;
 
 // src/components/spaces/MembersAndNumbersParts/constants.ts
-var SHARED_TABLE_COLUMNS = [
-  { label: "Person" },
-  { label: "Roles" },
-  { label: "Action", className: "text-right" }
+var getSharedTableColumns = (t) => [
+  { label: t("membersAndNumbers.table.columns.person") },
+  { label: t("membersAndNumbers.table.columns.roles") },
+  {
+    label: t("membersAndNumbers.table.columns.actions"),
+    className: "text-right"
+  }
 ];
 var TABLE_CONTAINER_CLASS = "w-full bg-neutral-50 border border-neutral-200 rounded-lg overflow-hidden dark:bg-neutral-900 dark:border-neutral-800";
 var TABLE_HEADER_CLASS = "hidden sm:grid grid-cols-[1fr_200px_100px] gap-4 px-4 py-3 bg-neutral-50/50 border-b border-neutral-200 text-xs font-semibold text-neutral-500 dark:bg-zinc-800 dark:border-neutral-800 dark:text-neutral-400";
@@ -2365,7 +2380,7 @@ var TABLE_ROW_CLASS = "relative flex flex-col sm:grid sm:grid-cols-[1fr_200px_10
 var TABLE_ROLE_CELL_CLASS = "h-8 px-2 text-sm font-normal text-neutral-700 capitalize flex items-center justify-start w-24 dark:text-neutral-200";
 var MEMBER_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 var INVITATION_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
-var SECTION_DESCRIPTION = "Invite teammates to start collaborating";
+var getSectionDescription = (t) => t("membersAndNumbers.sectionDescription");
 var MEMBER_ROLE_OPTIONS = [
   "viewer",
   "editor",
@@ -2380,6 +2395,7 @@ var CancelInvitationDialog = ({
   onOpenChange,
   onConfirm
 }) => {
+  const { t } = useTranslation14("nitxuilib");
   if (!invitation) return null;
   return /* @__PURE__ */ jsx29(Dialog2, { open: !!invitation, onOpenChange, children: /* @__PURE__ */ jsxs18(
     DialogContent2,
@@ -2389,12 +2405,8 @@ var CancelInvitationDialog = ({
       children: [
         /* @__PURE__ */ jsx29("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 font-bold text-lg", children: getFallbackText(invitation.email) }),
         /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-1", children: [
-          /* @__PURE__ */ jsxs18("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: [
-            "Cancel invitation for ",
-            invitation.email,
-            "?"
-          ] }),
-          /* @__PURE__ */ jsx29("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: "This invite is still pending. Cancelling it will remove access to this invitation link." })
+          /* @__PURE__ */ jsx29("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: t("cancelInvitationDialog.title", { email: invitation.email }) }),
+          /* @__PURE__ */ jsx29("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: t("cancelInvitationDialog.description") })
         ] }),
         /* @__PURE__ */ jsxs18("div", { className: "flex flex-col w-full gap-2 mt-2", children: [
           /* @__PURE__ */ jsx29(
@@ -2402,7 +2414,7 @@ var CancelInvitationDialog = ({
             {
               onClick: onConfirm,
               className: "w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11",
-              children: "Cancel Invitation"
+              children: t("cancelInvitationDialog.confirm")
             }
           ),
           /* @__PURE__ */ jsx29(
@@ -2411,7 +2423,7 @@ var CancelInvitationDialog = ({
               variant: "ghost",
               onClick: () => onOpenChange(false),
               className: "w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800",
-              children: "Keep Invitation"
+              children: t("cancelInvitationDialog.cancel")
             }
           )
         ] })
@@ -2448,6 +2460,7 @@ import {
 } from "@hugeicons/core-free-icons";
 
 // src/components/spaces/MembersAndNumbersParts/TablePagination.tsx
+import { useTranslation as useTranslation15 } from "react-i18next";
 import { jsx as jsx31, jsxs as jsxs20 } from "react/jsx-runtime";
 var TablePagination = ({
   currentPage,
@@ -2458,6 +2471,7 @@ var TablePagination = ({
   onPageChange,
   onRowsPerPageChange
 }) => {
+  const { t } = useTranslation15("nitxuilib");
   if (totalItems === 0) return null;
   const safeTotalPages = totalPages || 1;
   const startItem = (currentPage - 1) * rowsPerPage + 1;
@@ -2473,16 +2487,14 @@ var TablePagination = ({
           children: pageSizeOptions.map((option) => /* @__PURE__ */ jsx31("option", { value: option, children: option }, option))
         }
       ),
-      /* @__PURE__ */ jsx31("span", { children: "Rows per page" })
+      /* @__PURE__ */ jsx31("span", { children: t("membersAndNumbers.table.rowsPerPage") })
     ] }),
     /* @__PURE__ */ jsxs20("div", { className: "flex items-center gap-4", children: [
-      /* @__PURE__ */ jsxs20("span", { children: [
-        startItem,
-        "-",
-        endItem,
-        " of ",
-        totalItems
-      ] }),
+      /* @__PURE__ */ jsx31("span", { children: t("membersAndNumbers.table.range", {
+        start: startItem,
+        end: endItem,
+        total: totalItems
+      }) }),
       /* @__PURE__ */ jsxs20("div", { className: "flex items-center gap-1", children: [
         /* @__PURE__ */ jsxs20(
           Button,
@@ -2493,17 +2505,15 @@ var TablePagination = ({
             disabled: currentPage === 1,
             onClick: () => onPageChange(Math.max(1, currentPage - 1)),
             children: [
-              /* @__PURE__ */ jsx31("span", { className: "sr-only", children: "Previous" }),
+              /* @__PURE__ */ jsx31("span", { className: "sr-only", children: t("membersAndNumbers.table.previous") }),
               "\u2039"
             ]
           }
         ),
-        /* @__PURE__ */ jsxs20("span", { className: "text-neutral-900 font-medium dark:text-neutral-50", children: [
-          currentPage,
-          " / ",
-          safeTotalPages,
-          " pages"
-        ] }),
+        /* @__PURE__ */ jsx31("span", { className: "text-neutral-900 font-medium dark:text-neutral-50", children: t("membersAndNumbers.table.pageCount", {
+          current: currentPage,
+          total: safeTotalPages
+        }) }),
         /* @__PURE__ */ jsxs20(
           Button,
           {
@@ -2513,7 +2523,7 @@ var TablePagination = ({
             disabled: currentPage >= safeTotalPages,
             onClick: () => onPageChange(Math.min(safeTotalPages, currentPage + 1)),
             children: [
-              /* @__PURE__ */ jsx31("span", { className: "sr-only", children: "Next" }),
+              /* @__PURE__ */ jsx31("span", { className: "sr-only", children: t("membersAndNumbers.table.next") }),
               "\u203A"
             ]
           }
@@ -2546,6 +2556,7 @@ var TablePersonCell = ({
 var TablePersonCell_default = TablePersonCell;
 
 // src/components/spaces/MembersAndNumbersParts/InvitationsTable.tsx
+import { useTranslation as useTranslation16 } from "react-i18next";
 import { jsx as jsx33, jsxs as jsxs22 } from "react/jsx-runtime";
 var InvitationRowActions = ({
   invite,
@@ -2554,6 +2565,7 @@ var InvitationRowActions = ({
   onCopyInviteLink,
   onRevoke
 }) => {
+  const { t } = useTranslation16("nitxuilib");
   return /* @__PURE__ */ jsx33("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs22(DropdownMenu, { modal: false, children: [
     /* @__PURE__ */ jsx33(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx33(
       Button,
@@ -2572,7 +2584,7 @@ var InvitationRowActions = ({
           onClick: () => onResend(invite.id),
           children: [
             /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Refresh01Icon }) }),
-            /* @__PURE__ */ jsx33("span", { children: "Resend Invitation" })
+            /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.resendInvitation") })
           ]
         }
       ),
@@ -2583,7 +2595,7 @@ var InvitationRowActions = ({
           onClick: () => onCopyEmail(invite.email),
           children: [
             /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Copy02Icon }) }),
-            /* @__PURE__ */ jsx33("span", { children: "Copy Email" })
+            /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.copyEmail") })
           ]
         }
       ),
@@ -2594,7 +2606,7 @@ var InvitationRowActions = ({
           onClick: () => onCopyInviteLink(invite),
           children: [
             /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Link01Icon }) }),
-            /* @__PURE__ */ jsx33("span", { children: "Copy Invite Link" })
+            /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.copyInviteLink") })
           ]
         }
       ),
@@ -2605,7 +2617,7 @@ var InvitationRowActions = ({
           onClick: () => onRevoke(invite),
           children: [
             /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Cancel01Icon }) }),
-            /* @__PURE__ */ jsx33("span", { children: "Cancel Invitation" })
+            /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.cancelInvitation") })
           ]
         }
       )
@@ -2625,23 +2637,23 @@ var InvitationsTable = ({
   onCopyInviteLink,
   onRevoke
 }) => {
+  const { t } = useTranslation16("nitxuilib");
+  const columns = getSharedTableColumns(t);
+  const sectionDescription = getSectionDescription(t);
   if (totalItems === 0) return null;
   return /* @__PURE__ */ jsxs22("div", { className: "flex flex-col gap-4", children: [
-    /* @__PURE__ */ jsxs22("h3", { className: "text-base font-semibold", children: [
-      "Pending Invite ",
-      totalItems
-    ] }),
-    /* @__PURE__ */ jsx33("p", { className: "text-sm text-neutral-500 -mt-3 dark:text-neutral-400", children: SECTION_DESCRIPTION }),
-    /* @__PURE__ */ jsx33(DataTableShell_default, { columns: SHARED_TABLE_COLUMNS, children: items.map((invite) => /* @__PURE__ */ jsxs22("div", { className: TABLE_ROW_CLASS, children: [
+    /* @__PURE__ */ jsx33("h3", { className: "text-base font-semibold", children: t("membersAndNumbers.pendingInvitesCount", { count: totalItems }) }),
+    /* @__PURE__ */ jsx33("p", { className: "text-sm text-neutral-500 -mt-3 dark:text-neutral-400", children: sectionDescription }),
+    /* @__PURE__ */ jsx33(DataTableShell_default, { columns, children: items.map((invite) => /* @__PURE__ */ jsxs22("div", { className: TABLE_ROW_CLASS, children: [
       /* @__PURE__ */ jsx33(
         TablePersonCell_default,
         {
-          title: "Member",
+          title: t("membersAndNumbers.table.pendingMemberTitle"),
           subtitle: invite.email,
           fallbackValue: invite.email
         }
       ),
-      /* @__PURE__ */ jsx33("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsx33("div", { className: TABLE_ROLE_CELL_CLASS, children: invite.role }) }),
+      /* @__PURE__ */ jsx33("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsx33("div", { className: TABLE_ROLE_CELL_CLASS, children: t(`roles.${invite.role}`) }) }),
       /* @__PURE__ */ jsx33(
         InvitationRowActions,
         {
@@ -2670,6 +2682,7 @@ var InvitationsTable = ({
 var InvitationsTable_default = InvitationsTable;
 
 // src/components/spaces/MembersAndNumbersParts/MembersAndNumbersLayout.tsx
+import { useTranslation as useTranslation17 } from "react-i18next";
 import { UserPlus } from "lucide-react";
 import { HugeiconsIcon as HugeiconsIcon3 } from "@hugeicons/react";
 import { Settings01Icon } from "@hugeicons/core-free-icons";
@@ -2683,9 +2696,10 @@ var MembersAndNumbersLayout = ({
   membersContent,
   settingsContent
 }) => {
+  const { t } = useTranslation17("nitxuilib");
   return /* @__PURE__ */ jsxs23("div", { className: "flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900", children: [
     /* @__PURE__ */ jsxs23("div", { className: "w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800", children: [
-      /* @__PURE__ */ jsx34("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block truncate", children: spaceName || "Space Nitx" }),
+      /* @__PURE__ */ jsx34("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block truncate", children: spaceName || t("membersAndNumbers.spaceFallback") }),
       /* @__PURE__ */ jsxs23("div", { className: "flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full", children: [
         /* @__PURE__ */ jsxs23(
           "button",
@@ -2771,6 +2785,7 @@ import { ChevronDown as ChevronDown3, Search, UserPlus as UserPlus2 } from "luci
 import { MoreVertical as MoreVertical2 } from "lucide-react";
 import { HugeiconsIcon as HugeiconsIcon4 } from "@hugeicons/react";
 import { Copy02Icon as Copy02Icon2 } from "@hugeicons/core-free-icons";
+import { useTranslation as useTranslation18 } from "react-i18next";
 
 // src/components/ui/input.tsx
 import * as React19 from "react";
@@ -2800,6 +2815,7 @@ var MemberRowActions = ({
   onCopyEmail,
   onRemove
 }) => {
+  const { t } = useTranslation18("nitxuilib");
   return /* @__PURE__ */ jsx37("div", { className: "absolute right-2 top-2 sm:static flex justify-end", children: /* @__PURE__ */ jsxs25(DropdownMenu, { modal: false, children: [
     /* @__PURE__ */ jsx37(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx37(
       Button,
@@ -2818,7 +2834,7 @@ var MemberRowActions = ({
           onClick: () => onCopyEmail(member.email),
           children: [
             /* @__PURE__ */ jsx37("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx37(HugeiconsIcon4, { icon: Copy02Icon2 }) }),
-            /* @__PURE__ */ jsx37("span", { children: "Copy Email" })
+            /* @__PURE__ */ jsx37("span", { children: t("membersAndNumbers.table.actions.copyEmail") })
           ]
         }
       ),
@@ -2848,7 +2864,7 @@ var MemberRowActions = ({
                 )
               }
             ) }),
-            /* @__PURE__ */ jsx37("span", { children: "Remove From Space" })
+            /* @__PURE__ */ jsx37("span", { children: t("membersAndNumbers.table.actions.removeFromSpace") })
           ]
         }
       )
@@ -2905,6 +2921,9 @@ var MembersTable = ({
   onCopyEmail,
   onRemove
 }) => {
+  const { t } = useTranslation18("nitxuilib");
+  const columns = getSharedTableColumns(t);
+  const sectionDescription = getSectionDescription(t);
   if (showEmptyState) {
     return /* @__PURE__ */ jsx37(
       MembersEmptyState,
@@ -2918,11 +2937,8 @@ var MembersTable = ({
   }
   return /* @__PURE__ */ jsxs25("div", { className: "flex flex-col gap-4 mt-2", children: [
     /* @__PURE__ */ jsx37("div", { className: "flex items-center justify-between", children: /* @__PURE__ */ jsxs25("div", { className: "flex flex-col", children: [
-      /* @__PURE__ */ jsxs25("h3", { className: "text-base font-semibold", children: [
-        "Members ",
-        memberCount
-      ] }),
-      /* @__PURE__ */ jsx37("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: SECTION_DESCRIPTION })
+      /* @__PURE__ */ jsx37("h3", { className: "text-base font-semibold", children: t("membersAndNumbers.membersCount", { count: memberCount }) }),
+      /* @__PURE__ */ jsx37("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: sectionDescription })
     ] }) }),
     /* @__PURE__ */ jsxs25("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2", children: [
       /* @__PURE__ */ jsxs25("div", { className: "relative flex-1", children: [
@@ -2930,7 +2946,7 @@ var MembersTable = ({
         /* @__PURE__ */ jsx37(
           Input2,
           {
-            placeholder: "Search",
+            placeholder: t("membersAndNumbers.table.searchPlaceholder"),
             className: "pl-9 !h-12 bg-neutral-50 border-neutral-200 rounded-sm text-sm dark:bg-neutral-900 dark:border-neutral-700",
             value: searchQuery,
             onChange: (event) => onSearchQueryChange(event.target.value)
@@ -2952,13 +2968,9 @@ var MembersTable = ({
     /* @__PURE__ */ jsx37(
       DataTableShell_default,
       {
-        columns: SHARED_TABLE_COLUMNS,
+        columns,
         hasRows: items.length > 0,
-        emptyState: /* @__PURE__ */ jsxs25("div", { className: "p-8 text-center text-neutral-500 text-sm dark:text-neutral-400", children: [
-          'No members found matching "',
-          searchQuery,
-          '"'
-        ] }),
+        emptyState: /* @__PURE__ */ jsx37("div", { className: "p-8 text-center text-neutral-500 text-sm dark:text-neutral-400", children: t("membersAndNumbers.table.noMembersFound", { query: searchQuery }) }),
         children: items.map((member) => /* @__PURE__ */ jsxs25("div", { className: TABLE_ROW_CLASS, children: [
           /* @__PURE__ */ jsx37(
             TablePersonCell_default,
@@ -2976,7 +2988,7 @@ var MembersTable = ({
                 variant: "ghost",
                 className: "h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800",
                 children: [
-                  member.role,
+                  t(`roles.${member.role}`),
                   /* @__PURE__ */ jsx37(ChevronDown3, { className: "w-4 h-4 ml-2" })
                 ]
               }
@@ -2985,7 +2997,7 @@ var MembersTable = ({
               DropdownMenuItem,
               {
                 onClick: () => onRoleChange(member.id, role),
-                children: role.charAt(0).toUpperCase() + role.slice(1)
+                children: t(`roles.${role}`)
               },
               role
             )) })
@@ -3057,12 +3069,14 @@ var MembersTabContent = ({
 var MembersTabContent_default = MembersTabContent;
 
 // src/components/spaces/MembersAndNumbersParts/RemoveMemberDialog.tsx
+import { useTranslation as useTranslation19 } from "react-i18next";
 import { jsx as jsx40, jsxs as jsxs28 } from "react/jsx-runtime";
 var RemoveMemberDialog = ({
   member,
   onOpenChange,
   onConfirm
 }) => {
+  const { t } = useTranslation19("nitxuilib");
   if (!member) return null;
   return /* @__PURE__ */ jsx40(Dialog2, { open: !!member, onOpenChange, children: /* @__PURE__ */ jsxs28(
     DialogContent2,
@@ -3072,12 +3086,8 @@ var RemoveMemberDialog = ({
       children: [
         /* @__PURE__ */ jsx40("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 font-bold text-lg", children: getFallbackText(member.name) }),
         /* @__PURE__ */ jsxs28("div", { className: "flex flex-col gap-1", children: [
-          /* @__PURE__ */ jsxs28("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: [
-            "Remove ",
-            member.email,
-            " from Space?"
-          ] }),
-          /* @__PURE__ */ jsx40("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: "They have been an active Nitx member. Removing them may cause loss of private pages." })
+          /* @__PURE__ */ jsx40("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: t("removeMemberDialog.title", { email: member.email }) }),
+          /* @__PURE__ */ jsx40("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: t("removeMemberDialog.description") })
         ] }),
         /* @__PURE__ */ jsxs28("div", { className: "flex flex-col w-full gap-2 mt-2", children: [
           /* @__PURE__ */ jsx40(
@@ -3085,7 +3095,7 @@ var RemoveMemberDialog = ({
             {
               onClick: onConfirm,
               className: "w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11",
-              children: "Remove"
+              children: t("removeMemberDialog.confirm")
             }
           ),
           /* @__PURE__ */ jsx40(
@@ -3094,7 +3104,7 @@ var RemoveMemberDialog = ({
               variant: "ghost",
               onClick: () => onOpenChange(false),
               className: "w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800",
-              children: "Cancel"
+              children: t("removeMemberDialog.cancel")
             }
           )
         ] })
@@ -3106,6 +3116,7 @@ var RemoveMemberDialog_default = RemoveMemberDialog;
 
 // src/components/spaces/MembersAndNumbersParts/SettingsTabContent.tsx
 import { Loader2 as Loader22 } from "lucide-react";
+import { useTranslation as useTranslation20 } from "react-i18next";
 import { jsx as jsx41, jsxs as jsxs29 } from "react/jsx-runtime";
 var SettingsTabContent = ({
   title,
@@ -3114,6 +3125,7 @@ var SettingsTabContent = ({
   onSpaceNameChange,
   onSave
 }) => {
+  const { t } = useTranslation20("nitxuilib");
   const logoText = getFallbackText(spaceName || "SP");
   return /* @__PURE__ */ jsxs29("div", { className: "flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20", children: [
     /* @__PURE__ */ jsx41("h2", { className: "text-xl font-semibold capitalize mt-4", children: title }),
@@ -3126,7 +3138,7 @@ var SettingsTabContent = ({
             {
               htmlFor: "spaceName",
               className: "text-sm font-medium text-neutral-700 dark:text-neutral-200",
-              children: "Space Name"
+              children: t("renameSpaceModal.spaceNameLabel")
             }
           ),
           /* @__PURE__ */ jsx41(
@@ -3134,7 +3146,7 @@ var SettingsTabContent = ({
             {
               type: "text",
               id: "spaceName",
-              placeholder: "Enter space name",
+              placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
               value: spaceName,
               onChange: (event) => onSpaceNameChange(event.target.value),
               className: "bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
@@ -3148,7 +3160,7 @@ var SettingsTabContent = ({
           onClick: onSave,
           disabled: isSaving || !spaceName.trim(),
           className: "bg-primary h-11 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]",
-          children: isSaving ? /* @__PURE__ */ jsx41(Loader22, { className: "w-4 h-4 animate-spin" }) : "Save Changes"
+          children: isSaving ? /* @__PURE__ */ jsx41(Loader22, { className: "w-4 h-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       ) })
     ] })
@@ -3166,7 +3178,7 @@ var MembersAndNumbers = ({
   onRefreshSpaces,
   onSpaceNameChange
 }) => {
-  const { t } = useTranslation10("modals");
+  const { t } = useTranslation21("nitxuilib");
   const [activeTab, setActiveTab] = useState9("members");
   const [licenseCount, setLicenseCount] = useState9(0);
   const [screensCount, setScreensCount] = useState9(0);
@@ -3239,9 +3251,9 @@ var MembersAndNumbers = ({
       await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
-      toast4.success("Space name updated successfully");
+      toast4.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
     } catch (error) {
-      const renameErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? "Failed to update space name";
+      const renameErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? t("membersAndNumbers.toasts.failedToUpdateSpaceName");
       toast4.error(renameErrorMessage);
     } finally {
       setSavingSettings(false);
@@ -3270,16 +3282,16 @@ var MembersAndNumbers = ({
         (prev) => prev.filter((invite) => invite.id !== invitationToCancel.id)
       );
       await api.revokeInvitation(spaceId, invitationToCancel.id);
-      toast4.success("Invitation cancelled successfully");
+      toast4.success(t("membersAndNumbers.toasts.invitationCancelled"));
       setInvitationToCancel(null);
     } catch (error) {
-      toast4.error("Failed to cancel invitation");
+      toast4.error(t("membersAndNumbers.toasts.failedToCancelInvitation"));
       fetchData();
     }
   };
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email);
-    toast4.success("Email copied to clipboard");
+    toast4.success(t("membersAndNumbers.toasts.emailCopied"));
   };
   const confirmRemoveMember = async () => {
     if (!memberToRemove) return;
@@ -3296,43 +3308,43 @@ var MembersAndNumbers = ({
   const handleResendInvitation = async (id) => {
     try {
       await api.resendInvitation(spaceId, id);
-      toast4.success("Invitation resent successfully");
+      toast4.success(t("membersAndNumbers.toasts.invitationResent"));
     } catch (error) {
-      toast4.error("Failed to resend invitation");
+      toast4.error(t("membersAndNumbers.toasts.failedToResendInvitation"));
     }
   };
   const handleCopyInviteLink = async (invite) => {
     try {
       const link = await api.getInviteLink(spaceId, invite.id);
       if (!link) {
-        toast4.error("Failed to get invite link");
+        toast4.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
         return;
       }
       await navigator.clipboard.writeText(link);
-      toast4.success("Invite link copied to clipboard");
+      toast4.success(t("membersAndNumbers.toasts.inviteLinkCopied"));
     } catch (error) {
       console.error(error);
-      toast4.error("Failed to get invite link");
+      toast4.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
     }
   };
   const stats = [
     {
-      label: "Total Screen",
+      label: t("membersAndNumbers.stats.totalScreens"),
       value: screensCount,
       icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Tv01Icon, className: "w-5 h-5" })
     },
     {
-      label: "Total License",
+      label: t("membersAndNumbers.stats.totalLicenses"),
       value: licenseCount,
       icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
     },
     {
-      label: "Total Active License",
+      label: t("membersAndNumbers.stats.totalActiveLicenses"),
       value: null,
       icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
     },
     {
-      label: "Unused Licenses",
+      label: t("membersAndNumbers.stats.unusedLicenses"),
       value: null,
       icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
     }
@@ -3394,7 +3406,7 @@ var MembersAndNumbers = ({
         membersContent: /* @__PURE__ */ jsx42(
           MembersTabContent_default,
           {
-            title: t("manageMembersModal.title") || "Members & Numbers",
+            title: t("manageMembersModal.title"),
             stats,
             loading,
             pendingInvitesContent,
@@ -3501,11 +3513,11 @@ var MembersAndNumbersModal_default = MembersAndNumbersModal;
 
 // src/components/space-selector/components/modals/DeleteConfirmationModal.tsx
 import { Loader2 as Loader23, Trash2 as Trash22 } from "lucide-react";
-import { useTranslation as useTranslation11 } from "react-i18next";
+import { useTranslation as useTranslation22 } from "react-i18next";
 import React20 from "react";
 import { jsx as jsx44, jsxs as jsxs31 } from "react/jsx-runtime";
 var DeleteConfirmationModal = () => {
-  const { t } = useTranslation11("modals");
+  const { t } = useTranslation22("nitxuilib");
   const { activeModal, modalProps, setModal } = useSpaceSelector();
   const [isLoading, setIsLoading] = React20.useState(false);
   if (activeModal !== "deleteConfirmation" || !modalProps?.deleteModalInfo) {
@@ -3541,7 +3553,7 @@ var DeleteConfirmationModal = () => {
               onClick: handleConfirm,
               className: "w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11",
               disabled: isLoading,
-              children: isLoading ? /* @__PURE__ */ jsx44(Loader23, { className: "w-4 h-4 animate-spin" }) : t("remove", "Remove")
+              children: isLoading ? /* @__PURE__ */ jsx44(Loader23, { className: "w-4 h-4 animate-spin" }) : t("remove")
             }
           ),
           /* @__PURE__ */ jsx44(
@@ -3564,9 +3576,11 @@ var DeleteConfirmationModal_default = DeleteConfirmationModal;
 // src/components/space-selector/components/modals/RenameSpaceModal.tsx
 import { useEffect as useEffect8, useMemo, useState as useState10 } from "react";
 import { Check as Check4, Loader2 as Loader24, RefreshCw, TriangleAlert } from "lucide-react";
+import { useTranslation as useTranslation23 } from "react-i18next";
 import { Fragment as Fragment3, jsx as jsx45, jsxs as jsxs32 } from "react/jsx-runtime";
 var getFallbackText2 = (value) => value.trim().slice(0, 2).toUpperCase();
 var RenameSpaceFormState = ({
+  t,
   spaceName,
   logoName,
   isSaving,
@@ -3577,8 +3591,8 @@ var RenameSpaceFormState = ({
   const logoText = getFallbackText2(logoName || "SP");
   return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col gap-6 p-6", children: [
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
-      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Rename Space" }),
-      /* @__PURE__ */ jsx45("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: "Update the space name to keep your workspace organized and easy to find." })
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("renameSpaceModal.title") }),
+      /* @__PURE__ */ jsx45("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: t("renameSpaceModal.description") })
     ] }),
     /* @__PURE__ */ jsx45("div", { className: "flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40", children: /* @__PURE__ */ jsxs32("div", { className: "flex flex-col items-start gap-3 sm:flex-row sm:gap-4", children: [
       /* @__PURE__ */ jsx45("div", { className: "flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-neutral-900 text-lg font-semibold tracking-tight text-white shadow-sm dark:bg-secondary dark:text-white", children: logoText || "SP" }),
@@ -3588,7 +3602,7 @@ var RenameSpaceFormState = ({
           {
             htmlFor: "rename-space-name",
             className: "text-sm font-medium text-neutral-700 dark:text-neutral-200",
-            children: "Space Name"
+            children: t("renameSpaceModal.spaceNameLabel")
           }
         ),
         /* @__PURE__ */ jsx45(
@@ -3596,7 +3610,7 @@ var RenameSpaceFormState = ({
           {
             id: "rename-space-name",
             type: "text",
-            placeholder: "Enter space name",
+            placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
             value: spaceName,
             onChange: (event) => onSpaceNameChange(event.target.value),
             className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
@@ -3613,7 +3627,7 @@ var RenameSpaceFormState = ({
           onClick: onCancel,
           disabled: isSaving,
           className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
-          children: "Cancel"
+          children: t("renameSpaceModal.cancel")
         }
       ),
       /* @__PURE__ */ jsx45(
@@ -3623,25 +3637,22 @@ var RenameSpaceFormState = ({
           onClick: onSubmit,
           disabled: isSaving || !spaceName.trim(),
           className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
-          children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : "Save Changes"
+          children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       )
     ] })
   ] });
 };
 var RenameSpaceSuccessState = ({
+  t,
   spaceName,
   onDone
 }) => {
   return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 p-6 text-center", children: [
     /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400", children: /* @__PURE__ */ jsx45(Check4, { className: "h-7 w-7" }) }),
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
-      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Space Renamed Successfully" }),
-      /* @__PURE__ */ jsxs32("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: [
-        "Your space is now named ",
-        /* @__PURE__ */ jsx45("span", { className: "font-medium text-neutral-800 dark:text-neutral-200", children: spaceName }),
-        "."
-      ] })
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("renameSpaceModal.successTitle") }),
+      /* @__PURE__ */ jsx45("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: t("renameSpaceModal.successDescription", { name: spaceName }) })
     ] }),
     /* @__PURE__ */ jsx45(
       Button2,
@@ -3649,12 +3660,13 @@ var RenameSpaceSuccessState = ({
         type: "button",
         onClick: onDone,
         className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
-        children: "Done"
+        children: t("renameSpaceModal.done")
       }
     )
   ] });
 };
 var RenameSpaceErrorState = ({
+  t,
   attemptedName,
   errorMessage,
   isSaving,
@@ -3664,12 +3676,10 @@ var RenameSpaceErrorState = ({
   return /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col items-center gap-4 p-6 text-center", children: [
     /* @__PURE__ */ jsx45("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400", children: /* @__PURE__ */ jsx45(TriangleAlert, { className: "h-7 w-7" }) }),
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-col gap-2", children: [
-      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: "Rename Failed" }),
-      /* @__PURE__ */ jsxs32("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: [
-        "We couldn't rename ",
-        /* @__PURE__ */ jsx45("span", { className: "font-medium text-neutral-800 dark:text-neutral-200", children: attemptedName || "this space" }),
-        "."
-      ] })
+      /* @__PURE__ */ jsx45("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("renameSpaceModal.errorTitle") }),
+      /* @__PURE__ */ jsx45("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: t("renameSpaceModal.errorDescription", {
+        name: attemptedName || t("renameSpaceModal.thisSpace")
+      }) })
     ] }),
     /* @__PURE__ */ jsx45("div", { className: "w-full rounded-2xl border border-red-100 bg-red-50/80 p-4 text-left dark:border-red-500/20 dark:bg-red-500/10", children: /* @__PURE__ */ jsx45("p", { className: "text-sm font-medium text-red-700 dark:text-red-300", children: errorMessage }) }),
     /* @__PURE__ */ jsxs32("div", { className: "flex w-full flex-col-reverse gap-3 sm:flex-row sm:justify-center", children: [
@@ -3681,7 +3691,7 @@ var RenameSpaceErrorState = ({
           onClick: onBack,
           disabled: isSaving,
           className: "h-11 rounded-xl px-5 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
-          children: "Back to Edit"
+          children: t("renameSpaceModal.backToEdit")
         }
       ),
       /* @__PURE__ */ jsx45(
@@ -3693,7 +3703,7 @@ var RenameSpaceErrorState = ({
           className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
           children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs32(Fragment3, { children: [
             /* @__PURE__ */ jsx45(RefreshCw, { className: "mr-2 h-4 w-4" }),
-            "Retry"
+            t("renameSpaceModal.retry")
           ] })
         }
       )
@@ -3701,6 +3711,7 @@ var RenameSpaceErrorState = ({
   ] });
 };
 var RenameSpaceModal = () => {
+  const { t } = useTranslation23("nitxuilib");
   const {
     activeModal,
     modalProps,
@@ -3757,7 +3768,7 @@ var RenameSpaceModal = () => {
       setView("success");
       setErrorMessage("");
     } catch (error) {
-      const nextErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? "Failed to rename this space. Please try again.";
+      const nextErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? t("renameSpaceModal.defaultError");
       setErrorMessage(nextErrorMessage);
       setView("error");
     } finally {
@@ -3773,6 +3784,7 @@ var RenameSpaceModal = () => {
       children: /* @__PURE__ */ jsx45("div", { className: "w-full", children: view === "form" ? /* @__PURE__ */ jsx45(
         RenameSpaceFormState,
         {
+          t,
           spaceName: draftName,
           logoName,
           isSaving,
@@ -3783,12 +3795,14 @@ var RenameSpaceModal = () => {
       ) : view === "success" ? /* @__PURE__ */ jsx45(
         RenameSpaceSuccessState,
         {
+          t,
           spaceName: lastAttemptedName,
           onDone: closeModal
         }
       ) : /* @__PURE__ */ jsx45(
         RenameSpaceErrorState,
         {
+          t,
           attemptedName: lastAttemptedName,
           errorMessage,
           isSaving,
@@ -3831,10 +3845,10 @@ function Skeleton2({
 }
 
 // src/components/space-selector/components/SpaceSelectorContent.tsx
-import { useTranslation as useTranslation12 } from "react-i18next";
+import { useTranslation as useTranslation24 } from "react-i18next";
 import { Fragment as Fragment4, jsx as jsx47, jsxs as jsxs33 } from "react/jsx-runtime";
 var SpaceSelectorContent = () => {
-  const { t } = useTranslation12("shared");
+  const { t } = useTranslation24("nitxuilib");
   const {
     spaces,
     activeSpace,

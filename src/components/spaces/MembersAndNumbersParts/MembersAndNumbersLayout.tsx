@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 import { UserPlus } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -27,11 +28,13 @@ const MembersAndNumbersLayout = ({
   membersContent,
   settingsContent,
 }: MembersAndNumbersLayoutProps) => {
+  const { t } = useTranslation("nitxuilib");
+
   return (
     <div className="flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900">
       <div className="w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800">
         <h3 className="text-sm font-semibold px-4 py-2 hidden sm:block truncate">
-          {spaceName || "Space Nitx"}
+          {spaceName || t("membersAndNumbers.spaceFallback")}
         </h3>
 
         <div className="flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full">

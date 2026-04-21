@@ -1,4 +1,5 @@
 import type { Member } from "../../space-selector/types";
+import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/button";
 import { Dialog, DialogContent } from "../../ui/dialog";
 
@@ -15,6 +16,7 @@ const RemoveMemberDialog = ({
   onOpenChange,
   onConfirm,
 }: RemoveMemberDialogProps) => {
+  const { t } = useTranslation("nitxuilib");
   if (!member) return null;
 
   return (
@@ -29,11 +31,10 @@ const RemoveMemberDialog = ({
 
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-            Remove {member.email} from Space?
+            {t("removeMemberDialog.title", { email: member.email })}
           </h3>
           <p className="text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400">
-            They have been an active Nitx member. Removing them may cause loss of
-            private pages.
+            {t("removeMemberDialog.description")}
           </p>
         </div>
 
@@ -42,14 +43,14 @@ const RemoveMemberDialog = ({
             onClick={onConfirm}
             className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11"
           >
-            Remove
+            {t("removeMemberDialog.confirm")}
           </Button>
           <Button
             variant="ghost"
             onClick={() => onOpenChange(false)}
             className="w-full text-neutral-600 font-normal hover:bg-neutral-100 rounded-lg h-11 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
-            Cancel
+            {t("removeMemberDialog.cancel")}
           </Button>
         </div>
       </DialogContent>
