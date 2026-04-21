@@ -103,11 +103,44 @@ function renderSpaceList(
           onClick={() => onSelect(space)}
           className={cn(["cursor-pointer", spaceCardStyle])}
         >
-          <SpaceCard id={space.space_uuid} name={space.name} members={space?.total_members || 0} />
+          <SpaceCard
+            id={space.space_uuid}
+            name={space.name}
+            members={getSpaceMemberCount(space)}
+          />
         </div>
       ))}
     </div>
   );
+}
+
+function getSpaceMemberCount(space: ProxySpace) {
+  const candidates = [
+    space.total_members,
+    space.totalMembers,
+    space.members_count,
+    space.member_count,
+    space.memberCount,
+  ];
+
+  for (const candidate of candidates) {
+    if (typeof candidate === "number" && Number.isFinite(candidate)) {
+      return candidate;
+    }
+
+    if (typeof candidate === "string") {
+      const parsed = Number(candidate);
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+  }
+
+  if (Array.isArray(space.members)) {
+    return space.members.length;
+  }
+
+  return 0;
 }
 
 // ─── SpaceBrowser ─────────────────────────────────────────────────────────────
