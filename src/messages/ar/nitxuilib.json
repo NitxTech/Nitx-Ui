@@ -1,0 +1,666 @@
+{
+  "sidebar": {
+    "Dashboard": "لوحة التحكم",
+    "Personal Info": "المعلومات الشخصية",
+    "Security": "الحماية",
+    "Subscriptions": "الاشتراكات",
+    "Spaces": "المساحات",
+    "Space": "المساحة",
+    "Recently Spaces": "أحدث المساحات",
+    "Browse More": "استعراض المزيد",
+    "New Space": "مساحة جديدة",
+    "Manage Members": "إدارة الأعضاء"
+  },
+  "fields": {
+    "profile_discription": "تساعد صورة الملف الشخصي في إضفاء طابع شخصي على حسابك",
+    "system": "حسب النظام",
+    "light": "فاتح",
+    "dark": "مظلم"
+  },
+  "months": {
+    "Jan": "يناير",
+    "jan": "يناير",
+    "January": "يناير",
+    "january": "يناير",
+    "Feb": "فبراير",
+    "feb": "فبراير",
+    "February": "فبراير",
+    "february": "فبراير",
+    "Mar": "مارس",
+    "mar": "مارس",
+    "March": "مارس",
+    "march": "مارس",
+    "Apr": "أبريل",
+    "apr": "أبريل",
+    "April": "أبريل",
+    "april": "أبريل",
+    "May": "مايو",
+    "may": "مايو",
+    "May_full": "مايو",
+    "may_full": "مايو",
+    "Jun": "يونيو",
+    "jun": "يونيو",
+    "June": "يونيو",
+    "june": "يونيو",
+    "Jul": "يوليو",
+    "jul": "يوليو",
+    "July": "يوليو",
+    "july": "يوليو",
+    "Aug": "أغسطس",
+    "aug": "أغسطس",
+    "August": "أغسطس",
+    "august": "أغسطس",
+    "Sep": "سبتمبر",
+    "sep": "سبتمبر",
+    "September": "سبتمبر",
+    "september": "سبتمبر",
+    "Oct": "أكتوبر",
+    "oct": "أكتوبر",
+    "October": "أكتوبر",
+    "october": "أكتوبر",
+    "Nov": "نوفمبر",
+    "nov": "نوفمبر",
+    "November": "نوفمبر",
+    "november": "نوفمبر",
+    "Dec": "ديسمبر",
+    "dec": "ديسمبر",
+    "December": "ديسمبر",
+    "december": "ديسمبر"
+  },
+  "profileImage": {
+    "title": "صورة الملف الشخصي",
+    "description": "تساعد الصورة الأشخاص على التعرف عليك وتوضح متى تكون مسجّل الدخول إلى حسابك",
+    "remove": "إزالة",
+    "removing": "جاري الإزالة...",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "zoom": "تكبير"
+  },
+  "name": {
+    "title": "الاسم الكامل",
+    "description": "ستظهر التغييرات التي تجريها على اسمك في حسابك على Nitx.",
+    "firstName": "الاسم الأول",
+    "firstNamePlaceholder": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "lastNamePlaceholder": "اسم العائلة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "error": "فشل تحديث الاسم. الرجاء المحاولة مرة أخرى.",
+    "success": "تم تحديث الاسم بنجاح"
+  },
+  "language": {
+    "title": "تفضيلات اللغة",
+    "description": "اختر اللغة المفضلة لديك لتسهيل التواصل.",
+    "languagesLabel": "اللغات",
+    "selectPlaceholder": "اختر لغة",
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  },
+  "email": {
+    "title": "البريد الإلكتروني",
+    "description": "العنوان المستخدم لتعريف حسابك في Nitx لك وللآخرين.",
+    "editTitle": "تغيير البريد الإلكتروني",
+    "editDescription": "أدخل عنوان بريدك الإلكتروني الجديد. سيتعين عليك تأكيده باستخدام رمز تحقق.",
+    "verifyTitle": "تأكيد البريد الإلكتروني",
+    "otpDescription": "أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى عنوان بريدك الإلكتروني الجديد.",
+    "successTitle": "تم تغيير البريد الإلكتروني",
+    "placeholder": "مثال: khalid@example.com",
+    "currentEmailLabel": "البريد الإلكتروني الحالي",
+    "newEmailLabel": "عنوان البريد الإلكتروني الجديد",
+    "newEmailPlaceholder": "أدخل عنوان البريد الإلكتروني الجديد",
+    "enterOTP": "أدخل رمز التحقق",
+    "cancel": "إلغاء",
+    "edit": "تغيير البريد الإلكتروني",
+    "sendOTP": "إرسال رمز التحقق",
+    "sendingOTP": "جارٍ إرسال رمز التحقق...",
+    "verify": "تأكيد",
+    "verifying": "جارٍ التحقق...",
+    "otpExpiresIn": "تنتهي صلاحية الرمز خلال",
+    "didntReceiveOTP": "لم تستلم رمز التحقق؟",
+    "resend": "إعادة الإرسال",
+    "errors": {
+      "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
+      "sameEmail": "يجب أن يكون البريد الإلكتروني الجديد مختلفًا عن البريد الإلكتروني الحالي",
+      "emailTaken": "هذا البريد الإلكتروني مستخدم بالفعل",
+      "sendOTP": "فشل إرسال رمز التحقق. يرجى المحاولة مرة أخرى.",
+      "invalidOTP": "يرجى إدخال رمز تحقق صالح مكوّن من 6 أرقام",
+      "verifyOTP": "فشل التحقق من رمز التحقق. يرجى المحاولة مرة أخرى."
+    },
+    "success": {
+      "otpSent": "تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني الجديد",
+      "emailChanged": "تم تغيير البريد الإلكتروني بنجاح!"
+    }
+  },
+  "mobile": {
+    "title": "إدارة رقم الهاتف",
+    "description": "ستستخدم Nitx هذا الرقم لمساعدتك على تسجيل الدخول وتنبيهك في حال اكتشف نشاطًا غير معتاد على حسابك.",
+    "addPhoneNumber": "إضافة رقم الهاتف",
+    "otpDescription": "أدخل الرمز المكون من 6 أرقام الذي أرسلناه إلى رقم هاتفك",
+    "phoneNumber": "اختر رمز الدولة وأدخل رقم الهاتف",
+    "howToReceiveCodes": "كيف ترغب في استلام رمز تسجيل الدخول؟",
+    "selectMethodPlaceholder": "اختر طريقة",
+    "enterOTP": "أدخل رمز التحقق",
+    "cancel": "إلغاء",
+    "next": "التالي",
+    "sendingOTP": "جاري إرسال الرمز...",
+    "otpExpiresIn": "تنتهي صلاحية الرمز خلال",
+    "didntReceiveOTP": "لم تستلم رمز التحقق؟",
+    "resendOTP": "إعادة الإرسال",
+    "phoneVerified": "تم التحقق من رقم الهاتف بنجاح!",
+    "edit": "تعديل رقم الهاتف",
+    "sendOTP": "إرسال رمز التحقق",
+    "verifying": "جاري التحقق...",
+    "verify": "تأكيد",
+    "error": "فشل في إرسال الرمز. حاول مرة أخرى.",
+    "success": {
+      "otpSent": "تم إرسال رمز التحقق بنجاح",
+      "verificationSuccess": "تم تحديث رقم الهاتف بنجاح"
+    },
+    "Text Message": "رسالة نصية",
+    "errors": {
+      "invalidPhone": "رقم الهاتف غير صالح.",
+      "sendOTP": "فشل إرسال رمز التحقق",
+      "invalidOTP": "يرجى إدخال رمز تحقق صالح مكوّن من 6 أرقام",
+      "verifyOTP": "فشل التحقق من رمز التحقق"
+    }
+  },
+  "password": {
+    "title": {
+      "email": "طلب إعادة تعيين كلمة المرور",
+      "otp": "تحقق من الرمز",
+      "password": "تعيين كلمة مرور جديدة"
+    },
+    "description": {
+      "email": "سنرسل رمز التحقق إلى بريدك الإلكتروني للتحقق من هويتك.",
+      "otp": "أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
+      "password": "اختر كلمة مرور قوية وتأكد من تذكرها."
+    },
+    "emailLabel": "البريد الإلكتروني",
+    "otpLabel": "أدخل الرمز",
+    "otpPlaceholder": "123456",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "أدخل كلمة المرور الجديدة",
+    "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+    "confirmPasswordPlaceholder": "تأكيد كلمة المرور الجديدة",
+    "back": "رجوع",
+    "cancel": "إلغاء",
+    "sendOTP": "إرسال الرمز",
+    "resendOTP": "إعادة الإرسال",
+    "didntReceiveOTP": "لم تستلم رمز التحقق؟",
+    "verifyOTP": "تحقق من الرمز",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "otpExpiresIn": "تنتهي صلاحية الرمز خلال",
+    "errors": {
+      "email": "البريد الإلكتروني مطلوب",
+      "otp": "يرجى إدخال رمز تحقق صالح مكوّن من 6 أرقام",
+      "password": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+      "passwordConfirmation": "كلمتا المرور غير متطابقتين"
+    },
+    "success": {
+      "otpSent": "تم إرسال رمز التحقق بنجاح",
+      "otpVerified": "تم التحقق من الرمز بنجاح",
+      "passwordReset": "تمت إعادة تعيين كلمة المرور بنجاح",
+      "message": "تمت إعادة تعيين كلمة المرور بنجاح"
+    },
+    "strength": {
+      "weak_helper": "استخدم 8 أحرف أو أكثر مع الأحرف الكبيرة والصغيرة والأرقام والرموز.",
+      "Very weak": "ضعيف جداً",
+      "Weak": "ضعيف",
+      "Fair": "مقبول",
+      "Good": "جيد",
+      "Strong": "قوي",
+      "Very strong": "قوي جداً"
+    }
+  },
+  "VerifyMethodsSelector": {
+    "title": "اختر طريقة التحقق",
+    "description": "يمكن إرسال رمز التحقق عبر البريد الإلكتروني أو الرسائل النصية أو من خلال تطبيق المصادقة، ويجب إدخاله خلال فترة قصيرة قبل انتهاء صلاحيته.",
+    "cancel": "إلغاء"
+  },
+  "otp": {
+    "title": "تحقق من الرمز",
+    "description": "يرجى إدخال رمز التحقق المرسل إلى تطبيق المصادقة الخاص بك.",
+    "sendNewCode": "إرسال رمز جديد",
+    "cancel": "إلغاء",
+    "validate": "تحقق من الرمز",
+    "verifying": "جاري التحقق...",
+    "error": "رمز التحقق غير صالح. حاول مرة أخرى."
+  },
+  "authenticator": {
+    "title": "تطبيق المصادقة",
+    "description": "اربط تطبيق مصادقة لإضافة طبقة أمان إضافية إلى حسابك باستخدام رموز تحقق تعتمد على الوقت.",
+    "introMessage": "يقوم تطبيق المصادقة بإنشاء رموز تحقق مؤقتة يمكنك استخدامها لتأكيد هويتك. يعمل التطبيق حتى عند عدم اتصال هاتفك بالإنترنت، مما يجعله من أكثر طرق التحقق أمانًا.",
+    "downloadMessage": "للبدء، ستحتاج إلى تثبيت تطبيق مصادقة على هاتفك.",
+    "downloadLink": "تنزيل Google Authenticator",
+    "linkButton": "ربط تطبيق المصادقة",
+    "qrTitle": "مسح رمز QR",
+    "qrDescription": "افتح تطبيق المصادقة، اضغط على أيقونة +، ثم امسح رمز QR أدناه.",
+    "loadingSetup": "جارٍ إنشاء رمز QR الخاص بك...",
+    "scanQRCode": "امسح رمز QR هذا باستخدام تطبيق المصادقة",
+    "couldNotLoad": "تعذر إنشاء رمز QR. يرجى الرجوع والمحاولة مرة أخرى.",
+    "otpTitle": "تأكيد الإعداد",
+    "otpDescription": "أدخل الرمز المكون من 6 أرقام الظاهر في تطبيق المصادقة لإكمال الإعداد.",
+    "enterCodeLabel": "رمز التحقق",
+    "enterCodePlaceholder": "000000",
+    "enterCodeHint": "أدخل الرمز المكون من 6 أرقام المعروض حاليًا في تطبيق المصادقة",
+    "successTitle": "تم ربط تطبيق المصادقة",
+    "successDescription": "تم ربط تطبيق المصادقة بحسابك بنجاح.",
+    "cancel": "إلغاء",
+    "next": "التالي",
+    "enterCode": "إدخال رمز التحقق",
+    "retrySetup": "إعادة المحاولة",
+    "verifyButton": "تحقق وربط",
+    "verifying": "جارٍ التحقق...",
+    "errors": {
+      "invalidCode": "يرجى إدخال رمز صحيح مكون من 6 أرقام",
+      "failedToConfirm": "فشل التحقق. يرجى مراجعة الرمز والمحاولة مرة أخرى.",
+      "failedToLoad": "فشل إنشاء إعداد تطبيق المصادقة. يرجى المحاولة مرة أخرى.",
+      "couldNotLoad": "تعذر تحميل بيانات الإعداد. يرجى المحاولة مرة أخرى."
+    },
+    "success": {
+      "confirmed": "تم ربط تطبيق المصادقة بنجاح!"
+    }
+  },
+  "enable2FA": {
+    "title": "تفعيل المصادقة الثنائية",
+    "confirmTitle": "تفعيل المصادقة الثنائية",
+    "confirmDescription": "أضف طبقة أمان إضافية إلى حسابك من خلال تفعيل المصادقة الثنائية.",
+    "confirmMessage": "عند التفعيل، سيتعين عليك التحقق من هويتك باستخدام تطبيق المصادقة أو البريد الإلكتروني أو الرسائل النصية في كل مرة تقوم فيها بتسجيل الدخول. يساعد ذلك في حماية حسابك من الوصول غير المصرح به.",
+    "successTitle": "تم تفعيل المصادقة الثنائية",
+    "successDescription": "تم تفعيل المصادقة الثنائية بنجاح.",
+    "cancel": "إلغاء",
+    "enable": "تفعيل المصادقة الثنائية",
+    "enabling": "جارٍ التفعيل...",
+    "errors": {
+      "failedToEnable": "فشل في تفعيل المصادقة الثنائية. يرجى المحاولة مرة أخرى."
+    },
+    "success": {
+      "enabled": "تم تفعيل المصادقة الثنائية بنجاح!"
+    }
+  },
+  "disable2FA": {
+    "title": "تعطيل المصادقة الثنائية",
+    "warnTitle": "تنبيه هام",
+    "warnDescription": "يرجى القراءة بعناية قبل المتابعة.",
+    "warnMessage": "سيؤدي تعطيل المصادقة الثنائية إلى تقليل مستوى أمان حسابك. ستحتاج فقط إلى كلمة المرور لتسجيل الدخول، مما يجعل حسابك أكثر عرضة للوصول غير المصرح به. نوصي بالإبقاء على المصادقة الثنائية مفعّلة لضمان حماية أفضل.",
+    "proceed": "أفهم ذلك، متابعة",
+    "selectMethodTitle": "التحقق من هويتك",
+    "selectMethodDescription": "اختر طريقة تحقق لتأكيد تعطيل المصادقة الثنائية.",
+    "otpTitle": "إدخال رمز التحقق",
+    "otpDescription": "أدخل الرمز للتحقق من هويتك وتعطيل المصادقة الثنائية.",
+    "successTitle": "تم تعطيل المصادقة الثنائية",
+    "successDescription": "تم تعطيل المصادقة الثنائية لحسابك.",
+    "chooseMethod": "اختر طريقة التحقق:",
+    "authAppOption": "الحصول على رمز تحقق من تطبيق المصادقة",
+    "emailOption": "الحصول على رمز تحقق عبر البريد الإلكتروني {{email}}",
+    "smsOption": "الحصول على رمز تحقق عبر الرسائل النصية إلى {{phone}}",
+    "enterCodePlaceholder": "123456",
+    "enterCodeDescription": "أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة لتأكيد تعطيل المصادقة الثنائية",
+    "enterOTP": "أدخل رمز التحقق المكوّن من 6 أرقام",
+    "otpExpiresIn": "تنتهي صلاحية الرمز خلال",
+    "didntReceiveOTP": "لم تستلم الرمز؟",
+    "resend": "إعادة إرسال الرمز",
+    "resending": "جارٍ إعادة الإرسال...",
+    "changeMethod": "استخدام طريقة أخرى",
+    "cancel": "إلغاء",
+    "verify": "تحقق",
+    "verifying": "جارٍ التحقق...",
+    "disable": "تعطيل المصادقة الثنائية",
+    "errors": {
+      "invalidCode": "يرجى إدخال رمز التحقق المكوّن من 6 أرقام",
+      "invalidOTP": "يرجى إدخال رمز التحقق المكوّن من 6 أرقام",
+      "failedToDisable": "فشل في تعطيل المصادقة الثنائية",
+      "failedToRequestOTP": "فشل في إرسال رمز التحقق. يرجى المحاولة مرة أخرى.",
+      "failedToVerify": "فشل في التحقق من الرمز. يرجى المحاولة مرة أخرى."
+    },
+    "success": {
+      "otpSent": "تم إرسال رمز التحقق بنجاح",
+      "disabled": "تم تعطيل المصادقة الثنائية بنجاح!"
+    }
+  },
+  "requestFromNitx": {
+    "title": "طلب من Nitx",
+    "description": "أنت مسجّل الدخول حاليًا إلى حسابك على هذه الأجهزة التي تسمح باستلام الطلبات."
+  },
+  "phoneNumber": {
+    "title": {
+      "step1": "إدارة رقم الهاتف",
+      "step2": "إضافة رقم الهاتف",
+      "step3": "رقم الهاتف"
+    },
+    "description": {
+      "step1": "",
+      "step2": "يمكنك استلام رموز تسجيل الدخول على هذه الأرقام. يمكنك أيضًا إضافة أرقام إضافية يمكن استخدامها لاستعادة حسابك على Nitx.",
+      "step3": "ستستخدم Nitx هذا الرقم لمساعدتك على تسجيل الدخول وتنبيهك إذا اكتشف نشاطًا غير معتاد على حسابك."
+    },
+    "addPhoneVerification": "إضافة التحقق من الهاتف",
+    "phoneNumberPlaceholder": "رقم الهاتف",
+    "howToReceiveCodes": "كيف ترغب في استلام رمز تسجيل الدخول؟",
+    "selectMethodPlaceholder": "اختر طريقة",
+    "cancel": "إلغاء",
+    "next": "التالي",
+    "verifiedOwnership": "تم التحقق من الملكية",
+    "codesSentVia": "يتم إرسال الرموز عبر الرسائل النصية.",
+    "addPhoneVerificationAgain": "إضافة التحقق من الهاتف"
+  },
+  "recoveryEmail": {
+    "title": "البريد الإلكتروني للاسترداد",
+    "description": "نستخدم بريد الاسترداد للتواصل معك إذا اكتشفنا نشاطًا غير معتاد على حسابك أو إذا تم قفل حسابك عن طريق الخطأ.",
+    "placeholder": "مثال: john@example.com",
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  },
+  "recoveryPhoneNumber": {
+    "title": "البريد الإلكتروني",
+    "description": "العنوان المستخدم للتعريف بحسابك على Nitx لك وللآخرين. لا يمكنك تغيير هذا العنوان.",
+    "placeholder": "مثال: +966 55 123 4567",
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  },
+  "newSpace": {
+    "title": "إنشاء مساحة جديدة",
+    "editTitle": "تعديل المساحة",
+    "spaceNameLabel": "اسم المساحة",
+    "spaceNamePlaceholder": "اسم المساحة",
+    "inviteLabel": "دعوة شخص عن طريق إضافة بريده الإلكتروني",
+    "emailPlaceholder": "أدخل البريد الإلكتروني",
+    "invite": "دعوة",
+    "noMembers": "لم تتم إضافة أي أعضاء بعد",
+    "loadingMembers": "جاري تحميل الأعضاء...",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "saveChanges": "حفظ التغييرات",
+    "creatingSpace": "جاري إنشاء المساحة...",
+    "updatingSpace": "جاري تحديث المساحة...",
+    "error": {
+      "spaceNameRequired": "اسم المساحة مطلوب",
+      "failedToCreate": "فشل في إنشاء المساحة",
+      "failedToUpdate": "فشل في تحديث المساحة",
+      "failedToFetchMembers": "فشل في جلب الأعضاء",
+      "failedToUpdateRole": "فشل في تحديث دور العضو",
+      "failedToDelete": "فشل في إزالة العضو"
+    },
+    "success": {
+      "created": "تم إنشاء المساحة بنجاح",
+      "updated": "تم تحديث المساحة بنجاح",
+      "invitationsSent": "تم إرسال الدعوات",
+      "roleUpdated": "تم تحديث دور العضو",
+      "memberRemoved": "تمت إزالة العضو"
+    }
+  },
+  "manageMembers": {
+    "title": "تعديل المساحة",
+    "spaceNameLabel": "اسم المساحة",
+    "spaceNamePlaceholder": "اسم المساحة",
+    "inviteLabel": "دعوة شخص عن طريق إضافة بريده الإلكتروني",
+    "emailPlaceholder": "أدخل البريد الإلكتروني",
+    "invite": "دعوة",
+    "noMembers": "لم تتم إضافة أي أعضاء بعد",
+    "loadingMembers": "جاري تحميل الأعضاء...",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات",
+    "updatingSpace": "جاري تحديث المساحة...",
+    "error": {
+      "spaceNameRequired": "اسم المساحة مطلوب",
+      "failedToUpdate": "فشل في تحديث المساحة",
+      "failedToFetchMembers": "فشل في جلب الأعضاء",
+      "failedToUpdateRole": "فشل في تحديث دور العضو",
+      "failedToDelete": "فشل في إزالة العضو"
+    },
+    "success": {
+      "updated": "تم تحديث المساحة بنجاح",
+      "invitationsSent": "تم إرسال الدعوات",
+      "roleUpdated": "تم تحديث دور العضو",
+      "memberRemoved": "تمت إزالة العضو"
+    }
+  },
+  "dob": {
+    "title": "تاريخ الميلاد",
+    "description": "قم بتحديث تاريخ ميلادك لحسابك على Nitx.",
+    "placeholder": "01 يونيو 2025",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "error": {
+      "invalidDate": "الرجاء اختيار تاريخ صالح.",
+      "invalidFormat": "تنسيق التاريخ غير صالح.",
+      "ageRequirement": "يجب أن يكون عمرك 16 سنة على الأقل",
+      "failedToUpdate": "فشل في تحديث تاريخ الميلاد. الرجاء المحاولة مرة أخرى."
+    },
+    "success": "تم تحديث تاريخ الميلاد بنجاح"
+  },
+  "addPaymentMethod": {
+    "title": "إضافة طريقة دفع",
+    "description": "أضف طريقة دفع جديدة إلى حسابك.",
+    "cardTypeLabel": "نوع البطاقة",
+    "selectCardTypePlaceholder": "اختر نوع البطاقة",
+    "mastercard": "ماستركارد",
+    "visa": "فيزا",
+    "cardNumberLabel": "رقم البطاقة",
+    "cardNumberPlaceholder": "1234 5678 9012 3456",
+    "expiryDateLabel": "تاريخ الانتهاء",
+    "expiryDatePlaceholder": "شهر/سنة",
+    "setAsDefault": "تعيين كطريقة الدفع الافتراضية",
+    "cancel": "إلغاء",
+    "addCard": "إضافة البطاقة"
+  },
+  "editPaymentMethod": {
+    "title": "تعديل طريقة الدفع",
+    "description": "قم بتحديث تفاصيل طريقة الدفع الخاصة بك.",
+    "cardTypeLabel": "نوع البطاقة",
+    "selectCardTypePlaceholder": "اختر نوع البطاقة",
+    "mastercard": "ماستركارد",
+    "visa": "فيزا",
+    "cardNumberLabel": "رقم البطاقة",
+    "cardNumberPlaceholder": "أدخل رقم البطاقة الجديد (1234 5678 9012 3456)",
+    "expiryDateLabel": "تاريخ الانتهاء",
+    "expiryDatePlaceholder": "شهر/سنة",
+    "setAsDefault": "تعيين كطريقة الدفع الافتراضية",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات"
+  },
+  "confirmDelete": {
+    "title": "حذف",
+    "cancel": "إلغاء",
+    "delete": "حذف"
+  },
+  "cancelLicense": {
+    "title": "هل أنت متأكد من رغبتك في إلغاء هذه الرخصة؟",
+    "licenseId": "معرّف الرخصة:",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد"
+  },
+  "browseSpacesModal": {
+    "title": "استعراض المساحات",
+    "searchSpacePlaceholder": "ابحث عن مساحة...",
+    "newSpace": "مساحة جديدة",
+    "emptyTitle": "لا توجد مساحات",
+    "emptyDescription": "جرّب كلمة بحث مختلفة أو أنشئ مساحة جديدة.",
+    "errorTitle": "تعذر تحميل المساحات"
+  },
+  "spaceCard": {
+    "members": "عضو",
+    "rename": "إعادة التسمية",
+    "manageMembers": "إدارة الأعضاء",
+    "remove": "حذف",
+    "spaceDeletedSuccessfully": "تم حذف \"{{name}}\" بنجاح.",
+    "errorDeletingSpace": "حدث خطأ أثناء حذف المساحة.",
+    "deleteSpaceConfirmation": "حذف \"{{name}}\"؟",
+    "actionCannotBeUndone": "لا يمكن التراجع عن هذا الإجراء."
+  },
+  "newSpaceModal": {
+    "title": "إنشاء مساحة جديدة",
+    "description": "أنشئ مساحات للمساعدة في إدارة الشاشات والمحتوى.",
+    "typeName": "اسم المساحة",
+    "spaceNamePlaceholder": "اسم المساحة",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "creating": "جارٍ الإنشاء...",
+    "spaceCreatedSuccessfully": "تم إنشاء المساحة بنجاح.",
+    "failedToCreateSpace": "فشل في إنشاء المساحة."
+  },
+  "manageMembersModal": {
+    "title": "الأعضاء والأرقام",
+    "settings": "الإعدادات",
+    "invite": "دعوة أعضاء",
+    "noMembersYet": "لا يوجد أعضاء حتى الآن",
+    "inviteTeammatesDescription": "ادعُ زملاءك لبدء التعاون في هذه المساحة.",
+    "role_success": "تم تحديث الدور بنجاح.",
+    "error": "فشل في تحديث الدور.",
+    "removed": "تمت إزالة العضو بنجاح.",
+    "error_remove": "فشل في إزالة العضو.",
+    "wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+  "dialog": {
+    "close": "إغلاق"
+  },
+  "drawerDialog": {
+    "back": "رجوع",
+    "modalTitle": "نافذة"
+  },
+  "emptyList": {
+    "noItemsFound": "لم يتم العثور على عناصر",
+    "defaultDescription": "لا يوجد شيء لعرضه هنا حتى الآن.",
+    "imageAlt": "رسم توضيحي للحالة الفارغة"
+  },
+  "memberItem": {
+    "viewerDescription": "يمكنه عرض المحتوى فقط",
+    "editorDescription": "يمكنه تعديل المحتوى والبيانات",
+    "managerDescription": "يمكنه إدارة المحتوى والإعدادات والأعضاء",
+    "removeMember": "إزالة العضو",
+    "removeMemberConfirmation": "إزالة {{name}} من هذه المساحة؟"
+  },
+  "roles": {
+    "viewer": "مشاهد",
+    "editor": "محرر",
+    "manager": "مدير",
+    "owner": "مالك"
+  },
+  "membersAndNumbers": {
+    "sectionDescription": "ادعُ زملاءك لبدء التعاون.",
+    "spaceFallback": "مساحة Nitx",
+    "membersCount": "الأعضاء {{count}}",
+    "pendingInvitesCount": "الدعوات المعلّقة {{count}}",
+    "stats": {
+      "totalScreens": "إجمالي الشاشات",
+      "totalLicenses": "إجمالي التراخيص",
+      "totalActiveLicenses": "إجمالي التراخيص النشطة",
+      "unusedLicenses": "التراخيص غير المستخدمة"
+    },
+    "toasts": {
+      "spaceNameUpdated": "تم تحديث اسم المساحة بنجاح.",
+      "failedToUpdateSpaceName": "فشل في تحديث اسم المساحة.",
+      "invitationCancelled": "تم إلغاء الدعوة بنجاح.",
+      "failedToCancelInvitation": "فشل في إلغاء الدعوة.",
+      "emailCopied": "تم نسخ البريد الإلكتروني.",
+      "invitationResent": "تمت إعادة إرسال الدعوة بنجاح.",
+      "failedToResendInvitation": "فشل في إعادة إرسال الدعوة.",
+      "inviteLinkCopied": "تم نسخ رابط الدعوة.",
+      "failedToGetInviteLink": "فشل في جلب رابط الدعوة."
+    },
+    "table": {
+      "columns": {
+        "person": "الشخص",
+        "roles": "الأدوار",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "copyEmail": "نسخ البريد الإلكتروني",
+        "removeFromSpace": "إزالة من المساحة",
+        "resendInvitation": "إعادة إرسال الدعوة",
+        "copyInviteLink": "نسخ رابط الدعوة",
+        "cancelInvitation": "إلغاء الدعوة"
+      },
+      "searchPlaceholder": "بحث",
+      "noMembersFound": "لم يتم العثور على أعضاء مطابقين لـ \"{{query}}\"",
+      "pendingMemberTitle": "عضو",
+      "rowsPerPage": "عدد الصفوف لكل صفحة",
+      "range": "{{start}}-{{end}} من {{total}}",
+      "previous": "السابق",
+      "next": "التالي",
+      "pageCount": "{{current}} / {{total}} صفحات"
+    }
+  },
+  "membersManager": {
+    "title": "إضافة أعضاء",
+    "description": "اكتب أو الصق عناوين البريد الإلكتروني أدناه، مفصولة بفواصل. سيتم احتساب الفوترة بحسب عدد الأعضاء.",
+    "emailPlaceholder": "ابحث عن أسماء أو رسائل بريد إلكتروني",
+    "selectRole": "اختر الدور",
+    "sendInvite": "إرسال الدعوة",
+    "sendingInvites": "جارٍ إرسال الدعوات...",
+    "cancel": "إلغاء",
+    "successTitle": "تم إرسال الدعوات بنجاح",
+    "successDescription": "سيتلقى المستخدمون المدعوون رسالة بريد إلكتروني للانضمام إلى مساحتك.",
+    "done": "تم",
+    "roles": {
+      "viewer": {
+        "description": "يمكنه عرض المحتوى والبيانات فقط دون إجراء أي تعديلات.",
+        "shortDescription": "يمكنه عرض المحتوى فقط"
+      },
+      "editor": {
+        "description": "يمكنه تعديل المحتوى وتحديثه، لكنه لا يستطيع إدارة الإعدادات أو المستخدمين.",
+        "shortDescription": "يمكنه تعديل المحتوى"
+      },
+      "manager": {
+        "description": "تحكم كامل في إدارة المحتوى والإعدادات وصلاحيات المستخدمين.",
+        "shortDescription": "تحكم كامل"
+      },
+      "owner": {
+        "description": "ملكية كاملة للمساحة، بما في ذلك الفوترة والإعدادات وصلاحيات الأعضاء.",
+        "shortDescription": "ملكية كاملة"
+      }
+    }
+  },
+  "renameSpaceModal": {
+    "title": "إعادة تسمية المساحة",
+    "description": "حدّث اسم المساحة للحفاظ على تنظيم مساحة العمل وسهولة العثور عليها.",
+    "spaceNameLabel": "اسم المساحة",
+    "spaceNamePlaceholder": "أدخل اسم المساحة",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات",
+    "successTitle": "تمت إعادة تسمية المساحة بنجاح",
+    "successDescription": "أصبح اسم مساحتك الآن {{name}}.",
+    "done": "تم",
+    "errorTitle": "فشلت إعادة التسمية",
+    "errorDescription": "تعذر إعادة تسمية {{name}}.",
+    "thisSpace": "هذه المساحة",
+    "backToEdit": "العودة للتعديل",
+    "retry": "إعادة المحاولة",
+    "defaultError": "فشل في إعادة تسمية هذه المساحة. يرجى المحاولة مرة أخرى."
+  },
+  "removeMemberDialog": {
+    "title": "إزالة {{email}} من المساحة؟",
+    "description": "كان هذا الشخص عضوًا نشطًا في Nitx. قد تؤدي إزالته إلى فقدان الصفحات الخاصة.",
+    "confirm": "إزالة",
+    "cancel": "إلغاء"
+  },
+  "cancelInvitationDialog": {
+    "title": "إلغاء الدعوة الخاصة بـ {{email}}؟",
+    "description": "لا تزال هذه الدعوة معلّقة. سيؤدي إلغاؤها إلى إزالة الوصول إلى رابط الدعوة هذا.",
+    "confirm": "إلغاء الدعوة",
+    "cancel": "الاحتفاظ بالدعوة"
+  },
+  "productSwitcher": {
+    "manageMyAccount": "إدارة حسابي",
+    "userFallback": "مستخدم"
+  },
+  "userAccount": {
+    "addAnotherAccount": "إضافة حساب آخر",
+    "signOut": "تسجيل الخروج"
+  },
+  "searchInput": {
+    "placeholder": "بحث..."
+  },
+  "errorState": {
+    "title": "تعذر تحميل البيانات"
+  },
+  "buttons": {
+    "tryAgain": "حاول مرة أخرى",
+    "try_again": "حاول مرة أخرى"
+  },
+  "deleteConfirmation": "حذف",
+  "remove": "إزالة",
+  "cancel": "إلغاء"
+}

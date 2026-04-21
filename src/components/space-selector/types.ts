@@ -30,6 +30,11 @@ export interface ProxySpace {
   name: string;
   role?: string;
   total_members?: number;
+  totalMembers?: number;
+  members_count?: number;
+  member_count?: number;
+  memberCount?: number;
+  members?: unknown[];
   features?: SpaceFeature[];
   uuid?: string; // Sometimes used interchangeably
   avatar?: string;
