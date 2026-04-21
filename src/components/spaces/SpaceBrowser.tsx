@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../space-selector/context";
 import { Button } from "../ui/button";
 import SearchInput from "../space-selector/ui/search-input";
@@ -9,6 +8,7 @@ import EmptyList from "../space-selector/components/EmptyList";
 import ErrorState from "../ui/error-state";
 import { ProxySpace } from "../space-selector/types";
 import { cn } from "../../lib/utils";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -117,7 +117,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
   const { className, internalContainerStyle, searchStyle, spacesContainerStyle, spaceCardStyle } =
     browserClassNames ?? {};
 
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const { spaces, setModal, setActiveSpace } = useSpaceSelector();
 
   const [filteredSpaces, setFilteredSpaces] = useState<ProxySpace[]>(spaces);

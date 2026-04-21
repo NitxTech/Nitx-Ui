@@ -1,5 +1,5 @@
 import { Button } from "../../ui/button";
-import { useTranslation } from "react-i18next";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface TablePaginationProps {
   currentPage: number;
@@ -20,7 +20,7 @@ const TablePagination = ({
   onPageChange,
   onRowsPerPageChange,
 }: TablePaginationProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   if (totalItems === 0) return null;
 
   const safeTotalPages = totalPages || 1;

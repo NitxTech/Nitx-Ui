@@ -2,7 +2,6 @@ import { ChevronDown, Search, UserPlus } from "lucide-react";
 import { MoreVertical } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Copy02Icon, Delete01Icon } from "@hugeicons/core-free-icons";
-import { useTranslation } from "react-i18next";
 
 import type { Member, MemberRole } from "../../space-selector/types";
 import { Button } from "../../ui/button";
@@ -24,6 +23,7 @@ import {
   MEMBER_ROLE_OPTIONS,
   TABLE_ROW_CLASS,
 } from "./constants";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface MembersTableProps {
   items: Member[];
@@ -57,7 +57,7 @@ const MemberRowActions = ({
   onCopyEmail,
   onRemove,
 }: MemberRowActionsProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   return (
     <div className="absolute right-2 top-2 sm:static flex justify-end">
@@ -170,7 +170,7 @@ const MembersTable = ({
   onCopyEmail,
   onRemove,
 }: MembersTableProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const columns = getSharedTableColumns(t);
   const sectionDescription = getSectionDescription(t);
 
@@ -209,7 +209,7 @@ const MembersTable = ({
           />
         </div>
         <Button
-          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm font-normal !h-12"
+          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm !h-12"
           onClick={onOpenInviteModal}
         >
           <UserPlus className="w-4 h-4 mr-2" />

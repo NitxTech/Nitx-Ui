@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface EmptyListProps {
   title?: string;
@@ -12,7 +12,7 @@ const EmptyList = ({
   description,
   image = "/empty-list.png", // Asset handling in package might be tricky
 }: EmptyListProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const defaultTitle = title || t("emptyList.noItemsFound");
   const defaultDescription = description || t("emptyList.defaultDescription");
 

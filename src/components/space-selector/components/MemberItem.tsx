@@ -1,7 +1,6 @@
 import { Member } from "../types";
 
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -13,6 +12,7 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "../lib/utils";
 import { ChevronDown, Loader2 } from "lucide-react";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface MemberItemProps {
   member: Member;
@@ -26,7 +26,7 @@ type Role = {
 };
 
 const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   const roles: Role[] = [

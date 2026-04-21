@@ -8,7 +8,6 @@ import {
     User02Icon,
     UserAdd01Icon,
 } from "@hugeicons/core-free-icons";
-import { useTranslation } from "react-i18next";
 import { Label } from "../ui/label";
 import { MemberRole, SpaceSelectorApi } from "../space-selector/types";
 import { Loader2, X } from "lucide-react";
@@ -23,6 +22,7 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 
 import { useOptionalSpaceSelector } from "../space-selector/context";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 export interface MembersManagerProps {
     /** The space to invite members into */
@@ -80,7 +80,7 @@ const MembersManager = ({
     onSuccess,
     onCancel,
 }: MembersManagerProps) => {
-    const { t } = useTranslation("nitxuilib");
+    const { t } = useNitxUiTranslation();
     const spaceSelector = useOptionalSpaceSelector();
     const api = apiProp ?? spaceSelector?.api;
     if (!spaceId || !api?.inviteMembers) return null;

@@ -10,10 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useSpaceSelector } from "../context";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface SpaceCardProps {
   id: string;
@@ -46,7 +46,7 @@ export const SpaceCardSkeleton = () => {
 
 
 const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [isLoading, setIsLoading] = useState(false);
   // Use package context instead of global hooks
   const {

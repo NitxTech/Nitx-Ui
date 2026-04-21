@@ -1,6 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { cn } from "../../lib/utils";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 export interface ErrorStateProps {
   /** Short description text shown below the icon */
@@ -19,7 +19,7 @@ const ErrorState = ({
   onRetry,
   retryLabel,
 }: ErrorStateProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const resolvedTitle = title ?? t("errorState.title");
   const resolvedRetryLabel = retryLabel ?? t("buttons.tryAgain");
 

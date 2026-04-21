@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Key01Icon, Tv01Icon } from "@hugeicons/core-free-icons";
 import { toast } from "sonner";
@@ -25,6 +24,7 @@ import {
   type MembersAndNumbersTab,
   type StatCardProps,
 } from "./MembersAndNumbersParts";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 export interface MembersAndNumbersProps {
   spaceId: string;
@@ -43,7 +43,7 @@ const MembersAndNumbers = ({
   onRefreshSpaces,
   onSpaceNameChange,
 }: MembersAndNumbersProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   const [activeTab, setActiveTab] = useState<MembersAndNumbersTab>("members");
   const [licenseCount, setLicenseCount] = useState(0);

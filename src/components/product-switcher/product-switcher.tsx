@@ -9,7 +9,7 @@ import { ChevronRight, Grip } from "lucide-react";
 import ProductIcon from "./product-icon";
 
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 // import nexusLogo from "../../assets/nexus-logo.svg";
 
@@ -28,7 +28,7 @@ export const ProductSwitcher = ({
   profileImage,
   profileName,
 }: ProductSwitcherProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
