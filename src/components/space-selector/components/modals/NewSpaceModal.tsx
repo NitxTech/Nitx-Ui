@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { toast } from "sonner";
+import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
 
 const NewSpaceModal = () => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   const {
     activeModal,

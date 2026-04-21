@@ -1,12 +1,12 @@
 import React, { InputHTMLAttributes } from "react";
 import { SearchIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { Input } from "./input"; // Local import expectation
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const SearchInput: React.FC<SearchInputProps> = (props) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   return (
     <div className="relative flex-grow">

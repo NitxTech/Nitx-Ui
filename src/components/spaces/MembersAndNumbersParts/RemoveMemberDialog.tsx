@@ -1,9 +1,9 @@
 import type { Member } from "../../space-selector/types";
-import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/button";
 import { Dialog, DialogContent } from "../../ui/dialog";
 
 import { getFallbackText } from "./constants";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface RemoveMemberDialogProps {
   member: Member | null;
@@ -16,7 +16,7 @@ const RemoveMemberDialog = ({
   onOpenChange,
   onConfirm,
 }: RemoveMemberDialogProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   if (!member) return null;
 
   return (

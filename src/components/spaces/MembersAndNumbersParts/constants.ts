@@ -1,4 +1,5 @@
 import type { MemberRole } from "../../space-selector/types";
+import { DEFAULT_MEMBER_ROLE_OPTIONS } from "../member-role-config";
 
 export interface DataTableColumn {
   label: string;
@@ -36,11 +37,7 @@ export const INVITATION_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 export const getSectionDescription = (t: TranslateFn) =>
   t("membersAndNumbers.sectionDescription");
 
-export const MEMBER_ROLE_OPTIONS: MemberRole[] = [
-  "viewer",
-  "editor",
-  "manager",
-];
+export const MEMBER_ROLE_OPTIONS: MemberRole[] = [...DEFAULT_MEMBER_ROLE_OPTIONS];
 
 export const getFallbackText = (value: string) =>
   value.trim().slice(0, 2).toUpperCase();

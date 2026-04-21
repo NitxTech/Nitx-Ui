@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 interface UserAccountProps {
   accounts: {
@@ -32,7 +32,7 @@ export const UserAccount = ({
   isExpanded,
   auth_user,
 }: UserAccountProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [onOpen, setOnOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

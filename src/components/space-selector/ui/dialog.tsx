@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useTranslation } from "react-i18next";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
 import { cn } from "../lib/utils";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -37,7 +37,7 @@ const DialogContent = React.forwardRef<
     overlayClassName?: string;
   }
 >(({ className, children, overlayClassName, ...props }, ref) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   return (
     <DialogPortal>
       <DialogOverlay className={overlayClassName} />

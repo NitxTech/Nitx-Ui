@@ -1,8 +1,7 @@
-import { ChevronDown, Search, UserPlus } from "lucide-react";
+import { Search, UserPlus } from "lucide-react";
 import { MoreVertical } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Copy02Icon, Delete01Icon } from "@hugeicons/core-free-icons";
-import { useTranslation } from "react-i18next";
 
 import type { Member, MemberRole } from "../../space-selector/types";
 import { Button } from "../../ui/button";
@@ -21,9 +20,11 @@ import {
   getSectionDescription,
   getSharedTableColumns,
   MEMBER_PAGE_SIZE_OPTIONS,
-  MEMBER_ROLE_OPTIONS,
   TABLE_ROW_CLASS,
 } from "./constants";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
+import MemberRoleSelect from "../MemberRoleSelect";
+import { DEFAULT_MEMBER_ROLE_OPTIONS } from "../member-role-config";
 
 interface MembersTableProps {
   items: Member[];
@@ -57,7 +58,7 @@ const MemberRowActions = ({
   onCopyEmail,
   onRemove,
 }: MemberRowActionsProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   return (
     <div className="absolute right-2 top-2 sm:static flex justify-end">
@@ -170,7 +171,7 @@ const MembersTable = ({
   onCopyEmail,
   onRemove,
 }: MembersTableProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const columns = getSharedTableColumns(t);
   const sectionDescription = getSectionDescription(t);
 
@@ -209,7 +210,7 @@ const MembersTable = ({
           />
         </div>
         <Button
-          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm font-normal !h-12"
+          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm !h-12"
           onClick={onOpenInviteModal}
         >
           <UserPlus className="w-4 h-4 mr-2" />
@@ -236,27 +237,19 @@ const MembersTable = ({
             />
 
             <div className="ml-14 sm:ml-0">
-              <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                  >
-                    {t(`roles.${member.role}`)}
-                    <ChevronDown className="w-4 h-4 ml-2" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="z-[10005]">
-                  {MEMBER_ROLE_OPTIONS.map((role) => (
-                    <DropdownMenuItem
-                      key={role}
-                      onClick={() => onRoleChange(member.id, role)}
-                    >
-                      {t(`roles.${role}`)}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <MemberRoleSelect
+                value={member.role}
+                onValueChange={(role) => onRoleChange(member.id, role)}
+                options={
+                  member.role === "owner"
+                    ? ["owner"]
+                    : DEFAULT_MEMBER_ROLE_OPTIONS
+                }
+                disabled={member.role === "owner"}
+                variant="compact"
+                triggerClassName="w-auto max-w-full"
+                contentClassName="z-[10005]"
+              />
             </div>
 
             <MemberRowActions

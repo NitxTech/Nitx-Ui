@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../space-selector/context";
 import { Button } from "../ui/button";
 import SearchInput from "../space-selector/ui/search-input";
@@ -9,6 +8,7 @@ import EmptyList from "../space-selector/components/EmptyList";
 import ErrorState from "../ui/error-state";
 import { ProxySpace } from "../space-selector/types";
 import { cn } from "../../lib/utils";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -103,11 +103,44 @@ function renderSpaceList(
           onClick={() => onSelect(space)}
           className={cn(["cursor-pointer", spaceCardStyle])}
         >
-          <SpaceCard id={space.space_uuid} name={space.name} members={space?.total_members || 0} />
+          <SpaceCard
+            id={space.space_uuid}
+            name={space.name}
+            members={getSpaceMemberCount(space)}
+          />
         </div>
       ))}
     </div>
   );
+}
+
+function getSpaceMemberCount(space: ProxySpace) {
+  const candidates = [
+    space.total_members,
+    space.totalMembers,
+    space.members_count,
+    space.member_count,
+    space.memberCount,
+  ];
+
+  for (const candidate of candidates) {
+    if (typeof candidate === "number" && Number.isFinite(candidate)) {
+      return candidate;
+    }
+
+    if (typeof candidate === "string") {
+      const parsed = Number(candidate);
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+  }
+
+  if (Array.isArray(space.members)) {
+    return space.members.length;
+  }
+
+  return 0;
 }
 
 // ─── SpaceBrowser ─────────────────────────────────────────────────────────────
@@ -117,7 +150,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
   const { className, internalContainerStyle, searchStyle, spacesContainerStyle, spaceCardStyle } =
     browserClassNames ?? {};
 
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const { spaces, setModal, setActiveSpace } = useSpaceSelector();
 
   const [filteredSpaces, setFilteredSpaces] = useState<ProxySpace[]>(spaces);

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
 
 import { UserPlus } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -8,6 +7,7 @@ import { Settings01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "../../../lib/utils";
 
 import type { MembersAndNumbersTab } from "./constants";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface MembersAndNumbersLayoutProps {
   activeTab: MembersAndNumbersTab;
@@ -28,7 +28,7 @@ const MembersAndNumbersLayout = ({
   membersContent,
   settingsContent,
 }: MembersAndNumbersLayoutProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   return (
     <div className="flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900">
@@ -41,7 +41,7 @@ const MembersAndNumbersLayout = ({
           <button
             onClick={() => onTabChange("members")}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-normal transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
+              "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
               activeTab === "members"
                 ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",

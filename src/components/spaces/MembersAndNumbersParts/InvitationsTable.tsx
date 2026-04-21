@@ -25,7 +25,7 @@ import {
   TABLE_ROLE_CELL_CLASS,
   TABLE_ROW_CLASS,
 } from "./constants";
-import { useTranslation } from "react-i18next";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface InvitationsTableProps {
   items: Invitation[];
@@ -56,7 +56,7 @@ const InvitationRowActions = ({
   onCopyInviteLink,
   onRevoke,
 }: InvitationRowActionsProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
 
   return (
     <div className="absolute right-2 top-2 sm:static flex justify-end">
@@ -129,7 +129,7 @@ const InvitationsTable = ({
   onCopyInviteLink,
   onRevoke,
 }: InvitationsTableProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const columns = getSharedTableColumns(t);
   const sectionDescription = getSectionDescription(t);
 

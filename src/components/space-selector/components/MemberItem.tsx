@@ -1,7 +1,6 @@
 import { Member } from "../types";
 
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -13,6 +12,11 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "../lib/utils";
 import { ChevronDown, Loader2 } from "lucide-react";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
+import {
+  DEFAULT_MEMBER_ROLE_OPTIONS,
+  getMemberRoleDefinitions,
+} from "../../spaces/member-role-config";
 
 interface MemberItemProps {
   member: Member;
@@ -20,20 +24,11 @@ interface MemberItemProps {
   onRemove: (memberId: string) => Promise<void>;
 }
 
-type Role = {
-  title: string; // MemberRole in actual type but string compatible
-  description: string;
-};
-
 const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
-  const roles: Role[] = [
-    { title: "viewer", description: t("memberItem.viewerDescription") },
-    { title: "editor", description: t("memberItem.editorDescription") },
-    { title: "manager", description: t("memberItem.managerDescription") },
-  ];
+  const roles = getMemberRoleDefinitions(DEFAULT_MEMBER_ROLE_OPTIONS);
 
   const handleRemoveMember = async () => {
     // Confirmation handled by parent or simple confirm here?
@@ -83,21 +78,21 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
         <DropdownMenuContent align="end">
           {roles.map((role) => (
             <DropdownMenuItem
-              key={role.title}
+              key={role.value}
               disabled={member.role === "owner"}
-              onClick={() => handleUpdateRole(role.title)}
+              onClick={() => handleUpdateRole(role.value)}
               className="cursor-pointer"
             >
               <div className="flex flex-col gap-1 w-full">
                 <div className="w-full flex justify-between items-center gap-4">
                   <span className="text-xs capitalize font-medium">
-                    {t(`roles.${role.title}`)}
+                    {t(role.labelKey)}
                   </span>
                   <Checkbox
-                    checked={member.role === role.title}
+                    checked={member.role === role.value}
                     className={cn(
                       "w-4 h-4 scale-75 border-zinc-400",
-                      member.role === role.title && "border-primary"
+                      member.role === role.value && "border-primary"
                     )}
                   />
                 </div>

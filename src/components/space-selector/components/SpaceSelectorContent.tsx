@@ -19,13 +19,13 @@ import {
 } from "../ui/dropdown-menu";
 import { Skeleton } from "../ui/skeleton";
 
-import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../context";
 import { ProxySpace } from "../types";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 
 export const SpaceSelectorContent = () => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const {
     spaces,
     activeSpace,

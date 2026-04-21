@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTranslation } from "react-i18next";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { cn } from "../lib/utils";
@@ -19,6 +18,7 @@ import {
   DrawerHeader,
 } from "./drawer"; // Local import
 import { ChevronLeft } from "lucide-react";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 const sizeVariants = {
   default: "sm:max-w-[500px]",
@@ -54,7 +54,7 @@ export function DrawerDialog({
   open = true,
   overlayClassName,
 }: DrawerDialogProps) {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const [isMounted, setIsMounted] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 1140px)");
 

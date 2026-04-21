@@ -1,10 +1,10 @@
 import { Loader2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { getFallbackText } from "./constants";
+import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 interface SettingsTabContentProps {
   title: string;
@@ -21,7 +21,7 @@ const SettingsTabContent = ({
   onSpaceNameChange,
   onSave,
 }: SettingsTabContentProps) => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const logoText = getFallbackText(spaceName || "SP");
 
   return (

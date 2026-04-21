@@ -4,11 +4,11 @@ import { useSpaceSelector } from "../../context";
 import { Dialog, DialogContent } from "../../ui/dialog";
 import { Button } from "../../ui/button";
 import { Loader2, Trash2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import React from "react";
+import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
 
 const DeleteConfirmationModal = () => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const { activeModal, modalProps, setModal } = useSpaceSelector();
   const [isLoading, setIsLoading] = React.useState(false);
 

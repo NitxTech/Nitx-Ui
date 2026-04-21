@@ -1,10 +1,10 @@
-import { useTranslation } from "react-i18next";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import SpaceBrowser from "../../../spaces/SpaceBrowser";
+import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
 
 const BrowseSpaceModal = () => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const { activeModal, setModal } = useSpaceSelector();
 
   if (activeModal !== "browseSpace") return null;

@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-    EyeIcon,
-    PencilEdit01Icon,
-    Shield01Icon,
     Tick02Icon,
-    User02Icon,
     UserAdd01Icon,
 } from "@hugeicons/core-free-icons";
-import { useTranslation } from "react-i18next";
 import { Label } from "../ui/label";
 import { MemberRole, SpaceSelectorApi } from "../space-selector/types";
 import { Loader2, X } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-} from "../ui/select";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 
 import { useOptionalSpaceSelector } from "../space-selector/context";
+import { useNitxUiTranslation } from "../../i18n/nitxuilib";
+import MemberRoleSelect from "./MemberRoleSelect";
 
 export interface MembersManagerProps {
     /** The space to invite members into */
@@ -38,31 +29,6 @@ export interface MembersManagerProps {
     /** Called when the user clicks Cancel */
     onCancel?: () => void;
 }
-
-const roleDisplay = {
-    viewer: {
-        triggerIcon: User02Icon,
-        menuIcon: EyeIcon,
-    },
-    editor: {
-        triggerIcon: PencilEdit01Icon,
-        menuIcon: PencilEdit01Icon,
-    },
-    manager: {
-        triggerIcon: Shield01Icon,
-        menuIcon: Shield01Icon,
-    },
-    owner: {
-        triggerIcon: Shield01Icon,
-        menuIcon: Shield01Icon,
-    },
-} as const satisfies Record<
-    MemberRole,
-    {
-        triggerIcon: typeof User02Icon;
-        menuIcon: typeof User02Icon;
-    }
->;
 
 /**
  * MembersManager
@@ -80,7 +46,7 @@ const MembersManager = ({
     onSuccess,
     onCancel,
 }: MembersManagerProps) => {
-    const { t } = useTranslation("nitxuilib");
+    const { t } = useNitxUiTranslation();
     const spaceSelector = useOptionalSpaceSelector();
     const api = apiProp ?? spaceSelector?.api;
     if (!spaceId || !api?.inviteMembers) return null;
@@ -94,7 +60,6 @@ const MembersManager = ({
     );
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const selectedRole = roleDisplay[pendingRole];
 
     // Sync pre-fill values whenever they change from the outside
     useEffect(() => {
@@ -265,101 +230,11 @@ const MembersManager = ({
                     <Label className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
                         {t("membersManager.selectRole")}
                     </Label>
-                    <div className="relative">
-                        <Select
-                            value={pendingRole}
-                            onValueChange={(v) => setPendingRole(v as MemberRole)}
-                        >
-                            <SelectTrigger
-                                type="button"
-                                className="w-full h-auto p-4 flex items-start text-left bg-neutral-50 border-neutral-200 rounded-xl hover:border-primary/50 hover:bg-neutral-50 data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800"
-                            >
-                                <div className="flex gap-4 items-center w-full">
-                                    <div className="flex items-start justify-start">
-                                        <div className="w-5 h-5 text-gray-600">
-                                            <HugeiconsIcon
-                                                icon={selectedRole.triggerIcon}
-                                                className="w-full h-full"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-0.5 flex-1">
-                                        <span className="font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200">
-                                            {t(`roles.${pendingRole}`)}
-                                        </span>
-                                        <span className="text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400">
-                                            {t(`membersManager.roles.${pendingRole}.description`)}
-                                        </span>
-                                    </div>
-                                </div>
-                            </SelectTrigger>
-                            <SelectContent className="p-1 bg-neutral-50 dark:bg-neutral-900">
-                                <SelectItem
-                                    value="viewer"
-                                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
-                                >
-                                    <div className="flex gap-3 items-center">
-                                        <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
-                                            <HugeiconsIcon
-                                                icon={roleDisplay.viewer.menuIcon}
-                                                className="w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col gap-0.5 text-left">
-                                            <span className="font-semibold text-sm">
-                                                {t("roles.viewer")}
-                                            </span>
-                                            <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {t("membersManager.roles.viewer.shortDescription")}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </SelectItem>
-                                <SelectItem
-                                    value="editor"
-                                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
-                                >
-                                    <div className="flex gap-3 items-center">
-                                        <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
-                                            <HugeiconsIcon
-                                                icon={roleDisplay.editor.menuIcon}
-                                                className="w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col gap-0.5 text-left">
-                                            <span className="font-semibold text-sm">
-                                                {t("roles.editor")}
-                                            </span>
-                                            <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {t("membersManager.roles.editor.shortDescription")}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </SelectItem>
-                                <SelectItem
-                                    value="manager"
-                                    className="rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15"
-                                >
-                                    <div className="flex gap-3 items-center">
-                                        <div className="w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800">
-                                            <HugeiconsIcon
-                                                icon={roleDisplay.manager.menuIcon}
-                                                className="w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col gap-0.5 text-left">
-                                            <span className="font-semibold text-sm">
-                                                {t("roles.manager")}
-                                            </span>
-                                            <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                                                {t("membersManager.roles.manager.shortDescription")}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                    <MemberRoleSelect
+                        value={pendingRole}
+                        onValueChange={setPendingRole}
+                        variant="detailed"
+                    />
                 </div>
 
                 {/* Footer Buttons */}

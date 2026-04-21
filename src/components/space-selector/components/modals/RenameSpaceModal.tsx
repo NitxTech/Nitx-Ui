@@ -2,13 +2,13 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Check, Loader2, PencilLine, RefreshCw, TriangleAlert } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
+import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
 
 type RenameModalView = "form" | "success" | "error";
 
@@ -206,7 +206,7 @@ const RenameSpaceErrorState = ({
 };
 
 const RenameSpaceModal = () => {
-  const { t } = useTranslation("nitxuilib");
+  const { t } = useNitxUiTranslation();
   const {
     activeModal,
     modalProps,
