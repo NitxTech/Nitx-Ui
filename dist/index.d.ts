@@ -1,5 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import { ReactNode } from 'react';
+import { Dispatch, SetStateAction, ReactNode } from 'react';
 
 interface ProductSwitcherProps {
     auth_user: number | string;
@@ -100,6 +100,44 @@ interface SpaceSelectorApi {
     }>;
 }
 
+interface SpaceBrowserClasses {
+    className?: string;
+    internalContainerStyle?: string;
+    searchStyle?: string;
+    spacesContainerStyle?: string;
+    spaceCardStyle?: string;
+}
+interface SpaceBrowserProps {
+    browserClassNames?: SpaceBrowserClasses;
+    isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
+}
+declare const SpaceBrowser: (props: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
+
+interface MembersManagerProps {
+    /** The space to invite members into */
+    spaceId: string;
+    /** API implementation provided by the library consumer */
+    api?: Pick<SpaceSelectorApi, "inviteMembers">;
+    /** Pre-fill a specific email address */
+    initialEmail?: string;
+    /** Pre-select a specific role */
+    initialRole?: MemberRole;
+    /** Called after invitations are sent successfully */
+    onSuccess?: () => void;
+    /** Called when the user clicks Cancel */
+    onCancel?: () => void;
+}
+/**
+ * MembersManager
+ *
+ * A fully self-contained member-invitation UI.
+ * It does NOT depend on the SpaceSelectorContext and can be embedded
+ * anywhere — inside a modal, a sidebar panel, a settings page, etc.
+ */
+declare const MembersManager: ({ spaceId, api: apiProp, initialEmail, initialRole, onSuccess, onCancel, }: MembersManagerProps) => react_jsx_runtime.JSX.Element | null;
+
 interface SpaceSelectorProps {
     spaces: ProxySpace[];
     activeSpace: ProxySpace | undefined;
@@ -108,7 +146,13 @@ interface SpaceSelectorProps {
     authUser?: string | number;
     isExpanded?: boolean;
     className?: string;
-    onRefreshSpaces?: () => void;
+    onRefreshSpaces?: () => void | Promise<void>;
+    showtype?: "DropDown" | "Browser" | "SpaceManager";
+    browserClassNames?: SpaceBrowserClasses;
+    isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
+    MembersManager?: MembersManagerProps;
 }
 declare const SpaceSelector: (props: SpaceSelectorProps) => react_jsx_runtime.JSX.Element;
 
@@ -117,27 +161,56 @@ interface SpaceSelectorContextType {
     spaces: ProxySpace[];
     isExpanded: boolean;
     setActiveSpace: (space: ProxySpace) => void;
-    refreshSpaces: () => void;
+    refreshSpaces: () => void | Promise<void>;
     activeModal: string | null;
     setModal: (modal: string | null) => void;
     modalProps: any;
-    setModalProps: (props: any) => void;
+    setModalProps: Dispatch<SetStateAction<any>>;
     api?: SpaceSelectorApi;
     authUser?: string | number;
+    isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
+declare const useOptionalSpaceSelector: () => SpaceSelectorContextType | undefined;
 declare const useSpaceSelector: () => SpaceSelectorContextType;
 interface SpaceSelectorProviderProps {
     children: ReactNode;
     activeSpace: ProxySpace | undefined;
     spaces: ProxySpace[];
     onSpaceSelect: (space: ProxySpace) => void;
-    onRefreshSpaces?: () => void;
+    onRefreshSpaces?: () => void | Promise<void>;
     authUser?: string | number;
     api?: SpaceSelectorApi;
     isExpanded?: boolean;
+    isLoading?: boolean;
+    error?: string | null;
+    onFail?: () => void;
 }
-declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, }: SpaceSelectorProviderProps) => react_jsx_runtime.JSX.Element;
+declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, isLoading, error, onFail, }: SpaceSelectorProviderProps) => react_jsx_runtime.JSX.Element;
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
-export { type Invitation, type Member, type MemberRole, ProductSwitcher, type ProxySpace, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useSpaceSelector };
+interface MembersAndNumbersProps {
+    spaceId: string;
+    spaceName?: string;
+    api?: SpaceSelectorApi;
+    isOpen?: boolean;
+    onRefreshSpaces?: () => void | Promise<void>;
+    onSpaceNameChange?: (spaceName: string) => void;
+}
+declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => react_jsx_runtime.JSX.Element | null;
+
+interface ErrorStateProps {
+    /** Short description text shown below the icon */
+    message: string;
+    /** Optional heading — defaults to "Couldn't load data" */
+    title?: string;
+    /** Called when the user clicks the retry button. If omitted the button is hidden. */
+    onRetry?: () => void;
+    /** Label for the retry button — defaults to "Try again" */
+    retryLabel?: string;
+}
+declare const ErrorState: ({ message, title, onRetry, retryLabel, }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
+
+export { ErrorState, type ErrorStateProps, type Invitation, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, ProductSwitcher, type ProxySpace, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, UserAccount, createSpaceSelectorApi, useOptionalSpaceSelector, useSpaceSelector };

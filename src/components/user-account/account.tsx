@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface UserAccountProps {
   accounts: {
@@ -31,6 +32,7 @@ export const UserAccount = ({
   isExpanded,
   auth_user,
 }: UserAccountProps) => {
+  const { t } = useTranslation("nitxuilib");
   const [onOpen, setOnOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -197,7 +199,7 @@ export const UserAccount = ({
               href={`${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`}
             >
               <PlusSquare className="w-4 h-4 stroke-[1.5]" />
-              Add another account
+              {t("userAccount.addAnotherAccount")}
             </Link>
           </DropdownMenuItem>
 
@@ -207,7 +209,7 @@ export const UserAccount = ({
             className="w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60 dark:hover:bg-zinc-700/60"
           >
             <LogOut className="w-4 h-4 stroke-[1.5]" />
-            Sign Out
+            {t("userAccount.signOut")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

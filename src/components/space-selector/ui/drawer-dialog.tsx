@@ -34,6 +34,7 @@ interface DrawerDialogProps {
   description?: string;
   children: React.ReactNode;
   className?: string;
+  bodyClassName?: string;
   size?: keyof typeof sizeVariants;
   back?: () => void;
   onClose?: () => void;
@@ -46,13 +47,14 @@ export function DrawerDialog({
   description,
   children,
   className,
+  bodyClassName,
   size = "default",
   back,
   onClose,
   open = true,
   overlayClassName,
 }: DrawerDialogProps) {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation("nitxuilib");
   const [isMounted, setIsMounted] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 1140px)");
 
@@ -111,7 +113,12 @@ export function DrawerDialog({
               <DialogTitle>{t("drawerDialog.modalTitle")}</DialogTitle>
             </VisuallyHidden.Root>
           )}
-          <div className="flex-grow flex flex-col min-h-0 w-full overflow-y-auto">
+          <div
+            className={cn(
+              "flex-grow flex flex-col min-h-0 w-full overflow-y-auto",
+              bodyClassName,
+            )}
+          >
             {children}
           </div>
         </DialogContent>
@@ -127,7 +134,9 @@ export function DrawerDialog({
           {title}
           <DrawerDescription>{description}</DrawerDescription>
         </DrawerHeader>
-        <div className="flex flex-col h-auto overflow-y-auto">{children}</div>
+        <div className={cn("flex flex-col h-auto overflow-y-auto", bodyClassName)}>
+          {children}
+        </div>
       </DrawerContent>
     </Drawer>
   );

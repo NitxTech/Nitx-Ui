@@ -37,7 +37,7 @@ const DialogContent = React.forwardRef<
     overlayClassName?: string;
   }
 >(({ className, children, overlayClassName, ...props }, ref) => {
-  const { t } = useTranslation("components");
+  const { t } = useTranslation("nitxuilib");
   return (
     <DialogPortal>
       <DialogOverlay className={overlayClassName} />
