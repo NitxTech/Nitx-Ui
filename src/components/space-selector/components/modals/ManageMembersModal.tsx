@@ -42,11 +42,9 @@ const ManageMembersModal = ({
     initialEmail ?? modalProps?.manageMembersProps?.initialEmail;
   const editRole = initialRole ?? modalProps?.manageMembersProps?.initialRole;
 
-  if (!effectiveOpen) return null;
-  if (!spaceId || !api?.inviteMembers) return null;
-
   const handleClose = onClose ?? (() => setModal?.(null));
   const handleSuccess = onSuccess ?? (() => setModal?.("membersAndNumbers"));
+  const canRenderManager = Boolean(spaceId && api?.inviteMembers);
 
   return (
     <DrawerDialog
@@ -55,14 +53,16 @@ const ManageMembersModal = ({
       className="sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900"
       overlayClassName="z-[10010]"
     >
-      <MembersManager
-        spaceId={spaceId}
-        api={api}
-        initialEmail={editEmail}
-        initialRole={editRole}
-        onSuccess={handleSuccess}
-        onCancel={handleClose}
-      />
+      {effectiveOpen && canRenderManager ? (
+        <MembersManager
+          spaceId={spaceId!}
+          api={api}
+          initialEmail={editEmail}
+          initialRole={editRole}
+          onSuccess={handleSuccess}
+          onCancel={handleClose}
+        />
+      ) : null}
     </DrawerDialog>
   );
 };
