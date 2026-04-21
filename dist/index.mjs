@@ -3137,19 +3137,15 @@ var NewSpaceModal_default = NewSpaceModal;
 
 // src/components/spaces/MembersAndNumbers.tsx
 import { useEffect as useEffect7, useState as useState9 } from "react";
-import { HugeiconsIcon as HugeiconsIcon5 } from "@hugeicons/react";
+import { HugeiconsIcon as HugeiconsIcon6 } from "@hugeicons/react";
 import { Key01Icon, Tv01Icon } from "@hugeicons/core-free-icons";
 import { toast as toast4 } from "sonner";
 
 // src/components/spaces/MembersManager.tsx
 import { useEffect as useEffect6, useState as useState8 } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { HugeiconsIcon as HugeiconsIcon2 } from "@hugeicons/react";
 import {
-  EyeIcon,
-  PencilEdit01Icon,
-  Shield01Icon,
   Tick02Icon,
-  User02Icon,
   UserAdd01Icon
 } from "@hugeicons/core-free-icons";
 
@@ -3221,139 +3217,156 @@ function v4(options, buf, offset) {
 }
 var v4_default = v4;
 
-// src/components/ui/select.tsx
-import * as React16 from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { Check as Check3, ChevronDown as ChevronDown2, ChevronUp } from "lucide-react";
-import { jsx as jsx25, jsxs as jsxs15 } from "react/jsx-runtime";
-var Select = SelectPrimitive.Root;
-var SelectTrigger = React16.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs15(
-  SelectPrimitive.Trigger,
-  {
-    ref,
-    type: "button",
-    className: cn(
-      "flex h-12 w-full items-center justify-between rounded-[10px] border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-      className
-    ),
-    ...props,
-    children: [
-      children,
-      /* @__PURE__ */ jsx25(SelectPrimitive.Icon, { asChild: true, children: /* @__PURE__ */ jsx25(ChevronDown2, { className: "h-4 w-4 opacity-50" }) })
-    ]
-  }
-));
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
-var SelectScrollUpButton = React16.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx25(
-  SelectPrimitive.ScrollUpButton,
-  {
-    ref,
-    className: cn(
-      "flex cursor-default items-center justify-center py-1",
-      className
-    ),
-    ...props,
-    children: /* @__PURE__ */ jsx25(ChevronUp, { className: "h-4 w-4" })
-  }
-));
-SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
-var SelectScrollDownButton = React16.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx25(
-  SelectPrimitive.ScrollDownButton,
-  {
-    ref,
-    className: cn(
-      "flex cursor-default items-center justify-center py-1",
-      className
-    ),
-    ...props,
-    children: /* @__PURE__ */ jsx25(ChevronDown2, { className: "h-4 w-4" })
-  }
-));
-SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
-var SelectContent = React16.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsx25(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsxs15(
-  SelectPrimitive.Content,
-  {
-    ref,
-    className: cn(
-      "relative z-[100001] max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-      className
-    ),
-    position,
-    ...props,
-    children: [
-      /* @__PURE__ */ jsx25(SelectScrollUpButton, {}),
-      /* @__PURE__ */ jsx25(
-        SelectPrimitive.Viewport,
-        {
-          className: cn(
-            "p-1",
-            position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
-          ),
-          children
-        }
-      ),
-      /* @__PURE__ */ jsx25(SelectScrollDownButton, {})
-    ]
-  }
-) }));
-SelectContent.displayName = SelectPrimitive.Content.displayName;
-var SelectLabel = React16.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx25(
-  SelectPrimitive.Label,
-  {
-    ref,
-    className: cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className),
-    ...props
-  }
-));
-SelectLabel.displayName = SelectPrimitive.Label.displayName;
-var SelectItem = React16.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs15(
-  SelectPrimitive.Item,
-  {
-    ref,
-    className: cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
-    ),
-    ...props,
-    children: [
-      /* @__PURE__ */ jsx25("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx25(SelectPrimitive.ItemIndicator, { children: /* @__PURE__ */ jsx25(Check3, { className: "h-4 w-4" }) }) }),
-      /* @__PURE__ */ jsx25(SelectPrimitive.ItemText, { children })
-    ]
-  }
-));
-SelectItem.displayName = SelectPrimitive.Item.displayName;
-var SelectSeparator = React16.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx25(
-  SelectPrimitive.Separator,
-  {
-    ref,
-    className: cn("-mx-1 my-1 h-px bg-muted", className),
-    ...props
-  }
-));
-SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
-
 // src/components/spaces/MembersManager.tsx
 import { toast as toast3 } from "sonner";
-import { jsx as jsx26, jsxs as jsxs16 } from "react/jsx-runtime";
-var roleDisplay = {
+
+// src/components/spaces/MemberRoleSelect.tsx
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Check as Check3, ChevronDown as ChevronDown2 } from "lucide-react";
+
+// src/components/spaces/member-role-config.ts
+import {
+  EyeIcon,
+  PencilEdit01Icon,
+  Shield01Icon,
+  User02Icon
+} from "@hugeicons/core-free-icons";
+var MEMBER_ROLE_DEFINITIONS = {
   viewer: {
+    value: "viewer",
+    labelKey: "roles.viewer",
+    descriptionKey: "membersManager.roles.viewer.description",
+    shortDescriptionKey: "membersManager.roles.viewer.shortDescription",
     triggerIcon: User02Icon,
     menuIcon: EyeIcon
   },
   editor: {
+    value: "editor",
+    labelKey: "roles.editor",
+    descriptionKey: "membersManager.roles.editor.description",
+    shortDescriptionKey: "membersManager.roles.editor.shortDescription",
     triggerIcon: PencilEdit01Icon,
     menuIcon: PencilEdit01Icon
   },
   manager: {
+    value: "manager",
+    labelKey: "roles.manager",
+    descriptionKey: "membersManager.roles.manager.description",
+    shortDescriptionKey: "membersManager.roles.manager.shortDescription",
     triggerIcon: Shield01Icon,
     menuIcon: Shield01Icon
   },
   owner: {
+    value: "owner",
+    labelKey: "roles.owner",
+    descriptionKey: "membersManager.roles.owner.description",
+    shortDescriptionKey: "membersManager.roles.owner.shortDescription",
     triggerIcon: Shield01Icon,
     menuIcon: Shield01Icon
   }
 };
+var DEFAULT_MEMBER_ROLE_OPTIONS = [
+  "viewer",
+  "editor",
+  "manager"
+];
+var getMemberRoleDefinition = (role) => MEMBER_ROLE_DEFINITIONS[role];
+var getMemberRoleDefinitions = (roles = DEFAULT_MEMBER_ROLE_OPTIONS) => roles.map((role) => getMemberRoleDefinition(role));
+
+// src/components/spaces/MemberRoleSelect.tsx
+import { jsx as jsx25, jsxs as jsxs15 } from "react/jsx-runtime";
+var MemberRoleSelect = ({
+  value,
+  onValueChange,
+  options,
+  disabled = false,
+  variant = "detailed",
+  className,
+  triggerClassName,
+  contentClassName
+}) => {
+  const { t } = useNitxUiTranslation();
+  const selectedRole = getMemberRoleDefinition(value);
+  const availableRoles = [
+    ...options ?? DEFAULT_MEMBER_ROLE_OPTIONS,
+    ...options?.includes(value) ? [] : [value]
+  ];
+  const roleOptions = getMemberRoleDefinitions(
+    Array.from(new Set(availableRoles))
+  );
+  const isCompact = variant === "compact";
+  return /* @__PURE__ */ jsx25("div", { className, children: /* @__PURE__ */ jsxs15(DropdownMenu, { modal: false, children: [
+    /* @__PURE__ */ jsx25(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs15(
+      "button",
+      {
+        type: "button",
+        disabled,
+        className: cn(
+          "flex w-full items-center justify-between outline-none transition-colors disabled:pointer-events-none",
+          isCompact ? "h-8 min-w-[120px] gap-2 rounded-md bg-transparent px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 disabled:cursor-default disabled:opacity-100 dark:text-neutral-200 dark:hover:bg-neutral-800" : "min-h-20 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4 text-left hover:border-primary/50 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+          triggerClassName
+        ),
+        children: [
+          isCompact ? /* @__PURE__ */ jsx25("span", { className: "truncate", children: t(selectedRole.labelKey) }) : /* @__PURE__ */ jsxs15("div", { className: "flex w-full items-center gap-4", children: [
+            /* @__PURE__ */ jsx25("div", { className: "flex items-start justify-start", children: /* @__PURE__ */ jsx25("div", { className: "h-5 w-5 text-gray-600 dark:text-neutral-300", children: /* @__PURE__ */ jsx25(
+              HugeiconsIcon,
+              {
+                icon: selectedRole.triggerIcon,
+                className: "h-full w-full"
+              }
+            ) }) }),
+            /* @__PURE__ */ jsxs15("div", { className: "flex flex-1 flex-col gap-0.5", children: [
+              /* @__PURE__ */ jsx25("span", { className: "font-medium text-sm text-neutral-700 dark:text-neutral-200", children: t(selectedRole.labelKey) }),
+              /* @__PURE__ */ jsx25("span", { className: "line-clamp-2 text-xs font-medium text-neutral-500 dark:text-neutral-400", children: t(selectedRole.descriptionKey) })
+            ] })
+          ] }),
+          !disabled ? /* @__PURE__ */ jsx25(ChevronDown2, { className: "ml-2 h-4 w-4 shrink-0 text-neutral-500 dark:text-neutral-400" }) : null
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsxs15(
+      DropdownMenuContent,
+      {
+        align: "start",
+        sideOffset: 8,
+        className: cn(
+          "z-[100001] rounded-[22px] border border-neutral-200 bg-white p-0 shadow-[0_24px_48px_rgba(15,23,42,0.14)] dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none",
+          isCompact ? "w-[min(320px,calc(100vw-2rem))]" : "w-[var(--radix-dropdown-menu-trigger-width)] max-w-[calc(100vw-2rem)]",
+          contentClassName
+        ),
+        children: [
+          /* @__PURE__ */ jsx25("div", { className: "px-4 pt-4 pb-2 text-sm font-medium text-neutral-500 dark:text-neutral-400", children: t("membersManager.selectRole") }),
+          /* @__PURE__ */ jsx25("div", { className: "pb-2", children: roleOptions.map((roleOption) => /* @__PURE__ */ jsxs15(
+            DropdownMenuItem,
+            {
+              onClick: () => onValueChange(roleOption.value),
+              className: "relative flex items-start gap-3 px-4 py-3 focus:bg-neutral-100 dark:focus:bg-neutral-900",
+              children: [
+                /* @__PURE__ */ jsx25("div", { className: "mt-1 h-4 w-4 shrink-0 text-neutral-600 dark:text-neutral-300", children: /* @__PURE__ */ jsx25(
+                  HugeiconsIcon,
+                  {
+                    icon: roleOption.menuIcon,
+                    className: "h-full w-full"
+                  }
+                ) }),
+                /* @__PURE__ */ jsxs15("div", { className: "flex min-w-0 flex-1 flex-col gap-1 pr-8 text-left", children: [
+                  /* @__PURE__ */ jsx25("span", { className: "text-base font-medium text-neutral-900 dark:text-neutral-100", children: t(roleOption.labelKey) }),
+                  /* @__PURE__ */ jsx25("span", { className: "text-sm leading-6 text-neutral-500 dark:text-neutral-400", children: t(roleOption.descriptionKey) })
+                ] }),
+                value === roleOption.value ? /* @__PURE__ */ jsx25("div", { className: "absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white dark:bg-primarylight dark:text-primary", children: /* @__PURE__ */ jsx25(Check3, { className: "h-3.5 w-3.5" }) }) : null
+              ]
+            },
+            roleOption.value
+          )) })
+        ]
+      }
+    )
+  ] }) });
+};
+var MemberRoleSelect_default = MemberRoleSelect;
+
+// src/components/spaces/MembersManager.tsx
+import { jsx as jsx26, jsxs as jsxs16 } from "react/jsx-runtime";
 var MembersManager = ({
   spaceId,
   api: apiProp,
@@ -3373,7 +3386,6 @@ var MembersManager = ({
   );
   const [isLoading, setIsLoading] = useState8(false);
   const [isSuccess, setIsSuccess] = useState8(false);
-  const selectedRole = roleDisplay[pendingRole];
   useEffect6(() => {
     if (initialEmail) {
       setEmail(initialEmail);
@@ -3439,7 +3451,7 @@ var MembersManager = ({
   };
   if (isSuccess) {
     return /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center justify-center py-6 gap-4 text-center", children: [
-      /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: Tick02Icon, className: "w-6 h-6" }) }),
+      /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: Tick02Icon, className: "w-6 h-6" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-xl font-bold text-neutral-900 dark:text-neutral-50", children: t("membersManager.successTitle") }),
       /* @__PURE__ */ jsx26("p", { className: "text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400", children: t("membersManager.successDescription") }),
       /* @__PURE__ */ jsx26(
@@ -3457,7 +3469,7 @@ var MembersManager = ({
   const isButtonDisabled = isLoading || pendingEmails.length === 0 && !isInputValidEmail;
   return /* @__PURE__ */ jsxs16("div", { className: "w-full flex flex-col", children: [
     /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 p-6", children: [
-      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
+      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: t("membersManager.title") }),
       /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: t("membersManager.description") })
     ] }),
@@ -3501,97 +3513,14 @@ var MembersManager = ({
           ] }),
           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-2", children: [
             /* @__PURE__ */ jsx26(Label4, { className: "text-sm font-medium text-neutral-600 dark:text-neutral-300", children: t("membersManager.selectRole") }),
-            /* @__PURE__ */ jsx26("div", { className: "relative", children: /* @__PURE__ */ jsxs16(
-              Select,
+            /* @__PURE__ */ jsx26(
+              MemberRoleSelect_default,
               {
                 value: pendingRole,
-                onValueChange: (v) => setPendingRole(v),
-                children: [
-                  /* @__PURE__ */ jsx26(
-                    SelectTrigger,
-                    {
-                      type: "button",
-                      className: "w-full h-auto p-4 flex items-start text-left bg-neutral-50 border-neutral-200 rounded-xl hover:border-primary/50 hover:bg-neutral-50 data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-primary/10 transition-all [&>span]:w-full dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800",
-                      children: /* @__PURE__ */ jsxs16("div", { className: "flex gap-4 items-center w-full", children: [
-                        /* @__PURE__ */ jsx26("div", { className: "flex items-start justify-start", children: /* @__PURE__ */ jsx26("div", { className: "w-5 h-5 text-gray-600", children: /* @__PURE__ */ jsx26(
-                          HugeiconsIcon,
-                          {
-                            icon: selectedRole.triggerIcon,
-                            className: "w-full h-full"
-                          }
-                        ) }) }),
-                        /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 flex-1", children: [
-                          /* @__PURE__ */ jsx26("span", { className: "font-medium capitalize text-sm text-neutral-700 dark:text-neutral-200", children: t(`roles.${pendingRole}`) }),
-                          /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 font-medium line-clamp-1 dark:text-neutral-400", children: t(`membersManager.roles.${pendingRole}.description`) })
-                        ] })
-                      ] })
-                    }
-                  ),
-                  /* @__PURE__ */ jsxs16(SelectContent, { className: "p-1 bg-neutral-50 dark:bg-neutral-900", children: [
-                    /* @__PURE__ */ jsx26(
-                      SelectItem,
-                      {
-                        value: "viewer",
-                        className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
-                        children: /* @__PURE__ */ jsxs16("div", { className: "flex gap-3 items-center", children: [
-                          /* @__PURE__ */ jsx26("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsx26(
-                            HugeiconsIcon,
-                            {
-                              icon: roleDisplay.viewer.menuIcon,
-                              className: "w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                            }
-                          ) }),
-                          /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.viewer") }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.viewer.shortDescription") })
-                          ] })
-                        ] })
-                      }
-                    ),
-                    /* @__PURE__ */ jsx26(
-                      SelectItem,
-                      {
-                        value: "editor",
-                        className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
-                        children: /* @__PURE__ */ jsxs16("div", { className: "flex gap-3 items-center", children: [
-                          /* @__PURE__ */ jsx26("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsx26(
-                            HugeiconsIcon,
-                            {
-                              icon: roleDisplay.editor.menuIcon,
-                              className: "w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                            }
-                          ) }),
-                          /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.editor") }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.editor.shortDescription") })
-                          ] })
-                        ] })
-                      }
-                    ),
-                    /* @__PURE__ */ jsx26(
-                      SelectItem,
-                      {
-                        value: "manager",
-                        className: "rounded-lg py-3 cursor-pointer focus:bg-primary/5 focus:text-primary dark:focus:bg-primary/15",
-                        children: /* @__PURE__ */ jsxs16("div", { className: "flex gap-3 items-center", children: [
-                          /* @__PURE__ */ jsx26("div", { className: "w-8 h-8 rounded-md bg-neutral-100 flex items-center justify-center shrink-0 dark:bg-neutral-800", children: /* @__PURE__ */ jsx26(
-                            HugeiconsIcon,
-                            {
-                              icon: roleDisplay.manager.menuIcon,
-                              className: "w-4 h-4 text-neutral-600 dark:text-neutral-300"
-                            }
-                          ) }),
-                          /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-0.5 text-left", children: [
-                            /* @__PURE__ */ jsx26("span", { className: "font-semibold text-sm", children: t("roles.manager") }),
-                            /* @__PURE__ */ jsx26("span", { className: "text-xs text-neutral-500 dark:text-neutral-400", children: t("membersManager.roles.manager.shortDescription") })
-                          ] })
-                        ] })
-                      }
-                    )
-                  ] })
-                ]
+                onValueChange: setPendingRole,
+                variant: "detailed"
               }
-            ) })
+            )
           ] }),
           /* @__PURE__ */ jsxs16("div", { className: "flex flex-col gap-3 mt-4", children: [
             /* @__PURE__ */ jsxs16(
@@ -3672,13 +3601,13 @@ var ManageMembersModal = ({
 var ManageMembersModal_default = ManageMembersModal;
 
 // src/components/ui/dialog.tsx
-import * as React18 from "react";
+import * as React17 from "react";
 import * as DialogPrimitive2 from "@radix-ui/react-dialog";
 import { X as X3 } from "lucide-react";
 import { jsx as jsx28, jsxs as jsxs17 } from "react/jsx-runtime";
 var Dialog2 = DialogPrimitive2.Root;
 var DialogPortal2 = DialogPrimitive2.Portal;
-var DialogOverlay2 = React18.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
+var DialogOverlay2 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
   DialogPrimitive2.Overlay,
   {
     ref,
@@ -3691,7 +3620,7 @@ var DialogOverlay2 = React18.forwardRef(({ className, ...props }, ref) => /* @__
   }
 ));
 DialogOverlay2.displayName = DialogPrimitive2.Overlay.displayName;
-var DialogContent2 = React18.forwardRef(({ className, children, overlayClassName, ...props }, ref) => {
+var DialogContent2 = React17.forwardRef(({ className, children, overlayClassName, ...props }, ref) => {
   const { t } = useNitxUiTranslation();
   return /* @__PURE__ */ jsxs17(DialogPortal2, { children: [
     /* @__PURE__ */ jsx28(DialogOverlay2, { className: overlayClassName }),
@@ -3742,7 +3671,7 @@ var DialogFooter2 = ({
   }
 );
 DialogFooter2.displayName = "DialogFooter";
-var DialogTitle2 = React18.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
+var DialogTitle2 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
   DialogPrimitive2.Title,
   {
     ref,
@@ -3754,7 +3683,7 @@ var DialogTitle2 = React18.forwardRef(({ className, ...props }, ref) => /* @__PU
   }
 ));
 DialogTitle2.displayName = DialogPrimitive2.Title.displayName;
-var DialogDescription2 = React18.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
+var DialogDescription2 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
   DialogPrimitive2.Description,
   {
     ref,
@@ -3780,11 +3709,7 @@ var TABLE_ROLE_CELL_CLASS = "h-8 px-2 text-sm font-normal text-neutral-700 capit
 var MEMBER_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 var INVITATION_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 var getSectionDescription = (t) => t("membersAndNumbers.sectionDescription");
-var MEMBER_ROLE_OPTIONS = [
-  "viewer",
-  "editor",
-  "manager"
-];
+var MEMBER_ROLE_OPTIONS = [...DEFAULT_MEMBER_ROLE_OPTIONS];
 var getFallbackText = (value) => value.trim().slice(0, 2).toUpperCase();
 
 // src/components/spaces/MembersAndNumbersParts/CancelInvitationDialog.tsx
@@ -3850,7 +3775,7 @@ var DataTableShell_default = DataTableShell;
 
 // src/components/spaces/MembersAndNumbersParts/InvitationsTable.tsx
 import { MoreVertical } from "lucide-react";
-import { HugeiconsIcon as HugeiconsIcon2 } from "@hugeicons/react";
+import { HugeiconsIcon as HugeiconsIcon3 } from "@hugeicons/react";
 import {
   Cancel01Icon,
   Copy02Icon,
@@ -3980,7 +3905,7 @@ var InvitationRowActions = ({
           className: "gap-2 cursor-pointer py-2.5",
           onClick: () => onResend(invite.id),
           children: [
-            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Refresh01Icon }) }),
+            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon3, { icon: Refresh01Icon }) }),
             /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.resendInvitation") })
           ]
         }
@@ -3991,7 +3916,7 @@ var InvitationRowActions = ({
           className: "gap-2 cursor-pointer py-2.5",
           onClick: () => onCopyEmail(invite.email),
           children: [
-            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Copy02Icon }) }),
+            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon3, { icon: Copy02Icon }) }),
             /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.copyEmail") })
           ]
         }
@@ -4002,7 +3927,7 @@ var InvitationRowActions = ({
           className: "gap-2 cursor-pointer py-2.5",
           onClick: () => onCopyInviteLink(invite),
           children: [
-            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Link01Icon }) }),
+            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon3, { icon: Link01Icon }) }),
             /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.copyInviteLink") })
           ]
         }
@@ -4013,7 +3938,7 @@ var InvitationRowActions = ({
           className: "gap-2 cursor-pointer py-2.5 text-red-600 focus:text-red-600 focus:bg-red-50",
           onClick: () => onRevoke(invite),
           children: [
-            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon2, { icon: Cancel01Icon }) }),
+            /* @__PURE__ */ jsx33("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx33(HugeiconsIcon3, { icon: Cancel01Icon }) }),
             /* @__PURE__ */ jsx33("span", { children: t("membersAndNumbers.table.actions.cancelInvitation") })
           ]
         }
@@ -4080,7 +4005,7 @@ var InvitationsTable_default = InvitationsTable;
 
 // src/components/spaces/MembersAndNumbersParts/MembersAndNumbersLayout.tsx
 import { UserPlus } from "lucide-react";
-import { HugeiconsIcon as HugeiconsIcon3 } from "@hugeicons/react";
+import { HugeiconsIcon as HugeiconsIcon4 } from "@hugeicons/react";
 import { Settings01Icon } from "@hugeicons/core-free-icons";
 import { jsx as jsx34, jsxs as jsxs23 } from "react/jsx-runtime";
 var MembersAndNumbersLayout = ({
@@ -4102,7 +4027,7 @@ var MembersAndNumbersLayout = ({
           {
             onClick: () => onTabChange("members"),
             className: cn(
-              "flex items-center gap-3 px-4 py-3 rounded-md text-sm transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
+              "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
               activeTab === "members" ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
             ),
             children: [
@@ -4120,7 +4045,7 @@ var MembersAndNumbersLayout = ({
               activeTab === "settings" ? "bg-primary text-white shadow-sm dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
             ),
             children: [
-              /* @__PURE__ */ jsx34("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx34(HugeiconsIcon3, { icon: Settings01Icon }) }),
+              /* @__PURE__ */ jsx34("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx34(HugeiconsIcon4, { icon: Settings01Icon }) }),
               settingsLabel
             ]
           }
@@ -4177,15 +4102,15 @@ var MembersLoadingState = () => {
 var MembersLoadingState_default = MembersLoadingState;
 
 // src/components/spaces/MembersAndNumbersParts/MembersTable.tsx
-import { ChevronDown as ChevronDown3, Search, UserPlus as UserPlus2 } from "lucide-react";
+import { Search, UserPlus as UserPlus2 } from "lucide-react";
 import { MoreVertical as MoreVertical2 } from "lucide-react";
-import { HugeiconsIcon as HugeiconsIcon4 } from "@hugeicons/react";
+import { HugeiconsIcon as HugeiconsIcon5 } from "@hugeicons/react";
 import { Copy02Icon as Copy02Icon2 } from "@hugeicons/core-free-icons";
 
 // src/components/ui/input.tsx
-import * as React19 from "react";
+import * as React18 from "react";
 import { jsx as jsx36 } from "react/jsx-runtime";
-var Input2 = React19.forwardRef(
+var Input2 = React18.forwardRef(
   ({ className, type, ...props }, ref) => {
     return /* @__PURE__ */ jsx36(
       "input",
@@ -4228,7 +4153,7 @@ var MemberRowActions = ({
           className: "gap-2 cursor-pointer py-2.5",
           onClick: () => onCopyEmail(member.email),
           children: [
-            /* @__PURE__ */ jsx37("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx37(HugeiconsIcon4, { icon: Copy02Icon2 }) }),
+            /* @__PURE__ */ jsx37("div", { className: "w-4 h-4 flex items-center justify-center", children: /* @__PURE__ */ jsx37(HugeiconsIcon5, { icon: Copy02Icon2 }) }),
             /* @__PURE__ */ jsx37("span", { children: t("membersAndNumbers.table.actions.copyEmail") })
           ]
         }
@@ -4376,27 +4301,18 @@ var MembersTable = ({
               avatarSrc: member.imageURL
             }
           ),
-          /* @__PURE__ */ jsx37("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsxs25(DropdownMenu, { modal: false, children: [
-            /* @__PURE__ */ jsx37(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs25(
-              Button,
-              {
-                variant: "ghost",
-                className: "h-8 px-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 capitalize justify-start w-24 dark:text-neutral-200 dark:hover:bg-neutral-800",
-                children: [
-                  t(`roles.${member.role}`),
-                  /* @__PURE__ */ jsx37(ChevronDown3, { className: "w-4 h-4 ml-2" })
-                ]
-              }
-            ) }),
-            /* @__PURE__ */ jsx37(DropdownMenuContent, { className: "z-[10005]", children: MEMBER_ROLE_OPTIONS.map((role) => /* @__PURE__ */ jsx37(
-              DropdownMenuItem,
-              {
-                onClick: () => onRoleChange(member.id, role),
-                children: t(`roles.${role}`)
-              },
-              role
-            )) })
-          ] }) }),
+          /* @__PURE__ */ jsx37("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsx37(
+            MemberRoleSelect_default,
+            {
+              value: member.role,
+              onValueChange: (role) => onRoleChange(member.id, role),
+              options: member.role === "owner" ? ["owner"] : DEFAULT_MEMBER_ROLE_OPTIONS,
+              disabled: member.role === "owner",
+              variant: "compact",
+              triggerClassName: "w-auto max-w-full",
+              contentClassName: "z-[10005]"
+            }
+          ) }),
           /* @__PURE__ */ jsx37(
             MemberRowActions,
             {
@@ -4724,22 +4640,22 @@ var MembersAndNumbers = ({
     {
       label: t("membersAndNumbers.stats.totalScreens"),
       value: screensCount,
-      icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Tv01Icon, className: "w-5 h-5" })
+      icon: /* @__PURE__ */ jsx42(HugeiconsIcon6, { icon: Tv01Icon, className: "w-5 h-5" })
     },
     {
       label: t("membersAndNumbers.stats.totalLicenses"),
       value: licenseCount,
-      icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
+      icon: /* @__PURE__ */ jsx42(HugeiconsIcon6, { icon: Key01Icon, className: "w-5 h-5" })
     },
     {
       label: t("membersAndNumbers.stats.totalActiveLicenses"),
       value: null,
-      icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
+      icon: /* @__PURE__ */ jsx42(HugeiconsIcon6, { icon: Key01Icon, className: "w-5 h-5" })
     },
     {
       label: t("membersAndNumbers.stats.unusedLicenses"),
       value: null,
-      icon: /* @__PURE__ */ jsx42(HugeiconsIcon5, { icon: Key01Icon, className: "w-5 h-5" })
+      icon: /* @__PURE__ */ jsx42(HugeiconsIcon6, { icon: Key01Icon, className: "w-5 h-5" })
     }
   ];
   const pendingInvitesContent = invitations.length > 0 ? /* @__PURE__ */ jsx42(
@@ -4906,12 +4822,12 @@ var MembersAndNumbersModal_default = MembersAndNumbersModal;
 
 // src/components/space-selector/components/modals/DeleteConfirmationModal.tsx
 import { Loader2 as Loader23, Trash2 as Trash22 } from "lucide-react";
-import React20 from "react";
+import React19 from "react";
 import { jsx as jsx44, jsxs as jsxs31 } from "react/jsx-runtime";
 var DeleteConfirmationModal = () => {
   const { t } = useNitxUiTranslation();
   const { activeModal, modalProps, setModal } = useSpaceSelector();
-  const [isLoading, setIsLoading] = React20.useState(false);
+  const [isLoading, setIsLoading] = React19.useState(false);
   if (activeModal !== "deleteConfirmation" || !modalProps?.deleteModalInfo) {
     return null;
   }
@@ -5211,7 +5127,7 @@ import { useMemo as useMemo3, useState as useState11 } from "react";
 import {
   Building2,
   CheckCircle,
-  ChevronDown as ChevronDown4,
+  ChevronDown as ChevronDown3,
   SquareArrowOutUpRight,
   SquarePlus,
   Users2 as Users22
@@ -5278,7 +5194,7 @@ var SpaceSelectorContent = () => {
             ] })
           ] }),
           /* @__PURE__ */ jsx47(
-            ChevronDown4,
+            ChevronDown3,
             {
               className: cn2(
                 "w-4 h-4 xl:w-5 xl:h-5 transition ease-linear duration-300",
