@@ -7,18 +7,24 @@
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./dist/styles.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
     },
+    "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "tsup",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
