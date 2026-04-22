@@ -12,6 +12,12 @@ npm install nitxui
 yarn add nitxui
 ```
 
+Import the packaged stylesheet once in your app root so consumer apps do not need to scan `node_modules/nitxui` in their Tailwind config:
+
+```tsx
+import "nitxui/styles.css";
+```
+
 ---
 
 ## Usage
@@ -73,6 +79,7 @@ export default function Example() {
 
 - For Next.js, the components use `next/navigation`'s `useRouter` by default.
 - For Storybook or other environments, pass a mock `router` prop to avoid navigation errors.
+- With `npm link` or other local package links, prefer importing `nitxui/styles.css` instead of adding the linked package to Tailwind's `content` array. This avoids slow rebuilds from scanning the whole linked repo.
 
 ---
 
