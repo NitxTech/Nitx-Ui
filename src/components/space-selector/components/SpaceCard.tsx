@@ -115,7 +115,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
         </div>
       </div>
 
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <button
             className="size-10 hover:bg-neutral-200/40 text-neutral-700 flex items-center justify-center rounded-sm dark:hover:bg-neutral-800 dark:text-neutral-200"

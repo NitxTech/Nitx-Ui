@@ -249,8 +249,6 @@ const RenameSpaceModal = () => {
     initialName,
   ]);
 
-  if (!isOpen) return null;
-
   const closeModal = () => setModal(null);
 
   const submitRename = async (nameToSubmit: string) => {
@@ -299,34 +297,36 @@ const RenameSpaceModal = () => {
       onClose={closeModal}
       className="overflow-hidden border-none bg-neutral-50 p-0 shadow-none dark:bg-neutral-900"
     >
-      <div className="w-full">
-        {view === "form" ? (
-          <RenameSpaceFormState
-            t={t}
-            spaceName={draftName}
-            logoName={logoName}
-            isSaving={isSaving}
-            onSpaceNameChange={setDraftName}
-            onSubmit={() => submitRename(draftName)}
-            onCancel={closeModal}
-          />
-        ) : view === "success" ? (
-          <RenameSpaceSuccessState
-            t={t}
-            spaceName={lastAttemptedName}
-            onDone={closeModal}
-          />
-        ) : (
-          <RenameSpaceErrorState
-            t={t}
-            attemptedName={lastAttemptedName}
-            errorMessage={errorMessage}
-            isSaving={isSaving}
-            onRetry={() => submitRename(lastAttemptedName)}
-            onBack={() => setView("form")}
-          />
-        )}
-      </div>
+      {isOpen ? (
+        <div className="w-full">
+          {view === "form" ? (
+            <RenameSpaceFormState
+              t={t}
+              spaceName={draftName}
+              logoName={logoName}
+              isSaving={isSaving}
+              onSpaceNameChange={setDraftName}
+              onSubmit={() => submitRename(draftName)}
+              onCancel={closeModal}
+            />
+          ) : view === "success" ? (
+            <RenameSpaceSuccessState
+              t={t}
+              spaceName={lastAttemptedName}
+              onDone={closeModal}
+            />
+          ) : (
+            <RenameSpaceErrorState
+              t={t}
+              attemptedName={lastAttemptedName}
+              errorMessage={errorMessage}
+              isSaving={isSaving}
+              onRetry={() => submitRename(lastAttemptedName)}
+              onBack={() => setView("form")}
+            />
+          )}
+        </div>
+      ) : null}
     </DrawerDialog>
   );
 };

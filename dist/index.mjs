@@ -2634,7 +2634,7 @@ var SpaceCard = ({ id, name, members, className }) => {
             )
           ] })
         ] }),
-        /* @__PURE__ */ jsxs10(DropdownMenu2, { children: [
+        /* @__PURE__ */ jsxs10(DropdownMenu2, { modal: false, children: [
           /* @__PURE__ */ jsx16(DropdownMenuTrigger2, { asChild: true, children: /* @__PURE__ */ jsx16(
             "button",
             {
@@ -3573,10 +3573,9 @@ var ManageMembersModal = ({
   const spaceId = spaceIdProp ?? modalProps?.manageSpaceMembers?.spaceId;
   const editEmail = initialEmail ?? modalProps?.manageMembersProps?.initialEmail;
   const editRole = initialRole ?? modalProps?.manageMembersProps?.initialRole;
-  if (!effectiveOpen) return null;
-  if (!spaceId || !api?.inviteMembers) return null;
   const handleClose = onClose ?? (() => setModal?.(null));
   const handleSuccess = onSuccess ?? (() => setModal?.("membersAndNumbers"));
+  const canRenderManager = Boolean(spaceId && api?.inviteMembers);
   return /* @__PURE__ */ jsx27(
     DrawerDialog,
     {
@@ -3584,7 +3583,7 @@ var ManageMembersModal = ({
       onClose: handleClose,
       className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900",
       overlayClassName: "z-[10010]",
-      children: /* @__PURE__ */ jsx27(
+      children: effectiveOpen && canRenderManager ? /* @__PURE__ */ jsx27(
         MembersManager_default,
         {
           spaceId,
@@ -3594,7 +3593,7 @@ var ManageMembersModal = ({
           onSuccess: handleSuccess,
           onCancel: handleClose
         }
-      )
+      ) : null
     }
   );
 };
@@ -4828,11 +4827,12 @@ var DeleteConfirmationModal = () => {
   const { t } = useNitxUiTranslation();
   const { activeModal, modalProps, setModal } = useSpaceSelector();
   const [isLoading, setIsLoading] = React19.useState(false);
-  if (activeModal !== "deleteConfirmation" || !modalProps?.deleteModalInfo) {
-    return null;
-  }
-  const { title, description, onDelete } = modalProps.deleteModalInfo;
+  const isOpen = activeModal === "deleteConfirmation" && Boolean(modalProps?.deleteModalInfo);
+  const title = modalProps?.deleteModalInfo?.title;
+  const description = modalProps?.deleteModalInfo?.description;
+  const onDelete = modalProps?.deleteModalInfo?.onDelete;
   const handleConfirm = async () => {
+    if (!onDelete) return;
     setIsLoading(true);
     try {
       await onDelete();
@@ -4843,7 +4843,7 @@ var DeleteConfirmationModal = () => {
       setIsLoading(false);
     }
   };
-  return /* @__PURE__ */ jsx44(Dialog, { open: true, onOpenChange: (open) => !open && setModal(null), children: /* @__PURE__ */ jsxs31(
+  return /* @__PURE__ */ jsx44(Dialog, { open: isOpen, onOpenChange: (open) => !open && setModal(null), children: isOpen ? /* @__PURE__ */ jsxs31(
     DialogContent,
     {
       overlayClassName: "z-[10010]",
@@ -4877,7 +4877,7 @@ var DeleteConfirmationModal = () => {
         ] })
       ]
     }
-  ) });
+  ) : null });
 };
 var DeleteConfirmationModal_default = DeleteConfirmationModal;
 
@@ -5055,7 +5055,6 @@ var RenameSpaceModal = () => {
     draftName,
     initialName
   ]);
-  if (!isOpen) return null;
   const closeModal = () => setModal(null);
   const submitRename = async (nameToSubmit) => {
     if (!renameProps?.spaceId || !nameToSubmit.trim() || !api?.renameSpace) return;
@@ -5088,7 +5087,7 @@ var RenameSpaceModal = () => {
       open: isOpen,
       onClose: closeModal,
       className: "overflow-hidden border-none bg-neutral-50 p-0 shadow-none dark:bg-neutral-900",
-      children: /* @__PURE__ */ jsx45("div", { className: "w-full", children: view === "form" ? /* @__PURE__ */ jsx45(
+      children: isOpen ? /* @__PURE__ */ jsx45("div", { className: "w-full", children: view === "form" ? /* @__PURE__ */ jsx45(
         RenameSpaceFormState,
         {
           t,
@@ -5116,7 +5115,7 @@ var RenameSpaceModal = () => {
           onRetry: () => submitRename(lastAttemptedName),
           onBack: () => setView("form")
         }
-      ) })
+      ) }) : null
     }
   );
 };

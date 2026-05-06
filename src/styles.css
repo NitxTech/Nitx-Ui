@@ -65,9 +65,11 @@
 .bg-primarylight {
   background-color: hsl(var(--primarylight));
 }
+
 .bg-primarylighter {
   background-color: hsl(var(--primarylighter));
 }
+
 /* .dark .button.primary{
   background-color: hsl(var(--primarylight));
 } */
