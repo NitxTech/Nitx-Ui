@@ -47,7 +47,7 @@ const SettingsTabContent = ({
               placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
-              className="bg-neutral-50 dark:bg-black dark:text-neutral-50"
+              className="bg-neutral-50 dark:bg-card dark:text-neutral-50"
             />
           </div>
         </div>

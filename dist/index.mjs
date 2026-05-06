@@ -4342,7 +4342,7 @@ var MembersTable_default = MembersTable;
 // src/components/spaces/MembersAndNumbersParts/StatsCards.tsx
 import { jsx as jsx38, jsxs as jsxs26 } from "react/jsx-runtime";
 var StatCard = ({ label, value, icon }) => {
-  return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+  return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600", children: [
     /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
       /* @__PURE__ */ jsx38(AvatarImage, { src: "" }),
       /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: icon })
@@ -4457,7 +4457,7 @@ var SettingsTabContent = ({
               placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
               value: spaceName,
               onChange: (event) => onSpaceNameChange(event.target.value),
-              className: "bg-neutral-50 dark:bg-black dark:text-neutral-50"
+              className: "bg-neutral-50 dark:bg-card dark:text-neutral-50"
             }
           )
         ] })
