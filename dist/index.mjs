@@ -4859,7 +4859,7 @@ var DeleteConfirmationModal = () => {
             Button2,
             {
               onClick: handleConfirm,
-              className: "w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11",
+              className: "w-full bg-red-500 hover:bg-red-600 !text-white font-medium rounded-lg h-11",
               disabled: isLoading,
               children: isLoading ? /* @__PURE__ */ jsx44(Loader23, { className: "w-4 h-4 animate-spin" }) : t("remove")
             }
