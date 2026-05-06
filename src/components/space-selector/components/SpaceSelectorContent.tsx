@@ -59,7 +59,7 @@ export const SpaceSelectorContent = () => {
           <DropdownMenuTrigger asChild>
             <div
               className={cn(
-                "w-full h-auto bg-accent dark:bg-zinc-800 px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
+                "w-full h-auto bg-accent dark:bg-zinc-900 px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
                 !isExpanded &&
                   "items-center justify-center w-[40px] h-[40px] mx-auto",
                 showOptions && "border-primary"
