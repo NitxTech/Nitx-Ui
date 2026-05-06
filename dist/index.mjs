@@ -2954,7 +2954,7 @@ var BrowseSpaceModal = () => {
       open: true,
       onClose: () => setModal(null),
       title: t("browseSpacesModal.title"),
-      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-black",
       children: /* @__PURE__ */ jsx20(SpaceBrowser_default, {})
     }
   );
@@ -3079,7 +3079,7 @@ var NewSpaceModal = () => {
     {
       open: isModalOpen,
       onClose: () => setModal(null),
-      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-black",
       children: /* @__PURE__ */ jsxs14("div", { className: "w-full flex flex-col p-6", children: [
         /* @__PURE__ */ jsxs14("div", { className: "flex flex-col mb-4 gap-2", children: [
           /* @__PURE__ */ jsx23("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("newSpaceModal.title") }),
@@ -3100,7 +3100,7 @@ var NewSpaceModal = () => {
                     placeholder: t("newSpaceModal.spaceNamePlaceholder"),
                     value: name,
                     onChange: (e) => setName(e.target.value),
-                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
                   }
                 )
               ] }) }),
@@ -3469,7 +3469,7 @@ var MembersManager = ({
   const isButtonDisabled = isLoading || pendingEmails.length === 0 && !isInputValidEmail;
   return /* @__PURE__ */ jsxs16("div", { className: "w-full flex flex-col", children: [
     /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 p-6", children: [
-      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
+      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: UserAdd01Icon, className: "h-8 w-8 !dark:text-white" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: t("membersManager.title") }),
       /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: t("membersManager.description") })
     ] }),
@@ -3581,7 +3581,7 @@ var ManageMembersModal = ({
     {
       open: effectiveOpen,
       onClose: handleClose,
-      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900",
+      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-black",
       overlayClassName: "z-[10010]",
       children: effectiveOpen && canRenderManager ? /* @__PURE__ */ jsx27(
         MembersManager_default,
@@ -3628,7 +3628,7 @@ var DialogContent2 = React17.forwardRef(({ className, children, overlayClassName
       {
         ref,
         className: cn(
-          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 pb-2 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
           className
         ),
         style: { pointerEvents: "auto" },
@@ -4017,7 +4017,7 @@ var MembersAndNumbersLayout = ({
   settingsContent
 }) => {
   const { t } = useNitxUiTranslation();
-  return /* @__PURE__ */ jsxs23("div", { className: "flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900", children: [
+  return /* @__PURE__ */ jsxs23("div", { className: "flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-black", children: [
     /* @__PURE__ */ jsxs23("div", { className: "w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800", children: [
       /* @__PURE__ */ jsx34("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block truncate", children: spaceName || t("membersAndNumbers.spaceFallback") }),
       /* @__PURE__ */ jsxs23("div", { className: "flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full", children: [
@@ -4457,7 +4457,7 @@ var SettingsTabContent = ({
               placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
               value: spaceName,
               onChange: (event) => onSpaceNameChange(event.target.value),
-              className: "bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+              className: "bg-neutral-50 dark:bg-black dark:text-neutral-50"
             }
           )
         ] })
@@ -4467,7 +4467,7 @@ var SettingsTabContent = ({
         {
           onClick: onSave,
           disabled: isSaving || !spaceName.trim(),
-          className: "bg-primary dark:text-zinc-800 h-11 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white min-w-[120px]",
+          className: "bg-primary dark:text-zinc-800 h-11 hover:bg-primary  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white min-w-[120px]",
           children: isSaving ? /* @__PURE__ */ jsx41(Loader22, { className: "w-4 h-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       ) })
@@ -4920,7 +4920,7 @@ var RenameSpaceFormState = ({
             placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
             value: spaceName,
             onChange: (event) => onSpaceNameChange(event.target.value),
-            className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+            className: "h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
           }
         )
       ] })

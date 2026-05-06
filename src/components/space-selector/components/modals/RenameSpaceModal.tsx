@@ -65,7 +65,7 @@ const RenameSpaceFormState = ({
               placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
-              className="h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+              className="h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
             />
           </div>
         </div>

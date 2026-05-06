@@ -15,7 +15,7 @@ const BrowseSpaceModal = () => {
       open={true}
       onClose={() => setModal(null)}
       title={t("browseSpacesModal.title")}
-      className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
+      className="p-0 overflow-hidden bg-neutral-50 dark:bg-black"
     >
       <SpaceBrowser />
     </DrawerDialog>

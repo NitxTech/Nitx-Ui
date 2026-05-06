@@ -68,7 +68,7 @@ const NewSpaceModal = () => {
     <DrawerDialog
       open={isModalOpen}
       onClose={() => setModal(null)}
-      className="p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900"
+      className="p-0 overflow-hidden bg-neutral-50 dark:bg-black"
     >
       <div className="w-full flex flex-col p-6">
         <div className="flex flex-col mb-4 gap-2">
@@ -91,7 +91,7 @@ const NewSpaceModal = () => {
                 placeholder={t("newSpaceModal.spaceNamePlaceholder")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+                className="h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
               />
             </div>
           </div>

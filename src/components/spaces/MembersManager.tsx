@@ -178,7 +178,7 @@ const MembersManager = ({
             {/* Header */}
             <div className="flex flex-col items-center gap-3 p-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white">
-                    <HugeiconsIcon icon={UserAdd01Icon} className="h-8 w-8" />
+                    <HugeiconsIcon icon={UserAdd01Icon} className="h-8 w-8 !dark:text-white" />
                 </div>
 
                 <h2 className="text-2xl font-medium text-neutral-900 dark:text-neutral-50">
