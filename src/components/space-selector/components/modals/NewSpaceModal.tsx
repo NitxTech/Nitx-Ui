@@ -109,7 +109,7 @@ const NewSpaceModal = () => {
               type="submit"
               disabled={!name || isLoading}
               size="smlg"
-              className="min-w-24 h-11 text-white bg-primary  dark:hover:bg-primary/90 dark:text-primary"
+              className="min-w-24 h-11 text-white bg-primary dark:text-zinc-800  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary"
             >
               {isLoading
                 ? t("newSpaceModal.creating")

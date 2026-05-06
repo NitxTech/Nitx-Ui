@@ -102,7 +102,7 @@ export const ProductSwitcher = ({
               className="rounded-[6px] size-8 overflow-clip"
               src={`${profileImage}`}
             />
-            <AvatarFallback className="rounded-none bg-primary text-white ">
+            <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">
               {`${(profileName || t("productSwitcher.userFallback"))
                 .split(" ")
                 .slice(0, 2)

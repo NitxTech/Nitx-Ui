@@ -56,7 +56,7 @@ const SettingsTabContent = ({
           <Button
             onClick={onSave}
             disabled={isSaving || !spaceName.trim()}
-            className="bg-primary h-11 hover:bg-primary/90  dark:hover:bg-primary/90 dark:text-primary text-white min-w-[120px]"
+            className="bg-primary dark:text-zinc-800 h-11 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary text-white min-w-[120px]"
           >
             {isSaving ? (
               <Loader2 className="w-4 h-4 animate-spin" />

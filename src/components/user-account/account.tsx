@@ -82,7 +82,7 @@ export const UserAccount = ({
               )}
             >
               <AvatarImage src={`${activeAccount?.imageUrl}`} />
-              <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+              <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${activeAccount.name
                 .split(" ")
                 .slice(0, 2)
                 .map((n) => n[0].toUpperCase())
@@ -101,7 +101,7 @@ export const UserAccount = ({
                 )}
               >
                 <AvatarImage src={`${activeAccount?.imageUrl}`} />
-                <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+                <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${activeAccount.name
                   .split(" ")
                   .slice(0, 2)
                   .map((n) => n[0].toUpperCase())
@@ -140,7 +140,7 @@ export const UserAccount = ({
                     className="rounded-[10px] size-12 overflow-clip"
                     src={`${account.imageUrl}`}
                   />
-                  <AvatarFallback className="rounded-none bg-primary text-white ">
+                  <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">
                     {`${account.name
                       .split(" ")
                       .slice(0, 2)
@@ -177,7 +177,7 @@ export const UserAccount = ({
                       className="rounded-[10px] size-12 overflow-clip"
                       src={`${account.imageUrl}`}
                     />
-                    <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
+                    <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${account.name
                       .split(" ")
                       .map((n) => n[0].toUpperCase())
                       .join("")}`}</AvatarFallback>
