@@ -191,7 +191,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
   const showSearchBar = isLoading || (!isLoading && spaces.length > 0);
 
   return (
-    <div className={cn(["w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden", className])}>
+    <div className={cn(["w-full h-full flex flex-col gap-5 relative pb-8 pt-1 overflow-hidden", className])}>
       <div className={cn(["px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", internalContainerStyle])}>
         {showSearchBar &&
           renderSearchBar(searchStyle, isLoading, error, handleSearch, () => setModal("newSpace"), t)}
