@@ -163,7 +163,7 @@ export const UserAccount = ({
                 <a
                   href={`${window.location.origin}/${accounts.indexOf(
                     account
-                  )}/1`}
+                  )}/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
