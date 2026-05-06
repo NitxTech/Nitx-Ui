@@ -141,7 +141,7 @@ const MembersEmptyState = ({
         {description}
       </p>
       <Button
-        className="mt-6 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 dark:hover:bg-white dark:text-primary text-white rounded-md px-8 !h-12"
+        className="mt-6 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 dark:hover:bg-white dark:text-zinc-800 text-white rounded-md px-8 !h-12"
         onClick={onInvite}
       >
         <UserPlus className="w-4 h-4 mr-2" />
@@ -210,7 +210,7 @@ const MembersTable = ({
           />
         </div>
         <Button
-          className="bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary text-white px-4 rounded-sm !h-12"
+          className="bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white px-4 rounded-sm !h-12"
           onClick={onOpenInviteModal}
         >
           <UserPlus className="w-4 h-4 mr-2" />

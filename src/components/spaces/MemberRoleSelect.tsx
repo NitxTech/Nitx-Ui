@@ -133,7 +133,7 @@ const MemberRoleSelect = ({
                 </div>
 
                 {value === roleOption.value ? (
-                  <div className="absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary dark:text-zinc-800 text-white  dark:text-primary">
+                  <div className="absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary dark:text-zinc-800 text-white  dark:text-zinc-800">
                     <Check className="h-3.5 w-3.5" />
                   </div>
                 ) : null}

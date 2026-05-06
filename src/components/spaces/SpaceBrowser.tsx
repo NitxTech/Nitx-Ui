@@ -47,7 +47,7 @@ function renderSearchBar(
         placeholder={t("browseSpacesModal.searchSpacePlaceholder")}
         disabled={isLoading || error != null}
       />
-      <Button onClick={onNewSpace} size="lg" disabled={isLoading} className="bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary">
+      <Button onClick={onNewSpace} size="lg" disabled={isLoading} className="bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800">
         <SquarePlusIcon className="stroke-[1.8] mr-2" />
         {t("browseSpacesModal.newSpace")}
       </Button>

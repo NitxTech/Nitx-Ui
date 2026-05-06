@@ -43,7 +43,7 @@ const MembersAndNumbersLayout = ({
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
               activeTab === "members"
-                ? "bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary"
+                ? "bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
             )}
           >
@@ -58,7 +58,7 @@ const MembersAndNumbersLayout = ({
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
               activeTab === "settings"
-                ? "bg-primary dark:text-zinc-800 text-white shadow-sm  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-primary"
+                ? "bg-primary dark:text-zinc-800 text-white shadow-sm  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800"
                 : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
             )}
           >
