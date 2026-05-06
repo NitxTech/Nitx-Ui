@@ -160,7 +160,7 @@ const MembersManager = ({
 
                 <Button
                     variant="default"
-                    className="bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+                    className="bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11  dark:hover:bg-primary/90 dark:text-primary"
                     onClick={handleReset}
                 >
                     {t("membersManager.done")}
@@ -198,7 +198,7 @@ const MembersManager = ({
                     {pendingEmails.map((item) => (
                         <div
                             key={item.id}
-                            className="bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+                            className="bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200  dark:hover:bg-primary/90 dark:text-primary"
                         >
                             <span>{item.email}</span>
                             <button
@@ -242,7 +242,7 @@ const MembersManager = ({
                     <Button
                         type="submit"
                         disabled={isButtonDisabled}
-                        className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+                        className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50  dark:hover:bg-primary/90 dark:text-primary"
                     >
                         {isLoading ? (
                             <Loader2 className="w-5 h-5 animate-spin mr-2" />

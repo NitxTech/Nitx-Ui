@@ -85,7 +85,7 @@ const RenameSpaceFormState = ({
           type="button"
           onClick={onSubmit}
           disabled={isSaving || !spaceName.trim()}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90  dark:hover:bg-primary/90 dark:text-primary"
         >
           {isSaving ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -127,7 +127,7 @@ const RenameSpaceSuccessState = ({
       <Button
         type="button"
         onClick={onDone}
-        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90  dark:hover:bg-primary/90 dark:text-primary"
       >
         {t("renameSpaceModal.done")}
       </Button>
@@ -189,7 +189,7 @@ const RenameSpaceErrorState = ({
           type="button"
           onClick={onRetry}
           disabled={isSaving}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" 
+          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90  dark:hover:bg-primary/90 dark:text-primary"
         >
           {isSaving ? (
             <Loader2 className="h-4 w-4 animate-spin" />

@@ -210,7 +210,7 @@ const MembersTable = ({
           />
         </div>
         <Button
-          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm !h-12"
+          className="bg-primary hover:bg-primary/90  dark:hover:bg-primary/90 dark:text-primary text-white px-4 rounded-sm !h-12"
           onClick={onOpenInviteModal}
         >
           <UserPlus className="w-4 h-4 mr-2" />

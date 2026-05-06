@@ -29,8 +29,6 @@ export default {
         "border-gray": "#EEEFEF",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primarylight: "hsl(var(--primarylight))",
-        primarylighter: "hsl(var(--primarylighter))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
