@@ -50,7 +50,7 @@ const ManageMembersModal = ({
     <DrawerDialog
       open={effectiveOpen}
       onClose={handleClose}
-      className="sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900"
+      className="sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-black"
       overlayClassName="z-[10010]"
     >
       {effectiveOpen && canRenderManager ? (

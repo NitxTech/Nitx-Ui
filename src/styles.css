@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 236.94 82.35% 53.33%;
+    --primary: 240 100% 50%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -23,26 +23,37 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 15px;
+    --radius: 13px;
     --chart-1: 221.2 83.2% 53.3%;
     --chart-2: 212 95% 68%;
     --chart-3: 216 92% 60%;
     --chart-4: 210 98% 78%;
     --chart-5: 212 97% 87%;
-    --primarylight: 240 100% 95.3%;
+
+    --success: 142 71% 45%;
+    --error: 0 84.2% 60.2%;
+    --warning: 38 92% 50%;
+
+    --channels: 240 100% 50%;
+    --sequence: 196 96% 49%;
+    --layout: 43 100% 50%;
+    --videowall: 330 81% 60%;
+
+    --sidebar: 0 0% 100%;
+    --darker: 0 0% 90%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 10.2%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 0 0 8%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 0 0% 0%;
     --popover-foreground: 210 40% 98%;
-    --primary: 236.94 82.35% 53.33%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 232.5 96% 60.8%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
@@ -57,22 +68,17 @@
     --chart-3: 216 92% 60%;
     --chart-4: 210 98% 78%;
     --chart-5: 212 97% 87%;
-    --primarylight: 240 100% 95.3%;
-    --primarylighter: 240 100% 98%;
+
+    --success: 118 49% 55%;
+    --error: 5 89% 66%;
+    --warning: 39 94% 64%;
+
+    --channels: 237 96% 64%;
+    --sequence: 181 100% 40%;
+    --layout: 39 99% 59%;
+    --videowall: 331 100% 62%;
+
+    --sidebar: 0 0% 0%;
+    --darker: 0 0% 6.7%;
   }
 }
-
-.bg-primarylight {
-  background-color: hsl(var(--primarylight));
-}
-
-.bg-primarylighter {
-  background-color: hsl(var(--primarylighter));
-}
-
-/* .dark .button.primary{
-  background-color: hsl(var(--primarylight));
-} */
-/* .dark .button.primary{
-  background-color: hsl(var(--primarylighter));
-} */

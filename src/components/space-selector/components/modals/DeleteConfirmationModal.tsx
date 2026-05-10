@@ -54,7 +54,7 @@ const DeleteConfirmationModal = () => {
           <div className="flex flex-col w-full gap-2 mt-2">
             <Button
               onClick={handleConfirm}
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11"
+              className="w-full bg-red-500 hover:bg-red-600 !text-white font-medium rounded-lg h-11"
               disabled={isLoading}
             >
               {isLoading ? (

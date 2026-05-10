@@ -1535,7 +1535,7 @@ var buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary dark:text-zinc-800 text-primary-foreground hover:bg-primary dark:text-zinc-800/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-zinc-100 text-secondary-foreground hover:bg-zinc-100/80 border border-zinc-200/50",
@@ -1721,7 +1721,7 @@ var ProductSwitcher = ({
                   src: `${profileImage}`
                 }
               ),
-              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${(profileName || t("productSwitcher.userFallback")).split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${(profileName || t("productSwitcher.userFallback")).split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
             ] }),
             /* @__PURE__ */ jsx5("span", { className: "flex-1 text-start font-medium", children: profile.name }),
             /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4 rtl:rotate-180" })
@@ -1779,14 +1779,14 @@ var UserAccount = ({
         ),
         children: [
           /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-          /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+          /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
         ]
       }
     ) : /* @__PURE__ */ jsxs4(
       "div",
       {
         className: cn(
-          "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
+          "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-900 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
           onOpen && "border-primary"
         ),
         children: [
@@ -1798,7 +1798,7 @@ var UserAccount = ({
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
               ]
             }
           ),
@@ -1820,7 +1820,7 @@ var UserAccount = ({
         ]
       }
     ) }),
-    /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
+    /* @__PURE__ */ jsxs4(DropdownMenuContent, { className: "xl:min-w-[260px] w-full bg-white dark:bg-zinc-900 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1", children: [
       sortedAccounts.map(
         (account) => account.active ? /* @__PURE__ */ jsxs4(
           DropdownMenuItem,
@@ -1835,7 +1835,7 @@ var UserAccount = ({
                     src: `${account.imageUrl}`
                   }
                 ),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
               ] }),
               /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                 /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
@@ -1855,7 +1855,7 @@ var UserAccount = ({
               {
                 href: `${window.location.origin}/${accounts.indexOf(
                   account
-                )}/1`,
+                )}/`,
                 target: "_blank",
                 rel: "noopener noreferrer",
                 style: {
@@ -1872,7 +1872,7 @@ var UserAccount = ({
                         src: `${account.imageUrl}`
                       }
                     ),
-                    /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                    /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
                   ] }),
                   /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                     /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
@@ -2010,8 +2010,8 @@ var DialogOverlay = React5.forwardRef(({ className, ...props }, ref) => /* @__PU
   DialogPrimitive.Overlay,
   {
     ref,
-    className: cn2(
-      "fixed inset-0 z-[9999] bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+    className: cn(
+      "fixed inset-0 z-[9999] bg-black/80 dark:bg-black/5 dark:backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     ),
     style: { pointerEvents: "auto" },
@@ -2027,8 +2027,8 @@ var DialogContent = React5.forwardRef(({ className, children, overlayClassName, 
       DialogPrimitive.Content,
       {
         ref,
-        className: cn2(
-          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+        className: cn(
+          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-600 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
           className
         ),
         style: { pointerEvents: "auto" },
@@ -2051,7 +2051,7 @@ var DialogHeader = ({
 }) => /* @__PURE__ */ jsx8(
   "div",
   {
-    className: cn2("flex flex-col text-center sm:text-left", className),
+    className: cn("flex flex-col text-center sm:text-left", className),
     ...props
   }
 );
@@ -2062,7 +2062,7 @@ var DialogFooter = ({
 }) => /* @__PURE__ */ jsx8(
   "div",
   {
-    className: cn2(
+    className: cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
       className
     ),
@@ -2074,7 +2074,7 @@ var DialogTitle = React5.forwardRef(({ className, ...props }, ref) => /* @__PURE
   DialogPrimitive.Title,
   {
     ref,
-    className: cn2(
+    className: cn(
       "text-lg font-semibold leading-none tracking-tight",
       className
     ),
@@ -2086,7 +2086,7 @@ var DialogDescription = React5.forwardRef(({ className, ...props }, ref) => /* @
   DialogPrimitive.Description,
   {
     ref,
-    className: cn2("text-sm text-muted-foreground", className),
+    className: cn("text-sm text-muted-foreground", className),
     ...props
   }
 ));
@@ -2427,7 +2427,7 @@ var DropdownMenuContent2 = React10.forwardRef(({ className, sideOffset = 4, ...p
     ref,
     sideOffset,
     className: cn(
-      "z-[300] max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border border-neutral-200 bg-neutral-50 p-1 text-neutral-900 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50",
+      "z-[10000] max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border border-neutral-200 bg-neutral-50 p-1 text-neutral-900 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50",
       "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-dropdown-menu-content-transform-origin]",
       className
     ),
@@ -2830,7 +2830,7 @@ function renderSearchBar(searchStyle, isLoading, error, onSearch, onNewSpace, t)
         disabled: isLoading || error != null
       }
     ),
-    /* @__PURE__ */ jsxs13(Button, { onClick: onNewSpace, size: "lg", disabled: isLoading, className: "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary", children: [
+    /* @__PURE__ */ jsxs13(Button, { onClick: onNewSpace, size: "lg", disabled: isLoading, className: "bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800", children: [
       /* @__PURE__ */ jsx19(SquarePlusIcon, { className: "stroke-[1.8] mr-2" }),
       t("browseSpacesModal.newSpace")
     ] })
@@ -2934,7 +2934,7 @@ var SpaceBrowser = (props) => {
     return renderSpaceList(filteredSpaces, spacesContainerStyle, spaceCardStyle, handleSelectSpace);
   };
   const showSearchBar = isLoading || !isLoading && spaces.length > 0;
-  return /* @__PURE__ */ jsx19("div", { className: cn(["w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden", className]), children: /* @__PURE__ */ jsxs13("div", { className: cn(["px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", internalContainerStyle]), children: [
+  return /* @__PURE__ */ jsx19("div", { className: cn(["w-full h-full flex flex-col gap-5 relative pb-8 pt-1 overflow-hidden", className]), children: /* @__PURE__ */ jsxs13("div", { className: cn(["px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", internalContainerStyle]), children: [
     showSearchBar && renderSearchBar(searchStyle, isLoading, error, handleSearch, () => setModal("newSpace"), t),
     renderContent()
   ] }) });
@@ -2954,7 +2954,7 @@ var BrowseSpaceModal = () => {
       open: true,
       onClose: () => setModal(null),
       title: t("browseSpacesModal.title"),
-      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-black",
       children: /* @__PURE__ */ jsx20(SpaceBrowser_default, {})
     }
   );
@@ -2974,7 +2974,7 @@ var buttonVariants2 = cva2(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary dark:text-zinc-800 text-primary-foreground hover:bg-primary dark:text-zinc-800/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
@@ -3079,7 +3079,7 @@ var NewSpaceModal = () => {
     {
       open: isModalOpen,
       onClose: () => setModal(null),
-      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900",
+      className: "p-0 overflow-hidden bg-neutral-50 dark:bg-black",
       children: /* @__PURE__ */ jsxs14("div", { className: "w-full flex flex-col p-6", children: [
         /* @__PURE__ */ jsxs14("div", { className: "flex flex-col mb-4 gap-2", children: [
           /* @__PURE__ */ jsx23("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("newSpaceModal.title") }),
@@ -3100,7 +3100,7 @@ var NewSpaceModal = () => {
                     placeholder: t("newSpaceModal.spaceNamePlaceholder"),
                     value: name,
                     onChange: (e) => setName(e.target.value),
-                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
                   }
                 )
               ] }) }),
@@ -3121,7 +3121,7 @@ var NewSpaceModal = () => {
                     type: "submit",
                     disabled: !name || isLoading,
                     size: "smlg",
-                    className: "min-w-24 h-11 text-white bg-primary dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+                    className: "min-w-24 h-11 text-white bg-primary dark:text-zinc-800  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
                     children: isLoading ? t("newSpaceModal.creating") : t("newSpaceModal.create")
                   }
                 )
@@ -3353,7 +3353,7 @@ var MemberRoleSelect = ({
                   /* @__PURE__ */ jsx25("span", { className: "text-base font-medium text-neutral-900 dark:text-neutral-100", children: t(roleOption.labelKey) }),
                   /* @__PURE__ */ jsx25("span", { className: "text-sm leading-6 text-neutral-500 dark:text-neutral-400", children: t(roleOption.descriptionKey) })
                 ] }),
-                value === roleOption.value ? /* @__PURE__ */ jsx25("div", { className: "absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white dark:bg-primarylight dark:text-primary", children: /* @__PURE__ */ jsx25(Check3, { className: "h-3.5 w-3.5" }) }) : null
+                value === roleOption.value ? /* @__PURE__ */ jsx25("div", { className: "absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary dark:text-zinc-800 text-white  dark:text-zinc-800", children: /* @__PURE__ */ jsx25(Check3, { className: "h-3.5 w-3.5" }) }) : null
               ]
             },
             roleOption.value
@@ -3451,14 +3451,14 @@ var MembersManager = ({
   };
   if (isSuccess) {
     return /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center justify-center py-6 gap-4 text-center", children: [
-      /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: Tick02Icon, className: "w-6 h-6" }) }),
+      /* @__PURE__ */ jsx26("div", { className: "w-12 h-12 bg-primary dark:text-zinc-800 rounded-full flex items-center justify-center text-white mb-2 shadow-sm animate-in zoom-in-50 duration-300", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: Tick02Icon, className: "w-6 h-6" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-xl font-bold text-neutral-900 dark:text-neutral-50", children: t("membersManager.successTitle") }),
       /* @__PURE__ */ jsx26("p", { className: "text-sm text-neutral-500 max-w-[250px] dark:text-neutral-400", children: t("membersManager.successDescription") }),
       /* @__PURE__ */ jsx26(
         Button,
         {
           variant: "default",
-          className: "bg-primary hover:bg-primary/90 text-white min-w-[200px] mt-6 rounded-lg h-11 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+          className: "bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 text-white min-w-[200px] mt-6 rounded-lg h-11  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
           onClick: handleReset,
           children: t("membersManager.done")
         }
@@ -3469,7 +3469,7 @@ var MembersManager = ({
   const isButtonDisabled = isLoading || pendingEmails.length === 0 && !isInputValidEmail;
   return /* @__PURE__ */ jsxs16("div", { className: "w-full flex flex-col", children: [
     /* @__PURE__ */ jsxs16("div", { className: "flex flex-col items-center gap-3 p-6", children: [
-      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-secondary dark:text-white", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: UserAdd01Icon, className: "h-8 w-8" }) }),
+      /* @__PURE__ */ jsx26("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-primary dark:bg-secondary", children: /* @__PURE__ */ jsx26(HugeiconsIcon2, { icon: UserAdd01Icon, className: "h-8 w-8 text-primary !dark:text-white" }) }),
       /* @__PURE__ */ jsx26("h2", { className: "text-2xl font-medium text-neutral-900 dark:text-neutral-50", children: t("membersManager.title") }),
       /* @__PURE__ */ jsx26("p", { className: "text-center text-sm text-neutral-600 max-w-sm leading-relaxed dark:text-neutral-400", children: t("membersManager.description") })
     ] }),
@@ -3483,7 +3483,7 @@ var MembersManager = ({
             pendingEmails.map((item) => /* @__PURE__ */ jsxs16(
               "div",
               {
-                className: "bg-primary text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+                className: "bg-primary dark:text-zinc-800 text-white text-sm pl-3 pr-1 py-1 rounded-full flex items-center gap-1 animate-in fade-in zoom-in-95 duration-200  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
                 children: [
                   /* @__PURE__ */ jsx26("span", { children: item.email }),
                   /* @__PURE__ */ jsx26(
@@ -3528,7 +3528,7 @@ var MembersManager = ({
               {
                 type: "submit",
                 disabled: isButtonDisabled,
-                className: "w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+                className: "w-full h-12 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
                 children: [
                   isLoading ? /* @__PURE__ */ jsx26(Loader2, { className: "w-5 h-5 animate-spin mr-2" }) : null,
                   isLoading ? t("membersManager.sendingInvites") : t("membersManager.sendInvite")
@@ -3581,7 +3581,7 @@ var ManageMembersModal = ({
     {
       open: effectiveOpen,
       onClose: handleClose,
-      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-neutral-900",
+      className: "sm:max-w-[500px] p-0 overflow-hidden z-[10011] bg-neutral-50 dark:bg-black",
       overlayClassName: "z-[10010]",
       children: effectiveOpen && canRenderManager ? /* @__PURE__ */ jsx27(
         MembersManager_default,
@@ -3611,7 +3611,7 @@ var DialogOverlay2 = React17.forwardRef(({ className, ...props }, ref) => /* @__
   {
     ref,
     className: cn(
-      "fixed inset-0 z-[9999] bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-[9999] bg-black/80 dark:bg-black/5 dark:backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     ),
     style: { pointerEvents: "auto" },
@@ -3628,7 +3628,7 @@ var DialogContent2 = React17.forwardRef(({ className, children, overlayClassName
       {
         ref,
         className: cn(
-          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-600 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
           className
         ),
         style: { pointerEvents: "auto" },
@@ -3867,7 +3867,7 @@ var TablePersonCell = ({
   return /* @__PURE__ */ jsxs21("div", { className: "flex items-center gap-3", children: [
     /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
       /* @__PURE__ */ jsx32(AvatarImage, { src: avatarSrc }),
-      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: getFallbackText(fallbackValue) })
+      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: getFallbackText(fallbackValue) })
     ] }),
     /* @__PURE__ */ jsxs21("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx32("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: title }),
@@ -4017,7 +4017,7 @@ var MembersAndNumbersLayout = ({
   settingsContent
 }) => {
   const { t } = useNitxUiTranslation();
-  return /* @__PURE__ */ jsxs23("div", { className: "flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-neutral-900", children: [
+  return /* @__PURE__ */ jsxs23("div", { className: "flex flex-col sm:flex-row w-full h-full min-h-0 overflow-hidden bg-neutral-50 dark:bg-black", children: [
     /* @__PURE__ */ jsxs23("div", { className: "w-full sm:w-64 bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-200 p-4 flex flex-col gap-2 shrink-0 dark:bg-neutral-900 dark:border-neutral-800", children: [
       /* @__PURE__ */ jsx34("h3", { className: "text-sm font-semibold px-4 py-2 hidden sm:block truncate", children: spaceName || t("membersAndNumbers.spaceFallback") }),
       /* @__PURE__ */ jsxs23("div", { className: "flex flex-row sm:flex-col gap-2 overflow-x-auto no-scrollbar w-full", children: [
@@ -4027,7 +4027,7 @@ var MembersAndNumbersLayout = ({
             onClick: () => onTabChange("members"),
             className: cn(
               "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
-              activeTab === "members" ? "bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              activeTab === "members" ? "bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
             ),
             children: [
               /* @__PURE__ */ jsx34("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx34(UserPlus, { className: "w-4 h-4" }) }),
@@ -4041,7 +4041,7 @@ var MembersAndNumbersLayout = ({
             onClick: () => onTabChange("settings"),
             className: cn(
               "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex-1 sm:w-full justify-center sm:justify-start",
-              activeTab === "settings" ? "bg-primary text-white shadow-sm dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              activeTab === "settings" ? "bg-primary dark:text-zinc-800 text-white shadow-sm  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
             ),
             children: [
               /* @__PURE__ */ jsx34("div", { className: "w-5 h-5 flex items-center justify-center", children: /* @__PURE__ */ jsx34(HugeiconsIcon4, { icon: Settings01Icon }) }),
@@ -4198,8 +4198,8 @@ var MembersEmptyState = ({
 }) => {
   return /* @__PURE__ */ jsxs25("div", { className: "flex flex-col items-center justify-center py-10 min-h-[300px]", children: [
     /* @__PURE__ */ jsxs25("div", { className: "flex flex-col items-center gap-2 mb-4 opacity-50", children: [
-      /* @__PURE__ */ jsx37("div", { className: "w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" }),
-      /* @__PURE__ */ jsx37("div", { className: "w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" }),
+      /* @__PURE__ */ jsx37("div", { className: "w-16 h-8 bg-primary dark:text-zinc-800/10 rounded-md mb-[-10px] z-0 mx-auto" }),
+      /* @__PURE__ */ jsx37("div", { className: "w-20 h-10 bg-primary dark:text-zinc-800/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" }),
       /* @__PURE__ */ jsxs25("div", { className: "w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700", children: [
         /* @__PURE__ */ jsx37("div", { className: "w-6 h-6 bg-neutral-200 rounded-full dark:bg-neutral-700" }),
         /* @__PURE__ */ jsx37("div", { className: "h-2 w-10 bg-neutral-200 rounded-full dark:bg-neutral-700" })
@@ -4210,7 +4210,7 @@ var MembersEmptyState = ({
     /* @__PURE__ */ jsxs25(
       Button,
       {
-        className: "mt-6 bg-primary hover:bg-primary/90 dark:hover:bg-white dark:text-primary text-white rounded-md px-8 !h-12",
+        className: "mt-6 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 dark:hover:bg-white dark:text-zinc-800 text-white rounded-md px-8 !h-12",
         onClick: onInvite,
         children: [
           /* @__PURE__ */ jsx37(UserPlus2, { className: "w-4 h-4 mr-2" }),
@@ -4275,7 +4275,7 @@ var MembersTable = ({
       /* @__PURE__ */ jsxs25(
         Button,
         {
-          className: "bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm !h-12",
+          className: "bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white px-4 rounded-sm !h-12",
           onClick: onOpenInviteModal,
           children: [
             /* @__PURE__ */ jsx37(UserPlus2, { className: "w-4 h-4 mr-2" }),
@@ -4342,10 +4342,10 @@ var MembersTable_default = MembersTable;
 // src/components/spaces/MembersAndNumbersParts/StatsCards.tsx
 import { jsx as jsx38, jsxs as jsxs26 } from "react/jsx-runtime";
 var StatCard = ({ label, value, icon }) => {
-  return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-neutral-900/40 dark:border-neutral-800", children: [
+  return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600", children: [
     /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
       /* @__PURE__ */ jsx38(AvatarImage, { src: "" }),
-      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: icon })
+      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: icon })
     ] }),
     /* @__PURE__ */ jsxs26("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx38("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: value }),
@@ -4457,7 +4457,7 @@ var SettingsTabContent = ({
               placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
               value: spaceName,
               onChange: (event) => onSpaceNameChange(event.target.value),
-              className: "bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+              className: "bg-neutral-50 dark:bg-card dark:text-neutral-50"
             }
           )
         ] })
@@ -4467,7 +4467,7 @@ var SettingsTabContent = ({
         {
           onClick: onSave,
           disabled: isSaving || !spaceName.trim(),
-          className: "bg-primary h-11 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]",
+          className: "bg-primary dark:text-zinc-800 h-11 hover:bg-primary  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white min-w-[120px]",
           children: isSaving ? /* @__PURE__ */ jsx41(Loader22, { className: "w-4 h-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       ) })
@@ -4859,7 +4859,7 @@ var DeleteConfirmationModal = () => {
             Button2,
             {
               onClick: handleConfirm,
-              className: "w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg h-11",
+              className: "w-full bg-red-500 hover:bg-red-600 !text-white font-medium rounded-lg h-11",
               disabled: isLoading,
               children: isLoading ? /* @__PURE__ */ jsx44(Loader23, { className: "w-4 h-4 animate-spin" }) : t("remove")
             }
@@ -4920,7 +4920,7 @@ var RenameSpaceFormState = ({
             placeholder: t("renameSpaceModal.spaceNamePlaceholder"),
             value: spaceName,
             onChange: (event) => onSpaceNameChange(event.target.value),
-            className: "h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+            className: "h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
           }
         )
       ] })
@@ -4943,7 +4943,7 @@ var RenameSpaceFormState = ({
           type: "button",
           onClick: onSubmit,
           disabled: isSaving || !spaceName.trim(),
-          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+          className: "h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
           children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       )
@@ -4966,7 +4966,7 @@ var RenameSpaceSuccessState = ({
       {
         type: "button",
         onClick: onDone,
-        className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+        className: "mt-3 h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
         children: t("renameSpaceModal.done")
       }
     )
@@ -5007,7 +5007,7 @@ var RenameSpaceErrorState = ({
           type: "button",
           onClick: onRetry,
           disabled: isSaving,
-          className: "h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary",
+          className: "h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
           children: isSaving ? /* @__PURE__ */ jsx45(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs32(Fragment3, { children: [
             /* @__PURE__ */ jsx45(RefreshCw, { className: "mr-2 h-4 w-4" }),
             t("renameSpaceModal.retry")
@@ -5180,7 +5180,7 @@ var SpaceSelectorContent = () => {
       "div",
       {
         className: cn2(
-          "w-full h-auto bg-accent px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
+          "w-full h-auto bg-accent dark:bg-zinc-900 px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
           !isExpanded && "items-center justify-center w-[40px] h-[40px] mx-auto",
           showOptions && "border-primary"
         ),

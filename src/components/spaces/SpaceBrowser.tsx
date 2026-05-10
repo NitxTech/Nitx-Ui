@@ -47,7 +47,7 @@ function renderSearchBar(
         placeholder={t("browseSpacesModal.searchSpacePlaceholder")}
         disabled={isLoading || error != null}
       />
-      <Button onClick={onNewSpace} size="lg" disabled={isLoading} className="bg-primary text-white dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary">
+      <Button onClick={onNewSpace} size="lg" disabled={isLoading} className="bg-primary dark:text-zinc-800 text-white  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800">
         <SquarePlusIcon className="stroke-[1.8] mr-2" />
         {t("browseSpacesModal.newSpace")}
       </Button>
@@ -191,7 +191,7 @@ const SpaceBrowser = (props: SpaceBrowserProps) => {
   const showSearchBar = isLoading || (!isLoading && spaces.length > 0);
 
   return (
-    <div className={cn(["w-full h-full flex flex-col gap-5 relative pb-8 mt-5 overflow-hidden", className])}>
+    <div className={cn(["w-full h-full flex flex-col gap-5 relative pb-8 pt-1 overflow-hidden", className])}>
       <div className={cn(["px-3 lg:px-7 flex flex-col gap-3 lg:gap-9", internalContainerStyle])}>
         {showSearchBar &&
           renderSearchBar(searchStyle, isLoading, error, handleSearch, () => setModal("newSpace"), t)}

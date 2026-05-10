@@ -82,7 +82,7 @@ export const UserAccount = ({
               )}
             >
               <AvatarImage src={`${activeAccount?.imageUrl}`} />
-              <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+              <AvatarFallback className="rounded-none bg-primary dark:text-zinc-900 text-white ">{`${activeAccount.name
                 .split(" ")
                 .slice(0, 2)
                 .map((n) => n[0].toUpperCase())
@@ -91,7 +91,7 @@ export const UserAccount = ({
           ) : (
             <div
               className={cn(
-                "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-700/50 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
+                "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-900 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
                 onOpen && "border-primary"
               )}
             >
@@ -101,7 +101,7 @@ export const UserAccount = ({
                 )}
               >
                 <AvatarImage src={`${activeAccount?.imageUrl}`} />
-                <AvatarFallback className="rounded-none bg-primary text-white ">{`${activeAccount.name
+                <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${activeAccount.name
                   .split(" ")
                   .slice(0, 2)
                   .map((n) => n[0].toUpperCase())
@@ -128,7 +128,7 @@ export const UserAccount = ({
             </div>
           )}
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-800 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
+        <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-900 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
           {sortedAccounts.map((account) =>
             account.active ? (
               <DropdownMenuItem
@@ -140,7 +140,7 @@ export const UserAccount = ({
                     className="rounded-[10px] size-12 overflow-clip"
                     src={`${account.imageUrl}`}
                   />
-                  <AvatarFallback className="rounded-none bg-primary text-white ">
+                  <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">
                     {`${account.name
                       .split(" ")
                       .slice(0, 2)
@@ -163,7 +163,7 @@ export const UserAccount = ({
                 <a
                   href={`${window.location.origin}/${accounts.indexOf(
                     account
-                  )}/1`}
+                  )}/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -177,7 +177,7 @@ export const UserAccount = ({
                       className="rounded-[10px] size-12 overflow-clip"
                       src={`${account.imageUrl}`}
                     />
-                    <AvatarFallback className="rounded-none bg-primary text-white ">{`${account.name
+                    <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${account.name
                       .split(" ")
                       .map((n) => n[0].toUpperCase())
                       .join("")}`}</AvatarFallback>

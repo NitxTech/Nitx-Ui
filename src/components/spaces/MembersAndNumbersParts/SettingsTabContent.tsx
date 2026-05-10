@@ -47,7 +47,7 @@ const SettingsTabContent = ({
               placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
-              className="bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+              className="bg-neutral-50 dark:bg-card dark:text-neutral-50"
             />
           </div>
         </div>
@@ -56,7 +56,7 @@ const SettingsTabContent = ({
           <Button
             onClick={onSave}
             disabled={isSaving || !spaceName.trim()}
-            className="bg-primary h-11 hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white min-w-[120px]"
+            className="bg-primary dark:text-zinc-800 h-11 hover:bg-primary  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white min-w-[120px]"
           >
             {isSaving ? (
               <Loader2 className="w-4 h-4 animate-spin" />

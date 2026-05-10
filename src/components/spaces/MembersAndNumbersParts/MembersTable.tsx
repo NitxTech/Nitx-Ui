@@ -128,8 +128,8 @@ const MembersEmptyState = ({
   return (
     <div className="flex flex-col items-center justify-center py-10 min-h-[300px]">
       <div className="flex flex-col items-center gap-2 mb-4 opacity-50">
-        <div className="w-16 h-8 bg-primary/10 rounded-md mb-[-10px] z-0 mx-auto" />
-        <div className="w-20 h-10 bg-primary/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" />
+        <div className="w-16 h-8 bg-primary dark:text-zinc-800/10 rounded-md mb-[-10px] z-0 mx-auto" />
+        <div className="w-20 h-10 bg-primary dark:text-zinc-800/10 rounded-md mb-[-15px] z-10 mx-auto border-2 border-white dark:border-neutral-800" />
         <div className="w-24 h-12 bg-neutral-50 border border-neutral-200 shadow-sm rounded-md z-20 flex items-center gap-2 px-2 dark:bg-neutral-900 dark:border-neutral-700">
           <div className="w-6 h-6 bg-neutral-200 rounded-full dark:bg-neutral-700" />
           <div className="h-2 w-10 bg-neutral-200 rounded-full dark:bg-neutral-700" />
@@ -141,7 +141,7 @@ const MembersEmptyState = ({
         {description}
       </p>
       <Button
-        className="mt-6 bg-primary hover:bg-primary/90 dark:hover:bg-white dark:text-primary text-white rounded-md px-8 !h-12"
+        className="mt-6 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 dark:hover:bg-white dark:text-zinc-800 text-white rounded-md px-8 !h-12"
         onClick={onInvite}
       >
         <UserPlus className="w-4 h-4 mr-2" />
@@ -210,7 +210,7 @@ const MembersTable = ({
           />
         </div>
         <Button
-          className="bg-primary hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary text-white px-4 rounded-sm !h-12"
+          className="bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white px-4 rounded-sm !h-12"
           onClick={onOpenInviteModal}
         >
           <UserPlus className="w-4 h-4 mr-2" />

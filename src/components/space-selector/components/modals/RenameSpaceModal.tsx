@@ -65,7 +65,7 @@ const RenameSpaceFormState = ({
               placeholder={t("renameSpaceModal.spaceNamePlaceholder")}
               value={spaceName}
               onChange={(event) => onSpaceNameChange(event.target.value)}
-              className="h-12 rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50"
+              className="h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
             />
           </div>
         </div>
@@ -85,7 +85,7 @@ const RenameSpaceFormState = ({
           type="button"
           onClick={onSubmit}
           disabled={isSaving || !spaceName.trim()}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+          className="h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800"
         >
           {isSaving ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -127,7 +127,7 @@ const RenameSpaceSuccessState = ({
       <Button
         type="button"
         onClick={onDone}
-        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary"
+        className="mt-3 h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800"
       >
         {t("renameSpaceModal.done")}
       </Button>
@@ -189,7 +189,7 @@ const RenameSpaceErrorState = ({
           type="button"
           onClick={onRetry}
           disabled={isSaving}
-          className="h-11 min-w-[140px] rounded-xl bg-primary px-5 text-white hover:bg-primary/90 dark:bg-primarylight dark:hover:bg-primarylighter dark:text-primary" 
+          className="h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800"
         >
           {isSaving ? (
             <Loader2 className="h-4 w-4 animate-spin" />
