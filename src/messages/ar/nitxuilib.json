@@ -662,5 +662,35 @@
   },
   "deleteConfirmation": "حذف",
   "remove": "إزالة",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "addContentModal": {
+    "title": "استعراض",
+    "allAssets": "جميع الأصول",
+    "assets": "الأصول",
+    "links": "الروابط",
+    "apps": "التطبيقات",
+    "sequences": "السلاسل",
+    "channels": "القنوات",
+    "layout": "المخطط",
+    "folders": "المجلدات",
+    "items": "عناصر",
+    "upload": "رفع",
+    "itemSelected": "تم اختيار عنصر واحد",
+    "assetsSelected": "تم اختيار أصل واحد",
+    "assetsSelectedPlural": "تم اختيار أصول",
+    "layoutSelected": "تم اختيار مخطط واحد",
+    "sequenceSelected": "تم اختيار تسلسل واحد",
+    "channelSelected": "تم اختيار قناة واحدة",
+    "add": "إضافة",
+    "addItem": "إضافة عنصر",
+    "cancel": "إلغاء"
+  },
+  "uploadModal": {
+    "title": "رفع الملفات",
+    "fileUploadedSuccessfully": "تم الرفع بنجاح!",
+    "processingUploads": "جارٍ معالجة الملفات...",
+    "filesWillAppear": "ستظهر ملفاتك بعد قليل",
+    "uploadFailed": "فشل الرفع",
+    "pleaseTryAgain": "يرجى المحاولة مرة أخرى"
+  }
 }

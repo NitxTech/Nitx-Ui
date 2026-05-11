@@ -6,3 +6,4 @@ export * from "./components/space-selector";
 export * from "./components/spaces";
 export { default as ErrorState } from "./components/ui/error-state";
 export type { ErrorStateProps } from "./components/ui/error-state";
+export * from "./components/content-browser";

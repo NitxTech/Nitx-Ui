@@ -662,5 +662,35 @@
   },
   "deleteConfirmation": "Delete",
   "remove": "Remove",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "addContentModal": {
+    "title": "Browse",
+    "allAssets": "All Assets",
+    "assets": "Assets",
+    "links": "Links",
+    "apps": "Apps",
+    "sequences": "Sequences",
+    "channels": "Channels",
+    "layout": "Layout",
+    "folders": "Folders",
+    "items": "items",
+    "upload": "Upload",
+    "itemSelected": "1 item selected",
+    "assetsSelected": "asset selected",
+    "assetsSelectedPlural": "assets selected",
+    "layoutSelected": "1 layout selected",
+    "sequenceSelected": "1 sequence selected",
+    "channelSelected": "1 channel selected",
+    "add": "Add",
+    "addItem": "Add Item",
+    "cancel": "Cancel"
+  },
+  "uploadModal": {
+    "title": "Upload Files",
+    "fileUploadedSuccessfully": "uploaded successfully!",
+    "processingUploads": "Processing uploads...",
+    "filesWillAppear": "Your files will appear in a moment",
+    "uploadFailed": "Upload failed",
+    "pleaseTryAgain": "Please try again"
+  }
 }
