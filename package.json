@@ -24,7 +24,7 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "tsup",
-    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify && node -e \"const fs=require('fs');const uppy=fs.readFileSync('./node_modules/@uppy/react/dist/styles.css','utf8');fs.appendFileSync('./dist/styles.css','\\n'+uppy);\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -70,6 +70,7 @@
     "lucide-react": "^0.525.0",
     "next": "^15.3.5",
     "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
     "sonner": "^2.0.7",
     "storybook": "^8.6.14",
     "tailwind-merge": "^3.4.0",
