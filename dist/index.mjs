@@ -667,7 +667,37 @@ var nitxuilib_default = {
   },
   deleteConfirmation: "\u062D\u0630\u0641",
   remove: "\u0625\u0632\u0627\u0644\u0629",
-  cancel: "\u0625\u0644\u063A\u0627\u0621"
+  cancel: "\u0625\u0644\u063A\u0627\u0621",
+  addContentModal: {
+    title: "\u0627\u0633\u062A\u0639\u0631\u0627\u0636",
+    allAssets: "\u062C\u0645\u064A\u0639 \u0627\u0644\u0623\u0635\u0648\u0644",
+    assets: "\u0627\u0644\u0623\u0635\u0648\u0644",
+    links: "\u0627\u0644\u0631\u0648\u0627\u0628\u0637",
+    apps: "\u0627\u0644\u062A\u0637\u0628\u064A\u0642\u0627\u062A",
+    sequences: "\u0627\u0644\u0633\u0644\u0627\u0633\u0644",
+    channels: "\u0627\u0644\u0642\u0646\u0648\u0627\u062A",
+    layout: "\u0627\u0644\u0645\u062E\u0637\u0637",
+    folders: "\u0627\u0644\u0645\u062C\u0644\u062F\u0627\u062A",
+    items: "\u0639\u0646\u0627\u0635\u0631",
+    upload: "\u0631\u0641\u0639",
+    itemSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0639\u0646\u0635\u0631 \u0648\u0627\u062D\u062F",
+    assetsSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0623\u0635\u0644 \u0648\u0627\u062D\u062F",
+    assetsSelectedPlural: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0623\u0635\u0648\u0644",
+    layoutSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0645\u062E\u0637\u0637 \u0648\u0627\u062D\u062F",
+    sequenceSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0633\u0644\u0633\u0644 \u0648\u0627\u062D\u062F",
+    channelSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0642\u0646\u0627\u0629 \u0648\u0627\u062D\u062F\u0629",
+    add: "\u0625\u0636\u0627\u0641\u0629",
+    addItem: "\u0625\u0636\u0627\u0641\u0629 \u0639\u0646\u0635\u0631",
+    cancel: "\u0625\u0644\u063A\u0627\u0621"
+  },
+  uploadModal: {
+    title: "\u0631\u0641\u0639 \u0627\u0644\u0645\u0644\u0641\u0627\u062A",
+    fileUploadedSuccessfully: "\u062A\u0645 \u0627\u0644\u0631\u0641\u0639 \u0628\u0646\u062C\u0627\u062D!",
+    processingUploads: "\u062C\u0627\u0631\u064D \u0645\u0639\u0627\u0644\u062C\u0629 \u0627\u0644\u0645\u0644\u0641\u0627\u062A...",
+    filesWillAppear: "\u0633\u062A\u0638\u0647\u0631 \u0645\u0644\u0641\u0627\u062A\u0643 \u0628\u0639\u062F \u0642\u0644\u064A\u0644",
+    uploadFailed: "\u0641\u0634\u0644 \u0627\u0644\u0631\u0641\u0639",
+    pleaseTryAgain: "\u064A\u0631\u062C\u0649 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649"
+  }
 };
 
 // src/messages/en/nitxuilib.json
@@ -1335,7 +1365,37 @@ var nitxuilib_default2 = {
   },
   deleteConfirmation: "Delete",
   remove: "Remove",
-  cancel: "Cancel"
+  cancel: "Cancel",
+  addContentModal: {
+    title: "Browse",
+    allAssets: "All Assets",
+    assets: "Assets",
+    links: "Links",
+    apps: "Apps",
+    sequences: "Sequences",
+    channels: "Channels",
+    layout: "Layout",
+    folders: "Folders",
+    items: "items",
+    upload: "Upload",
+    itemSelected: "1 item selected",
+    assetsSelected: "asset selected",
+    assetsSelectedPlural: "assets selected",
+    layoutSelected: "1 layout selected",
+    sequenceSelected: "1 sequence selected",
+    channelSelected: "1 channel selected",
+    add: "Add",
+    addItem: "Add Item",
+    cancel: "Cancel"
+  },
+  uploadModal: {
+    title: "Upload Files",
+    fileUploadedSuccessfully: "uploaded successfully!",
+    processingUploads: "Processing uploads...",
+    filesWillAppear: "Your files will appear in a moment",
+    uploadFailed: "Upload failed",
+    pleaseTryAgain: "Please try again"
+  }
 };
 
 // src/i18n/nitxuilib.ts
@@ -1703,7 +1763,7 @@ var ProductSwitcher = ({
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
     /* @__PURE__ */ jsx5(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx5(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx5(Grip, { className: "w-6 h-6" }) }) }),
-    /* @__PURE__ */ jsxs3(DropdownMenuContent, { align: "end", className: "w-80 p-4 rounded-2xl", children: [
+    /* @__PURE__ */ jsxs3(DropdownMenuContent, { align: "end", className: "w-80 p-4 rounded-2xl dark:bg-black dark:border-zinc-600", children: [
       /* @__PURE__ */ jsxs3(
         "a",
         {
@@ -1711,7 +1771,7 @@ var ProductSwitcher = ({
           "data-testid": "product-manage-my-account",
           href: profile.url,
           target: "_blank",
-          className: "flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 dark:hover:text-white transition",
+          className: "flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 dark:hover:text-white transition",
           children: [
             /* @__PURE__ */ jsxs3(Avatar, { className: "rounded-[6px] size-8", children: [
               /* @__PURE__ */ jsx5(
@@ -1728,7 +1788,7 @@ var ProductSwitcher = ({
           ]
         }
       ),
-      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4 ltr", dir: "ltr", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.id)) })
+      /* @__PURE__ */ jsx5("div", { className: "grid grid-cols-2 gap-3 mb-4 ltr dark:border-zinc-600", dir: "ltr", children: products.map((product) => /* @__PURE__ */ jsx5(product_icon_default, { ...product }, product.id)) })
     ] })
   ] });
 };
@@ -5354,7 +5414,828 @@ var createSpaceSelectorApi = (client) => {
     }
   };
 };
+
+// src/components/content-browser/components/AddContentModal.tsx
+import React22, { useEffect as useEffect9, useState as useState12 } from "react";
+import { format } from "date-fns";
+import {
+  Check as Check5,
+  ChevronRight as ChevronRight4,
+  Film,
+  FolderOpen,
+  Grid2x2,
+  Grid2X2Plus,
+  Home,
+  Layout,
+  Link as Link3,
+  Plus,
+  Tv,
+  TvMinimalPlay
+} from "lucide-react";
+
+// src/components/content-browser/icons/ChannelSolidPlayIcon.tsx
+import { jsx as jsx49, jsxs as jsxs35 } from "react/jsx-runtime";
+var ChannelSolidPlayIcon = ({
+  playColor = "#4B53FB",
+  baseColor = "currentColor",
+  ...props
+}) => /* @__PURE__ */ jsxs35(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "23",
+    height: "23",
+    viewBox: "0 0 23 23",
+    fill: "none",
+    ...props,
+    children: [
+      /* @__PURE__ */ jsxs35("g", { clipPath: "url(#clip0_555_3719)", children: [
+        /* @__PURE__ */ jsx49(
+          "path",
+          {
+            d: "M13.0845 5.54507C14.8355 5.54506 16.2223 5.54505 17.3077 5.68681C18.4248 5.8327 19.329 6.14009 20.042 6.83274C20.755 7.5254 21.0714 8.4037 21.2217 9.48884C21.3675 10.5433 21.3675 11.8905 21.3675 13.5914V13.6959C21.3675 15.3969 21.3675 16.7441 21.2217 17.7985C21.0714 18.8837 20.755 19.762 20.042 20.4546C19.329 21.1473 18.4248 21.4547 17.3077 21.6005C16.2223 21.7423 14.8355 21.7423 13.0846 21.7423H9.16587C7.41491 21.7423 6.02798 21.7423 4.94258 21.6005C3.82552 21.4547 2.92139 21.1473 2.20836 20.4546C1.49533 19.762 1.1789 18.8837 1.02871 17.7985C0.882784 16.7441 0.882794 15.3968 0.882813 13.6959V13.5915C0.882794 11.8905 0.882784 10.5433 1.02871 9.48884C1.1789 8.4037 1.49533 7.5254 2.20836 6.83274C2.92139 6.14009 3.82552 5.8327 4.94258 5.68681C6.02799 5.54505 7.41489 5.54506 9.16585 5.54507H13.0845Z",
+            fill: baseColor
+          }
+        ),
+        /* @__PURE__ */ jsx49(
+          "path",
+          {
+            fillRule: "evenodd",
+            clipRule: "evenodd",
+            d: "M14.263 1.53664C14.635 1.16456 15.2383 1.16456 15.6104 1.53664C15.9824 1.90872 15.9824 2.51198 15.6104 2.88406L11.7993 6.69517C11.4272 7.06726 10.8239 7.06726 10.4519 6.69517L7.59351 3.83684C7.22143 3.46476 7.22143 2.8615 7.59351 2.48941C7.9656 2.11733 8.56886 2.11733 8.94095 2.48941L11.1256 4.67403L14.263 1.53664Z",
+            fill: baseColor
+          }
+        ),
+        /* @__PURE__ */ jsx49(
+          "path",
+          {
+            d: "M9.0498 11.431C9.05004 11.3046 9.08394 11.1805 9.14803 11.0715C9.21211 10.9626 9.30406 10.8726 9.41442 10.811C9.52478 10.7493 9.64957 10.7182 9.77596 10.7207C9.90236 10.7233 10.0258 10.7595 10.1336 10.8255L13.6107 12.9598C13.7143 13.0235 13.7999 13.1127 13.8593 13.2188C13.9186 13.325 13.9498 13.4446 13.9498 13.5662C13.9498 13.6879 13.9186 13.8075 13.8593 13.9136C13.7999 14.0198 13.7143 14.109 13.6107 14.1727L10.1336 16.3079C10.0256 16.3741 9.90204 16.4102 9.77549 16.4127C9.64894 16.4152 9.52401 16.3839 9.41359 16.322C9.30317 16.2601 9.21125 16.1699 9.14731 16.0607C9.08336 15.9514 9.0497 15.8271 9.0498 15.7005V11.431Z",
+            fill: playColor
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx49("defs", { children: /* @__PURE__ */ jsx49("clipPath", { id: "clip0_555_3719", children: /* @__PURE__ */ jsx49(
+        "rect",
+        {
+          width: "22.8667",
+          height: "22.8667",
+          fill: "white",
+          transform: "translate(0.0664062 0.0667152)"
+        }
+      ) }) })
+    ]
+  }
+);
+
+// src/components/content-browser/components/AddContentModal.tsx
+import { Fragment as Fragment5, jsx as jsx50, jsxs as jsxs36 } from "react/jsx-runtime";
+var ALL_TABS = ["Assets", "Links", "Apps", "Sequences", "Layout", "Channels"];
+var SkeletonCard = () => /* @__PURE__ */ jsxs36("div", { className: "relative flex items-center rounded-md border overflow-hidden shadow border-[#ECEFF1] animate-pulse", children: [
+  /* @__PURE__ */ jsx50(Skeleton2, { className: "w-[110px] h-[86px] flex-shrink-0 rounded-none" }),
+  /* @__PURE__ */ jsxs36("div", { className: "pl-3 space-y-2", children: [
+    /* @__PURE__ */ jsx50(Skeleton2, { className: "h-4 w-20" }),
+    /* @__PURE__ */ jsx50(Skeleton2, { className: "h-3 w-16" })
+  ] })
+] });
+var SkeletonGrid = ({ count = 6 }) => /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: Array.from({ length: count }).map((_, i) => /* @__PURE__ */ jsx50(SkeletonCard, {}, i)) });
+var EmptyState = () => /* @__PURE__ */ jsx50("div", { className: "flex flex-col items-center justify-center h-40 text-gray-400 dark:text-zinc-500 text-sm", children: "No items found" });
+var documentsImages = {
+  "application/pdf": "/pdf.svg",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "/doc.svg"
+};
+var AddContentModal = ({
+  open,
+  onClose,
+  onSelect,
+  api,
+  spaceUuid,
+  allowedTabs = ALL_TABS,
+  onUploadClick,
+  singleSelect = false
+}) => {
+  const { t } = useNitxUiTranslation();
+  const [activeTab, setActiveTab] = useState12("Assets");
+  const [searchTerm, setSearchTerm] = useState12("");
+  const [currentPath, setCurrentPath] = useState12([
+    { id: null, label: t("addContentModal.allAssets") }
+  ]);
+  const [currentFolderId, setCurrentFolderId] = useState12(null);
+  const [assets, setAssets] = useState12([]);
+  const [folders, setFolders] = useState12([]);
+  const [layouts, setLayouts] = useState12([]);
+  const [sequences, setSequences] = useState12([]);
+  const [channels, setChannels] = useState12([]);
+  const [apps, setApps] = useState12([]);
+  const [appInstances, setAppInstances] = useState12([]);
+  const [isLoadingAssets, setIsLoadingAssets] = useState12(false);
+  const [isLoadingLayouts, setIsLoadingLayouts] = useState12(false);
+  const [isLoadingSequences, setIsLoadingSequences] = useState12(false);
+  const [isLoadingChannels, setIsLoadingChannels] = useState12(false);
+  const [isLoadingApps, setIsLoadingApps] = useState12(false);
+  const [selectedAssets, setSelectedAssets] = useState12([]);
+  const [selectedLayout, setSelectedLayout] = useState12(null);
+  const [selectedSequence, setSelectedSequence] = useState12(null);
+  const [selectedChannel, setSelectedChannel] = useState12(null);
+  const [selectedAppInstances, setSelectedAppInstances] = useState12([]);
+  const effectiveTabs = ALL_TABS.filter((t2) => allowedTabs.includes(t2));
+  const firstTab = effectiveTabs[0] ?? "Assets";
+  useEffect9(() => {
+    if (!open) return;
+    setActiveTab(firstTab);
+    setSearchTerm("");
+    setCurrentPath([{ id: null, label: t("addContentModal.allAssets") }]);
+    setCurrentFolderId(null);
+    setSelectedAssets([]);
+    setSelectedLayout(null);
+    setSelectedSequence(null);
+    setSelectedChannel(null);
+    setSelectedAppInstances([]);
+  }, [open]);
+  useEffect9(() => {
+    if (!open) return;
+    setIsLoadingAssets(true);
+    api.fetchAssets(currentFolderId).then(({ assets: assets2, folders: folders2 }) => {
+      setAssets(assets2);
+      setFolders(folders2);
+    }).catch(console.error).finally(() => setIsLoadingAssets(false));
+  }, [open, currentFolderId, api]);
+  useEffect9(() => {
+    if (!open || !effectiveTabs.includes("Layout")) return;
+    setIsLoadingLayouts(true);
+    api.fetchLayouts().then(setLayouts).catch(console.error).finally(() => setIsLoadingLayouts(false));
+  }, [open]);
+  useEffect9(() => {
+    if (!open || !effectiveTabs.includes("Sequences")) return;
+    setIsLoadingSequences(true);
+    api.fetchSequences().then(setSequences).catch(console.error).finally(() => setIsLoadingSequences(false));
+  }, [open]);
+  useEffect9(() => {
+    if (!open || !effectiveTabs.includes("Channels")) return;
+    setIsLoadingChannels(true);
+    api.fetchChannels().then(setChannels).catch(console.error).finally(() => setIsLoadingChannels(false));
+  }, [open]);
+  useEffect9(() => {
+    if (!open || !effectiveTabs.includes("Apps")) return;
+    setIsLoadingApps(true);
+    api.fetchApps(spaceUuid).then((fetchedApps) => {
+      setApps(fetchedApps);
+      return Promise.all(
+        fetchedApps.map((app) => api.fetchAppInstances(spaceUuid, app.id))
+      );
+    }).then((results) => setAppInstances(results.flat())).catch(console.error).finally(() => setIsLoadingApps(false));
+  }, [open, spaceUuid]);
+  const term = searchTerm.toLowerCase();
+  const filteredAssets = assets.filter((a) => a.name.toLowerCase().includes(term));
+  const filteredFolders = folders.filter((f) => f.name.toLowerCase().includes(term));
+  const filteredLayouts = layouts.filter((l) => l.name.toLowerCase().includes(term));
+  const filteredSequences = sequences.filter((s) => s.name.toLowerCase().includes(term));
+  const filteredChannels = channels.filter((c) => c.name.toLowerCase().includes(term));
+  const filteredLinkAssets = assets.filter(
+    (a) => a.type === "link" && a.name.toLowerCase().includes(term)
+  );
+  const filteredAppInstances = appInstances.filter(
+    (i) => (i.name || "").toLowerCase().includes(term) || (i.app_name || "").toLowerCase().includes(term)
+  );
+  const formatDate = (dateString) => format(new Date(dateString), "MMM d, yyyy");
+  const handleFolderClick = (folder) => {
+    setCurrentPath((prev) => [...prev, { id: folder.id, label: folder.name }]);
+    setCurrentFolderId(folder.id);
+  };
+  const handlePathClick = (index) => {
+    const newPath = currentPath.slice(0, index + 1);
+    setCurrentPath(newPath);
+    setCurrentFolderId(newPath[newPath.length - 1].id);
+  };
+  const handleActiveTab = (tab) => {
+    setActiveTab(tab);
+    if (tab !== "Assets") {
+      setCurrentPath([{ id: null, label: t("addContentModal.allAssets") }]);
+      setCurrentFolderId(null);
+    }
+    setSelectedAssets([]);
+    setSelectedLayout(null);
+    setSelectedSequence(null);
+    setSelectedChannel(null);
+  };
+  const toggleAssetSelection = (uuid) => {
+    setSelectedAssets((prev) => {
+      if (prev.includes(uuid)) return prev.filter((id) => id !== uuid);
+      return singleSelect ? [uuid] : [...prev, uuid];
+    });
+    setSelectedLayout(null);
+  };
+  const toggleLayoutSelection = (uuid) => {
+    setSelectedLayout((prev) => prev === uuid ? null : uuid);
+    setSelectedAssets([]);
+    setSelectedSequence(null);
+    setSelectedChannel(null);
+  };
+  const toggleSequenceSelection = (id) => {
+    setSelectedSequence((prev) => prev === id ? null : id);
+    setSelectedAssets([]);
+    setSelectedLayout(null);
+    setSelectedChannel(null);
+  };
+  const toggleChannelSelection = (id) => {
+    setSelectedChannel((prev) => prev === id ? null : id);
+    setSelectedAssets([]);
+    setSelectedLayout(null);
+    setSelectedSequence(null);
+  };
+  const handleAddContent = () => {
+    if (selectedAppInstances.length > 0) {
+      const selected = appInstances.filter(
+        (i) => selectedAppInstances.includes(i.id)
+      );
+      const items = selected.map((inst) => ({
+        type: "app",
+        screenable_type: "app",
+        uuid: inst.id,
+        name: inst.name,
+        instanceId: inst.id,
+        app_id: inst.app_id,
+        app: inst.raw,
+        is_ready: true,
+        duration: { hours: "00", minutes: "01", seconds: "00" },
+        created_at: inst.raw?.created_at || (/* @__PURE__ */ new Date()).toISOString(),
+        updated_at: inst.raw?.updated_at || (/* @__PURE__ */ new Date()).toISOString()
+      }));
+      onSelect(items);
+      onClose();
+      return;
+    }
+    if (selectedAssets.length > 0) {
+      const items = assets.filter((a) => selectedAssets.includes(a.uuid));
+      if (items.length > 0) onSelect(items);
+    } else if (selectedLayout) {
+      const layout = layouts.find((l) => l.uuid === selectedLayout);
+      if (layout)
+        onSelect([
+          { ...layout, type: "layout", screenable_type: "layout" }
+        ]);
+    } else if (selectedSequence) {
+      const sequence = sequences.find((s) => s.id === selectedSequence);
+      if (sequence)
+        onSelect([
+          { ...sequence, type: "sequence", screenable_type: "sequence" }
+        ]);
+    } else if (selectedChannel) {
+      const channel = channels.find((c) => c.id === selectedChannel);
+      if (channel)
+        onSelect([
+          { ...channel, type: "channel", screenable_type: "channel" }
+        ]);
+    }
+    onClose();
+  };
+  const hasSelection = selectedAssets.length > 0 || selectedAppInstances.length > 0 || !!selectedLayout || !!selectedSequence || !!selectedChannel;
+  const BreadcrumbNavigation = () => /* @__PURE__ */ jsxs36("div", { className: "flex items-center gap-1 text-sm text-gray-600 dark:text-zinc-400 mb-3 px-1", children: [
+    /* @__PURE__ */ jsx50(Home, { className: "size-4" }),
+    currentPath.map((pathItem, index) => /* @__PURE__ */ jsxs36(React22.Fragment, { children: [
+      /* @__PURE__ */ jsx50(
+        "button",
+        {
+          onClick: () => handlePathClick(index),
+          className: cn2(
+            "hover:text-blue-600 dark:hover:text-blue-400 transition-colors",
+            index === currentPath.length - 1 ? "text-gray-900 dark:text-zinc-100 font-medium" : "text-gray-500 dark:text-zinc-400"
+          ),
+          children: pathItem.label
+        }
+      ),
+      index < currentPath.length - 1 && /* @__PURE__ */ jsx50(ChevronRight4, { className: "size-3 text-gray-400 dark:text-zinc-500" })
+    ] }, index))
+  ] });
+  const renderAssetCard = (asset) => {
+    const isSelected = selectedAssets.includes(asset.uuid);
+    return /* @__PURE__ */ jsxs36(
+      "div",
+      {
+        className: cn2(
+          "relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+          isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+        ),
+        onClick: () => toggleAssetSelection(asset.uuid),
+        children: [
+          /* @__PURE__ */ jsxs36("div", { className: "w-[110px] h-[86px] flex-shrink-0 relative", children: [
+            asset.type === "image" && /* @__PURE__ */ jsx50(
+              "img",
+              {
+                src: asset.is_ready ? asset.image?.thumbnail_path : "/clock.svg",
+                alt: asset.name,
+                className: cn2(
+                  "object-cover object-center h-full w-[110px]",
+                  !asset.is_ready && "bg-amber-50 p-10"
+                )
+              }
+            ),
+            asset.type === "link" && /* @__PURE__ */ jsx50(
+              "img",
+              {
+                src: asset.is_ready ? asset.link?.thumbnail_url || "/link-fallback.svg" : "/link-fallback.svg",
+                alt: asset.name,
+                className: "w-full object-cover inset-0 shrink-0"
+              }
+            ),
+            asset.type === "video" && /* @__PURE__ */ jsxs36(Fragment5, { children: [
+              /* @__PURE__ */ jsx50(
+                "img",
+                {
+                  src: asset.is_ready ? asset.video?.thumbnail_path : "/clock.svg",
+                  alt: asset.name,
+                  className: cn2(
+                    "object-cover object-center h-full w-[110px]",
+                    !asset.is_ready && "bg-amber-50 p-20"
+                  )
+                }
+              ),
+              asset.is_ready && /* @__PURE__ */ jsx50("div", { className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ jsx50("img", { src: "/video-play.svg", alt: "video" }) })
+            ] }),
+            asset.type === "document" && /* @__PURE__ */ jsx50(
+              "img",
+              {
+                src: asset.is_ready ? documentsImages[asset.document?.mime_type ?? ""] ?? "/doc.svg" : "/clock.svg",
+                alt: asset.name,
+                className: cn2(
+                  "object-cover object-center h-full w-[110px]",
+                  !asset.is_ready && "bg-amber-50"
+                )
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
+            /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: asset.name.slice(0, 10) }),
+            /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+              t("addContentModal.upload"),
+              " ",
+              formatDate(asset.created_at)
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx50(
+            "div",
+            {
+              className: cn2(
+                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+              ),
+              children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+            }
+          )
+        ]
+      },
+      asset.uuid
+    );
+  };
+  const renderFolderCard = (folder) => /* @__PURE__ */ jsxs36(
+    "div",
+    {
+      className: "relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow border-[#ECEFF1] dark:border-zinc-800 hover:border-blue-300 dark:hover:border-blue-400 transition-colors",
+      onClick: () => handleFolderClick(folder),
+      children: [
+        /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-sky-100", children: /* @__PURE__ */ jsx50(FolderOpen, { className: "text-sky-600 size-8" }) }),
+        /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
+          /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name }),
+          /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+            folder.assets_count || 0,
+            " ",
+            t("addContentModal.items")
+          ] })
+        ] })
+      ]
+    },
+    folder.id
+  );
+  const renderLayoutCard = (layout) => {
+    const isSelected = selectedLayout === layout.uuid;
+    return /* @__PURE__ */ jsxs36(
+      "div",
+      {
+        className: cn2(
+          "relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+          isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+        ),
+        onClick: () => toggleLayoutSelection(layout.uuid),
+        children: [
+          /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#FEBC2E]", children: /* @__PURE__ */ jsx50(Layout, { className: "fill-white text-[#FEBC2E] size-8" }) }),
+          /* @__PURE__ */ jsx50("div", { className: "pl-3", children: /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: layout.name }) }),
+          /* @__PURE__ */ jsx50(
+            "div",
+            {
+              className: cn2(
+                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+              ),
+              children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+            }
+          )
+        ]
+      },
+      layout.uuid
+    );
+  };
+  const renderSequenceCard = (sequence) => {
+    const isSelected = selectedSequence === sequence.id;
+    return /* @__PURE__ */ jsxs36(
+      "div",
+      {
+        className: cn2(
+          "relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+          isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+        ),
+        onClick: () => toggleSequenceSelection(sequence.id),
+        children: [
+          /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#00C4CC]", children: /* @__PURE__ */ jsx50(Film, { className: "text-white size-8" }) }),
+          /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
+            /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: sequence.name }),
+            /* @__PURE__ */ jsx50("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: sequence.total_duration || "No duration" })
+          ] }),
+          /* @__PURE__ */ jsx50(
+            "div",
+            {
+              className: cn2(
+                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+              ),
+              children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+            }
+          )
+        ]
+      },
+      sequence.id
+    );
+  };
+  const renderChannelCard = (channel) => {
+    const isSelected = selectedChannel === channel.id;
+    return /* @__PURE__ */ jsxs36(
+      "div",
+      {
+        className: cn2(
+          "relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+          isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+        ),
+        onClick: () => toggleChannelSelection(channel.id),
+        children: [
+          /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#575DFC]", children: /* @__PURE__ */ jsx50(ChannelSolidPlayIcon, { baseColor: "white", playColor: "#4B53FB" }) }),
+          /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
+            /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: channel.name }),
+            /* @__PURE__ */ jsx50("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: channel.isPublished ? "Published" : "Draft" })
+          ] }),
+          /* @__PURE__ */ jsx50(
+            "div",
+            {
+              className: cn2(
+                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+              ),
+              children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+            }
+          )
+        ]
+      },
+      channel.id
+    );
+  };
+  const renderGrid = (children) => /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: children.map((child, i) => /* @__PURE__ */ jsx50(
+    "div",
+    {
+      className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
+      style: { animationDelay: `${i * 30}ms` },
+      children: child
+    },
+    i
+  )) });
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "Assets": {
+        if (isLoadingAssets) {
+          return /* @__PURE__ */ jsxs36("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ jsx50(BreadcrumbNavigation, {}),
+            /* @__PURE__ */ jsxs36("div", { children: [
+              /* @__PURE__ */ jsx50(Skeleton2, { className: "h-5 w-16 mb-2" }),
+              /* @__PURE__ */ jsx50(SkeletonGrid, { count: 3 })
+            ] }),
+            /* @__PURE__ */ jsxs36("div", { children: [
+              /* @__PURE__ */ jsx50(Skeleton2, { className: "h-5 w-12 mb-2" }),
+              /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 })
+            ] })
+          ] });
+        }
+        const hasContent = filteredAssets.length > 0 || filteredFolders.length > 0;
+        return /* @__PURE__ */ jsxs36("div", { className: "space-y-4", children: [
+          /* @__PURE__ */ jsx50(BreadcrumbNavigation, {}),
+          hasContent ? /* @__PURE__ */ jsxs36(Fragment5, { children: [
+            filteredFolders.length > 0 && /* @__PURE__ */ jsxs36("div", { children: [
+              /* @__PURE__ */ jsx50("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: t("addContentModal.folders") }),
+              /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4", children: filteredFolders.map((f, i) => /* @__PURE__ */ jsx50(
+                "div",
+                {
+                  className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
+                  style: { animationDelay: `${i * 30}ms` },
+                  children: renderFolderCard(f)
+                },
+                f.id
+              )) })
+            ] }),
+            filteredAssets.length > 0 && /* @__PURE__ */ jsxs36("div", { children: [
+              /* @__PURE__ */ jsx50("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: t("addContentModal.assets") }),
+              /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: filteredAssets.map((a, i) => /* @__PURE__ */ jsx50(
+                "div",
+                {
+                  className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
+                  style: { animationDelay: `${i * 30}ms` },
+                  children: renderAssetCard(a)
+                },
+                a.uuid
+              )) })
+            ] })
+          ] }) : /* @__PURE__ */ jsx50(EmptyState, {})
+        ] });
+      }
+      case "Links":
+        if (isLoadingAssets) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredLinkAssets.length > 0 ? renderGrid(filteredLinkAssets.map((a) => renderAssetCard(a))) : /* @__PURE__ */ jsx50(EmptyState, {});
+      case "Apps":
+        if (isLoadingApps) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredAppInstances.length > 0 ? /* @__PURE__ */ jsxs36("div", { children: [
+          /* @__PURE__ */ jsx50("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: t("addContentModal.apps") }),
+          /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: filteredAppInstances.map((inst, index) => {
+            const isSelected = selectedAppInstances.includes(inst.id);
+            return /* @__PURE__ */ jsxs36(
+              "div",
+              {
+                className: cn2(
+                  "animate-in fade-in slide-in-from-bottom-4 duration-200 relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+                  isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+                ),
+                style: { animationDelay: `${index * 30}ms` },
+                onClick: () => setSelectedAppInstances(
+                  (prev) => prev.includes(inst.id) ? prev.filter((id) => id !== inst.id) : [...prev, inst.id]
+                ),
+                children: [
+                  /* @__PURE__ */ jsx50("div", { className: "w-[86px] h-[86px] flex-shrink-0 flex items-center justify-center bg-gray-50 dark:bg-card", children: inst.app_icon_url ? /* @__PURE__ */ jsx50("img", { src: inst.app_icon_url, alt: inst.app_name, className: "w-10 h-10" }) : /* @__PURE__ */ jsx50("div", { className: "w-10 h-10 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-semibold", children: (inst.app_name || "A").charAt(0) }) }),
+                  /* @__PURE__ */ jsxs36("div", { className: "pl-3 pr-8 py-2", children: [
+                    /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate max-w-[220px]", children: inst.name }),
+                    /* @__PURE__ */ jsx50("p", { className: "text-[11px] text-gray-500 dark:text-zinc-400 truncate max-w-[220px]", children: inst.app_name })
+                  ] }),
+                  /* @__PURE__ */ jsx50(
+                    "div",
+                    {
+                      className: cn2(
+                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+                      ),
+                      children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+                    }
+                  )
+                ]
+              },
+              inst.id
+            );
+          }) })
+        ] }) : /* @__PURE__ */ jsx50(EmptyState, {});
+      case "Sequences":
+        if (isLoadingSequences) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredSequences.length > 0 ? renderGrid(filteredSequences.map((s) => renderSequenceCard(s))) : /* @__PURE__ */ jsx50(EmptyState, {});
+      case "Channels":
+        if (isLoadingChannels) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredChannels.length > 0 ? renderGrid(filteredChannels.map((c) => renderChannelCard(c))) : /* @__PURE__ */ jsx50(EmptyState, {});
+      case "Layout":
+        if (isLoadingLayouts) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredLayouts.length > 0 ? renderGrid(filteredLayouts.map((l) => renderLayoutCard(l))) : /* @__PURE__ */ jsx50(EmptyState, {});
+      default:
+        return null;
+    }
+  };
+  const tabConfig = {
+    Assets: { label: t("addContentModal.assets"), icon: FolderOpen },
+    Links: { label: t("addContentModal.links"), icon: Link3 },
+    Apps: { label: t("addContentModal.apps"), icon: Grid2X2Plus },
+    Sequences: { label: t("addContentModal.sequences"), icon: TvMinimalPlay },
+    Channels: { label: t("addContentModal.channels"), icon: Tv },
+    Layout: { label: t("addContentModal.layout"), icon: Grid2x2 }
+  };
+  return /* @__PURE__ */ jsx50(DrawerDialog, { size: "2xl", open, onClose, children: /* @__PURE__ */ jsxs36("div", { className: "flex flex-col h-[90vh]", children: [
+    /* @__PURE__ */ jsx50("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx50("p", { className: "font-semibold", children: t("addContentModal.title") }) }),
+    /* @__PURE__ */ jsx50("div", { className: "w-full px-3 lg:px-5 flex-shrink-0 mt-5", children: /* @__PURE__ */ jsx50("div", { className: "flex border-b w-full", children: effectiveTabs.map((tabId) => {
+      const { label, icon: Icon } = tabConfig[tabId];
+      return /* @__PURE__ */ jsxs36(
+        Button2,
+        {
+          size: "sm",
+          variant: "ghost",
+          className: cn2(
+            "rounded-none font-light",
+            activeTab === tabId ? "border-b border-b-black text-black dark:text-white" : "text-gray-700 dark:text-zinc-300"
+          ),
+          onClick: () => handleActiveTab(tabId),
+          children: [
+            /* @__PURE__ */ jsx50(Icon, { className: "stroke-[1.8]" }),
+            label
+          ]
+        },
+        tabId
+      );
+    }) }) }),
+    /* @__PURE__ */ jsxs36("div", { className: "px-3 lg:px-5 flex flex-col gap-3 flex-1 min-h-0", children: [
+      /* @__PURE__ */ jsxs36("div", { className: "flex gap-3 items-center flex-shrink-0 pt-5", children: [
+        /* @__PURE__ */ jsx50(search_input_default, { onChange: (e) => setSearchTerm(e.target.value) }),
+        onUploadClick && /* @__PURE__ */ jsxs36(Button2, { size: "lg", onClick: onUploadClick, children: [
+          /* @__PURE__ */ jsx50("span", { className: "w-5 h-5 mr-2 flex items-center justify-center border-[1px] border-gray-200 dark:border-zinc-700 rounded-[4px]", children: /* @__PURE__ */ jsx50(Plus, { className: "stroke-[1.8]" }) }),
+          t("addContentModal.upload")
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx50("div", { className: "flex-1 overflow-y-auto min-h-0", children: renderTabContent() }),
+      /* @__PURE__ */ jsxs36("div", { className: "flex justify-between items-center gap-4 py-5 flex-shrink-0 border-t", children: [
+        /* @__PURE__ */ jsxs36("div", { className: "text-sm text-gray-600 dark:text-zinc-400", children: [
+          selectedAssets.length > 0 && /* @__PURE__ */ jsxs36("span", { children: [
+            selectedAssets.length,
+            " ",
+            selectedAssets.length > 1 ? t("addContentModal.assetsSelectedPlural") : t("addContentModal.assetsSelected"),
+            " ",
+            "selected"
+          ] }),
+          selectedLayout && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.layoutSelected") }),
+          selectedSequence && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.sequenceSelected") }),
+          selectedChannel && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.channelSelected") })
+        ] }),
+        /* @__PURE__ */ jsxs36("div", { className: "flex gap-4", children: [
+          /* @__PURE__ */ jsx50(
+            Button2,
+            {
+              variant: "outline",
+              className: "shadow-none",
+              onClick: () => {
+                setSelectedAssets([]);
+                setSelectedAppInstances([]);
+                setSelectedLayout(null);
+                setSelectedSequence(null);
+                setSelectedChannel(null);
+                onClose();
+              },
+              children: t("addContentModal.cancel")
+            }
+          ),
+          /* @__PURE__ */ jsx50(
+            Button2,
+            {
+              disabled: !hasSelection,
+              onClick: handleAddContent,
+              className: "disabled:cursor-not-allowed",
+              children: `${t("addContentModal.add")}${selectedAssets.length > 1 ? ` (${selectedAssets.length})` : ""}`
+            }
+          )
+        ] })
+      ] })
+    ] })
+  ] }) });
+};
+var AddContentModal_default = AddContentModal;
+
+// src/components/content-browser/components/UploadModal.tsx
+import { useEffect as useEffect10, useState as useState13 } from "react";
+import Uppy from "@uppy/core";
+import Tus from "@uppy/tus";
+import Dashboard from "@uppy/react/dashboard";
+import Dropbox from "@uppy/dropbox";
+import GoogleDrive from "@uppy/google-drive";
+import { toast as toast5 } from "sonner";
+import { jsx as jsx51 } from "react/jsx-runtime";
+function createUppy(uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, companionUrl, onComplete, onCloseModal, translations) {
+  return new Uppy({
+    autoProceed: true,
+    allowMultipleUploadBatches: true,
+    restrictions: {
+      maxFileSize: 1 * 1024 * 1024 * 1024,
+      allowedFileTypes: [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/gif",
+        "video/mp4",
+        "video/quicktime",
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      ]
+    }
+  }).use(Dropbox, { companionUrl }).use(GoogleDrive, { companionUrl }).use(Tus, {
+    endpoint: uploadEndpoint,
+    chunkSize: 5 * 1024 * 1024,
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      "X-Space-Uuid": spaceUuid,
+      "X-Folder-Uuid": currentFolderUuid
+    },
+    removeFingerprintOnSuccess: true,
+    retryDelays: [0, 1e3, 3e3, 5e3],
+    allowedMetaFields: true
+  }).on("upload-success", (file) => {
+    toast5.success(`${file?.name || "File"} ${translations.fileUploadedSuccessfully}`);
+  }).on("complete", (result) => {
+    if ((result.successful || []).length > 0) {
+      toast5.loading(translations.processingUploads, {
+        id: "upload-processing",
+        description: translations.filesWillAppear
+      });
+    }
+    onComplete();
+    onCloseModal();
+    setTimeout(() => toast5.dismiss("upload-processing"), 2e3);
+  }).on("error", (error) => {
+    toast5.error(translations.uploadFailed, {
+      description: error?.message || translations.pleaseTryAgain
+    });
+  });
+}
+var UploadModal = ({
+  open,
+  onClose,
+  uploadEndpoint,
+  accessToken,
+  spaceUuid,
+  currentFolderUuid,
+  companionUrl = "http://localhost:3020",
+  onUploadComplete
+}) => {
+  const { t } = useNitxUiTranslation();
+  const [uppy, setUppy] = useState13(null);
+  useEffect10(() => {
+    if (!open && uppy) {
+      try {
+        uppy.clear();
+      } catch {
+      }
+      try {
+        uppy.close?.();
+      } catch {
+      }
+      uppy.cancelAll();
+      setUppy(null);
+    }
+  }, [open, uppy]);
+  useEffect10(() => {
+    if (!open) return;
+    setUppy(
+      createUppy(
+        uploadEndpoint,
+        accessToken,
+        spaceUuid,
+        currentFolderUuid || "root",
+        companionUrl,
+        () => onUploadComplete?.(),
+        onClose,
+        {
+          fileUploadedSuccessfully: t("uploadModal.fileUploadedSuccessfully"),
+          processingUploads: t("uploadModal.processingUploads"),
+          filesWillAppear: t("uploadModal.filesWillAppear"),
+          uploadFailed: t("uploadModal.uploadFailed"),
+          pleaseTryAgain: t("uploadModal.pleaseTryAgain")
+        }
+      )
+    );
+  }, [open, uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, companionUrl]);
+  return /* @__PURE__ */ jsx51(DrawerDialog, { size: "lg", open, onClose, title: t("uploadModal.title"), children: /* @__PURE__ */ jsx51("div", { className: "w-full h-full flex flex-col gap-3 lg:gap-5 relative overflow-hidden", children: /* @__PURE__ */ jsx51("div", { className: "p-3 !pt-2 lg:p-7 flex flex-col gap-3 lg:gap-5", children: uppy && /* @__PURE__ */ jsx51(Dashboard, { uppy, proudlyDisplayPoweredByUppy: false }) }) }) });
+};
+var UploadModal_default = UploadModal;
+
+// src/components/content-browser/lib/create-api.ts
+var createContentBrowserApi = (client) => ({
+  fetchAssets: async (folderId) => {
+    const params = folderId ? { folder_uuid: folderId } : {};
+    const { data } = await client.get("/api/assets-and-folders", { params });
+    return {
+      assets: data.data?.assets ?? [],
+      folders: data.data?.folders ?? []
+    };
+  },
+  fetchLayouts: async () => {
+    const { data } = await client.get("/api/layouts");
+    return data.data ?? [];
+  },
+  fetchSequences: async () => {
+    const { data } = await client.get("/api/sequences");
+    return data.data ?? [];
+  },
+  fetchChannels: async () => {
+    const { data } = await client.get("/api/channels");
+    return data.data ?? [];
+  },
+  fetchApps: async (spaceUuid) => {
+    const { data } = await client.get("/api/apps", {
+      headers: { "X-Space-Uuid": spaceUuid }
+    });
+    return data.data ?? [];
+  },
+  fetchAppInstances: async (spaceUuid, appId) => {
+    const { data } = await client.get(`/api/apps/${appId}`, {
+      headers: { "X-Space-Uuid": spaceUuid }
+    });
+    return data.data ?? [];
+  }
+});
 export {
+  AddContentModal_default as AddContentModal,
   error_state_default as ErrorState,
   MembersAndNumbers_default as MembersAndNumbers,
   MembersManager_default as MembersManager,
@@ -5362,7 +6243,9 @@ export {
   SpaceBrowser_default as SpaceBrowser,
   SpaceSelector,
   SpaceSelectorProvider,
+  UploadModal_default as UploadModal,
   UserAccount,
+  createContentBrowserApi,
   createSpaceSelectorApi,
   useOptionalSpaceSelector,
   useSpaceSelector

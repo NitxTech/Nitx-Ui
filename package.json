@@ -1,6 +1,6 @@
 {
   "name": "nitxui",
-  "version": "1.6.12",
+  "version": "1.7.5",
   "type": "module",
   "private": false,
   "description": "The official UI component library for Nitx projects.",
@@ -24,7 +24,7 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "tsup",
-    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify && node -e \"const fs=require('fs');const uppy=fs.readFileSync('./node_modules/@uppy/dashboard/dist/style.css','utf8');fs.appendFileSync('./dist/styles.css','\\n'+uppy);\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -40,6 +40,11 @@
   },
   "homepage": "https://github.com/NitxTech/Nitx-Ui#readme",
   "peerDependencies": {
+    "@uppy/core": "^5.2.0",
+    "@uppy/dropbox": ">=3.0.0",
+    "@uppy/google-drive": ">=3.0.0",
+    "@uppy/react": "^5.2.0",
+    "@uppy/tus": ">=3.0.0",
     "i18next": ">=23.0.0",
     "next": "^15.2.4",
     "react": "^18.3.1",
@@ -65,10 +70,12 @@
     "lucide-react": "^0.525.0",
     "next": "^15.3.5",
     "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
     "sonner": "^2.0.7",
     "storybook": "^8.6.14",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
     "tsup": "^8.5.1",
     "typescript": "^5.8.3",
     "webpack": "^5.100.0"
@@ -86,6 +93,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-visually-hidden": "^1.2.4",
+    "@uppy/dashboard": "^5.1.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "usehooks-ts": "^3.1.1",
