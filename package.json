@@ -24,7 +24,7 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "tsup",
-    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify && node -e \"const fs=require('fs');const uppy=fs.readFileSync('./node_modules/@uppy/react/dist/styles.css','utf8');fs.appendFileSync('./dist/styles.css','\\n'+uppy);\"",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./dist/styles.css --minify && node -e \"const fs=require('fs');const uppy=fs.readFileSync('./node_modules/@uppy/dashboard/dist/style.css','utf8');fs.appendFileSync('./dist/styles.css','\\n'+uppy);\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
