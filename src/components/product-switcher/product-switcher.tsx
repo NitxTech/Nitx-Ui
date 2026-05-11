@@ -88,14 +88,14 @@ export const ProductSwitcher = ({
           <Grip className="w-6 h-6" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 p-4 rounded-2xl dark:bg-black">
+      <DropdownMenuContent align="end" className="w-80 p-4 rounded-2xl dark:bg-black dark:border-zinc-500">
         {/* Profile Section */}
         <a
           id="manage-my-account"
           data-testid="product-manage-my-account"
           href={profile.url}
           target="_blank"
-          className="flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-700/50 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 dark:hover:text-white transition"
+          className="flex items-center w-full p-3 gap-2 rounded-xl border dark:border-zinc-600 mb-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 dark:hover:text-white transition"
         >
           <Avatar className="rounded-[6px] size-8">
             <AvatarImage
@@ -114,7 +114,7 @@ export const ProductSwitcher = ({
           <ChevronRight className="size-4 rtl:rotate-180" />
         </a>
 
-        <div className="grid grid-cols-2 gap-3 mb-4 ltr" dir="ltr">
+        <div className="grid grid-cols-2 gap-3 mb-4 ltr dark:border-zinc-600" dir="ltr">
           {products.map((product) => (
             <ProductIcon key={product.id} {...product} />
           ))}
