@@ -5428,6 +5428,7 @@ import {
   Home,
   Layout,
   Link as Link3,
+  Monitor,
   Plus,
   Tv,
   TvMinimalPlay
@@ -5489,7 +5490,7 @@ var ChannelSolidPlayIcon = ({
 
 // src/components/content-browser/components/AddContentModal.tsx
 import { Fragment as Fragment5, jsx as jsx50, jsxs as jsxs36 } from "react/jsx-runtime";
-var ALL_TABS = ["Assets", "Links", "Apps", "Sequences", "Layout", "Channels"];
+var ALL_TABS = ["Assets", "Links", "Apps", "Sequences", "Layout", "Channels", "Canvas"];
 var SkeletonCard = () => /* @__PURE__ */ jsxs36("div", { className: "relative flex items-center rounded-md border overflow-hidden shadow border-[#ECEFF1] animate-pulse", children: [
   /* @__PURE__ */ jsx50(Skeleton2, { className: "w-[110px] h-[86px] flex-shrink-0 rounded-none" }),
   /* @__PURE__ */ jsxs36("div", { className: "pl-3 space-y-2", children: [
@@ -5527,16 +5528,19 @@ var AddContentModal = ({
   const [channels, setChannels] = useState12([]);
   const [apps, setApps] = useState12([]);
   const [appInstances, setAppInstances] = useState12([]);
+  const [canvasAssets, setCanvasAssets] = useState12([]);
   const [isLoadingAssets, setIsLoadingAssets] = useState12(false);
   const [isLoadingLayouts, setIsLoadingLayouts] = useState12(false);
   const [isLoadingSequences, setIsLoadingSequences] = useState12(false);
   const [isLoadingChannels, setIsLoadingChannels] = useState12(false);
   const [isLoadingApps, setIsLoadingApps] = useState12(false);
+  const [isLoadingCanvas, setIsLoadingCanvas] = useState12(false);
   const [selectedAssets, setSelectedAssets] = useState12([]);
   const [selectedLayout, setSelectedLayout] = useState12(null);
   const [selectedSequence, setSelectedSequence] = useState12(null);
   const [selectedChannel, setSelectedChannel] = useState12(null);
   const [selectedAppInstances, setSelectedAppInstances] = useState12([]);
+  const [selectedCanvasAssets, setSelectedCanvasAssets] = useState12([]);
   const effectiveTabs = ALL_TABS.filter((t2) => allowedTabs.includes(t2));
   const firstTab = effectiveTabs[0] ?? "Assets";
   useEffect9(() => {
@@ -5550,6 +5554,7 @@ var AddContentModal = ({
     setSelectedSequence(null);
     setSelectedChannel(null);
     setSelectedAppInstances([]);
+    setSelectedCanvasAssets([]);
   }, [open]);
   useEffect9(() => {
     if (!open) return;
@@ -5584,6 +5589,11 @@ var AddContentModal = ({
       );
     }).then((results) => setAppInstances(results.flat())).catch(console.error).finally(() => setIsLoadingApps(false));
   }, [open, spaceUuid]);
+  useEffect9(() => {
+    if (!open || !effectiveTabs.includes("Canvas")) return;
+    setIsLoadingCanvas(true);
+    api.fetchCanvasAssets().then(setCanvasAssets).catch(console.error).finally(() => setIsLoadingCanvas(false));
+  }, [open]);
   const term = searchTerm.toLowerCase();
   const filteredAssets = assets.filter((a) => a.name.toLowerCase().includes(term));
   const filteredFolders = folders.filter((f) => f.name.toLowerCase().includes(term));
@@ -5595,6 +5605,9 @@ var AddContentModal = ({
   );
   const filteredAppInstances = appInstances.filter(
     (i) => (i.name || "").toLowerCase().includes(term) || (i.app_name || "").toLowerCase().includes(term)
+  );
+  const filteredCanvasAssets = canvasAssets.filter(
+    (c) => (c.name || "").toLowerCase().includes(term)
   );
   const formatDate = (dateString) => format(new Date(dateString), "MMM d, yyyy");
   const handleFolderClick = (folder) => {
@@ -5616,6 +5629,7 @@ var AddContentModal = ({
     setSelectedLayout(null);
     setSelectedSequence(null);
     setSelectedChannel(null);
+    setSelectedCanvasAssets([]);
   };
   const toggleAssetSelection = (uuid) => {
     setSelectedAssets((prev) => {
@@ -5623,6 +5637,12 @@ var AddContentModal = ({
       return singleSelect ? [uuid] : [...prev, uuid];
     });
     setSelectedLayout(null);
+  };
+  const toggleCanvasSelection = (uuid) => {
+    setSelectedCanvasAssets((prev) => {
+      if (prev.includes(uuid)) return prev.filter((id) => id !== uuid);
+      return singleSelect ? [uuid] : [...prev, uuid];
+    });
   };
   const toggleLayoutSelection = (uuid) => {
     setSelectedLayout((prev) => prev === uuid ? null : uuid);
@@ -5664,6 +5684,18 @@ var AddContentModal = ({
       onClose();
       return;
     }
+    if (selectedCanvasAssets.length > 0) {
+      const selected = canvasAssets.filter(
+        (c) => selectedCanvasAssets.includes(c.uuid)
+      );
+      const items = selected.map((canvas) => ({
+        ...canvas,
+        screenable_type: "asset"
+      }));
+      onSelect(items);
+      onClose();
+      return;
+    }
     if (selectedAssets.length > 0) {
       const items = assets.filter((a) => selectedAssets.includes(a.uuid));
       if (items.length > 0) onSelect(items);
@@ -5688,7 +5720,7 @@ var AddContentModal = ({
     }
     onClose();
   };
-  const hasSelection = selectedAssets.length > 0 || selectedAppInstances.length > 0 || !!selectedLayout || !!selectedSequence || !!selectedChannel;
+  const hasSelection = selectedAssets.length > 0 || selectedAppInstances.length > 0 || selectedCanvasAssets.length > 0 || !!selectedLayout || !!selectedSequence || !!selectedChannel;
   const BreadcrumbNavigation = () => /* @__PURE__ */ jsxs36("div", { className: "flex items-center gap-1 text-sm text-gray-600 dark:text-zinc-400 mb-3 px-1", children: [
     /* @__PURE__ */ jsx50(Home, { className: "size-4" }),
     currentPath.map((pathItem, index) => /* @__PURE__ */ jsxs36(React22.Fragment, { children: [
@@ -6002,6 +6034,47 @@ var AddContentModal = ({
       case "Layout":
         if (isLoadingLayouts) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
         return filteredLayouts.length > 0 ? renderGrid(filteredLayouts.map((l) => renderLayoutCard(l))) : /* @__PURE__ */ jsx50(EmptyState, {});
+      case "Canvas":
+        if (isLoadingCanvas) return /* @__PURE__ */ jsx50(SkeletonGrid, { count: 6 });
+        return filteredCanvasAssets.length > 0 ? /* @__PURE__ */ jsxs36("div", { children: [
+          /* @__PURE__ */ jsx50("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: "Canvas" }),
+          /* @__PURE__ */ jsx50("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: filteredCanvasAssets.map((canvas, index) => {
+            const isSelected = selectedCanvasAssets.includes(canvas.uuid);
+            return /* @__PURE__ */ jsxs36(
+              "div",
+              {
+                className: cn2(
+                  "animate-in fade-in slide-in-from-bottom-4 duration-200 relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+                  isSelected ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20" : "border-[#ECEFF1] dark:border-zinc-800"
+                ),
+                style: { animationDelay: `${index * 30}ms` },
+                onClick: () => toggleCanvasSelection(canvas.uuid),
+                children: [
+                  /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]", children: /* @__PURE__ */ jsx50(Monitor, { className: "text-white size-8" }) }),
+                  /* @__PURE__ */ jsxs36("div", { className: "pl-3 pr-8 py-2", children: [
+                    /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate max-w-[220px]", children: canvas.name }),
+                    /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+                      t("addContentModal.upload"),
+                      " ",
+                      format(new Date(canvas.created_at), "MMM d, yyyy")
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsx50(
+                    "div",
+                    {
+                      className: cn2(
+                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
+                      ),
+                      children: isSelected && /* @__PURE__ */ jsx50(Check5, { className: "w-3 h-3 text-white" })
+                    }
+                  )
+                ]
+              },
+              canvas.uuid
+            );
+          }) })
+        ] }) : /* @__PURE__ */ jsx50(EmptyState, {});
       default:
         return null;
     }
@@ -6012,7 +6085,8 @@ var AddContentModal = ({
     Apps: { label: t("addContentModal.apps"), icon: Grid2X2Plus },
     Sequences: { label: t("addContentModal.sequences"), icon: TvMinimalPlay },
     Channels: { label: t("addContentModal.channels"), icon: Tv },
-    Layout: { label: t("addContentModal.layout"), icon: Grid2x2 }
+    Layout: { label: t("addContentModal.layout"), icon: Grid2x2 },
+    Canvas: { label: "Canvas", icon: Monitor }
   };
   return /* @__PURE__ */ jsx50(DrawerDialog, { size: "2xl", open, onClose, children: /* @__PURE__ */ jsxs36("div", { className: "flex flex-col h-[90vh]", children: [
     /* @__PURE__ */ jsx50("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx50("p", { className: "font-semibold", children: t("addContentModal.title") }) }),
@@ -6232,6 +6306,27 @@ var createContentBrowserApi = (client) => ({
       headers: { "X-Space-Uuid": spaceUuid }
     });
     return data.data ?? [];
+  },
+  fetchCanvasAssets: async () => {
+    const { data } = await client.get("/api/assets");
+    const allAssets = data.data?.assets ?? [];
+    const canvases = allAssets.filter((a) => a.type === "canvas");
+    const enriched = await Promise.all(
+      canvases.map(async (asset) => {
+        const canvasUuid = asset.canvas?.uuid;
+        if (!canvasUuid) return asset;
+        try {
+          const res = await client.get(`/api/public/assets/${canvasUuid}/canvas`);
+          const canvasData = res?.data?.data ?? res?.data;
+          if (canvasData) {
+            return { ...asset, canvas: { ...asset.canvas, ...canvasData } };
+          }
+        } catch (_) {
+        }
+        return asset;
+      })
+    );
+    return enriched;
   }
 });
 export {

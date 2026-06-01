@@ -1,5 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import { Dispatch, SetStateAction, ReactNode } from 'react';
+import { ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface ProductSwitcherProps {
     auth_user: number | string;
@@ -218,7 +218,7 @@ interface ErrorStateProps {
 }
 declare const ErrorState: ({ message, title, onRetry, retryLabel, }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
 
-type TabId = "Assets" | "Links" | "Apps" | "Sequences" | "Layout" | "Channels";
+type TabId = "Assets" | "Links" | "Apps" | "Sequences" | "Layout" | "Channels" | "Canvas";
 interface Folder {
     id: string;
     name: string;
@@ -243,6 +243,17 @@ interface Asset {
     link?: {
         thumbnail_url?: string;
     };
+}
+interface CanvasAsset {
+    id: number;
+    uuid: string;
+    name: string;
+    type: "canvas";
+    is_ready: boolean;
+    created_at: string;
+    updated_at: string;
+    canvas?: any;
+    assetable?: any;
 }
 interface Layout {
     uuid: string;
@@ -294,7 +305,9 @@ type ContentItem = (Asset & {
     duration: object;
     created_at: string;
     updated_at: string;
-};
+} | (CanvasAsset & {
+    screenable_type: "asset";
+});
 interface ContentBrowserApi {
     fetchAssets(folderId?: string | null): Promise<{
         assets: Asset[];
@@ -305,6 +318,7 @@ interface ContentBrowserApi {
     fetchChannels(): Promise<Channel[]>;
     fetchApps(spaceUuid: string): Promise<App[]>;
     fetchAppInstances(spaceUuid: string, appId: string): Promise<AppInstance[]>;
+    fetchCanvasAssets(): Promise<CanvasAsset[]>;
 }
 interface AddContentModalProps {
     open: boolean;
