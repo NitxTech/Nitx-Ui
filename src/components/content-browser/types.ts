@@ -1,4 +1,4 @@
-export type TabId = "Assets" | "Links" | "Apps" | "Sequences" | "Layout" | "Channels";
+export type TabId = "Assets" | "Links" | "Apps" | "Sequences" | "Layout" | "Channels" | "Canvas";
 
 export interface Folder {
   id: string;
@@ -17,6 +17,18 @@ export interface Asset {
   video?: { thumbnail_path: string };
   document?: { mime_type: string };
   link?: { thumbnail_url?: string };
+}
+
+export interface CanvasAsset {
+  id: number;
+  uuid: string;
+  name: string;
+  type: "canvas";
+  is_ready: boolean;
+  created_at: string;
+  updated_at: string;
+  canvas?: any;
+  assetable?: any;
 }
 
 export interface Layout {
@@ -68,7 +80,8 @@ export type ContentItem =
       duration: object;
       created_at: string;
       updated_at: string;
-    };
+    }
+  | (CanvasAsset & { screenable_type: "asset" });
 
 export interface ContentBrowserApi {
   fetchAssets(folderId?: string | null): Promise<{ assets: Asset[]; folders: Folder[] }>;
@@ -77,6 +90,7 @@ export interface ContentBrowserApi {
   fetchChannels(): Promise<Channel[]>;
   fetchApps(spaceUuid: string): Promise<App[]>;
   fetchAppInstances(spaceUuid: string, appId: string): Promise<AppInstance[]>;
+  fetchCanvasAssets(): Promise<CanvasAsset[]>;
 }
 
 export interface AddContentModalProps {

@@ -12,6 +12,7 @@ import {
   Home,
   Layout,
   Link,
+  Monitor,
   Plus,
   Tv,
   TvMinimalPlay,
@@ -29,6 +30,7 @@ import {
   App,
   AppInstance,
   Asset,
+  CanvasAsset,
   Channel,
   ContentItem,
   Folder,
@@ -37,7 +39,7 @@ import {
   TabId,
 } from "../types";
 
-const ALL_TABS: TabId[] = ["Assets", "Links", "Apps", "Sequences", "Layout", "Channels"];
+const ALL_TABS: TabId[] = ["Assets", "Links", "Apps", "Sequences", "Layout", "Channels", "Canvas"];
 
 interface PathItem {
   id: string | null;
@@ -100,6 +102,7 @@ const AddContentModal = ({
   const [channels, setChannels] = useState<Channel[]>([]);
   const [apps, setApps] = useState<App[]>([]);
   const [appInstances, setAppInstances] = useState<AppInstance[]>([]);
+  const [canvasAssets, setCanvasAssets] = useState<CanvasAsset[]>([]);
 
   // Loading states
   const [isLoadingAssets, setIsLoadingAssets] = useState(false);
@@ -107,6 +110,7 @@ const AddContentModal = ({
   const [isLoadingSequences, setIsLoadingSequences] = useState(false);
   const [isLoadingChannels, setIsLoadingChannels] = useState(false);
   const [isLoadingApps, setIsLoadingApps] = useState(false);
+  const [isLoadingCanvas, setIsLoadingCanvas] = useState(false);
 
   // Selections
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
@@ -114,6 +118,7 @@ const AddContentModal = ({
   const [selectedSequence, setSelectedSequence] = useState<string | null>(null);
   const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
   const [selectedAppInstances, setSelectedAppInstances] = useState<string[]>([]);
+  const [selectedCanvasAssets, setSelectedCanvasAssets] = useState<string[]>([]);
 
   const effectiveTabs = ALL_TABS.filter((t) => allowedTabs.includes(t));
   const firstTab = effectiveTabs[0] ?? "Assets";
@@ -130,6 +135,7 @@ const AddContentModal = ({
     setSelectedSequence(null);
     setSelectedChannel(null);
     setSelectedAppInstances([]);
+    setSelectedCanvasAssets([]);
   }, [open]);
 
   // Fetch assets/folders when open or folder changes
@@ -196,6 +202,17 @@ const AddContentModal = ({
       .finally(() => setIsLoadingApps(false));
   }, [open, spaceUuid]);
 
+  // Fetch canvas assets once on open
+  useEffect(() => {
+    if (!open || !effectiveTabs.includes("Canvas")) return;
+    setIsLoadingCanvas(true);
+    api
+      .fetchCanvasAssets()
+      .then(setCanvasAssets)
+      .catch(console.error)
+      .finally(() => setIsLoadingCanvas(false));
+  }, [open]);
+
   const term = searchTerm.toLowerCase();
 
   const filteredAssets = assets.filter((a) => a.name.toLowerCase().includes(term));
@@ -210,6 +227,9 @@ const AddContentModal = ({
     (i) =>
       (i.name || "").toLowerCase().includes(term) ||
       (i.app_name || "").toLowerCase().includes(term),
+  );
+  const filteredCanvasAssets = canvasAssets.filter((c) =>
+    (c.name || "").toLowerCase().includes(term),
   );
 
   const formatDate = (dateString: string) =>
@@ -236,6 +256,7 @@ const AddContentModal = ({
     setSelectedLayout(null);
     setSelectedSequence(null);
     setSelectedChannel(null);
+    setSelectedCanvasAssets([]);
   };
 
   const toggleAssetSelection = (uuid: string) => {
@@ -244,6 +265,13 @@ const AddContentModal = ({
       return singleSelect ? [uuid] : [...prev, uuid];
     });
     setSelectedLayout(null);
+  };
+
+  const toggleCanvasSelection = (uuid: string) => {
+    setSelectedCanvasAssets((prev) => {
+      if (prev.includes(uuid)) return prev.filter((id) => id !== uuid);
+      return singleSelect ? [uuid] : [...prev, uuid];
+    });
   };
 
   const toggleLayoutSelection = (uuid: string) => {
@@ -290,6 +318,19 @@ const AddContentModal = ({
       return;
     }
 
+    if (selectedCanvasAssets.length > 0) {
+      const selected = canvasAssets.filter((c) =>
+        selectedCanvasAssets.includes(c.uuid),
+      );
+      const items: ContentItem[] = selected.map((canvas) => ({
+        ...canvas,
+        screenable_type: "asset" as const,
+      }));
+      onSelect(items);
+      onClose();
+      return;
+    }
+
     if (selectedAssets.length > 0) {
       const items = assets.filter((a) => selectedAssets.includes(a.uuid));
       if (items.length > 0) onSelect(items as ContentItem[]);
@@ -319,6 +360,7 @@ const AddContentModal = ({
   const hasSelection =
     selectedAssets.length > 0 ||
     selectedAppInstances.length > 0 ||
+    selectedCanvasAssets.length > 0 ||
     !!selectedLayout ||
     !!selectedSequence ||
     !!selectedChannel;
@@ -729,6 +771,56 @@ const AddContentModal = ({
           ? renderGrid(filteredLayouts.map((l) => renderLayoutCard(l)))
           : <EmptyState />;
 
+      case "Canvas":
+        if (isLoadingCanvas) return <SkeletonGrid count={6} />;
+        return filteredCanvasAssets.length > 0 ? (
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
+              Canvas
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2">
+              {filteredCanvasAssets.map((canvas, index) => {
+                const isSelected = selectedCanvasAssets.includes(canvas.uuid);
+                return (
+                  <div
+                    key={canvas.uuid}
+                    className={cn(
+                      "animate-in fade-in slide-in-from-bottom-4 duration-200 relative cursor-pointer flex items-center rounded-md border overflow-hidden shadow",
+                      isSelected
+                        ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "border-[#ECEFF1] dark:border-zinc-800",
+                    )}
+                    style={{ animationDelay: `${index * 30}ms` }}
+                    onClick={() => toggleCanvasSelection(canvas.uuid)}
+                  >
+                    <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]">
+                      <Monitor className="text-white size-8" />
+                    </div>
+                    <div className="pl-3 pr-8 py-2">
+                      <p className="text-sm font-medium truncate max-w-[220px]">{canvas.name}</p>
+                      <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+                        {t("addContentModal.upload")} {format(new Date(canvas.created_at), "MMM d, yyyy")}
+                      </p>
+                    </div>
+                    <div
+                      className={cn(
+                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        isSelected
+                          ? "bg-blue-500 dark:bg-blue-600"
+                          : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
+                      )}
+                    >
+                      {isSelected && <Check className="w-3 h-3 text-white" />}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <EmptyState />
+        );
+
       default:
         return null;
     }
@@ -741,6 +833,7 @@ const AddContentModal = ({
     Sequences: { label: t("addContentModal.sequences"), icon: TvMinimalPlay },
     Channels: { label: t("addContentModal.channels"), icon: Tv },
     Layout: { label: t("addContentModal.layout"), icon: Grid2x2 },
+    Canvas: { label: "Canvas", icon: Monitor },
   };
 
   return (
