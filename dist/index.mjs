@@ -6308,25 +6308,13 @@ var createContentBrowserApi = (client) => ({
     return data.data ?? [];
   },
   fetchCanvasAssets: async () => {
-    const { data } = await client.get("/api/assets");
-    const allAssets = data.data?.assets ?? [];
-    const canvases = allAssets.filter((a) => a.type === "canvas");
-    const enriched = await Promise.all(
-      canvases.map(async (asset) => {
-        const canvasUuid = asset.canvas?.uuid;
-        if (!canvasUuid) return asset;
-        try {
-          const res = await client.get(`/api/public/assets/${canvasUuid}/canvas`);
-          const canvasData = res?.data?.data ?? res?.data;
-          if (canvasData) {
-            return { ...asset, canvas: { ...asset.canvas, ...canvasData } };
-          }
-        } catch (_) {
-        }
-        return asset;
-      })
-    );
-    return enriched;
+    const { data } = await client.get("/api/canvases");
+    const canvases = data.data ?? [];
+    return canvases.map((canvas) => ({
+      ...canvas,
+      type: "canvas",
+      is_ready: true
+    }));
   }
 });
 export {
