@@ -3925,9 +3925,9 @@ var TablePersonCell = ({
   avatarSrc
 }) => {
   return /* @__PURE__ */ jsxs21("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
+    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
       /* @__PURE__ */ jsx32(AvatarImage, { src: avatarSrc }),
-      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: getFallbackText(fallbackValue) })
+      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: getFallbackText(fallbackValue) })
     ] }),
     /* @__PURE__ */ jsxs21("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx32("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: title }),
@@ -4403,9 +4403,9 @@ var MembersTable_default = MembersTable;
 import { jsx as jsx38, jsxs as jsxs26 } from "react/jsx-runtime";
 var StatCard = ({ label, value, icon }) => {
   return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600", children: [
-    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
+    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
       /* @__PURE__ */ jsx38(AvatarImage, { src: "" }),
-      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: icon })
+      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: icon })
     ] }),
     /* @__PURE__ */ jsxs26("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx38("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: value }),
@@ -5280,15 +5280,7 @@ var SpaceSelectorContent = () => {
           children: [
             /* @__PURE__ */ jsx47(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
             /* @__PURE__ */ jsx47("p", { className: "max-w-[8rem] truncate", children: option.name }),
-            /* @__PURE__ */ jsx47(
-              CheckCircle,
-              {
-                className: cn2(
-                  "ms-auto w-4 h-4 stroke-zinc-400",
-                  activeSpace?.proxyId === option.proxyId && "stroke-primary"
-                )
-              }
-            )
+            activeSpace?.proxyId === option.proxyId && /* @__PURE__ */ jsx47(CheckCircle, { className: "ms-auto w-4 h-4 stroke-primary" })
           ]
         },
         key
@@ -5670,6 +5662,7 @@ var AddContentModal = ({
       const items = selected.map((inst) => ({
         type: "app",
         screenable_type: "app",
+        screenable_id: inst.raw?.asset?.id || inst.id,
         uuid: inst.id,
         name: inst.name,
         instanceId: inst.id,

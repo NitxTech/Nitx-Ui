@@ -303,6 +303,7 @@ const AddContentModal = ({
       const items: ContentItem[] = selected.map((inst) => ({
         type: "app",
         screenable_type: "app",
+        screenable_id: inst.raw?.asset?.id || inst.id,
         uuid: inst.id,
         name: inst.name,
         instanceId: inst.id,
