@@ -106,7 +106,7 @@ export const ProductSwitcher = ({
               {`${(profileName || t("productSwitcher.userFallback"))
                 .split(" ")
                 .slice(0, 2)
-                .map((n) => n[0].toUpperCase())
+                .map((n) => n?.[0]?.toUpperCase() || "")
                 .join("")}`}
             </AvatarFallback>
           </Avatar>
