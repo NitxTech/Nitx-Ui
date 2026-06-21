@@ -85,7 +85,7 @@ export const UserAccount = ({
               <AvatarFallback className="rounded-none bg-primary dark:text-zinc-900 text-white ">{`${activeAccount.name
                 .split(" ")
                 .slice(0, 2)
-                .map((n) => n[0].toUpperCase())
+                .map((n) => n?.[0]?.toUpperCase() || "")
                 .join("")}`}</AvatarFallback>
             </Avatar>
           ) : (
@@ -104,7 +104,7 @@ export const UserAccount = ({
                 <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${activeAccount.name
                   .split(" ")
                   .slice(0, 2)
-                  .map((n) => n[0].toUpperCase())
+                  .map((n) => n?.[0]?.toUpperCase() || "")
                   .join("")}`}</AvatarFallback>
               </Avatar>
               <div className="w-full hidden lg:flex items-center gap-2">
@@ -144,7 +144,7 @@ export const UserAccount = ({
                     {`${account.name
                       .split(" ")
                       .slice(0, 2)
-                      .map((n) => n[0].toUpperCase())
+                      .map((n) => n?.[0]?.toUpperCase() || "")
                       .join("")}`}
                   </AvatarFallback>
                 </Avatar>
@@ -179,7 +179,7 @@ export const UserAccount = ({
                     />
                     <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${account.name
                       .split(" ")
-                      .map((n) => n[0].toUpperCase())
+                      .map((n) => n?.[0]?.toUpperCase() || "")
                       .join("")}`}</AvatarFallback>
                   </Avatar>
                   <div className="w-full flex flex-col gap-0.5">

@@ -107,12 +107,9 @@ export const SpaceSelectorContent = () => {
               >
                 <Building2 className="w-4 h-4 stroke-[1.5]" />
                 <p className="max-w-[8rem] truncate">{option.name}</p>
-                <CheckCircle
-                  className={cn(
-                    "ms-auto w-4 h-4 stroke-zinc-400",
-                    activeSpace?.proxyId === option.proxyId && "stroke-primary"
-                  )}
-                />
+                {activeSpace?.proxyId === option.proxyId && (
+                  <CheckCircle className="ms-auto w-4 h-4 stroke-primary" />
+                )}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />

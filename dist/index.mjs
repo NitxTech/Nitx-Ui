@@ -1781,7 +1781,7 @@ var ProductSwitcher = ({
                   src: `${profileImage}`
                 }
               ),
-              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${(profileName || t("productSwitcher.userFallback")).split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+              /* @__PURE__ */ jsx5(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${(profileName || t("productSwitcher.userFallback")).split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
             ] }),
             /* @__PURE__ */ jsx5("span", { className: "flex-1 text-start font-medium", children: profile.name }),
             /* @__PURE__ */ jsx5(ChevronRight2, { className: "size-4 rtl:rotate-180" })
@@ -1839,7 +1839,7 @@ var UserAccount = ({
         ),
         children: [
           /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-          /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+          /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
         ]
       }
     ) : /* @__PURE__ */ jsxs4(
@@ -1858,7 +1858,7 @@ var UserAccount = ({
               ),
               children: [
                 /* @__PURE__ */ jsx6(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
               ]
             }
           ),
@@ -1895,7 +1895,7 @@ var UserAccount = ({
                     src: `${account.imageUrl}`
                   }
                 ),
-                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n[0].toUpperCase()).join("")}` })
+                /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
               ] }),
               /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                 /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
@@ -1932,7 +1932,7 @@ var UserAccount = ({
                         src: `${account.imageUrl}`
                       }
                     ),
-                    /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").map((n) => n[0].toUpperCase()).join("")}` })
+                    /* @__PURE__ */ jsx6(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${account.name.split(" ").map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
                   ] }),
                   /* @__PURE__ */ jsxs4("div", { className: "w-full flex flex-col gap-0.5", children: [
                     /* @__PURE__ */ jsx6("span", { className: "text-sm truncate", children: account.name }),
@@ -3925,9 +3925,9 @@ var TablePersonCell = ({
   avatarSrc
 }) => {
   return /* @__PURE__ */ jsxs21("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
+    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
       /* @__PURE__ */ jsx32(AvatarImage, { src: avatarSrc }),
-      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: getFallbackText(fallbackValue) })
+      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: getFallbackText(fallbackValue) })
     ] }),
     /* @__PURE__ */ jsxs21("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx32("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: title }),
@@ -4403,9 +4403,9 @@ var MembersTable_default = MembersTable;
 import { jsx as jsx38, jsxs as jsxs26 } from "react/jsx-runtime";
 var StatCard = ({ label, value, icon }) => {
   return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600", children: [
-    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-sm", children: [
+    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
       /* @__PURE__ */ jsx38(AvatarImage, { src: "" }),
-      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary dark:text-zinc-800/10 text-primary dark:bg-secondary dark:text-white text-sm !rounded-sm font-semibold", children: icon })
+      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: icon })
     ] }),
     /* @__PURE__ */ jsxs26("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx38("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: value }),
@@ -5280,15 +5280,7 @@ var SpaceSelectorContent = () => {
           children: [
             /* @__PURE__ */ jsx47(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
             /* @__PURE__ */ jsx47("p", { className: "max-w-[8rem] truncate", children: option.name }),
-            /* @__PURE__ */ jsx47(
-              CheckCircle,
-              {
-                className: cn2(
-                  "ms-auto w-4 h-4 stroke-zinc-400",
-                  activeSpace?.proxyId === option.proxyId && "stroke-primary"
-                )
-              }
-            )
+            activeSpace?.proxyId === option.proxyId && /* @__PURE__ */ jsx47(CheckCircle, { className: "ms-auto w-4 h-4 stroke-primary" })
           ]
         },
         key
@@ -5537,7 +5529,7 @@ var AddContentModal = ({
   const [isLoadingCanvas, setIsLoadingCanvas] = useState12(false);
   const [selectedAssets, setSelectedAssets] = useState12([]);
   const [selectedLayout, setSelectedLayout] = useState12(null);
-  const [selectedSequence, setSelectedSequence] = useState12(null);
+  const [selectedSequences, setSelectedSequences] = useState12([]);
   const [selectedChannel, setSelectedChannel] = useState12(null);
   const [selectedAppInstances, setSelectedAppInstances] = useState12([]);
   const [selectedCanvasAssets, setSelectedCanvasAssets] = useState12([]);
@@ -5551,7 +5543,7 @@ var AddContentModal = ({
     setCurrentFolderId(null);
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
     setSelectedAppInstances([]);
     setSelectedCanvasAssets([]);
@@ -5627,7 +5619,7 @@ var AddContentModal = ({
     }
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
     setSelectedCanvasAssets([]);
   };
@@ -5647,11 +5639,14 @@ var AddContentModal = ({
   const toggleLayoutSelection = (uuid) => {
     setSelectedLayout((prev) => prev === uuid ? null : uuid);
     setSelectedAssets([]);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
   };
   const toggleSequenceSelection = (id) => {
-    setSelectedSequence((prev) => prev === id ? null : id);
+    setSelectedSequences((prev) => {
+      if (prev.includes(id)) return prev.filter((seqId) => seqId !== id);
+      return singleSelect ? [id] : [...prev, id];
+    });
     setSelectedAssets([]);
     setSelectedLayout(null);
     setSelectedChannel(null);
@@ -5660,7 +5655,7 @@ var AddContentModal = ({
     setSelectedChannel((prev) => prev === id ? null : id);
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
   };
   const handleAddContent = () => {
     if (selectedAppInstances.length > 0) {
@@ -5670,6 +5665,7 @@ var AddContentModal = ({
       const items = selected.map((inst) => ({
         type: "app",
         screenable_type: "app",
+        screenable_id: inst.raw?.asset?.id || inst.id,
         uuid: inst.id,
         name: inst.name,
         instanceId: inst.id,
@@ -5705,12 +5701,15 @@ var AddContentModal = ({
         onSelect([
           { ...layout, type: "layout", screenable_type: "layout" }
         ]);
-    } else if (selectedSequence) {
-      const sequence = sequences.find((s) => s.id === selectedSequence);
-      if (sequence)
-        onSelect([
-          { ...sequence, type: "sequence", screenable_type: "sequence" }
-        ]);
+    } else if (selectedSequences.length > 0) {
+      const items = sequences.filter((s) => selectedSequences.includes(s.id));
+      if (items.length > 0) {
+        onSelect(
+          items.map(
+            (sequence) => ({ ...sequence, type: "sequence", screenable_type: "sequence" })
+          )
+        );
+      }
     } else if (selectedChannel) {
       const channel = channels.find((c) => c.id === selectedChannel);
       if (channel)
@@ -5720,7 +5719,7 @@ var AddContentModal = ({
     }
     onClose();
   };
-  const hasSelection = selectedAssets.length > 0 || selectedAppInstances.length > 0 || selectedCanvasAssets.length > 0 || !!selectedLayout || !!selectedSequence || !!selectedChannel;
+  const hasSelection = selectedAssets.length > 0 || selectedAppInstances.length > 0 || selectedCanvasAssets.length > 0 || !!selectedLayout || selectedSequences.length > 0 || !!selectedChannel;
   const BreadcrumbNavigation = () => /* @__PURE__ */ jsxs36("div", { className: "flex items-center gap-1 text-sm text-gray-600 dark:text-zinc-400 mb-3 px-1", children: [
     /* @__PURE__ */ jsx50(Home, { className: "size-4" }),
     currentPath.map((pathItem, index) => /* @__PURE__ */ jsxs36(React22.Fragment, { children: [
@@ -5866,7 +5865,7 @@ var AddContentModal = ({
     );
   };
   const renderSequenceCard = (sequence) => {
-    const isSelected = selectedSequence === sequence.id;
+    const isSelected = selectedSequences.includes(sequence.id);
     return /* @__PURE__ */ jsxs36(
       "div",
       {
@@ -6129,7 +6128,7 @@ var AddContentModal = ({
             "selected"
           ] }),
           selectedLayout && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.layoutSelected") }),
-          selectedSequence && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.sequenceSelected") }),
+          selectedSequences && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.sequenceSelected") }),
           selectedChannel && /* @__PURE__ */ jsx50("span", { children: t("addContentModal.channelSelected") })
         ] }),
         /* @__PURE__ */ jsxs36("div", { className: "flex gap-4", children: [
@@ -6142,7 +6141,7 @@ var AddContentModal = ({
                 setSelectedAssets([]);
                 setSelectedAppInstances([]);
                 setSelectedLayout(null);
-                setSelectedSequence(null);
+                setSelectedSequences([]);
                 setSelectedChannel(null);
                 onClose();
               },

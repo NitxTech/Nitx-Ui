@@ -115,7 +115,7 @@ const AddContentModal = ({
   // Selections
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
   const [selectedLayout, setSelectedLayout] = useState<string | null>(null);
-  const [selectedSequence, setSelectedSequence] = useState<string | null>(null);
+  const [selectedSequences, setSelectedSequences] = useState<string[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
   const [selectedAppInstances, setSelectedAppInstances] = useState<string[]>([]);
   const [selectedCanvasAssets, setSelectedCanvasAssets] = useState<string[]>([]);
@@ -132,7 +132,7 @@ const AddContentModal = ({
     setCurrentFolderId(null);
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
     setSelectedAppInstances([]);
     setSelectedCanvasAssets([]);
@@ -254,7 +254,7 @@ const AddContentModal = ({
     }
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
     setSelectedCanvasAssets([]);
   };
@@ -277,12 +277,15 @@ const AddContentModal = ({
   const toggleLayoutSelection = (uuid: string) => {
     setSelectedLayout((prev) => (prev === uuid ? null : uuid));
     setSelectedAssets([]);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
     setSelectedChannel(null);
   };
 
   const toggleSequenceSelection = (id: string) => {
-    setSelectedSequence((prev) => (prev === id ? null : id));
+    setSelectedSequences((prev) => {
+      if (prev.includes(id)) return prev.filter((seqId) => seqId !== id);
+      return singleSelect ? [id] : [...prev, id];
+    });
     setSelectedAssets([]);
     setSelectedLayout(null);
     setSelectedChannel(null);
@@ -292,7 +295,7 @@ const AddContentModal = ({
     setSelectedChannel((prev) => (prev === id ? null : id));
     setSelectedAssets([]);
     setSelectedLayout(null);
-    setSelectedSequence(null);
+    setSelectedSequences([]);
   };
 
   const handleAddContent = () => {
@@ -303,6 +306,7 @@ const AddContentModal = ({
       const items: ContentItem[] = selected.map((inst) => ({
         type: "app",
         screenable_type: "app",
+        screenable_id: inst.raw?.asset?.id || inst.id,
         uuid: inst.id,
         name: inst.name,
         instanceId: inst.id,
@@ -340,12 +344,16 @@ const AddContentModal = ({
         onSelect([
           { ...layout, type: "layout", screenable_type: "layout" } as ContentItem,
         ]);
-    } else if (selectedSequence) {
-      const sequence = sequences.find((s) => s.id === selectedSequence);
-      if (sequence)
-        onSelect([
-          { ...sequence, type: "sequence", screenable_type: "sequence" } as ContentItem,
-        ]);
+    } else if (selectedSequences.length > 0) {
+      const items = sequences.filter((s) => selectedSequences.includes(s.id));
+      if (items.length > 0) {
+        onSelect(
+          items.map(
+            (sequence) =>
+              ({ ...sequence, type: "sequence", screenable_type: "sequence" } as ContentItem)
+          )
+        );
+      }
     } else if (selectedChannel) {
       const channel = channels.find((c) => c.id === selectedChannel);
       if (channel)
@@ -362,7 +370,7 @@ const AddContentModal = ({
     selectedAppInstances.length > 0 ||
     selectedCanvasAssets.length > 0 ||
     !!selectedLayout ||
-    !!selectedSequence ||
+    selectedSequences.length > 0 ||
     !!selectedChannel;
 
   // ── Sub-components ──────────────────────────────────────────────────────────
@@ -532,7 +540,7 @@ const AddContentModal = ({
   };
 
   const renderSequenceCard = (sequence: Sequence) => {
-    const isSelected = selectedSequence === sequence.id;
+    const isSelected = selectedSequences.includes(sequence.id);
     return (
       <div
         key={sequence.id}
@@ -899,7 +907,7 @@ const AddContentModal = ({
                 </span>
               )}
               {selectedLayout && <span>{t("addContentModal.layoutSelected")}</span>}
-              {selectedSequence && <span>{t("addContentModal.sequenceSelected")}</span>}
+              {selectedSequences && <span>{t("addContentModal.sequenceSelected")}</span>}
               {selectedChannel && <span>{t("addContentModal.channelSelected")}</span>}
             </div>
             <div className="flex gap-4">
@@ -910,7 +918,7 @@ const AddContentModal = ({
                   setSelectedAssets([]);
                   setSelectedAppInstances([]);
                   setSelectedLayout(null);
-                  setSelectedSequence(null);
+                  setSelectedSequences([]);
                   setSelectedChannel(null);
                   onClose();
                 }}
