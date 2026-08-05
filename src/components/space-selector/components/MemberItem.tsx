@@ -1,7 +1,7 @@
 import { Member } from "../types";
 
 import React, { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,9 +53,9 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
 
   return (
     <div className="w-full flex gap-2 items-center">
-      <Avatar className="rounded-[12px]">
-        <AvatarImage srcSet={member.imageURL} />
-        <AvatarFallback className="capitalize rounded-none bg-primary dark:text-zinc-800 text-white">
+      <Avatar className="rounded-full">
+        <AvatarImage src={(member as any).image || member.imageURL} />
+        <AvatarFallback className="capitalize bg-primary dark:text-zinc-800 text-white">
           {isLoading ? (
             <Loader2 className="size-4 animate-spin" />
           ) : (

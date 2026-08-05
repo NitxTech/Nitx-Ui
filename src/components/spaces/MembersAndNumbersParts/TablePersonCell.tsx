@@ -17,9 +17,9 @@ const TablePersonCell = ({
 }: TablePersonCellProps) => {
   return (
     <div className="flex items-center gap-3">
-      <Avatar className="size-10 h-12 w-12 !rounded-xl">
+      <Avatar className="size-10 h-12 w-12 rounded-full">
         <AvatarImage src={avatarSrc} />
-        <AvatarFallback className="bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold">
+        <AvatarFallback className="bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full font-semibold">
           {getFallbackText(fallbackValue)}
         </AvatarFallback>
       </Avatar>

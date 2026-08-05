@@ -3925,9 +3925,9 @@ var TablePersonCell = ({
   avatarSrc
 }) => {
   return /* @__PURE__ */ jsxs21("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
+    /* @__PURE__ */ jsxs21(Avatar, { className: "size-10 h-12 w-12 rounded-full", children: [
       /* @__PURE__ */ jsx32(AvatarImage, { src: avatarSrc }),
-      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: getFallbackText(fallbackValue) })
+      /* @__PURE__ */ jsx32(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full font-semibold", children: getFallbackText(fallbackValue) })
     ] }),
     /* @__PURE__ */ jsxs21("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx32("span", { className: "text-sm font-medium text-neutral-900 dark:text-neutral-50", children: title }),
@@ -4357,7 +4357,7 @@ var MembersTable = ({
               title: member.name,
               subtitle: member.email,
               fallbackValue: member.name,
-              avatarSrc: member.imageURL
+              avatarSrc: member.image || member.imageURL
             }
           ),
           /* @__PURE__ */ jsx37("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsx37(
