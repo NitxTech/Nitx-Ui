@@ -185,9 +185,150 @@ export default MySpaceSelector;
 ## 3. Key Concepts
 
 - **`api` Prop**: This prop injects the backend logic using your axios instance. This keeps `nitx-ui` unopinionated about your network layer.
-- **Imports**: All main components, types, and logic helpers are exported from the root `"nitx-ui"` package.
+- **Imports**: All main components, types, and logic helpers are exported from the root `"nitxui"` package.
 
+---
 
+# Assets Module (v2.0.0+)
+
+The full asset browser (folders, uploads via Uppy/TUS, rename/move/delete,
+previews, links, drag-and-drop) previously copy-pasted across signage, reach,
+and studio now lives here. Consumers wire it up with an adapter + provider and
+render `<AssetsBrowser />` from a thin page shell.
+
+## Requirements
+
+- `@tanstack/react-query` v5 peer with a `QueryClientProvider` mounted above
+  the provider.
+- The Uppy peers (`@uppy/core`, `@uppy/react`, `@uppy/tus`, `@uppy/dropbox`,
+  `@uppy/google-drive`) when the upload feature is enabled (pnpm installs
+  them automatically as nitxui peers).
+
+Everything else ships inside the package: the Uppy Dashboard stylesheet is
+imported by the upload modal itself, and all card/preview artwork (folder,
+processing clock, document type icons, video play badge, link fallback) is
+bundled — override any of it via the provider's `images` prop if a product
+wants its own look.
+
+## 1. Mount the provider (space layout level)
+
+Mount high enough that every consumer of the hooks (page, pickers, canvas
+panels, the global upload modal) sits below it. Minimal form — the provider
+builds the API from your axios instance and defaults the upload endpoints
+from `NEXT_PUBLIC_API_URL` / `NEXT_PUBLIC_COMPANION_URL`:
+
+```tsx
+"use client";
+import { AssetsProvider } from "nitxui";
+import axios from "@/lib/axios"; // must carry Authorization + X-Space-Uuid
+
+<AssetsProvider
+  client={axios}
+  spaceUuid={activeSpace?.space_uuid} // queries are disabled while undefined
+  upload={{ getAccessToken: () => auth?.access_token }} // getter — tokens refresh
+>
+  {children}
+</AssetsProvider>
+```
+
+Full config when a product needs more:
+
+```tsx
+<AssetsProvider
+  // `api` overrides `client` — spread-and-override for custom endpoints,
+  // e.g. signage's iframe embeddability proxy:
+  api={{ ...createAssetsApi(axios), checkIframeAccess: async (url) => {...} }}
+  spaceUuid={activeSpace?.space_uuid}
+  features={{
+    folders: true,   // false = flat listing (studio mode)
+    links: false,    // signage's link asset type + editor flows
+    canvas: false,   // canvas asset type support
+    dragDrop: false, // drag assets onto folder cards
+    upload: true,
+  }}
+  upload={{
+    getAccessToken: () => auth?.access_token,
+    // endpoint / companionUrl default from env; maxFileSize /
+    // allowedFileTypes override the default upload policy
+  }}
+  navigation={{
+    // required only when features.links is on — the package never builds
+    // route paths itself, so [spaceId] vs [space_id] params don't matter
+    toLinkNew: () => router.push(`${base}/links/new`),
+    toLinkEdit: (uuid) => router.push(`${base}/links/${uuid}`),
+    fromLinksBack: () => router.push(base),
+  }}
+  images={{ folder: "/my-folder-art.svg" }} // optional artwork overrides
+>
+  {children}
+</AssetsProvider>
+```
+
+## 2. Render the browser from a page shell
+
+```tsx
+"use client";
+import dynamic from "next/dynamic";
+const AssetsBrowser = dynamic(() => import("nitxui").then(m => m.AssetsBrowser), { ssr: false });
+
+export default function AssetsPage() {
+  return <AssetsBrowser />;
+}
+```
+
+Optional props: `onTitleChange` (feed your topbar), `emptyStateImages`,
+`renderAssetActions` (extra per-asset buttons, e.g. signage's send-to-screen),
+`renderFolderMenuItems` (extra folder menu entries, e.g. create-sequence).
+
+Links flows are page-content components rendered by your own route shells:
+
+```tsx
+// assets/links/[id]/page.tsx
+<LinkEditor mode="edit" linkUuid={uuid} onTitleChange={...} />
+// assets/links/new/page.tsx
+<LinkEditor mode="create" />
+```
+
+## 3. Other exports
+
+- `AssetsUploadModal` — controlled upload modal usable outside the browser
+  (e.g. reach's email-builder flow): `open`, `onClose`, `folderUuid?`,
+  `onUploadComplete?`.
+- `useAssetsQuery` + mutations, `assetKeys`, `useAssetsStore`, `useLazyLoading`
+  — for custom surfaces like signage's canvas AssetsPanel.
+- Canonical types: `Asset`, `Folder`, `Path`, `AssetType`, `AssetsApi`.
+  (The content browser's looser picker types are exported as `ContentAsset` /
+  `ContentFolder` since v2.)
+
+## i18n
+
+All strings ship in the bundled en/ar catalogs and resolve through the
+consumer's `react-i18next` language (`ar` → RTL-aware layouts). Apps without
+i18next initialised render English.
+
+## Known gotcha: duplicate preact under pnpm
+
+Uppy's Dashboard renders with preact. If your app has another dependency
+that pins its own preact (e.g. `next-auth`), pnpm can resolve **two preact
+instances**, which crashes the upload modal at mount with
+`Cannot read properties of undefined (reading '__H')`. Fix it in the
+consuming app's `package.json` (overrides are root-only by design):
+
+```json
+"pnpm": { "overrides": { "preact": "10.29.8" } }
+```
+
+then `pnpm install` and restart the dev server. Verify with
+`pnpm why preact` — exactly one version should appear.
+
+## Known gotcha: yalc + pnpm during local development
+
+pnpm **copies** `file:` dependencies into its store at install time, so
+`yalc push` alone does not reach a pnpm app. After every push, run
+`pnpm install` in the consuming app and restart its dev server (webpack
+never hot-reloads node_modules). npm apps get a live symlink and only need
+the dev-server restart. This only matters during the yalc phase — registry
+installs behave normally.
 
 ## License
 

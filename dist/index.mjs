@@ -1,3 +1,5 @@
+"use client";
+
 // src/i18n/nitxuilib.ts
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -697,6 +699,243 @@ var nitxuilib_default = {
     filesWillAppear: "\u0633\u062A\u0638\u0647\u0631 \u0645\u0644\u0641\u0627\u062A\u0643 \u0628\u0639\u062F \u0642\u0644\u064A\u0644",
     uploadFailed: "\u0641\u0634\u0644 \u0627\u0644\u0631\u0641\u0639",
     pleaseTryAgain: "\u064A\u0631\u062C\u0649 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649"
+  },
+  assets: {
+    assetCard: {
+      deleteAsset: "\u062D\u0630\u0641 \u0627\u0644\u0623\u0635\u0644",
+      deleteConfirm: '\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0623\u0646\u0643 \u062A\u0631\u064A\u062F \u062D\u0630\u0641 "{{name}}"\u061F \u0644\u0627 \u064A\u0645\u0643\u0646 \u0627\u0644\u062A\u0631\u0627\u062C\u0639 \u0639\u0646 \u0647\u0630\u0627 \u0627\u0644\u0625\u062C\u0631\u0627\u0621.',
+      duplicateNameError: '\u064A\u0648\u062C\u062F \u0628\u0627\u0644\u0641\u0639\u0644 {{type}} \u0628\u0627\u0644\u0627\u0633\u0645 "{{name}}" \u0641\u064A \u0647\u0630\u0627 \u0627\u0644\u0645\u062C\u0644\u062F.',
+      renaming: '\u062C\u0627\u0631\u064D \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}"...',
+      renamedSuccess: '\u062A\u0645 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      renameFailed: '\u0641\u0634\u0644 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      downloading: '\u062C\u0627\u0631\u064D \u062A\u0646\u0632\u064A\u0644 "{{name}}"...',
+      downloadedSuccess: '\u062A\u0645 \u062A\u0646\u0632\u064A\u0644 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      downloadFailed: '\u0641\u0634\u0644 \u062A\u0646\u0632\u064A\u0644 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      sendToScreen: "\u0625\u0631\u0633\u0627\u0644 \u0625\u0644\u0649 \u0627\u0644\u0634\u0627\u0634\u0629",
+      moreOptions: "\u0627\u0644\u0645\u0632\u064A\u062F \u0645\u0646 \u0627\u0644\u062E\u064A\u0627\u0631\u0627\u062A",
+      rename: "\u062A\u063A\u064A\u064A\u0631 \u0627\u0644\u0627\u0633\u0645",
+      moveTo: "\u0646\u0642\u0644 \u0625\u0644\u0649",
+      download: "\u062A\u0646\u0632\u064A\u0644",
+      edit: "\u062A\u062D\u0631\u064A\u0631",
+      delete: "\u062D\u0630\u0641",
+      video: "\u0641\u064A\u062F\u064A\u0648"
+    },
+    assetList: {
+      downloading: '\u062C\u0627\u0631\u064D \u062A\u0646\u0632\u064A\u0644 "{{name}}"...',
+      downloadedSuccess: '\u062A\u0645 \u062A\u0646\u0632\u064A\u0644 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      downloadFailed: '\u0641\u0634\u0644 \u062A\u0646\u0632\u064A\u0644 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      deleteAsset: "\u062D\u0630\u0641 \u0627\u0644\u0623\u0635\u0644",
+      deleteConfirm: '\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0623\u0646\u0643 \u062A\u0631\u064A\u062F \u062D\u0630\u0641 "{{name}}"\u061F \u0644\u0627 \u064A\u0645\u0643\u0646 \u0627\u0644\u062A\u0631\u0627\u062C\u0639 \u0639\u0646 \u0647\u0630\u0627 \u0627\u0644\u0625\u062C\u0631\u0627\u0621.',
+      deleting: '\u062C\u0627\u0631\u064D \u062D\u0630\u0641 "{{name}}"...',
+      deletedSuccess: '\u062A\u0645 \u062D\u0630\u0641 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      deleteFailed: '\u0641\u0634\u0644 \u062D\u0630\u0641 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      deleteItems: "\u062D\u0630\u0641 {{count}} \u0639\u0646\u0635\u0631{plural}",
+      deleteItemsConfirm: "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0623\u0646\u0643 \u062A\u0631\u064A\u062F \u062D\u0630\u0641 {{count}} \u0645\u0646 \u0627\u0644\u0639\u0646\u0627\u0635\u0631\u061F \u0644\u0627 \u064A\u0645\u0643\u0646 \u0627\u0644\u062A\u0631\u0627\u062C\u0639 \u0639\u0646 \u0647\u0630\u0627 \u0627\u0644\u0625\u062C\u0631\u0627\u0621.",
+      deletingItems: "\u062C\u0627\u0631\u064D \u0627\u0644\u062D\u0630\u0641...",
+      itemsDeletedSuccess: "\u062A\u0645 \u062D\u0630\u0641 \u0627\u0644\u0639\u0646\u0627\u0635\u0631 \u0628\u0646\u062C\u0627\u062D",
+      itemsDeleteFailed: "\u0641\u0634\u0644 \u062D\u0630\u0641 \u0627\u0644\u0639\u0646\u0627\u0635\u0631. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.",
+      movingItems: "\u062C\u0627\u0631\u064D \u0646\u0642\u0644 \u0627\u0644\u0639\u0646\u0627\u0635\u0631...",
+      itemsMovedSuccess: "\u062A\u0645 \u0646\u0642\u0644 \u0627\u0644\u0639\u0646\u0627\u0635\u0631 \u0628\u0646\u062C\u0627\u062D",
+      itemsMoveFailed: "\u0641\u0634\u0644 \u0646\u0642\u0644 \u0627\u0644\u0639\u0646\u0627\u0635\u0631. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.",
+      renaming: '\u062C\u0627\u0631\u064D \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}"...',
+      renamedSuccess: '\u062A\u0645 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      renameFailed: '\u0641\u0634\u0644 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      renamingFolder: '\u062C\u0627\u0631\u064D \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}"...',
+      folderRenamedSuccess: '\u062A\u0645 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      folderRenameFailed: '\u0641\u0634\u0644 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      movingAssets: "\u062C\u0627\u0631\u064D \u0646\u0642\u0644 \u0627\u0644\u0623\u0635\u0648\u0644...",
+      assetsMovedSuccess: "\u062A\u0645 \u0646\u0642\u0644 {{count}} \u0623\u0635\u0644{plural} \u0628\u0646\u062C\u0627\u062D",
+      assetsMoveFailed: "\u0641\u0634\u0644 \u0646\u0642\u0644 \u0627\u0644\u0623\u0635\u0648\u0644. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.",
+      itemsSelected: "{{count}} \u0639\u0646\u0635\u0631 \u0645\u062D\u062F\u062F",
+      itemsSelected_$one: "{{count}} \u0639\u0646\u0635\u0631 \u0645\u062D\u062F\u062F",
+      itemsSelected_$two: "{{count}} \u0639\u0646\u0635\u0631\u0627\u0646 \u0645\u062D\u062F\u062F\u0627\u0646",
+      itemsSelected_$few: "{{count}} \u0639\u0646\u0627\u0635\u0631 \u0645\u062D\u062F\u062F\u0629",
+      itemsSelected_$many: "{{count}} \u0639\u0646\u0635\u0631 \u0645\u062D\u062F\u062F",
+      itemsSelected_$other: "{{count}} \u0639\u0646\u0635\u0631 \u0645\u062D\u062F\u062F",
+      moveTo: "\u0646\u0642\u0644 \u0625\u0644\u0649",
+      delete: "\u062D\u0630\u0641",
+      createSequence: "\u0625\u0646\u0634\u0627\u0621 \u062A\u0633\u0644\u0633\u0644",
+      comingSoon: "\u0642\u0631\u064A\u0628\u0627\u064B"
+    },
+    assetsHeader: {
+      searchPlaceholder: "\u0628\u062D\u062B...",
+      createLink: "\u0625\u0646\u0634\u0627\u0621 \u0631\u0627\u0628\u0637",
+      upload: "\u0631\u0641\u0639",
+      newFolder: "\u0645\u062C\u0644\u062F \u062C\u062F\u064A\u062F",
+      gridView: "\u0639\u0631\u0636 \u0634\u0628\u0643\u064A",
+      listView: "\u0639\u0631\u0636 \u0642\u0627\u0626\u0645\u0629",
+      multiSelect: "\u062A\u062D\u062F\u064A\u062F \u0645\u062A\u0639\u062F\u062F",
+      actions: "\u0627\u0644\u0625\u062C\u0631\u0627\u0621\u0627\u062A"
+    },
+    assetsPreview: {
+      of: "\u0645\u0646",
+      notAvailable: "\u0627\u0644\u0645\u0639\u0627\u064A\u0646\u0629 \u063A\u064A\u0631 \u0645\u062A\u0648\u0641\u0631\u0629 \u0644\u0647\u0630\u0627 \u0627\u0644\u0646\u0648\u0639",
+      linkPreview: "\u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u0631\u0627\u0628\u0637: {{url}}"
+    },
+    assetsTabbar: {
+      all: "\u0627\u0644\u0643\u0644",
+      media: "\u0627\u0644\u0648\u0633\u0627\u0626\u0637",
+      documents: "\u0627\u0644\u0645\u0633\u062A\u0646\u062F\u0627\u062A",
+      links: "\u0627\u0644\u0631\u0648\u0627\u0628\u0637"
+    },
+    folderCard: {
+      deleteFolder: "\u062D\u0630\u0641 \u0627\u0644\u0645\u062C\u0644\u062F",
+      deleteConfirm: '\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0623\u0646\u0643 \u062A\u0631\u064A\u062F \u062D\u0630\u0641 "{{name}}"\u061F \u0644\u0627 \u064A\u0645\u0643\u0646 \u0627\u0644\u062A\u0631\u0627\u062C\u0639 \u0639\u0646 \u0647\u0630\u0627 \u0627\u0644\u0625\u062C\u0631\u0627\u0621.',
+      duplicateFolderError: '\u064A\u0648\u062C\u062F \u0645\u062C\u0644\u062F \u0628\u0627\u0644\u0627\u0633\u0645 "{{name}}" \u0628\u0627\u0644\u0641\u0639\u0644 \u0641\u064A \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639.',
+      renamingFolder: '\u062C\u0627\u0631\u064D \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}"...',
+      folderRenamedSuccess: '\u062A\u0645 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      folderRenameFailed: '\u0641\u0634\u0644 \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0625\u0644\u0649 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      creatingSequence: '\u062C\u0627\u0631\u064D \u0625\u0646\u0634\u0627\u0621 \u062A\u0633\u0644\u0633\u0644 \u0645\u0646 "{{name}}"...',
+      sequenceCreatedSuccess: '\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0633\u0644\u0633\u0644\u0629 "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      sequenceCreateFailed: '\u0641\u0634\u0644 \u0625\u0646\u0634\u0627\u0621 \u062A\u0633\u0644\u0633\u0644 \u0645\u0646 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      preparingDownload: "\u062C\u0627\u0631\u064D \u062A\u062C\u0647\u064A\u0632 \u062A\u0646\u0632\u064A\u0644 \u0627\u0644\u0645\u062C\u0644\u062F...",
+      folderDownloadedSuccess: '\u062A\u0645 \u062A\u0646\u0632\u064A\u0644 \u0627\u0644\u0645\u062C\u0644\u062F "{{name}}" \u0628\u0646\u062C\u0627\u062D',
+      folderDownloadFailed: '\u0641\u0634\u0644 \u062A\u0646\u0632\u064A\u0644 \u0627\u0644\u0645\u062C\u0644\u062F "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
+      moreOptions: "\u0627\u0644\u0645\u0632\u064A\u062F \u0645\u0646 \u0627\u0644\u062E\u064A\u0627\u0631\u0627\u062A",
+      createSequence: "\u0625\u0646\u0634\u0627\u0621 \u062A\u0633\u0644\u0633\u0644",
+      rename: "\u062A\u063A\u064A\u064A\u0631 \u0627\u0644\u0627\u0633\u0645",
+      moveTo: "\u0646\u0642\u0644 \u0625\u0644\u0649",
+      download: "\u062A\u0646\u0632\u064A\u0644",
+      delete: "\u062D\u0630\u0641",
+      item: "\u0639\u0646\u0635\u0631",
+      items: "\u0639\u0646\u0627\u0635\u0631"
+    },
+    headerWithTabs: {
+      assets: "\u0627\u0644\u0623\u0635\u0648\u0644",
+      all: "\u0627\u0644\u0643\u0644",
+      media: "\u0627\u0644\u0648\u0633\u0627\u0626\u0637",
+      documents: "\u0627\u0644\u0645\u0633\u062A\u0646\u062F\u0627\u062A",
+      links: "\u0627\u0644\u0631\u0648\u0627\u0628\u0637"
+    },
+    headerWithCustomTabbar: {
+      asset: "\u0627\u0644\u0623\u0635\u0648\u0644"
+    },
+    editLink: {
+      failedToLoad: "\u0641\u0634\u0644 \u062A\u062D\u0645\u064A\u0644 \u062A\u0641\u0627\u0635\u064A\u0644 \u062C\u062F\u0627\u0631 \u0627\u0644\u0641\u064A\u062F\u064A\u0648.",
+      saving: "\u062C\u0627\u0631\u064D \u062D\u0641\u0638 \u062C\u062F\u0627\u0631 \u0627\u0644\u0641\u064A\u062F\u064A\u0648...",
+      saved: "\u062A\u0645 \u062D\u0641\u0638 \u062C\u062F\u0627\u0631 \u0627\u0644\u0641\u064A\u062F\u064A\u0648!",
+      saveError: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0645\u0627. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629."
+    },
+    linkHeader: {
+      publish: "\u0646\u0634\u0631",
+      duplicate: "\u062A\u0643\u0631\u0627\u0631",
+      delete: "\u062D\u0630\u0641"
+    },
+    linkEditPage: {
+      url: "\u0627\u0644\u0631\u0627\u0628\u0637",
+      urlPlaceholder: "https://example.com",
+      addQrCode: "\u0625\u0636\u0627\u0641\u0629 \u0631\u0645\u0632 QR \u0625\u0644\u0649 \u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u0634\u0627\u0634\u0629 (\u0627\u062E\u062A\u064A\u0627\u0631\u064A)",
+      qrPosition: "\u0645\u0648\u0636\u0639 \u0631\u0645\u0632 QR",
+      selectPosition: "\u0627\u062E\u062A\u0631 \u0627\u0644\u0645\u0648\u0636\u0639",
+      topLeft: "\u0623\u0639\u0644\u0649 \u0627\u0644\u064A\u0633\u0627\u0631",
+      topRight: "\u0623\u0639\u0644\u0649 \u0627\u0644\u064A\u0645\u064A\u0646",
+      bottomLeft: "\u0623\u0633\u0641\u0644 \u0627\u0644\u064A\u0633\u0627\u0631",
+      bottomRight: "\u0623\u0633\u0641\u0644 \u0627\u0644\u064A\u0645\u064A\u0646",
+      saving: "\u062C\u0627\u0631\u064D \u062D\u0641\u0638 \u0627\u0644\u0631\u0627\u0628\u0637...",
+      savingStatus: "\u062C\u0627\u0631\u064D \u0627\u0644\u062D\u0641\u0638...",
+      saveChanges: "\u062D\u0641\u0638 \u0627\u0644\u062A\u063A\u064A\u064A\u0631\u0627\u062A",
+      linkUpdated: "\u062A\u0645 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0631\u0627\u0628\u0637",
+      saveError: "\u062A\u0639\u0630\u0651\u0631 \u062D\u0641\u0638 \u0627\u0644\u062A\u063A\u064A\u064A\u0631\u0627\u062A. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.",
+      failedToLoad: "\u0641\u0634\u0644 \u062A\u062D\u0645\u064A\u0644 \u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u0631\u0627\u0628\u0637.",
+      link: "\u0627\u0644\u0631\u0627\u0628\u0637",
+      addedOn: "\u0623\u0636\u064A\u0641 \u0641\u064A {{date}}"
+    },
+    newLinkPage: {
+      newLink: "\u0631\u0627\u0628\u0637 \u062C\u062F\u064A\u062F",
+      createdOn: "\u062A\u0645 \u0627\u0644\u0625\u0646\u0634\u0627\u0621 \u0641\u064A 7 \u064A\u0648\u0646\u064A\u0648 2025\u060C \u0627\u0644\u0633\u0627\u0639\u0629 10:45 \u0635\u0628\u0627\u062D\u064B\u0627 \u0628\u0648\u0627\u0633\u0637\u0629 \u0645\u0637\u0639\u0645 \u0633\u0648\u0644\u062A",
+      typeUrl: "\u0627\u0643\u062A\u0628 \u0631\u0627\u0628\u0637\u0643 \u0647\u0646\u0627",
+      addQrCode: "\u0625\u0636\u0627\u0641\u0629 \u0631\u0645\u0632 QR \u0625\u0644\u0649 \u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u0634\u0627\u0634\u0629 (\u0627\u062E\u062A\u064A\u0627\u0631\u064A)"
+    },
+    globalAssetPlayer: {
+      previewNotAvailable: "\u0627\u0644\u0645\u0639\u0627\u064A\u0646\u0629 \u063A\u064A\u0631 \u0645\u062A\u0627\u062D\u0629",
+      noContentAvailable: "\u0644\u0627 \u064A\u0648\u062C\u062F \u0645\u062D\u062A\u0648\u0649 \u0645\u062A\u0627\u062D",
+      loadingLayout: "\u062C\u0627\u0631\u064D \u062A\u062D\u0645\u064A\u0644 \u0627\u0644\u0645\u062E\u0637\u0637...",
+      noContent: "\u0644\u0627 \u064A\u0648\u062C\u062F \u0645\u062D\u062A\u0648\u0649",
+      loadingSequence: "\u062C\u0627\u0631\u064D \u062A\u062D\u0645\u064A\u0644 \u0627\u0644\u0633\u0644\u0633\u0644\u0629...",
+      invalidContent: "\u0645\u062D\u062A\u0648\u0649 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D",
+      sequencePreview: "\u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u0633\u0644\u0633\u0644\u0629",
+      layoutPreview: "\u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u0645\u062E\u0637\u0637",
+      landscape: "\u0623\u0641\u0642\u064A",
+      portrait: "\u0639\u0645\u0648\u062F\u064A"
+    },
+    uploadModal: {
+      title: "\u0631\u0641\u0639 \u0627\u0644\u0645\u0644\u0641\u0627\u062A",
+      videoFormatNotice: "\u0641\u064A \u0627\u0644\u0648\u0642\u062A \u0627\u0644\u062D\u0627\u0644\u064A\u060C \u064A\u062C\u0628 \u0623\u0646 \u062A\u0643\u0648\u0646 \u0627\u0644\u0641\u064A\u062F\u064A\u0648\u0647\u0627\u062A \u0628\u0635\u064A\u063A\u0629 MP4. \u0635\u064A\u063A \u0627\u0644\u0641\u064A\u062F\u064A\u0648 \u0627\u0644\u0623\u062E\u0631\u0649 \u063A\u064A\u0631 \u0645\u062A\u0627\u062D\u0629 \u0645\u0624\u0642\u062A\u064B\u0627.",
+      fileUploadedSuccessfully: "\u062A\u0645 \u0627\u0644\u0631\u0641\u0639 \u0628\u0646\u062C\u0627\u062D!",
+      processingUploads: "\u062C\u0627\u0631\u064D \u0645\u0639\u0627\u0644\u062C\u0629 \u0627\u0644\u0645\u0644\u0641\u0627\u062A...",
+      filesWillAppear: "\u0633\u062A\u0638\u0647\u0631 \u0645\u0644\u0641\u0627\u062A\u0643 \u0628\u0639\u062F \u0642\u0644\u064A\u0644",
+      uploadFailed: "\u0641\u0634\u0644 \u0627\u0644\u0631\u0641\u0639",
+      pleaseTryAgain: "\u064A\u0631\u062C\u0649 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649"
+    },
+    createFolderModal: {
+      title: "\u0625\u0646\u0634\u0627\u0621 \u0645\u062C\u0644\u062F \u062C\u062F\u064A\u062F",
+      folderNamePlaceholder: "\u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F",
+      folderNameCannotBeEmpty: "\u0644\u0627 \u064A\u0645\u0643\u0646 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0641\u0627\u0631\u063A\u064B\u0627.",
+      folderNameAlreadyExists: "\u0627\u0633\u0645 \u0627\u0644\u0645\u062C\u0644\u062F \u0645\u0648\u062C\u0648\u062F \u0628\u0627\u0644\u0641\u0639\u0644 \u0641\u064A \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639.",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      create: "\u0625\u0646\u0634\u0627\u0621"
+    },
+    folderModal: {
+      title: "\u0627\u0644\u0646\u0642\u0644 \u0625\u0644\u0649 \u0645\u062C\u0644\u062F",
+      searchFoldersPlaceholder: "\u0627\u0644\u0628\u062D\u062B \u0639\u0646 \u0627\u0644\u0645\u062C\u0644\u062F\u0627\u062A...",
+      noFoldersAvailable: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u062C\u0644\u062F\u0627\u062A \u0645\u062A\u0627\u062D\u0629",
+      current: "(\u0627\u0644\u062D\u0627\u0644\u064A)",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      move: "\u0646\u0642\u0644",
+      root: "root"
+    },
+    newLinkModal: {
+      title: "\u0625\u0646\u0634\u0627\u0621 \u0631\u0627\u0628\u0637 \u062C\u062F\u064A\u062F",
+      url: "\u0627\u0644\u0631\u0627\u0628\u0637 URL",
+      urlPlaceholder: "https://example.com",
+      checkingAccessibility: "\u062C\u0627\u0631\u064D \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0625\u0645\u0643\u0627\u0646\u064A\u0629 \u0627\u0644\u0648\u0635\u0648\u0644...",
+      displayQrCode: "\u0639\u0631\u0636 \u0631\u0645\u0632 QR",
+      qrPosition: "\u0645\u0648\u0636\u0639 \u0631\u0645\u0632 QR",
+      selectPosition: "\u0627\u062E\u062A\u0631 \u0627\u0644\u0645\u0648\u0636\u0639",
+      topLeft: "\u0623\u0639\u0644\u0649 \u0627\u0644\u064A\u0633\u0627\u0631",
+      topRight: "\u0623\u0639\u0644\u0649 \u0627\u0644\u064A\u0645\u064A\u0646",
+      bottomLeft: "\u0623\u0633\u0641\u0644 \u0627\u0644\u064A\u0633\u0627\u0631",
+      bottomRight: "\u0623\u0633\u0641\u0644 \u0627\u0644\u064A\u0645\u064A\u0646",
+      urlCannotBeEmbedded: "\u0644\u0627 \u064A\u0645\u0643\u0646 \u062A\u0636\u0645\u064A\u0646 \u0627\u0644\u0631\u0627\u0628\u0637 (\u0645\u062D\u062C\u0648\u0628).",
+      invalidUrl: "\u0631\u0627\u0628\u0637 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D. \u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0631\u0627\u0628\u0637 \u0635\u062D\u064A\u062D.",
+      save: "\u062D\u0641\u0638",
+      previewWillAppearHere: "\u0633\u062A\u0638\u0647\u0631 \u0627\u0644\u0645\u0639\u0627\u064A\u0646\u0629 \u0647\u0646\u0627",
+      creatingLink: "\u062C\u0627\u0631\u064D \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0631\u0627\u0628\u0637...",
+      linkCreatedSuccessfully: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0631\u0627\u0628\u0637 \u0628\u0646\u062C\u0627\u062D",
+      somethingWentWrong: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0645\u0627"
+    },
+    renameAssetModal: {
+      title: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629 \u0627\u0644\u0623\u0635\u0644",
+      spaceNamePlaceholder: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u0627\u062D\u0629",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      rename: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629"
+    },
+    confirmDeleteModal: {
+      title: "\u062A\u0623\u0643\u064A\u062F \u0627\u0644\u062D\u0630\u0641",
+      warning: "\u062A\u062D\u0630\u064A\u0631",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      delete: "\u062D\u0630\u0641"
+    },
+    emptyList: {
+      title: "\u0645\u0627 \u0641\u064A\u0647 \u0645\u0644\u0641\u0627\u062A \u062D\u0627\u0644\u064A\u0627\u064B",
+      description: "\u0627\u0631\u0641\u0639 \u0645\u0644\u0641\u0627\u062A\u060C \u0623\u0646\u0634\u0626 \u0645\u062C\u0644\u062F\u0627\u062A\u060C \u0623\u0648 \u0623\u0636\u0641 \u0631\u0648\u0627\u0628\u0637 \u0639\u0634\u0627\u0646 \u062A\u0628\u062F\u0623."
+    },
+    mutations: {
+      deleteAssetFailed: "\u0641\u0634\u0644 \u062D\u0630\u0641 \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0627\u0644\u0645\u062D\u062F\u062F\u0629",
+      createFolderSuccess: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0645\u062C\u0644\u062F",
+      createFolderFailed: "\u0641\u0634\u0644 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0645\u062C\u0644\u062F",
+      deleteFolderFailed: "\u0641\u0634\u0644 \u062D\u0630\u0641 \u0627\u0644\u0645\u062C\u0644\u062F",
+      deleteFoldersSuccess: "\u062A\u0645 \u062D\u0630\u0641 \u0627\u0644\u0645\u062C\u0644\u062F\u0627\u062A \u0628\u0646\u062C\u0627\u062D",
+      deleteFoldersFailed: "\u0641\u0634\u0644 \u062D\u0630\u0641 \u0627\u0644\u0645\u062C\u0644\u062F\u0627\u062A",
+      renameAssetSuccess: "\u062A\u0645\u062A \u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629 \u0627\u0644\u0645\u0644\u0641 \u0628\u0646\u062C\u0627\u062D",
+      renameAssetFailed: "\u0641\u0634\u0644\u062A \u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629 \u0627\u0644\u0645\u0644\u0641",
+      renameFolderSuccess: "\u062A\u0645\u062A \u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629 \u0627\u0644\u0645\u062C\u0644\u062F \u0628\u0646\u062C\u0627\u062D",
+      renameFolderFailed: "\u0641\u0634\u0644\u062A \u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629 \u0627\u0644\u0645\u062C\u0644\u062F",
+      moveAssetsSuccess: "\u062A\u0645 \u0646\u0642\u0644 \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0628\u0646\u062C\u0627\u062D",
+      moveAssetsFailed: "\u0641\u0634\u0644 \u0646\u0642\u0644 \u0627\u0644\u0645\u0644\u0641\u0627\u062A",
+      moveFolderSuccess: "\u062A\u0645 \u0646\u0642\u0644 \u0627\u0644\u0645\u062C\u0644\u062F \u0628\u0646\u062C\u0627\u062D",
+      moveFolderFailed: "\u0641\u0634\u0644 \u0646\u0642\u0644 \u0627\u0644\u0645\u062C\u0644\u062F"
+    }
   }
 };
 
@@ -1395,6 +1634,241 @@ var nitxuilib_default2 = {
     filesWillAppear: "Your files will appear in a moment",
     uploadFailed: "Upload failed",
     pleaseTryAgain: "Please try again"
+  },
+  assets: {
+    assetCard: {
+      deleteAsset: "Delete Asset",
+      deleteConfirm: 'Are you sure you want to delete "{{name}}"? This action cannot be undone.',
+      duplicateNameError: 'An {type} with the name "{{name}}" already exists in this folder.',
+      renaming: 'Renaming "{{name}}"...',
+      renamedSuccess: '"{{name}}" has been renamed successfully',
+      renameFailed: 'Failed to rename "{{name}}". Please try again.',
+      downloading: 'Downloading "{{name}}"...',
+      downloadedSuccess: '"{{name}}" has been downloaded successfully',
+      downloadFailed: 'Failed to download "{{name}}". Please try again.',
+      sendToScreen: "Send to screen",
+      moreOptions: "More options",
+      rename: "Rename",
+      moveTo: "Move to",
+      download: "Download",
+      edit: "Edit",
+      delete: "Delete",
+      video: "video"
+    },
+    assetList: {
+      downloading: 'Downloading "{{name}}"...',
+      downloadedSuccess: '"{{name}}" has been downloaded successfully',
+      downloadFailed: 'Failed to download "{{name}}". Please try again.',
+      deleteAsset: "Delete Asset",
+      deleteConfirm: 'Are you sure you want to delete "{{name}}"? This action cannot be undone.',
+      deleting: 'Deleting "{{name}}"...',
+      deletedSuccess: '"{{name}}" has been deleted successfully',
+      deleteFailed: 'Failed to delete "{{name}}". Please try again.',
+      deleteItems: "Delete {{count}} Item{plural}",
+      deleteItemsConfirm: "Are you sure you want to delete these {{count}} items? This action cannot be undone.",
+      deletingItems: "Deleting ...",
+      itemsDeletedSuccess: "Items deleted successfully",
+      itemsDeleteFailed: "Failed to delete items. Please try again.",
+      movingItems: "Moving items...",
+      itemsMovedSuccess: "Items moved successfully",
+      itemsMoveFailed: "Failed to move items. Please try again.",
+      renaming: 'Renaming "{{name}}"...',
+      renamedSuccess: '"{{name}}" has been renamed successfully',
+      renameFailed: 'Failed to rename "{{name}}". Please try again.',
+      renamingFolder: 'Renaming folder to "{{name}}"...',
+      folderRenamedSuccess: 'Folder renamed to "{{name}}" successfully',
+      folderRenameFailed: 'Failed to rename folder to "{{name}}". Please try again.',
+      movingAssets: "Moving assets...",
+      assetsMovedSuccess: "{{count}} asset{plural} moved successfully",
+      assetsMoveFailed: "Failed to move assets. Please try again.",
+      itemsSelected: "{{count}} Item Selected",
+      itemsSelected_$one: "{{count}} Item Selected",
+      itemsSelected_$other: "{{count}} Items Selected",
+      groups_$other: "{{count}} Groups",
+      moveTo: "Move to",
+      delete: "Delete",
+      createSequence: "Create Sequence",
+      comingSoon: "Coming soon"
+    },
+    assetsHeader: {
+      searchPlaceholder: "Search...",
+      createLink: "Create Link",
+      upload: "Upload",
+      newFolder: "New Folder",
+      gridView: "Grid View",
+      listView: "List View",
+      multiSelect: "Multi Select",
+      actions: "Actions"
+    },
+    assetsPreview: {
+      of: "of",
+      notAvailable: "Preview not available for this type",
+      linkPreview: "Link Preview: {{url}}"
+    },
+    assetsTabbar: {
+      all: "All",
+      media: "Media",
+      documents: "Documents",
+      links: "Links"
+    },
+    folderCard: {
+      deleteFolder: "Delete Folder",
+      deleteConfirm: 'Are you sure you want to delete "{{name}}"? This action cannot be undone.',
+      duplicateFolderError: 'A folder named "{{name}}" already exists in this location.',
+      renamingFolder: 'Renaming folder to "{{name}}"...',
+      folderRenamedSuccess: 'Folder renamed to "{{name}}" successfully',
+      folderRenameFailed: 'Failed to rename folder to "{{name}}". Please try again.',
+      creatingSequence: 'Creating sequence from "{{name}}"...',
+      sequenceCreatedSuccess: 'Sequence "{{name}}" created successfully',
+      sequenceCreateFailed: 'Failed to create sequence from "{{name}}". Please try again.',
+      preparingDownload: "Preparing folder download...",
+      folderDownloadedSuccess: 'Folder "{{name}}" downloaded successfully',
+      folderDownloadFailed: 'Failed to download folder "{{name}}". Please try again.',
+      moreOptions: "More options",
+      createSequence: "Create Sequence",
+      rename: "Rename",
+      moveTo: "Move to",
+      download: "Download",
+      delete: "Delete",
+      item: "item",
+      items: "items"
+    },
+    headerWithTabs: {
+      assets: "Assets",
+      all: "All",
+      media: "Media",
+      documents: "Documents",
+      links: "Links"
+    },
+    headerWithCustomTabbar: {
+      asset: "Asset"
+    },
+    editLink: {
+      failedToLoad: "Failed to load video wall details.",
+      saving: "Saving video wall...",
+      saved: "Video wall saved!",
+      saveError: "Something went wrong. Please try again."
+    },
+    linkHeader: {
+      publish: "Publish",
+      duplicate: "Duplicate",
+      delete: "Delete"
+    },
+    linkEditPage: {
+      url: "URL",
+      urlPlaceholder: "https://example.com",
+      addQrCode: "Add QR Code to Screen Preview (Optional)",
+      qrPosition: "QR Position",
+      selectPosition: "Select position",
+      topLeft: "Top Left",
+      topRight: "Top Right",
+      bottomLeft: "Bottom Left",
+      bottomRight: "Bottom Right",
+      saving: "Saving link...",
+      savingStatus: "Saving...",
+      saveChanges: "Save Changes",
+      linkUpdated: "Link updated",
+      saveError: "Unable to save changes. Please try again.",
+      failedToLoad: "Failed to load link details.",
+      link: "Link",
+      addedOn: "Added on {{date}}"
+    },
+    newLinkPage: {
+      newLink: "New Link",
+      createdOn: "Created on Jun 7, 2025, 10:45 AM by Salt Restaurant",
+      typeUrl: "Type your URL here",
+      addQrCode: "Add QR Code to Screen Preview (Optional)"
+    },
+    globalAssetPlayer: {
+      previewNotAvailable: "Preview not available",
+      noContentAvailable: "No content available",
+      loadingLayout: "Loading layout...",
+      noContent: "No content",
+      loadingSequence: "Loading sequence...",
+      invalidContent: "Invalid content",
+      sequencePreview: "Sequence Preview",
+      layoutPreview: "Layout Preview",
+      landscape: "Landscape",
+      portrait: "Portrait"
+    },
+    uploadModal: {
+      title: "Upload Files",
+      videoFormatNotice: "For now, videos must be MP4. Other video formats are temporarily unavailable.",
+      fileUploadedSuccessfully: "uploaded successfully!",
+      processingUploads: "Processing uploads...",
+      filesWillAppear: "Your files will appear in a moment",
+      uploadFailed: "Upload failed",
+      pleaseTryAgain: "Please try again"
+    },
+    createFolderModal: {
+      title: "Create New Folder",
+      folderNamePlaceholder: "Folder name",
+      folderNameCannotBeEmpty: "Folder name cannot be empty.",
+      folderNameAlreadyExists: "Folder name already exists in this location.",
+      cancel: "Cancel",
+      create: "Create"
+    },
+    folderModal: {
+      title: "Move to folder",
+      searchFoldersPlaceholder: "Search folders...",
+      noFoldersAvailable: "No folders available",
+      current: "(Current)",
+      cancel: "Cancel",
+      move: "Move",
+      root: "Root"
+    },
+    newLinkModal: {
+      title: "Create New Link",
+      url: "URL",
+      urlPlaceholder: "https://example.com",
+      checkingAccessibility: "Checking accessibility...",
+      displayQrCode: "Display QR Code",
+      qrPosition: "QR Position",
+      selectPosition: "Select position",
+      topLeft: "Top Left",
+      topRight: "Top Right",
+      bottomLeft: "Bottom Left",
+      bottomRight: "Bottom Right",
+      urlCannotBeEmbedded: "URL cannot be embedded (blocked).",
+      invalidUrl: "Invalid URL. Please enter a valid link.",
+      save: "Save",
+      previewWillAppearHere: "Preview will appear here",
+      creatingLink: "Creating link...",
+      linkCreatedSuccessfully: "Link created successfully",
+      somethingWentWrong: "Something went wrong"
+    },
+    renameAssetModal: {
+      title: "Rename Asset",
+      spaceNamePlaceholder: "Space Name",
+      cancel: "Cancel",
+      rename: "Rename"
+    },
+    confirmDeleteModal: {
+      title: "Confirm Delete",
+      warning: "Warning",
+      cancel: "Cancel",
+      delete: "Delete"
+    },
+    emptyList: {
+      title: "No assets found",
+      description: "Upload assets or create folders."
+    },
+    mutations: {
+      deleteAssetFailed: "Failed to delete asset",
+      createFolderSuccess: "Folder created successfully",
+      createFolderFailed: "Failed to create folder",
+      deleteFolderFailed: "Failed to delete folder",
+      deleteFoldersSuccess: "Folders deleted successfully",
+      deleteFoldersFailed: "Failed to delete folders",
+      renameAssetSuccess: "Asset renamed successfully",
+      renameAssetFailed: "Failed to rename asset",
+      renameFolderSuccess: "Folder renamed successfully",
+      renameFolderFailed: "Failed to rename folder",
+      moveAssetsSuccess: "Assets moved successfully",
+      moveAssetsFailed: "Failed to move assets",
+      moveFolderSuccess: "Folder moved successfully",
+      moveFolderFailed: "Failed to move folder"
+    }
   }
 };
 
@@ -3229,55 +3703,7 @@ Label4.displayName = LabelPrimitive2.Root.displayName;
 
 // src/components/spaces/MembersManager.tsx
 import { Loader2, X as X2 } from "lucide-react";
-
-// node_modules/uuid/dist/esm-node/rng.js
-import crypto from "crypto";
-var rnds8Pool = new Uint8Array(256);
-var poolPtr = rnds8Pool.length;
-function rng() {
-  if (poolPtr > rnds8Pool.length - 16) {
-    crypto.randomFillSync(rnds8Pool);
-    poolPtr = 0;
-  }
-  return rnds8Pool.slice(poolPtr, poolPtr += 16);
-}
-
-// node_modules/uuid/dist/esm-node/stringify.js
-var byteToHex = [];
-for (let i = 0; i < 256; ++i) {
-  byteToHex.push((i + 256).toString(16).slice(1));
-}
-function unsafeStringify(arr, offset = 0) {
-  return byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]];
-}
-
-// node_modules/uuid/dist/esm-node/native.js
-import crypto2 from "crypto";
-var native_default = {
-  randomUUID: crypto2.randomUUID
-};
-
-// node_modules/uuid/dist/esm-node/v4.js
-function v4(options, buf, offset) {
-  if (native_default.randomUUID && !buf && !options) {
-    return native_default.randomUUID();
-  }
-  options = options || {};
-  const rnds = options.random || (options.rng || rng)();
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
-  if (buf) {
-    offset = offset || 0;
-    for (let i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-    return buf;
-  }
-  return unsafeStringify(rnds);
-}
-var v4_default = v4;
-
-// src/components/spaces/MembersManager.tsx
+import { v4 as uuidv4 } from "uuid";
 import { toast as toast3 } from "sonner";
 
 // src/components/spaces/MemberRoleSelect.tsx
@@ -3449,7 +3875,7 @@ var MembersManager = ({
   useEffect6(() => {
     if (initialEmail) {
       setEmail(initialEmail);
-      setPendingEmails([{ id: v4_default(), email: initialEmail }]);
+      setPendingEmails([{ id: uuidv4(), email: initialEmail }]);
     }
     if (initialRole) {
       setPendingRole(initialRole);
@@ -3461,7 +3887,7 @@ var MembersManager = ({
     if (cleanEmail && emailRegex.test(cleanEmail)) {
       setPendingEmails((prev) => {
         if (prev.some((p) => p.email === cleanEmail)) return prev;
-        return [...prev, { id: v4_default(), email: cleanEmail }];
+        return [...prev, { id: uuidv4(), email: cleanEmail }];
       });
       setEmail("");
       return true;
@@ -3665,6 +4091,7 @@ import * as DialogPrimitive2 from "@radix-ui/react-dialog";
 import { X as X3 } from "lucide-react";
 import { jsx as jsx28, jsxs as jsxs17 } from "react/jsx-runtime";
 var Dialog2 = DialogPrimitive2.Root;
+var DialogTrigger2 = DialogPrimitive2.Trigger;
 var DialogPortal2 = DialogPrimitive2.Portal;
 var DialogOverlay2 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
   DialogPrimitive2.Overlay,
@@ -6090,7 +6517,7 @@ var AddContentModal = ({
   return /* @__PURE__ */ jsx50(DrawerDialog, { size: "2xl", open, onClose, children: /* @__PURE__ */ jsxs36("div", { className: "flex flex-col h-[90vh]", children: [
     /* @__PURE__ */ jsx50("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx50("p", { className: "font-semibold", children: t("addContentModal.title") }) }),
     /* @__PURE__ */ jsx50("div", { className: "w-full px-3 lg:px-5 flex-shrink-0 mt-5", children: /* @__PURE__ */ jsx50("div", { className: "flex border-b w-full", children: effectiveTabs.map((tabId) => {
-      const { label, icon: Icon } = tabConfig[tabId];
+      const { label, icon: Icon2 } = tabConfig[tabId];
       return /* @__PURE__ */ jsxs36(
         Button2,
         {
@@ -6102,7 +6529,7 @@ var AddContentModal = ({
           ),
           onClick: () => handleActiveTab(tabId),
           children: [
-            /* @__PURE__ */ jsx50(Icon, { className: "stroke-[1.8]" }),
+            /* @__PURE__ */ jsx50(Icon2, { className: "stroke-[1.8]" }),
             label
           ]
         },
@@ -6316,9 +6743,3977 @@ var createContentBrowserApi = (client) => ({
     }));
   }
 });
+
+// src/components/assets/context.tsx
+import * as React23 from "react";
+
+// src/components/assets/hooks/use-assets-store.ts
+import { create } from "zustand";
+var ROOT_PATH = [{ id: null, label: "Root" }];
+var useAssetsStore = create((set) => ({
+  path: ROOT_PATH,
+  setPath: (value) => set({ path: value }),
+  addPath: (value) => set((state) => ({ path: [...state.path, value] })),
+  activeTab: "all",
+  setActiveTab: (value) => set({ activeTab: value }),
+  viewType: "grid",
+  setViewType: (value) => set({ viewType: value }),
+  activeDirectory: null,
+  setActiveDirectory: (value) => set({ activeDirectory: value }),
+  renamingItemId: null,
+  setRenamingItemId: (value) => set({ renamingItemId: value }),
+  reset: () => set({
+    path: ROOT_PATH,
+    activeTab: "all",
+    activeDirectory: null,
+    renamingItemId: null
+  })
+}));
+
+// src/components/assets/lib/create-api.ts
+var unwrap = (res) => res?.data?.data ?? res?.data ?? {};
+var normalizeFolder = (folder) => ({
+  ...folder,
+  assets_count: folder?.assets_count ?? 0,
+  children: folder?.children ?? []
+});
+function createAssetsApi(client) {
+  return {
+    async fetchAssetsAndFolders(folderUuid) {
+      const params = folderUuid ? `?folder_uuid=${folderUuid}` : "";
+      const payload = unwrap(await client.get(`/api/assets-and-folders${params}`));
+      return {
+        assets: payload.assets ?? [],
+        folders: (payload.folders ?? []).map(normalizeFolder)
+      };
+    },
+    async fetchAssets(params) {
+      const query = params?.types?.length ? `?types=${params.types.join(",")}` : "";
+      const payload = unwrap(await client.get(`/api/assets${query}`));
+      return Array.isArray(payload) ? payload : [];
+    },
+    async deleteAssets(uuids) {
+      await client.delete("/api/assets/delete", {
+        data: { assets_uuids: uuids }
+      });
+    },
+    async renameAsset(uuid, name) {
+      await client.put(`/api/assets/${uuid}/rename`, { name });
+    },
+    async moveAssets(uuids, destinationUuid) {
+      await client.put("/api/assets/move", {
+        assets_uuids: uuids,
+        destination_uuid: destinationUuid
+      });
+    },
+    async downloadAsset(uuid) {
+      const res = await client.get(`/api/assets/${uuid}/download`, {
+        responseType: "blob"
+      });
+      return res.data;
+    },
+    async createFolder(name, parentId) {
+      const res = await client.post("/api/folders", {
+        name,
+        parent_id: parentId
+      });
+      return normalizeFolder(unwrap(res));
+    },
+    async updateFolder(id, patch) {
+      await client.put(`/api/folders/${id}`, patch);
+    },
+    async deleteFolder(id) {
+      await client.delete(`/api/folders/${id}`);
+    },
+    async deleteFolders(ids) {
+      await client.delete("/api/folders/delete", {
+        data: { folder_ids: ids }
+      });
+    },
+    async downloadFolderContents(id) {
+      const res = await client.get(`/api/folders/${id}/download-contents`, {
+        responseType: "blob"
+      });
+      return res.data;
+    },
+    async fetchLink(uuid) {
+      return unwrap(await client.get(`/api/links/${uuid}`));
+    },
+    async createLink(input) {
+      return unwrap(await client.post("/api/links", input));
+    },
+    async updateLink(uuid, input) {
+      await client.put(`/api/links/${uuid}`, input);
+    },
+    async fetchCanvases() {
+      const payload = unwrap(await client.get("/api/canvases"));
+      return Array.isArray(payload) ? payload : [];
+    }
+  };
+}
+
+// src/components/assets/lib/default-images.ts
+var DEFAULT_ASSET_IMAGES = {
+  clock: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTIgN1YxMkgxNU0yMSAxMkMyMSAxNi45NzA2IDE2Ljk3MDYgMjEgMTIgMjFDNy4wMjk0NCAyMSAzIDE2Ljk3MDYgMyAxMkMzIDcuMDI5NDQgNy4wMjk0NCAzIDEyIDNDMTYuOTcwNiAzIDIxIDcuMDI5NDQgMjEgMTJaIiBzdHJva2U9IiNGQUM2MjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2VMaW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg0K",
+  folder: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNEMkVDRjciLz4KPHBhdGggZD0iTTExMSA3My4zNDUyVjExMC42OTJDMTExIDExMy4xMDcgMTEyLjk1OCAxMTUuMDY1IDExNS4zNzQgMTE1LjA2NUgxNjUuNjI3QzE2OC4wNDIgMTE1LjA2NSAxNzAgMTEzLjEwNyAxNzAgMTEwLjY5MlY3OS42NDQ3QzE3MCA3Ny4yMjkzIDE2OC4wNDIgNzUuMjcxMiAxNjUuNjI3IDc1LjI3MTJIMTQwLjAwNkMxMzguMzA1IDc1LjI3MTIgMTM2Ljc3NiA3NC4yNzA3IDEzNS44MjkgNzIuODU4OEMxMzQuNjM2IDcxLjA4MTMgMTMyLjc4NyA2OC45NzE3IDEzMC43MzEgNjguOTcxN0gxMTUuMzdDMTEyLjk1NCA2OC45NzE3IDExMSA3MC45Mjk4IDExMSA3My4zNDUyWiIgZmlsbD0iIzQ1NUVGRiIvPgo8cGF0aCBkPSJNMTY5Ljk5OSA3OS41NTFWMTEwLjkzOUMxNjkuOTk5IDExMi42NDUgMTY4LjYxNiAxMTQuMDI4IDE2Ni45MSAxMTQuMDI4SDExNC4wODhDMTEyLjM4MiAxMTQuMDI4IDExMC45OTkgMTEyLjY0NSAxMTAuOTk5IDExMC45MzlWODIuNjc4M0MxMTAuOTk5IDgwLjk3MjMgMTEyLjM3OCA3OS41ODkzIDExNC4wODQgNzkuNTg5M0gxMjkuNjg4QzEzNC45MzkgNzkuNTg5MyAxMzQuMjA1IDc2LjQ2MTcgMTM3Ljc5NiA3Ni40NjE5QzE0Ny41OTQgNzYuNDYyNCAxNjAuOTU5IDc2LjQ2MjEgMTY2LjkxNSA3Ni40NjJDMTY4LjYyMiA3Ni40NjIgMTY5Ljk5OSA3Ny44NDUgMTY5Ljk5OSA3OS41NTFaIiBmaWxsPSIjMDAwMEZGIi8+Cjwvc3ZnPgo=",
+  pdf: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNGNTBCMUUiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTQwLjE0IDcxLjYwMjNDMTQxLjMyOCA3MS42MDA3IDE0Mi4zNzkgNzEuNTk5MyAxNDMuMzY5IDcxLjk1MDdDMTQzLjU3MyA3Mi4wMjMxIDE0My43NzQgNzIuMTA2NCAxNDMuOTY5IDcyLjIwMDNDMTQ0LjkxNiA3Mi42NTU4IDE0NS42NTkgNzMuNDAzOSAxNDYuNDk3IDc0LjI0OUwxNTYuNDYxIDg0LjI2NDlDMTU3LjQzNSA4NS4yNDA3IDE1OC4yOTkgODYuMTA2NyAxNTguNzY2IDg3LjIzOTVDMTU5LjIzMyA4OC4zNzIzIDE1OS4yMzEgODkuNTk4OCAxNTkuMjI5IDkwLjk4MVY5MS4zOTM5QzE1OS4yMjkgOTQuMzQwMSAxNTkuMjI5IDk1LjgxMzMgMTU4LjMxMyA5Ni43Mjg1QzE1Ny4zOTggOTcuNjQzNyAxNTUuOTI1IDk3LjY0MzcgMTUyLjk3OSA5Ny42NDM3SDEyOS4wMjFDMTI2LjA3NCA5Ny42NDM3IDEyNC42MDEgOTcuNjQzNyAxMjMuNjg2IDk2LjcyODVDMTIyLjc3MSA5NS44MTMxIDEyMi43NzEgOTQuMzM5OSAxMjIuNzcxIDkxLjM5MzdWODguNjkwOEMxMjIuNzcxIDg1LjQ5NTcgMTIyLjc3MSA4Mi45MTk2IDEyMy4wMDkgODAuODY5OUMxMjMuMjU1IDc4Ljc0OTIgMTIzLjc3OSA3Ni45MzIgMTI1LjAxNCA3NS4zOTI4QzEyNS40NjcgNzQuODI3NyAxMjUuOTc5IDc0LjMxMzEgMTI2LjU0MSA3My44NTc1QzEyOC4wNzMgNzIuNjE2NCAxMjkuODggNzIuMDg5MyAxMzEuOTkgNzEuODQxN0MxMzQuMDI5IDcxLjYwMjQgMTM2Ljk2MiA3MS42MDIyIDE0MC4xNCA3MS42MDIzWk0xNTUuMDI0IDg4Ljc5NzdDMTU0LjkwNSA4OC41MTA1IDE1NC42ODYgODguMjM4OSAxNTMuMzk4IDg2Ljk0NDZMMTQzLjgwNSA3Ny4zMDExQzE0Mi42OTQgNzYuMTg1IDE0Mi40IDc1LjkwNzEgMTQyLjAyMSA3NS43OTMxVjc1LjgxMDZDMTQyLjAyMSA3OC42NDc4IDE0Mi4wMjEgNzkuOTk3MiAxNDIuMjYzIDgxLjc5OTdDMTQyLjUxNiA4My42NzQ5IDE0My4wNTUgODUuMjUzOCAxNDQuMzA5IDg2LjUwNzhDMTQ1LjU2MyA4Ny43NjE4IDE0Ny4xNDIgODguMzAxMiAxNDkuMDE3IDg4LjU1MzNDMTUwLjgyMyA4OC43OTYxIDE1Mi4xNzUgODguNzk3NyAxNTUuMDI0IDg4Ljc5NzdaTTEyNC44NTQgMTAwLjc3M0MxMjMuOTkxIDEwMC43NzMgMTIzLjI5MiAxMDEuNDcyIDEyMy4yOTIgMTAyLjMzNVYxMTQuODM1QzEyMy4yOTIgMTE1LjY5OCAxMjMuOTkxIDExNi4zOTggMTI0Ljg1NCAxMTYuMzk4QzEyNS43MTcgMTE2LjM5OCAxMjYuNDE3IDExNS42OTggMTI2LjQxNyAxMTQuODM1VjExMS4xOUgxMjguNUMxMzEuMzc2IDExMS4xOSAxMzMuNzA4IDEwOC44NTggMTMzLjcwOCAxMDUuOTgxQzEzMy43MDggMTAzLjEwNSAxMzEuMzc2IDEwMC43NzMgMTI4LjUgMTAwLjc3M0gxMjQuODU0Wk0xMjguNSAxMDguMDY1SDEyNi40MTdWMTAzLjg5OEgxMjguNUMxMjkuNjUxIDEwMy44OTggMTMwLjU4MyAxMDQuODMxIDEzMC41ODMgMTA1Ljk4MUMxMzAuNTgzIDEwNy4xMzIgMTI5LjY1MSAxMDguMDY1IDEyOC41IDEwOC4wNjVaTTEzNy4zNTQgMTAwLjc3M0MxMzYuNDkxIDEwMC43NzMgMTM1Ljc5MiAxMDEuNDcyIDEzNS43OTIgMTAyLjMzNVYxMTQuODM1QzEzNS43OTIgMTE1LjY5OCAxMzYuNDkxIDExNi4zOTggMTM3LjM1NCAxMTYuMzk4SDE0MC40NzlDMTQzLjY0MyAxMTYuMzk4IDE0Ni4yMDggMTEzLjgzMyAxNDYuMjA4IDExMC42NjlWMTA2LjUwMkMxNDYuMjA4IDEwMy4zMzggMTQzLjY0MyAxMDAuNzczIDE0MC40NzkgMTAwLjc3M0gxMzcuMzU0Wk0xMzguOTE3IDExMy4yNzNWMTAzLjg5OEgxNDAuNDc5QzE0MS45MTcgMTAzLjg5OCAxNDMuMDgzIDEwNS4wNjQgMTQzLjA4MyAxMDYuNTAyVjExMC42NjlDMTQzLjA4MyAxMTIuMTA3IDE0MS45MTcgMTEzLjI3MyAxNDAuNDc5IDExMy4yNzNIMTM4LjkxN1pNMTUxLjkzNyAxMDAuNzczQzE0OS45MjQgMTAwLjc3MyAxNDguMjkyIDEwMi40MDUgMTQ4LjI5MiAxMDQuNDE5VjExNC44MzVDMTQ4LjI5MiAxMTUuNjk4IDE0OC45OTEgMTE2LjM5OCAxNDkuODU0IDExNi4zOThDMTUwLjcxNyAxMTYuMzk4IDE1MS40MTcgMTE1LjY5OCAxNTEuNDE3IDExNC44MzVWMTEwLjE0OEgxNTYuMTA0QzE1Ni45NjcgMTEwLjE0OCAxNTcuNjY3IDEwOS40NDggMTU3LjY2NyAxMDguNTg1QzE1Ny42NjcgMTA3LjcyMiAxNTYuOTY3IDEwNy4wMjMgMTU2LjEwNCAxMDcuMDIzSDE1MS40MTdWMTA0LjQxOUMxNTEuNDE3IDEwNC4xMzEgMTUxLjY1IDEwMy44OTggMTUxLjkzNyAxMDMuODk4SDE1Ny4xNDZDMTU4LjAwOSAxMDMuODk4IDE1OC43MDggMTAzLjE5OCAxNTguNzA4IDEwMi4zMzVDMTU4LjcwOCAxMDEuNDcyIDE1OC4wMDkgMTAwLjc3MyAxNTcuMTQ2IDEwMC43NzNIMTUxLjkzN1oiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=",
+  doc: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiMyMTcyRjMiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTI1LjI1NSAxMDAuNzcxQzEyOS40NTUgMTAwLjc3MSAxMzIuNyAxMDQuMzU5IDEzMi43IDEwOC41ODNDMTMyLjcgMTEyLjgwNyAxMjkuNDU1IDExNi4zOTYgMTI1LjI1NSAxMTYuMzk2QzEyNS4yMzggMTE2LjM5NiAxMjUuMjIxIDExNi4zOTYgMTI1LjIwNCAxMTYuMzk2QzEyNC44ODMgMTE2LjM5NiAxMjQuNTQxIDExNi4zOTYgMTI0LjI0NyAxMTYuMzY4QzEyMy45MTIgMTE2LjMzNSAxMjMuNDg2IDExNi4yNTYgMTIzLjA2NiAxMTUuOTk4QzEyMi4yNDYgMTE1LjQ5NSAxMjEuOTI2IDExNC43MjkgMTIxLjgwOSAxMTQuMTE1QzEyMS43MjEgMTEzLjY2IDEyMS43MjcgMTEzLjE1NyAxMjEuNzMxIDExMi44NzFDMTIxLjczMSAxMTIuODI1IDEyMS43MzIgMTEyLjc4NCAxMjEuNzMyIDExMi43NVYxMDQuNDE3QzEyMS43MzIgMTA0LjM4MyAxMjEuNzMxIDEwNC4zNDIgMTIxLjczMSAxMDQuMjk1QzEyMS43MjcgMTA0LjAwOSAxMjEuNzIxIDEwMy41MDcgMTIxLjgwOSAxMDMuMDUxQzEyMS45MjYgMTAyLjQzNyAxMjIuMjQ2IDEwMS42NzIgMTIzLjA2NiAxMDEuMTY5QzEyMy40ODYgMTAwLjkxMSAxMjMuOTEyIDEwMC44MzEgMTI0LjI0NyAxMDAuNzk5QzEyNC41NDEgMTAwLjc3MSAxMjQuOTM0IDEwMC43NzEgMTI1LjI1NSAxMDAuNzcxWk0xMjQuODU3IDEwMy44OTdDMTI0Ljg1NyAxMDMuODk3IDEyNS4wOTYgMTAzLjg5NiAxMjUuMjU1IDEwMy44OTZDMTI3LjU1MyAxMDMuODk2IDEyOS41NzUgMTA1LjkwNCAxMjkuNTc1IDEwOC41ODNDMTI5LjU3NSAxMTEuMjYzIDEyNy41NTMgMTEzLjI3MSAxMjUuMjU1IDExMy4yNzFDMTI1LjA5NiAxMTMuMjcxIDEyNC44NTcgMTEzLjI2OSAxMjQuODU3IDExMy4yNjlWMTAzLjg5N1oiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGxSdWxlPSJldmVub2RkIiBjbGlwUnVsZT0iZXZlbm9kZCIgZD0iTTE0MC45OTkgMTAwLjc3MUMxNDEuODQxIDEwMC43NzEgMTQyLjcyNiAxMDAuNzcxIDE0My4zNzEgMTAwLjg2M0MxNDQuMDk3IDEwMC45NjYgMTQ0Ljg2MyAxMDEuMjEzIDE0NS40ODQgMTAxLjg3M0MxNDYuMDkzIDEwMi41MTkgMTQ2LjMwNyAxMDMuMjk0IDE0Ni4zOTkgMTA0LjAxOEMxNDYuNDgzIDEwNC42ODQgMTQ2LjQ4MyAxMDUuNTA1IDE0Ni40ODMgMTA2LjQxMVYxMTAuNzU2QzE0Ni40ODMgMTExLjY2MSAxNDYuNDgzIDExMi40ODIgMTQ2LjM5OSAxMTMuMTQ5QzE0Ni4zMDcgMTEzLjg3MyAxNDYuMDkzIDExNC42NDcgMTQ1LjQ4NCAxMTUuMjk0QzE0NC44NjMgMTE1Ljk1NCAxNDQuMDk3IDExNi4yIDE0My4zNzEgMTE2LjMwNEMxNDIuNzI2IDExNi4zOTYgMTQxLjg0MSAxMTYuMzk2IDE0MC45OTkgMTE2LjM5NkMxNDAuMTU3IDExNi4zOTYgMTM5LjI3MiAxMTYuMzk2IDEzOC42MjcgMTE2LjMwNEMxMzcuOTAxIDExNi4yIDEzNy4xMzUgMTE1Ljk1NCAxMzYuNTE0IDExNS4yOTRDMTM1LjkwNSAxMTQuNjQ3IDEzNS42OTEgMTEzLjg3MyAxMzUuNTk5IDExMy4xNDlDMTM1LjUxNSAxMTIuNDgyIDEzNS41MTUgMTExLjY2MSAxMzUuNTE1IDExMC43NTZDMTM1LjUxNSAxMTAuNzI2IDEzNS41MTUgMTEwLjY5NiAxMzUuNTE1IDExMC42NjdWMTA2LjVDMTM1LjUxNSAxMDYuNDcgMTM1LjUxNSAxMDYuNDQgMTM1LjUxNSAxMDYuNDExQzEzNS41MTUgMTA1LjUwNSAxMzUuNTE1IDEwNC42ODQgMTM1LjU5OSAxMDQuMDE4QzEzNS42OTEgMTAzLjI5NCAxMzUuOTA1IDEwMi41MTkgMTM2LjUxNCAxMDEuODczQzEzNy4xMzUgMTAxLjIxMyAxMzcuOTAxIDEwMC45NjYgMTM4LjYyNyAxMDAuODYzQzEzOS4yNzIgMTAwLjc3MSAxNDAuMTU3IDEwMC43NzEgMTQwLjk5OSAxMDAuNzcxWk0xMzguNzg3IDEwNC4wMjFDMTM4Ljc4NSAxMDQuMDI2IDEzOC43ODEgMTA0LjAzNCAxMzguNzc3IDEwNC4wNDVDMTM4Ljc1NyAxMDQuMDk2IDEzOC43MjUgMTA0LjIwNCAxMzguNjk5IDEwNC40MUMxMzguNjQzIDEwNC44NTYgMTM4LjY0IDEwNS40NzYgMTM4LjY0IDEwNi41VjExMC42NjdDMTM4LjY0IDExMS42OSAxMzguNjQzIDExMi4zMSAxMzguNjk5IDExMi43NTZDMTM4LjcyNSAxMTIuOTYzIDEzOC43NTcgMTEzLjA3IDEzOC43NzcgMTEzLjEyMkMxMzguNzgxIDExMy4xMzMgMTM4Ljc4NSAxMTMuMTQxIDEzOC43ODcgMTEzLjE0NkMxMzguODE3IDExMy4xNTkgMTM4Ljg5OCAxMTMuMTg2IDEzOS4wNjggMTEzLjIxQzEzOS40NjYgMTEzLjI2NyAxNDAuMDI4IDExMy4yNzEgMTQwLjk5OSAxMTMuMjcxQzE0MS45NyAxMTMuMjcxIDE0Mi41MzIgMTEzLjI2NyAxNDIuOTMgMTEzLjIxQzE0My4xIDExMy4xODYgMTQzLjE4MSAxMTMuMTU5IDE0My4yMTEgMTEzLjE0NkMxNDMuMjEzIDExMy4xNDEgMTQzLjIxNyAxMTMuMTMzIDE0My4yMjEgMTEzLjEyMkMxNDMuMjQxIDExMy4wNyAxNDMuMjcyIDExMi45NjMgMTQzLjI5OSAxMTIuNzU2QzE0My4zNTUgMTEyLjMxIDE0My4zNTggMTExLjY5IDE0My4zNTggMTEwLjY2N1YxMDYuNUMxNDMuMzU4IDEwNS40NzYgMTQzLjM1NSAxMDQuODU2IDE0My4yOTkgMTA0LjQxQzE0My4yNzIgMTA0LjIwNCAxNDMuMjQxIDEwNC4wOTYgMTQzLjIyMSAxMDQuMDQ1QzE0My4yMTcgMTA0LjAzNCAxNDMuMjEzIDEwNC4wMjYgMTQzLjIxMSAxMDQuMDIxQzE0My4xODEgMTA0LjAwOCAxNDMuMSAxMDMuOTgxIDE0Mi45MyAxMDMuOTU2QzE0Mi41MzIgMTAzLjkgMTQxLjk3IDEwMy44OTYgMTQwLjk5OSAxMDMuODk2QzE0MC4wMjggMTAzLjg5NiAxMzkuNDY2IDEwMy45IDEzOS4wNjggMTAzLjk1NkMxMzguODk4IDEwMy45ODEgMTM4LjgxNyAxMDQuMDA4IDEzOC43ODcgMTA0LjAyMVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGxSdWxlPSJldmVub2RkIiBjbGlwUnVsZT0iZXZlbm9kZCIgZD0iTTE1MC40MDEgMTAyLjEyOUMxNTEuNDcyIDEwMC45MzIgMTUzLjE0MyAxMDAuNzcxIDE1NC43OTUgMTAwLjc3MUMxNTUuMzM0IDEwMC43NzEgMTU1LjkxOCAxMDAuNzczIDE1Ni40NjQgMTAwLjgyNkMxNTcuMDA5IDEwMC44NzkgMTU3LjYyMSAxMDAuOTg5IDE1OC4xOTYgMTAxLjI2QzE1OC44MDUgMTAxLjU0NyAxNTkuMzQyIDEwMS45OTggMTU5LjcxNyAxMDIuNjYxQzE2MC4wNzYgMTAzLjI5NiAxNjAuMjMzIDEwNC4wMjggMTYwLjI2NyAxMDQuODA2QzE2MC4zMDUgMTA1LjY2OCAxNTkuNjM3IDEwNi4zOTcgMTU4Ljc3NSAxMDYuNDM1QzE1Ny45MTMgMTA2LjQ3MyAxNTcuMTgzIDEwNS44MDUgMTU3LjE0NSAxMDQuOTQyQzE1Ny4xMjUgMTA0LjQ4IDE1Ny4wNCAxMDQuMjc1IDE1Ni45OTggMTA0LjIwMUMxNTYuOTcxIDEwNC4xNTQgMTU2Ljk0NyAxMDQuMTI2IDE1Ni44NjUgMTA0LjA4N0MxNTYuNzUgMTA0LjAzMyAxNTYuNTQxIDEwMy45NzMgMTU2LjE2NCAxMDMuOTM3QzE1NS43ODkgMTAzLjkwMSAxNTUuMzUgMTAzLjg5NiAxNTQuNzk1IDEwMy44OTZDMTUzLjA3NCAxMDMuODk2IDE1Mi43NzkgMTA0LjE1NyAxNTIuNzI4IDEwNC4yMTRDMTUyLjcwMiAxMDQuMjQzIDE1Mi42MTIgMTA0LjM1OSAxNTIuNTM4IDEwNC43NDNDMTUyLjQ2MSAxMDUuMTM5IDE1Mi40MjYgMTA1LjY5MyAxNTIuNDI2IDEwNi41VjExMC42NjdDMTUyLjQyNiAxMTEuNDczIDE1Mi40NjEgMTEyLjAyOCAxNTIuNTM4IDExMi40MjNDMTUyLjYxMiAxMTIuODA4IDE1Mi43MDIgMTEyLjkyNCAxNTIuNzI4IDExMi45NTNDMTUyLjc3OSAxMTMuMDEgMTUzLjA3NCAxMTMuMjcxIDE1NC43OTUgMTEzLjI3MUMxNTUuMzUgMTEzLjI3MSAxNTUuNzg5IDExMy4yNjYgMTU2LjE2NCAxMTMuMjNDMTU2LjU0MSAxMTMuMTkzIDE1Ni43NSAxMTMuMTMzIDE1Ni44NjUgMTEzLjA3OUMxNTYuOTQ3IDExMy4wNDEgMTU2Ljk3MSAxMTMuMDEyIDE1Ni45OTggMTEyLjk2NkMxNTcuMDQgMTEyLjg5MiAxNTcuMTI1IDExMi42ODYgMTU3LjE0NSAxMTIuMjI0QzE1Ny4xODMgMTExLjM2MiAxNTcuOTEzIDExMC42OTQgMTU4Ljc3NSAxMTAuNzMxQzE1OS42MzcgMTEwLjc2OSAxNjAuMzA1IDExMS40OTkgMTYwLjI2NyAxMTIuMzYxQzE2MC4yMzMgMTEzLjEzOSAxNjAuMDc2IDExMy44NzEgMTU5LjcxNyAxMTQuNTA2QzE1OS4zNDIgMTE1LjE2OCAxNTguODA1IDExNS42MiAxNTguMTk2IDExNS45MDZDMTU3LjYyMSAxMTYuMTc4IDE1Ny4wMDkgMTE2LjI4OCAxNTYuNDY0IDExNi4zNEMxNTUuOTE4IDExNi4zOTMgMTU1LjMzNCAxMTYuMzk2IDE1NC43OTUgMTE2LjM5NkMxNTMuMTQzIDExNi4zOTYgMTUxLjQ3MiAxMTYuMjM0IDE1MC40MDEgMTE1LjAzOEMxNDkuODY1IDExNC40NCAxNDkuNjA1IDExMy43MjIgMTQ5LjQ2OSAxMTMuMDE0QzE0OS4zMzUgMTEyLjMxNyAxNDkuMzAxIDExMS41MjEgMTQ5LjMwMSAxMTAuNjY3VjEwNi41QzE0OS4zMDEgMTA1LjY0NiAxNDkuMzM1IDEwNC44NSAxNDkuNDY5IDEwNC4xNTNDMTQ5LjYwNSAxMDMuNDQ1IDE0OS44NjUgMTAyLjcyNiAxNTAuNDAxIDEwMi4xMjlaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNDMuMzY5IDcxLjk1MzFDMTQyLjM3OSA3MS42MDE3IDE0MS4zMjggNzEuNjAzMSAxNDAuMTQgNzEuNjA0N0MxMzYuOTYyIDcxLjYwNDcgMTM0LjAyOSA3MS42MDQ4IDEzMS45OSA3MS44NDQyQzEyOS44OCA3Mi4wOTE4IDEyOC4wNzMgNzIuNjE4OSAxMjYuNTQxIDczLjg2QzEyNS45NzkgNzQuMzE1NSAxMjUuNDY3IDc0LjgzMDIgMTI1LjAxNCA3NS4zOTUyQzEyMy43NzkgNzYuOTM0NSAxMjMuMjU1IDc4Ljc1MTYgMTIzLjAwOSA4MC44NzIzQzEyMi43NzEgODIuOTIyIDEyMi43NzEgODUuNDk4MSAxMjIuNzcxIDg4LjY5MzJWOTEuMzk2MUMxMjIuNzcxIDk0LjM0MjQgMTIyLjc3MSA5NS44MTU1IDEyMy42ODYgOTYuNzMwOUMxMjQuNjAxIDk3LjY0NjEgMTI2LjA3NCA5Ny42NDYxIDEyOS4wMjEgOTcuNjQ2MUgxNTIuOTc5QzE1NS45MjUgOTcuNjQ2MSAxNTcuMzk4IDk3LjY0NjEgMTU4LjMxMyA5Ni43MzA5QzE1OS4yMjkgOTUuODE1NyAxNTkuMjI5IDk0LjM0MjYgMTU5LjIyOSA5MS4zOTYzVjkwLjk4MzRDMTU5LjIzMSA4OS42MDEzIDE1OS4yMzMgODguMzc0NyAxNTguNzY2IDg3LjI0MTlDMTU4LjI5OSA4Ni4xMDkxIDE1Ny40MzUgODUuMjQzMSAxNTYuNDYxIDg0LjI2NzRMMTQ2LjQ5NyA3NC4yNTE1QzE0NS42NTkgNzMuNDA2MyAxNDQuOTE2IDcyLjY1ODMgMTQzLjk2OSA3Mi4yMDI3QzE0My43NzQgNzIuMTA4OCAxNDMuNTczIDcyLjAyNTUgMTQzLjM2OSA3MS45NTMxWk0xNTMuMzk4IDg2Ljk0N0MxNTQuNjg2IDg4LjI0MTQgMTU0LjkwNSA4OC41MTMgMTU1LjAyNCA4OC44MDAxQzE1Mi4xNzUgODguODAwMiAxNTAuODIzIDg4Ljc5ODYgMTQ5LjAxNyA4OC41NTU3QzE0Ny4xNDIgODguMzAzNiAxNDUuNTYzIDg3Ljc2NDIgMTQ0LjMwOSA4Ni41MTAyQzE0My4wNTUgODUuMjU2MiAxNDIuNTE2IDgzLjY3NzMgMTQyLjI2MyA4MS44MDIxQzE0Mi4wMjEgNzkuOTk5NiAxNDIuMDIxIDc4LjY1MDIgMTQyLjAyMSA3NS44MTNWNzUuNzk1NkMxNDIuNCA3NS45MDk1IDE0Mi42OTQgNzYuMTg3NSAxNDMuODA1IDc3LjMwMzZMMTUzLjM5OCA4Ni45NDdaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
+  ppt: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNGRjQ4MDAiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTQwLjE0IDcxLjYwNDVDMTQxLjMyOCA3MS42MDI5IDE0Mi4zNzkgNzEuNjAxNSAxNDMuMzY5IDcxLjk1MjlDMTQzLjU3MyA3Mi4wMjUzIDE0My43NzQgNzIuMTA4NiAxNDMuOTY5IDcyLjIwMjVDMTQ0LjkxNiA3Mi42NTggMTQ1LjY1OSA3My40MDYxIDE0Ni40OTcgNzQuMjUxMkwxNTYuNDYxIDg0LjI2NzFDMTU3LjQzNSA4NS4yNDI5IDE1OC4yOTkgODYuMTA4OCAxNTguNzY2IDg3LjI0MTdDMTU5LjIzMyA4OC4zNzQ1IDE1OS4yMzEgODkuNjAxIDE1OS4yMjkgOTAuOTgzVjkxLjM5NjFDMTU5LjIyOSA5NC4zNDI0IDE1OS4yMjkgOTUuODE1NSAxNTguMzEzIDk2LjczMDdDMTU3LjM5OCA5Ny42NDU5IDE1NS45MjUgOTcuNjQ1OSAxNTIuOTc5IDk3LjY0NTlIMTI5LjAyMUMxMjYuMDc0IDk3LjY0NTkgMTI0LjYwMSA5Ny42NDU5IDEyMy42ODYgOTYuNzMwNUMxMjIuNzcxIDk1LjgxNTMgMTIyLjc3MSA5NC4zNDIyIDEyMi43NzEgOTEuMzk1OVY4OC42OTNDMTIyLjc3MSA4NS40OTc5IDEyMi43NzEgODIuOTIxNyAxMjMuMDA5IDgwLjg3MjFDMTIzLjI1NSA3OC43NTEzIDEyMy43NzkgNzYuOTM0MiAxMjUuMDE0IDc1LjM5NUMxMjUuNDY3IDc0LjgyOTkgMTI1Ljk3OSA3NC4zMTUyIDEyNi41NDEgNzMuODU5N0MxMjguMDczIDcyLjYxODYgMTI5Ljg4IDcyLjA5MTUgMTMxLjk5IDcxLjg0MzlDMTM0LjAyOSA3MS42MDQ2IDEzNi45NjIgNzEuNjA0NCAxNDAuMTQgNzEuNjA0NVpNMTU1LjAyNCA4OC43OTk5QzE1NC45MDUgODguNTEyOCAxNTQuNjg2IDg4LjI0MTEgMTUzLjM5OCA4Ni45NDY4TDE0My44MDUgNzcuMzAzM0MxNDIuNjk0IDc2LjE4NzIgMTQyLjQgNzUuOTA5MyAxNDIuMDIxIDc1Ljc5NTNWNzUuODEyOEMxNDIuMDIxIDc4LjY1IDE0Mi4wMjEgNzkuOTk5NCAxNDIuMjYzIDgxLjgwMTlDMTQyLjUxNiA4My42NzcxIDE0My4wNTUgODUuMjU2IDE0NC4zMDkgODYuNTFDMTQ1LjU2MyA4Ny43NjQgMTQ3LjE0MiA4OC4zMDM0IDE0OS4wMTcgODguNTU1NUMxNTAuODIzIDg4Ljc5ODMgMTUyLjE3NSA4OC43OTk5IDE1NS4wMjQgODguNzk5OVpNMTI0LjMzMyAxMDAuNzcxQzEyMy40NyAxMDAuNzcxIDEyMi43NzEgMTAxLjQ3MSAxMjIuNzcxIDEwMi4zMzNWMTE0LjgzM0MxMjIuNzcxIDExNS42OTYgMTIzLjQ3IDExNi4zOTYgMTI0LjMzMyAxMTYuMzk2QzEyNS4xOTYgMTE2LjM5NiAxMjUuODk2IDExNS42OTYgMTI1Ljg5NiAxMTQuODMzVjExMC4xNDZIMTI4LjVDMTMxLjA4OSAxMTAuMTQ2IDEzMy4xODcgMTA4LjA0NyAxMzMuMTg3IDEwNS40NThDMTMzLjE4NyAxMDIuODcgMTMxLjA4OSAxMDAuNzcxIDEyOC41IDEwMC43NzFIMTI0LjMzM1pNMTI4LjUgMTA3LjAyMUgxMjUuODk2VjEwMy44OTZIMTI4LjVDMTI5LjM2MyAxMDMuODk2IDEzMC4wNjIgMTA0LjU5NiAxMzAuMDYyIDEwNS40NThDMTMwLjA2MiAxMDYuMzIxIDEyOS4zNjMgMTA3LjAyMSAxMjguNSAxMDcuMDIxWk0xMzYuODMzIDEwMC43NzFDMTM1Ljk3IDEwMC43NzEgMTM1LjI3MSAxMDEuNDcxIDEzNS4yNzEgMTAyLjMzM1YxMTQuODMzQzEzNS4yNzEgMTE1LjY5NiAxMzUuOTcgMTE2LjM5NiAxMzYuODMzIDExNi4zOTZDMTM3LjY5NiAxMTYuMzk2IDEzOC4zOTYgMTE1LjY5NiAxMzguMzk2IDExNC44MzNWMTEwLjE0NkgxNDFDMTQzLjU4OSAxMTAuMTQ2IDE0NS42ODcgMTA4LjA0NyAxNDUuNjg3IDEwNS40NThDMTQ1LjY4NyAxMDIuODcgMTQzLjU4OSAxMDAuNzcxIDE0MSAxMDAuNzcxSDEzNi44MzNaTTE0MSAxMDcuMDIxSDEzOC4zOTZWMTAzLjg5NkgxNDFDMTQxLjg2MyAxMDMuODk2IDE0Mi41NjIgMTA0LjU5NiAxNDIuNTYyIDEwNS40NThDMTQyLjU2MiAxMDYuMzIxIDE0MS44NjMgMTA3LjAyMSAxNDEgMTA3LjAyMVpNMTQ5LjMzMyAxMDAuNzcxQzE0OC40NyAxMDAuNzcxIDE0Ny43NzEgMTAxLjQ3MSAxNDcuNzcxIDEwMi4zMzNDMTQ3Ljc3MSAxMDMuMTk2IDE0OC40NyAxMDMuODk2IDE0OS4zMzMgMTAzLjg5NkgxNTEuOTM3VjExNC44MzNDMTUxLjkzNyAxMTUuNjk2IDE1Mi42MzcgMTE2LjM5NiAxNTMuNSAxMTYuMzk2QzE1NC4zNjMgMTE2LjM5NiAxNTUuMDYyIDExNS42OTYgMTU1LjA2MiAxMTQuODMzVjEwMy44OTZIMTU3LjY2N0MxNTguNTI5IDEwMy44OTYgMTU5LjIyOSAxMDMuMTk2IDE1OS4yMjkgMTAyLjMzM0MxNTkuMjI5IDEwMS40NzEgMTU4LjUyOSAxMDAuNzcxIDE1Ny42NjcgMTAwLjc3MUgxNDkuMzMzWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==",
+  xls: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiMxMEI5ODEiLz4KPHBhdGggZD0iTTEyMi41MDQgMTAyLjU0NkMxMjMuMjczIDEwMi4wMzMgMTI0LjMxMiAxMDIuMjQxIDEyNC44MjUgMTAzLjAxTDEyNy44OTUgMTA3LjYxNUwxMzAuOTY2IDEwMy4wMUMxMzEuNDc4IDEwMi4yNDEgMTMyLjUxNyAxMDIuMDMzIDEzMy4yODYgMTAyLjU0NkMxMzQuMDU1IDEwMy4wNTggMTM0LjI2MyAxMDQuMDk3IDEzMy43NTEgMTA0Ljg2NkwxMjkuOTA3IDExMC42MzJMMTMzLjc1MSAxMTYuMzk4QzEzNC4yNjMgMTE3LjE2NyAxMzQuMDU1IDExOC4yMDYgMTMzLjI4NiAxMTguNzE5QzEzMi41MTcgMTE5LjIzMSAxMzEuNDc4IDExOS4wMjMgMTMwLjk2NiAxMTguMjU0TDEyNy44OTUgMTEzLjY0OUwxMjQuODI1IDExOC4yNTRDMTI0LjMxMiAxMTkuMDIzIDEyMy4yNzMgMTE5LjIzMSAxMjIuNTA0IDExOC43MTlDMTIxLjczNSAxMTguMjA2IDEyMS41MjggMTE3LjE2NyAxMjIuMDQgMTE2LjM5OEwxMjUuODg0IDExMC42MzJMMTIyLjA0IDEwNC44NjZDMTIxLjUyOCAxMDQuMDk3IDEyMS43MzUgMTAzLjA1OCAxMjIuNTA0IDEwMi41NDZaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTU4Ljc3OCAxMDIuMjY1QzE1OS43MDMgMTAyLjI2NSAxNjAuNDUyIDEwMy4wMTQgMTYwLjQ1MiAxMDMuOTM4QzE2MC40NTIgMTA0Ljg2MyAxNTkuNzAzIDEwNS42MTIgMTU4Ljc3OCAxMDUuNjEySDE1Ni4yOTlDMTU1Ljc3OSAxMDUuNjEyIDE1NS40NzcgMTA1LjYxMyAxNTUuMjU0IDEwNS42MjlDMTU1LjA0MSAxMDUuNjM4IDE1NC45MTIgMTA1LjgxOSAxNTQuODc0IDEwNS45MDhDMTU0Ljc5IDEwNi4yMDUgMTU0Ljc4MSAxMDYuNTk4IDE1NC43ODEgMTA3LjI4NUMxNTQuNzgxIDEwNy45NzMgMTU0Ljc5IDEwOC4zNjYgMTU0Ljg3NCAxMDguNjYyQzE1NC45MDkgMTA4Ljc1MiAxNTUuMDM0IDEwOC45MzMgMTU1LjI1NCAxMDguOTQyQzE1NS40NzcgMTA4Ljk1OCAxNTUuODI4IDEwOC45NTkgMTU2LjM0OCAxMDguOTU5QzE1Ni44MDEgMTA4Ljk1OSAxNTcuMjI1IDEwOC45NTkgMTU3LjU4MiAxMDguOTg0QzE1Ny45NjkgMTA5LjAxMiAxNTguNDAyIDEwOS4wNzYgMTU4Ljg0MyAxMDkuMjY3QzE2MC4wNDggMTA5Ljc5MSAxNjAuNjY4IDExMC43MjYgMTYwLjk0MSAxMTEuNjg0QzE2MS4xNjUgMTEyLjQ3IDE2MS4xNjQgMTEzLjUyOCAxNjEuMTYzIDExNC4wODVDMTYxLjE2NCAxMTQuNjQzIDE2MS4xNjUgMTE1LjQ4OSAxNjAuOTQxIDExNi4yNzVDMTYwLjY2OCAxMTcuMjMzIDE2MC4wNDggMTE4LjE2OCAxNTguODQzIDExOC42OTFDMTU4LjQwMiAxMTguODgzIDE1Ny45NjkgMTE4Ljk0NyAxNTcuNTgyIDExOC45NzRDMTU3LjIyNSAxMTkgMTU2LjgwMSAxMTkgMTU2LjM0OCAxMTlIMTUzLjU5N0MxNTIuNjczIDExOSAxNTEuOTI0IDExOC4yNTEgMTUxLjkyNCAxMTcuMzI3QzE1MS45MjQgMTE2LjQwMiAxNTIuNjczIDExNS42NTMgMTUzLjU5NyAxMTUuNjUzSDE1Ni4yOTlDMTU2LjgxOCAxMTUuNjUzIDE1Ny4xMiAxMTUuNjUyIDE1Ny4zNDMgMTE1LjYzNkMxNTcuNDM4IDExNS42MyAxNTcuNjQ4IDExNS41NjYgMTU3LjcyMiAxMTUuMzU2QzE1Ny44MDcgMTE1LjA2IDE1Ny44MTUgMTE0LjY2NyAxNTcuODE1IDExMy45NzlDMTU3LjgxNSAxMTMuMjkyIDE1Ny44MDcgMTEyLjg5OSAxNTcuNzIyIDExMi42MDJDMTU3LjY4IDExMi4zOTMgMTU3LjQ1MiAxMTIuMzI5IDE1Ny4zNDMgMTEyLjMyM0MxNTcuMTIgMTEyLjMwNyAxNTYuNzY4IDExMi4zMDYgMTU2LjI0OSAxMTIuMzA2QzE1NS43OTYgMTEyLjMwNiAxNTUuMzcyIDExMi4zMDYgMTU1LjAxNSAxMTIuMjhDMTU0LjYyOCAxMTIuMjUzIDE1NC4xOTUgMTEyLjE4OSAxNTMuNzU0IDExMS45OTdDMTUyLjYyMSAxMTEuNTA1IDE1MS45MjkgMTEwLjUzOSAxNTEuNjU2IDEwOS41ODFDMTUxLjQzMiAxMDguNzk1IDE1MS40MzMgMTA3LjczNiAxNTEuNDM0IDEwNy4xNzlDMTUxLjQzMyAxMDYuNjIyIDE1MS40MzIgMTA1Ljc3NiAxNTEuNjU2IDEwNC45OUMxNTEuOTI5IDEwNC4wMzIgMTUyLjU0OSAxMDMuMDk3IDE1My43NTQgMTAyLjU3M0MxNTQuMTk1IDEwMi4zODIgMTU0LjYyOCAxMDIuMzE4IDE1NS4wMTUgMTAyLjI5QzE1NS4zNzIgMTAyLjI2NSAxNTUuNzk2IDEwMi4yNjUgMTU2LjI0OSAxMDIuMjY1SDE1OC43NzhaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMjIuNTA0IDEwMi41NDZDMTIzLjI3MyAxMDIuMDMzIDEyNC4zMTIgMTAyLjI0MSAxMjQuODI1IDEwMy4wMUwxMjcuODk1IDEwNy42MTVMMTMwLjk2NiAxMDMuMDFDMTMxLjQ3OCAxMDIuMjQxIDEzMi41MTcgMTAyLjAzMyAxMzMuMjg2IDEwMi41NDZDMTM0LjA1NSAxMDMuMDU4IDEzNC4yNjMgMTA0LjA5NyAxMzMuNzUxIDEwNC44NjZMMTI5LjkwNyAxMTAuNjMyTDEzMy43NTEgMTE2LjM5OEMxMzQuMjYzIDExNy4xNjcgMTM0LjA1NSAxMTguMjA2IDEzMy4yODYgMTE4LjcxOUMxMzIuNTE3IDExOS4yMzEgMTMxLjQ3OCAxMTkuMDIzIDEzMC45NjYgMTE4LjI1NEwxMjcuODk1IDExMy42NDlMMTI0LjgyNSAxMTguMjU0QzEyNC4zMTIgMTE5LjAyMyAxMjMuMjczIDExOS4yMzEgMTIyLjUwNCAxMTguNzE5QzEyMS43MzUgMTE4LjIwNiAxMjEuNTI4IDExNy4xNjcgMTIyLjA0IDExNi4zOThMMTI1Ljg4NCAxMTAuNjMyTDEyMi4wNCAxMDQuODY2QzEyMS41MjggMTA0LjA5NyAxMjEuNzM1IDEwMy4wNTggMTIyLjUwNCAxMDIuNTQ2Wk0xNDAuMTY4IDEwMi4yNjVDMTQxLjA5MiAxMDIuMjY1IDE0MS44NDEgMTAzLjAxNCAxNDEuODQxIDEwMy45MzhWMTEyLjg2NEMxNDEuODQxIDExMy45NjMgMTQxLjg0NSAxMTQuNjE5IDE0MS45MDggMTE1LjA4OUMxNDEuOTM3IDExNS4zMDQgMTQxLjk3MSAxMTUuNDEyIDE0MS45OTEgMTE1LjQ2MUMxNDEuOTk2IDExNS40NzIgMTQxLjk5OSAxMTUuNDggMTQyLjAwMiAxMTUuNDg0TDE0Mi4wMDUgMTE1LjQ4OUwxNDIuMDEgMTE1LjQ5MkMxNDIuMDE0IDExNS40OTUgMTQyLjAyMiAxMTUuNDk4IDE0Mi4wMzMgMTE1LjUwM0MxNDIuMDgyIDExNS41MjMgMTQyLjE5IDExNS41NTcgMTQyLjQwNSAxMTUuNTg2QzE0Mi44NzUgMTE1LjY0OSAxNDMuNTMxIDExNS42NTMgMTQ0LjYzIDExNS42NTNIMTQ2Ljg2MkMxNDcuNzg2IDExNS42NTMgMTQ4LjUzNSAxMTYuNDAyIDE0OC41MzUgMTE3LjMyNkMxNDguNTM1IDExOC4yNSAxNDcuNzg2IDExOSAxNDYuODYyIDExOUgxNDQuNjNDMTQ0LjU5NyAxMTkgMTQ0LjU2NCAxMTkgMTQ0LjUzMSAxMTlDMTQzLjU2NSAxMTkgMTQyLjY3OSAxMTkgMTQxLjk1OSAxMTguOTAzQzE0MS4xNjYgMTE4Ljc5NiAxNDAuMzI4IDExOC41NDUgMTM5LjYzOCAxMTcuODU2QzEzOC45NDkgMTE3LjE2NiAxMzguNjk4IDExNi4zMjggMTM4LjU5MSAxMTUuNTM1QzEzOC40OTQgMTE0LjgxNSAxMzguNDk0IDExMy45MjkgMTM4LjQ5NCAxMTIuOTYzQzEzOC40OTQgMTEyLjkzIDEzOC40OTQgMTEyLjg5NyAxMzguNDk0IDExMi44NjRWMTAzLjkzOEMxMzguNDk0IDEwMy4wMTQgMTM5LjI0NCAxMDIuMjY1IDE0MC4xNjggMTAyLjI2NVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGxSdWxlPSJldmVub2RkIiBjbGlwUnVsZT0iZXZlbm9kZCIgZD0iTTEzOS41NTUgNjkuMDAwMkMxNDAuODkyIDY4Ljk5ODUgMTQyLjA3NSA2OC45OTY5IDE0My4xOSA2OS4zOTI1QzE0My40MiA2OS40NzQgMTQzLjY0NiA2OS41Njc4IDE0My44NjUgNjkuNjczNUMxNDQuOTMyIDcwLjE4NjQgMTQ1Ljc2OCA3MS4wMjg2IDE0Ni43MTIgNzEuOThMMTU3LjkzIDgzLjI1NjJDMTU5LjAyNiA4NC4zNTQ3IDE1OS45OTkgODUuMzI5NiAxNjAuNTI0IDg2LjYwNUMxNjEuMDUgODcuODgwMyAxNjEuMDQ4IDg5LjI2MTIgMTYxLjA0NSA5MC44MTcxVjkxLjI4MjJDMTYxLjA0NSA5NC41OTkxIDE2MS4wNDUgOTYuMjU3NiAxNjAuMDE1IDk3LjI4OEMxNTguOTg0IDk4LjMxODQgMTU3LjMyNiA5OC4zMTg0IDE1NC4wMDkgOTguMzE4NEgxMjcuMDM2QzEyMy43MTkgOTguMzE4NCAxMjIuMDYxIDk4LjMxODQgMTIxLjAzIDk3LjI4NzhDMTIwIDk2LjI1NzQgMTIwIDk0LjU5ODkgMTIwIDkxLjI4MTlWODguMjM4OUMxMjAgODQuNjQxOCAxMjAgODEuNzQxNSAxMjAuMjY4IDc5LjQzNEMxMjAuNTQ1IDc3LjA0NjQgMTIxLjEzNiA3NS4wMDA2IDEyMi41MjYgNzMuMjY3N0MxMjMuMDM2IDcyLjYzMTYgMTIzLjYxMiA3Mi4wNTIxIDEyNC4yNDUgNzEuNTM5MkMxMjUuOTY5IDcwLjE0MiAxMjguMDA0IDY5LjU0ODYgMTMwLjM3OSA2OS4yNjk4QzEzMi42NzUgNjkuMDAwNCAxMzUuOTc3IDY5LjAwMDIgMTM5LjU1NSA2OS4wMDAyWk0xNTYuMzExIDg4LjM1OTNDMTU2LjE3OCA4OC4wMzYgMTU1LjkzMSA4Ny43MzAyIDE1NC40ODEgODYuMjczTDE0My42OCA3NS40MTYxQzE0Mi40MyA3NC4xNTk2IDE0Mi4wOTkgNzMuODQ2NyAxNDEuNjczIDczLjcxODRWNzMuNzM4MUMxNDEuNjczIDc2LjkzMjMgMTQxLjY3MyA3OC40NTE1IDE0MS45NDUgODAuNDgwN0MxNDIuMjI5IDgyLjU5MTkgMTQyLjgzNiA4NC4zNjk1IDE0NC4yNDggODUuNzgxM0MxNDUuNjYgODcuMTkzIDE0Ny40MzggODcuODAwMyAxNDkuNTQ5IDg4LjA4NDFDMTUxLjU4MiA4OC4zNTc1IDE1My4xMDMgODguMzU5MyAxNTYuMzExIDg4LjM1OTNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
+  videoPlay: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTBweCIgaGVpZ2h0PSI1MHB4IiB2aWV3Qm94PSIwIDAgMTAyNC4wMCAxMDI0LjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIwLjAxMDI0Ij48ZyBpZD0iU1ZHUmVwb19iZ0NhcnJpZXIiIHN0cm9rZS13aWR0aD0iMCI+PC9nPjxnIGlkPSJTVkdSZXBvX3RyYWNlckNhcnJpZXIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlTGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iNC4wOTYiPjwvZz48ZyBpZD0iU1ZHUmVwb19pY29uQ2FycmllciI+PHBhdGggZmlsbD0iI2VmZWZlZiIgZD0iTTUxMiA2NGE0NDggNDQ4IDAgMSAxIDAgODk2IDQ0OCA0NDggMCAwIDEgMC04OTZ6bTAgODMyYTM4NCAzODQgMCAwIDAgMC03NjggMzg0IDM4NCAwIDAgMCAwIDc2OHptLTQ4LTI0Ny42MTZMNjY4LjYwOCA1MTIgNDY0IDM3NS42MTZ2MjcyLjc2OHptMTAuNjI0LTM0Mi42NTYgMjQ5LjQ3MiAxNjYuMzM2YTQ4IDQ4IDAgMCAxIDAgNzkuODcyTDQ3NC42MjQgNzE4LjI3MkE0OCA0OCAwIDAgMSA0MDAgNjc4LjMzNlYzNDUuNmE0OCA0OCAwIDAgMSA3NC42MjQtMzkuOTM2eiI+PC9wYXRoPjwvZz48L3N2Zz4K",
+  linkFallback: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiM3QzZERjYiLz4KPHBhdGggZD0iTTEzNi45NTMgOTIuMTQ1NkwxMzcuMjQ2IDkxLjg1MjVDMTQwLjA1IDg5LjA0OTIgMTQ0LjU5NSA4OS4wNDkyIDE0Ny4zOTggOTEuODUyNUMxNTAuMjAxIDk0LjY1NTYgMTUwLjIwMSA5OS4yMDA2IDE0Ny4zOTggMTAyLjAwNEwxNDMuMzM3IDEwNi4wNjRDMTQwLjUzNCAxMDguODY3IDEzNS45ODkgMTA4Ljg2NyAxMzMuMTg2IDEwNi4wNjRDMTMwLjM4MyAxMDMuMjYxIDEzMC4zODMgOTguNzE2MSAxMzMuMTg2IDk1LjkxMjlMMTMzLjg0NCA5NS4yNTUxIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTQ4LjE1NiA5Mi43NDVMMTQ4LjgxNCA5Mi4wODcyQzE1MS42MTcgODkuMjg0IDE1MS42MTcgODQuNzM5MSAxNDguODE0IDgxLjkzNTlDMTQ2LjAxMSA3OS4xMzI3IDE0MS40NjYgNzkuMTMyNyAxMzguNjYzIDgxLjkzNTlMMTM0LjYwMiA4NS45OTY0QzEzMS43OTkgODguNzk5NiAxMzEuNzk5IDkzLjM0NDUgMTM0LjYwMiA5Ni4xNDc3QzEzNy40MDYgOTguOTUxIDE0MS45NTEgOTguOTUxIDE0NC43NTQgOTYuMTQ3N0wxNDUuMDQ3IDk1Ljg1NDYiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo="
+};
+
+// src/components/assets/context.tsx
+import { jsx as jsx52 } from "react/jsx-runtime";
+var DEFAULT_FLAGS = {
+  folders: true,
+  links: false,
+  canvas: false,
+  dragDrop: false,
+  upload: true
+};
+var AssetsContext = React23.createContext(null);
+function AssetsProvider({
+  client,
+  api,
+  spaceUuid,
+  features,
+  upload,
+  navigation,
+  images,
+  rtl,
+  children
+}) {
+  const { i18n } = useNitxUiTranslation();
+  const language = i18n?.resolvedLanguage ?? i18n?.language;
+  const reset = useAssetsStore((s) => s.reset);
+  React23.useEffect(() => {
+    reset();
+  }, [spaceUuid, reset]);
+  const resolvedApi = React23.useMemo(() => {
+    if (api) return api;
+    if (client) return createAssetsApi(client);
+    throw new Error("AssetsProvider requires either an `api` or a `client`.");
+  }, [api, client]);
+  const resolvedUpload = React23.useMemo(() => {
+    if (!upload?.getAccessToken) return void 0;
+    return {
+      endpoint: upload.endpoint ?? `${process.env.NEXT_PUBLIC_API_URL}/api/tus`,
+      companionUrl: upload.companionUrl ?? process.env.NEXT_PUBLIC_COMPANION_URL ?? "http://localhost:3020",
+      getAccessToken: upload.getAccessToken,
+      maxFileSize: upload.maxFileSize,
+      allowedFileTypes: upload.allowedFileTypes
+    };
+  }, [upload]);
+  const value = React23.useMemo(
+    () => ({
+      api: resolvedApi,
+      spaceUuid,
+      features: { ...DEFAULT_FLAGS, ...features },
+      upload: resolvedUpload,
+      navigation,
+      images: { ...DEFAULT_ASSET_IMAGES, ...images },
+      rtl: rtl ?? language?.toLowerCase().startsWith("ar") ?? false
+    }),
+    [
+      resolvedApi,
+      spaceUuid,
+      features,
+      resolvedUpload,
+      navigation,
+      images,
+      rtl,
+      language
+    ]
+  );
+  return /* @__PURE__ */ jsx52(AssetsContext.Provider, { value, children });
+}
+function useAssetsConfig() {
+  const context = React23.useContext(AssetsContext);
+  if (!context) {
+    throw new Error("useAssetsConfig must be used within an <AssetsProvider>");
+  }
+  return context;
+}
+function useOptionalAssetsConfig() {
+  return React23.useContext(AssetsContext);
+}
+
+// src/components/assets/lib/create-asset-uploader.ts
+import Uppy2 from "@uppy/core";
+import Dropbox2 from "@uppy/dropbox";
+import GoogleDrive2 from "@uppy/google-drive";
+import Tus2 from "@uppy/tus";
+import { toast as toast6 } from "sonner";
+var DEFAULT_MAX_UPLOAD_SIZE_BYTES = 1024 * 1024 * 1024;
+var ALLOWED_ASSET_UPLOAD_FILE_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/gif",
+  ".mp4",
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+];
+function createAssetUploader({
+  accessToken,
+  companionUrl,
+  currentFolderUuid,
+  messages,
+  onClose,
+  onUploadComplete,
+  spaceUuid,
+  uploadEndpoint,
+  maxFileSize,
+  allowedFileTypes
+}) {
+  return new Uppy2({
+    autoProceed: true,
+    allowMultipleUploadBatches: true,
+    restrictions: {
+      maxFileSize: maxFileSize ?? DEFAULT_MAX_UPLOAD_SIZE_BYTES,
+      allowedFileTypes: allowedFileTypes ?? [...ALLOWED_ASSET_UPLOAD_FILE_TYPES]
+    }
+  }).use(Dropbox2, { companionUrl }).use(GoogleDrive2, { companionUrl }).use(Tus2, {
+    endpoint: uploadEndpoint,
+    chunkSize: 5 * 1024 * 1024,
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      "X-Space-Uuid": spaceUuid,
+      "X-Folder-Uuid": currentFolderUuid ?? "root"
+    },
+    removeFingerprintOnSuccess: true,
+    retryDelays: [0, 1e3, 3e3, 5e3],
+    allowedMetaFields: true
+  }).on("upload-success", (file) => {
+    toast6.success(
+      `${file?.name ?? "File"} ${messages.fileUploadedSuccessfully}`
+    );
+  }).on("complete", (result) => {
+    if ((result.successful ?? []).length > 0) {
+      toast6.loading(messages.processingUploads, {
+        id: "upload-processing",
+        description: messages.filesWillAppear
+      });
+    }
+    onUploadComplete();
+    onClose();
+    window.setTimeout(() => toast6.dismiss("upload-processing"), 2e3);
+  }).on("error", (error) => {
+    toast6.error(messages.uploadFailed, {
+      description: error.message || messages.pleaseTryAgain
+    });
+  });
+}
+
+// src/components/assets/hooks/use-assets-query.ts
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast as toast7 } from "sonner";
+var assetKeys = {
+  all: (spaceUuid) => ["assets", spaceUuid ?? "no-space"],
+  list: (spaceUuid, folderId) => [...assetKeys.all(spaceUuid), "list", folderId]
+};
+function useAssetsQuery(folderId, options) {
+  const { api, spaceUuid, features } = useAssetsConfig();
+  return useQuery({
+    queryKey: assetKeys.list(spaceUuid, features.folders ? folderId : null),
+    queryFn: async () => {
+      if (!features.folders) {
+        const assets = await api.fetchAssets();
+        return { assets, folders: [] };
+      }
+      return api.fetchAssetsAndFolders(folderId);
+    },
+    staleTime: 1e3 * 60 * 5,
+    enabled: (options?.enabled ?? true) && !!spaceUuid
+  });
+}
+function useDeleteAssetMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async (uuids) => {
+      await api.deleteAssets(uuids);
+    },
+    onMutate: async (uuids) => {
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
+      queryClient.setQueryData(key, (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          assets: old.assets.filter((a) => !uuids.includes(a.uuid))
+        };
+      });
+      return { previousData };
+    },
+    onError: (err, uuids, context) => {
+      queryClient.setQueryData(key, context?.previousData);
+      toast7.error(t("assets.mutations.deleteAssetFailed"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+    }
+  });
+}
+function useCreateFolderMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async ({
+      name,
+      parentId
+    }) => {
+      return api.createFolder(name, parentId);
+    },
+    onMutate: async (newFolder) => {
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
+      queryClient.setQueryData(key, (old) => {
+        if (!old) return old;
+        const optimisticFolder = {
+          id: `temp-${Date.now()}`,
+          uuid: `temp-${Date.now()}`,
+          name: newFolder.name,
+          parent_id: newFolder.parentId,
+          assets_count: 0,
+          children: [],
+          created_at: (/* @__PURE__ */ new Date()).toISOString(),
+          updated_at: (/* @__PURE__ */ new Date()).toISOString()
+        };
+        return {
+          ...old,
+          folders: [...old.folders || [], optimisticFolder]
+        };
+      });
+      return { previousData };
+    },
+    onError: (err, newFolder, context) => {
+      queryClient.setQueryData(key, context?.previousData);
+      toast7.error(t("assets.mutations.createFolderFailed"));
+    },
+    onSuccess: () => {
+      toast7.success(t("assets.mutations.createFolderSuccess"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+    }
+  });
+}
+function useDeleteFolderMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async (id) => {
+      await api.deleteFolder(id);
+    },
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
+      queryClient.setQueryData(key, (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          folders: old.folders.filter((f) => f.id !== id)
+        };
+      });
+      return { previousData };
+    },
+    onError: (err, id, context) => {
+      queryClient.setQueryData(key, context?.previousData);
+      toast7.error(t("assets.mutations.deleteFolderFailed"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+    }
+  });
+}
+function useBulkDeleteFoldersMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async (folderIds) => {
+      await api.deleteFolders(folderIds);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+      toast7.success(t("assets.mutations.deleteFoldersSuccess"));
+    },
+    onError: () => {
+      toast7.error(t("assets.mutations.deleteFoldersFailed"));
+    }
+  });
+}
+function useRenameAssetMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async ({ id, name }) => {
+      await api.renameAsset(id, name);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+      toast7.success(t("assets.mutations.renameAssetSuccess"));
+    },
+    onError: () => {
+      toast7.error(t("assets.mutations.renameAssetFailed"));
+    }
+  });
+}
+function useRenameFolderMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  const key = assetKeys.list(spaceUuid, folderId);
+  return useMutation({
+    mutationFn: async ({
+      id,
+      name,
+      parentId
+    }) => {
+      await api.updateFolder(id, { name, parent_id: parentId });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: key });
+      toast7.success(t("assets.mutations.renameFolderSuccess"));
+    },
+    onError: () => {
+      toast7.error(t("assets.mutations.renameFolderFailed"));
+    }
+  });
+}
+function useMoveAssetMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  return useMutation({
+    mutationFn: async ({
+      uuids,
+      destinationId
+    }) => {
+      await api.moveAssets(uuids, destinationId);
+      return { destinationId };
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: assetKeys.list(spaceUuid, folderId)
+      });
+      if (data.destinationId !== folderId) {
+        queryClient.invalidateQueries({
+          queryKey: assetKeys.list(spaceUuid, data.destinationId)
+        });
+      }
+      toast7.success(t("assets.mutations.moveAssetsSuccess"));
+    },
+    onError: () => {
+      toast7.error(t("assets.mutations.moveAssetsFailed"));
+    }
+  });
+}
+function useMoveFolderMutation(folderId) {
+  const queryClient = useQueryClient();
+  const { api, spaceUuid } = useAssetsConfig();
+  const { t } = useNitxUiTranslation();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      parentId
+    }) => {
+      await api.updateFolder(id, { parent_id: parentId });
+      return { parentId };
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: assetKeys.list(spaceUuid, folderId)
+      });
+      if (data.parentId !== folderId) {
+        queryClient.invalidateQueries({
+          queryKey: assetKeys.list(spaceUuid, data.parentId)
+        });
+      }
+      toast7.success(t("assets.mutations.moveFolderSuccess"));
+    },
+    onError: () => {
+      toast7.error(t("assets.mutations.moveFolderFailed"));
+    }
+  });
+}
+
+// src/components/assets/hooks/use-lazy-loading.ts
+import { useState as useState14, useEffect as useEffect12, useRef, useCallback as useCallback2, useMemo as useMemo5 } from "react";
+function useLazyLoading(items, options = {}) {
+  const {
+    itemsPerBatch = 12,
+    // Default to 12 items (2-3 rows in grid view)
+    rootMargin = "100px",
+    threshold = 0.1
+  } = options;
+  const [visibleCount, setVisibleCount] = useState14(itemsPerBatch);
+  const [loadingMore, setLoadingMore] = useState14(false);
+  const observerRef = useRef(null);
+  const visibleItems = useMemo5(() => {
+    return items.slice(0, visibleCount);
+  }, [items, visibleCount]);
+  const hasMore = visibleCount < items.length;
+  useEffect12(() => {
+    setVisibleCount(itemsPerBatch);
+    setLoadingMore(false);
+  }, [items, itemsPerBatch]);
+  const loadMore = useCallback2(() => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + itemsPerBatch, items.length));
+      setLoadingMore(false);
+    }, 100);
+  }, [itemsPerBatch, loadingMore, hasMore, items.length]);
+  const reset = useCallback2(() => {
+    setVisibleCount(itemsPerBatch);
+    setLoadingMore(false);
+  }, [itemsPerBatch]);
+  useEffect12(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && hasMore && !loadingMore) {
+          loadMore();
+        }
+      },
+      {
+        rootMargin,
+        threshold
+      }
+    );
+    const currentObserverRef = observerRef.current;
+    if (currentObserverRef) {
+      observer.observe(currentObserverRef);
+    }
+    return () => {
+      if (currentObserverRef) {
+        observer.unobserve(currentObserverRef);
+      }
+    };
+  }, [loadMore, hasMore, loadingMore, rootMargin, threshold]);
+  return {
+    visibleItems,
+    loadingMore,
+    hasMore,
+    loadMore,
+    reset,
+    observerRef
+  };
+}
+
+// src/components/assets/components/AssetsBrowser.tsx
+import React39, { useEffect as useEffect19, useState as useState23 } from "react";
+import { FolderSymlink, Trash2 as Trash25 } from "lucide-react";
+import { toast as toast9 } from "sonner";
+import { useQueryClient as useQueryClient4 } from "@tanstack/react-query";
+
+// src/components/assets/components/CustomTabbar.tsx
+import { jsx as jsx53, jsxs as jsxs37 } from "react/jsx-runtime";
+var CustomTabbar = ({
+  tabs,
+  activeTab,
+  onTabChange,
+  className,
+  sticky = true
+}) => {
+  return /* @__PURE__ */ jsx53(
+    "div",
+    {
+      className: cn(
+        "w-full bg-card border-y",
+        sticky && "sticky top-0 z-10",
+        className
+      ),
+      children: /* @__PURE__ */ jsx53("div", { className: "flex items-start px-4 pt-3 sm:px-6 gap-4 sm:gap-6 md:gap-8", children: tabs.map((tab) => /* @__PURE__ */ jsxs37(
+        "button",
+        {
+          onClick: () => onTabChange(tab.id),
+          className: cn(
+            "text-xs sm:text-sm font-normal flex items-center gap-2 sm:gap-3 pb-2 sm:pb-3  transition-all duration-200 relative",
+            "hover:text-foreground",
+            activeTab === tab.id ? "border-b border-foreground text-foreground" : "border-b border-transparent text-muted-foreground"
+          ),
+          children: [
+            /* @__PURE__ */ jsx53("span", { className: "flex-shrink-0", children: tab.icon }),
+            /* @__PURE__ */ jsx53("span", { className: "whitespace-nowrap", children: tab.label })
+          ]
+        },
+        tab.id
+      )) })
+    }
+  );
+};
+var CustomTabbar_default = CustomTabbar;
+
+// src/components/assets/components/AssetsTabbar.tsx
+import { jsx as jsx54, jsxs as jsxs38 } from "react/jsx-runtime";
+var AllIcon = /* @__PURE__ */ jsxs38(
+  "svg",
+  {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 19 20",
+    fill: "none",
+    stroke: "currentColor",
+    className: "w-4 h-4 sm:w-[19px] sm:h-5",
+    xmlns: "http://www.w3.org/2000/svg",
+    children: [
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M1.58337 11.9017C1.58337 8.91613 1.58337 7.42335 2.51087 6.49585C3.43836 5.56836 4.93115 5.56836 7.91671 5.56836H11.0834C14.0689 5.56836 15.5617 5.56836 16.4892 6.49585C17.4167 7.42335 17.4167 8.91613 17.4167 11.9017C17.4167 14.8873 17.4167 16.38 16.4892 17.3075C15.5617 18.235 14.0689 18.235 11.0834 18.235H7.91671C4.93115 18.235 3.43836 18.235 2.51087 17.3075C1.58337 16.38 1.58337 14.8873 1.58337 11.9017Z",
+          strokeWidth: "1.2"
+        }
+      ),
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M3.16665 6.36003L3.15698 5.56836C3.24599 4.8313 3.43181 4.32195 3.81976 3.93536C4.56436 3.19336 5.76277 3.19336 8.1596 3.19336H10.7018C13.0987 3.19336 14.2971 3.19336 15.0417 3.93536C15.4296 4.32195 15.6154 4.8313 15.7044 5.56836V6.36003",
+          strokeWidth: "1.2"
+        }
+      ),
+      /* @__PURE__ */ jsx54("circle", { cx: "13.8541", cy: "9.13086", r: "1.1875", strokeWidth: "1.2" }),
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M1.58337 12.2976L2.97005 11.0843C3.69147 10.4531 4.77876 10.4893 5.45659 11.1671L8.85262 14.5631C9.39668 15.1072 10.2531 15.1814 10.8826 14.739L11.1187 14.5731C12.0245 13.9364 13.2501 14.0102 14.0731 14.7509L16.625 17.0476",
+          strokeWidth: "1.2",
+          strokeLinecap: "round"
+        }
+      )
+    ]
+  }
+);
+var MediaIcon = /* @__PURE__ */ jsxs38(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 19 19",
+    fill: "none",
+    className: "w-4 h-4 sm:w-[19px] sm:h-[19px]",
+    children: [
+      /* @__PURE__ */ jsxs38("g", { clipPath: "url(#clip_nitxui_assets_media)", children: [
+        /* @__PURE__ */ jsx54(
+          "path",
+          {
+            d: "M1.58337 9.49992C1.58337 5.76797 1.58337 3.90199 2.74274 2.74262C3.90211 1.58325 5.76809 1.58325 9.50004 1.58325C13.232 1.58325 15.098 1.58325 16.2573 2.74262C17.4167 3.90199 17.4167 5.76797 17.4167 9.49992C17.4167 13.2319 17.4167 15.0978 16.2573 16.2572C15.098 17.4166 13.232 17.4166 9.50004 17.4166C5.76809 17.4166 3.90211 17.4166 2.74274 16.2572C1.58337 15.0978 1.58337 13.2319 1.58337 9.49992Z",
+            stroke: "currentColor",
+            strokeWidth: "1.2"
+          }
+        ),
+        /* @__PURE__ */ jsx54(
+          "circle",
+          {
+            cx: "12.6667",
+            cy: "6.33333",
+            r: "1.58333",
+            stroke: "currentColor",
+            strokeWidth: "1.2"
+          }
+        ),
+        /* @__PURE__ */ jsx54(
+          "path",
+          {
+            d: "M3.95837 10.5348L4.60003 9.93885C5.33317 9.2579 6.47841 9.29612 7.16453 10.0244L9.26045 12.2493C9.68652 12.7015 10.384 12.7625 10.882 12.3909C11.5997 11.8556 12.599 11.9164 13.2464 12.5349L15.0417 14.2501",
+            stroke: "currentColor",
+            strokeWidth: "1.2",
+            strokeLinecap: "round"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx54("defs", { children: /* @__PURE__ */ jsx54("clipPath", { id: "clip_nitxui_assets_media", children: /* @__PURE__ */ jsx54("rect", { width: "19", height: "19", fill: "white" }) }) })
+    ]
+  }
+);
+var DocumentIcon = /* @__PURE__ */ jsxs38(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 21 20",
+    fill: "none",
+    className: "w-4 h-4 sm:w-[19px] sm:h-[19px]",
+    children: [
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M7.16699 14.1667H13.8337",
+          stroke: "currentColor",
+          strokeWidth: "1.3",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }
+      ),
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M7.16699 10.8333H10.5003",
+          stroke: "currentColor",
+          strokeWidth: "1.3",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }
+      ),
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M11.333 2.08333V2.5C11.333 4.85702 11.333 6.03553 12.0653 6.76776C12.7975 7.5 13.976 7.5 16.333 7.5H16.7497M17.1663 8.88075V11.6667C17.1663 14.8093 17.1663 16.3807 16.19 17.357C15.2138 18.3333 13.6423 18.3333 10.4997 18.3333C7.35697 18.3333 5.78563 18.3333 4.80932 17.357C3.83301 16.3807 3.83301 14.8093 3.83301 11.6667V7.87986C3.83301 5.17568 3.83301 3.82359 4.5714 2.90777C4.72057 2.72276 4.8891 2.55423 5.07412 2.40506C5.98993 1.66666 7.34202 1.66666 10.0462 1.66666C10.6342 1.66666 10.9281 1.66666 11.1973 1.76167C11.2533 1.78143 11.3082 1.80416 11.3618 1.82979C11.6193 1.95296 11.8272 2.16083 12.2429 2.57656L16.19 6.52369C16.6718 7.00541 16.9126 7.24626 17.0395 7.55255C17.1663 7.85883 17.1663 8.19946 17.1663 8.88075Z",
+          stroke: "currentColor",
+          strokeWidth: "1.3",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }
+      )
+    ]
+  }
+);
+var LinkIcon = /* @__PURE__ */ jsxs38(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 20 20",
+    fill: "none",
+    className: "w-4 h-4 sm:w-[19px] sm:h-[19px]",
+    children: [
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M7.61982 8.90917L7.79225 8.73675C9.44116 7.08777 12.1147 7.08777 13.7636 8.73675C15.4126 10.3857 15.4126 13.0592 13.7636 14.7081L11.3751 17.0966C9.72616 18.7456 7.05265 18.7456 5.4037 17.0966C3.75476 15.4477 3.75476 12.7742 5.4037 11.1253L5.79066 10.7383",
+          stroke: "currentColor",
+          strokeWidth: "1.3",
+          strokeLinecap: "round"
+        }
+      ),
+      /* @__PURE__ */ jsx54(
+        "path",
+        {
+          d: "M14.2097 9.26167L14.5966 8.87475C16.2456 7.22579 16.2456 4.55233 14.5966 2.90338C12.9477 1.25444 10.2742 1.25444 8.62525 2.90338L6.23671 5.29193C4.58776 6.94087 4.58776 9.61434 6.23671 11.2633C7.88566 12.9123 10.5592 12.9123 12.2081 11.2633L12.3805 11.0908",
+          stroke: "currentColor",
+          strokeWidth: "1.3",
+          strokeLinecap: "round"
+        }
+      )
+    ]
+  }
+);
+var AssetsTabbar = ({ className, sticky = true }) => {
+  const { t } = useNitxUiTranslation();
+  const { features } = useAssetsConfig();
+  const activeTab = useAssetsStore((s) => s.activeTab);
+  const setActiveTab = useAssetsStore((s) => s.setActiveTab);
+  const tabs = [
+    { id: "all", label: t("assets.assetsTabbar.all"), icon: AllIcon },
+    { id: "media", label: t("assets.assetsTabbar.media"), icon: MediaIcon },
+    {
+      id: "document",
+      label: t("assets.assetsTabbar.documents"),
+      icon: DocumentIcon
+    },
+    ...features.links ? [
+      {
+        id: "link",
+        label: t("assets.assetsTabbar.links"),
+        icon: LinkIcon
+      }
+    ] : []
+  ];
+  return /* @__PURE__ */ jsx54(
+    CustomTabbar_default,
+    {
+      tabs,
+      sticky,
+      className,
+      activeTab,
+      onTabChange: (tabId) => setActiveTab(tabId)
+    }
+  );
+};
+var AssetsTabbar_default = AssetsTabbar;
+
+// src/components/assets/components/AssetsHeader.tsx
+import { useState as useState15 } from "react";
+import {
+  Search as SearchIcon2,
+  LayoutDashboard,
+  AlignJustify,
+  Plus as Plus2
+} from "lucide-react";
+import { HugeiconsIcon as HugeiconsIcon7 } from "@hugeicons/react";
+import {
+  PlusSignSquareIcon,
+  FolderAddIcon,
+  CheckmarkSquare02Icon
+} from "@hugeicons/core-free-icons";
+
+// src/components/ui/tooltip.tsx
+import * as React24 from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { jsx as jsx55 } from "react/jsx-runtime";
+var TooltipProvider = TooltipPrimitive.Provider;
+var Tooltip = TooltipPrimitive.Root;
+var TooltipTrigger = TooltipPrimitive.Trigger;
+var TooltipContent = React24.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx55(TooltipPrimitive.Portal, { children: /* @__PURE__ */ jsx55(
+  TooltipPrimitive.Content,
+  {
+    ref,
+    sideOffset,
+    className: cn(
+      "z-[9999] overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    ),
+    ...props
+  }
+) }));
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+// src/components/assets/components/AssetsPath.tsx
+import React25 from "react";
+import {
+  ChevronRight as ChevronRight5,
+  ChevronLeft as ChevronLeft2,
+  MoreHorizontal as MoreHorizontal2,
+  FolderIcon,
+  Home as Home2
+} from "lucide-react";
+import { jsx as jsx56, jsxs as jsxs39 } from "react/jsx-runtime";
+var AssetsPath = ({ className }) => {
+  const path = useAssetsStore((s) => s.path);
+  const setPath = useAssetsStore((s) => s.setPath);
+  const navigateTo = (idx) => {
+    setPath(path.slice(0, idx + 1));
+  };
+  const goBack = () => {
+    setPath(path.slice(0, -1));
+  };
+  const buildCrumbs = () => {
+    if (path.length <= 4) return path.map((p, i) => ({ ...p, idx: i }));
+    const first = { ...path[0], idx: 0 };
+    const last = { ...path[path.length - 1], idx: path.length - 1 };
+    const hidden = path.slice(1, -1).map((p, i) => ({ ...p, idx: i + 1 }));
+    return [first, { label: "\u2026", idx: -1, hidden }, last];
+  };
+  const crumbs = buildCrumbs();
+  return /* @__PURE__ */ jsxs39(
+    "div",
+    {
+      className: cn(
+        "flex items-center gap-1 text-sm text-muted-foreground min-w-0 overflow-x-auto scrollbar-none",
+        className
+      ),
+      children: [
+        path.length > 1 && /* @__PURE__ */ jsx56(
+          "button",
+          {
+            onClick: goBack,
+            className: "flex-shrink-0 mr-1 p-1 rounded hover:bg-muted",
+            "aria-label": "Go back one level",
+            type: "button",
+            children: /* @__PURE__ */ jsx56(ChevronLeft2, { className: "w-4 h-4 rtl:rotate-180" })
+          }
+        ),
+        path.length > 0 && crumbs.map((crumb, i) => /* @__PURE__ */ jsxs39(React25.Fragment, { children: [
+          i > 0 && /* @__PURE__ */ jsx56(ChevronRight5, { className: "w-4 h-4 flex-shrink-0 rtl:rotate-180" }),
+          "hidden" in crumb ? /* @__PURE__ */ jsxs39(DropdownMenu, { children: [
+            /* @__PURE__ */ jsx56(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx56(
+              "button",
+              {
+                className: "flex items-center gap-1 px-1 text-muted-foreground hover:text-primary",
+                type: "button",
+                children: /* @__PURE__ */ jsx56(MoreHorizontal2, { className: "w-4 h-4" })
+              }
+            ) }),
+            /* @__PURE__ */ jsx56(DropdownMenuContent, { align: "start", children: crumb.hidden.map((h) => /* @__PURE__ */ jsxs39(
+              DropdownMenuItem,
+              {
+                onSelect: () => navigateTo(h.idx),
+                className: "flex items-center gap-2 cursor-pointer",
+                children: [
+                  /* @__PURE__ */ jsx56(FolderIcon, { className: "w-4 h-4 text-muted-foreground" }),
+                  h.label
+                ]
+              },
+              h.idx
+            )) })
+          ] }) : /* @__PURE__ */ jsxs39(
+            "button",
+            {
+              onClick: () => navigateTo(crumb.idx),
+              disabled: crumb.idx === path.length - 1,
+              className: cn(
+                "flex items-center gap-1 hover:text-primary max-w-[10rem]",
+                crumb.idx === path.length - 1 && "font-semibold text-foreground cursor-default"
+              ),
+              type: "button",
+              children: [
+                crumb.idx === 0 ? /* @__PURE__ */ jsx56(Home2, { className: "w-4 h-4 flex-shrink-0" }) : /* @__PURE__ */ jsx56(FolderIcon, { className: "w-4 h-4 flex-shrink-0" }),
+                /* @__PURE__ */ jsx56("span", { className: "overflow-hidden text-ellipsis whitespace-nowrap inline-block max-w-full", children: crumb.label === "~Root" ? "Root" : crumb.label })
+              ]
+            }
+          )
+        ] }, i))
+      ]
+    }
+  );
+};
+var AssetsPath_default = AssetsPath;
+
+// src/components/assets/components/AssetsHeader.tsx
+import { Fragment as Fragment6, jsx as jsx57, jsxs as jsxs40 } from "react/jsx-runtime";
+var AssetsHeader = ({
+  viewType,
+  onChangeView,
+  enableCheckbox,
+  onEnableCheckbox,
+  onSearch,
+  onUploadClick,
+  onNewFolderClick,
+  onCreateLinkClick
+}) => {
+  const { t } = useNitxUiTranslation();
+  const { features } = useAssetsConfig();
+  const activeTab = useAssetsStore((s) => s.activeTab);
+  const path = useAssetsStore((s) => s.path);
+  const [showMobileMenu, setShowMobileMenu] = useState15(false);
+  const showUpload = features.upload && (activeTab === "all" || activeTab === "media" || activeTab === "document");
+  const showNewFolder = features.folders && activeTab === "all";
+  const showCreateLink = features.links && activeTab === "link" && !!onCreateLinkClick;
+  const handleMobileButtonClick = () => {
+    if (activeTab === "all") {
+      setShowMobileMenu(!showMobileMenu);
+    } else if (activeTab === "link") {
+      onCreateLinkClick?.();
+    } else if (features.upload) {
+      onUploadClick();
+    }
+  };
+  return /* @__PURE__ */ jsx57(TooltipProvider, { children: /* @__PURE__ */ jsxs40("div", { className: "w-full flex flex-col gap-2", children: [
+    /* @__PURE__ */ jsxs40("div", { className: "w-full flex items-center mt-6 gap-4", children: [
+      /* @__PURE__ */ jsxs40("div", { className: "relative flex-grow", children: [
+        /* @__PURE__ */ jsx57(
+          Input2,
+          {
+            type: "search",
+            placeholder: t("assets.assetsHeader.searchPlaceholder"),
+            onChange: onSearch,
+            className: "w-full px-6 border-input rounded-[12px] shadow-none"
+          }
+        ),
+        /* @__PURE__ */ jsx57(SearchIcon2, { className: "w-4 h-4 absolute top-1/2 right-6 rtl:right-auto rtl:left-6 -translate-y-1/2 text-muted-foreground" })
+      ] }),
+      showCreateLink ? /* @__PURE__ */ jsxs40(Tooltip, { children: [
+        /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs40(
+          Button,
+          {
+            "aria-label": t("assets.assetsHeader.createLink"),
+            size: "lg",
+            onClick: onCreateLinkClick,
+            className: "py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden",
+            children: [
+              /* @__PURE__ */ jsx57(
+                HugeiconsIcon7,
+                {
+                  icon: PlusSignSquareIcon,
+                  className: "w-4 h-4 stroke-[1.5] mx-auto text-white"
+                }
+              ),
+              /* @__PURE__ */ jsx57("span", { className: "hidden md:inline", children: t("assets.assetsHeader.createLink") })
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.createLink") })
+      ] }) : /* @__PURE__ */ jsxs40(Fragment6, { children: [
+        showUpload && /* @__PURE__ */ jsxs40(Tooltip, { children: [
+          /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs40(
+            Button,
+            {
+              "aria-label": t("assets.assetsHeader.upload"),
+              onClick: onUploadClick,
+              size: "lg",
+              className: "py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden",
+              children: [
+                /* @__PURE__ */ jsx57(
+                  HugeiconsIcon7,
+                  {
+                    icon: PlusSignSquareIcon,
+                    className: "w-4 h-4 stroke-[1.5] mx-auto text-white"
+                  }
+                ),
+                /* @__PURE__ */ jsx57("span", { className: "hidden md:inline", children: t("assets.assetsHeader.upload") })
+              ]
+            }
+          ) }),
+          /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.upload") })
+        ] }),
+        showNewFolder && /* @__PURE__ */ jsxs40(Tooltip, { children: [
+          /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs40(
+            Button,
+            {
+              "aria-label": t("assets.assetsHeader.newFolder"),
+              variant: "outline",
+              size: "lg",
+              onClick: onNewFolderClick,
+              className: "items-center gap-2 py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex hidden",
+              children: [
+                /* @__PURE__ */ jsx57(
+                  HugeiconsIcon7,
+                  {
+                    icon: FolderAddIcon,
+                    className: "w-4 h-4 stroke-[1.5] mx-auto"
+                  }
+                ),
+                /* @__PURE__ */ jsx57("span", { className: "hidden md:inline", children: t("assets.assetsHeader.newFolder") })
+              ]
+            }
+          ) }),
+          /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.newFolder") })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs40("div", { className: "flex items-center gap-3", children: [
+      features.folders && path.length > 1 && /* @__PURE__ */ jsx57(AssetsPath_default, { className: "w-full flex-1 mb-2 py-2 text-xs" }),
+      /* @__PURE__ */ jsxs40("div", { className: "flex gap-0 ml-auto rtl:ml-0 rtl:mr-auto", children: [
+        /* @__PURE__ */ jsxs40(Tooltip, { children: [
+          /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx57(
+            "button",
+            {
+              onClick: () => onChangeView("grid"),
+              className: cn(
+                "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
+                viewType === "grid" && "text-primary focus:text-primary bg-card shadow-sm"
+              ),
+              children: /* @__PURE__ */ jsx57(LayoutDashboard, { className: "w-4 h-4 stroke-[1.5]" })
+            }
+          ) }),
+          /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.gridView") })
+        ] }),
+        /* @__PURE__ */ jsxs40(Tooltip, { children: [
+          /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx57(
+            "button",
+            {
+              onClick: () => onChangeView("list"),
+              className: cn(
+                "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
+                viewType === "list" && "text-primary focus:text-primary bg-card shadow-sm"
+              ),
+              children: /* @__PURE__ */ jsx57(AlignJustify, { className: "w-4 h-4 stroke-[1.5]" })
+            }
+          ) }),
+          /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.listView") })
+        ] }),
+        /* @__PURE__ */ jsxs40(Tooltip, { children: [
+          /* @__PURE__ */ jsx57(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs40(
+            "button",
+            {
+              onClick: () => onEnableCheckbox(!enableCheckbox),
+              className: cn(
+                "icon flex items-center gap-1 p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
+                enableCheckbox && "w-auto gap-1 px-2 text-primary"
+              ),
+              children: [
+                enableCheckbox && /* @__PURE__ */ jsx57("p", { className: "text-xs text-primary", children: t("assets.assetsHeader.multiSelect") }),
+                /* @__PURE__ */ jsx57(
+                  HugeiconsIcon7,
+                  {
+                    icon: CheckmarkSquare02Icon,
+                    className: cn(
+                      "size-4 stroke-primary text-primary",
+                      enableCheckbox && "size-5 fill-primary stroke-primary text-white"
+                    )
+                  }
+                )
+              ]
+            }
+          ) }),
+          /* @__PURE__ */ jsx57(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.multiSelect") })
+        ] })
+      ] })
+    ] }),
+    (features.upload || showCreateLink || showNewFolder) && /* @__PURE__ */ jsxs40("div", { className: "lg:hidden", children: [
+      activeTab === "all" && showMobileMenu && /* @__PURE__ */ jsxs40("div", { className: "fixed md:bottom-[9rem] bottom-44 right-5 rtl:right-auto rtl:left-5 flex flex-col gap-3 z-[99999] animate-in fade-in slide-in-from-bottom-2 duration-200", children: [
+        features.upload && /* @__PURE__ */ jsx57(
+          Button,
+          {
+            "aria-label": t("assets.assetsHeader.upload"),
+            onClick: () => {
+              onUploadClick();
+              setShowMobileMenu(false);
+            },
+            size: "lg",
+            className: "w-16 h-16 rounded-full shadow-lg",
+            children: /* @__PURE__ */ jsx57(
+              HugeiconsIcon7,
+              {
+                icon: PlusSignSquareIcon,
+                className: "w-6 h-6 stroke-white"
+              }
+            )
+          }
+        ),
+        features.folders && /* @__PURE__ */ jsx57(
+          Button,
+          {
+            "aria-label": t("assets.assetsHeader.newFolder"),
+            variant: "outline",
+            onClick: () => {
+              onNewFolderClick();
+              setShowMobileMenu(false);
+            },
+            size: "lg",
+            className: "w-16 h-16 rounded-full shadow-lg bg-card",
+            children: /* @__PURE__ */ jsx57(
+              HugeiconsIcon7,
+              {
+                icon: FolderAddIcon,
+                className: "w-6 h-6 stroke-primary"
+              }
+            )
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx57(
+        Button,
+        {
+          "aria-label": t("assets.assetsHeader.actions"),
+          size: "lg",
+          onClick: handleMobileButtonClick,
+          className: cn(
+            "md:hidden fixed bottom-24 right-5 rtl:right-auto rtl:left-5 w-16 h-16 py-0 px-0 aspect-square rounded-full z-50 transition-transform duration-200",
+            showMobileMenu && "rotate-45"
+          ),
+          children: /* @__PURE__ */ jsx57(Plus2, { className: "w-6 h-6 stroke-white" })
+        }
+      )
+    ] })
+  ] }) });
+};
+var AssetsHeader_default = AssetsHeader;
+
+// src/components/assets/components/AssetCard.tsx
+import { useState as useState16, useRef as useRef2, useEffect as useEffect13, useCallback as useCallback3 } from "react";
+import { Check as Check6, Download, MoreVertical as MoreVertical3, Trash2 as Trash23 } from "lucide-react";
+
+// src/components/ui/card.tsx
+import * as React27 from "react";
+import { jsx as jsx58 } from "react/jsx-runtime";
+var Card2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58(
+  "div",
+  {
+    ref,
+    className: cn(
+      "rounded-lg border bg-card text-card-foreground  ",
+      className
+    ),
+    ...props
+  }
+));
+Card2.displayName = "Card";
+var CardHeader2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58(
+  "div",
+  {
+    ref,
+    className: cn("flex flex-col space-y-1.5 p-6", className),
+    ...props
+  }
+));
+CardHeader2.displayName = "CardHeader";
+var CardTitle2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58(
+  "div",
+  {
+    ref,
+    className: cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    ),
+    ...props
+  }
+));
+CardTitle2.displayName = "CardTitle";
+var CardDescription2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58(
+  "div",
+  {
+    ref,
+    className: cn("text-sm text-muted-foreground", className),
+    ...props
+  }
+));
+CardDescription2.displayName = "CardDescription";
+var CardContent2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58("div", { ref, className: cn("p-6 pt-0", className), ...props }));
+CardContent2.displayName = "CardContent";
+var CardFooter2 = React27.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx58(
+  "div",
+  {
+    ref,
+    className: cn("flex items-center p-6 pt-0", className),
+    ...props
+  }
+));
+CardFooter2.displayName = "CardFooter";
+
+// src/components/assets/components/AssetCard.tsx
+import { Fragment as Fragment7, jsx as jsx59, jsxs as jsxs41 } from "react/jsx-runtime";
+var RenameIcon = /* @__PURE__ */ jsxs41(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "17",
+    viewBox: "0 0 16 17",
+    fill: "none",
+    children: [
+      /* @__PURE__ */ jsx59("g", { clipPath: "url(#clip_nitxui_rename)", children: /* @__PURE__ */ jsx59(
+        "path",
+        {
+          d: "M9.57354 2.76858L10.1915 2.15066C11.2153 1.12686 12.8752 1.12686 13.899 2.15066C14.9228 3.17447 14.9228 4.83438 13.899 5.85818L13.2811 6.4761M9.57354 2.76858C9.57354 2.76858 9.65078 4.08166 10.8094 5.24026C11.968 6.39886 13.2811 6.4761 13.2811 6.4761M9.57354 2.76858L3.89271 8.44941C3.50794 8.83419 3.31555 9.02657 3.15009 9.2387C2.95492 9.48893 2.78759 9.75968 2.65106 10.0462C2.53532 10.289 2.44928 10.5471 2.2772 11.0634L1.54803 13.2509M13.2811 6.4761L7.60023 12.1569C7.21546 12.5417 7.02307 12.7341 6.81094 12.8995C6.56071 13.0947 6.28996 13.2621 6.00348 13.3986C5.76063 13.5143 5.50251 13.6004 4.98628 13.7724L2.79878 14.5016M2.79878 14.5016L2.26406 14.6798C2.01002 14.7645 1.72993 14.6984 1.54058 14.5091C1.35123 14.3197 1.28511 14.0396 1.3698 13.7856L1.54803 13.2509M2.79878 14.5016L1.54803 13.2509",
+          stroke: "currentColor",
+          strokeWidth: "1.2"
+        }
+      ) }),
+      /* @__PURE__ */ jsx59("defs", { children: /* @__PURE__ */ jsx59("clipPath", { id: "clip_nitxui_rename", children: /* @__PURE__ */ jsx59(
+        "rect",
+        {
+          width: "16",
+          height: "16",
+          fill: "white",
+          transform: "translate(0 0.0498047)"
+        }
+      ) }) })
+    ]
+  }
+);
+var MoveIcon = /* @__PURE__ */ jsxs41(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "18",
+    height: "19",
+    viewBox: "0 0 18 19",
+    fill: "none",
+    children: [
+      /* @__PURE__ */ jsx59(
+        "path",
+        {
+          d: "M1.5 9.0498V5.26212C1.5 4.60022 1.5 4.26927 1.55201 3.99359C1.78098 2.78004 2.73023 1.83078 3.94379 1.60182C4.21946 1.5498 4.55041 1.5498 5.21231 1.5498C5.50232 1.5498 5.64732 1.5498 5.78668 1.56284C6.38749 1.61902 6.95739 1.85508 7.42196 2.24019C7.52971 2.32952 7.63224 2.43205 7.83731 2.63712L8.25 3.04981C8.86183 3.66164 9.16775 3.96756 9.53409 4.17137C9.73533 4.28334 9.94879 4.37176 10.1703 4.43489C10.5734 4.5498 11.0061 4.5498 11.8713 4.5498H12.1516C14.1258 4.5498 15.113 4.5498 15.7546 5.1269C15.8136 5.17999 15.8698 5.23616 15.9229 5.29518C16.5 5.93682 16.5 6.92396 16.5 8.89823V10.5498C16.5 13.3782 16.5 14.7924 15.6213 15.6711C14.7426 16.5498 13.3284 16.5498 10.5 16.5498H7.5C4.67157 16.5498 3.25736 16.5498 2.37868 15.6711C1.88879 15.1812 1.67203 14.5249 1.57612 13.5498",
+          stroke: "currentColor",
+          strokeWidth: "1.1",
+          strokeLinecap: "round"
+        }
+      ),
+      /* @__PURE__ */ jsx59(
+        "path",
+        {
+          d: "M1.5 11.2998C6.33274 11.2998 4.91726 11.2998 9.75 11.2998M9.75 11.2998L6.65625 9.0498M9.75 11.2998L6.65625 13.5498",
+          stroke: "currentColor",
+          strokeWidth: "1.1",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }
+      )
+    ]
+  }
+);
+var AssetCard = ({
+  data,
+  viewType,
+  allowSelect,
+  selected,
+  onClick,
+  onMove,
+  draggable = false,
+  onDragStart,
+  onDragEnd,
+  isDragging = false,
+  onDelete,
+  onRename,
+  onDownload,
+  renderActions
+}) => {
+  const { t } = useNitxUiTranslation();
+  const { features, navigation, images } = useAssetsConfig();
+  const documentsImages2 = {
+    "application/pdf": images.pdf,
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": images.doc,
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation": images.ppt,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": images.xls
+  };
+  const renamingItemId = useAssetsStore((s) => s.renamingItemId);
+  const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+  const isRenaming = renamingItemId === data.uuid;
+  const isListLike = viewType === "list" || viewType === "grid-list";
+  const [newTitle, setNewTitle] = useState16(data.name);
+  const [showMenu, setShowMenu] = useState16(false);
+  const inputRef = useRef2(null);
+  const isCancelledRef = useRef2(false);
+  useEffect13(() => {
+    if (!isRenaming) return;
+    setNewTitle(data.name);
+    const frame = requestAnimationFrame(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isRenaming, data.name]);
+  const handleRename = useCallback3(async () => {
+    const trimmed = newTitle.trim();
+    if (data.name !== trimmed && trimmed !== "") {
+      if (onRename) {
+        await onRename(trimmed);
+      }
+    } else {
+      setNewTitle(data.name);
+    }
+    setRenamingItemId(null);
+  }, [data.name, newTitle, onRename, setRenamingItemId]);
+  const handleBlur = useCallback3(() => {
+    if (!isCancelledRef.current) {
+      handleRename();
+    }
+    isCancelledRef.current = false;
+  }, [handleRename]);
+  const handleKeyDown = useCallback3(
+    (e) => {
+      if (e.key === "Enter") {
+        isCancelledRef.current = false;
+        handleRename();
+        e.currentTarget.blur();
+      } else if (e.key === "Escape") {
+        isCancelledRef.current = true;
+        setRenamingItemId(null);
+        setNewTitle(data.name);
+        e.currentTarget.blur();
+      }
+    },
+    [handleRename, data.name, setRenamingItemId]
+  );
+  return /* @__PURE__ */ jsx59(TooltipProvider, { children: /* @__PURE__ */ jsx59(
+    Card2,
+    {
+      className: cn(
+        "relative bg-card rounded-lg p-2 sm:p-2.5 cursor-pointer transition-all border border-opacity-20 shadow-gray-200/20",
+        selected ? "border-primary bg-primary/10 dark:bg-primary/20" : "border-transparent hover:border-border hover:transparent",
+        isListLike ? "flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4" : "",
+        isDragging && "opacity-50 scale-95"
+      ),
+      onClick: !isRenaming && onClick ? onClick : void 0,
+      "data-asset-id": data.uuid,
+      draggable,
+      onDragStart,
+      onDragEnd,
+      children: /* @__PURE__ */ jsxs41(
+        "div",
+        {
+          className: cn(
+            "size-full rounded-[12px] overflow-hidden",
+            viewType === "grid" ? "flex flex-col " : "flex flex-row justify-between xs:flex-row xs:justify-between"
+          ),
+          children: [
+            /* @__PURE__ */ jsxs41(CardHeader2, { className: "p-0 w-auto relative min-w-0", children: [
+              data.type === "image" && /* @__PURE__ */ jsx59(
+                "img",
+                {
+                  src: data.is_ready && data.image?.thumbnail_path ? data.image.thumbnail_path : images.clock,
+                  alt: data.name,
+                  className: cn(
+                    "w-full object-contain rounded-[4px] bg-no-repeat inset-0 shrink-0",
+                    allowSelect && "brightness-50",
+                    viewType === "grid" ? "h-32 sm:h-40" : "h-20 w-[162px]",
+                    !data.is_ready && "bg-amber-50 dark:bg-amber-900/20 p-6 sm:p-10"
+                  )
+                }
+              ),
+              data.type === "link" && /* @__PURE__ */ jsx59(
+                "img",
+                {
+                  src: data.is_ready && data.link?.thumbnail_url ? data.link?.thumbnail_url || images.linkFallback : images.linkFallback,
+                  className: cn(
+                    "w-full object-cover rounded-[4px] min-h-20 min-w-20 bg-no-repeat inset-0 shrink-0",
+                    allowSelect && "brightness-50",
+                    viewType === "grid" ? "h-32 sm:h-40" : "h-20 w-[162px]"
+                  ),
+                  alt: data.name
+                }
+              ),
+              data.type === "video" && /* @__PURE__ */ jsxs41(Fragment7, { children: [
+                /* @__PURE__ */ jsx59(
+                  "img",
+                  {
+                    src: data.is_ready && data.video?.thumbnail_path ? data.video.thumbnail_path : images.clock,
+                    alt: data.name,
+                    className: cn(
+                      "w-full object-contain rounded-[4px] bg-no-repeat inset-0 shrink-0",
+                      allowSelect && "brightness-50",
+                      viewType === "grid" ? "h-32 sm:h-40" : "h-20 w-[162px]",
+                      !data.is_ready && "bg-amber-50 dark:bg-amber-900/20 p-6 sm:p-10"
+                    )
+                  }
+                ),
+                data.is_ready && /* @__PURE__ */ jsx59("div", { className: "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ jsx59("img", { src: images.videoPlay, alt: "video" }) })
+              ] }),
+              data.type === "document" && data.document && /* @__PURE__ */ jsx59(
+                "img",
+                {
+                  src: data.is_ready ? documentsImages2[data.document.mime_type] || images.doc : images.clock,
+                  alt: data.name,
+                  className: cn(
+                    "w-full object-contain rounded-[4px] bg-no-repeat inset-0 shrink-0",
+                    allowSelect && "brightness-50",
+                    viewType === "grid" ? "h-32 sm:h-40" : "h-20 w-[162px]",
+                    !data.is_ready && "bg-amber-50 dark:bg-amber-900/20",
+                    "object-cover"
+                  )
+                }
+              ),
+              (!data.type || data.type !== "image" && data.type !== "video" && data.type !== "link" && data.type !== "document") && /* @__PURE__ */ jsx59(
+                "img",
+                {
+                  src: images.clock,
+                  alt: "nitx media",
+                  className: cn(
+                    "w-full rounded-[4px] bg-no-repeat inset-0 shrink-0 bg-amber-50 dark:bg-amber-900/20 p-10",
+                    allowSelect && "brightness-50",
+                    viewType === "grid" ? "h-40" : "h-24 w-[162px]"
+                  )
+                }
+              ),
+              allowSelect && /* @__PURE__ */ jsx59(
+                "span",
+                {
+                  className: cn(
+                    "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                    selected && "border-primary bg-primary text-white"
+                  ),
+                  children: selected && /* @__PURE__ */ jsx59(Check6, { className: "size-3" })
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxs41(
+              CardContent2,
+              {
+                className: cn(
+                  "w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3",
+                  isListLike && "max-w-[calc(100%-90px)]"
+                ),
+                children: [
+                  /* @__PURE__ */ jsxs41("div", { className: "flex flex-col w-full max-w-[calc(100%-70px)]", children: [
+                    isRenaming ? /* @__PURE__ */ jsx59(
+                      Input2,
+                      {
+                        ref: inputRef,
+                        value: newTitle,
+                        onChange: (e) => setNewTitle(e.target.value),
+                        onKeyDown: handleKeyDown,
+                        onBlur: handleBlur,
+                        onFocus: (e) => e.currentTarget.select(),
+                        className: "h-7 text-sm",
+                        maxLength: 50,
+                        onClick: (e) => e.stopPropagation()
+                      }
+                    ) : /* @__PURE__ */ jsxs41(Tooltip, { children: [
+                      /* @__PURE__ */ jsx59(TooltipTrigger, { children: /* @__PURE__ */ jsx59("h2", { className: "text-xs sm:text-sm text-left font-bold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
+                      /* @__PURE__ */ jsx59(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
+                    ] }),
+                    /* @__PURE__ */ jsxs41("p", { className: "text-[10px] sm:text-[11.2px] text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
+                      data.type === "image" && data.image?.size,
+                      data.type === "video" && data.video?.size,
+                      data.type === "document" && data.document?.size
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsxs41("div", { className: "relative flex items-center shrink-0 gap-1", children: [
+                    renderActions?.(data),
+                    /* @__PURE__ */ jsxs41(
+                      DropdownMenu,
+                      {
+                        open: showMenu,
+                        onOpenChange: (value) => setShowMenu(value),
+                        children: [
+                          /* @__PURE__ */ jsxs41(Tooltip, { children: [
+                            /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
+                              DropdownMenuTrigger,
+                              {
+                                disabled: allowSelect,
+                                className: "disabled:text-muted-foreground",
+                                asChild: true,
+                                children: /* @__PURE__ */ jsx59("button", { className: "icon ", children: /* @__PURE__ */ jsx59(MoreVertical3, { className: "size-4" }) })
+                              }
+                            ) }),
+                            /* @__PURE__ */ jsx59(TooltipContent, { children: /* @__PURE__ */ jsx59("p", { children: t("assets.assetCard.moreOptions") }) })
+                          ] }),
+                          /* @__PURE__ */ jsxs41(
+                            DropdownMenuContent,
+                            {
+                              align: "end",
+                              className: "rounded-[14px]",
+                              onCloseAutoFocus: (event) => event.preventDefault(),
+                              children: [
+                                data.type !== "link" && /* @__PURE__ */ jsxs41(Fragment7, { children: [
+                                  /* @__PURE__ */ jsxs41(
+                                    DropdownMenuItem,
+                                    {
+                                      onClick: (e) => {
+                                        e.stopPropagation();
+                                        setRenamingItemId(data.uuid);
+                                      },
+                                      className: "flex gap-4 rounded-[10px] px-4",
+                                      children: [
+                                        RenameIcon,
+                                        t("assets.assetCard.rename")
+                                      ]
+                                    }
+                                  ),
+                                  features.folders && /* @__PURE__ */ jsxs41(
+                                    DropdownMenuItem,
+                                    {
+                                      onClick: (e) => {
+                                        e.stopPropagation();
+                                        onMove(data.uuid, "asset");
+                                      },
+                                      className: "flex gap-4 rounded-[10px] px-4",
+                                      children: [
+                                        MoveIcon,
+                                        t("assets.assetCard.moveTo")
+                                      ]
+                                    }
+                                  ),
+                                  onDownload && /* @__PURE__ */ jsxs41(
+                                    DropdownMenuItem,
+                                    {
+                                      onClick: (e) => {
+                                        e.stopPropagation();
+                                        onDownload(data);
+                                      },
+                                      className: "flex gap-4 rounded-[10px] px-4",
+                                      children: [
+                                        /* @__PURE__ */ jsx59(Download, { className: "size-4 stroke-[1.5]" }),
+                                        t("assets.assetCard.download")
+                                      ]
+                                    }
+                                  )
+                                ] }),
+                                data.type === "link" && features.links && navigation && /* @__PURE__ */ jsxs41(
+                                  DropdownMenuItem,
+                                  {
+                                    onSelect: (e) => {
+                                      e.preventDefault();
+                                      navigation.toLinkEdit(data.link.uuid);
+                                    },
+                                    className: "flex gap-4 rounded-[10px] px-4 cursor-pointer",
+                                    children: [
+                                      RenameIcon,
+                                      t("assets.assetCard.edit")
+                                    ]
+                                  }
+                                ),
+                                /* @__PURE__ */ jsx59(DropdownMenuSeparator, {}),
+                                /* @__PURE__ */ jsxs41(
+                                  DropdownMenuItem,
+                                  {
+                                    onClick: (e) => {
+                                      e.stopPropagation();
+                                      onDelete?.();
+                                    },
+                                    className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600",
+                                    children: [
+                                      /* @__PURE__ */ jsx59(Trash23, {}),
+                                      " ",
+                                      t("assets.assetCard.delete")
+                                    ]
+                                  }
+                                )
+                              ]
+                            }
+                          )
+                        ]
+                      }
+                    )
+                  ] })
+                ]
+              }
+            )
+          ]
+        }
+      )
+    }
+  ) });
+};
+var AssetCardSkeleton = ({
+  viewType
+}) => {
+  return /* @__PURE__ */ jsx59(
+    Card2,
+    {
+      className: cn(
+        "relative bg-card rounded-lg p-2 sm:p-2.5 cursor-pointer transition-all border border-opacity-20 shadow-gray-200/20",
+        (viewType === "list" || viewType === "grid-list") && "flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4"
+      ),
+      children: /* @__PURE__ */ jsxs41(
+        "div",
+        {
+          className: cn(
+            "size-full rounded-[12px] overflow-hidden",
+            viewType === "grid" ? "flex flex-col" : "flex flex-row justify-between xs:flex-row xs:justify-between"
+          ),
+          children: [
+            /* @__PURE__ */ jsx59(CardHeader2, { className: "p-0 w-auto relative min-w-0", children: /* @__PURE__ */ jsx59(
+              Skeleton,
+              {
+                className: cn(
+                  "w-full object-contain rounded-[4px] bg-no-repeat inset-0 shrink-0",
+                  viewType === "grid" ? "h-32 sm:h-40" : "h-20 w-[162px]"
+                )
+              }
+            ) }),
+            /* @__PURE__ */ jsxs41(CardContent2, { className: "w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3", children: [
+              /* @__PURE__ */ jsxs41("div", { className: "flex flex-col gap-1 w-full min-w-0", children: [
+                /* @__PURE__ */ jsx59(Skeleton, { className: "w-4/5 h-3 sm:h-4" }),
+                /* @__PURE__ */ jsx59(Skeleton, { className: "w-3/5 h-2.5 sm:h-3" })
+              ] }),
+              /* @__PURE__ */ jsxs41("div", { className: "flex gap-1", children: [
+                /* @__PURE__ */ jsx59(Skeleton, { className: "size-7 sm:size-8 rounded-[10px]" }),
+                /* @__PURE__ */ jsx59(Skeleton, { className: "size-7 sm:size-8 rounded-[10px]" })
+              ] })
+            ] })
+          ]
+        }
+      )
+    }
+  );
+};
+var AssetCard_default = AssetCard;
+
+// src/components/assets/components/FolderCard.tsx
+import React29, { useState as useState17, useRef as useRef3, useEffect as useEffect14, useCallback as useCallback4 } from "react";
+import { Check as Check7, Download as Download2, FilePenLine, MoreVertical as MoreVertical4, Trash2 as Trash24 } from "lucide-react";
+import { jsx as jsx60, jsxs as jsxs42 } from "react/jsx-runtime";
+var MoveIcon2 = /* @__PURE__ */ jsxs42(
+  "svg",
+  {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "18",
+    height: "19",
+    viewBox: "0 0 18 19",
+    fill: "none",
+    children: [
+      /* @__PURE__ */ jsx60(
+        "path",
+        {
+          d: "M1.5 9.0498V5.26212C1.5 4.60022 1.5 4.26927 1.55201 3.99359C1.78098 2.78004 2.73023 1.83078 3.94379 1.60182C4.21946 1.5498 4.55041 1.5498 5.21231 1.5498C5.50232 1.5498 5.64732 1.5498 5.78668 1.56284C6.38749 1.61902 6.95739 1.85508 7.42196 2.24019C7.52971 2.32952 7.63224 2.43205 7.83731 2.63712L8.25 3.04981C8.86183 3.66164 9.16775 3.96756 9.53409 4.17137C9.73533 4.28334 9.94879 4.37176 10.1703 4.43489C10.5734 4.5498 11.0061 4.5498 11.8713 4.5498H12.1516C14.1258 4.5498 15.113 4.5498 15.7546 5.1269C15.8136 5.17999 15.8698 5.23616 15.9229 5.29518C16.5 5.93682 16.5 6.92396 16.5 8.89823V10.5498C16.5 13.3782 16.5 14.7924 15.6213 15.6711C14.7426 16.5498 13.3284 16.5498 10.5 16.5498H7.5C4.67157 16.5498 3.25736 16.5498 2.37868 15.6711C1.88879 15.1812 1.67203 14.5249 1.57612 13.5498",
+          stroke: "currentColor",
+          strokeWidth: "1.1",
+          strokeLinecap: "round"
+        }
+      ),
+      /* @__PURE__ */ jsx60(
+        "path",
+        {
+          d: "M1.5 11.2998C6.33274 11.2998 4.91726 11.2998 9.75 11.2998M9.75 11.2998L6.65625 9.0498M9.75 11.2998L6.65625 13.5498",
+          stroke: "currentColor",
+          strokeWidth: "1.1",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }
+      )
+    ]
+  }
+);
+var FolderCard = React29.forwardRef(
+  ({
+    data,
+    viewType = "grid",
+    allowSelect = false,
+    selected = false,
+    onClick,
+    onMove,
+    onDragOver,
+    onDragEnter,
+    onDragLeave,
+    onDrop,
+    isDropTarget = false,
+    onDelete,
+    onRename,
+    onDownload,
+    onMouseEnter,
+    renderMenuItems
+  }, ref) => {
+    const { t } = useNitxUiTranslation();
+    const { images } = useAssetsConfig();
+    const renamingItemId = useAssetsStore((s) => s.renamingItemId);
+    const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+    const isRenaming = renamingItemId === data.id;
+    const [newTitle, setNewTitle] = useState17(data.name);
+    const inputRef = useRef3(null);
+    const isCancelledRef = useRef3(false);
+    useEffect14(() => {
+      setNewTitle(data.name);
+    }, [data.name]);
+    useEffect14(() => {
+      if (!isRenaming) return;
+      setNewTitle(data.name);
+      const frame = requestAnimationFrame(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+          inputRef.current.select();
+        }
+      });
+      return () => cancelAnimationFrame(frame);
+    }, [isRenaming, data.name]);
+    const handleRename = useCallback4(async () => {
+      const trimmed = newTitle.trim();
+      if (data.name !== trimmed && trimmed !== "") {
+        if (onRename) {
+          await onRename(trimmed);
+        }
+      } else {
+        setNewTitle(data.name);
+      }
+      setRenamingItemId(null);
+    }, [data.name, newTitle, onRename, setRenamingItemId]);
+    const handleKeyDown = useCallback4(
+      (e) => {
+        if (e.key === "Enter") {
+          isCancelledRef.current = false;
+          handleRename();
+          e.currentTarget.blur();
+        } else if (e.key === "Escape") {
+          isCancelledRef.current = true;
+          setRenamingItemId(null);
+          setNewTitle(data.name);
+          e.currentTarget.blur();
+        }
+      },
+      [handleRename, data.name, setRenamingItemId]
+    );
+    const handleBlur = useCallback4(() => {
+      if (!isCancelledRef.current) {
+        handleRename();
+      }
+      isCancelledRef.current = false;
+    }, [handleRename]);
+    return /* @__PURE__ */ jsx60(TooltipProvider, { children: /* @__PURE__ */ jsx60(
+      Card2,
+      {
+        ref,
+        className: cn(
+          "relative bg-card rounded-lg p-2 cursor-pointer transition-all border border-opacity-20 shadow-gray-200/20",
+          selected ? "border-primary bg-primary/10 dark:bg-primary/20" : "border-transparent hover:border-border hover:transparent",
+          viewType !== "grid" && "flex items-center gap-4",
+          isDropTarget && "border-primary bg-primary/10 dark:bg-primary/20 border-2 border-dashed"
+        ),
+        onClick: (e) => {
+          if (!isRenaming && onClick) onClick(e, data);
+        },
+        onMouseEnter,
+        "data-asset-id": data.id,
+        onDragOver,
+        onDragEnter,
+        onDragLeave,
+        onDrop,
+        children: /* @__PURE__ */ jsxs42(
+          "div",
+          {
+            className: cn(
+              "size-full rounded-[12px] overflow-hidden",
+              viewType === "grid" ? "flex flex-col" : "flex flex-row justify-between"
+            ),
+            children: [
+              /* @__PURE__ */ jsxs42(CardHeader2, { className: "p-0 w-auto relative", children: [
+                /* @__PURE__ */ jsx60(
+                  "img",
+                  {
+                    src: images.folder,
+                    alt: data.name,
+                    className: cn(
+                      "size-full object-cover rounded-[4px] bg-no-repeat inset-0 shrink-0 bg-sky-200/80 dark:bg-white/10",
+                      allowSelect && "brightness-50",
+                      viewType === "grid" ? "h-40" : "h-24 w-[162px]"
+                    )
+                  }
+                ),
+                allowSelect && /* @__PURE__ */ jsx60(
+                  "span",
+                  {
+                    className: cn(
+                      "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                      selected && "border-primary bg-primary text-white"
+                    ),
+                    children: selected && /* @__PURE__ */ jsx60(Check7, { className: "size-3" })
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxs42(CardContent2, { className: "w-full p-3 pr-0 flex justify-between items-center gap-3", children: [
+                /* @__PURE__ */ jsxs42("div", { className: "flex flex-col w-full max-w-[calc(100%-50px)]", children: [
+                  isRenaming ? /* @__PURE__ */ jsx60(
+                    Input2,
+                    {
+                      ref: inputRef,
+                      value: newTitle,
+                      onChange: (e) => setNewTitle(e.target.value),
+                      onKeyDown: handleKeyDown,
+                      onBlur: handleBlur,
+                      onFocus: (e) => e.currentTarget.select(),
+                      maxLength: 50,
+                      className: "h-7 text-sm",
+                      onClick: (e) => e.stopPropagation()
+                    }
+                  ) : /* @__PURE__ */ jsxs42(Tooltip, { children: [
+                    /* @__PURE__ */ jsx60(TooltipTrigger, { children: /* @__PURE__ */ jsx60("h2", { className: "text-sm font-bold text-foreground truncate text-left max-w-full pointer-events-none", children: data.name }) }),
+                    /* @__PURE__ */ jsx60(TooltipContent, { side: "bottom", children: data.name })
+                  ] }),
+                  /* @__PURE__ */ jsxs42("p", { className: "text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none", children: [
+                    data.assets_count || 0,
+                    " ",
+                    data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsx60("div", { className: "min-w-14 relative flex shrink-0", children: /* @__PURE__ */ jsxs42(DropdownMenu, { children: [
+                  /* @__PURE__ */ jsxs42(Tooltip, { children: [
+                    /* @__PURE__ */ jsx60(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
+                      DropdownMenuTrigger,
+                      {
+                        disabled: allowSelect,
+                        className: "disabled:text-muted-foreground",
+                        asChild: true,
+                        children: /* @__PURE__ */ jsx60(
+                          Button,
+                          {
+                            size: "icon",
+                            variant: "ghost",
+                            className: "flex gap-2 rounded-[7px]",
+                            "aria-label": t("assets.folderCard.moreOptions"),
+                            children: /* @__PURE__ */ jsx60(MoreVertical4, {})
+                          }
+                        )
+                      }
+                    ) }),
+                    /* @__PURE__ */ jsx60(TooltipContent, { children: /* @__PURE__ */ jsx60("p", { children: t("assets.folderCard.moreOptions") }) })
+                  ] }),
+                  /* @__PURE__ */ jsxs42(
+                    DropdownMenuContent,
+                    {
+                      align: "end",
+                      className: "rounded-[14px]",
+                      onClick: (e) => e.stopPropagation(),
+                      onCloseAutoFocus: (event) => event.preventDefault(),
+                      children: [
+                        renderMenuItems?.(data),
+                        /* @__PURE__ */ jsxs42(
+                          DropdownMenuItem,
+                          {
+                            className: "flex gap-4 rounded-[10px] px-4",
+                            onClick: () => setRenamingItemId(data.id),
+                            children: [
+                              /* @__PURE__ */ jsx60(FilePenLine, { className: "size-4 stroke-[1.5]" }),
+                              t("assets.folderCard.rename")
+                            ]
+                          }
+                        ),
+                        onMove && /* @__PURE__ */ jsxs42(
+                          DropdownMenuItem,
+                          {
+                            className: "flex gap-4 rounded-[10px] px-4",
+                            onClick: (e) => {
+                              e.stopPropagation();
+                              onMove(data.id, "folder");
+                            },
+                            children: [
+                              MoveIcon2,
+                              t("assets.folderCard.moveTo")
+                            ]
+                          }
+                        ),
+                        onDownload && /* @__PURE__ */ jsxs42(
+                          DropdownMenuItem,
+                          {
+                            className: "flex gap-4 rounded-[10px] px-4",
+                            onClick: (e) => {
+                              e.stopPropagation();
+                              onDownload(data);
+                            },
+                            children: [
+                              /* @__PURE__ */ jsx60(Download2, { className: "size-4 stroke-[1.5]" }),
+                              t("assets.folderCard.download")
+                            ]
+                          }
+                        ),
+                        /* @__PURE__ */ jsx60(DropdownMenuSeparator, {}),
+                        /* @__PURE__ */ jsxs42(
+                          DropdownMenuItem,
+                          {
+                            className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
+                            onClick: (e) => {
+                              e.stopPropagation();
+                              onDelete?.();
+                            },
+                            children: [
+                              /* @__PURE__ */ jsx60(Trash24, { className: "size-4" }),
+                              " ",
+                              t("assets.folderCard.delete")
+                            ]
+                          }
+                        )
+                      ]
+                    }
+                  )
+                ] }) })
+              ] })
+            ]
+          }
+        )
+      }
+    ) });
+  }
+);
+FolderCard.displayName = "FolderCard";
+var FolderCard_default = FolderCard;
+
+// src/components/assets/components/AssetsPreview.tsx
+import { createPortal } from "react-dom";
+import { ChevronLeft as ChevronLeft3, ChevronRight as ChevronRight6, X as X4, Download as Download3 } from "lucide-react";
+import { jsx as jsx61, jsxs as jsxs43 } from "react/jsx-runtime";
+var AssetsPreview = ({
+  previewAsset,
+  previewIndex,
+  filteredAssets,
+  setPreviewAsset,
+  setPreviewIndex,
+  handlePreviewNavigation,
+  onDownload
+}) => {
+  const { t } = useNitxUiTranslation();
+  const { images } = useAssetsConfig();
+  const renderMedia = () => {
+    if (previewAsset.type === "image") {
+      return /* @__PURE__ */ jsx61(
+        "img",
+        {
+          src: previewAsset.image.compressed_path,
+          alt: previewAsset.name,
+          className: "max-w-full max-h-[80vh] object-contain"
+        }
+      );
+    }
+    if (previewAsset.type === "video") {
+      return /* @__PURE__ */ jsx61("video", { controls: true, className: "max-w-full max-h-[80vh]", children: /* @__PURE__ */ jsx61(
+        "source",
+        {
+          src: previewAsset.video.compressed_path,
+          type: previewAsset.video.mime_type
+        }
+      ) });
+    }
+    if (previewAsset.type === "link") {
+      return /* @__PURE__ */ jsxs43("div", { className: "bg-card p-4 rounded text-center", children: [
+        /* @__PURE__ */ jsx61("p", { className: "mb-2", children: t("assets.assetsPreview.linkPreview", {
+          url: previewAsset.link.url
+        }) }),
+        /* @__PURE__ */ jsx61(
+          "iframe",
+          {
+            src: previewAsset.link.url,
+            className: "w-[80vw] h-[70vh] border",
+            title: "URL Preview"
+          }
+        )
+      ] });
+    }
+    return /* @__PURE__ */ jsx61("div", { className: "text-white", children: t("assets.assetsPreview.notAvailable") });
+  };
+  const getThumbnailWindow = () => {
+    const total = filteredAssets.length;
+    if (total <= 4) {
+      return [0, total];
+    }
+    if (previewIndex <= 1) {
+      return [0, 5];
+    }
+    if (previewIndex >= total - 2) {
+      return [total - 5, total];
+    }
+    return [previewIndex - 2, previewIndex + 3];
+  };
+  const [start, end] = getThumbnailWindow();
+  const modalContent = /* @__PURE__ */ jsx61(
+    "div",
+    {
+      className: "fixed inset-0 bg-black/95 flex items-center justify-center z-[99999] p-0",
+      style: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 99999
+      },
+      children: /* @__PURE__ */ jsxs43("div", { className: "relative w-full h-full max-w-none flex flex-col", children: [
+        /* @__PURE__ */ jsxs43("div", { className: "flex items-center justify-between px-6 py-4 text-white flex-shrink-0", children: [
+          /* @__PURE__ */ jsxs43("div", { className: "flex items-center gap-4", children: [
+            /* @__PURE__ */ jsx61("h2", { className: "text-lg font-medium truncate max-w-md", children: previewAsset.name }),
+            /* @__PURE__ */ jsxs43("span", { className: "text-sm text-muted-foreground", children: [
+              previewIndex + 1,
+              " ",
+              t("assets.assetsPreview.of"),
+              " ",
+              filteredAssets.length
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs43("div", { className: "flex items-center gap-2", children: [
+            onDownload && /* @__PURE__ */ jsx61(
+              Button,
+              {
+                variant: "ghost",
+                size: "sm",
+                className: "text-white hover:bg-card/20",
+                onClick: () => onDownload(previewAsset),
+                children: /* @__PURE__ */ jsx61(Download3, { className: "h-4 w-4" })
+              }
+            ),
+            /* @__PURE__ */ jsx61(
+              Button,
+              {
+                variant: "ghost",
+                size: "sm",
+                className: "text-white hover:bg-card/20",
+                onClick: () => setPreviewAsset(null),
+                children: /* @__PURE__ */ jsx61(X4, { className: "h-4 w-4" })
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs43("div", { className: "flex-1 flex items-center justify-center relative w-full min-h-0 pb-6", children: [
+          /* @__PURE__ */ jsx61(
+            "button",
+            {
+              className: "absolute left-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
+              onClick: () => handlePreviewNavigation("prev"),
+              disabled: previewIndex === 0,
+              children: /* @__PURE__ */ jsx61(ChevronLeft3, { className: "h-6 w-6" })
+            }
+          ),
+          /* @__PURE__ */ jsx61("div", { className: "flex items-center justify-center w-full h-full max-h-[80vh]", children: renderMedia() }),
+          /* @__PURE__ */ jsx61(
+            "button",
+            {
+              className: "absolute right-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
+              onClick: () => handlePreviewNavigation("next"),
+              disabled: previewIndex === filteredAssets.length - 1,
+              children: /* @__PURE__ */ jsx61(ChevronRight6, { className: "h-6 w-6" })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsx61("div", { className: "w-full pt-6 pb-8 flex-shrink-0", children: /* @__PURE__ */ jsx61("div", { className: "flex items-center justify-center gap-2 overflow-x-auto w-full px-6", children: filteredAssets.slice(start, end).map((asset, idx) => {
+          const actualIndex = start + idx;
+          return /* @__PURE__ */ jsxs43(
+            "button",
+            {
+              className: `flex-shrink-0 w-16 h-16 rounded-lg outline-none overflow-hidden border-2 transition-all ${actualIndex === previewIndex ? "border-white" : "border-transparent opacity-60 hover:opacity-80"}`,
+              onClick: () => {
+                const index = filteredAssets.findIndex(
+                  (a) => a.uuid === asset.uuid
+                );
+                setPreviewAsset(asset);
+                if (index !== -1) {
+                  setPreviewIndex(index);
+                }
+              },
+              children: [
+                asset.type === "image" && /* @__PURE__ */ jsx61(
+                  "img",
+                  {
+                    src: asset.image.compressed_path || images.clock,
+                    alt: asset.name,
+                    className: "w-full h-full object-cover bg-yellow-50"
+                  }
+                ),
+                asset.type === "link" && !asset.link.thumbnail_url && /* @__PURE__ */ jsx61(
+                  "img",
+                  {
+                    src: asset.link.thumbnail_url || images.linkFallback,
+                    alt: asset.name,
+                    className: "w-full h-full object-cover bg-yellow-50"
+                  }
+                ),
+                asset.type === "link" && asset.link.thumbnail_url && /* @__PURE__ */ jsx61(
+                  "iframe",
+                  {
+                    src: asset.link.url,
+                    className: "w-full h-full lg:aspect-square",
+                    title: "URL Preview"
+                  }
+                ),
+                asset.type === "video" && /* @__PURE__ */ jsx61("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx61(
+                  "svg",
+                  {
+                    className: "w-6 h-6 text-white",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: /* @__PURE__ */ jsx61(
+                      "path",
+                      {
+                        fillRule: "evenodd",
+                        d: "M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z",
+                        clipRule: "evenodd"
+                      }
+                    )
+                  }
+                ) }),
+                asset.type === "document" && /* @__PURE__ */ jsx61("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx61(
+                  "svg",
+                  {
+                    className: "w-6 h-6 text-white",
+                    fill: "currentColor",
+                    viewBox: "0 0 20 20",
+                    children: /* @__PURE__ */ jsx61(
+                      "path",
+                      {
+                        fillRule: "evenodd",
+                        d: "M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z",
+                        clipRule: "evenodd"
+                      }
+                    )
+                  }
+                ) })
+              ]
+            },
+            asset.uuid
+          );
+        }) }) })
+      ] })
+    }
+  );
+  if (typeof window !== "undefined") {
+    return createPortal(modalContent, document.body);
+  }
+  return modalContent;
+};
+var AssetsPreview_default = AssetsPreview;
+
+// src/components/assets/components/EmptyList.tsx
+import { jsx as jsx62, jsxs as jsxs44 } from "react/jsx-runtime";
+var EmptyList2 = ({ title, description, image, className }) => {
+  const { t } = useNitxUiTranslation();
+  return /* @__PURE__ */ jsxs44(
+    "div",
+    {
+      className: cn(
+        "w-full h-full flex flex-col items-center justify-center gap-5",
+        className
+      ),
+      children: [
+        image && /* @__PURE__ */ jsx62("div", { className: "relative w-[214px] h-[170px]", children: /* @__PURE__ */ jsx62(
+          "img",
+          {
+            src: image,
+            alt: "",
+            className: "w-full h-full object-contain"
+          }
+        ) }),
+        /* @__PURE__ */ jsx62("p", { className: "text-lg font-semibold text-center", children: title ?? t("assets.emptyList.title") }),
+        /* @__PURE__ */ jsx62("p", { className: "text-muted-foreground text-sm max-w-[499px] text-center", children: description ?? t("assets.emptyList.description") })
+      ]
+    }
+  );
+};
+var EmptyList_default2 = EmptyList2;
+
+// src/components/assets/components/LazyLoadingSkeleton.tsx
+import { Fragment as Fragment8, jsx as jsx63, jsxs as jsxs45 } from "react/jsx-runtime";
+var LazyLoadingSkeleton = ({
+  viewType,
+  count = 6
+}) => {
+  return /* @__PURE__ */ jsx63(Fragment8, { children: [...Array(count)].map((_, i) => /* @__PURE__ */ jsx63(
+    "div",
+    {
+      className: cn(
+        "bg-card rounded-lg p-2 sm:p-2.5 border border-opacity-20 shadow-gray-200/20",
+        viewType !== "grid" ? "flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4" : ""
+      ),
+      children: /* @__PURE__ */ jsxs45(
+        "div",
+        {
+          className: cn(
+            "size-full rounded-[12px] overflow-hidden",
+            viewType === "grid" ? "flex flex-col" : "flex flex-row justify-between xs:flex-row xs:justify-between"
+          ),
+          children: [
+            /* @__PURE__ */ jsx63("div", { className: "p-0 w-auto relative min-w-0", children: /* @__PURE__ */ jsx63(
+              Skeleton,
+              {
+                className: cn(
+                  "bg-muted",
+                  viewType === "grid" ? "w-full h-32 xs:h-40 sm:h-48" : "w-16 h-16 rounded-lg"
+                )
+              }
+            ) }),
+            /* @__PURE__ */ jsxs45("div", { className: "flex-1 min-w-0 p-2 xs:p-3", children: [
+              /* @__PURE__ */ jsx63(Skeleton, { className: "h-4 w-3/4 mb-2 bg-muted" }),
+              /* @__PURE__ */ jsx63(Skeleton, { className: "h-3 w-1/2 bg-muted" })
+            ] })
+          ]
+        }
+      )
+    },
+    `lazy-skeleton-${i}`
+  )) });
+};
+var LazyLoadingSkeleton_default = LazyLoadingSkeleton;
+
+// src/components/assets/components/ConfirmDeleteDialog.tsx
+import React30 from "react";
+import { jsx as jsx64, jsxs as jsxs46 } from "react/jsx-runtime";
+var ConfirmDeleteDialog = ({ state, onClose }) => {
+  const { t } = useNitxUiTranslation();
+  const [busy, setBusy] = React30.useState(false);
+  if (!state) return null;
+  const handleConfirm = async () => {
+    setBusy(true);
+    try {
+      await state.onConfirm();
+    } finally {
+      setBusy(false);
+      onClose();
+    }
+  };
+  return /* @__PURE__ */ jsx64(Dialog2, { open: true, onOpenChange: (open) => !open && onClose(), children: /* @__PURE__ */ jsxs46(DialogContent2, { className: "sm:max-w-md", children: [
+    /* @__PURE__ */ jsxs46(DialogHeader2, { children: [
+      /* @__PURE__ */ jsx64(DialogTitle2, { children: state.title }),
+      /* @__PURE__ */ jsx64(DialogDescription2, { children: state.description })
+    ] }),
+    /* @__PURE__ */ jsxs46(DialogFooter2, { className: "gap-2 sm:gap-0", children: [
+      /* @__PURE__ */ jsx64(Button, { variant: "outline", onClick: onClose, disabled: busy, children: t("assets.confirmDeleteModal.cancel") }),
+      /* @__PURE__ */ jsx64(Button, { variant: "destructive", onClick: handleConfirm, disabled: busy, children: t("assets.confirmDeleteModal.delete") })
+    ] })
+  ] }) });
+};
+var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
+
+// src/components/assets/components/modals/MoveModal.tsx
+import { useEffect as useEffect15, useState as useState18 } from "react";
+import { ChevronRight as ChevronRight7 } from "lucide-react";
+import { Fragment as Fragment9, jsx as jsx65, jsxs as jsxs47 } from "react/jsx-runtime";
+var MoveModal = ({
+  isOpen,
+  onClose,
+  onMove,
+  itemsToMove = [],
+  moveItemType = "asset"
+}) => {
+  const { t } = useNitxUiTranslation();
+  const { api } = useAssetsConfig();
+  const path = useAssetsStore((s) => s.path);
+  const [selectedDestination, setSelectedDestination] = useState18(
+    null
+  );
+  const [currentFolders, setCurrentFolders] = useState18([]);
+  const [search, setSearch] = useState18("");
+  const [modalPath, setModalPath] = useState18([]);
+  const fetchFoldersForPath = async (targetPath) => {
+    try {
+      const activePathId = targetPath[targetPath.length - 1]?.id;
+      const { folders } = await api.fetchAssetsAndFolders(activePathId);
+      return folders;
+    } catch (err) {
+      console.error("Error fetching folders for move modal:", err);
+      return [];
+    }
+  };
+  useEffect15(() => {
+    if (isOpen) {
+      const initialPath = path.map((p) => ({
+        id: p.id,
+        name: p.label === "~Root" ? t("assets.folderModal.root") : p.label
+      }));
+      setModalPath(initialPath);
+      setSelectedDestination(null);
+      fetchFoldersForPath(initialPath).then((fetchedFolders) => {
+        setCurrentFolders(fetchedFolders);
+      });
+    }
+  }, [isOpen, path]);
+  const handleFolderClick = async (folder) => {
+    setSelectedDestination(folder.id);
+    const newPath = [...modalPath, { id: folder.id, name: folder.name }];
+    setModalPath(newPath);
+    const fetchedFolders = await fetchFoldersForPath(newPath);
+    setCurrentFolders(fetchedFolders);
+  };
+  const handlePathClick = async (pathIndex) => {
+    const newPath = modalPath.slice(0, pathIndex + 1);
+    setModalPath(newPath);
+    const clickedPathItem = modalPath[pathIndex];
+    setSelectedDestination(clickedPathItem?.id || null);
+    const fetchedFolders = await fetchFoldersForPath(newPath);
+    setCurrentFolders(fetchedFolders);
+  };
+  const handleMove = () => {
+    onMove(selectedDestination);
+    onClose();
+  };
+  const visibleFolders = search ? currentFolders.filter(
+    (f) => f.name.toLowerCase().includes(search.toLowerCase())
+  ) : currentFolders;
+  return /* @__PURE__ */ jsx65(Dialog2, { open: isOpen, onOpenChange: onClose, children: /* @__PURE__ */ jsxs47(DialogContent2, { className: "sm:max-w-md", children: [
+    /* @__PURE__ */ jsx65(DialogHeader2, { children: /* @__PURE__ */ jsx65(DialogTitle2, { children: t("assets.folderModal.title") }) }),
+    /* @__PURE__ */ jsx65("div", { className: "flex items-center gap-1 text-sm mb-2 overflow-x-auto pb-2", children: modalPath.length > 3 ? /* @__PURE__ */ jsxs47(Fragment9, { children: [
+      /* @__PURE__ */ jsx65(
+        "button",
+        {
+          onClick: () => handlePathClick(0),
+          className: "hover:underline whitespace-nowrap text-muted-foreground",
+          children: modalPath[0].name.length > 10 ? modalPath[0].name.slice(0, 10) + "..." : modalPath[0].name
+        }
+      ),
+      /* @__PURE__ */ jsx65(ChevronRight7, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx65("span", { className: "text-muted-foreground whitespace-nowrap", children: "..." }),
+      /* @__PURE__ */ jsx65(ChevronRight7, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx65(
+        "button",
+        {
+          onClick: () => handlePathClick(modalPath.length - 1),
+          className: "hover:underline whitespace-nowrap font-medium text-primary",
+          children: modalPath[modalPath.length - 1].name.length > 10 ? modalPath[modalPath.length - 1].name.slice(0, 10) + "..." : modalPath[modalPath.length - 1].name
+        }
+      )
+    ] }) : modalPath.map((pathName, index) => /* @__PURE__ */ jsxs47("div", { className: "flex items-center", children: [
+      index > 0 && /* @__PURE__ */ jsx65(ChevronRight7, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx65(
+        "button",
+        {
+          onClick: () => handlePathClick(index),
+          className: cn(
+            "hover:underline whitespace-nowrap max-w-[100%] truncate",
+            index === modalPath.length - 1 ? "font-medium text-primary" : "text-muted-foreground"
+          ),
+          children: pathName.name.length > 10 ? pathName.name.slice(0, 10) + "..." : pathName.name
+        }
+      )
+    ] }, index)) }),
+    /* @__PURE__ */ jsx65("div", { className: "mb-2", children: /* @__PURE__ */ jsx65(
+      Input2,
+      {
+        placeholder: t("assets.folderModal.searchFoldersPlaceholder"),
+        value: search,
+        onChange: (e) => setSearch(e.target.value),
+        className: "w-full"
+      }
+    ) }),
+    /* @__PURE__ */ jsx65("div", { className: "h-[300px] overflow-y-auto border rounded-md p-4", children: visibleFolders.length === 0 ? /* @__PURE__ */ jsx65("div", { className: "flex items-center justify-center h-full text-muted-foreground", children: t("assets.folderModal.noFoldersAvailable") }) : /* @__PURE__ */ jsx65("div", { className: "space-y-2", children: visibleFolders.map((folder) => {
+      const isBeingMoved = moveItemType === "folder" && itemsToMove.includes(folder.id);
+      const isDisabled = isBeingMoved;
+      return /* @__PURE__ */ jsxs47(
+        "div",
+        {
+          className: cn(
+            "flex items-center p-2 rounded-md",
+            isDisabled ? "opacity-50 cursor-not-allowed bg-muted" : selectedDestination === folder.id ? "bg-primary/10 cursor-pointer" : "hover:bg-muted cursor-pointer"
+          ),
+          onClick: () => !isDisabled && handleFolderClick(folder),
+          children: [
+            /* @__PURE__ */ jsx65("div", { className: "w-6 h-6 mr-2 rtl:mr-0 rtl:ml-2 flex items-center justify-center bg-yellow-100 rounded text-yellow-600", children: /* @__PURE__ */ jsx65(
+              "svg",
+              {
+                xmlns: "http://www.w3.org/2000/svg",
+                width: "16",
+                height: "16",
+                viewBox: "0 0 24 24",
+                fill: "none",
+                stroke: "currentColor",
+                strokeWidth: "2",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                children: /* @__PURE__ */ jsx65("path", { d: "M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" })
+              }
+            ) }),
+            /* @__PURE__ */ jsx65("span", { children: folder.name.length > 30 ? folder.name.slice(0, 30) + "..." : folder.name }),
+            isDisabled && /* @__PURE__ */ jsx65("span", { className: "ml-auto rtl:ml-0 rtl:mr-auto text-xs text-muted-foreground", children: t("assets.folderModal.current") })
+          ]
+        },
+        folder.id
+      );
+    }) }) }),
+    /* @__PURE__ */ jsxs47(DialogFooter2, { className: "gap-2 sm:gap-0", children: [
+      /* @__PURE__ */ jsx65(Button, { variant: "outline", onClick: onClose, children: t("assets.folderModal.cancel") }),
+      /* @__PURE__ */ jsx65(Button, { onClick: handleMove, children: t("assets.folderModal.move") })
+    ] })
+  ] }) });
+};
+var MoveModal_default = MoveModal;
+
+// src/components/assets/components/modals/CreateFolderModal.tsx
+import { useState as useState20 } from "react";
+
+// src/components/ui/drawer-dialog.tsx
+import * as React33 from "react";
+import * as VisuallyHidden2 from "@radix-ui/react-visually-hidden";
+import { ChevronLeft as ChevronLeft4 } from "lucide-react";
+import { useMediaQuery as useMediaQuery2 } from "usehooks-ts";
+
+// src/components/ui/drawer.tsx
+import * as React32 from "react";
+import { Drawer as DrawerPrimitive2 } from "vaul";
+import { jsx as jsx66, jsxs as jsxs48 } from "react/jsx-runtime";
+var Drawer2 = ({
+  shouldScaleBackground = true,
+  ...props
+}) => /* @__PURE__ */ jsx66(
+  DrawerPrimitive2.Root,
+  {
+    shouldScaleBackground,
+    ...props
+  }
+);
+Drawer2.displayName = "Drawer";
+var DrawerTrigger2 = DrawerPrimitive2.Trigger;
+var DrawerPortal2 = DrawerPrimitive2.Portal;
+var DrawerClose2 = DrawerPrimitive2.Close;
+var DrawerOverlay2 = React32.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx66(
+  DrawerPrimitive2.Overlay,
+  {
+    ref,
+    className: cn("fixed inset-0 z-[9999] bg-black/80", className),
+    style: { pointerEvents: "auto" },
+    ...props
+  }
+));
+DrawerOverlay2.displayName = DrawerPrimitive2.Overlay.displayName;
+var DrawerContent2 = React32.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs48(DrawerPortal2, { children: [
+  /* @__PURE__ */ jsx66(DrawerOverlay2, {}),
+  /* @__PURE__ */ jsxs48(
+    DrawerPrimitive2.Content,
+    {
+      ref,
+      className: cn(
+        "fixed inset-x-0 bottom-0 z-[10000] mt-24 flex h-auto flex-col rounded-t-[10px] border-0 bg-background px-2",
+        className
+      ),
+      style: { pointerEvents: "auto" },
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx66("div", { className: "mx-auto mt-4 h-3 w-[100px] rounded-full bg-muted" }),
+        children
+      ]
+    }
+  )
+] }));
+DrawerContent2.displayName = "DrawerContent";
+var DrawerHeader2 = ({
+  className,
+  ...props
+}) => /* @__PURE__ */ jsx66(
+  "div",
+  {
+    className: cn("grid gap-1.5 p-4 text-center sm:text-left", className),
+    ...props
+  }
+);
+DrawerHeader2.displayName = "DrawerHeader";
+var DrawerFooter2 = ({
+  className,
+  ...props
+}) => /* @__PURE__ */ jsx66(
+  "div",
+  {
+    className: cn("mt-auto flex flex-col gap-2 p-4", className),
+    ...props
+  }
+);
+DrawerFooter2.displayName = "DrawerFooter";
+var DrawerTitle2 = React32.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx66(
+  DrawerPrimitive2.Title,
+  {
+    ref,
+    className: cn(
+      "text-lg font-semibold leading-none tracking-tight",
+      className
+    ),
+    ...props
+  }
+));
+DrawerTitle2.displayName = DrawerPrimitive2.Title.displayName;
+var DrawerDescription2 = React32.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx66(
+  DrawerPrimitive2.Description,
+  {
+    ref,
+    className: cn("text-sm text-muted-foreground", className),
+    ...props
+  }
+));
+DrawerDescription2.displayName = DrawerPrimitive2.Description.displayName;
+
+// src/components/ui/drawer-dialog.tsx
+import { jsx as jsx67, jsxs as jsxs49 } from "react/jsx-runtime";
+var sizeVariants2 = {
+  default: "sm:max-w-[500px]",
+  sm: "sm:max-w-[320px]",
+  md: "sm:max-w-[640px]",
+  lg: "sm:max-w-[768px]",
+  xl: "sm:max-w-[900px]",
+  "2xl": "sm:max-w-[1024px]"
+};
+var restoreBodyStyles = () => {
+  document.body.classList.remove("modal-open");
+  document.body.style.overflow = "auto";
+  document.body.style.paddingRight = "0px";
+  document.body.style.pointerEvents = "auto";
+};
+function DrawerDialog2({
+  title,
+  description,
+  children,
+  className,
+  size = "default",
+  back,
+  onClose
+}) {
+  const [isMounted, setIsMounted] = React33.useState(false);
+  const isDesktop = useMediaQuery2("(min-width: 1140px)");
+  const { t } = useNitxUiTranslation();
+  const handleChange = (open) => {
+    if (open) {
+      document.body.classList.add("modal-open");
+    } else {
+      restoreBodyStyles();
+      onClose();
+    }
+  };
+  React33.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  React33.useEffect(() => restoreBodyStyles, []);
+  if (!isMounted) return null;
+  if (isDesktop) {
+    return /* @__PURE__ */ jsx67(Dialog2, { open: true, onOpenChange: handleChange, children: /* @__PURE__ */ jsxs49(
+      DialogContent2,
+      {
+        className: cn(
+          "flex flex-col gap-4 h-auto p-0 border-none",
+          sizeVariants2[size],
+          className
+        ),
+        children: [
+          back && /* @__PURE__ */ jsxs49(
+            "button",
+            {
+              className: "flex items-center hover:scale-95 hover:opacity-80 transition-all duration-300 w-fit",
+              onClick: back,
+              children: [
+                /* @__PURE__ */ jsx67(ChevronLeft4, { className: "w-4 h-4 mr-1" }),
+                t("drawerDialog.back")
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs49(DialogHeader2, { className: "p-5 h-auto", children: [
+            /* @__PURE__ */ jsx67(
+              DialogTitle2,
+              {
+                className: cn(!title && " sr-only", !!back && "text-lg"),
+                children: title
+              }
+            ),
+            /* @__PURE__ */ jsx67(VisuallyHidden2.Root, { children: title || "Modal Title" }),
+            /* @__PURE__ */ jsx67(DialogDescription2, { className: "text-sm", children: description })
+          ] }),
+          /* @__PURE__ */ jsx67("div", { className: "flex-grow flex flex-col justify-between w-full h-full", children })
+        ]
+      }
+    ) });
+  }
+  return /* @__PURE__ */ jsx67(Drawer2, { open: true, onOpenChange: (open) => handleChange(open), children: /* @__PURE__ */ jsxs49(DrawerContent2, { className: " max-h-[calc(100vh-3rem)]", children: [
+    /* @__PURE__ */ jsxs49(DrawerHeader2, { className: "text-left px-0 pb-0", children: [
+      /* @__PURE__ */ jsx67(DialogTrigger2, { className: "sr-only", children: title }),
+      title,
+      /* @__PURE__ */ jsx67(DrawerDescription2, { children: description })
+    ] }),
+    /* @__PURE__ */ jsx67("div", { className: "flex flex-col h-auto overflow-y-auto", children })
+  ] }) });
+}
+
+// src/components/assets/components/modals/CreateFolderModal.tsx
+import { jsx as jsx68, jsxs as jsxs50 } from "react/jsx-runtime";
+var CreateFolderModal = ({ open, onClose }) => {
+  const { t } = useNitxUiTranslation();
+  const [folderName, setFolderName] = useState20(null);
+  const [error, setError] = useState20(null);
+  const path = useAssetsStore((s) => s.path);
+  const parentId = path[path.length - 1]?.id || null;
+  const { data } = useAssetsQuery(parentId, { enabled: open });
+  const folders = data?.folders || [];
+  const { mutateAsync: createFolder } = useCreateFolderMutation(parentId);
+  if (!open) return null;
+  const handleCreate = async () => {
+    if (!folderName?.trim()) {
+      setError(t("assets.createFolderModal.folderNameCannotBeEmpty"));
+      return;
+    }
+    const existingFolder = folders.find(
+      (folder) => folder.name.toLowerCase() === folderName?.trim().toLowerCase() && folder.parent_id === parentId
+    );
+    if (existingFolder) {
+      setError(t("assets.createFolderModal.folderNameAlreadyExists"));
+      return;
+    }
+    try {
+      await createFolder({
+        name: folderName.trim(),
+        parentId
+      });
+      setFolderName(null);
+      onClose();
+    } catch {
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleCreate();
+  };
+  return /* @__PURE__ */ jsx68(DrawerDialog2, { title: t("assets.createFolderModal.title"), onClose, children: /* @__PURE__ */ jsxs50(
+    "form",
+    {
+      onSubmit: handleSubmit,
+      className: "px-3 lg:px-7 flex flex-col gap-3 lg:gap-5 pt-1 pb-5",
+      children: [
+        /* @__PURE__ */ jsxs50("div", { className: "mb-4", children: [
+          /* @__PURE__ */ jsx68(
+            Input2,
+            {
+              placeholder: t("assets.createFolderModal.folderNamePlaceholder"),
+              value: folderName || "",
+              onChange: (e) => {
+                setFolderName(e.target.value);
+                setError(null);
+              },
+              className: "w-full"
+            }
+          ),
+          error && /* @__PURE__ */ jsx68("p", { className: "text-error text-sm mt-1", children: error })
+        ] }),
+        /* @__PURE__ */ jsxs50("div", { className: "flex justify-end gap-3", children: [
+          /* @__PURE__ */ jsx68(Button, { variant: "outline", type: "button", onClick: onClose, children: t("assets.createFolderModal.cancel") }),
+          /* @__PURE__ */ jsx68(Button, { type: "submit", children: t("assets.createFolderModal.create") })
+        ] })
+      ]
+    }
+  ) });
+};
+var CreateFolderModal_default = CreateFolderModal;
+
+// src/components/assets/components/modals/UploadModal.tsx
+import { useEffect as useEffect17, useState as useState21 } from "react";
+import Dashboard2 from "@uppy/react/dashboard";
+import "@uppy/dashboard/css/style.css";
+import { useQueryClient as useQueryClient2 } from "@tanstack/react-query";
+import { jsx as jsx69 } from "react/jsx-runtime";
+function AssetsUploadModal({
+  open,
+  onClose,
+  folderUuid,
+  onUploadComplete
+}) {
+  const { t } = useNitxUiTranslation();
+  const { upload, spaceUuid } = useAssetsConfig();
+  const queryClient = useQueryClient2();
+  const path = useAssetsStore((s) => s.path);
+  const [uploader, setUploader] = useState21(null);
+  const currentFolderUuid = folderUuid !== void 0 ? folderUuid : path[path.length - 1]?.id ?? null;
+  useEffect17(() => {
+    if (!open || !upload || !spaceUuid) {
+      return;
+    }
+    const accessToken = upload.getAccessToken();
+    if (!accessToken) {
+      return;
+    }
+    const nextUploader = createAssetUploader({
+      uploadEndpoint: upload.endpoint,
+      accessToken,
+      spaceUuid,
+      currentFolderUuid: currentFolderUuid ?? void 0,
+      companionUrl: upload.companionUrl ?? "http://localhost:3020",
+      maxFileSize: upload.maxFileSize,
+      allowedFileTypes: upload.allowedFileTypes,
+      messages: {
+        fileUploadedSuccessfully: t("assets.uploadModal.fileUploadedSuccessfully"),
+        processingUploads: t("assets.uploadModal.processingUploads"),
+        filesWillAppear: t("assets.uploadModal.filesWillAppear"),
+        uploadFailed: t("assets.uploadModal.uploadFailed"),
+        pleaseTryAgain: t("assets.uploadModal.pleaseTryAgain")
+      },
+      onUploadComplete: () => {
+        queryClient.invalidateQueries({ queryKey: assetKeys.all(spaceUuid) });
+        onUploadComplete?.();
+      },
+      onClose
+    });
+    setUploader(nextUploader);
+    return () => {
+      nextUploader.destroy();
+      setUploader(null);
+    };
+  }, [open, upload, spaceUuid, currentFolderUuid, queryClient, t]);
+  if (!open || !upload) {
+    return null;
+  }
+  return /* @__PURE__ */ jsx69(
+    DrawerDialog2,
+    {
+      size: "lg",
+      title: t("assets.uploadModal.title"),
+      description: t("assets.uploadModal.videoFormatNotice"),
+      onClose,
+      children: /* @__PURE__ */ jsx69("div", { className: "flex w-full flex-col gap-3 px-3 pb-3 lg:gap-5 lg:px-7 lg:pb-7", children: uploader && /* @__PURE__ */ jsx69(Dashboard2, { uppy: uploader, proudlyDisplayPoweredByUppy: false }) })
+    }
+  );
+}
+var UploadModal_default2 = AssetsUploadModal;
+
+// src/components/assets/components/modals/NewLinkModal.tsx
+import { useState as useState22, useEffect as useEffect18 } from "react";
+import QRCode from "react-qr-code";
+import { toast as toast8 } from "sonner";
+import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
+
+// src/components/ui/checkbox.tsx
+import * as React36 from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { Check as Check8 } from "lucide-react";
+import { jsx as jsx70 } from "react/jsx-runtime";
+var Checkbox = React36.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx70(
+  CheckboxPrimitive.Root,
+  {
+    ref,
+    className: cn(
+      "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary dark:text-zinc-800 data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsx70(
+      CheckboxPrimitive.Indicator,
+      {
+        className: cn("flex items-center justify-center text-current"),
+        children: /* @__PURE__ */ jsx70(Check8, { className: "h-4 w-4" })
+      }
+    )
+  }
+));
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
+
+// src/components/ui/select.tsx
+import * as React37 from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check as Check9, ChevronDown as ChevronDown4, ChevronUp } from "lucide-react";
+import { jsx as jsx71, jsxs as jsxs51 } from "react/jsx-runtime";
+var Select = SelectPrimitive.Root;
+var SelectValue = SelectPrimitive.Value;
+var SelectTrigger = React37.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs51(
+  SelectPrimitive.Trigger,
+  {
+    ref,
+    type: "button",
+    className: cn(
+      "flex h-12 w-full items-center justify-between rounded-[10px] border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      className
+    ),
+    ...props,
+    children: [
+      children,
+      /* @__PURE__ */ jsx71(SelectPrimitive.Icon, { asChild: true, children: /* @__PURE__ */ jsx71(ChevronDown4, { className: "h-4 w-4 opacity-50" }) })
+    ]
+  }
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+var SelectScrollUpButton = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx71(
+  SelectPrimitive.ScrollUpButton,
+  {
+    ref,
+    className: cn(
+      "flex cursor-default items-center justify-center py-1",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsx71(ChevronUp, { className: "h-4 w-4" })
+  }
+));
+SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
+var SelectScrollDownButton = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx71(
+  SelectPrimitive.ScrollDownButton,
+  {
+    ref,
+    className: cn(
+      "flex cursor-default items-center justify-center py-1",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsx71(ChevronDown4, { className: "h-4 w-4" })
+  }
+));
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+var SelectContent = React37.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsx71(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsxs51(
+  SelectPrimitive.Content,
+  {
+    ref,
+    className: cn(
+      "relative z-[100001] max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+      className
+    ),
+    position,
+    ...props,
+    children: [
+      /* @__PURE__ */ jsx71(SelectScrollUpButton, {}),
+      /* @__PURE__ */ jsx71(
+        SelectPrimitive.Viewport,
+        {
+          className: cn(
+            "p-1",
+            position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+          ),
+          children
+        }
+      ),
+      /* @__PURE__ */ jsx71(SelectScrollDownButton, {})
+    ]
+  }
+) }));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
+var SelectLabel = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx71(
+  SelectPrimitive.Label,
+  {
+    ref,
+    className: cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className),
+    ...props
+  }
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
+var SelectItem = React37.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs51(
+  SelectPrimitive.Item,
+  {
+    ref,
+    className: cn(
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    ),
+    ...props,
+    children: [
+      /* @__PURE__ */ jsx71("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx71(SelectPrimitive.ItemIndicator, { children: /* @__PURE__ */ jsx71(Check9, { className: "h-4 w-4" }) }) }),
+      /* @__PURE__ */ jsx71(SelectPrimitive.ItemText, { children })
+    ]
+  }
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;
+var SelectSeparator = React37.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx71(
+  SelectPrimitive.Separator,
+  {
+    ref,
+    className: cn("-mx-1 my-1 h-px bg-muted", className),
+    ...props
+  }
+));
+SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+// src/components/assets/components/modals/NewLinkModal.tsx
+import { jsx as jsx72, jsxs as jsxs52 } from "react/jsx-runtime";
+var qrPositionToClass = (pos) => {
+  switch (pos) {
+    case "top_left":
+      return "top-2 left-2";
+    case "top_right":
+      return "top-2 right-2";
+    case "bottom_left":
+      return "bottom-2 left-2";
+    case "bottom_right":
+    default:
+      return "bottom-2 right-2";
+  }
+};
+var NewLinkModal = ({ open, onClose }) => {
+  const { t } = useNitxUiTranslation();
+  const { api, spaceUuid } = useAssetsConfig();
+  const queryClient = useQueryClient3();
+  const [url, setUrl] = useState22("");
+  const [isValid, setIsValid] = useState22(false);
+  const [isAccessible, setIsAccessible] = useState22(null);
+  const [showQr, setShowQr] = useState22(false);
+  const [qrPosition, setQrPosition] = useState22("bottom_right");
+  const [loading, setLoading] = useState22(false);
+  useEffect18(() => {
+    try {
+      new URL(url);
+      setIsValid(true);
+    } catch {
+      setIsValid(false);
+      setIsAccessible(null);
+    }
+  }, [url]);
+  useEffect18(() => {
+    if (!isValid || !url?.length) return;
+    if (!api.checkIframeAccess) {
+      setIsAccessible(true);
+      return;
+    }
+    let cancelled = false;
+    api.checkIframeAccess(url).then((accessible) => {
+      if (!cancelled) setIsAccessible(accessible);
+    }).catch(() => {
+      if (!cancelled) setIsAccessible(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isValid, url, api]);
+  if (!open) return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (!isValid || !isAccessible) {
+      setLoading(false);
+      return;
+    }
+    try {
+      toast8.loading(t("assets.newLinkModal.creatingLink"));
+      await api.createLink({
+        url,
+        is_qr_code: showQr,
+        qr_code_position: qrPosition
+      });
+      queryClient.invalidateQueries({ queryKey: assetKeys.all(spaceUuid) });
+      toast8.dismiss();
+      toast8.success(t("assets.newLinkModal.linkCreatedSuccessfully"));
+      onClose();
+      setUrl("");
+    } catch (e2) {
+      toast8.dismiss();
+      if (e2?.response?.status === 422 && e2?.response?.data?.message) {
+        toast8.error(e2.response.data.errors.url[0]);
+      } else {
+        toast8.error(t("assets.newLinkModal.somethingWentWrong"));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  return /* @__PURE__ */ jsx72(
+    DrawerDialog2,
+    {
+      size: "xl",
+      title: t("assets.newLinkModal.title"),
+      onClose,
+      children: /* @__PURE__ */ jsxs52("div", { className: " w-full h-full flex flex-col lg:flex-row", children: [
+        /* @__PURE__ */ jsx72("div", { className: "w-full h-full lg:w-1/2 p-5 pt-0 flex flex-col gap-5", children: /* @__PURE__ */ jsxs52(
+          "form",
+          {
+            onSubmit: handleSubmit,
+            className: "h-full min-h-[350px] flex flex-col gap-4",
+            children: [
+              /* @__PURE__ */ jsxs52("div", { children: [
+                /* @__PURE__ */ jsx72(Label4, { htmlFor: "link-url", children: t("assets.newLinkModal.url") }),
+                /* @__PURE__ */ jsx72(
+                  Input2,
+                  {
+                    id: "link-url",
+                    type: "url",
+                    value: url,
+                    onChange: (e) => setUrl(e.target.value),
+                    placeholder: t("assets.newLinkModal.urlPlaceholder"),
+                    className: "mt-1"
+                  }
+                )
+              ] }),
+              url && (isValid ? isAccessible === null ? /* @__PURE__ */ jsx72("p", { className: "text-sm text-muted-foreground", children: t("assets.newLinkModal.checkingAccessibility") }) : isAccessible ? /* @__PURE__ */ jsxs52("div", { className: "flex flex-col gap-2", children: [
+                /* @__PURE__ */ jsxs52("div", { className: "flex items-center gap-3", children: [
+                  /* @__PURE__ */ jsx72(
+                    Checkbox,
+                    {
+                      id: "show-qr",
+                      className: "rounded-[4px] border-border focus:ring-2",
+                      checked: showQr,
+                      onCheckedChange: (checked) => setShowQr(!!checked)
+                    }
+                  ),
+                  /* @__PURE__ */ jsx72(
+                    Label4,
+                    {
+                      htmlFor: "show-qr",
+                      className: "cursor-pointer text-base font-medium text-foreground",
+                      children: t("assets.newLinkModal.displayQrCode")
+                    }
+                  )
+                ] }),
+                showQr && /* @__PURE__ */ jsxs52("div", { className: "flex items-center justify-between gap-3 ml-6 rtl:ml-0 rtl:mr-6", children: [
+                  /* @__PURE__ */ jsx72(
+                    Label4,
+                    {
+                      htmlFor: "qr-position",
+                      className: "text-sm font-normal text-muted-foreground",
+                      children: t("assets.newLinkModal.qrPosition")
+                    }
+                  ),
+                  /* @__PURE__ */ jsxs52(
+                    Select,
+                    {
+                      value: qrPosition,
+                      onValueChange: (value) => setQrPosition(value),
+                      children: [
+                        /* @__PURE__ */ jsx72(
+                          SelectTrigger,
+                          {
+                            id: "qr-position",
+                            className: "w-36 rounded-md border-input ",
+                            children: /* @__PURE__ */ jsx72(
+                              SelectValue,
+                              {
+                                placeholder: t(
+                                  "assets.newLinkModal.selectPosition"
+                                )
+                              }
+                            )
+                          }
+                        ),
+                        /* @__PURE__ */ jsxs52(SelectContent, { children: [
+                          /* @__PURE__ */ jsx72(SelectItem, { value: "top_left", children: t("assets.newLinkModal.topLeft") }),
+                          /* @__PURE__ */ jsx72(SelectItem, { value: "top_right", children: t("assets.newLinkModal.topRight") }),
+                          /* @__PURE__ */ jsx72(SelectItem, { value: "bottom_left", children: t("assets.newLinkModal.bottomLeft") }),
+                          /* @__PURE__ */ jsx72(SelectItem, { value: "bottom_right", children: t("assets.newLinkModal.bottomRight") })
+                        ] })
+                      ]
+                    }
+                  )
+                ] })
+              ] }) : /* @__PURE__ */ jsx72("p", { className: "text-sm text-error", children: t("assets.newLinkModal.urlCannotBeEmbedded") }) : /* @__PURE__ */ jsx72("p", { className: "text-sm text-error", children: t("assets.newLinkModal.invalidUrl") })),
+              /* @__PURE__ */ jsx72(
+                Button,
+                {
+                  type: "submit",
+                  disabled: !isValid || !isAccessible || loading,
+                  className: "w-full mt-auto",
+                  children: t("assets.newLinkModal.save")
+                }
+              )
+            ]
+          }
+        ) }),
+        /* @__PURE__ */ jsx72("div", { className: "w-full lg:w-1/2 p-5 border-l rtl:border-l-0 rtl:border-r border-border relative", children: url && isValid && isAccessible ? /* @__PURE__ */ jsx72("div", { className: "w-full h-full flex justify-center items-center", children: /* @__PURE__ */ jsxs52("div", { className: "w-full min-h-60 border rounded-md overflow-hidden relative", children: [
+          /* @__PURE__ */ jsx72(
+            "iframe",
+            {
+              src: url,
+              className: "w-full h-full lg:aspect-square",
+              title: "URL Preview"
+            }
+          ),
+          showQr && /* @__PURE__ */ jsx72(
+            "div",
+            {
+              className: `absolute p-1 ${qrPositionToClass(qrPosition)}`,
+              children: /* @__PURE__ */ jsx72(QRCode, { value: url, size: 64 })
+            }
+          )
+        ] }) }) : /* @__PURE__ */ jsx72("div", { className: "w-full h-full flex justify-center items-center text-muted-foreground", children: /* @__PURE__ */ jsx72("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
+      ] })
+    }
+  );
+};
+var NewLinkModal_default = NewLinkModal;
+
+// src/components/assets/components/AssetsBrowser.tsx
+import { jsx as jsx73, jsxs as jsxs53 } from "react/jsx-runtime";
+var getExtensionFromMimeType = (mimeType) => {
+  const mimeToExt = {
+    "image/jpeg": ".jpg",
+    "image/jpg": ".jpg",
+    "image/png": ".png",
+    "image/gif": ".gif",
+    "image/webp": ".webp",
+    "video/mp4": ".mp4",
+    "video/quicktime": ".mov",
+    "video/x-msvideo": ".avi",
+    "video/webm": ".webm",
+    "application/pdf": ".pdf",
+    "application/msword": ".doc",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
+    "application/vnd.ms-excel": ".xls",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ".xlsx",
+    "application/vnd.ms-powerpoint": ".ppt",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation": ".pptx",
+    "text/plain": ".txt"
+  };
+  return mimeToExt[mimeType] || "";
+};
+var saveBlob = (blob, fileName) => {
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(url);
+};
+var AssetsBrowser = ({
+  className,
+  onTitleChange,
+  emptyStateImages,
+  renderAssetActions,
+  renderFolderMenuItems
+}) => {
+  const { t } = useNitxUiTranslation();
+  const { api, spaceUuid, features } = useAssetsConfig();
+  const queryClient = useQueryClient4();
+  const path = useAssetsStore((s) => s.path);
+  const addPath = useAssetsStore((s) => s.addPath);
+  const activeTab = useAssetsStore((s) => s.activeTab);
+  const renamingItemId = useAssetsStore((s) => s.renamingItemId);
+  const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+  const viewType = useAssetsStore((s) => s.viewType);
+  const setViewType = useAssetsStore((s) => s.setViewType);
+  const currentFolderId = features.folders ? path[path.length - 1]?.id || null : null;
+  const { data, isLoading: isFetching } = useAssetsQuery(currentFolderId);
+  const assetsRaw = data?.assets || [];
+  const foldersRaw = data?.folders || [];
+  const assets = React39.useMemo(() => assetsRaw, [JSON.stringify(assetsRaw)]);
+  const folders = React39.useMemo(() => foldersRaw, [JSON.stringify(foldersRaw)]);
+  const { mutateAsync: deleteAssets } = useDeleteAssetMutation(currentFolderId);
+  const { mutateAsync: deleteFolder } = useDeleteFolderMutation(currentFolderId);
+  const { mutateAsync: deleteFolders } = useBulkDeleteFoldersMutation(currentFolderId);
+  const { mutateAsync: renameAsset } = useRenameAssetMutation(currentFolderId);
+  const { mutateAsync: renameFolder } = useRenameFolderMutation(currentFolderId);
+  const { mutateAsync: moveAssets } = useMoveAssetMutation(currentFolderId);
+  const { mutateAsync: moveFolder } = useMoveFolderMutation(currentFolderId);
+  const [enableCheckbox, setEnableCheckbox] = useState23(false);
+  const [selected, setSelected] = useState23([]);
+  const [searchTerm, setSearchTerm] = useState23("");
+  const [previewAsset, setPreviewAsset] = useState23(null);
+  const [previewIndex, setPreviewIndex] = useState23(0);
+  const [lastClickedAsset, setLastClickedAsset] = useState23(null);
+  const [showMoveModal, setShowMoveModal] = useState23(false);
+  const [itemsToMove, setItemsToMove] = useState23([]);
+  const [moveItemType, setMoveItemType] = useState23("asset");
+  const [showUploadModal, setShowUploadModal] = useState23(false);
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState23(false);
+  const [showNewLinkModal, setShowNewLinkModal] = useState23(false);
+  const [confirmDelete, setConfirmDelete] = useState23(null);
+  const [draggedAssets, setDraggedAssets] = useState23([]);
+  const [dropTarget, setDropTarget] = useState23(null);
+  useEffect19(() => {
+    onTitleChange?.(t("assets.headerWithCustomTabbar.asset"));
+  }, [onTitleChange, t]);
+  useEffect19(() => {
+    if (!enableCheckbox) {
+      setSelected([]);
+    }
+  }, [enableCheckbox]);
+  const filteredAssets = React39.useMemo(() => {
+    let filtered = assets;
+    if (activeTab === "media") {
+      filtered = assets.filter(
+        (a) => a.type === "image" || a.type === "video"
+      );
+    } else if (activeTab === "document") {
+      filtered = assets.filter((a) => a.type === "document");
+    } else if (activeTab === "link") {
+      filtered = assets.filter((a) => a.type === "link");
+    }
+    if (searchTerm) {
+      const lowercased = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (a) => a.name.toLowerCase().includes(lowercased)
+      );
+    }
+    return filtered;
+  }, [assets, activeTab, searchTerm]);
+  const filteredDirectories = React39.useMemo(() => {
+    if (!features.folders || activeTab !== "all") return [];
+    if (searchTerm) {
+      const lowercased = searchTerm.toLowerCase();
+      return folders.filter((f) => f.name.toLowerCase().includes(lowercased));
+    }
+    return folders;
+  }, [folders, activeTab, searchTerm, features.folders]);
+  const {
+    visibleItems: visibleAssets,
+    loadingMore,
+    hasMore,
+    observerRef
+  } = useLazyLoading(filteredAssets, {
+    itemsPerBatch: 12,
+    rootMargin: "200px"
+  });
+  useEffect19(() => {
+    if (typeof window === "undefined") return;
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {
+        e.preventDefault();
+        const folderIds = filteredDirectories.map((folder) => folder.id);
+        const assetUuids = filteredAssets.map((asset) => asset.uuid);
+        setSelected([...assetUuids, ...folderIds]);
+        if (!enableCheckbox) {
+          setEnableCheckbox(true);
+        }
+      }
+      if (e.key === "Escape") {
+        setSelected([]);
+        setEnableCheckbox(false);
+        setPreviewAsset(null);
+      }
+      if (previewAsset) {
+        if (e.key === "ArrowLeft") {
+          handlePreviewNavigation("prev");
+        } else if (e.key === "ArrowRight") {
+          handlePreviewNavigation("next");
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [
+    filteredAssets,
+    filteredDirectories,
+    enableCheckbox,
+    previewAsset,
+    previewIndex,
+    renamingItemId
+  ]);
+  const onDownload = async (asset) => {
+    try {
+      const downloadToast = toast9.loading(
+        t("assets.assetList.downloading", { name: asset.name })
+      );
+      const blob = await api.downloadAsset(asset.uuid);
+      let fileName = asset.name || `download-${asset.uuid}`;
+      if (asset.type === "image" && !fileName.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+        fileName += getExtensionFromMimeType(
+          asset.image?.mime_type || blob.type || "image/jpeg"
+        );
+      } else if (asset.type === "video" && !fileName.match(/\.(mp4|mov|avi|webm)$/i)) {
+        fileName += getExtensionFromMimeType(
+          asset.video?.mime_type || blob.type || "video/mp4"
+        );
+      } else if (asset.type === "document" && !fileName.match(/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i)) {
+        fileName += getExtensionFromMimeType(
+          asset.document?.mime_type || blob.type || "application/pdf"
+        );
+      }
+      saveBlob(blob, fileName);
+      toast9.dismiss(downloadToast);
+      toast9.success(
+        t("assets.assetList.downloadedSuccess", { name: asset.name })
+      );
+    } catch (error) {
+      console.error("Error downloading asset:", error);
+      toast9.error(t("assets.assetList.downloadFailed", { name: asset.name }));
+    }
+  };
+  const onDownloadFolder = async (folder) => {
+    try {
+      const downloadToast = toast9.loading(
+        t("assets.folderCard.preparingDownload")
+      );
+      const blob = await api.downloadFolderContents(folder.id);
+      saveBlob(blob, `${folder.name}-${folder.id}.zip`);
+      toast9.dismiss(downloadToast);
+      toast9.success(
+        t("assets.folderCard.folderDownloadedSuccess", { name: folder.name })
+      );
+    } catch (error) {
+      console.error("Error downloading folder:", error);
+      toast9.error(
+        t("assets.folderCard.folderDownloadFailed", { name: folder.name })
+      );
+    }
+  };
+  const requestDeleteAsset = (asset) => {
+    setConfirmDelete({
+      title: t("assets.assetList.deleteAsset"),
+      description: t("assets.assetList.deleteConfirm", { name: asset.name }),
+      onConfirm: async () => {
+        const deletingToast = toast9.loading(
+          t("assets.assetList.deleting", { name: asset.name })
+        );
+        try {
+          await deleteAssets([asset.uuid]);
+          toast9.success(
+            t("assets.assetList.deletedSuccess", { name: asset.name }),
+            { id: deletingToast }
+          );
+        } catch (error) {
+          console.error("Error deleting asset:", error);
+          toast9.error(
+            t("assets.assetList.deleteFailed", { name: asset.name }),
+            { id: deletingToast }
+          );
+        }
+      }
+    });
+  };
+  const requestDeleteFolder = (folder) => {
+    setConfirmDelete({
+      title: t("assets.folderCard.deleteFolder"),
+      description: t("assets.folderCard.deleteConfirm", { name: folder.name }),
+      onConfirm: async () => {
+        const deletingToast = toast9.loading(
+          t("assets.assetList.deleting", { name: folder.name })
+        );
+        try {
+          await deleteFolder(folder.id);
+          toast9.success(
+            t("assets.assetList.deletedSuccess", { name: folder.name }),
+            { id: deletingToast }
+          );
+        } catch (error) {
+          console.error("Error deleting folder:", error);
+          toast9.error(
+            t("assets.assetList.deleteFailed", { name: folder.name }),
+            { id: deletingToast }
+          );
+        }
+      }
+    });
+  };
+  const handleBulkDelete = () => {
+    const assetUuids = filteredAssets.filter((a) => selected.includes(a.uuid)).map((a) => a.uuid);
+    const folderIds = filteredDirectories.filter((f) => selected.includes(f.id)).map((f) => f.id);
+    setConfirmDelete({
+      title: t("assets.assetList.deleteItems", {
+        count: selected.length,
+        plural: selected.length > 1 ? "s" : ""
+      }),
+      description: t("assets.assetList.deleteItemsConfirm", {
+        count: selected.length
+      }),
+      onConfirm: async () => {
+        const deletingToast = toast9.loading(
+          t("assets.assetList.deletingItems")
+        );
+        try {
+          if (assetUuids.length > 0) {
+            await deleteAssets(assetUuids);
+          }
+          if (folderIds.length > 0) {
+            await deleteFolders(folderIds);
+          }
+          toast9.success(t("assets.assetList.itemsDeletedSuccess"), {
+            id: deletingToast
+          });
+        } catch (error) {
+          console.error("Error deleting asset/folder:", error);
+          toast9.error(t("assets.assetList.itemsDeleteFailed"), {
+            id: deletingToast
+          });
+        } finally {
+          setEnableCheckbox(false);
+        }
+      }
+    });
+  };
+  const handleMove = (itemId, type) => {
+    setItemsToMove([itemId]);
+    setMoveItemType(type);
+    setShowMoveModal(true);
+  };
+  const handleBulkMove = () => {
+    setItemsToMove(selected);
+    setMoveItemType("asset");
+    setShowMoveModal(true);
+  };
+  const performMove = async (destinationId) => {
+    try {
+      if (moveItemType === "folder") {
+        await moveFolder({ id: itemsToMove[0], parentId: destinationId });
+      } else {
+        await moveAssets({ uuids: itemsToMove, destinationId });
+      }
+      setSelected([]);
+      setEnableCheckbox(false);
+    } catch (error) {
+      console.error("Error moving items:", error);
+    }
+  };
+  const handleAssetClick = (e, assetId) => {
+    e.stopPropagation();
+    if (!enableCheckbox) {
+      const assetIndex = filteredAssets.findIndex((a) => a.uuid === assetId);
+      const asset = filteredAssets[assetIndex];
+      if (!asset) return;
+      setPreviewAsset(asset);
+      setPreviewIndex(assetIndex);
+      return;
+    }
+    if (e.shiftKey && lastClickedAsset) {
+      const allAssetIds = filteredAssets.map((asset) => asset.uuid);
+      const currentIndex = allAssetIds.indexOf(assetId);
+      const lastIndex = allAssetIds.indexOf(lastClickedAsset);
+      if (currentIndex !== -1 && lastIndex !== -1) {
+        const start = Math.min(currentIndex, lastIndex);
+        const end = Math.max(currentIndex, lastIndex);
+        const rangeSelection = allAssetIds.slice(start, end + 1);
+        if (e.ctrlKey || e.metaKey) {
+          setSelected((prev) => {
+            const newSelection = [...prev];
+            rangeSelection.forEach((id) => {
+              if (!newSelection.includes(id)) {
+                newSelection.push(id);
+              }
+            });
+            return newSelection;
+          });
+        } else {
+          setSelected(rangeSelection);
+        }
+      }
+    } else {
+      setSelected((prev) => {
+        if (prev.includes(assetId)) {
+          return prev.filter((id) => id !== assetId);
+        }
+        return [...prev, assetId];
+      });
+    }
+    setLastClickedAsset(assetId);
+  };
+  const handleFolderClick = (e, folder) => {
+    e.stopPropagation();
+    if (enableCheckbox) {
+      setSelected((prev) => {
+        if (prev.includes(folder.id)) {
+          return prev.filter((id) => id !== folder.id);
+        }
+        return [...prev, folder.id];
+      });
+    } else {
+      addPath({ id: folder.id, label: `${folder.name}` });
+    }
+  };
+  const handleFolderHover = (folderId) => {
+    queryClient.prefetchQuery({
+      queryKey: assetKeys.list(spaceUuid, folderId),
+      queryFn: () => api.fetchAssetsAndFolders(folderId),
+      staleTime: 1e3 * 60 * 5
+    });
+  };
+  const handlePreviewNavigation = (direction) => {
+    if (!previewAsset) return;
+    const newIndex = direction === "prev" ? Math.max(0, previewIndex - 1) : Math.min(filteredAssets.length - 1, previewIndex + 1);
+    setPreviewIndex(newIndex);
+    setPreviewAsset(filteredAssets[newIndex]);
+  };
+  const handleRenameAsset = async (asset, newName) => {
+    const normalize = (s) => s.trim().toLowerCase();
+    const hasDuplicate = assets.some(
+      (a) => a.uuid !== asset.uuid && a.folder_id === asset.folder_id && a.type === asset.type && normalize(a.name) === normalize(newName)
+    );
+    if (hasDuplicate) {
+      toast9.error(
+        t("assets.assetCard.duplicateNameError", {
+          type: asset.type,
+          name: newName
+        })
+      );
+      setRenamingItemId(null);
+      return;
+    }
+    const renameToast = toast9.loading(
+      t("assets.assetList.renaming", { name: newName })
+    );
+    try {
+      await renameAsset({ id: asset.uuid, name: newName });
+      toast9.dismiss(renameToast);
+    } catch (error) {
+      console.error("Error renaming asset:", error);
+      toast9.dismiss(renameToast);
+    }
+  };
+  const handleRenameFolder = async (folder, newName) => {
+    const normalize = (s) => s.trim().toLowerCase();
+    const hasDuplicate = folders.some(
+      (f) => f.id !== folder.id && f.parent_id === folder.parent_id && normalize(f.name) === normalize(newName)
+    );
+    if (hasDuplicate) {
+      toast9.error(
+        t("assets.folderCard.duplicateFolderError", { name: newName })
+      );
+      setRenamingItemId(null);
+      return;
+    }
+    const renameToast = toast9.loading(
+      t("assets.assetList.renamingFolder", { name: newName })
+    );
+    try {
+      await renameFolder({
+        id: folder.id,
+        name: newName,
+        parentId: folder.parent_id
+      });
+      toast9.dismiss(renameToast);
+    } catch (error) {
+      console.error("Error renaming folder:", error);
+      toast9.dismiss(renameToast);
+    }
+  };
+  const handleAssetDragStart = (e, assetId) => {
+    const itemsToDrag = selected.includes(assetId) && selected.length > 1 ? selected : [assetId];
+    setDraggedAssets(itemsToDrag);
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({
+        type: "assets",
+        items: itemsToDrag
+      })
+    );
+    e.dataTransfer.effectAllowed = "move";
+  };
+  const handleAssetDragEnd = () => {
+    setDraggedAssets([]);
+    setDropTarget(null);
+  };
+  const handleFolderDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+  const handleFolderDragEnter = (e, folderId) => {
+    e.preventDefault();
+    setDropTarget(folderId);
+  };
+  const handleFolderDragLeave = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      setDropTarget(null);
+    }
+  };
+  const handleFolderDrop = async (e, targetFolderId) => {
+    e.preventDefault();
+    setDropTarget(null);
+    try {
+      const dragData = JSON.parse(e.dataTransfer.getData("text/plain"));
+      if (dragData.type === "assets" && dragData.items.length > 0) {
+        await moveAssets({
+          uuids: dragData.items,
+          destinationId: targetFolderId
+        });
+        if (selected.some((id) => dragData.items.includes(id))) {
+          setSelected([]);
+          setEnableCheckbox(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error moving assets:", error);
+      toast9.error(t("assets.assetList.assetsMoveFailed"));
+    } finally {
+      setDraggedAssets([]);
+    }
+  };
+  let emptyImage;
+  if (!filteredAssets.length && !filteredDirectories.length) {
+    if (activeTab === "media") emptyImage = emptyStateImages?.media;
+    else if (activeTab === "document") emptyImage = emptyStateImages?.document;
+    else if (activeTab === "link") emptyImage = emptyStateImages?.link;
+  }
+  const isEmpty = !isFetching && !filteredAssets.length && !filteredDirectories.length;
+  return /* @__PURE__ */ jsxs53("div", { className: cn("w-full h-full relative dark:bg-card", className), children: [
+    /* @__PURE__ */ jsx73("div", { className: "sticky top-0 z-20 bg-white dark:bg-card", children: /* @__PURE__ */ jsx73(AssetsTabbar_default, {}) }),
+    /* @__PURE__ */ jsxs53("div", { className: "w-full h-full p-6 flex flex-col", children: [
+      /* @__PURE__ */ jsx73("div", { className: "sticky top-[43px] w-full z-10 bg-zinc-50 dark:bg-card mb-5", children: /* @__PURE__ */ jsx73(
+        AssetsHeader_default,
+        {
+          viewType,
+          onChangeView: (v) => setViewType(v),
+          enableCheckbox,
+          onEnableCheckbox: setEnableCheckbox,
+          onSearch: (e) => setSearchTerm(e.target.value),
+          onUploadClick: () => setShowUploadModal(true),
+          onNewFolderClick: () => setShowCreateFolderModal(true),
+          onCreateLinkClick: features.links ? () => setShowNewLinkModal(true) : void 0
+        }
+      ) }),
+      isEmpty ? /* @__PURE__ */ jsx73(EmptyList_default2, { image: emptyImage }) : /* @__PURE__ */ jsx73("div", { className: "h-full z-0", children: /* @__PURE__ */ jsxs53(
+        "div",
+        {
+          className: cn(
+            "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+            viewType === "list" && "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
+            viewType === "grid-list" && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3"
+          ),
+          children: [
+            filteredDirectories.map((folder, i) => /* @__PURE__ */ jsx73(
+              "div",
+              {
+                className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
+                style: { transitionDelay: `${i * 30}ms` },
+                children: /* @__PURE__ */ jsx73(
+                  FolderCard_default,
+                  {
+                    data: folder,
+                    viewType,
+                    onMove: handleMove,
+                    allowSelect: enableCheckbox,
+                    onClick: handleFolderClick,
+                    onMouseEnter: () => !enableCheckbox && handleFolderHover(folder.id),
+                    selected: selected.includes(folder.id),
+                    onDragOver: features.dragDrop ? handleFolderDragOver : void 0,
+                    onDragEnter: features.dragDrop ? (e) => handleFolderDragEnter(e, folder.id) : void 0,
+                    onDragLeave: features.dragDrop ? handleFolderDragLeave : void 0,
+                    onDrop: features.dragDrop ? (e) => handleFolderDrop(e, folder.id) : void 0,
+                    isDropTarget: dropTarget === folder.id,
+                    onDelete: () => requestDeleteFolder(folder),
+                    onRename: (newName) => handleRenameFolder(folder, newName),
+                    onDownload: onDownloadFolder,
+                    renderMenuItems: renderFolderMenuItems
+                  }
+                )
+              },
+              folder.id
+            )),
+            visibleAssets.map((asset, i) => /* @__PURE__ */ jsx73(
+              "div",
+              {
+                className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
+                style: {
+                  transitionDelay: `${(filteredDirectories.length + i) * 30}ms`
+                },
+                children: /* @__PURE__ */ jsx73(
+                  AssetCard_default,
+                  {
+                    data: asset,
+                    viewType,
+                    allowSelect: enableCheckbox,
+                    onClick: (e) => handleAssetClick(e, asset.uuid),
+                    onMove: handleMove,
+                    selected: selected.includes(asset.uuid),
+                    draggable: features.dragDrop && !enableCheckbox,
+                    onDragStart: features.dragDrop ? (e) => handleAssetDragStart(e, asset.uuid) : void 0,
+                    onDragEnd: features.dragDrop ? handleAssetDragEnd : void 0,
+                    isDragging: draggedAssets.includes(asset.uuid),
+                    onDelete: () => requestDeleteAsset(asset),
+                    onRename: (newName) => handleRenameAsset(asset, newName),
+                    onDownload,
+                    renderActions: renderAssetActions
+                  }
+                )
+              },
+              asset.uuid
+            )),
+            loadingMore && /* @__PURE__ */ jsx73(LazyLoadingSkeleton_default, { viewType, count: 6 }),
+            hasMore && !loadingMore && /* @__PURE__ */ jsx73("div", { ref: observerRef, className: "h-4 w-full" }),
+            isFetching && !filteredAssets.length && !filteredDirectories.length && [...Array(20)].map((_, i) => /* @__PURE__ */ jsx73(AssetCardSkeleton, { viewType }, i))
+          ]
+        }
+      ) })
+    ] }),
+    enableCheckbox && selected.length > 0 && /* @__PURE__ */ jsxs53("div", { className: "absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-10 z-50 shadow-md w-full max-w-lg p-2 px-4 rounded-[14px] bg-white dark:bg-card flex items-center justify-between", children: [
+      /* @__PURE__ */ jsx73("p", { className: "text-sm", children: t("assets.assetList.itemsSelected", {
+        count: selected.length
+      }) }),
+      /* @__PURE__ */ jsxs53(
+        Button,
+        {
+          variant: "ghost",
+          className: "flex gap-4 rounded-[8px] px-4",
+          onClick: handleBulkMove,
+          children: [
+            /* @__PURE__ */ jsx73(FolderSymlink, {}),
+            t("assets.assetList.moveTo")
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxs53(
+        Button,
+        {
+          onClick: handleBulkDelete,
+          variant: "ghost",
+          className: "flex gap-4 px-4 rounded-[8px] text-rose-500 hover:bg-rose-700 focus:text-rose-200 hover:text-rose-100 transition-all",
+          children: [
+            /* @__PURE__ */ jsx73(Trash25, {}),
+            " ",
+            t("assets.assetList.delete")
+          ]
+        }
+      )
+    ] }),
+    previewAsset && /* @__PURE__ */ jsx73(
+      AssetsPreview_default,
+      {
+        previewAsset,
+        previewIndex,
+        filteredAssets,
+        setPreviewAsset,
+        setPreviewIndex,
+        handlePreviewNavigation,
+        type: activeTab,
+        onDownload
+      }
+    ),
+    features.folders && /* @__PURE__ */ jsx73(
+      MoveModal_default,
+      {
+        isOpen: showMoveModal,
+        onClose: () => setShowMoveModal(false),
+        onMove: performMove,
+        itemsToMove,
+        moveItemType
+      }
+    ),
+    features.folders && /* @__PURE__ */ jsx73(
+      CreateFolderModal_default,
+      {
+        open: showCreateFolderModal,
+        onClose: () => setShowCreateFolderModal(false)
+      }
+    ),
+    features.upload && /* @__PURE__ */ jsx73(
+      UploadModal_default2,
+      {
+        open: showUploadModal,
+        onClose: () => setShowUploadModal(false)
+      }
+    ),
+    features.links && /* @__PURE__ */ jsx73(
+      NewLinkModal_default,
+      {
+        open: showNewLinkModal,
+        onClose: () => setShowNewLinkModal(false)
+      }
+    ),
+    /* @__PURE__ */ jsx73(
+      ConfirmDeleteDialog_default,
+      {
+        state: confirmDelete,
+        onClose: () => setConfirmDelete(null)
+      }
+    )
+  ] });
+};
+var AssetsBrowser_default = AssetsBrowser;
+
+// src/components/assets/links/LinkEditor.tsx
+import React41 from "react";
+import QRCode2 from "react-qr-code";
+import { toast as toast10 } from "sonner";
+import { useQueryClient as useQueryClient5 } from "@tanstack/react-query";
+
+// src/components/ui/switch.tsx
+import * as React40 from "react";
+import * as SwitchPrimitives from "@radix-ui/react-switch";
+import { jsx as jsx74 } from "react/jsx-runtime";
+var Switch = React40.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx74(
+  SwitchPrimitives.Root,
+  {
+    className: cn(
+      "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
+      className
+    ),
+    ...props,
+    ref,
+    children: /* @__PURE__ */ jsx74(
+      SwitchPrimitives.Thumb,
+      {
+        className: cn(
+          "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
+        )
+      }
+    )
+  }
+));
+Switch.displayName = SwitchPrimitives.Root.displayName;
+
+// src/components/assets/links/LinkEditor.tsx
+import { jsx as jsx75, jsxs as jsxs54 } from "react/jsx-runtime";
+var qrPositionToClass2 = (pos) => {
+  switch (pos) {
+    case "top_left":
+      return "top-2 left-2";
+    case "top_right":
+      return "top-2 right-2";
+    case "bottom_left":
+      return "bottom-2 left-2";
+    case "bottom_right":
+    default:
+      return "bottom-2 right-2";
+  }
+};
+var ensureProtocol = (link) => {
+  if (!link) return "";
+  if (link.startsWith("http://") || link.startsWith("https://") || link.startsWith("mailto:") || link.startsWith("tel:")) {
+    return link;
+  }
+  return `https://${link}`;
+};
+var LinkEditor = (props) => {
+  const { t } = useNitxUiTranslation();
+  const { api, spaceUuid, navigation } = useAssetsConfig();
+  const queryClient = useQueryClient5();
+  const linkUuid = props.mode === "edit" ? props.linkUuid : null;
+  const { onTitleChange } = props;
+  const [loading, setLoading] = React41.useState(props.mode === "edit");
+  const [saving, setSaving] = React41.useState(false);
+  const [name, setName] = React41.useState("");
+  const [url, setUrl] = React41.useState("");
+  const [showQR, setShowQR] = React41.useState(false);
+  const [qrPosition, setQrPosition] = React41.useState("bottom_right");
+  React41.useEffect(() => {
+    if (!linkUuid) {
+      onTitleChange?.({
+        title: t("assets.newLinkPage.newLink"),
+        subtitle: t("assets.newLinkPage.createdOn"),
+        isLoading: false
+      });
+      return;
+    }
+    let cancelled = false;
+    const fetchLink = async () => {
+      try {
+        setLoading(true);
+        onTitleChange?.({ title: "", subtitle: "", isLoading: true });
+        const data = await api.fetchLink(linkUuid);
+        if (cancelled) return;
+        setName(data?.name || "");
+        const fetchedUrl = data?.link?.url || data?.url || "";
+        setUrl(fetchedUrl);
+        setShowQR(!!(data?.link?.is_qr_code ?? data?.is_qr_code));
+        setQrPosition(
+          data?.link?.qr_code_position || data?.qr_code_position || "bottom_right"
+        );
+        const createdAt = data?.created_at ? new Date(data.created_at).toLocaleString() : "";
+        onTitleChange?.({
+          title: data?.name || t("assets.linkEditPage.link"),
+          subtitle: createdAt ? t("assets.linkEditPage.addedOn", { date: createdAt }) : "",
+          isLoading: false
+        });
+      } catch (e) {
+        console.error(e);
+        if (!cancelled) {
+          toast10.error(t("assets.linkEditPage.failedToLoad"));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    fetchLink();
+    return () => {
+      cancelled = true;
+    };
+  }, [linkUuid, api, t]);
+  const handleSave = async () => {
+    try {
+      setSaving(true);
+      toast10.loading(t("assets.linkEditPage.saving"));
+      if (props.mode === "edit") {
+        await api.updateLink(props.linkUuid, {
+          url: ensureProtocol(url),
+          is_qr_code: showQR,
+          qr_code_position: qrPosition,
+          space_uuid: spaceUuid
+        });
+      } else {
+        await api.createLink({
+          url: ensureProtocol(url),
+          is_qr_code: showQR,
+          qr_code_position: qrPosition
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: assetKeys.all(spaceUuid) });
+      toast10.dismiss();
+      toast10.success(t("assets.linkEditPage.linkUpdated"));
+      if (props.mode === "create") {
+        navigation?.fromLinksBack();
+      }
+    } catch (e) {
+      console.error(e);
+      toast10.dismiss();
+      toast10.error(t("assets.linkEditPage.saveError"));
+    } finally {
+      setSaving(false);
+    }
+  };
+  const previewUrl = ensureProtocol(url);
+  return /* @__PURE__ */ jsxs54("div", { className: "flex flex-col lg:flex-row w-full h-full", children: [
+    /* @__PURE__ */ jsxs54("div", { className: "w-full lg:w-5/12 p-6 flex flex-col gap-3 mt-4", children: [
+      /* @__PURE__ */ jsx75(Label4, { children: t("assets.linkEditPage.url") }),
+      /* @__PURE__ */ jsx75(
+        Input2,
+        {
+          value: url,
+          onChange: (e) => setUrl(e.target.value),
+          placeholder: t("assets.linkEditPage.urlPlaceholder")
+        }
+      ),
+      /* @__PURE__ */ jsxs54("div", { className: "w-full flex items-center justify-between gap-2", children: [
+        /* @__PURE__ */ jsx75("p", { className: "text-xs", children: t("assets.linkEditPage.addQrCode") }),
+        /* @__PURE__ */ jsx75(Switch, { checked: showQR, onCheckedChange: (v) => setShowQR(!!v) })
+      ] }),
+      showQR && /* @__PURE__ */ jsxs54("div", { className: "w-full flex flex-col mt-4 gap-3", children: [
+        /* @__PURE__ */ jsx75(Label4, { className: "text-sm", children: t("assets.linkEditPage.qrPosition") }),
+        /* @__PURE__ */ jsxs54(Select, { value: qrPosition, onValueChange: (v) => setQrPosition(v), children: [
+          /* @__PURE__ */ jsx75(SelectTrigger, { className: "w-full", children: /* @__PURE__ */ jsx75(
+            SelectValue,
+            {
+              placeholder: t("assets.linkEditPage.selectPosition")
+            }
+          ) }),
+          /* @__PURE__ */ jsxs54(SelectContent, { children: [
+            /* @__PURE__ */ jsx75(SelectItem, { value: "top_left", children: t("assets.linkEditPage.topLeft") }),
+            /* @__PURE__ */ jsx75(SelectItem, { value: "top_right", children: t("assets.linkEditPage.topRight") }),
+            /* @__PURE__ */ jsx75(SelectItem, { value: "bottom_left", children: t("assets.linkEditPage.bottomLeft") }),
+            /* @__PURE__ */ jsx75(SelectItem, { value: "bottom_right", children: t("assets.linkEditPage.bottomRight") })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx75(Button, { onClick: handleSave, disabled: saving || loading, className: "mt-2", children: saving ? t("assets.linkEditPage.savingStatus") : t("assets.linkEditPage.saveChanges") })
+    ] }),
+    /* @__PURE__ */ jsx75("div", { className: "flex-grow w-full h-full bg-muted dark:bg-card relative", children: previewUrl ? /* @__PURE__ */ jsxs54("div", { className: "relative w-full h-full min-h-[320px]", children: [
+      /* @__PURE__ */ jsx75(
+        "iframe",
+        {
+          src: previewUrl,
+          className: "absolute inset-0 w-full h-full",
+          title: name || "URL Preview"
+        },
+        previewUrl
+      ),
+      showQR && url && /* @__PURE__ */ jsx75(
+        "div",
+        {
+          className: `absolute z-10 p-1 ${qrPositionToClass2(qrPosition)}`,
+          children: /* @__PURE__ */ jsx75(QRCode2, { value: previewUrl, size: 60 })
+        }
+      )
+    ] }) : /* @__PURE__ */ jsx75("div", { className: "w-full h-full min-h-[320px] flex items-center justify-center text-muted-foreground", children: /* @__PURE__ */ jsx75("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
+  ] });
+};
+var LinkEditor_default = LinkEditor;
 export {
+  ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AddContentModal_default as AddContentModal,
+  AssetsBrowser_default as AssetsBrowser,
+  AssetsPath_default as AssetsPath,
+  AssetsProvider,
+  AssetsTabbar_default as AssetsTabbar,
+  AssetsUploadModal,
+  DEFAULT_ASSET_IMAGES,
   error_state_default as ErrorState,
+  LinkEditor_default as LinkEditor,
   MembersAndNumbers_default as MembersAndNumbers,
   MembersManager_default as MembersManager,
   ProductSwitcher,
@@ -6327,8 +10722,24 @@ export {
   SpaceSelectorProvider,
   UploadModal_default as UploadModal,
   UserAccount,
+  assetKeys,
+  createAssetUploader,
+  createAssetsApi,
   createContentBrowserApi,
   createSpaceSelectorApi,
+  useAssetsConfig,
+  useAssetsQuery,
+  useAssetsStore,
+  useBulkDeleteFoldersMutation,
+  useCreateFolderMutation,
+  useDeleteAssetMutation,
+  useDeleteFolderMutation,
+  useLazyLoading,
+  useMoveAssetMutation,
+  useMoveFolderMutation,
+  useOptionalAssetsConfig,
   useOptionalSpaceSelector,
+  useRenameAssetMutation,
+  useRenameFolderMutation,
   useSpaceSelector
 };

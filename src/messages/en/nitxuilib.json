@@ -692,5 +692,240 @@
     "filesWillAppear": "Your files will appear in a moment",
     "uploadFailed": "Upload failed",
     "pleaseTryAgain": "Please try again"
+  },
+  "assets": {
+    "assetCard": {
+      "deleteAsset": "Delete Asset",
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "duplicateNameError": "An {type} with the name \"{{name}}\" already exists in this folder.",
+      "renaming": "Renaming \"{{name}}\"...",
+      "renamedSuccess": "\"{{name}}\" has been renamed successfully",
+      "renameFailed": "Failed to rename \"{{name}}\". Please try again.",
+      "downloading": "Downloading \"{{name}}\"...",
+      "downloadedSuccess": "\"{{name}}\" has been downloaded successfully",
+      "downloadFailed": "Failed to download \"{{name}}\". Please try again.",
+      "sendToScreen": "Send to screen",
+      "moreOptions": "More options",
+      "rename": "Rename",
+      "moveTo": "Move to",
+      "download": "Download",
+      "edit": "Edit",
+      "delete": "Delete",
+      "video": "video"
+    },
+    "assetList": {
+      "downloading": "Downloading \"{{name}}\"...",
+      "downloadedSuccess": "\"{{name}}\" has been downloaded successfully",
+      "downloadFailed": "Failed to download \"{{name}}\". Please try again.",
+      "deleteAsset": "Delete Asset",
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "deleting": "Deleting \"{{name}}\"...",
+      "deletedSuccess": "\"{{name}}\" has been deleted successfully",
+      "deleteFailed": "Failed to delete \"{{name}}\". Please try again.",
+      "deleteItems": "Delete {{count}} Item{plural}",
+      "deleteItemsConfirm": "Are you sure you want to delete these {{count}} items? This action cannot be undone.",
+      "deletingItems": "Deleting ...",
+      "itemsDeletedSuccess": "Items deleted successfully",
+      "itemsDeleteFailed": "Failed to delete items. Please try again.",
+      "movingItems": "Moving items...",
+      "itemsMovedSuccess": "Items moved successfully",
+      "itemsMoveFailed": "Failed to move items. Please try again.",
+      "renaming": "Renaming \"{{name}}\"...",
+      "renamedSuccess": "\"{{name}}\" has been renamed successfully",
+      "renameFailed": "Failed to rename \"{{name}}\". Please try again.",
+      "renamingFolder": "Renaming folder to \"{{name}}\"...",
+      "folderRenamedSuccess": "Folder renamed to \"{{name}}\" successfully",
+      "folderRenameFailed": "Failed to rename folder to \"{{name}}\". Please try again.",
+      "movingAssets": "Moving assets...",
+      "assetsMovedSuccess": "{{count}} asset{plural} moved successfully",
+      "assetsMoveFailed": "Failed to move assets. Please try again.",
+      "itemsSelected": "{{count}} Item Selected",
+      "itemsSelected_$one": "{{count}} Item Selected",
+      "itemsSelected_$other": "{{count}} Items Selected",
+      "groups_$other": "{{count}} Groups",
+      "moveTo": "Move to",
+      "delete": "Delete",
+      "createSequence": "Create Sequence",
+      "comingSoon": "Coming soon"
+    },
+    "assetsHeader": {
+      "searchPlaceholder": "Search...",
+      "createLink": "Create Link",
+      "upload": "Upload",
+      "newFolder": "New Folder",
+      "gridView": "Grid View",
+      "listView": "List View",
+      "multiSelect": "Multi Select",
+      "actions": "Actions"
+    },
+    "assetsPreview": {
+      "of": "of",
+      "notAvailable": "Preview not available for this type",
+      "linkPreview": "Link Preview: {{url}}"
+    },
+    "assetsTabbar": {
+      "all": "All",
+      "media": "Media",
+      "documents": "Documents",
+      "links": "Links"
+    },
+    "folderCard": {
+      "deleteFolder": "Delete Folder",
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "duplicateFolderError": "A folder named \"{{name}}\" already exists in this location.",
+      "renamingFolder": "Renaming folder to \"{{name}}\"...",
+      "folderRenamedSuccess": "Folder renamed to \"{{name}}\" successfully",
+      "folderRenameFailed": "Failed to rename folder to \"{{name}}\". Please try again.",
+      "creatingSequence": "Creating sequence from \"{{name}}\"...",
+      "sequenceCreatedSuccess": "Sequence \"{{name}}\" created successfully",
+      "sequenceCreateFailed": "Failed to create sequence from \"{{name}}\". Please try again.",
+      "preparingDownload": "Preparing folder download...",
+      "folderDownloadedSuccess": "Folder \"{{name}}\" downloaded successfully",
+      "folderDownloadFailed": "Failed to download folder \"{{name}}\". Please try again.",
+      "moreOptions": "More options",
+      "createSequence": "Create Sequence",
+      "rename": "Rename",
+      "moveTo": "Move to",
+      "download": "Download",
+      "delete": "Delete",
+      "item": "item",
+      "items": "items"
+    },
+    "headerWithTabs": {
+      "assets": "Assets",
+      "all": "All",
+      "media": "Media",
+      "documents": "Documents",
+      "links": "Links"
+    },
+    "headerWithCustomTabbar": {
+      "asset": "Asset"
+    },
+    "editLink": {
+      "failedToLoad": "Failed to load video wall details.",
+      "saving": "Saving video wall...",
+      "saved": "Video wall saved!",
+      "saveError": "Something went wrong. Please try again."
+    },
+    "linkHeader": {
+      "publish": "Publish",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
+    "linkEditPage": {
+      "url": "URL",
+      "urlPlaceholder": "https://example.com",
+      "addQrCode": "Add QR Code to Screen Preview (Optional)",
+      "qrPosition": "QR Position",
+      "selectPosition": "Select position",
+      "topLeft": "Top Left",
+      "topRight": "Top Right",
+      "bottomLeft": "Bottom Left",
+      "bottomRight": "Bottom Right",
+      "saving": "Saving link...",
+      "savingStatus": "Saving...",
+      "saveChanges": "Save Changes",
+      "linkUpdated": "Link updated",
+      "saveError": "Unable to save changes. Please try again.",
+      "failedToLoad": "Failed to load link details.",
+      "link": "Link",
+      "addedOn": "Added on {{date}}"
+    },
+    "newLinkPage": {
+      "newLink": "New Link",
+      "createdOn": "Created on Jun 7, 2025, 10:45 AM by Salt Restaurant",
+      "typeUrl": "Type your URL here",
+      "addQrCode": "Add QR Code to Screen Preview (Optional)"
+    },
+    "globalAssetPlayer": {
+      "previewNotAvailable": "Preview not available",
+      "noContentAvailable": "No content available",
+      "loadingLayout": "Loading layout...",
+      "noContent": "No content",
+      "loadingSequence": "Loading sequence...",
+      "invalidContent": "Invalid content",
+      "sequencePreview": "Sequence Preview",
+      "layoutPreview": "Layout Preview",
+      "landscape": "Landscape",
+      "portrait": "Portrait"
+    },
+    "uploadModal": {
+      "title": "Upload Files",
+      "videoFormatNotice": "For now, videos must be MP4. Other video formats are temporarily unavailable.",
+      "fileUploadedSuccessfully": "uploaded successfully!",
+      "processingUploads": "Processing uploads...",
+      "filesWillAppear": "Your files will appear in a moment",
+      "uploadFailed": "Upload failed",
+      "pleaseTryAgain": "Please try again"
+    },
+    "createFolderModal": {
+      "title": "Create New Folder",
+      "folderNamePlaceholder": "Folder name",
+      "folderNameCannotBeEmpty": "Folder name cannot be empty.",
+      "folderNameAlreadyExists": "Folder name already exists in this location.",
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "folderModal": {
+      "title": "Move to folder",
+      "searchFoldersPlaceholder": "Search folders...",
+      "noFoldersAvailable": "No folders available",
+      "current": "(Current)",
+      "cancel": "Cancel",
+      "move": "Move",
+      "root": "Root"
+    },
+    "newLinkModal": {
+      "title": "Create New Link",
+      "url": "URL",
+      "urlPlaceholder": "https://example.com",
+      "checkingAccessibility": "Checking accessibility...",
+      "displayQrCode": "Display QR Code",
+      "qrPosition": "QR Position",
+      "selectPosition": "Select position",
+      "topLeft": "Top Left",
+      "topRight": "Top Right",
+      "bottomLeft": "Bottom Left",
+      "bottomRight": "Bottom Right",
+      "urlCannotBeEmbedded": "URL cannot be embedded (blocked).",
+      "invalidUrl": "Invalid URL. Please enter a valid link.",
+      "save": "Save",
+      "previewWillAppearHere": "Preview will appear here",
+      "creatingLink": "Creating link...",
+      "linkCreatedSuccessfully": "Link created successfully",
+      "somethingWentWrong": "Something went wrong"
+    },
+    "renameAssetModal": {
+      "title": "Rename Asset",
+      "spaceNamePlaceholder": "Space Name",
+      "cancel": "Cancel",
+      "rename": "Rename"
+    },
+    "confirmDeleteModal": {
+      "title": "Confirm Delete",
+      "warning": "Warning",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "emptyList": {
+      "title": "No assets found",
+      "description": "Upload assets or create folders."
+    },
+    "mutations": {
+      "deleteAssetFailed": "Failed to delete asset",
+      "createFolderSuccess": "Folder created successfully",
+      "createFolderFailed": "Failed to create folder",
+      "deleteFolderFailed": "Failed to delete folder",
+      "deleteFoldersSuccess": "Folders deleted successfully",
+      "deleteFoldersFailed": "Failed to delete folders",
+      "renameAssetSuccess": "Asset renamed successfully",
+      "renameAssetFailed": "Failed to rename asset",
+      "renameFolderSuccess": "Folder renamed successfully",
+      "renameFolderFailed": "Failed to rename folder",
+      "moveAssetsSuccess": "Assets moved successfully",
+      "moveAssetsFailed": "Failed to move assets",
+      "moveFolderSuccess": "Folder moved successfully",
+      "moveFolderFailed": "Failed to move folder"
+    }
   }
 }

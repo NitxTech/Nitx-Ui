@@ -692,5 +692,242 @@
     "filesWillAppear": "ستظهر ملفاتك بعد قليل",
     "uploadFailed": "فشل الرفع",
     "pleaseTryAgain": "يرجى المحاولة مرة أخرى"
+  },
+  "assets": {
+    "assetCard": {
+      "deleteAsset": "حذف الأصل",
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "duplicateNameError": "يوجد بالفعل {{type}} بالاسم \"{{name}}\" في هذا المجلد.",
+      "renaming": "جارٍ تغيير اسم \"{{name}}\"...",
+      "renamedSuccess": "تم تغيير اسم \"{{name}}\" بنجاح",
+      "renameFailed": "فشل تغيير اسم \"{{name}}\". يرجى إعادة المحاولة.",
+      "downloading": "جارٍ تنزيل \"{{name}}\"...",
+      "downloadedSuccess": "تم تنزيل \"{{name}}\" بنجاح",
+      "downloadFailed": "فشل تنزيل \"{{name}}\". يرجى إعادة المحاولة.",
+      "sendToScreen": "إرسال إلى الشاشة",
+      "moreOptions": "المزيد من الخيارات",
+      "rename": "تغيير الاسم",
+      "moveTo": "نقل إلى",
+      "download": "تنزيل",
+      "edit": "تحرير",
+      "delete": "حذف",
+      "video": "فيديو"
+    },
+    "assetList": {
+      "downloading": "جارٍ تنزيل \"{{name}}\"...",
+      "downloadedSuccess": "تم تنزيل \"{{name}}\" بنجاح",
+      "downloadFailed": "فشل تنزيل \"{{name}}\". يرجى إعادة المحاولة.",
+      "deleteAsset": "حذف الأصل",
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "deleting": "جارٍ حذف \"{{name}}\"...",
+      "deletedSuccess": "تم حذف \"{{name}}\" بنجاح",
+      "deleteFailed": "فشل حذف \"{{name}}\". يرجى إعادة المحاولة.",
+      "deleteItems": "حذف {{count}} عنصر{plural}",
+      "deleteItemsConfirm": "هل أنت متأكد أنك تريد حذف {{count}} من العناصر؟ لا يمكن التراجع عن هذا الإجراء.",
+      "deletingItems": "جارٍ الحذف...",
+      "itemsDeletedSuccess": "تم حذف العناصر بنجاح",
+      "itemsDeleteFailed": "فشل حذف العناصر. يرجى إعادة المحاولة.",
+      "movingItems": "جارٍ نقل العناصر...",
+      "itemsMovedSuccess": "تم نقل العناصر بنجاح",
+      "itemsMoveFailed": "فشل نقل العناصر. يرجى إعادة المحاولة.",
+      "renaming": "جارٍ تغيير اسم \"{{name}}\"...",
+      "renamedSuccess": "تم تغيير اسم \"{{name}}\" بنجاح",
+      "renameFailed": "فشل تغيير اسم \"{{name}}\". يرجى إعادة المحاولة.",
+      "renamingFolder": "جارٍ تغيير اسم المجلد إلى \"{{name}}\"...",
+      "folderRenamedSuccess": "تم تغيير اسم المجلد إلى \"{{name}}\" بنجاح",
+      "folderRenameFailed": "فشل تغيير اسم المجلد إلى \"{{name}}\". يرجى إعادة المحاولة.",
+      "movingAssets": "جارٍ نقل الأصول...",
+      "assetsMovedSuccess": "تم نقل {{count}} أصل{plural} بنجاح",
+      "assetsMoveFailed": "فشل نقل الأصول. يرجى إعادة المحاولة.",
+      "itemsSelected": "{{count}} عنصر محدد",
+      "itemsSelected_$one": "{{count}} عنصر محدد",
+      "itemsSelected_$two": "{{count}} عنصران محددان",
+      "itemsSelected_$few": "{{count}} عناصر محددة",
+      "itemsSelected_$many": "{{count}} عنصر محدد",
+      "itemsSelected_$other": "{{count}} عنصر محدد",
+      "moveTo": "نقل إلى",
+      "delete": "حذف",
+      "createSequence": "إنشاء تسلسل",
+      "comingSoon": "قريباً"
+    },
+    "assetsHeader": {
+      "searchPlaceholder": "بحث...",
+      "createLink": "إنشاء رابط",
+      "upload": "رفع",
+      "newFolder": "مجلد جديد",
+      "gridView": "عرض شبكي",
+      "listView": "عرض قائمة",
+      "multiSelect": "تحديد متعدد",
+      "actions": "الإجراءات"
+    },
+    "assetsPreview": {
+      "of": "من",
+      "notAvailable": "المعاينة غير متوفرة لهذا النوع",
+      "linkPreview": "معاينة الرابط: {{url}}"
+    },
+    "assetsTabbar": {
+      "all": "الكل",
+      "media": "الوسائط",
+      "documents": "المستندات",
+      "links": "الروابط"
+    },
+    "folderCard": {
+      "deleteFolder": "حذف المجلد",
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "duplicateFolderError": "يوجد مجلد بالاسم \"{{name}}\" بالفعل في هذا الموقع.",
+      "renamingFolder": "جارٍ تغيير اسم المجلد إلى \"{{name}}\"...",
+      "folderRenamedSuccess": "تم تغيير اسم المجلد إلى \"{{name}}\" بنجاح",
+      "folderRenameFailed": "فشل تغيير اسم المجلد إلى \"{{name}}\". يرجى إعادة المحاولة.",
+      "creatingSequence": "جارٍ إنشاء تسلسل من \"{{name}}\"...",
+      "sequenceCreatedSuccess": "تم إنشاء السلسلة \"{{name}}\" بنجاح",
+      "sequenceCreateFailed": "فشل إنشاء تسلسل من \"{{name}}\". يرجى إعادة المحاولة.",
+      "preparingDownload": "جارٍ تجهيز تنزيل المجلد...",
+      "folderDownloadedSuccess": "تم تنزيل المجلد \"{{name}}\" بنجاح",
+      "folderDownloadFailed": "فشل تنزيل المجلد \"{{name}}\". يرجى إعادة المحاولة.",
+      "moreOptions": "المزيد من الخيارات",
+      "createSequence": "إنشاء تسلسل",
+      "rename": "تغيير الاسم",
+      "moveTo": "نقل إلى",
+      "download": "تنزيل",
+      "delete": "حذف",
+      "item": "عنصر",
+      "items": "عناصر"
+    },
+    "headerWithTabs": {
+      "assets": "الأصول",
+      "all": "الكل",
+      "media": "الوسائط",
+      "documents": "المستندات",
+      "links": "الروابط"
+    },
+    "headerWithCustomTabbar": {
+      "asset": "الأصول"
+    },
+    "editLink": {
+      "failedToLoad": "فشل تحميل تفاصيل جدار الفيديو.",
+      "saving": "جارٍ حفظ جدار الفيديو...",
+      "saved": "تم حفظ جدار الفيديو!",
+      "saveError": "حدث خطأ ما. يرجى إعادة المحاولة."
+    },
+    "linkHeader": {
+      "publish": "نشر",
+      "duplicate": "تكرار",
+      "delete": "حذف"
+    },
+    "linkEditPage": {
+      "url": "الرابط",
+      "urlPlaceholder": "https://example.com",
+      "addQrCode": "إضافة رمز QR إلى معاينة الشاشة (اختياري)",
+      "qrPosition": "موضع رمز QR",
+      "selectPosition": "اختر الموضع",
+      "topLeft": "أعلى اليسار",
+      "topRight": "أعلى اليمين",
+      "bottomLeft": "أسفل اليسار",
+      "bottomRight": "أسفل اليمين",
+      "saving": "جارٍ حفظ الرابط...",
+      "savingStatus": "جارٍ الحفظ...",
+      "saveChanges": "حفظ التغييرات",
+      "linkUpdated": "تم تحديث الرابط",
+      "saveError": "تعذّر حفظ التغييرات. يرجى إعادة المحاولة.",
+      "failedToLoad": "فشل تحميل تفاصيل الرابط.",
+      "link": "الرابط",
+      "addedOn": "أضيف في {{date}}"
+    },
+    "newLinkPage": {
+      "newLink": "رابط جديد",
+      "createdOn": "تم الإنشاء في 7 يونيو 2025، الساعة 10:45 صباحًا بواسطة مطعم سولت",
+      "typeUrl": "اكتب رابطك هنا",
+      "addQrCode": "إضافة رمز QR إلى معاينة الشاشة (اختياري)"
+    },
+    "globalAssetPlayer": {
+      "previewNotAvailable": "المعاينة غير متاحة",
+      "noContentAvailable": "لا يوجد محتوى متاح",
+      "loadingLayout": "جارٍ تحميل المخطط...",
+      "noContent": "لا يوجد محتوى",
+      "loadingSequence": "جارٍ تحميل السلسلة...",
+      "invalidContent": "محتوى غير صالح",
+      "sequencePreview": "معاينة السلسلة",
+      "layoutPreview": "معاينة المخطط",
+      "landscape": "أفقي",
+      "portrait": "عمودي"
+    },
+    "uploadModal": {
+      "title": "رفع الملفات",
+      "videoFormatNotice": "في الوقت الحالي، يجب أن تكون الفيديوهات بصيغة MP4. صيغ الفيديو الأخرى غير متاحة مؤقتًا.",
+      "fileUploadedSuccessfully": "تم الرفع بنجاح!",
+      "processingUploads": "جارٍ معالجة الملفات...",
+      "filesWillAppear": "ستظهر ملفاتك بعد قليل",
+      "uploadFailed": "فشل الرفع",
+      "pleaseTryAgain": "يرجى المحاولة مرة أخرى"
+    },
+    "createFolderModal": {
+      "title": "إنشاء مجلد جديد",
+      "folderNamePlaceholder": "اسم المجلد",
+      "folderNameCannotBeEmpty": "لا يمكن أن يكون اسم المجلد فارغًا.",
+      "folderNameAlreadyExists": "اسم المجلد موجود بالفعل في هذا الموقع.",
+      "cancel": "إلغاء",
+      "create": "إنشاء"
+    },
+    "folderModal": {
+      "title": "النقل إلى مجلد",
+      "searchFoldersPlaceholder": "البحث عن المجلدات...",
+      "noFoldersAvailable": "لا توجد مجلدات متاحة",
+      "current": "(الحالي)",
+      "cancel": "إلغاء",
+      "move": "نقل",
+      "root": "root"
+    },
+    "newLinkModal": {
+      "title": "إنشاء رابط جديد",
+      "url": "الرابط URL",
+      "urlPlaceholder": "https://example.com",
+      "checkingAccessibility": "جارٍ التحقق من إمكانية الوصول...",
+      "displayQrCode": "عرض رمز QR",
+      "qrPosition": "موضع رمز QR",
+      "selectPosition": "اختر الموضع",
+      "topLeft": "أعلى اليسار",
+      "topRight": "أعلى اليمين",
+      "bottomLeft": "أسفل اليسار",
+      "bottomRight": "أسفل اليمين",
+      "urlCannotBeEmbedded": "لا يمكن تضمين الرابط (محجوب).",
+      "invalidUrl": "رابط غير صالح. يرجى إدخال رابط صحيح.",
+      "save": "حفظ",
+      "previewWillAppearHere": "ستظهر المعاينة هنا",
+      "creatingLink": "جارٍ إنشاء الرابط...",
+      "linkCreatedSuccessfully": "تم إنشاء الرابط بنجاح",
+      "somethingWentWrong": "حدث خطأ ما"
+    },
+    "renameAssetModal": {
+      "title": "إعادة تسمية الأصل",
+      "spaceNamePlaceholder": "اسم المساحة",
+      "cancel": "إلغاء",
+      "rename": "إعادة تسمية"
+    },
+    "confirmDeleteModal": {
+      "title": "تأكيد الحذف",
+      "warning": "تحذير",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+    "emptyList": {
+      "title": "ما فيه ملفات حالياً",
+      "description": "ارفع ملفات، أنشئ مجلدات، أو أضف روابط عشان تبدأ."
+    },
+    "mutations": {
+      "deleteAssetFailed": "فشل حذف الملفات المحددة",
+      "createFolderSuccess": "تم إنشاء المجلد",
+      "createFolderFailed": "فشل إنشاء المجلد",
+      "deleteFolderFailed": "فشل حذف المجلد",
+      "deleteFoldersSuccess": "تم حذف المجلدات بنجاح",
+      "deleteFoldersFailed": "فشل حذف المجلدات",
+      "renameAssetSuccess": "تمت إعادة تسمية الملف بنجاح",
+      "renameAssetFailed": "فشلت إعادة تسمية الملف",
+      "renameFolderSuccess": "تمت إعادة تسمية المجلد بنجاح",
+      "renameFolderFailed": "فشلت إعادة تسمية المجلد",
+      "moveAssetsSuccess": "تم نقل الملفات بنجاح",
+      "moveAssetsFailed": "فشل نقل الملفات",
+      "moveFolderSuccess": "تم نقل المجلد بنجاح",
+      "moveFolderFailed": "فشل نقل المجلد"
+    }
   }
 }

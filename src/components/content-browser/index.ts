@@ -7,8 +7,10 @@ export type {
   TabId,
   AddContentModalProps,
   UploadModalProps,
-  Asset,
-  Folder,
+  // The canonical `Asset`/`Folder` names are owned by the assets module;
+  // the content browser's looser picker-facing shapes are exported renamed.
+  Asset as ContentAsset,
+  Folder as ContentFolder,
   Layout,
   Sequence,
   Channel,
