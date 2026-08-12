@@ -15,6 +15,7 @@ import {
 } from "../hooks/use-assets-store";
 import {
   assetKeys,
+  fetchAssetsAndFoldersSorted,
   useAssetsQuery,
   useBulkDeleteFoldersMutation,
   useDeleteAssetMutation,
@@ -498,7 +499,7 @@ const AssetsBrowser = ({
   const handleFolderHover = (folderId: string) => {
     queryClient.prefetchQuery({
       queryKey: assetKeys.list(spaceUuid, folderId),
-      queryFn: () => api.fetchAssetsAndFolders(folderId),
+      queryFn: () => fetchAssetsAndFoldersSorted(api, folderId),
       staleTime: 1000 * 60 * 5,
     });
   };

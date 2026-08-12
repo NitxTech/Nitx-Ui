@@ -7016,6 +7016,13 @@ var assetKeys = {
   all: (spaceUuid) => ["assets", spaceUuid ?? "no-space"],
   list: (spaceUuid, folderId) => [...assetKeys.all(spaceUuid), "list", folderId]
 };
+var newestFirst = (items) => [...items].sort(
+  (a, b) => (new Date(b.created_at ?? 0).getTime() || 0) - (new Date(a.created_at ?? 0).getTime() || 0)
+);
+async function fetchAssetsAndFoldersSorted(api, folderId) {
+  const { assets, folders } = await api.fetchAssetsAndFolders(folderId);
+  return { assets: newestFirst(assets), folders: newestFirst(folders) };
+}
 function useAssetsQuery(folderId, options) {
   const { api, spaceUuid, features } = useAssetsConfig();
   return useQuery({
@@ -7023,9 +7030,9 @@ function useAssetsQuery(folderId, options) {
     queryFn: async () => {
       if (!features.folders) {
         const assets = await api.fetchAssets();
-        return { assets, folders: [] };
+        return { assets: newestFirst(assets), folders: [] };
       }
-      return api.fetchAssetsAndFolders(folderId);
+      return fetchAssetsAndFoldersSorted(api, folderId);
     },
     staleTime: 1e3 * 60 * 5,
     enabled: (options?.enabled ?? true) && !!spaceUuid
@@ -7090,7 +7097,7 @@ function useCreateFolderMutation(folderId) {
         };
         return {
           ...old,
-          folders: [...old.folders || [], optimisticFolder]
+          folders: [optimisticFolder, ...old.folders || []]
         };
       });
       return { previousData };
@@ -10208,7 +10215,7 @@ var AssetsBrowser = ({
   const handleFolderHover = (folderId) => {
     queryClient.prefetchQuery({
       queryKey: assetKeys.list(spaceUuid, folderId),
-      queryFn: () => api.fetchAssetsAndFolders(folderId),
+      queryFn: () => fetchAssetsAndFoldersSorted(api, folderId),
       staleTime: 1e3 * 60 * 5
     });
   };
