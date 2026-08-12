@@ -10,9 +10,9 @@ interface StatCardProps {
 const StatCard = ({ label, value, icon }: StatCardProps) => {
   return (
     <div className="flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600">
-      <Avatar className="size-10 h-12 w-12 !rounded-xl">
+      <Avatar className="size-10 h-12 w-12 rounded-full">
         <AvatarImage src={""} />
-        <AvatarFallback className="bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold">
+        <AvatarFallback className="bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full font-semibold">
           {icon}
         </AvatarFallback>
       </Avatar>

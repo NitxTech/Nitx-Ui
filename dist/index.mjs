@@ -4830,9 +4830,9 @@ var MembersTable_default = MembersTable;
 import { jsx as jsx38, jsxs as jsxs26 } from "react/jsx-runtime";
 var StatCard = ({ label, value, icon }) => {
   return /* @__PURE__ */ jsxs26("div", { className: "flex items-center gap-4 p-4 bg-white border border-neutral-200 rounded-xl shadow-sm dark:bg-card dark:border-zinc-600", children: [
-    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 !rounded-xl", children: [
+    /* @__PURE__ */ jsxs26(Avatar, { className: "size-10 h-12 w-12 rounded-full", children: [
       /* @__PURE__ */ jsx38(AvatarImage, { src: "" }),
-      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm !rounded-xl font-semibold", children: icon })
+      /* @__PURE__ */ jsx38(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full font-semibold", children: icon })
     ] }),
     /* @__PURE__ */ jsxs26("div", { className: "flex flex-col", children: [
       /* @__PURE__ */ jsx38("span", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: value }),
