@@ -8247,114 +8247,121 @@ var AssetCard = ({
                       data.type === "document" && data.document?.size
                     ] })
                   ] }),
-                  /* @__PURE__ */ jsxs41("div", { className: "relative flex items-center shrink-0 gap-1", children: [
-                    renderActions?.(data),
-                    /* @__PURE__ */ jsxs41(
-                      DropdownMenu,
-                      {
-                        open: showMenu,
-                        onOpenChange: (value) => setShowMenu(value),
-                        children: [
-                          /* @__PURE__ */ jsxs41(Tooltip, { children: [
-                            /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
-                              DropdownMenuTrigger,
-                              {
-                                disabled: allowSelect,
-                                className: "disabled:text-muted-foreground",
-                                asChild: true,
-                                children: /* @__PURE__ */ jsx59("button", { className: "icon ", children: /* @__PURE__ */ jsx59(MoreVertical3, { className: "size-4" }) })
-                              }
-                            ) }),
-                            /* @__PURE__ */ jsx59(TooltipContent, { children: /* @__PURE__ */ jsx59("p", { children: t("assets.assetCard.moreOptions") }) })
-                          ] }),
-                          /* @__PURE__ */ jsxs41(
-                            DropdownMenuContent,
-                            {
-                              align: "end",
-                              className: "rounded-[14px]",
-                              onCloseAutoFocus: (event) => event.preventDefault(),
-                              children: [
-                                data.type !== "link" && /* @__PURE__ */ jsxs41(Fragment7, { children: [
-                                  /* @__PURE__ */ jsxs41(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        setRenamingItemId(data.uuid);
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        RenameIcon,
-                                        t("assets.assetCard.rename")
-                                      ]
-                                    }
-                                  ),
-                                  features.folders && /* @__PURE__ */ jsxs41(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        onMove(data.uuid, "asset");
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        MoveIcon,
-                                        t("assets.assetCard.moveTo")
-                                      ]
-                                    }
-                                  ),
-                                  onDownload && /* @__PURE__ */ jsxs41(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        onDownload(data);
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        /* @__PURE__ */ jsx59(Download, { className: "size-4 stroke-[1.5]" }),
-                                        t("assets.assetCard.download")
-                                      ]
-                                    }
-                                  )
-                                ] }),
-                                data.type === "link" && features.links && navigation && /* @__PURE__ */ jsxs41(
-                                  DropdownMenuItem,
+                  /* @__PURE__ */ jsxs41(
+                    "div",
+                    {
+                      className: "relative flex items-center shrink-0 gap-1",
+                      onClick: (e) => e.stopPropagation(),
+                      children: [
+                        renderActions?.(data),
+                        /* @__PURE__ */ jsxs41(
+                          DropdownMenu,
+                          {
+                            open: showMenu,
+                            onOpenChange: (value) => setShowMenu(value),
+                            children: [
+                              /* @__PURE__ */ jsxs41(Tooltip, { children: [
+                                /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
+                                  DropdownMenuTrigger,
                                   {
-                                    onSelect: (e) => {
-                                      e.preventDefault();
-                                      navigation.toLinkEdit(data.link.uuid);
-                                    },
-                                    className: "flex gap-4 rounded-[10px] px-4 cursor-pointer",
-                                    children: [
-                                      RenameIcon,
-                                      t("assets.assetCard.edit")
-                                    ]
+                                    disabled: allowSelect,
+                                    className: "disabled:text-muted-foreground",
+                                    asChild: true,
+                                    children: /* @__PURE__ */ jsx59("button", { className: "icon ", children: /* @__PURE__ */ jsx59(MoreVertical3, { className: "size-4" }) })
                                   }
-                                ),
-                                /* @__PURE__ */ jsx59(DropdownMenuSeparator, {}),
-                                /* @__PURE__ */ jsxs41(
-                                  DropdownMenuItem,
-                                  {
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      onDelete?.();
-                                    },
-                                    className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600",
-                                    children: [
-                                      /* @__PURE__ */ jsx59(Trash23, {}),
-                                      " ",
-                                      t("assets.assetCard.delete")
-                                    ]
-                                  }
-                                )
-                              ]
-                            }
-                          )
-                        ]
-                      }
-                    )
-                  ] })
+                                ) }),
+                                /* @__PURE__ */ jsx59(TooltipContent, { children: /* @__PURE__ */ jsx59("p", { children: t("assets.assetCard.moreOptions") }) })
+                              ] }),
+                              /* @__PURE__ */ jsxs41(
+                                DropdownMenuContent,
+                                {
+                                  align: "end",
+                                  className: "rounded-[14px]",
+                                  onCloseAutoFocus: (event) => event.preventDefault(),
+                                  children: [
+                                    data.type !== "link" && /* @__PURE__ */ jsxs41(Fragment7, { children: [
+                                      /* @__PURE__ */ jsxs41(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            setRenamingItemId(data.uuid);
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            RenameIcon,
+                                            t("assets.assetCard.rename")
+                                          ]
+                                        }
+                                      ),
+                                      features.folders && /* @__PURE__ */ jsxs41(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            onMove(data.uuid, "asset");
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            MoveIcon,
+                                            t("assets.assetCard.moveTo")
+                                          ]
+                                        }
+                                      ),
+                                      onDownload && /* @__PURE__ */ jsxs41(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            onDownload(data);
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            /* @__PURE__ */ jsx59(Download, { className: "size-4 stroke-[1.5]" }),
+                                            t("assets.assetCard.download")
+                                          ]
+                                        }
+                                      )
+                                    ] }),
+                                    data.type === "link" && features.links && navigation && /* @__PURE__ */ jsxs41(
+                                      DropdownMenuItem,
+                                      {
+                                        onSelect: (e) => {
+                                          e.preventDefault();
+                                          navigation.toLinkEdit(data.link.uuid);
+                                        },
+                                        className: "flex gap-4 rounded-[10px] px-4 cursor-pointer",
+                                        children: [
+                                          RenameIcon,
+                                          t("assets.assetCard.edit")
+                                        ]
+                                      }
+                                    ),
+                                    /* @__PURE__ */ jsx59(DropdownMenuSeparator, {}),
+                                    /* @__PURE__ */ jsxs41(
+                                      DropdownMenuItem,
+                                      {
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          onDelete?.();
+                                        },
+                                        className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600",
+                                        children: [
+                                          /* @__PURE__ */ jsx59(Trash23, {}),
+                                          " ",
+                                          t("assets.assetCard.delete")
+                                        ]
+                                      }
+                                    )
+                                  ]
+                                }
+                              )
+                            ]
+                          }
+                        )
+                      ]
+                    }
+                  )
                 ]
               }
             )
@@ -8593,96 +8600,103 @@ var FolderCard = React29.forwardRef(
                     data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
                   ] })
                 ] }),
-                /* @__PURE__ */ jsx60("div", { className: "min-w-14 relative flex shrink-0", children: /* @__PURE__ */ jsxs42(DropdownMenu, { children: [
-                  /* @__PURE__ */ jsxs42(Tooltip, { children: [
-                    /* @__PURE__ */ jsx60(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
-                      DropdownMenuTrigger,
-                      {
-                        disabled: allowSelect,
-                        className: "disabled:text-muted-foreground",
-                        asChild: true,
-                        children: /* @__PURE__ */ jsx60(
-                          Button,
+                /* @__PURE__ */ jsx60(
+                  "div",
+                  {
+                    className: "min-w-14 relative flex shrink-0",
+                    onClick: (e) => e.stopPropagation(),
+                    children: /* @__PURE__ */ jsxs42(DropdownMenu, { children: [
+                      /* @__PURE__ */ jsxs42(Tooltip, { children: [
+                        /* @__PURE__ */ jsx60(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
+                          DropdownMenuTrigger,
                           {
-                            size: "icon",
-                            variant: "ghost",
-                            className: "flex gap-2 rounded-[7px]",
-                            "aria-label": t("assets.folderCard.moreOptions"),
-                            children: /* @__PURE__ */ jsx60(MoreVertical4, {})
+                            disabled: allowSelect,
+                            className: "disabled:text-muted-foreground",
+                            asChild: true,
+                            children: /* @__PURE__ */ jsx60(
+                              Button,
+                              {
+                                size: "icon",
+                                variant: "ghost",
+                                className: "flex gap-2 rounded-[7px]",
+                                "aria-label": t("assets.folderCard.moreOptions"),
+                                children: /* @__PURE__ */ jsx60(MoreVertical4, {})
+                              }
+                            )
                           }
-                        )
-                      }
-                    ) }),
-                    /* @__PURE__ */ jsx60(TooltipContent, { children: /* @__PURE__ */ jsx60("p", { children: t("assets.folderCard.moreOptions") }) })
-                  ] }),
-                  /* @__PURE__ */ jsxs42(
-                    DropdownMenuContent,
-                    {
-                      align: "end",
-                      className: "rounded-[14px]",
-                      onClick: (e) => e.stopPropagation(),
-                      onCloseAutoFocus: (event) => event.preventDefault(),
-                      children: [
-                        renderMenuItems?.(data),
-                        /* @__PURE__ */ jsxs42(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: () => setRenamingItemId(data.id),
-                            children: [
-                              /* @__PURE__ */ jsx60(FilePenLine, { className: "size-4 stroke-[1.5]" }),
-                              t("assets.folderCard.rename")
-                            ]
-                          }
-                        ),
-                        onMove && /* @__PURE__ */ jsxs42(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onMove(data.id, "folder");
-                            },
-                            children: [
-                              MoveIcon2,
-                              t("assets.folderCard.moveTo")
-                            ]
-                          }
-                        ),
-                        onDownload && /* @__PURE__ */ jsxs42(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onDownload(data);
-                            },
-                            children: [
-                              /* @__PURE__ */ jsx60(Download2, { className: "size-4 stroke-[1.5]" }),
-                              t("assets.folderCard.download")
-                            ]
-                          }
-                        ),
-                        /* @__PURE__ */ jsx60(DropdownMenuSeparator, {}),
-                        /* @__PURE__ */ jsxs42(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onDelete?.();
-                            },
-                            children: [
-                              /* @__PURE__ */ jsx60(Trash24, { className: "size-4" }),
-                              " ",
-                              t("assets.folderCard.delete")
-                            ]
-                          }
-                        )
-                      ]
-                    }
-                  )
-                ] }) })
+                        ) }),
+                        /* @__PURE__ */ jsx60(TooltipContent, { children: /* @__PURE__ */ jsx60("p", { children: t("assets.folderCard.moreOptions") }) })
+                      ] }),
+                      /* @__PURE__ */ jsxs42(
+                        DropdownMenuContent,
+                        {
+                          align: "end",
+                          className: "rounded-[14px]",
+                          onClick: (e) => e.stopPropagation(),
+                          onCloseAutoFocus: (event) => event.preventDefault(),
+                          children: [
+                            renderMenuItems?.(data),
+                            /* @__PURE__ */ jsxs42(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: () => setRenamingItemId(data.id),
+                                children: [
+                                  /* @__PURE__ */ jsx60(FilePenLine, { className: "size-4 stroke-[1.5]" }),
+                                  t("assets.folderCard.rename")
+                                ]
+                              }
+                            ),
+                            onMove && /* @__PURE__ */ jsxs42(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onMove(data.id, "folder");
+                                },
+                                children: [
+                                  MoveIcon2,
+                                  t("assets.folderCard.moveTo")
+                                ]
+                              }
+                            ),
+                            onDownload && /* @__PURE__ */ jsxs42(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onDownload(data);
+                                },
+                                children: [
+                                  /* @__PURE__ */ jsx60(Download2, { className: "size-4 stroke-[1.5]" }),
+                                  t("assets.folderCard.download")
+                                ]
+                              }
+                            ),
+                            /* @__PURE__ */ jsx60(DropdownMenuSeparator, {}),
+                            /* @__PURE__ */ jsxs42(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onDelete?.();
+                                },
+                                children: [
+                                  /* @__PURE__ */ jsx60(Trash24, { className: "size-4" }),
+                                  " ",
+                                  t("assets.folderCard.delete")
+                                ]
+                              }
+                            )
+                          ]
+                        }
+                      )
+                    ] })
+                  }
+                )
               ] })
             ]
           }

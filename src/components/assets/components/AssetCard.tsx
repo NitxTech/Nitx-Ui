@@ -350,7 +350,11 @@ const AssetCard: React.FC<AssetCardProps> = ({
               </p>
             </div>
 
-            <div className="relative flex items-center shrink-0 gap-1">
+            <div
+              className="relative flex items-center shrink-0 gap-1"
+              // Card-level onClick opens the preview; the actions area must not trigger it.
+              onClick={(e) => e.stopPropagation()}
+            >
               {renderActions?.(data)}
 
               <DropdownMenu

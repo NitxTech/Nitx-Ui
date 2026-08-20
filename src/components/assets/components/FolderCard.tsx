@@ -239,7 +239,11 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 </p>
               </div>
 
-              <div className="min-w-14 relative flex shrink-0">
+              <div
+                className="min-w-14 relative flex shrink-0"
+                // Card-level onClick navigates into the folder; the actions area must not trigger it.
+                onClick={(e) => e.stopPropagation()}
+              >
                 <DropdownMenu>
                   <Tooltip>
                     <TooltipTrigger asChild>
