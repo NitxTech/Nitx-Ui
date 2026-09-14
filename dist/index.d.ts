@@ -1,9 +1,22 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as React$1 from 'react';
-import React__default, { ReactNode, Dispatch, SetStateAction } from 'react';
+import React__default, { ReactNode, Dispatch, SetStateAction, ComponentType, MouseEvent } from 'react';
 import Uppy from '@uppy/core';
 import * as zustand from 'zustand';
 import * as _tanstack_react_query from '@tanstack/react-query';
+import * as class_variance_authority_types from 'class-variance-authority/types';
+import { VariantProps } from 'class-variance-authority';
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import * as vaul from 'vaul';
+import { Drawer as Drawer$1 } from 'vaul';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import * as LabelPrimitive from '@radix-ui/react-label';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import * as SwitchPrimitives from '@radix-ui/react-switch';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { ClassValue } from 'clsx';
 
 interface ProductSwitcherProps {
     auth_user: number | string;
@@ -661,10 +674,10 @@ declare const assetKeys: {
 };
 declare function useAssetsQuery(folderId: string | null, options?: {
     enabled?: boolean;
-}): _tanstack_react_query.UseQueryResult<NoInfer<{
+}): _tanstack_react_query.UseQueryResult<{
     assets: Asset[];
     folders: Folder[];
-}>, Error>;
+}, Error>;
 declare function useDeleteAssetMutation(folderId: string | null): _tanstack_react_query.UseMutationResult<void, Error, string[], {
     previousData: unknown;
 }>;
@@ -788,4 +801,245 @@ type LinkEditorProps = ({
  */
 declare const LinkEditor: (props: LinkEditorProps) => react_jsx_runtime.JSX.Element;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, type Channel, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, ErrorState, type ErrorStateProps, type Folder, type Invitation, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, type Sequence, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, type TabId, UploadModal, type UploadModalProps, UserAccount, assetKeys, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+interface SidebarNavItem$1 {
+    id: string;
+    label: string;
+    icon: ReactNode;
+    /** Renders a link (via `LinkComponent`). Mutually exclusive with `onSelect`. */
+    href?: string;
+    /** Renders a button. */
+    onSelect?: () => void;
+    active?: boolean;
+    /** Small pill shown after the label, e.g. "Soon". */
+    badge?: string;
+    disabled?: boolean;
+    /**
+     * Replaces the default grey hover surface, e.g. `hover:bg-[#305DFD]/10`
+     * for a tool whose icon carries its own colour. The icon also lifts on hover.
+     */
+    accentClassName?: string;
+    /**
+     * Collapsed rail only: paint the whole control with this class (a tool's
+     * colour) so it matches the active-item footprint, and show
+     * `collapsedIcon` (the white glyph, sized like every other rail icon)
+     * instead of `icon`.
+     */
+    collapsedFillClassName?: string;
+    collapsedIcon?: ReactNode;
+}
+interface SidebarNavGroup {
+    id: string;
+    /** Uppercase section label; hidden when the rail is collapsed. */
+    label?: string;
+    items: SidebarNavItem$1[];
+    /** Draw a hairline above this group (used for the tools section). */
+    dividerAbove?: boolean;
+}
+interface SidebarLinkProps {
+    href: string;
+    className?: string;
+    children: ReactNode;
+    onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+    "aria-current"?: "page";
+}
+/** Injected so the core never imports next/link (or any router). */
+type SidebarLinkComponent = ComponentType<SidebarLinkProps>;
+type SidebarDirection = "ltr" | "rtl";
+
+/** Every clickable rail control shares this footprint. */
+declare const RAIL_CONTROL = "size-9 rounded-[10px]";
+interface SidebarShellProps {
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    /** Logo row, toggle, etc. Rendered above the scrollable body. */
+    header?: ReactNode;
+    /** Scrollable middle: navigation, selectors. */
+    children: ReactNode;
+    /** Pinned to the bottom: credits, account. */
+    footer?: ReactNode;
+    className?: string;
+}
+/**
+ * The sidebar frame. Owns background, border, padding and the
+ * header / scroll body / footer stacking; knows nothing about routes.
+ * Width is the parent's job (e.g., CSS variable or width utility).
+ * The same `gap-3` separates header, body sections and footer so the rhythm
+ * is identical at every root font-size.
+ */
+declare function SidebarShell({ collapsed, dir, header, children, footer, className, }: SidebarShellProps): react_jsx_runtime.JSX.Element;
+interface SidebarToggleProps {
+    collapsed: boolean;
+    onToggle: () => void;
+    /** Accessible name, e.g. "Collapse sidebar" / "Expand sidebar". */
+    label: string;
+    dir?: SidebarDirection;
+    className?: string;
+}
+/** Panel-toggle button for the expanded header (inline icon, no icon-library dependency). */
+declare function SidebarToggle({ collapsed, onToggle, label, dir, className, }: SidebarToggleProps): react_jsx_runtime.JSX.Element;
+interface SidebarBrandToggleProps {
+    /** The brand mark shown at rest (collapsed rail). */
+    mark: ReactNode;
+    onToggle: () => void;
+    label: string;
+    dir?: SidebarDirection;
+    className?: string;
+}
+/**
+ * Collapsed-rail header: the brand mark and the expand control are one
+ * button — the mark shows at rest and cross-fades into the panel icon on
+ * hover/focus; clicking expands the sidebar.
+ */
+declare function SidebarBrandToggle({ mark, onToggle, label, dir, className, }: SidebarBrandToggleProps): react_jsx_runtime.JSX.Element;
+
+interface SidebarNavProps {
+    groups: SidebarNavGroup[];
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    LinkComponent?: SidebarLinkComponent;
+    className?: string;
+}
+declare function SidebarNav({ groups, collapsed, dir, LinkComponent, className, }: SidebarNavProps): react_jsx_runtime.JSX.Element;
+
+interface SidebarNavItemProps {
+    item: SidebarNavItem$1;
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    LinkComponent?: SidebarLinkComponent;
+}
+/** Hover surface shared by rows and their collapsed tooltips. */
+declare const RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
+/** One nav row. A single class list serves both the expanded and collapsed rail. */
+declare function SidebarNavItem({ item, collapsed, dir, LinkComponent, }: SidebarNavItemProps): react_jsx_runtime.JSX.Element;
+
+interface SidebarCreditsCardProps {
+    collapsed: boolean;
+    /** e.g. "Credits remaining" */
+    label: string;
+    /** Swapped in on hover when expanded; the action button label when collapsed. */
+    hoverLabel?: string;
+    /** Formatted value, e.g. "1,250". */
+    value: string;
+    /** 0–100 fill for the progress bar; omit to hide the bar. */
+    percent?: number | null;
+    icon: ReactNode;
+    onClick?: () => void;
+    dir?: SidebarDirection;
+    className?: string;
+}
+declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): react_jsx_runtime.JSX.Element;
+
+declare const buttonVariants: (props?: ({
+    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+} & class_variance_authority_types.ClassProp) | undefined) => string;
+interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+    asChild?: boolean;
+}
+declare const Button: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<HTMLButtonElement>>;
+
+declare function Skeleton({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+
+declare const Card: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+declare const CardHeader: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+declare const CardTitle: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+declare const CardDescription: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+declare const CardContent: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+declare const CardFooter: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
+
+declare const Avatar: React$1.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarProps & React$1.RefAttributes<HTMLSpanElement>, "ref"> & React$1.RefAttributes<HTMLSpanElement>>;
+declare const AvatarImage: React$1.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarImageProps & React$1.RefAttributes<HTMLImageElement>, "ref"> & React$1.RefAttributes<HTMLImageElement>>;
+declare const AvatarFallback: React$1.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarFallbackProps & React$1.RefAttributes<HTMLSpanElement>, "ref"> & React$1.RefAttributes<HTMLSpanElement>>;
+
+declare const Checkbox: React$1.ForwardRefExoticComponent<Omit<CheckboxPrimitive.CheckboxProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & React$1.RefAttributes<HTMLButtonElement>>;
+
+declare const Dialog: React$1.FC<DialogPrimitive.DialogProps>;
+declare const DialogTrigger: React$1.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const DialogPortal: React$1.FC<DialogPrimitive.DialogPortalProps>;
+declare const DialogClose: React$1.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const DialogOverlay: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogOverlayProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DialogContent: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
+    overlayClassName?: string;
+} & React$1.RefAttributes<HTMLDivElement>>;
+declare const DialogHeader: {
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+declare const DialogFooter: {
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+declare const DialogTitle: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React$1.RefAttributes<HTMLHeadingElement>, "ref"> & React$1.RefAttributes<HTMLHeadingElement>>;
+declare const DialogDescription: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React$1.RefAttributes<HTMLParagraphElement>, "ref"> & React$1.RefAttributes<HTMLParagraphElement>>;
+
+declare const Drawer: {
+    ({ shouldScaleBackground, ...props }: React$1.ComponentProps<typeof Drawer$1.Root>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+declare const DrawerTrigger: React$1.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const DrawerPortal: typeof vaul.Portal;
+declare const DrawerClose: React$1.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const DrawerOverlay: React$1.ForwardRefExoticComponent<Omit<Omit<DialogPrimitive.DialogOverlayProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DrawerContent: React$1.ForwardRefExoticComponent<Omit<Omit<DialogPrimitive.DialogContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DrawerHeader: {
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+declare const DrawerFooter: {
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+declare const DrawerTitle: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React$1.RefAttributes<HTMLHeadingElement>, "ref"> & React$1.RefAttributes<HTMLHeadingElement>>;
+declare const DrawerDescription: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React$1.RefAttributes<HTMLParagraphElement>, "ref"> & React$1.RefAttributes<HTMLParagraphElement>>;
+
+declare const DropdownMenu: React$1.FC<DropdownMenuPrimitive.DropdownMenuProps>;
+declare const DropdownMenuTrigger: React$1.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const DropdownMenuGroup: React$1.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuGroupProps & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuPortal: React$1.FC<DropdownMenuPrimitive.DropdownMenuPortalProps>;
+declare const DropdownMenuSub: React$1.FC<DropdownMenuPrimitive.DropdownMenuSubProps>;
+declare const DropdownMenuRadioGroup: React$1.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuRadioGroupProps & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuSubTrigger: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSubTriggerProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuSubContent: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSubContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuContent: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuItem: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuItemProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuCheckboxItem: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuCheckboxItemProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuRadioItem: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuRadioItemProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuLabel: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuLabelProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuSeparator: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSeparatorProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const DropdownMenuShortcut: {
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLSpanElement>): react_jsx_runtime.JSX.Element;
+    displayName: string;
+};
+
+declare const Input: React$1.ForwardRefExoticComponent<Omit<React$1.DetailedHTMLProps<React$1.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref"> & React$1.RefAttributes<HTMLInputElement>>;
+
+declare const Label: React$1.ForwardRefExoticComponent<Omit<LabelPrimitive.LabelProps & React$1.RefAttributes<HTMLLabelElement>, "ref"> & VariantProps<(props?: class_variance_authority_types.ClassProp | undefined) => string> & React$1.RefAttributes<HTMLLabelElement>>;
+
+declare const Select: React$1.FC<SelectPrimitive.SelectProps>;
+declare const SelectGroup: React$1.ForwardRefExoticComponent<SelectPrimitive.SelectGroupProps & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectValue: React$1.ForwardRefExoticComponent<SelectPrimitive.SelectValueProps & React$1.RefAttributes<HTMLSpanElement>>;
+declare const SelectTrigger: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectTriggerProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & React$1.RefAttributes<HTMLButtonElement>>;
+declare const SelectScrollUpButton: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectScrollUpButtonProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectScrollDownButton: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectScrollDownButtonProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectContent: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectLabel: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectLabelProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectItem: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectItemProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+declare const SelectSeparator: React$1.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectSeparatorProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+
+declare const Switch: React$1.ForwardRefExoticComponent<Omit<SwitchPrimitives.SwitchProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & React$1.RefAttributes<HTMLButtonElement>>;
+
+declare const TooltipProvider: React$1.FC<TooltipPrimitive.TooltipProviderProps>;
+declare const Tooltip: React$1.FC<TooltipPrimitive.TooltipProps>;
+declare const TooltipTrigger: React$1.ForwardRefExoticComponent<TooltipPrimitive.TooltipTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
+declare const TooltipContent: React$1.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
+
+declare function cn(...inputs: ClassValue[]): string;
+declare function cx(...args: ClassValue[]): string;
+
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, type TabId, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
