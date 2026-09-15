@@ -1930,11 +1930,18 @@ import { twMerge } from "tailwind-merge";
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
+function cx(...args) {
+  return twMerge(clsx(...args));
+}
 
 // src/components/ui/dropdown-menu.tsx
 import { jsx, jsxs } from "react/jsx-runtime";
 var DropdownMenu = DropdownMenuPrimitive.Root;
 var DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+var DropdownMenuGroup = DropdownMenuPrimitive.Group;
+var DropdownMenuPortal = DropdownMenuPrimitive.Portal;
+var DropdownMenuSub = DropdownMenuPrimitive.Sub;
+var DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 var DropdownMenuSubTrigger = React.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ jsxs(
   DropdownMenuPrimitive.SubTrigger,
   {
@@ -4093,6 +4100,7 @@ import { jsx as jsx28, jsxs as jsxs17 } from "react/jsx-runtime";
 var Dialog2 = DialogPrimitive2.Root;
 var DialogTrigger2 = DialogPrimitive2.Trigger;
 var DialogPortal2 = DialogPrimitive2.Portal;
+var DialogClose = DialogPrimitive2.Close;
 var DialogOverlay2 = React17.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx28(
   DialogPrimitive2.Overlay,
   {
@@ -7336,26 +7344,38 @@ var CustomTabbar = ({
     "div",
     {
       className: cn(
-        "w-full bg-card border-y",
-        sticky && "sticky top-0 z-10",
+        "w-full bg-white dark:bg-zinc-950 border-y border-gray-200 dark:border-zinc-800 transition-all duration-200",
+        sticky && "sticky top-0 z-30",
         className
       ),
-      children: /* @__PURE__ */ jsx53("div", { className: "flex items-start px-4 pt-3 sm:px-6 gap-4 sm:gap-6 md:gap-8", children: tabs.map((tab) => /* @__PURE__ */ jsxs37(
-        "button",
-        {
-          onClick: () => onTabChange(tab.id),
-          className: cn(
-            "text-xs sm:text-sm font-normal flex items-center gap-2 sm:gap-3 pb-2 sm:pb-3  transition-all duration-200 relative",
-            "hover:text-foreground",
-            activeTab === tab.id ? "border-b border-foreground text-foreground" : "border-b border-transparent text-muted-foreground"
-          ),
-          children: [
-            /* @__PURE__ */ jsx53("span", { className: "flex-shrink-0", children: tab.icon }),
-            /* @__PURE__ */ jsx53("span", { className: "whitespace-nowrap", children: tab.label })
-          ]
-        },
-        tab.id
-      )) })
+      children: /* @__PURE__ */ jsx53("div", { className: "flex items-center px-4 sm:px-6 lg:px-6 gap-4 sm:gap-6 md:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]", children: tabs.map((tab) => {
+        const active = activeTab === tab.id;
+        return /* @__PURE__ */ jsxs37(
+          "button",
+          {
+            type: "button",
+            onClick: () => onTabChange(tab.id),
+            className: cn(
+              "font-normal flex items-center gap-2 pb-3 transition-all duration-200 relative whitespace-nowrap pt-3 border-b-2 select-none cursor-pointer text-xs sm:text-sm",
+              active ? "border-[#212121] dark:border-white text-[#212121] dark:text-white font-normal" : "border-transparent text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200"
+            ),
+            children: [
+              /* @__PURE__ */ jsx53(
+                "span",
+                {
+                  className: cn(
+                    "flex-shrink-0 transition-colors",
+                    active ? "text-[#212121] dark:text-white" : "text-gray-400 dark:text-zinc-500"
+                  ),
+                  children: tab.icon
+                }
+              ),
+              /* @__PURE__ */ jsx53("span", { children: tab.label })
+            ]
+          },
+          tab.id
+        );
+      }) })
     }
   );
 };
@@ -9524,6 +9544,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check as Check9, ChevronDown as ChevronDown4, ChevronUp } from "lucide-react";
 import { jsx as jsx71, jsxs as jsxs51 } from "react/jsx-runtime";
 var Select = SelectPrimitive.Root;
+var SelectGroup = SelectPrimitive.Group;
 var SelectValue = SelectPrimitive.Value;
 var SelectTrigger = React37.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs51(
   SelectPrimitive.Trigger,
@@ -10703,6 +10724,367 @@ var LinkEditor = (props) => {
   ] });
 };
 var LinkEditor_default = LinkEditor;
+
+// src/components/sidebar/sidebar-shell.tsx
+import { jsx as jsx76, jsxs as jsxs55 } from "react/jsx-runtime";
+var RAIL_CONTROL = "size-9 rounded-[10px]";
+function SidebarShell({
+  collapsed,
+  dir = "ltr",
+  header,
+  children,
+  footer,
+  className
+}) {
+  return /* @__PURE__ */ jsxs55(
+    "aside",
+    {
+      dir,
+      "data-collapsed": collapsed ? "" : void 0,
+      className: cx(
+        "flex h-full w-full flex-col gap-3 overflow-hidden bg-white dark:bg-black",
+        "border-e border-zinc-100 dark:border-zinc-800",
+        collapsed ? "px-2 py-4" : "p-4",
+        className
+      ),
+      children: [
+        header ? /* @__PURE__ */ jsx76("div", { className: "shrink-0", children: header }) : null,
+        /* @__PURE__ */ jsx76(
+          "div",
+          {
+            className: cx(
+              "flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              collapsed && "items-center"
+            ),
+            children
+          }
+        ),
+        footer ? /* @__PURE__ */ jsx76(
+          "div",
+          {
+            className: cx(
+              "flex shrink-0 flex-col gap-3",
+              collapsed && "items-center"
+            ),
+            children: footer
+          }
+        ) : null
+      ]
+    }
+  );
+}
+function ToggleGlyph({ dir, className }) {
+  return /* @__PURE__ */ jsxs55(
+    "svg",
+    {
+      viewBox: "0 0 20 20",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className: cx("size-5", dir === "rtl" && "-scale-x-100", className),
+      "aria-hidden": "true",
+      children: [
+        /* @__PURE__ */ jsx76("rect", { x: "2.5", y: "3.5", width: "15", height: "13", rx: "3" }),
+        /* @__PURE__ */ jsx76("path", { d: "M7.5 3.5v13" }),
+        /* @__PURE__ */ jsx76("path", { d: "M12.5 8.5 11 10l1.5 1.5" })
+      ]
+    }
+  );
+}
+function SidebarToggle({
+  collapsed,
+  onToggle,
+  label,
+  dir = "ltr",
+  className
+}) {
+  return /* @__PURE__ */ jsx76(
+    "button",
+    {
+      type: "button",
+      onClick: onToggle,
+      "aria-label": label,
+      "aria-expanded": !collapsed,
+      title: label,
+      className: cx(
+        RAIL_CONTROL,
+        "flex shrink-0 items-center justify-center",
+        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        className
+      ),
+      children: /* @__PURE__ */ jsx76(ToggleGlyph, { dir })
+    }
+  );
+}
+function SidebarBrandToggle({
+  mark,
+  onToggle,
+  label,
+  dir = "ltr",
+  className
+}) {
+  return /* @__PURE__ */ jsxs55(
+    "button",
+    {
+      type: "button",
+      onClick: onToggle,
+      "aria-label": label,
+      "aria-expanded": false,
+      title: label,
+      className: cx(
+        RAIL_CONTROL,
+        "group/brand relative flex shrink-0 items-center justify-center",
+        "text-neutral-500 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsx76("span", { className: "flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full", children: mark }),
+        /* @__PURE__ */ jsx76(
+          ToggleGlyph,
+          {
+            dir,
+            className: "absolute scale-75 opacity-0 transition-all duration-200 group-hover/brand:scale-100 group-hover/brand:opacity-100 group-focus-visible/brand:scale-100 group-focus-visible/brand:opacity-100"
+          }
+        )
+      ]
+    }
+  );
+}
+
+// src/components/sidebar/sidebar-nav-item.tsx
+import * as Tooltip2 from "@radix-ui/react-tooltip";
+import { Fragment as Fragment10, jsx as jsx77, jsxs as jsxs56 } from "react/jsx-runtime";
+var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx77("a", { href, ...rest, children });
+var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
+function Badge({ children }) {
+  return /* @__PURE__ */ jsx77("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400", children });
+}
+function SidebarNavItem({
+  item,
+  collapsed,
+  dir = "ltr",
+  LinkComponent = DefaultLink
+}) {
+  const active = !item.disabled && !!item.active;
+  const filled = collapsed && !!item.collapsedFillClassName;
+  const className = cx(
+    "group/nav relative flex shrink-0 items-center rounded-[10px] text-sm font-medium transition-[background-color,filter] duration-200",
+    "text-neutral-700 dark:text-zinc-300",
+    filled ? cx(item.collapsedFillClassName, "text-white shadow-sm hover:brightness-110") : item.accentClassName ?? "hover:bg-neutral-100 dark:hover:bg-zinc-800",
+    collapsed ? cx(RAIL_CONTROL, "justify-center") : "h-9 w-full gap-2.5 px-3 text-start",
+    active && !filled && "bg-primary text-white shadow-sm hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-neutral-100",
+    item.disabled && "cursor-not-allowed opacity-70 hover:bg-transparent"
+  );
+  const content = /* @__PURE__ */ jsxs56(Fragment10, { children: [
+    /* @__PURE__ */ jsx77(
+      "span",
+      {
+        className: cx(
+          "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
+          active || filled ? "text-white dark:text-black" : "text-neutral-500 dark:text-zinc-400",
+          filled && "dark:text-white",
+          item.accentClassName && !filled && "transition-transform duration-200 group-hover/nav:scale-110"
+        ),
+        children: filled ? item.collapsedIcon ?? item.icon : item.icon
+      }
+    ),
+    !collapsed && /* @__PURE__ */ jsxs56("span", { className: "flex min-w-0 flex-1 items-center justify-between", children: [
+      /* @__PURE__ */ jsx77("span", { className: cx("truncate", !active && "font-normal"), children: item.label }),
+      item.badge ? /* @__PURE__ */ jsx77(Badge, { children: item.badge }) : null
+    ] })
+  ] });
+  const control = item.href && !item.disabled ? /* @__PURE__ */ jsx77(
+    LinkComponent,
+    {
+      href: item.href,
+      className,
+      "aria-current": active ? "page" : void 0,
+      children: content
+    }
+  ) : /* @__PURE__ */ jsx77(
+    "button",
+    {
+      type: "button",
+      className,
+      onClick: item.disabled ? void 0 : item.onSelect,
+      disabled: item.disabled,
+      "aria-current": active ? "page" : void 0,
+      children: content
+    }
+  );
+  if (!collapsed) return control;
+  return /* @__PURE__ */ jsx77(Tooltip2.Provider, { delayDuration: 150, children: /* @__PURE__ */ jsxs56(Tooltip2.Root, { children: [
+    /* @__PURE__ */ jsx77(Tooltip2.Trigger, { asChild: true, children: control }),
+    /* @__PURE__ */ jsx77(Tooltip2.Portal, { children: /* @__PURE__ */ jsx77(
+      Tooltip2.Content,
+      {
+        side: dir === "rtl" ? "left" : "right",
+        sideOffset: 8,
+        className: cx(
+          "z-50 flex h-9 items-center rounded-[10px] px-3 text-sm font-medium text-neutral-700 shadow-md dark:text-zinc-200",
+          RAIL_HOVER
+        ),
+        children: /* @__PURE__ */ jsxs56("span", { className: "flex items-center gap-1.5", children: [
+          item.label,
+          item.badge ? /* @__PURE__ */ jsx77(Badge, { children: item.badge }) : null
+        ] })
+      }
+    ) })
+  ] }) });
+}
+
+// src/components/sidebar/sidebar-nav.tsx
+import { jsx as jsx78, jsxs as jsxs57 } from "react/jsx-runtime";
+function SidebarNav({
+  groups,
+  collapsed,
+  dir,
+  LinkComponent,
+  className
+}) {
+  return /* @__PURE__ */ jsx78("nav", { className: cx("flex w-full flex-col gap-3", className), children: groups.map((group) => /* @__PURE__ */ jsxs57(
+    "div",
+    {
+      className: cx(
+        "flex w-full flex-col",
+        collapsed ? "items-center gap-2" : "gap-0.5"
+      ),
+      children: [
+        group.dividerAbove && /* @__PURE__ */ jsx78(
+          "div",
+          {
+            className: cx(
+              "mb-2 border-t border-zinc-100 dark:border-zinc-800",
+              collapsed ? "w-6" : "mx-3"
+            )
+          }
+        ),
+        group.label && !collapsed && /* @__PURE__ */ jsx78("span", { className: "mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500", children: group.label }),
+        group.items.map((item) => /* @__PURE__ */ jsx78(
+          SidebarNavItem,
+          {
+            item,
+            collapsed,
+            dir,
+            LinkComponent
+          },
+          item.id
+        ))
+      ]
+    },
+    group.id
+  )) });
+}
+
+// src/components/sidebar/sidebar-credits-card.tsx
+import * as Popover from "@radix-ui/react-popover";
+import { jsx as jsx79, jsxs as jsxs58 } from "react/jsx-runtime";
+var SURFACE = "rounded-[10px] border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/40";
+function ProgressBar({ percent }) {
+  return /* @__PURE__ */ jsx79("span", { className: "block h-1 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-zinc-800", children: /* @__PURE__ */ jsx79(
+    "span",
+    {
+      className: "block h-full rounded-full bg-primary transition-[width] duration-500",
+      style: { width: `${Math.min(100, Math.max(0, percent))}%` }
+    }
+  ) });
+}
+function SidebarCreditsCard({
+  collapsed,
+  label,
+  hoverLabel,
+  value,
+  percent,
+  icon,
+  onClick,
+  dir = "ltr",
+  className
+}) {
+  const showBar = typeof percent === "number";
+  if (collapsed) {
+    return /* @__PURE__ */ jsxs58(Popover.Root, { children: [
+      /* @__PURE__ */ jsx79(Popover.Trigger, { asChild: true, children: /* @__PURE__ */ jsx79(
+        "button",
+        {
+          type: "button",
+          title: `${label}: ${value}`,
+          className: cx(
+            SURFACE,
+            RAIL_CONTROL,
+            "flex cursor-pointer items-center justify-center transition-colors hover:bg-zinc-100 data-[state=open]:bg-zinc-100 dark:hover:bg-zinc-900/60 dark:data-[state=open]:bg-zinc-900/60",
+            className
+          ),
+          children: /* @__PURE__ */ jsx79("span", { className: "flex size-5 items-center justify-center [&>*]:size-full", children: icon })
+        }
+      ) }),
+      /* @__PURE__ */ jsx79(Popover.Portal, { children: /* @__PURE__ */ jsxs58(
+        Popover.Content,
+        {
+          side: dir === "rtl" ? "left" : "right",
+          align: "end",
+          sideOffset: 10,
+          className: "z-50 flex w-56 flex-col gap-2.5 rounded-[10px] border border-zinc-100 bg-white p-3 text-start shadow-lg dark:border-zinc-800 dark:bg-zinc-900",
+          children: [
+            /* @__PURE__ */ jsxs58("span", { className: "flex items-center justify-between gap-2 text-xs font-medium", children: [
+              /* @__PURE__ */ jsx79("span", { className: "text-neutral-600 dark:text-zinc-300", children: label }),
+              /* @__PURE__ */ jsxs58("span", { className: "flex items-center gap-1.5 tabular-nums text-neutral-900 dark:text-zinc-100", children: [
+                /* @__PURE__ */ jsx79("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+                value
+              ] })
+            ] }),
+            showBar && /* @__PURE__ */ jsx79(ProgressBar, { percent }),
+            hoverLabel && onClick && /* @__PURE__ */ jsx79(Popover.Close, { asChild: true, children: /* @__PURE__ */ jsx79(
+              "button",
+              {
+                type: "button",
+                onClick,
+                className: "mt-0.5 h-8 rounded-[10px] bg-primary text-xs font-medium text-white transition-colors hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-neutral-100",
+                children: hoverLabel
+              }
+            ) })
+          ]
+        }
+      ) })
+    ] });
+  }
+  return /* @__PURE__ */ jsxs58(
+    "button",
+    {
+      type: "button",
+      onClick,
+      className: cx(
+        SURFACE,
+        "group/credits flex w-full cursor-pointer flex-col p-2.5 text-start transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900/60",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs58("span", { className: "flex w-full items-center justify-between gap-2", children: [
+          /* @__PURE__ */ jsxs58("span", { className: "relative h-5 min-w-0 flex-1 overflow-hidden text-xs font-medium", children: [
+            /* @__PURE__ */ jsx79(
+              "span",
+              {
+                className: cx(
+                  "absolute inset-y-0 start-0 flex items-center truncate text-neutral-600 transition-all duration-300 dark:text-zinc-300",
+                  hoverLabel && "group-hover/credits:-translate-y-full group-hover/credits:opacity-0"
+                ),
+                children: label
+              }
+            ),
+            hoverLabel && /* @__PURE__ */ jsx79("span", { className: "absolute inset-y-0 start-0 flex translate-y-full items-center truncate text-neutral-800 opacity-0 transition-all duration-300 group-hover/credits:translate-y-0 group-hover/credits:opacity-100 dark:text-zinc-100", children: hoverLabel })
+          ] }),
+          /* @__PURE__ */ jsxs58("span", { className: "flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium tabular-nums text-neutral-900 dark:text-zinc-100", children: [
+            /* @__PURE__ */ jsx79("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+            value
+          ] })
+        ] }),
+        showBar && /* @__PURE__ */ jsx79("span", { className: "mt-2 block w-full", children: /* @__PURE__ */ jsx79(ProgressBar, { percent }) })
+      ]
+    }
+  );
+}
 export {
   ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AddContentModal_default as AddContentModal,
@@ -10711,22 +11093,97 @@ export {
   AssetsProvider,
   AssetsTabbar_default as AssetsTabbar,
   AssetsUploadModal,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Card2 as Card,
+  CardContent2 as CardContent,
+  CardDescription2 as CardDescription,
+  CardFooter2 as CardFooter,
+  CardHeader2 as CardHeader,
+  CardTitle2 as CardTitle,
+  Checkbox,
   DEFAULT_ASSET_IMAGES,
+  Dialog2 as Dialog,
+  DialogClose,
+  DialogContent2 as DialogContent,
+  DialogDescription2 as DialogDescription,
+  DialogFooter2 as DialogFooter,
+  DialogHeader2 as DialogHeader,
+  DialogOverlay2 as DialogOverlay,
+  DialogPortal2 as DialogPortal,
+  DialogTitle2 as DialogTitle,
+  DialogTrigger2 as DialogTrigger,
+  Drawer2 as Drawer,
+  DrawerClose2 as DrawerClose,
+  DrawerContent2 as DrawerContent,
+  DrawerDescription2 as DrawerDescription,
+  DrawerFooter2 as DrawerFooter,
+  DrawerHeader2 as DrawerHeader,
+  DrawerOverlay2 as DrawerOverlay,
+  DrawerPortal2 as DrawerPortal,
+  DrawerTitle2 as DrawerTitle,
+  DrawerTrigger2 as DrawerTrigger,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   error_state_default as ErrorState,
+  Input2 as Input,
+  Label4 as Label,
   LinkEditor_default as LinkEditor,
   MembersAndNumbers_default as MembersAndNumbers,
   MembersManager_default as MembersManager,
   ProductSwitcher,
+  RAIL_CONTROL,
+  RAIL_HOVER,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+  SidebarBrandToggle,
+  SidebarCreditsCard,
+  SidebarNav,
+  SidebarNavItem,
+  SidebarShell,
+  SidebarToggle,
+  Skeleton,
   SpaceBrowser_default as SpaceBrowser,
   SpaceSelector,
   SpaceSelectorProvider,
+  Switch,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
   UploadModal_default as UploadModal,
   UserAccount,
   assetKeys,
+  buttonVariants,
+  cn,
   createAssetUploader,
   createAssetsApi,
   createContentBrowserApi,
   createSpaceSelectorApi,
+  cx,
   useAssetsConfig,
   useAssetsQuery,
   useAssetsStore,
