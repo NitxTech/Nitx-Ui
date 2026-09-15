@@ -7344,26 +7344,38 @@ var CustomTabbar = ({
     "div",
     {
       className: cn(
-        "w-full bg-card border-y",
-        sticky && "sticky top-0 z-10",
+        "w-full bg-white dark:bg-zinc-950 border-y border-gray-200 dark:border-zinc-800 transition-all duration-200",
+        sticky && "sticky top-0 z-30",
         className
       ),
-      children: /* @__PURE__ */ jsx53("div", { className: "flex items-start px-4 pt-3 sm:px-6 gap-4 sm:gap-6 md:gap-8", children: tabs.map((tab) => /* @__PURE__ */ jsxs37(
-        "button",
-        {
-          onClick: () => onTabChange(tab.id),
-          className: cn(
-            "text-xs sm:text-sm font-normal flex items-center gap-2 sm:gap-3 pb-2 sm:pb-3  transition-all duration-200 relative",
-            "hover:text-foreground",
-            activeTab === tab.id ? "border-b border-foreground text-foreground" : "border-b border-transparent text-muted-foreground"
-          ),
-          children: [
-            /* @__PURE__ */ jsx53("span", { className: "flex-shrink-0", children: tab.icon }),
-            /* @__PURE__ */ jsx53("span", { className: "whitespace-nowrap", children: tab.label })
-          ]
-        },
-        tab.id
-      )) })
+      children: /* @__PURE__ */ jsx53("div", { className: "flex items-center px-4 sm:px-6 lg:px-6 gap-4 sm:gap-6 md:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]", children: tabs.map((tab) => {
+        const active = activeTab === tab.id;
+        return /* @__PURE__ */ jsxs37(
+          "button",
+          {
+            type: "button",
+            onClick: () => onTabChange(tab.id),
+            className: cn(
+              "font-normal flex items-center gap-2 pb-3 transition-all duration-200 relative whitespace-nowrap pt-3 border-b-2 select-none cursor-pointer text-xs sm:text-sm",
+              active ? "border-[#212121] dark:border-white text-[#212121] dark:text-white font-normal" : "border-transparent text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200"
+            ),
+            children: [
+              /* @__PURE__ */ jsx53(
+                "span",
+                {
+                  className: cn(
+                    "flex-shrink-0 transition-colors",
+                    active ? "text-[#212121] dark:text-white" : "text-gray-400 dark:text-zinc-500"
+                  ),
+                  children: tab.icon
+                }
+              ),
+              /* @__PURE__ */ jsx53("span", { children: tab.label })
+            ]
+          },
+          tab.id
+        );
+      }) })
     }
   );
 };

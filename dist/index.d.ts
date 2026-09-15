@@ -1,4 +1,3 @@
-import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as React$1 from 'react';
 import React__default, { ReactNode, Dispatch, SetStateAction, ComponentType, MouseEvent } from 'react';
 import Uppy from '@uppy/core';
@@ -23,7 +22,7 @@ interface ProductSwitcherProps {
     profileImage?: string;
     profileName?: string;
 }
-declare const ProductSwitcher: ({ auth_user, profileImage, profileName, }: ProductSwitcherProps) => react_jsx_runtime.JSX.Element | null;
+declare const ProductSwitcher: ({ auth_user, profileImage, profileName, }: ProductSwitcherProps) => React$1.JSX.Element | null;
 
 interface UserAccountProps {
     accounts: {
@@ -36,7 +35,7 @@ interface UserAccountProps {
     isExpanded: boolean;
     auth_user: string | number;
 }
-declare const UserAccount: ({ accounts, isExpanded, auth_user, }: UserAccountProps) => react_jsx_runtime.JSX.Element | null;
+declare const UserAccount: ({ accounts, isExpanded, auth_user, }: UserAccountProps) => React$1.JSX.Element | null;
 
 type MemberRole = "owner" | "manager" | "editor" | "viewer";
 interface Member {
@@ -135,7 +134,7 @@ interface SpaceBrowserProps {
     error?: string | null;
     onFail?: () => void;
 }
-declare const SpaceBrowser: (props: SpaceBrowserProps) => react_jsx_runtime.JSX.Element;
+declare const SpaceBrowser: (props: SpaceBrowserProps) => React__default.JSX.Element;
 
 interface MembersManagerProps {
     /** The space to invite members into */
@@ -158,7 +157,7 @@ interface MembersManagerProps {
  * It does NOT depend on the SpaceSelectorContext and can be embedded
  * anywhere — inside a modal, a sidebar panel, a settings page, etc.
  */
-declare const MembersManager: ({ spaceId, api: apiProp, initialEmail, initialRole, onSuccess, onCancel, }: MembersManagerProps) => react_jsx_runtime.JSX.Element | null;
+declare const MembersManager: ({ spaceId, api: apiProp, initialEmail, initialRole, onSuccess, onCancel, }: MembersManagerProps) => React__default.JSX.Element | null;
 
 interface SpaceSelectorProps {
     spaces: ProxySpace[];
@@ -176,7 +175,7 @@ interface SpaceSelectorProps {
     onFail?: () => void;
     MembersManager?: MembersManagerProps;
 }
-declare const SpaceSelector: (props: SpaceSelectorProps) => react_jsx_runtime.JSX.Element;
+declare const SpaceSelector: (props: SpaceSelectorProps) => React$1.JSX.Element;
 
 interface SpaceSelectorContextType {
     activeSpace: ProxySpace | undefined;
@@ -209,7 +208,7 @@ interface SpaceSelectorProviderProps {
     error?: string | null;
     onFail?: () => void;
 }
-declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, isLoading, error, onFail, }: SpaceSelectorProviderProps) => react_jsx_runtime.JSX.Element;
+declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, isLoading, error, onFail, }: SpaceSelectorProviderProps) => React__default.JSX.Element;
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
@@ -221,7 +220,7 @@ interface MembersAndNumbersProps {
     onRefreshSpaces?: () => void | Promise<void>;
     onSpaceNameChange?: (spaceName: string) => void;
 }
-declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => react_jsx_runtime.JSX.Element | null;
+declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => React$1.JSX.Element | null;
 
 interface ErrorStateProps {
     /** Short description text shown below the icon */
@@ -233,7 +232,7 @@ interface ErrorStateProps {
     /** Label for the retry button — defaults to "Try again" */
     retryLabel?: string;
 }
-declare const ErrorState: ({ message, title, onRetry, retryLabel, }: ErrorStateProps) => react_jsx_runtime.JSX.Element;
+declare const ErrorState: ({ message, title, onRetry, retryLabel, }: ErrorStateProps) => React__default.JSX.Element;
 
 type TabId = "Assets" | "Links" | "Apps" | "Sequences" | "Layout" | "Channels" | "Canvas";
 interface Folder$1 {
@@ -363,9 +362,9 @@ interface UploadModalProps {
     onUploadComplete?: () => void;
 }
 
-declare const AddContentModal: ({ open, onClose, onSelect, api, spaceUuid, allowedTabs, onUploadClick, singleSelect, }: AddContentModalProps) => react_jsx_runtime.JSX.Element;
+declare const AddContentModal: ({ open, onClose, onSelect, api, spaceUuid, allowedTabs, onUploadClick, singleSelect, }: AddContentModalProps) => React__default.JSX.Element;
 
-declare const UploadModal: ({ open, onClose, uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, companionUrl, onUploadComplete, }: UploadModalProps) => react_jsx_runtime.JSX.Element;
+declare const UploadModal: ({ open, onClose, uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, companionUrl, onUploadComplete, }: UploadModalProps) => React$1.JSX.Element;
 
 declare const createContentBrowserApi: (client: any) => ContentBrowserApi;
 
@@ -604,7 +603,7 @@ interface AssetsConfig {
     images: AssetImagesMap;
     rtl: boolean;
 }
-declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, rtl, children, }: AssetsProviderProps): react_jsx_runtime.JSX.Element;
+declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, rtl, children, }: AssetsProviderProps): React$1.JSX.Element;
 declare function useAssetsConfig(): AssetsConfig;
 declare function useOptionalAssetsConfig(): AssetsConfig | null;
 
@@ -742,13 +741,13 @@ interface AssetsBrowserProps {
     /** Extra folder dropdown menu items (e.g. signage's "create sequence"). */
     renderFolderMenuItems?: (folder: Folder) => React__default.ReactNode;
 }
-declare const AssetsBrowser: ({ className, onTitleChange, emptyStateImages, renderAssetActions, renderFolderMenuItems, }: AssetsBrowserProps) => react_jsx_runtime.JSX.Element;
+declare const AssetsBrowser: ({ className, onTitleChange, emptyStateImages, renderAssetActions, renderFolderMenuItems, }: AssetsBrowserProps) => React__default.JSX.Element;
 
 interface AssetsTabbarProps {
     className?: string;
     sticky?: boolean;
 }
-declare const AssetsTabbar: ({ className, sticky }: AssetsTabbarProps) => react_jsx_runtime.JSX.Element;
+declare const AssetsTabbar: ({ className, sticky }: AssetsTabbarProps) => React__default.JSX.Element;
 
 interface AssetsPathProps {
     className?: string;
@@ -773,7 +772,7 @@ interface AssetsUploadModalProps {
  * consumers can also mount this outside the assets browser (e.g. reach's
  * email-builder flow) with just `open`/`onClose`.
  */
-declare function AssetsUploadModal({ open, onClose, folderUuid, onUploadComplete, }: AssetsUploadModalProps): react_jsx_runtime.JSX.Element | null;
+declare function AssetsUploadModal({ open, onClose, folderUuid, onUploadComplete, }: AssetsUploadModalProps): React__default.JSX.Element | null;
 
 interface LinkEditorTitleInfo {
     title: string;
@@ -799,7 +798,7 @@ type LinkEditorProps = ({
  * and provide navigation via the AssetsProvider's `navigation` config —
  * saving or cancelling calls `navigation.fromLinksBack()` in create mode.
  */
-declare const LinkEditor: (props: LinkEditorProps) => react_jsx_runtime.JSX.Element;
+declare const LinkEditor: (props: LinkEditorProps) => React__default.JSX.Element;
 
 interface SidebarNavItem$1 {
     id: string;
@@ -866,7 +865,7 @@ interface SidebarShellProps {
  * The same `gap-3` separates header, body sections and footer so the rhythm
  * is identical at every root font-size.
  */
-declare function SidebarShell({ collapsed, dir, header, children, footer, className, }: SidebarShellProps): react_jsx_runtime.JSX.Element;
+declare function SidebarShell({ collapsed, dir, header, children, footer, className, }: SidebarShellProps): React$1.JSX.Element;
 interface SidebarToggleProps {
     collapsed: boolean;
     onToggle: () => void;
@@ -876,7 +875,7 @@ interface SidebarToggleProps {
     className?: string;
 }
 /** Panel-toggle button for the expanded header (inline icon, no icon-library dependency). */
-declare function SidebarToggle({ collapsed, onToggle, label, dir, className, }: SidebarToggleProps): react_jsx_runtime.JSX.Element;
+declare function SidebarToggle({ collapsed, onToggle, label, dir, className, }: SidebarToggleProps): React$1.JSX.Element;
 interface SidebarBrandToggleProps {
     /** The brand mark shown at rest (collapsed rail). */
     mark: ReactNode;
@@ -890,7 +889,7 @@ interface SidebarBrandToggleProps {
  * button — the mark shows at rest and cross-fades into the panel icon on
  * hover/focus; clicking expands the sidebar.
  */
-declare function SidebarBrandToggle({ mark, onToggle, label, dir, className, }: SidebarBrandToggleProps): react_jsx_runtime.JSX.Element;
+declare function SidebarBrandToggle({ mark, onToggle, label, dir, className, }: SidebarBrandToggleProps): React$1.JSX.Element;
 
 interface SidebarNavProps {
     groups: SidebarNavGroup[];
@@ -899,7 +898,7 @@ interface SidebarNavProps {
     LinkComponent?: SidebarLinkComponent;
     className?: string;
 }
-declare function SidebarNav({ groups, collapsed, dir, LinkComponent, className, }: SidebarNavProps): react_jsx_runtime.JSX.Element;
+declare function SidebarNav({ groups, collapsed, dir, LinkComponent, className, }: SidebarNavProps): React$1.JSX.Element;
 
 interface SidebarNavItemProps {
     item: SidebarNavItem$1;
@@ -910,7 +909,7 @@ interface SidebarNavItemProps {
 /** Hover surface shared by rows and their collapsed tooltips. */
 declare const RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 /** One nav row. A single class list serves both the expanded and collapsed rail. */
-declare function SidebarNavItem({ item, collapsed, dir, LinkComponent, }: SidebarNavItemProps): react_jsx_runtime.JSX.Element;
+declare function SidebarNavItem({ item, collapsed, dir, LinkComponent, }: SidebarNavItemProps): React$1.JSX.Element;
 
 interface SidebarCreditsCardProps {
     collapsed: boolean;
@@ -927,7 +926,7 @@ interface SidebarCreditsCardProps {
     dir?: SidebarDirection;
     className?: string;
 }
-declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): react_jsx_runtime.JSX.Element;
+declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): React$1.JSX.Element;
 
 declare const buttonVariants: (props?: ({
     variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
@@ -938,7 +937,7 @@ interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, V
 }
 declare const Button: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<HTMLButtonElement>>;
 
-declare function Skeleton({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+declare function Skeleton({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): React__default.JSX.Element;
 
 declare const Card: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
 declare const CardHeader: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
@@ -962,18 +961,18 @@ declare const DialogContent: React$1.ForwardRefExoticComponent<Omit<DialogPrimit
     overlayClassName?: string;
 } & React$1.RefAttributes<HTMLDivElement>>;
 declare const DialogHeader: {
-    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
     displayName: string;
 };
 declare const DialogFooter: {
-    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
     displayName: string;
 };
 declare const DialogTitle: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React$1.RefAttributes<HTMLHeadingElement>, "ref"> & React$1.RefAttributes<HTMLHeadingElement>>;
 declare const DialogDescription: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React$1.RefAttributes<HTMLParagraphElement>, "ref"> & React$1.RefAttributes<HTMLParagraphElement>>;
 
 declare const Drawer: {
-    ({ shouldScaleBackground, ...props }: React$1.ComponentProps<typeof Drawer$1.Root>): react_jsx_runtime.JSX.Element;
+    ({ shouldScaleBackground, ...props }: React$1.ComponentProps<typeof Drawer$1.Root>): React$1.JSX.Element;
     displayName: string;
 };
 declare const DrawerTrigger: React$1.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
@@ -982,11 +981,11 @@ declare const DrawerClose: React$1.ForwardRefExoticComponent<DialogPrimitive.Dia
 declare const DrawerOverlay: React$1.ForwardRefExoticComponent<Omit<Omit<DialogPrimitive.DialogOverlayProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 declare const DrawerContent: React$1.ForwardRefExoticComponent<Omit<Omit<DialogPrimitive.DialogContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 declare const DrawerHeader: {
-    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
     displayName: string;
 };
 declare const DrawerFooter: {
-    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
     displayName: string;
 };
 declare const DrawerTitle: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React$1.RefAttributes<HTMLHeadingElement>, "ref"> & React$1.RefAttributes<HTMLHeadingElement>>;
@@ -1013,7 +1012,7 @@ declare const DropdownMenuLabel: React$1.ForwardRefExoticComponent<Omit<Dropdown
 } & React$1.RefAttributes<HTMLDivElement>>;
 declare const DropdownMenuSeparator: React$1.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuSeparatorProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 declare const DropdownMenuShortcut: {
-    ({ className, ...props }: React$1.HTMLAttributes<HTMLSpanElement>): react_jsx_runtime.JSX.Element;
+    ({ className, ...props }: React$1.HTMLAttributes<HTMLSpanElement>): React$1.JSX.Element;
     displayName: string;
 };
 
