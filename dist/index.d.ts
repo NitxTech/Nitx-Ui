@@ -929,7 +929,7 @@ interface SidebarCreditsCardProps {
 declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): React$1.JSX.Element;
 
 declare const buttonVariants: (props?: ({
-    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
