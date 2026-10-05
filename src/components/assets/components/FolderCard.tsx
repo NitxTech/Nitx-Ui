@@ -231,7 +231,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                     <TooltipContent side="bottom">{data.name}</TooltipContent>
                   </Tooltip>
                 )}
-                <p className="text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none">
+                <p className="text-xs text-muted-foreground truncate max-w-28 pointer-events-none">
                   {data.assets_count || 0}{" "}
                   {data.assets_count === 1
                     ? t("assets.folderCard.item")

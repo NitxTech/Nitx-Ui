@@ -113,7 +113,7 @@ export function SidebarToggle({
       className={cx(
         RAIL_CONTROL,
         "flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
         className,
       )}
     >
@@ -153,7 +153,7 @@ export function SidebarBrandToggle({
       className={cx(
         RAIL_CONTROL,
         "group/brand relative flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
         className,
       )}
     >

@@ -3164,7 +3164,7 @@ var SpaceCard = ({ id, name, members, className }) => {
               "h2",
               {
                 className: cn2(
-                  "text-[12.42px] text-neutral-500 dark:text-neutral-400"
+                  "text-xs text-neutral-600 dark:text-neutral-300"
                 ),
                 children: [
                   members,
@@ -5703,7 +5703,7 @@ var SpaceSelectorContent = () => {
       /* @__PURE__ */ jsx47(
         "p",
         {
-          className: `text-[11px] text-zinc-600 uppercase p-3 ${isRTL ? "!text-right" : "!text-left"}`,
+          className: `text-xs font-semibold text-zinc-600 dark:text-zinc-300 uppercase p-3 ${isRTL ? "!text-right" : "!text-left"}`,
           children: t("sidebar.Recently Spaces")
         }
       ),
@@ -6231,7 +6231,7 @@ var AddContentModal = ({
           ] }),
           /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: asset.name.slice(0, 10) }),
-            /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+            /* @__PURE__ */ jsxs36("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
               t("addContentModal.upload"),
               " ",
               formatDate(asset.created_at)
@@ -6261,7 +6261,7 @@ var AddContentModal = ({
         /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-sky-100", children: /* @__PURE__ */ jsx50(FolderOpen, { className: "text-sky-600 size-8" }) }),
         /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
           /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name }),
-          /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+          /* @__PURE__ */ jsxs36("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
             folder.assets_count || 0,
             " ",
             t("addContentModal.items")
@@ -6313,7 +6313,7 @@ var AddContentModal = ({
           /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#00C4CC]", children: /* @__PURE__ */ jsx50(Film, { className: "text-white size-8" }) }),
           /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: sequence.name }),
-            /* @__PURE__ */ jsx50("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: sequence.total_duration || "No duration" })
+            /* @__PURE__ */ jsx50("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: sequence.total_duration || "No duration" })
           ] }),
           /* @__PURE__ */ jsx50(
             "div",
@@ -6344,7 +6344,7 @@ var AddContentModal = ({
           /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#575DFC]", children: /* @__PURE__ */ jsx50(ChannelSolidPlayIcon, { baseColor: "white", playColor: "#4B53FB" }) }),
           /* @__PURE__ */ jsxs36("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate", children: channel.name }),
-            /* @__PURE__ */ jsx50("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: channel.isPublished ? "Published" : "Draft" })
+            /* @__PURE__ */ jsx50("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: channel.isPublished ? "Published" : "Draft" })
           ] }),
           /* @__PURE__ */ jsx50(
             "div",
@@ -6441,7 +6441,7 @@ var AddContentModal = ({
                   /* @__PURE__ */ jsx50("div", { className: "w-[86px] h-[86px] flex-shrink-0 flex items-center justify-center bg-gray-50 dark:bg-card", children: inst.app_icon_url ? /* @__PURE__ */ jsx50("img", { src: inst.app_icon_url, alt: inst.app_name, className: "w-10 h-10" }) : /* @__PURE__ */ jsx50("div", { className: "w-10 h-10 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-semibold", children: (inst.app_name || "A").charAt(0) }) }),
                   /* @__PURE__ */ jsxs36("div", { className: "pl-3 pr-8 py-2", children: [
                     /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate max-w-[220px]", children: inst.name }),
-                    /* @__PURE__ */ jsx50("p", { className: "text-[11px] text-gray-500 dark:text-zinc-400 truncate max-w-[220px]", children: inst.app_name })
+                    /* @__PURE__ */ jsx50("p", { className: "text-xs text-gray-600 dark:text-zinc-300 truncate max-w-[220px]", children: inst.app_name })
                   ] }),
                   /* @__PURE__ */ jsx50(
                     "div",
@@ -6487,7 +6487,7 @@ var AddContentModal = ({
                   /* @__PURE__ */ jsx50("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]", children: /* @__PURE__ */ jsx50(Monitor, { className: "text-white size-8" }) }),
                   /* @__PURE__ */ jsxs36("div", { className: "pl-3 pr-8 py-2", children: [
                     /* @__PURE__ */ jsx50("p", { className: "text-sm font-medium truncate max-w-[220px]", children: canvas.name }),
-                    /* @__PURE__ */ jsxs36("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+                    /* @__PURE__ */ jsxs36("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
                       t("addContentModal.upload"),
                       " ",
                       format(new Date(canvas.created_at), "MMM d, yyyy")
@@ -8254,7 +8254,7 @@ var AssetCard = ({
                       /* @__PURE__ */ jsx59(TooltipTrigger, { children: /* @__PURE__ */ jsx59("h2", { className: "text-xs sm:text-sm text-left font-bold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
                       /* @__PURE__ */ jsx59(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
                     ] }),
-                    /* @__PURE__ */ jsxs41("p", { className: "text-[10px] sm:text-[11.2px] text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
+                    /* @__PURE__ */ jsxs41("p", { className: "text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
                       data.type === "image" && data.image?.size,
                       data.type === "video" && data.video?.size,
                       data.type === "document" && data.document?.size
@@ -8616,7 +8616,7 @@ var FolderCard = React29.forwardRef(
                     /* @__PURE__ */ jsx60(TooltipTrigger, { children: /* @__PURE__ */ jsx60("h2", { className: "text-sm font-bold text-foreground truncate text-left max-w-full pointer-events-none", children: data.name }) }),
                     /* @__PURE__ */ jsx60(TooltipContent, { side: "bottom", children: data.name })
                   ] }),
-                  /* @__PURE__ */ jsxs42("p", { className: "text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none", children: [
+                  /* @__PURE__ */ jsxs42("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none", children: [
                     data.assets_count || 0,
                     " ",
                     data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
@@ -10840,7 +10840,7 @@ function SidebarToggle({
       className: cx(
         RAIL_CONTROL,
         "flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
         className
       ),
       children: /* @__PURE__ */ jsx76(ToggleGlyph, { dir })
@@ -10865,7 +10865,7 @@ function SidebarBrandToggle({
       className: cx(
         RAIL_CONTROL,
         "group/brand relative flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
         className
       ),
       children: [
@@ -10888,7 +10888,7 @@ import { Fragment as Fragment10, jsx as jsx77, jsxs as jsxs56 } from "react/jsx-
 var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx77("a", { href, ...rest, children });
 var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 function Badge({ children }) {
-  return /* @__PURE__ */ jsx77("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400", children });
+  return /* @__PURE__ */ jsx77("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-xs font-bold leading-none text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300", children });
 }
 function SidebarNavItem({
   item,
@@ -10912,7 +10912,7 @@ function SidebarNavItem({
       {
         className: cx(
           "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
-          active || filled ? "text-white dark:text-black" : "text-neutral-500 dark:text-zinc-400",
+          active || filled ? "text-white dark:text-black" : "text-neutral-600 dark:text-zinc-300",
           filled && "dark:text-white",
           item.accentClassName && !filled && "transition-transform duration-200 group-hover/nav:scale-110"
         ),
@@ -10990,7 +10990,7 @@ function SidebarNav({
             )
           }
         ),
-        group.label && !collapsed && /* @__PURE__ */ jsx78("span", { className: "mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500", children: group.label }),
+        group.label && !collapsed && /* @__PURE__ */ jsx78("span", { className: "mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-zinc-300", children: group.label }),
         group.items.map((item) => /* @__PURE__ */ jsx78(
           SidebarNavItem,
           {

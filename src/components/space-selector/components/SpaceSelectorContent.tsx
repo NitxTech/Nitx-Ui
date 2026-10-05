@@ -92,7 +92,7 @@ export const SpaceSelectorContent = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full min-w-[260px] bg-white rounded-lg p-1 border flex-col gap-1 text-sm shadow-lg z-[100]">
             <p
-              className={`text-[11px] text-zinc-600 uppercase p-3 ${
+              className={`text-xs font-semibold text-zinc-600 dark:text-zinc-300 uppercase p-3 ${
                 isRTL ? "!text-right" : "!text-left"
               }`}
             >

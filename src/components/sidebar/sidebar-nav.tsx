@@ -40,7 +40,7 @@ export function SidebarNav({
             />
           )}
           {group.label && !collapsed && (
-            <span className="mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500">
+            <span className="mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-zinc-300">
               {group.label}
             </span>
           )}

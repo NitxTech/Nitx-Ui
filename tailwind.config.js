@@ -22,9 +22,10 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        "3xs": ["0.5625rem", { lineHeight: "0.75rem" }],
-        "2xs": ["0.625rem", { lineHeight: "0.875rem" }],
-        sm: ["0.93rem", { lineHeight: "1.375rem" }],
+        "3xs": ["0.75rem", { lineHeight: "1rem" }], // 12px floor
+        "2xs": ["0.75rem", { lineHeight: "1rem" }], // 12px floor
+        xs: ["0.75rem", { lineHeight: "1rem" }], // 12px
+        sm: ["0.875rem", { lineHeight: "1.25rem" }], // 14px
       },
       spacing: {
         4.5: "1.125rem",

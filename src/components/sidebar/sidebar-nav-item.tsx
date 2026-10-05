@@ -26,7 +26,7 @@ export const RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400">
+    <span className="ms-1.5 shrink-0 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-xs font-bold leading-none text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
       {children}
     </span>
   );
@@ -62,7 +62,7 @@ export function SidebarNavItem({
           "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
           active || filled
             ? "text-white dark:text-black"
-            : "text-neutral-500 dark:text-zinc-400",
+            : "text-neutral-600 dark:text-zinc-300",
           filled && "dark:text-white",
           item.accentClassName &&
             !filled &&
