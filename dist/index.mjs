@@ -10912,7 +10912,7 @@ function SidebarNavItem({
       {
         className: cx(
           "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
-          active || filled ? "text-white dark:text-black" : "text-neutral-600 dark:text-zinc-300",
+          active || filled ? "text-white dark:text-black [&>svg]:text-white dark:[&>svg]:text-black" : "text-neutral-600 dark:text-zinc-300",
           filled && "dark:text-white",
           item.accentClassName && !filled && "transition-transform duration-200 group-hover/nav:scale-110"
         ),
