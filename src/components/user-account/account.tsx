@@ -2,7 +2,7 @@
 
 import { cn } from "../../lib/utils";
 import { useRouter } from "next/navigation";
-import { BadgeCheck, ChevronDown, LogOut, PlusSquare } from "lucide-react";
+import { BadgeCheck, ChevronDown, LogOut, PlusSquare, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -14,8 +14,12 @@ import {
 } from "../ui/dropdown-menu";
 import Link from "next/link";
 import { useNitxUiTranslation } from "../../i18n/nitxuilib";
+import {
+  AccountPreferencesModal,
+  AccountPreferencesModalProps,
+} from "./account-preferences-modal";
 
-interface UserAccountProps {
+export interface UserAccountProps {
   accounts: {
     id: string;
     name: string;
@@ -25,17 +29,39 @@ interface UserAccountProps {
   }[];
   isExpanded: boolean;
   auth_user: string | number;
+  showPlan?: boolean;
+  platform?: "studio" | "my-nitx" | "signage" | string;
+  onOpenSettings?: () => void;
+  onSettingsClick?: () => void;
+  settingsHref?: string;
+  preferencesOpen?: boolean;
+  onPreferencesOpenChange?: (open: boolean) => void;
+  accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
 }
 
 export const UserAccount = ({
   accounts,
   isExpanded,
   auth_user,
+  showPlan,
+  platform,
+  onOpenSettings,
+  onSettingsClick,
+  settingsHref,
+  preferencesOpen,
+  onPreferencesOpenChange,
+  accountPreferencesProps,
 }: UserAccountProps) => {
   const { t } = useNitxUiTranslation();
   const [onOpen, setOnOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [internalPreferencesOpen, setInternalPreferencesOpen] = useState(false);
+
+  const isPreferencesModalOpen =
+    preferencesOpen !== undefined ? preferencesOpen : internalPreferencesOpen;
+  const handlePreferencesOpenChange =
+    onPreferencesOpenChange || setInternalPreferencesOpen;
 
   const router = useRouter();
 
@@ -65,6 +91,20 @@ export const UserAccount = ({
     router.replace(
       `${process.env.NEXT_PUBLIC_AUTH_URL}/signout?session=${auth_user}`
     );
+  };
+
+  const handleSettingsClick = (e: React.MouseEvent) => {
+    if (!settingsHref) {
+      e.preventDefault();
+      handlePreferencesOpenChange(true);
+    }
+    if (onOpenSettings) {
+      onOpenSettings();
+    } else if (onSettingsClick) {
+      onSettingsClick();
+    } else if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-settings-modal"));
+    }
   };
 
   if (!activeAccount) return null;
@@ -192,27 +232,72 @@ export const UserAccount = ({
           )}
           <DropdownMenuItem
             asChild
-            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-1"
+            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200"
           >
             <Link
               target="_blank"
               href={`${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`}
             >
               <PlusSquare className="w-4 h-4 stroke-[1.5]" />
-              {t("userAccount.addAnotherAccount")}
+              <span>{t("userAccount.addAnotherAccount")}</span>
             </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onClick={handleSettingsClick}
+            onSelect={(e) => {
+              if (!settingsHref) {
+                e.preventDefault();
+                handlePreferencesOpenChange(true);
+                setOnOpen(false);
+              }
+            }}
+            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200 flex items-center"
+            asChild={!!settingsHref}
+          >
+            {settingsHref ? (
+              <Link href={settingsHref}>
+                <Settings className="w-4 h-4 stroke-[1.5]" />
+                <span>{t("userAccount.settings") || "Settings"}</span>
+              </Link>
+            ) : (
+              <>
+                <Settings className="w-4 h-4 stroke-[1.5]" />
+                <span>{t("userAccount.settings") || "Settings"}</span>
+              </>
+            )}
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}
-            className="w-full flex justify-start p-4 gap-3 items-center transition ease-in-out text-sm rounded-[16px] text-red-500 hover:bg-zinc-100/60 dark:hover:bg-zinc-700/60"
+            className="xl:min-w-[260px] w-full flex justify-start py-3 px-4 gap-2.5 items-center transition ease-in-out text-sm rounded-lg text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer"
           >
-            <LogOut className="w-4 h-4 stroke-[1.5]" />
-            {t("userAccount.signOut")}
+            <LogOut className="w-4 h-4 stroke-[1.5] text-red-500" />
+            <span className="text-red-500">{t("userAccount.signOut")}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <AccountPreferencesModal
+        open={isPreferencesModalOpen}
+        onOpenChange={handlePreferencesOpenChange}
+        authUser={auth_user}
+        showPlan={showPlan ?? accountPreferencesProps?.showPlan}
+        platform={platform ?? accountPreferencesProps?.platform}
+        user={
+          activeAccount
+            ? {
+                name: activeAccount.name,
+                email: activeAccount.email,
+                imageUrl: activeAccount.imageUrl,
+              }
+            : undefined
+        }
+        {...accountPreferencesProps}
+      />
     </div>
   );
 };
+
+export default UserAccount;

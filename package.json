@@ -1,6 +1,6 @@
 {
   "name": "nitxui",
-  "version": "2.0.0",
+  "version": "2.0.6",
   "type": "module",
   "private": false,
   "description": "The official UI component library for Nitx projects.",
@@ -60,6 +60,7 @@
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/addon-links": "^8.6.14",
     "@storybook/nextjs": "^8.6.14",
+    "@storybook/react": "^8.6.14",
     "@storybook/test": "^8.6.14",
     "@tanstack/react-query": "^5.90.0",
     "@types/node": "^24.0.12",
