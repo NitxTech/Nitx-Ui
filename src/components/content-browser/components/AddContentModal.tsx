@@ -468,7 +468,7 @@ const AddContentModal = ({
         </div>
         <div className="pl-3">
           <p className="text-sm font-medium truncate">{asset.name.slice(0, 10)}</p>
-          <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+          <p className="text-xs text-gray-600 dark:text-zinc-300">
             {t("addContentModal.upload")} {formatDate(asset.created_at)}
           </p>
         </div>
@@ -499,7 +499,7 @@ const AddContentModal = ({
         <p className="text-sm font-medium truncate">
           {folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name}
         </p>
-        <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+        <p className="text-xs text-gray-600 dark:text-zinc-300">
           {folder.assets_count || 0} {t("addContentModal.items")}
         </p>
       </div>
@@ -557,7 +557,7 @@ const AddContentModal = ({
         </div>
         <div className="pl-3">
           <p className="text-sm font-medium truncate">{sequence.name}</p>
-          <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+          <p className="text-xs text-gray-600 dark:text-zinc-300">
             {sequence.total_duration || "No duration"}
           </p>
         </div>
@@ -593,7 +593,7 @@ const AddContentModal = ({
         </div>
         <div className="pl-3">
           <p className="text-sm font-medium truncate">{channel.name}</p>
-          <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+          <p className="text-xs text-gray-600 dark:text-zinc-300">
             {channel.isPublished ? "Published" : "Draft"}
           </p>
         </div>
@@ -738,7 +738,7 @@ const AddContentModal = ({
                     </div>
                     <div className="pl-3 pr-8 py-2">
                       <p className="text-sm font-medium truncate max-w-[220px]">{inst.name}</p>
-                      <p className="text-[11px] text-gray-500 dark:text-zinc-400 truncate max-w-[220px]">
+                      <p className="text-xs text-gray-600 dark:text-zinc-300 truncate max-w-[220px]">
                         {inst.app_name}
                       </p>
                     </div>
@@ -806,7 +806,7 @@ const AddContentModal = ({
                     </div>
                     <div className="pl-3 pr-8 py-2">
                       <p className="text-sm font-medium truncate max-w-[220px]">{canvas.name}</p>
-                      <p className="text-[10px] text-gray-500 dark:text-zinc-400">
+                      <p className="text-xs text-gray-600 dark:text-zinc-300">
                         {t("addContentModal.upload")} {format(new Date(canvas.created_at), "MMM d, yyyy")}
                       </p>
                     </div>

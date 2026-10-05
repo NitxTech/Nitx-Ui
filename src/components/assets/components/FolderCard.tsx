@@ -231,7 +231,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                     <TooltipContent side="bottom">{data.name}</TooltipContent>
                   </Tooltip>
                 )}
-                <p className="text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none">
+                <p className="text-xs text-muted-foreground truncate max-w-28 pointer-events-none">
                   {data.assets_count || 0}{" "}
                   {data.assets_count === 1
                     ? t("assets.folderCard.item")
@@ -239,7 +239,10 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 </p>
               </div>
 
-              <div className="min-w-14 relative flex shrink-0">
+              <div
+                className="min-w-14 relative flex shrink-0"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <DropdownMenu>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -249,10 +252,12 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                         asChild
                       >
                         <Button
+                          type="button"
                           size="icon"
                           variant="ghost"
                           className="flex gap-2 rounded-[7px]"
                           aria-label={t("assets.folderCard.moreOptions")}
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <MoreVertical />
                         </Button>
@@ -271,7 +276,10 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                     {renderMenuItems?.(data)}
                     <DropdownMenuItem
                       className="flex gap-4 rounded-[10px] px-4"
-                      onClick={() => setRenamingItemId(data.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRenamingItemId(data.id);
+                      }}
                     >
                       <FilePenLine className="size-4 stroke-[1.5]" />
                       {t("assets.folderCard.rename")}

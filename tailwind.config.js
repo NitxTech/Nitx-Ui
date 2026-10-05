@@ -22,8 +22,17 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        // xs: ["0.85rem", { lineHeight: "1.125rem" }],
-        sm: ["0.93rem", { lineHeight: "1.375rem" }],
+        "3xs": ["0.75rem", { lineHeight: "1rem" }], // 12px floor
+        "2xs": ["0.75rem", { lineHeight: "1rem" }], // 12px floor
+        xs: ["0.75rem", { lineHeight: "1rem" }], // 12px
+        sm: ["0.875rem", { lineHeight: "1.25rem" }], // 14px
+      },
+      spacing: {
+        4.5: "1.125rem",
+        sidebar: "var(--sidebar-w)",
+        "sidebar-collapsed": "var(--sidebar-w-collapsed)",
+        topbar: "var(--topbar-h)",
+        "mobile-nav": "var(--mobile-nav-h)",
       },
       colors: {
         "border-gray": "#EEEFEF",
