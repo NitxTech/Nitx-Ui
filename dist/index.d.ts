@@ -12,6 +12,34 @@ interface ProductSwitcherProps {
 }
 declare const ProductSwitcher: ({ auth_user, profileImage, profileName, }: ProductSwitcherProps) => react_jsx_runtime.JSX.Element | null;
 
+interface AccountPreferencesModalProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    authUser?: string | number;
+    user?: {
+        name?: string;
+        email?: string;
+        imageUrl?: string | null;
+    };
+    plan?: {
+        name?: string;
+        badgeText?: string;
+        nextPayment?: string;
+        usedCredits?: number;
+        totalCredits?: number;
+        availableCredits?: number;
+    };
+    showPlan?: boolean;
+    platform?: "studio" | "my-nitx" | "signage" | string;
+    language?: string;
+    onLanguageChange?: (language: string) => void;
+    theme?: "light" | "dark" | "system";
+    onThemeChange?: (theme: "light" | "dark" | "system") => void;
+    onManageAccount?: () => void;
+    myNitxUrl?: string;
+}
+declare function AccountPreferencesModal({ open, onOpenChange, authUser, user, plan, showPlan, platform, language: controlledLanguage, onLanguageChange, theme: controlledTheme, onThemeChange, onManageAccount, myNitxUrl, }: AccountPreferencesModalProps): react_jsx_runtime.JSX.Element;
+
 interface UserAccountProps {
     accounts: {
         id: string;
@@ -22,8 +50,16 @@ interface UserAccountProps {
     }[];
     isExpanded: boolean;
     auth_user: string | number;
+    showPlan?: boolean;
+    platform?: "studio" | "my-nitx" | "signage" | string;
+    onOpenSettings?: () => void;
+    onSettingsClick?: () => void;
+    settingsHref?: string;
+    preferencesOpen?: boolean;
+    onPreferencesOpenChange?: (open: boolean) => void;
+    accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
 }
-declare const UserAccount: ({ accounts, isExpanded, auth_user, }: UserAccountProps) => react_jsx_runtime.JSX.Element | null;
+declare const UserAccount: ({ accounts, isExpanded, auth_user, showPlan, platform, onOpenSettings, onSettingsClick, settingsHref, preferencesOpen, onPreferencesOpenChange, accountPreferencesProps, }: UserAccountProps) => react_jsx_runtime.JSX.Element | null;
 
 type MemberRole = "owner" | "manager" | "editor" | "viewer";
 interface Member {
@@ -788,4 +824,4 @@ type LinkEditorProps = ({
  */
 declare const LinkEditor: (props: LinkEditorProps) => react_jsx_runtime.JSX.Element;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, type Channel, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, ErrorState, type ErrorStateProps, type Folder, type Invitation, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, type Sequence, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, type TabId, UploadModal, type UploadModalProps, UserAccount, assetKeys, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, type Channel, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, ErrorState, type ErrorStateProps, type Folder, type Invitation, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, type Sequence, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, type TabId, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };

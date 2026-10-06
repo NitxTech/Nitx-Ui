@@ -17,15 +17,15 @@ type Story = StoryObj<typeof meta>;
 
 const mockAccounts = [
   {
-    id: 1,
-    name: "Jane Doe",
-    email: "jane.doe@example.com",
+    id: "1",
+    name: "Abdulaziz Al-Qahtani",
+    email: "abdalazizqa@nitx.io",
     imageUrl:
       "https://images.unsplash.com/photo-1640960543409-dbe56ccc30e2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
     active: true,
   },
   {
-    id: 2,
+    id: "2",
     name: "John Smith",
     email: "john.smith@example.com",
     imageUrl:
@@ -38,6 +38,7 @@ export const Expanded: Story = {
   args: {
     accounts: mockAccounts,
     isExpanded: true,
+    auth_user: "0",
   },
 };
 
@@ -45,5 +46,6 @@ export const Collapsed: Story = {
   args: {
     accounts: mockAccounts,
     isExpanded: false,
+    auth_user: "0",
   },
 };

@@ -77,7 +77,7 @@ export function AssetsProvider({
   const language = i18n?.resolvedLanguage ?? i18n?.language;
 
   // Switching spaces must never show the previous space's directory state.
-  const reset = useAssetsStore((s) => s.reset);
+  const reset = useAssetsStore((s : any) => s.reset);
   React.useEffect(() => {
     reset();
   }, [spaceUuid, reset]);
