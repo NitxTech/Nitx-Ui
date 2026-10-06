@@ -146,21 +146,33 @@ export function AccountPreferencesModal({
       return platform.toLowerCase() === "studio";
     }
 
-    // 2. Check browser location for non-studio or studio domains
+    // 2. Check browser location for non-studio or studio domains / ports
     if (typeof window !== "undefined") {
       const host = window.location.hostname.toLowerCase();
       const pathname = window.location.pathname.toLowerCase();
+      const port = window.location.port;
 
-      // If clearly running on another Nitx product domain/path, definitely not Studio
+      // Localhost ports convention:
+      // reach: 3001, signage: 3002, studio: 3003, publisher: 3004, ads: 3005, my-nitx: 3006
+      if (["3001", "3002", "3004", "3005", "3006"].includes(port)) {
+        return false;
+      }
+      if (port === "3003") {
+        return true;
+      }
+
+      // If running on another Nitx product domain or pathname, definitely not Studio
       if (
         host.includes("my.") ||
         host.includes("signage") ||
         host.includes("publisher") ||
         host.includes("ads") ||
+        host.includes("reach") ||
         host.includes("nexus") ||
-        pathname.startsWith("/signage") ||
-        pathname.startsWith("/publisher") ||
-        pathname.startsWith("/ads")
+        pathname.includes("/publisher") ||
+        pathname.includes("/signage") ||
+        pathname.includes("/ads") ||
+        pathname.includes("/reach")
       ) {
         return false;
       }
@@ -171,30 +183,21 @@ export function AccountPreferencesModal({
       }
     }
 
-    // 3. Studio unique route structure: [space_id] (e.g. /[auth_user]/[space_id])
-    if (params && params.space_id) {
-      return true;
-    }
-
-    // 4. Document title check
+    // 3. Document title check
     if (typeof document !== "undefined" && document.title) {
       const title = document.title.toLowerCase();
-      if (title.includes("studio")) {
-        return true;
-      }
       if (
-        title.includes("my nitx") ||
-        title.includes("signage") ||
         title.includes("publisher") ||
-        title.includes("ads")
+        title.includes("signage") ||
+        title.includes("ads") ||
+        title.includes("my nitx") ||
+        title.includes("reach")
       ) {
         return false;
       }
-    }
-
-    // 5. In Studio dashboard, plan with totalCredits is passed by default in sidebar
-    if (plan && plan.totalCredits !== undefined) {
-      return true;
+      if (title.includes("studio")) {
+        return true;
+      }
     }
 
     return false;
@@ -202,11 +205,16 @@ export function AccountPreferencesModal({
 
   const isStudio = isStudioEnv;
 
-  // The Current Plan section must ONLY show on Nitx Studio and never on other platforms
+  // The Current Plan section must ONLY show on Nitx Studio and NEVER on Publisher or other platforms:
+  // - Explicit showPlan overrides
+  // - Explicit platform="studio" shows plan
+  // - If platform is not specified, only show if verified on Studio AND a plan was provided
   const shouldShowPlan =
     showPlan !== undefined
       ? Boolean(showPlan)
-      : isStudio;
+      : platform === "studio"
+      ? true
+      : isStudio && Boolean(plan);
 
   // Platform display name for subtitles
   const platformDisplayName =
