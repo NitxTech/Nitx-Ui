@@ -24,6 +24,8 @@ export default {
       fontSize: {
         // xs: ["0.85rem", { lineHeight: "1.125rem" }],
         sm: ["0.93rem", { lineHeight: "1.375rem" }],
+        "2xs": ["0.6875rem", { lineHeight: "0.875rem" }],
+        "3xs": ["0.625rem", { lineHeight: "0.75rem" }],
       },
       colors: {
         "border-gray": "#EEEFEF",
