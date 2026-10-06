@@ -1,6 +1,6 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as React$1 from 'react';
-import React__default, { ReactNode, Dispatch, SetStateAction } from 'react';
+import React__default, { ReactNode, Dispatch, SetStateAction, ComponentType, MouseEvent } from 'react';
 import Uppy from '@uppy/core';
 import * as zustand from 'zustand';
 import * as _tanstack_react_query from '@tanstack/react-query';
@@ -824,4 +824,112 @@ type LinkEditorProps = ({
  */
 declare const LinkEditor: (props: LinkEditorProps) => react_jsx_runtime.JSX.Element;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, type Channel, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, ErrorState, type ErrorStateProps, type Folder, type Invitation, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, type Sequence, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, type TabId, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+interface SidebarNavItem$1 {
+    id: string;
+    label: string;
+    icon: ReactNode;
+    /** Renders a link (via `LinkComponent`). Mutually exclusive with `onSelect`. */
+    href?: string;
+    /** Renders a button. */
+    onSelect?: () => void;
+    active?: boolean;
+    /** Small pill shown after the label, e.g. "Soon". */
+    badge?: string;
+    disabled?: boolean;
+    /**
+     * Replaces the default grey hover surface, e.g. `hover:bg-[#305DFD]/10`
+     * for a tool whose icon carries its own colour. The icon also lifts on hover.
+     */
+    accentClassName?: string;
+    /**
+     * Collapsed rail only: paint the whole control with this class (a tool's
+     * colour) so it matches the active-item footprint, and show
+     * `collapsedIcon` (the white glyph, sized like every other rail icon)
+     * instead of `icon`.
+     */
+    collapsedFillClassName?: string;
+    collapsedIcon?: ReactNode;
+}
+interface SidebarNavGroup {
+    id: string;
+    /** Uppercase section label; hidden when the rail is collapsed. */
+    label?: string;
+    items: SidebarNavItem$1[];
+    /** Draw a hairline above this group (used for the tools section). */
+    dividerAbove?: boolean;
+}
+interface SidebarLinkProps {
+    href: string;
+    className?: string;
+    children: ReactNode;
+    onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+    "aria-current"?: "page";
+}
+/** Injected so the core never imports next/link (or any router). */
+type SidebarLinkComponent = ComponentType<SidebarLinkProps>;
+type SidebarDirection = "ltr" | "rtl";
+
+/** Every clickable rail control shares this footprint. */
+declare const RAIL_CONTROL = "size-9 rounded-[10px]";
+interface SidebarShellProps {
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    /** Logo row, toggle, etc. Rendered above the scrollable body. */
+    header?: ReactNode;
+    /** Scrollable middle: navigation, selectors. */
+    children: ReactNode;
+    /** Pinned to the bottom: credits, account. */
+    footer?: ReactNode;
+    className?: string;
+}
+/**
+ * The sidebar frame. Owns background, border, padding and the
+ * header / scroll body / footer stacking; knows nothing about routes.
+ */
+declare function SidebarShell({ collapsed, dir, header, children, footer, className, }: SidebarShellProps): react_jsx_runtime.JSX.Element;
+interface SidebarToggleProps {
+    collapsed: boolean;
+    onToggle: () => void;
+    /** Accessible name, e.g. "Collapse sidebar" / "Expand sidebar". */
+    label: string;
+    dir?: SidebarDirection;
+    className?: string;
+}
+/** Panel-toggle button for the expanded header (inline icon, no icon-library dependency). */
+declare function SidebarToggle({ collapsed, onToggle, label, dir, className, }: SidebarToggleProps): react_jsx_runtime.JSX.Element;
+interface SidebarBrandToggleProps {
+    /** The brand mark shown at rest (collapsed rail). */
+    mark: ReactNode;
+    onToggle: () => void;
+    label: string;
+    dir?: SidebarDirection;
+    className?: string;
+}
+/**
+ * Collapsed-rail header: the brand mark and the expand control are one
+ * button — the mark shows at rest and cross-fades into the panel icon on
+ * hover/focus; clicking expands the sidebar.
+ */
+declare function SidebarBrandToggle({ mark, onToggle, label, dir, className, }: SidebarBrandToggleProps): react_jsx_runtime.JSX.Element;
+
+interface SidebarNavProps {
+    groups: SidebarNavGroup[];
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    LinkComponent?: SidebarLinkComponent;
+    className?: string;
+}
+declare function SidebarNav({ groups, collapsed, dir, LinkComponent, className, }: SidebarNavProps): react_jsx_runtime.JSX.Element;
+
+interface SidebarNavItemProps {
+    item: SidebarNavItem$1;
+    collapsed: boolean;
+    dir?: SidebarDirection;
+    LinkComponent?: SidebarLinkComponent;
+}
+/** Hover surface shared by rows and their collapsed tooltips. */
+declare const RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
+/** One nav row. A single class list serves both the expanded and collapsed rail. */
+declare function SidebarNavItem({ item, collapsed, dir, LinkComponent, }: SidebarNavItemProps): react_jsx_runtime.JSX.Element;
+
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, type Channel, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, ErrorState, type ErrorStateProps, type Folder, type Invitation, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, type TabId, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };

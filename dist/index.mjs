@@ -11112,6 +11112,266 @@ var LinkEditor = (props) => {
   ] });
 };
 var LinkEditor_default = LinkEditor;
+
+// src/components/sidebar/cx.ts
+import { clsx as clsx3 } from "clsx";
+import { twMerge as twMerge3 } from "tailwind-merge";
+var cx = (...inputs) => twMerge3(clsx3(inputs));
+
+// src/components/sidebar/sidebar-shell.tsx
+import { jsx as jsx77, jsxs as jsxs56 } from "react/jsx-runtime";
+var RAIL_CONTROL = "size-9 rounded-[10px]";
+function SidebarShell({
+  collapsed,
+  dir = "ltr",
+  header,
+  children,
+  footer,
+  className
+}) {
+  return /* @__PURE__ */ jsxs56(
+    "aside",
+    {
+      dir,
+      "data-collapsed": collapsed ? "" : void 0,
+      className: cx(
+        "flex h-full w-full flex-col gap-3 overflow-hidden bg-white dark:bg-black",
+        "border-e border-zinc-100 dark:border-zinc-800",
+        collapsed ? "px-2 py-4" : "p-4",
+        className
+      ),
+      children: [
+        header ? /* @__PURE__ */ jsx77("div", { className: "shrink-0", children: header }) : null,
+        /* @__PURE__ */ jsx77(
+          "div",
+          {
+            className: cx(
+              "flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              collapsed && "items-center"
+            ),
+            children
+          }
+        ),
+        footer ? /* @__PURE__ */ jsx77(
+          "div",
+          {
+            className: cx(
+              "flex shrink-0 flex-col gap-3",
+              collapsed && "items-center"
+            ),
+            children: footer
+          }
+        ) : null
+      ]
+    }
+  );
+}
+function ToggleGlyph({ dir, className }) {
+  return /* @__PURE__ */ jsxs56(
+    "svg",
+    {
+      viewBox: "0 0 20 20",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className: cx("size-5", dir === "rtl" && "-scale-x-100", className),
+      "aria-hidden": "true",
+      children: [
+        /* @__PURE__ */ jsx77("rect", { x: "2.5", y: "3.5", width: "15", height: "13", rx: "3" }),
+        /* @__PURE__ */ jsx77("path", { d: "M7.5 3.5v13" }),
+        /* @__PURE__ */ jsx77("path", { d: "M12.5 8.5 11 10l1.5 1.5" })
+      ]
+    }
+  );
+}
+function SidebarToggle({
+  collapsed,
+  onToggle,
+  label,
+  dir = "ltr",
+  className
+}) {
+  return /* @__PURE__ */ jsx77(
+    "button",
+    {
+      type: "button",
+      onClick: onToggle,
+      "aria-label": label,
+      "aria-expanded": !collapsed,
+      title: label,
+      className: cx(
+        RAIL_CONTROL,
+        "flex shrink-0 items-center justify-center",
+        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        className
+      ),
+      children: /* @__PURE__ */ jsx77(ToggleGlyph, { dir })
+    }
+  );
+}
+function SidebarBrandToggle({
+  mark,
+  onToggle,
+  label,
+  dir = "ltr",
+  className
+}) {
+  return /* @__PURE__ */ jsxs56(
+    "button",
+    {
+      type: "button",
+      onClick: onToggle,
+      "aria-label": label,
+      "aria-expanded": false,
+      title: label,
+      className: cx(
+        RAIL_CONTROL,
+        "group/brand relative flex shrink-0 items-center justify-center",
+        "text-neutral-500 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsx77("span", { className: "flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full", children: mark }),
+        /* @__PURE__ */ jsx77(
+          ToggleGlyph,
+          {
+            dir,
+            className: "absolute scale-75 opacity-0 transition-all duration-200 group-hover/brand:scale-100 group-hover/brand:opacity-100 group-focus-visible/brand:scale-100 group-focus-visible/brand:opacity-100"
+          }
+        )
+      ]
+    }
+  );
+}
+
+// src/components/sidebar/sidebar-nav-item.tsx
+import * as Tooltip2 from "@radix-ui/react-tooltip";
+import { Fragment as Fragment11, jsx as jsx78, jsxs as jsxs57 } from "react/jsx-runtime";
+var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx78("a", { href, ...rest, children });
+var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
+function Badge({ children }) {
+  return /* @__PURE__ */ jsx78("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400", children });
+}
+function SidebarNavItem({
+  item,
+  collapsed,
+  dir = "ltr",
+  LinkComponent = DefaultLink
+}) {
+  const active = !item.disabled && !!item.active;
+  const filled = collapsed && !!item.collapsedFillClassName;
+  const className = cx(
+    "group/nav relative flex shrink-0 items-center rounded-[10px] text-sm font-medium transition-[background-color,filter] duration-200",
+    "text-neutral-700 dark:text-zinc-300",
+    filled ? cx(item.collapsedFillClassName, "text-white shadow-sm hover:brightness-110") : item.accentClassName ?? "hover:bg-neutral-100 dark:hover:bg-zinc-800",
+    collapsed ? cx(RAIL_CONTROL, "justify-center") : "h-9 w-full gap-2.5 px-3 text-start",
+    active && !filled && "bg-primary text-white shadow-sm hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-neutral-100",
+    item.disabled && "cursor-not-allowed opacity-70 hover:bg-transparent"
+  );
+  const content = /* @__PURE__ */ jsxs57(Fragment11, { children: [
+    /* @__PURE__ */ jsx78(
+      "span",
+      {
+        className: cx(
+          "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
+          active || filled ? "text-white dark:text-black" : "text-neutral-500 dark:text-zinc-400",
+          filled && "dark:text-white",
+          // Accented (tool) icons lift a touch instead of relying on the row wash.
+          item.accentClassName && !filled && "transition-transform duration-200 group-hover/nav:scale-110"
+        ),
+        children: filled ? item.collapsedIcon ?? item.icon : item.icon
+      }
+    ),
+    !collapsed && /* @__PURE__ */ jsxs57("span", { className: "flex min-w-0 flex-1 items-center justify-between", children: [
+      /* @__PURE__ */ jsx78("span", { className: cx("truncate", !active && "font-normal"), children: item.label }),
+      item.badge ? /* @__PURE__ */ jsx78(Badge, { children: item.badge }) : null
+    ] })
+  ] });
+  const control = item.href && !item.disabled ? /* @__PURE__ */ jsx78(
+    LinkComponent,
+    {
+      href: item.href,
+      className,
+      "aria-current": active ? "page" : void 0,
+      children: content
+    }
+  ) : /* @__PURE__ */ jsx78(
+    "button",
+    {
+      type: "button",
+      className,
+      onClick: item.disabled ? void 0 : item.onSelect,
+      disabled: item.disabled,
+      "aria-current": active ? "page" : void 0,
+      children: content
+    }
+  );
+  if (!collapsed) return control;
+  return /* @__PURE__ */ jsx78(Tooltip2.Provider, { delayDuration: 150, children: /* @__PURE__ */ jsxs57(Tooltip2.Root, { children: [
+    /* @__PURE__ */ jsx78(Tooltip2.Trigger, { asChild: true, children: control }),
+    /* @__PURE__ */ jsx78(Tooltip2.Portal, { children: /* @__PURE__ */ jsx78(
+      Tooltip2.Content,
+      {
+        side: dir === "rtl" ? "left" : "right",
+        sideOffset: 8,
+        className: cx(
+          "z-50 flex h-9 items-center rounded-[10px] px-3 text-sm font-medium text-neutral-700 shadow-md dark:text-zinc-200",
+          RAIL_HOVER
+        ),
+        children: /* @__PURE__ */ jsxs57("span", { className: "flex items-center gap-1.5", children: [
+          item.label,
+          item.badge ? /* @__PURE__ */ jsx78(Badge, { children: item.badge }) : null
+        ] })
+      }
+    ) })
+  ] }) });
+}
+
+// src/components/sidebar/sidebar-nav.tsx
+import { jsx as jsx79, jsxs as jsxs58 } from "react/jsx-runtime";
+function SidebarNav({
+  groups,
+  collapsed,
+  dir,
+  LinkComponent,
+  className
+}) {
+  return /* @__PURE__ */ jsx79("nav", { className: cx("flex w-full flex-col gap-3", className), children: groups.map((group) => /* @__PURE__ */ jsxs58(
+    "div",
+    {
+      className: cx(
+        "flex w-full flex-col",
+        collapsed ? "items-center gap-2" : "gap-0.5"
+      ),
+      children: [
+        group.dividerAbove && /* @__PURE__ */ jsx79(
+          "div",
+          {
+            className: cx(
+              "mb-2 border-t border-zinc-100 dark:border-zinc-800",
+              collapsed ? "w-6" : "mx-3"
+            )
+          }
+        ),
+        group.label && !collapsed && /* @__PURE__ */ jsx79("span", { className: "mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500", children: group.label }),
+        group.items.map((item) => /* @__PURE__ */ jsx79(
+          SidebarNavItem,
+          {
+            item,
+            collapsed,
+            dir,
+            LinkComponent
+          },
+          item.id
+        ))
+      ]
+    },
+    group.id
+  )) });
+}
 export {
   ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AccountPreferencesModal,
@@ -11127,6 +11387,13 @@ export {
   MembersAndNumbers_default as MembersAndNumbers,
   MembersManager_default as MembersManager,
   ProductSwitcher,
+  RAIL_CONTROL,
+  RAIL_HOVER,
+  SidebarBrandToggle,
+  SidebarNav,
+  SidebarNavItem,
+  SidebarShell,
+  SidebarToggle,
   SpaceBrowser_default as SpaceBrowser,
   SpaceSelector,
   SpaceSelectorProvider,

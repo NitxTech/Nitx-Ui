@@ -9,3 +9,5 @@ export { default as ErrorState } from "./components/ui/error-state";
 export type { ErrorStateProps } from "./components/ui/error-state";
 export * from "./components/content-browser";
 export * from "./components/assets";
+
+export * from "./components/sidebar";
