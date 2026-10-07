@@ -2557,32 +2557,33 @@ function AccountPreferencesModal({
     if (typeof window !== "undefined") {
       const host = window.location.hostname.toLowerCase();
       const pathname = window.location.pathname.toLowerCase();
-      if (host.includes("my.") || host.includes("signage") || host.includes("publisher") || host.includes("ads") || host.includes("nexus") || pathname.startsWith("/signage") || pathname.startsWith("/publisher") || pathname.startsWith("/ads")) {
+      const port = window.location.port;
+      if (["3001", "3002", "3004", "3005", "3006"].includes(port)) {
+        return false;
+      }
+      if (port === "3003") {
+        return true;
+      }
+      if (host.includes("my.") || host.includes("signage") || host.includes("publisher") || host.includes("ads") || host.includes("reach") || host.includes("nexus") || pathname.includes("/publisher") || pathname.includes("/signage") || pathname.includes("/ads") || pathname.includes("/reach")) {
         return false;
       }
       if (host.includes("studio") || pathname.includes("/studio")) {
         return true;
       }
     }
-    if (params && params.space_id) {
-      return true;
-    }
     if (typeof document !== "undefined" && document.title) {
       const title = document.title.toLowerCase();
+      if (title.includes("publisher") || title.includes("signage") || title.includes("ads") || title.includes("my nitx") || title.includes("reach")) {
+        return false;
+      }
       if (title.includes("studio")) {
         return true;
       }
-      if (title.includes("my nitx") || title.includes("signage") || title.includes("publisher") || title.includes("ads")) {
-        return false;
-      }
-    }
-    if (plan && plan.totalCredits !== void 0) {
-      return true;
     }
     return false;
   })();
   const isStudio = isStudioEnv;
-  const shouldShowPlan = showPlan !== void 0 ? Boolean(showPlan) : isStudio;
+  const shouldShowPlan = showPlan !== void 0 ? Boolean(showPlan) : platform === "studio" ? true : isStudio && Boolean(plan);
   const platformDisplayName = platform === "studio" ? "Nitx Studio" : platform === "my-nitx" ? "My Nitx" : platform === "signage" ? "Nitx Signage" : platform === "publisher" ? "Nitx Publisher" : platform === "ads" ? "Nitx Ads" : isStudio ? "Nitx Studio" : "Nitx";
   const initials = userName.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "AA";
   const handleLanguageChange = (value) => {
