@@ -77,5 +77,24 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        ".corner-squircle": {
+          "corner-shape": "squircle",
+          "@supports (corner-shape: superellipse(1.79))": {
+            "corner-shape": "superellipse(1.79)",
+          },
+        },
+        ".squircle": {
+          "corner-shape": "squircle",
+          "border-radius": "24px",
+          "@supports (corner-shape: superellipse(1.79))": {
+            "corner-shape": "superellipse(1.79)",
+          },
+        },
+      });
+    },
+  ],
 };

@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  DialogClose,
 } from "../ui/dialog";
 import {
   Select,
@@ -20,6 +21,7 @@ import {
   Sun,
   Moon,
   ArrowRight,
+  X,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useNitxUiTranslation } from "../../i18n/nitxuilib";
@@ -306,10 +308,26 @@ export function AccountPreferencesModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+        showCloseButton={false}
         className="w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] max-w-7xl max-h-[90dvh] overflow-y-auto p-4 sm:p-7 md:p-8 rounded-[24px] sm:rounded-[32px] corner-squircle border border-zinc-200/90 dark:border-zinc-800 bg-[#FAFAFA] dark:bg-zinc-950 shadow-2xl transition-all"
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <DialogTitle className="sr-only">Account & Preferences</DialogTitle>
+        {/* Modal Header */}
+        <div className="flex flex-row items-center justify-between w-full pb-3 border-b border-zinc-200/80 dark:border-zinc-800/80">
+          <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+            {isRTL ? "الإعدادات العامة" : "General Settings"}
+          </DialogTitle>
+          <DialogClose asChild>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-full size-8 sm:size-9 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors focus:outline-none cursor-pointer"
+              aria-label={isRTL ? "إلغاء" : "Cancel"}
+            >
+              <X className="size-4.5 sm:size-5 stroke-[2]" />
+              <span className="sr-only">{isRTL ? "إلغاء" : "Cancel"}</span>
+            </button>
+          </DialogClose>
+        </div>
 
         <div className="flex flex-col gap-6 sm:gap-7 w-full pt-1">
           {/* SECTION 1: PROFILE */}

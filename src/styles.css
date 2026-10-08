@@ -82,3 +82,58 @@
     --darker: 0 0% 6.7%;
   }
 }
+
+/* ---- Squircle & Continuous Corner Smoothing Foundation (https://www.squircle.style/) ---- */
+@supports (corner-shape: squircle) {
+  .card,
+  [class*="card"],
+  [class*="border"],
+  [class*="rounded"],
+  button,
+  [role="button"],
+  dialog,
+  [role="dialog"],
+  input,
+  select,
+  textarea,
+  .corner-squircle,
+  .squircle {
+    corner-shape: squircle;
+  }
+}
+
+@supports (corner-shape: superellipse(1.79)) {
+  .card,
+  [class*="card"],
+  [class*="border"],
+  [class*="rounded"],
+  button,
+  [role="button"],
+  dialog,
+  [role="dialog"],
+  input,
+  select,
+  textarea,
+  .corner-squircle,
+  .squircle {
+    corner-shape: superellipse(1.79);
+  }
+}
+
+@layer utilities {
+  .corner-squircle {
+    corner-shape: squircle;
+  }
+  .squircle {
+    corner-shape: squircle;
+    border-radius: 24px;
+  }
+  @supports (corner-shape: superellipse(1.79)) {
+    .corner-squircle {
+      corner-shape: superellipse(1.79);
+    }
+    .squircle {
+      corner-shape: superellipse(1.79);
+    }
+  }
+}
