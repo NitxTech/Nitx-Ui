@@ -131,13 +131,13 @@ export const UserAccount = ({
           ) : (
             <div
               className={cn(
-                "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-900 lg:p-3 rounded-[16px] flex items-center gap-2 overflow-hidden cursor-pointer transitio-all duration-300 hover:border-primary ",
+                "w-10 h-10 lg:w-full lg:h-auto border border-zinc-100 dark:border-zinc-700/50 bg-zinc-100 dark:bg-zinc-900 p-1.5 lg:p-2 rounded-[16px] corner-squircle flex items-center gap-2 overflow-hidden cursor-pointer transition-all duration-300 hover:border-primary",
                 onOpen && "border-primary"
               )}
             >
               <Avatar
                 className={cn(
-                  "rounded-[10px] size-10 lg:size-12 overflow-clip"
+                  "rounded-[10px] corner-squircle size-10 lg:size-12 overflow-clip shrink-0"
                 )}
               >
                 <AvatarImage src={`${activeAccount?.imageUrl}`} />
@@ -147,12 +147,12 @@ export const UserAccount = ({
                   .map((n) => n?.[0]?.toUpperCase() || "")
                   .join("")}`}</AvatarFallback>
               </Avatar>
-              <div className="w-full hidden lg:flex items-center gap-2">
-                <div className="w-full flex flex-col gap-0.5">
+              <div className="w-full hidden lg:flex items-center gap-2 min-w-0">
+                <div className="w-full flex flex-col gap-0.5 min-w-0">
                   <span className="text-sm max-w-[80%] truncate ">
                     {activeAccount.name}
                   </span>
-                  <p className="text-xs max-w-[80%] truncate">
+                  <p className="text-xs max-w-[80%] truncate text-zinc-500 dark:text-zinc-400">
                     {activeAccount.email}
                   </p>
                 </div>
@@ -168,19 +168,31 @@ export const UserAccount = ({
             </div>
           )}
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="xl:min-w-[260px] w-full bg-white dark:bg-zinc-900 rounded-[20px] p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1">
+        <DropdownMenuContent
+          style={{
+            width: shouldShowCompact
+              ? undefined
+              : "var(--radix-dropdown-menu-trigger-width)",
+          }}
+          className={cn(
+            "w-full bg-white dark:bg-zinc-900 rounded-[20px] corner-squircle p-1 shadow-sm dark:shadow-none border dark:border-zinc-700/50 mb-1 flex-col gap-1",
+            shouldShowCompact
+              ? "w-64"
+              : "w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)]"
+          )}
+        >
           {sortedAccounts.map((account) =>
             account.active ? (
               <DropdownMenuItem
                 key={account.id}
-                className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
+                className="w-full h-auto p-2 rounded-[12px] corner-squircle flex items-center gap-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
               >
-                <Avatar className="rounded-sm size-12">
+                <Avatar className="rounded-[8px] corner-squircle size-8 shrink-0">
                   <AvatarImage
-                    className="rounded-[10px] size-12 overflow-clip"
+                    className="rounded-[8px] size-8 overflow-clip"
                     src={`${account.imageUrl}`}
                   />
-                  <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">
+                  <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white text-xs">
                     {`${account.name
                       .split(" ")
                       .slice(0, 2)
@@ -188,16 +200,16 @@ export const UserAccount = ({
                       .join("")}`}
                   </AvatarFallback>
                 </Avatar>
-                <div className="w-full flex flex-col gap-0.5">
-                  <span className="text-sm truncate">{account.name}</span>
-                  <p className="text-xs truncate">{account.email}</p>
+                <div className="w-full flex flex-col gap-0.5 min-w-0">
+                  <span className="text-sm font-medium truncate">{account.name}</span>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">{account.email}</p>
                 </div>
-                <BadgeCheck className="w-4 h-4 mr-1 text-white fill-primary" />
+                <BadgeCheck className="w-4 h-4 mr-1 shrink-0 text-white fill-primary" />
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem
                 key={account.id}
-                className="w-full h-auto p-3 rounded-[16px] flex items-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
+                className="w-full h-auto p-2 rounded-[12px] corner-squircle flex items-center gap-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300"
                 asChild
               >
                 <a
@@ -212,19 +224,22 @@ export const UserAccount = ({
                     width: "100%",
                   }}
                 >
-                  <Avatar className="rounded-sm size-12">
+                  <Avatar className="rounded-[8px] corner-squircle size-8 shrink-0">
                     <AvatarImage
-                      className="rounded-[10px] size-12 overflow-clip"
+                      className="rounded-[8px] size-8 overflow-clip"
                       src={`${account.imageUrl}`}
                     />
-                    <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${account.name
-                      .split(" ")
-                      .map((n) => n?.[0]?.toUpperCase() || "")
-                      .join("")}`}</AvatarFallback>
+                    <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white text-xs">
+                      {`${account.name
+                        .split(" ")
+                        .slice(0, 2)
+                        .map((n) => n?.[0]?.toUpperCase() || "")
+                        .join("")}`}
+                    </AvatarFallback>
                   </Avatar>
-                  <div className="w-full flex flex-col gap-0.5">
-                    <span className="text-sm truncate">{account.name}</span>
-                    <p className="text-xs truncate">{account.email}</p>
+                  <div className="w-full flex flex-col gap-0.5 min-w-0">
+                    <span className="text-sm font-medium truncate">{account.name}</span>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">{account.email}</p>
                   </div>
                 </a>
               </DropdownMenuItem>
@@ -232,7 +247,7 @@ export const UserAccount = ({
           )}
           <DropdownMenuItem
             asChild
-            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200"
+            className="w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200"
           >
             <Link
               target="_blank"
@@ -252,7 +267,7 @@ export const UserAccount = ({
                 setOnOpen(false);
               }
             }}
-            className="xl:min-w-[260px] w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200 flex items-center"
+            className="w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200 flex items-center"
             asChild={!!settingsHref}
           >
             {settingsHref ? (
@@ -271,7 +286,7 @@ export const UserAccount = ({
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}
-            className="xl:min-w-[260px] w-full flex justify-start py-3 px-4 gap-2.5 items-center transition ease-in-out text-sm rounded-lg text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer"
+            className="w-full flex justify-start py-3 px-4 gap-2.5 items-center transition ease-in-out text-sm rounded-lg text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer"
           >
             <LogOut className="w-4 h-4 stroke-[1.5] text-red-500" />
             <span className="text-red-500">{t("userAccount.signOut")}</span>
