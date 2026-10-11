@@ -27,10 +27,10 @@ interface AssetsStoreState {
 
 const ROOT_PATH: Path[] = [{ id: null, label: "Root" }];
 
-export const useAssetsStore = create<AssetsStoreState>((set) => ({
+export const useAssetsStore = create<AssetsStoreState>((set: any) => ({
   path: ROOT_PATH,
   setPath: (value: Path[]) => set({ path: value }),
-  addPath: (value: Path) => set((state) => ({ path: [...state.path, value] })),
+  addPath: (value: Path) => set((state: any) => ({ path: [...state.path, value] })),
   activeTab: "all",
   setActiveTab: (value: AssetsTab) => set({ activeTab: value }),
   viewType: "grid",

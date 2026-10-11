@@ -2,6 +2,7 @@ import "./i18n/nitxuilib";
 
 export * from "./components/product-switcher/product-switcher";
 export * from "./components/user-account/account";
+export * from "./components/user-account/account-preferences-modal";
 export * from "./components/space-selector";
 export * from "./components/spaces";
 export { default as ErrorState } from "./components/ui/error-state";
@@ -11,3 +12,4 @@ export * from "./components/assets";
 export * from "./components/sidebar";
 export * from "./components/ui";
 export { cn, cx } from "./lib/utils";
+

@@ -648,6 +648,7 @@
   },
   "userAccount": {
     "addAnotherAccount": "Add another account",
+    "settings": "Settings",
     "signOut": "Sign Out"
   },
   "searchInput": {

@@ -1,6 +1,6 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import type { ReactNode } from "react";
-import { cx } from "../../lib/utils";
+import { cx } from "./cx";
 import { RAIL_CONTROL } from "./sidebar-shell";
 import type {
   SidebarDirection,
@@ -40,6 +40,7 @@ export function SidebarNavItem({
   LinkComponent = DefaultLink,
 }: SidebarNavItemProps) {
   const active = !item.disabled && !!item.active;
+  // In the rail a coloured tool fills its whole control, like an active item.
   const filled = collapsed && !!item.collapsedFillClassName;
 
   const className = cx(
@@ -64,6 +65,7 @@ export function SidebarNavItem({
             ? "text-white dark:text-black [&>svg]:text-white dark:[&>svg]:text-black"
             : "text-neutral-600 dark:text-zinc-300",
           filled && "dark:text-white",
+          // Accented (tool) icons lift a touch instead of relying on the row wash.
           item.accentClassName &&
             !filled &&
             "transition-transform duration-200 group-hover/nav:scale-110",

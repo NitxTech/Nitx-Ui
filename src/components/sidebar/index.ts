@@ -15,10 +15,6 @@ export { SidebarNavItem, RAIL_HOVER } from "./sidebar-nav-item";
 export type { SidebarNavItemProps } from "./sidebar-nav-item";
 export { SidebarCreditsCard } from "./sidebar-credits-card";
 export type { SidebarCreditsCardProps } from "./sidebar-credits-card";
-export type {
-  SidebarNavItem as SidebarNavItemModel,
-  SidebarNavGroup,
-  SidebarLinkProps,
-  SidebarLinkComponent,
-  SidebarDirection,
-} from "./types";
+export type * from "./types";
+export type { SidebarNavItem as SidebarNavItemModel } from "./types";
+

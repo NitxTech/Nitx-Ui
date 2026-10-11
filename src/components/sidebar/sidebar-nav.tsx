@@ -1,4 +1,4 @@
-import { cx } from "../../lib/utils";
+import { cx } from "./cx";
 import { SidebarNavItem } from "./sidebar-nav-item";
 import type {
   SidebarDirection,

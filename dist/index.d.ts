@@ -24,6 +24,34 @@ interface ProductSwitcherProps {
 }
 declare const ProductSwitcher: ({ auth_user, profileImage, profileName, }: ProductSwitcherProps) => React$1.JSX.Element | null;
 
+interface AccountPreferencesModalProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    authUser?: string | number;
+    user?: {
+        name?: string;
+        email?: string;
+        imageUrl?: string | null;
+    };
+    plan?: {
+        name?: string;
+        badgeText?: string;
+        nextPayment?: string;
+        usedCredits?: number;
+        totalCredits?: number;
+        availableCredits?: number;
+    };
+    showPlan?: boolean;
+    platform?: "studio" | "my-nitx" | "signage" | string;
+    language?: string;
+    onLanguageChange?: (language: string) => void;
+    theme?: "light" | "dark" | "system";
+    onThemeChange?: (theme: "light" | "dark" | "system") => void;
+    onManageAccount?: () => void;
+    myNitxUrl?: string;
+}
+declare function AccountPreferencesModal({ open, onOpenChange, authUser, user, plan, showPlan, platform, language: controlledLanguage, onLanguageChange, theme: controlledTheme, onThemeChange, onManageAccount, myNitxUrl, }: AccountPreferencesModalProps): React__default.JSX.Element;
+
 interface UserAccountProps {
     accounts: {
         id: string;
@@ -34,8 +62,16 @@ interface UserAccountProps {
     }[];
     isExpanded: boolean;
     auth_user: string | number;
+    showPlan?: boolean;
+    platform?: "studio" | "my-nitx" | "signage" | string;
+    onOpenSettings?: () => void;
+    onSettingsClick?: () => void;
+    settingsHref?: string;
+    preferencesOpen?: boolean;
+    onPreferencesOpenChange?: (open: boolean) => void;
+    accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
 }
-declare const UserAccount: ({ accounts, isExpanded, auth_user, }: UserAccountProps) => React$1.JSX.Element | null;
+declare const UserAccount: ({ accounts, isExpanded, auth_user, showPlan, platform, onOpenSettings, onSettingsClick, settingsHref, preferencesOpen, onPreferencesOpenChange, accountPreferencesProps, }: UserAccountProps) => React$1.JSX.Element | null;
 
 type MemberRole = "owner" | "manager" | "editor" | "viewer";
 interface Member {
@@ -959,6 +995,7 @@ declare const DialogClose: React$1.ForwardRefExoticComponent<DialogPrimitive.Dia
 declare const DialogOverlay: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogOverlayProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 declare const DialogContent: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
     overlayClassName?: string;
+    showCloseButton?: boolean;
 } & React$1.RefAttributes<HTMLDivElement>>;
 declare const DialogHeader: {
     ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
@@ -1041,4 +1078,4 @@ declare const TooltipContent: React$1.ForwardRefExoticComponent<Omit<TooltipPrim
 declare function cn(...inputs: ClassValue[]): string;
 declare function cx(...args: ClassValue[]): string;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, type TabId, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, type TabId, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cx } from "../../lib/utils";
+import { cx } from "./cx";
 import type { SidebarDirection } from "./types";
 
 /** Every clickable rail control shares this footprint. */
@@ -153,11 +153,11 @@ export function SidebarBrandToggle({
       className={cx(
         RAIL_CONTROL,
         "group/brand relative flex shrink-0 items-center justify-center",
-        "text-neutral-600 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
+        "text-neutral-500 transition-colors hover:bg-neutral-100 focus-visible:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800",
         className,
       )}
     >
-      <span className="flex size-6 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full">
+      <span className="flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full">
         {mark}
       </span>
       <ToggleGlyph
