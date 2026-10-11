@@ -157,7 +157,7 @@ export function SidebarBrandToggle({
         className,
       )}
     >
-      <span className="flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full">
+      <span className="flex size-6 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full">
         {mark}
       </span>
       <ToggleGlyph

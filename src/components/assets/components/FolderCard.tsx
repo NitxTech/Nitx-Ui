@@ -190,7 +190,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 src={images.folder}
                 alt={data.name}
                 className={cn(
-                  "size-full object-cover rounded-[4px] bg-no-repeat inset-0 shrink-0 bg-sky-200/80 dark:bg-white/10",
+                  "size-full object-cover rounded-[6px] bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50",
                   allowSelect && "brightness-50",
                   viewType === "grid" ? "h-40" : "h-24 w-[162px]"
                 )}
