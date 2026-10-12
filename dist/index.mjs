@@ -6748,6 +6748,7 @@ var createContentBrowserApi = (client) => ({
 import * as React23 from "react";
 
 // src/components/assets/hooks/use-assets-store.ts
+import { useEffect as useEffect11 } from "react";
 import { create } from "zustand";
 var ROOT_PATH = [{ id: null, label: "Root" }];
 var useAssetsStore = create((set) => ({
@@ -6762,13 +6763,32 @@ var useAssetsStore = create((set) => ({
   setActiveDirectory: (value) => set({ activeDirectory: value }),
   renamingItemId: null,
   setRenamingItemId: (value) => set({ renamingItemId: value }),
+  openMenuId: null,
+  setOpenMenuId: (value) => set({ openMenuId: value }),
   reset: () => set({
     path: ROOT_PATH,
     activeTab: "all",
     activeDirectory: null,
-    renamingItemId: null
+    renamingItemId: null,
+    openMenuId: null
   })
 }));
+function useAssetsMenuDismiss() {
+  const openMenuId = useAssetsStore((s) => s.openMenuId);
+  const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
+  useEffect11(() => {
+    if (!openMenuId) return;
+    const handlePointerDown = (event) => {
+      const target = event.target;
+      if (target?.closest?.('[role="menu"]') || target?.closest?.("[data-nitxui-card-actions]")) {
+        return;
+      }
+      setOpenMenuId(null);
+    };
+    document.addEventListener("pointerdown", handlePointerDown, true);
+    return () => document.removeEventListener("pointerdown", handlePointerDown, true);
+  }, [openMenuId, setOpenMenuId]);
+}
 
 // src/components/assets/lib/create-api.ts
 var unwrap = (res) => res?.data?.data ?? res?.data ?? {};
@@ -7260,7 +7280,7 @@ function useMoveFolderMutation(folderId) {
 }
 
 // src/components/assets/hooks/use-lazy-loading.ts
-import { useState as useState14, useEffect as useEffect12, useRef, useCallback as useCallback2, useMemo as useMemo5 } from "react";
+import { useState as useState14, useEffect as useEffect13, useRef, useCallback as useCallback2, useMemo as useMemo5 } from "react";
 function useLazyLoading(items, options = {}) {
   const {
     itemsPerBatch = 12,
@@ -7275,7 +7295,7 @@ function useLazyLoading(items, options = {}) {
     return items.slice(0, visibleCount);
   }, [items, visibleCount]);
   const hasMore = visibleCount < items.length;
-  useEffect12(() => {
+  useEffect13(() => {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [items, itemsPerBatch]);
@@ -7291,7 +7311,7 @@ function useLazyLoading(items, options = {}) {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [itemsPerBatch]);
-  useEffect12(() => {
+  useEffect13(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -7325,7 +7345,7 @@ function useLazyLoading(items, options = {}) {
 }
 
 // src/components/assets/components/AssetsBrowser.tsx
-import React39, { useEffect as useEffect19, useState as useState23 } from "react";
+import React39, { useEffect as useEffect20, useState as useState23 } from "react";
 import { FolderSymlink, Trash2 as Trash25 } from "lucide-react";
 import { toast as toast9 } from "sonner";
 import { useQueryClient as useQueryClient4 } from "@tanstack/react-query";
@@ -7917,7 +7937,7 @@ var AssetsHeader = ({
 var AssetsHeader_default = AssetsHeader;
 
 // src/components/assets/components/AssetCard.tsx
-import { useState as useState16, useRef as useRef2, useEffect as useEffect13, useCallback as useCallback3 } from "react";
+import { useState as useState16, useRef as useRef2, useEffect as useEffect14, useCallback as useCallback3 } from "react";
 import { Check as Check6, Download, MoreVertical as MoreVertical3, Trash2 as Trash23 } from "lucide-react";
 
 // src/components/ui/card.tsx
@@ -8065,13 +8085,14 @@ var AssetCard = ({
   };
   const renamingItemId = useAssetsStore((s) => s.renamingItemId);
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+  const openMenuId = useAssetsStore((s) => s.openMenuId);
+  const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
   const isRenaming = renamingItemId === data.uuid;
   const isListLike = viewType === "list" || viewType === "grid-list";
   const [newTitle, setNewTitle] = useState16(data.name);
-  const [showMenu, setShowMenu] = useState16(false);
   const inputRef = useRef2(null);
   const isCancelledRef = useRef2(false);
-  useEffect13(() => {
+  useEffect14(() => {
     if (!isRenaming) return;
     setNewTitle(data.name);
     const frame = requestAnimationFrame(() => {
@@ -8251,14 +8272,15 @@ var AssetCard = ({
                     "div",
                     {
                       className: "relative flex items-center shrink-0 gap-1",
+                      "data-nitxui-card-actions": "",
                       onClick: (e) => e.stopPropagation(),
                       children: [
                         renderActions?.(data),
                         /* @__PURE__ */ jsxs41(
                           DropdownMenu,
                           {
-                            open: showMenu,
-                            onOpenChange: (value) => setShowMenu(value),
+                            open: openMenuId === data.uuid,
+                            onOpenChange: (value) => setOpenMenuId(value ? data.uuid : null),
                             children: [
                               /* @__PURE__ */ jsxs41(Tooltip, { children: [
                                 /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
@@ -8417,7 +8439,7 @@ var AssetCardSkeleton = ({
 var AssetCard_default = AssetCard;
 
 // src/components/assets/components/FolderCard.tsx
-import React29, { useState as useState17, useRef as useRef3, useEffect as useEffect14, useCallback as useCallback4 } from "react";
+import React29, { useState as useState17, useRef as useRef3, useEffect as useEffect15, useCallback as useCallback4 } from "react";
 import { Check as Check7, Download as Download2, FilePenLine, MoreVertical as MoreVertical4, Trash2 as Trash24 } from "lucide-react";
 import { jsx as jsx60, jsxs as jsxs42 } from "react/jsx-runtime";
 var MoveIcon2 = /* @__PURE__ */ jsxs42(
@@ -8474,14 +8496,16 @@ var FolderCard = React29.forwardRef(
     const { images } = useAssetsConfig();
     const renamingItemId = useAssetsStore((s) => s.renamingItemId);
     const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+    const openMenuId = useAssetsStore((s) => s.openMenuId);
+    const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
     const isRenaming = renamingItemId === data.id;
     const [newTitle, setNewTitle] = useState17(data.name);
     const inputRef = useRef3(null);
     const isCancelledRef = useRef3(false);
-    useEffect14(() => {
+    useEffect15(() => {
       setNewTitle(data.name);
     }, [data.name]);
-    useEffect14(() => {
+    useEffect15(() => {
       if (!isRenaming) return;
       setNewTitle(data.name);
       const frame = requestAnimationFrame(() => {
@@ -8604,97 +8628,105 @@ var FolderCard = React29.forwardRef(
                   "div",
                   {
                     className: "min-w-14 relative flex shrink-0",
+                    "data-nitxui-card-actions": "",
                     onClick: (e) => e.stopPropagation(),
-                    children: /* @__PURE__ */ jsxs42(DropdownMenu, { children: [
-                      /* @__PURE__ */ jsxs42(Tooltip, { children: [
-                        /* @__PURE__ */ jsx60(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
-                          DropdownMenuTrigger,
-                          {
-                            disabled: allowSelect,
-                            className: "disabled:text-muted-foreground",
-                            asChild: true,
-                            children: /* @__PURE__ */ jsx60(
-                              Button,
+                    children: /* @__PURE__ */ jsxs42(
+                      DropdownMenu,
+                      {
+                        open: openMenuId === data.id,
+                        onOpenChange: (value) => setOpenMenuId(value ? data.id : null),
+                        children: [
+                          /* @__PURE__ */ jsxs42(Tooltip, { children: [
+                            /* @__PURE__ */ jsx60(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
+                              DropdownMenuTrigger,
                               {
-                                size: "icon",
-                                variant: "ghost",
-                                className: "flex gap-2 rounded-[7px]",
-                                "aria-label": t("assets.folderCard.moreOptions"),
-                                children: /* @__PURE__ */ jsx60(MoreVertical4, {})
+                                disabled: allowSelect,
+                                className: "disabled:text-muted-foreground",
+                                asChild: true,
+                                children: /* @__PURE__ */ jsx60(
+                                  Button,
+                                  {
+                                    size: "icon",
+                                    variant: "ghost",
+                                    className: "flex gap-2 rounded-[7px]",
+                                    "aria-label": t("assets.folderCard.moreOptions"),
+                                    children: /* @__PURE__ */ jsx60(MoreVertical4, {})
+                                  }
+                                )
                               }
-                            )
-                          }
-                        ) }),
-                        /* @__PURE__ */ jsx60(TooltipContent, { children: /* @__PURE__ */ jsx60("p", { children: t("assets.folderCard.moreOptions") }) })
-                      ] }),
-                      /* @__PURE__ */ jsxs42(
-                        DropdownMenuContent,
-                        {
-                          align: "end",
-                          className: "rounded-[14px]",
-                          onClick: (e) => e.stopPropagation(),
-                          onCloseAutoFocus: (event) => event.preventDefault(),
-                          children: [
-                            renderMenuItems?.(data),
-                            /* @__PURE__ */ jsxs42(
-                              DropdownMenuItem,
-                              {
-                                className: "flex gap-4 rounded-[10px] px-4",
-                                onClick: () => setRenamingItemId(data.id),
-                                children: [
-                                  /* @__PURE__ */ jsx60(FilePenLine, { className: "size-4 stroke-[1.5]" }),
-                                  t("assets.folderCard.rename")
-                                ]
-                              }
-                            ),
-                            onMove && /* @__PURE__ */ jsxs42(
-                              DropdownMenuItem,
-                              {
-                                className: "flex gap-4 rounded-[10px] px-4",
-                                onClick: (e) => {
-                                  e.stopPropagation();
-                                  onMove(data.id, "folder");
-                                },
-                                children: [
-                                  MoveIcon2,
-                                  t("assets.folderCard.moveTo")
-                                ]
-                              }
-                            ),
-                            onDownload && /* @__PURE__ */ jsxs42(
-                              DropdownMenuItem,
-                              {
-                                className: "flex gap-4 rounded-[10px] px-4",
-                                onClick: (e) => {
-                                  e.stopPropagation();
-                                  onDownload(data);
-                                },
-                                children: [
-                                  /* @__PURE__ */ jsx60(Download2, { className: "size-4 stroke-[1.5]" }),
-                                  t("assets.folderCard.download")
-                                ]
-                              }
-                            ),
-                            /* @__PURE__ */ jsx60(DropdownMenuSeparator, {}),
-                            /* @__PURE__ */ jsxs42(
-                              DropdownMenuItem,
-                              {
-                                className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
-                                onClick: (e) => {
-                                  e.stopPropagation();
-                                  onDelete?.();
-                                },
-                                children: [
-                                  /* @__PURE__ */ jsx60(Trash24, { className: "size-4" }),
-                                  " ",
-                                  t("assets.folderCard.delete")
-                                ]
-                              }
-                            )
-                          ]
-                        }
-                      )
-                    ] })
+                            ) }),
+                            /* @__PURE__ */ jsx60(TooltipContent, { children: /* @__PURE__ */ jsx60("p", { children: t("assets.folderCard.moreOptions") }) })
+                          ] }),
+                          /* @__PURE__ */ jsxs42(
+                            DropdownMenuContent,
+                            {
+                              align: "end",
+                              className: "rounded-[14px]",
+                              onClick: (e) => e.stopPropagation(),
+                              onCloseAutoFocus: (event) => event.preventDefault(),
+                              children: [
+                                renderMenuItems?.(data),
+                                /* @__PURE__ */ jsxs42(
+                                  DropdownMenuItem,
+                                  {
+                                    className: "flex gap-4 rounded-[10px] px-4",
+                                    onClick: () => setRenamingItemId(data.id),
+                                    children: [
+                                      /* @__PURE__ */ jsx60(FilePenLine, { className: "size-4 stroke-[1.5]" }),
+                                      t("assets.folderCard.rename")
+                                    ]
+                                  }
+                                ),
+                                onMove && /* @__PURE__ */ jsxs42(
+                                  DropdownMenuItem,
+                                  {
+                                    className: "flex gap-4 rounded-[10px] px-4",
+                                    onClick: (e) => {
+                                      e.stopPropagation();
+                                      onMove(data.id, "folder");
+                                    },
+                                    children: [
+                                      MoveIcon2,
+                                      t("assets.folderCard.moveTo")
+                                    ]
+                                  }
+                                ),
+                                onDownload && /* @__PURE__ */ jsxs42(
+                                  DropdownMenuItem,
+                                  {
+                                    className: "flex gap-4 rounded-[10px] px-4",
+                                    onClick: (e) => {
+                                      e.stopPropagation();
+                                      onDownload(data);
+                                    },
+                                    children: [
+                                      /* @__PURE__ */ jsx60(Download2, { className: "size-4 stroke-[1.5]" }),
+                                      t("assets.folderCard.download")
+                                    ]
+                                  }
+                                ),
+                                /* @__PURE__ */ jsx60(DropdownMenuSeparator, {}),
+                                /* @__PURE__ */ jsxs42(
+                                  DropdownMenuItem,
+                                  {
+                                    className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
+                                    onClick: (e) => {
+                                      e.stopPropagation();
+                                      onDelete?.();
+                                    },
+                                    children: [
+                                      /* @__PURE__ */ jsx60(Trash24, { className: "size-4" }),
+                                      " ",
+                                      t("assets.folderCard.delete")
+                                    ]
+                                  }
+                                )
+                              ]
+                            }
+                          )
+                        ]
+                      }
+                    )
                   }
                 )
               ] })
@@ -9030,7 +9062,7 @@ var ConfirmDeleteDialog = ({ state, onClose }) => {
 var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
 
 // src/components/assets/components/modals/MoveModal.tsx
-import { useEffect as useEffect15, useState as useState18 } from "react";
+import { useEffect as useEffect16, useState as useState18 } from "react";
 import { ChevronRight as ChevronRight7 } from "lucide-react";
 import { Fragment as Fragment9, jsx as jsx65, jsxs as jsxs47 } from "react/jsx-runtime";
 var MoveModal = ({
@@ -9059,7 +9091,7 @@ var MoveModal = ({
       return [];
     }
   };
-  useEffect15(() => {
+  useEffect16(() => {
     if (isOpen) {
       const initialPath = path.map((p) => ({
         id: p.id,
@@ -9440,7 +9472,7 @@ var CreateFolderModal = ({ open, onClose }) => {
 var CreateFolderModal_default = CreateFolderModal;
 
 // src/components/assets/components/modals/UploadModal.tsx
-import { useEffect as useEffect17, useState as useState21 } from "react";
+import { useEffect as useEffect18, useState as useState21 } from "react";
 import Dashboard2 from "@uppy/react/dashboard";
 import "@uppy/dashboard/css/style.css";
 import { useQueryClient as useQueryClient2 } from "@tanstack/react-query";
@@ -9457,7 +9489,7 @@ function AssetsUploadModal({
   const path = useAssetsStore((s) => s.path);
   const [uploader, setUploader] = useState21(null);
   const currentFolderUuid = folderUuid !== void 0 ? folderUuid : path[path.length - 1]?.id ?? null;
-  useEffect17(() => {
+  useEffect18(() => {
     if (!open || !upload || !spaceUuid) {
       return;
     }
@@ -9509,7 +9541,7 @@ function AssetsUploadModal({
 var UploadModal_default2 = AssetsUploadModal;
 
 // src/components/assets/components/modals/NewLinkModal.tsx
-import { useState as useState22, useEffect as useEffect18 } from "react";
+import { useState as useState22, useEffect as useEffect19 } from "react";
 import QRCode from "react-qr-code";
 import { toast as toast8 } from "sonner";
 import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
@@ -9677,7 +9709,7 @@ var NewLinkModal = ({ open, onClose }) => {
   const [showQr, setShowQr] = useState22(false);
   const [qrPosition, setQrPosition] = useState22("bottom_right");
   const [loading, setLoading] = useState22(false);
-  useEffect18(() => {
+  useEffect19(() => {
     try {
       new URL(url);
       setIsValid(true);
@@ -9686,7 +9718,7 @@ var NewLinkModal = ({ open, onClose }) => {
       setIsAccessible(null);
     }
   }, [url]);
-  useEffect18(() => {
+  useEffect19(() => {
     if (!isValid || !url?.length) return;
     if (!api.checkIframeAccess) {
       setIsAccessible(true);
@@ -9907,6 +9939,7 @@ var AssetsBrowser = ({
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
   const viewType = useAssetsStore((s) => s.viewType);
   const setViewType = useAssetsStore((s) => s.setViewType);
+  useAssetsMenuDismiss();
   const currentFolderId = features.folders ? path[path.length - 1]?.id || null : null;
   const { data, isLoading: isFetching } = useAssetsQuery(currentFolderId);
   const assetsRaw = data?.assets || [];
@@ -9935,10 +9968,10 @@ var AssetsBrowser = ({
   const [confirmDelete, setConfirmDelete] = useState23(null);
   const [draggedAssets, setDraggedAssets] = useState23([]);
   const [dropTarget, setDropTarget] = useState23(null);
-  useEffect19(() => {
+  useEffect20(() => {
     onTitleChange?.(t("assets.headerWithCustomTabbar.asset"));
   }, [onTitleChange, t]);
-  useEffect19(() => {
+  useEffect20(() => {
     if (!enableCheckbox) {
       setSelected([]);
     }
@@ -9979,7 +10012,7 @@ var AssetsBrowser = ({
     itemsPerBatch: 12,
     rootMargin: "200px"
   });
-  useEffect19(() => {
+  useEffect20(() => {
     if (typeof window === "undefined") return;
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {

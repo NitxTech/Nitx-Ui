@@ -651,6 +651,9 @@ interface AssetsStoreState {
     setActiveDirectory: (value: Folder | null) => void;
     renamingItemId: string | null;
     setRenamingItemId: (value: string | null) => void;
+    /** id of the card whose options menu is open — at most one at a time. */
+    openMenuId: string | null;
+    setOpenMenuId: (value: string | null) => void;
     reset: () => void;
 }
 declare const useAssetsStore: zustand.UseBoundStore<zustand.StoreApi<AssetsStoreState>>;

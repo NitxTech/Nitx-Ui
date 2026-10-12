@@ -10,6 +10,7 @@ import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
 import {
+  useAssetsMenuDismiss,
   useAssetsStore,
   type AssetsViewType,
 } from "../hooks/use-assets-store";
@@ -113,6 +114,9 @@ const AssetsBrowser = ({
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
   const viewType = useAssetsStore((s) => s.viewType);
   const setViewType = useAssetsStore((s) => s.setViewType);
+
+  // Closes an open card menu on any outside interaction.
+  useAssetsMenuDismiss();
 
   const currentFolderId = features.folders
     ? path[path.length - 1]?.id || null
