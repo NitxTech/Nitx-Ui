@@ -679,8 +679,12 @@ const AssetsBrowser = ({
           same block is what retires the old hardcoded `top-[43px]` header
           offset: the header is no longer positioned against the tabbar, so it
           cannot overlap it at a different font size, breakpoint or zoom
-          level. One block also means one z-index to reason about. */}
-      <div className="sticky top-0 z-20 bg-zinc-50 dark:bg-card">
+          level. One block also means one z-index to reason about.
+
+          It sticks under whatever chrome the host already pins to the top of
+          the window: a host with its own sticky topbar sets
+          `--nitx-top-inset` to that height, or this block hides behind it. */}
+      <div className="sticky top-[var(--nitx-top-inset,0px)] z-20 bg-zinc-50 dark:bg-card">
         <AssetsTabbar sticky={false} />
         <div className="px-6 pt-6 pb-5">
           <AssetsHeader
