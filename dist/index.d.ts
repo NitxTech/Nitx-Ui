@@ -626,9 +626,19 @@ interface AssetsProviderProps {
     navigation?: AssetsNavigation;
     /** Override any of the bundled card/preview images. */
     images?: Partial<AssetImagesMap>;
+    /**
+     * PDF previewing. `workerSrc` points pdf.js at a worker copy; it defaults to
+     * a CDN build matching the bundled version, so only a host that has to
+     * self-host (offline or a strict script policy) needs to set it.
+     */
+    documentPreview?: AssetsDocumentPreviewConfig;
     /** Defaults to `true` when the app language is Arabic. */
     rtl?: boolean;
     children: React$1.ReactNode;
+}
+interface AssetsDocumentPreviewConfig {
+    /** Absolute or app-relative URL of `pdf.worker.min.mjs`. */
+    workerSrc?: string;
 }
 interface AssetsConfig {
     api: AssetsApi;
@@ -637,11 +647,27 @@ interface AssetsConfig {
     upload?: AssetsUploadConfig;
     navigation?: AssetsNavigation;
     images: AssetImagesMap;
+    documentPreview?: AssetsDocumentPreviewConfig;
     rtl: boolean;
 }
-declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, rtl, children, }: AssetsProviderProps): React$1.JSX.Element;
+declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, documentPreview, rtl, children, }: AssetsProviderProps): React$1.JSX.Element;
 declare function useAssetsConfig(): AssetsConfig;
 declare function useOptionalAssetsConfig(): AssetsConfig | null;
+
+/**
+ * Icon-button treatment for the asset and folder cards.
+ *
+ * The options ellipsis used to carry `className="icon"`, a utility the library
+ * never ships: only Signage and Reach define `.icon` in their own
+ * `globals.css`, so on Ads, Publisher and Studio the button had no hit area,
+ * no hover and no focus ring. The geometry here is Signage's `.icon` (a 32px
+ * square, 8px radius) plus a hover surface and a focus ring, so the control
+ * looks and behaves the same in every dashboard.
+ *
+ * Exported so a host styling its own `renderAssetActions` buttons matches the
+ * ellipsis beside them.
+ */
+declare const assetCardIconButtonClass: string;
 
 type AxiosLike = {
     get: (url: string, config?: any) => Promise<any>;
@@ -1078,7 +1104,99 @@ declare const Tooltip: React$1.FC<TooltipPrimitive.TooltipProps>;
 declare const TooltipTrigger: React$1.ForwardRefExoticComponent<TooltipPrimitive.TooltipTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
 declare const TooltipContent: React$1.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 
+interface TabBarItem {
+    /** Identifier reported by `onTabChange`. Falls back to a string label. */
+    id?: string;
+    /** Tab label. `title` and `label` are interchangeable. */
+    title?: React$1.ReactNode;
+    /** Interchangeable with `title`. */
+    label?: React$1.ReactNode;
+    /** Rendered element, or a component taking `className`. */
+    icon?: React$1.ReactNode | React$1.ComponentType<{
+        className?: string;
+    }>;
+    /** Count or status shown after the label. */
+    badge?: string | number;
+    disabled?: boolean;
+    /** Overrides the active comparison for this tab. */
+    active?: boolean;
+    /** `id` of the panel this tab controls, announced to screen readers. */
+    panelId?: string;
+}
+interface TabBarProps {
+    /** `items` and `tabs` are interchangeable. */
+    items?: TabBarItem[];
+    /** Interchangeable with `items`. */
+    tabs?: TabBarItem[];
+    /** Controlled active tab. Without it the bar tracks its own. */
+    activeTab?: string;
+    defaultActiveTab?: string;
+    onTabChange?: (tabId: string) => void;
+    /** `non-rounded` is the underline bar; `rounded` is the pill group. */
+    variant?: "rounded" | "non-rounded";
+    /** `neutral` is near-black text and underline; `primary` is the brand colour. */
+    tone?: "primary" | "neutral";
+    size?: "sm" | "default" | "lg";
+    /** Sticks to the top of the scroll container, below `--nitx-top-inset`. */
+    sticky?: boolean;
+    /** Trailing element on the bar, opposite the tabs. */
+    action?: React$1.ReactNode;
+    /** Interchangeable with `action`. */
+    rightElement?: React$1.ReactNode;
+    /** Spreads the tabs across the full width. */
+    fullWidth?: boolean;
+    /** Names the tab list for screen readers. */
+    ariaLabel?: string;
+    className?: string;
+}
+/**
+ * The tab bar every dashboard shares.
+ *
+ * The default `non-rounded` variant is the Assets tab bar: a full-width strip
+ * with a hairline above and below, tabs that carry a 2px underline when
+ * active, and a horizontally scrolling track with no visible scrollbar. The
+ * `rounded` variant is the pill group used for in-page switches.
+ *
+ * Tabs are a real tab list: arrow keys move between them following the
+ * reading direction, Home and End jump to the ends, and only the active tab
+ * is in the tab order.
+ *
+ * It does not navigate. A tab that changes the route calls `router.push` from
+ * the host's `onTabChange`, which keeps the library free of a router.
+ */
+declare function TabBar({ items, tabs, activeTab: controlledActiveTab, defaultActiveTab, onTabChange, variant, tone, size, sticky, fullWidth, action, rightElement, ariaLabel, className, }: TabBarProps): React$1.JSX.Element;
+/** Name the dashboards' local copies used. Keeps a migration a one-line diff. */
+declare const CustomTabbar: typeof TabBar;
+type TabItem = TabBarItem;
+type CustomTabbarProps = TabBarProps;
+
+interface FloatingBarProps extends React$1.HTMLAttributes<HTMLDivElement> {
+    /** Styles the bar itself; `className` styles the anchor around it. */
+    barClassName?: string;
+    children: React$1.ReactNode;
+}
+/**
+ * Anchors a floating toolbar to the bottom of the viewport.
+ *
+ * `fixed`, not `absolute`: every dashboard scrolls its content inside its own
+ * container, so an absolutely placed bar sits at the bottom of the content,
+ * far below the fold, and is never seen. Because it is fixed it also stays put
+ * through nested scrolling, resize and browser zoom.
+ *
+ * Two custom properties position it, both 0 when a host sets neither:
+ *
+ * - `--nitx-bottom-inset`: the host's own bottom chrome (a mobile nav bar, a
+ *   player). The bar rides above it instead of hiding underneath.
+ * - `--nitx-side-inset`: the width of a persistent sidebar, as a logical
+ *   inset, so the bar centres on the content rather than the window. It flips
+ *   with the layout, so Arabic needs no separate value.
+ *
+ * The anchor takes no pointer events, so the page underneath stays usable
+ * everywhere the bar does not cover it.
+ */
+declare const FloatingBar: React$1.ForwardRefExoticComponent<FloatingBarProps & React$1.RefAttributes<HTMLDivElement>>;
+
 declare function cn(...inputs: ClassValue[]): string;
 declare function cx(...args: ClassValue[]): string;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, type TabId, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };

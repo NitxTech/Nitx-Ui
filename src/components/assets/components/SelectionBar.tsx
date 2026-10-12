@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "../../ui/button";
-import { cn } from "../../../lib/utils";
+import { FloatingBar } from "../../ui/floating-bar";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 
 export interface SelectionBarProps {
@@ -29,14 +29,9 @@ export interface SelectionBarProps {
  * selected: how many, then select all, move and delete, with a cross that
  * clears the selection (Escape does the same).
  *
- * It is `fixed`, not absolute: the host app scrolls the browser inside its own
- * container, so an absolutely placed bar sat at the bottom of the content,
- * far below the fold, and was never seen. The wrapper takes no pointer events
- * so the page underneath stays usable where the bar does not cover it.
- *
- * A host app with its own bottom chrome (a mobile nav bar, a player) sets
- * `--nitx-bottom-inset` to that height and the bar rides above it instead of
- * hiding underneath. Unset, the inset is 0 and nothing moves.
+ * `FloatingBar` owns the anchoring, including the `--nitx-bottom-inset` and
+ * `--nitx-side-inset` hooks a host uses to clear its own bottom chrome and
+ * sidebar.
  */
 export const SelectionBar: React.FC<SelectionBarProps> = ({
   count,
@@ -51,22 +46,12 @@ export const SelectionBar: React.FC<SelectionBarProps> = ({
   if (count < 1) return null;
 
   return (
-    <div
-      className={cn(
-        "pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4",
-        "bottom-[calc(1rem_+_var(--nitx-bottom-inset,0px))] md:bottom-[calc(2.5rem_+_var(--nitx-bottom-inset,0px))]",
-        className
-      )}
+    <FloatingBar
+      role="region"
+      aria-label={t("assets.selectionBar.region")}
+      className={className}
     >
-      <div
-        role="region"
-        aria-label={t("assets.selectionBar.region")}
-        className={cn(
-          "pointer-events-auto flex max-w-[calc(100vw_-_2rem)] items-center gap-1 overflow-x-auto rounded-[14px] border p-2 shadow-lg sm:gap-2",
-          "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
-          "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-200"
-        )}
-      >
+      <>
         <Button
           variant="ghost"
           size="icon"
@@ -122,8 +107,8 @@ export const SelectionBar: React.FC<SelectionBarProps> = ({
             {t("assets.assetList.delete")}
           </span>
         </Button>
-      </div>
-    </div>
+      </>
+    </FloatingBar>
   );
 };
 

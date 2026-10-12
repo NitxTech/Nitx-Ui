@@ -11,3 +11,5 @@ export * from "./label";
 export * from "./select";
 export * from "./switch";
 export * from "./tooltip";
+export * from "./tab-bar";
+export * from "./floating-bar";
