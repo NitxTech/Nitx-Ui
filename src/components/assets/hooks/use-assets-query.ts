@@ -16,6 +16,27 @@ export const assetKeys = {
     [...assetKeys.all(spaceUuid), "list", folderId] as const,
 };
 
+// Newest first. Items without a created_at (e.g. studio's flat responses if
+// the field is ever absent) sort to the end rather than crashing.
+const newestFirst = <T extends { created_at?: string }>(items: T[]): T[] =>
+  [...items].sort(
+    (a, b) =>
+      (new Date(b.created_at ?? 0).getTime() || 0) -
+      (new Date(a.created_at ?? 0).getTime() || 0)
+  );
+
+/**
+ * Shared fetcher so the main query and the folder-hover prefetch populate
+ * the cache with identically sorted data.
+ */
+export async function fetchAssetsAndFoldersSorted(
+  api: Pick<import("../types").AssetsApi, "fetchAssetsAndFolders">,
+  folderId: string | null
+) {
+  const { assets, folders } = await api.fetchAssetsAndFolders(folderId);
+  return { assets: newestFirst(assets), folders: newestFirst(folders) };
+}
+
 export function useAssetsQuery(
   folderId: string | null,
   options?: { enabled?: boolean },
@@ -28,9 +49,9 @@ export function useAssetsQuery(
       if (!features.folders) {
         // Flat mode: every asset in the space, no folder tree.
         const assets = await api.fetchAssets();
-        return { assets, folders: [] as Folder[] };
+        return { assets: newestFirst(assets), folders: [] as Folder[] };
       }
-      return api.fetchAssetsAndFolders(folderId);
+      return fetchAssetsAndFoldersSorted(api, folderId);
     },
     staleTime: 1000 * 60 * 5,
     enabled: (options?.enabled ?? true) && !!spaceUuid,
@@ -105,9 +126,11 @@ export function useCreateFolderMutation(folderId: string | null) {
           updated_at: new Date().toISOString(),
         };
 
+        // Newest first — the fresh folder belongs at the top, matching
+        // where the server-sorted refetch will place it.
         return {
           ...old,
-          folders: [...(old.folders || []), optimisticFolder],
+          folders: [optimisticFolder, ...(old.folders || [])],
         };
       });
 

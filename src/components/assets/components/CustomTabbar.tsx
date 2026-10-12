@@ -29,7 +29,7 @@ const CustomTabbar = ({
     <div
       className={cn(
         "w-full bg-white dark:bg-zinc-950 border-y border-gray-200 dark:border-zinc-800 transition-all duration-200",
-        sticky && "sticky top-0 z-30",
+        sticky && "sticky top-[var(--nitx-top-inset,0px)] z-30",
         className
       )}
     >

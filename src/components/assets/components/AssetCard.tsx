@@ -126,12 +126,14 @@ const AssetCard: React.FC<AssetCardProps> = ({
   };
   const renamingItemId = useAssetsStore((s) => s.renamingItemId);
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+  // Menu open state is shared across cards so only one can be open at a time.
+  const openMenuId = useAssetsStore((s) => s.openMenuId);
+  const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
 
   const isRenaming = renamingItemId === data.uuid;
   const isListLike = viewType === "list" || viewType === "grid-list";
 
   const [newTitle, setNewTitle] = useState(data.name);
-  const [showMenu, setShowMenu] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const isCancelledRef = useRef(false);
 
@@ -352,13 +354,17 @@ const AssetCard: React.FC<AssetCardProps> = ({
 
             <div
               className="relative flex items-center shrink-0 gap-1"
+              data-nitxui-card-actions=""
+              // Card-level onClick opens the preview; the actions area must not trigger it.
               onClick={(e) => e.stopPropagation()}
             >
               {renderActions?.(data)}
 
               <DropdownMenu
-                open={showMenu}
-                onOpenChange={(value) => setShowMenu(value)}
+                open={openMenuId === data.uuid}
+                onOpenChange={(value) =>
+                  setOpenMenuId(value ? data.uuid : null)
+                }
               >
                 <Tooltip>
                   <TooltipTrigger asChild>

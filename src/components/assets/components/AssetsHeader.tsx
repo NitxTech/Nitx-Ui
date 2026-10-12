@@ -236,7 +236,7 @@ const AssetsHeader = ({
         {(features.upload || showCreateLink || showNewFolder) && (
           <div className="lg:hidden">
             {activeTab === "all" && showMobileMenu && (
-              <div className="fixed md:bottom-[9rem] bottom-44 right-5 rtl:right-auto rtl:left-5 flex flex-col gap-3 z-[99999] animate-in fade-in slide-in-from-bottom-2 duration-200">
+              <div className="fixed bottom-[calc(11rem_+_var(--nitx-bottom-inset,0px))] md:bottom-[calc(9rem_+_var(--nitx-bottom-inset,0px))] right-5 rtl:right-auto rtl:left-5 flex flex-col gap-3 z-[99999] animate-in fade-in slide-in-from-bottom-2 duration-200">
                 {features.upload && (
                   <Button
                     aria-label={t("assets.assetsHeader.upload")}
@@ -278,7 +278,7 @@ const AssetsHeader = ({
               size="lg"
               onClick={handleMobileButtonClick}
               className={cn(
-                "md:hidden fixed bottom-24 right-5 rtl:right-auto rtl:left-5 w-16 h-16 py-0 px-0 aspect-square rounded-full z-50 transition-transform duration-200",
+                "md:hidden fixed bottom-[calc(6rem_+_var(--nitx-bottom-inset,0px))] right-5 rtl:right-auto rtl:left-5 w-16 h-16 py-0 px-0 aspect-square rounded-full z-50 transition-transform duration-200",
                 showMobileMenu && "rotate-45"
               )}
             >

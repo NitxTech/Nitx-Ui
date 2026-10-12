@@ -95,6 +95,9 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
     const { images } = useAssetsConfig();
     const renamingItemId = useAssetsStore((s) => s.renamingItemId);
     const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
+    // Menu open state is shared across cards so only one can be open at a time.
+    const openMenuId = useAssetsStore((s) => s.openMenuId);
+    const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
 
     const isRenaming = renamingItemId === data.id;
     const [newTitle, setNewTitle] = useState(data.name);
@@ -241,9 +244,14 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
 
               <div
                 className="min-w-14 relative flex shrink-0"
+                data-nitxui-card-actions=""
+                // Card-level onClick navigates into the folder; the actions area must not trigger it.
                 onClick={(e) => e.stopPropagation()}
               >
-                <DropdownMenu>
+                <DropdownMenu
+                  open={openMenuId === data.id}
+                  onOpenChange={(value) => setOpenMenuId(value ? data.id : null)}
+                >
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <DropdownMenuTrigger

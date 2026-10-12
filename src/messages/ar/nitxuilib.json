@@ -731,7 +731,7 @@
       "deleting": "جارٍ حذف \"{{name}}\"...",
       "deletedSuccess": "تم حذف \"{{name}}\" بنجاح",
       "deleteFailed": "فشل حذف \"{{name}}\". يرجى إعادة المحاولة.",
-      "deleteItems": "حذف {{count}} عنصر{plural}",
+      "deleteItems": "حذف {{count}} عنصر محدد",
       "deleteItemsConfirm": "هل أنت متأكد أنك تريد حذف {{count}} من العناصر؟ لا يمكن التراجع عن هذا الإجراء.",
       "deletingItems": "جارٍ الحذف...",
       "itemsDeletedSuccess": "تم حذف العناصر بنجاح",
@@ -758,6 +758,13 @@
       "delete": "حذف",
       "createSequence": "إنشاء تسلسل",
       "comingSoon": "قريباً"
+    },
+    "selectionBar": {
+      "region": "الأصول المحددة",
+      "clear": "إلغاء التحديد",
+      "selectAll": "تحديد الكل",
+      "deselectAll": "إلغاء تحديد الكل",
+      "count": "{{count}} محدد"
     },
     "assetsHeader": {
       "searchPlaceholder": "بحث...",
