@@ -33,6 +33,10 @@ export interface SelectionBarProps {
  * container, so an absolutely placed bar sat at the bottom of the content,
  * far below the fold, and was never seen. The wrapper takes no pointer events
  * so the page underneath stays usable where the bar does not cover it.
+ *
+ * A host app with its own bottom chrome (a mobile nav bar, a player) sets
+ * `--nitx-bottom-inset` to that height and the bar rides above it instead of
+ * hiding underneath. Unset, the inset is 0 and nothing moves.
  */
 export const SelectionBar: React.FC<SelectionBarProps> = ({
   count,
@@ -49,7 +53,8 @@ export const SelectionBar: React.FC<SelectionBarProps> = ({
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 md:bottom-10",
+        "pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4",
+        "bottom-[calc(1rem_+_var(--nitx-bottom-inset,0px))] md:bottom-[calc(2.5rem_+_var(--nitx-bottom-inset,0px))]",
         className
       )}
     >
