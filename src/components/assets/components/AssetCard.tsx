@@ -303,7 +303,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
             {allowSelect && (
               <span
                 className={cn(
-                  "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                  "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
                   selected && "border-primary bg-primary text-white"
                 )}
               >
@@ -314,7 +314,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
 
           <CardContent
             className={cn(
-              "w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3",
+              "w-full p-2 sm:p-3 pe-0 flex justify-between items-center gap-2 sm:gap-3",
               isListLike && "max-w-[calc(100%-90px)]"
             )}
           >
@@ -334,7 +334,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
               ) : (
                 <Tooltip>
                   <TooltipTrigger>
-                    <h2 className="text-xs sm:text-sm text-left font-bold text-foreground truncate max-w-full pointer-events-none">
+                    <h2 className="text-xs sm:text-sm text-start font-bold text-foreground truncate max-w-full pointer-events-none">
                       {data.name}
                     </h2>
                   </TooltipTrigger>
@@ -343,7 +343,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
                   </TooltipContent>
                 </Tooltip>
               )}
-              <p className="text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none">
+              <p className="text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none text-start">
                 {data.type === "image" && data.image?.size}
                 {data.type === "video" && data.video?.size}
                 {data.type === "document" && data.document?.size}

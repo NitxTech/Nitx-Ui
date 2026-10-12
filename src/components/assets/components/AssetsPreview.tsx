@@ -144,11 +144,12 @@ const AssetsPreview: React.FC<AssetsPreviewProps> = ({
         {/* Main content */}
         <div className="flex-1 flex items-center justify-center relative w-full min-h-0 pb-6">
           <button
-            className="absolute left-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
+            className="absolute start-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
             onClick={() => handlePreviewNavigation("prev")}
             disabled={previewIndex === 0}
+            aria-label="Previous"
           >
-            <ChevronLeft className="h-6 w-6" />
+            <ChevronLeft className="h-6 w-6 rtl:rotate-180" />
           </button>
 
           <div className="flex items-center justify-center w-full h-full max-h-[80vh]">
@@ -156,11 +157,12 @@ const AssetsPreview: React.FC<AssetsPreviewProps> = ({
           </div>
 
           <button
-            className="absolute right-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
+            className="absolute end-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all"
             onClick={() => handlePreviewNavigation("next")}
             disabled={previewIndex === filteredAssets.length - 1}
+            aria-label="Next"
           >
-            <ChevronRight className="h-6 w-6" />
+            <ChevronRight className="h-6 w-6 rtl:rotate-180" />
           </button>
         </div>
 
