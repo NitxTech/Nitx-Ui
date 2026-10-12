@@ -723,7 +723,7 @@
       "deleting": "Deleting \"{{name}}\"...",
       "deletedSuccess": "\"{{name}}\" has been deleted successfully",
       "deleteFailed": "Failed to delete \"{{name}}\". Please try again.",
-      "deleteItems": "Delete {{count}} Item{plural}",
+      "deleteItems": "Delete {{count}} selected",
       "deleteItemsConfirm": "Are you sure you want to delete these {{count}} items? This action cannot be undone.",
       "deletingItems": "Deleting ...",
       "itemsDeletedSuccess": "Items deleted successfully",
@@ -748,6 +748,13 @@
       "delete": "Delete",
       "createSequence": "Create Sequence",
       "comingSoon": "Coming soon"
+    },
+    "selectionBar": {
+      "region": "Selected assets",
+      "clear": "Clear selection",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "count": "{{count}} selected"
     },
     "assetsHeader": {
       "searchPlaceholder": "Search...",

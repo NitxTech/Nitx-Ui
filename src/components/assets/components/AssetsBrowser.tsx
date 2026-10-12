@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FolderSymlink, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { Button } from "../../ui/button";
 import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
 import {
+  useAssetsMenuDismiss,
   useAssetsStore,
   type AssetsViewType,
 } from "../hooks/use-assets-store";
 import {
   assetKeys,
+  fetchAssetsAndFoldersSorted,
   useAssetsQuery,
   useBulkDeleteFoldersMutation,
   useDeleteAssetMutation,
@@ -40,6 +40,7 @@ import MoveModal from "./modals/MoveModal";
 import CreateFolderModal from "./modals/CreateFolderModal";
 import AssetsUploadModal from "./modals/UploadModal";
 import NewLinkModal from "./modals/NewLinkModal";
+import SelectionBar from "./SelectionBar";
 
 export interface AssetsBrowserProps {
   className?: string;
@@ -112,6 +113,9 @@ const AssetsBrowser = ({
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
   const viewType = useAssetsStore((s) => s.viewType);
   const setViewType = useAssetsStore((s) => s.setViewType);
+
+  // Closes an open card menu on any outside interaction.
+  useAssetsMenuDismiss();
 
   const currentFolderId = features.folders
     ? path[path.length - 1]?.id || null
@@ -206,6 +210,15 @@ const AssetsBrowser = ({
     rootMargin: "200px",
   });
 
+  /** Every folder and asset the current tab and search leave on the page. */
+  const selectAllItems = React.useCallback(() => {
+    setSelected([
+      ...filteredAssets.map((asset) => asset.uuid),
+      ...filteredDirectories.map((folder) => folder.id),
+    ]);
+    setEnableCheckbox(true);
+  }, [filteredAssets, filteredDirectories]);
+
   // Keyboard shortcuts: select-all, escape, preview arrows
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -213,12 +226,7 @@ const AssetsBrowser = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {
         e.preventDefault();
-        const folderIds = filteredDirectories.map((folder) => folder.id);
-        const assetUuids = filteredAssets.map((asset) => asset.uuid);
-        setSelected([...assetUuids, ...folderIds]);
-        if (!enableCheckbox) {
-          setEnableCheckbox(true);
-        }
+        selectAllItems();
       }
 
       if (e.key === "Escape") {
@@ -242,9 +250,7 @@ const AssetsBrowser = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    filteredAssets,
-    filteredDirectories,
-    enableCheckbox,
+    selectAllItems,
     previewAsset,
     previewIndex,
     renamingItemId,
@@ -498,7 +504,7 @@ const AssetsBrowser = ({
   const handleFolderHover = (folderId: string) => {
     queryClient.prefetchQuery({
       queryKey: assetKeys.list(spaceUuid, folderId),
-      queryFn: () => api.fetchAssetsAndFolders(folderId),
+      queryFn: () => fetchAssetsAndFoldersSorted(api, folderId),
       staleTime: 1000 * 60 * 5,
     });
   };
@@ -659,14 +665,28 @@ const AssetsBrowser = ({
     !isFetching && !filteredAssets.length && !filteredDirectories.length;
 
   return (
-    <div className={cn("w-full h-full relative dark:bg-card", className)}>
-      {/* Tabbar - sticky at top */}
-      <div className="sticky top-0 z-20 bg-white dark:bg-card">
-        <AssetsTabbar />
-      </div>
-      <div className="w-full h-full p-6 flex flex-col">
-        {/* Header - below tabbar */}
-        <div className="sticky top-[43px] w-full z-10 bg-zinc-50 dark:bg-card mb-5">
+    <div
+      className={cn(
+        // min-h-full, never h-full: a sticky child only stays stuck while its
+        // parent's box is on screen, so a parent pinned to exactly one
+        // viewport let the tabbar and the header scroll away as soon as the
+        // list outgrew the screen. min-h-full grows with the content.
+        "w-full min-h-full flex flex-col relative dark:bg-card",
+        className
+      )}
+    >
+      {/* Tabs, search and filters are ONE sticky layer. Keeping them in the
+          same block is what retires the old hardcoded `top-[43px]` header
+          offset: the header is no longer positioned against the tabbar, so it
+          cannot overlap it at a different font size, breakpoint or zoom
+          level. One block also means one z-index to reason about.
+
+          It sticks under whatever chrome the host already pins to the top of
+          the window: a host with its own sticky topbar sets
+          `--nitx-top-inset` to that height, or this block hides behind it. */}
+      <div className="sticky top-[var(--nitx-top-inset,0px)] z-20 bg-zinc-50 dark:bg-card">
+        <AssetsTabbar sticky={false} />
+        <div className="px-6 pt-6 pb-5">
           <AssetsHeader
             viewType={viewType}
             onChangeView={(v: AssetsViewType) => setViewType(v)}
@@ -680,14 +700,24 @@ const AssetsBrowser = ({
             }
           />
         </div>
+      </div>
 
+      {/* flex-1 so a short or empty list still fills the pane (EmptyList
+          centers itself inside it) while a long one grows past it. */}
+      <div className="w-full flex-1 flex flex-col px-6 pb-6">
         {isEmpty ? (
           <EmptyList image={emptyImage} />
         ) : (
-          <div className="h-full z-0">
+          <div className="w-full">
             <div
               className={cn(
                 "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+                // The selection bar is fixed over the viewport, so the last
+                // row needs room to clear it, plus whatever bottom chrome the
+                // host app reports in --nitx-bottom-inset, or it cannot be
+                // reached.
+                selected.length > 0 &&
+                  "pb-[calc(6rem_+_var(--nitx-bottom-inset,0px))] md:pb-[calc(8rem_+_var(--nitx-bottom-inset,0px))]",
                 viewType === "list" &&
                   "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
                 viewType === "grid-list" &&
@@ -786,29 +816,18 @@ const AssetsBrowser = ({
         )}
       </div>
 
-      {enableCheckbox && selected.length > 0 && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-10 z-50 shadow-md w-full max-w-lg p-2 px-4 rounded-[14px] bg-white dark:bg-card flex items-center justify-between">
-          <p className="text-sm">
-            {t("assets.assetList.itemsSelected", {
-              count: selected.length,
-            })}
-          </p>
-          <Button
-            variant="ghost"
-            className="flex gap-4 rounded-[8px] px-4"
-            onClick={handleBulkMove}
-          >
-            <FolderSymlink />
-            {t("assets.assetList.moveTo")}
-          </Button>
-          <Button
-            onClick={handleBulkDelete}
-            variant="ghost"
-            className="flex gap-4 px-4 rounded-[8px] text-rose-500 hover:bg-rose-700 focus:text-rose-200 hover:text-rose-100 transition-all"
-          >
-            <Trash2 /> {t("assets.assetList.delete")}
-          </Button>
-        </div>
+      {enableCheckbox && (
+        <SelectionBar
+          count={selected.length}
+          allSelected={
+            selected.length > 0 &&
+            selected.length === filteredAssets.length + filteredDirectories.length
+          }
+          onClear={() => setSelected([])}
+          onSelectAll={selectAllItems}
+          onMove={handleBulkMove}
+          onDelete={handleBulkDelete}
+        />
       )}
 
       {previewAsset && (
