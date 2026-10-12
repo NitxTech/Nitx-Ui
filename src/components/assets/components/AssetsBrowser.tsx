@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FolderSymlink, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { Button } from "../../ui/button";
 import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
@@ -42,6 +40,7 @@ import MoveModal from "./modals/MoveModal";
 import CreateFolderModal from "./modals/CreateFolderModal";
 import AssetsUploadModal from "./modals/UploadModal";
 import NewLinkModal from "./modals/NewLinkModal";
+import SelectionBar from "./SelectionBar";
 
 export interface AssetsBrowserProps {
   className?: string;
@@ -211,6 +210,15 @@ const AssetsBrowser = ({
     rootMargin: "200px",
   });
 
+  /** Every folder and asset the current tab and search leave on the page. */
+  const selectAllItems = React.useCallback(() => {
+    setSelected([
+      ...filteredAssets.map((asset) => asset.uuid),
+      ...filteredDirectories.map((folder) => folder.id),
+    ]);
+    setEnableCheckbox(true);
+  }, [filteredAssets, filteredDirectories]);
+
   // Keyboard shortcuts: select-all, escape, preview arrows
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -218,12 +226,7 @@ const AssetsBrowser = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {
         e.preventDefault();
-        const folderIds = filteredDirectories.map((folder) => folder.id);
-        const assetUuids = filteredAssets.map((asset) => asset.uuid);
-        setSelected([...assetUuids, ...folderIds]);
-        if (!enableCheckbox) {
-          setEnableCheckbox(true);
-        }
+        selectAllItems();
       }
 
       if (e.key === "Escape") {
@@ -247,9 +250,7 @@ const AssetsBrowser = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    filteredAssets,
-    filteredDirectories,
-    enableCheckbox,
+    selectAllItems,
     previewAsset,
     previewIndex,
     renamingItemId,
@@ -693,6 +694,9 @@ const AssetsBrowser = ({
             <div
               className={cn(
                 "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+                // The selection bar is fixed over the viewport, so the last
+                // row needs room to clear it or it cannot be reached.
+                selected.length > 0 && "pb-24 md:pb-32",
                 viewType === "list" &&
                   "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
                 viewType === "grid-list" &&
@@ -791,29 +795,18 @@ const AssetsBrowser = ({
         )}
       </div>
 
-      {enableCheckbox && selected.length > 0 && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-10 z-50 shadow-md w-full max-w-lg p-2 px-4 rounded-[14px] bg-white dark:bg-card flex items-center justify-between">
-          <p className="text-sm">
-            {t("assets.assetList.itemsSelected", {
-              count: selected.length,
-            })}
-          </p>
-          <Button
-            variant="ghost"
-            className="flex gap-4 rounded-[8px] px-4"
-            onClick={handleBulkMove}
-          >
-            <FolderSymlink />
-            {t("assets.assetList.moveTo")}
-          </Button>
-          <Button
-            onClick={handleBulkDelete}
-            variant="ghost"
-            className="flex gap-4 px-4 rounded-[8px] text-rose-500 hover:bg-rose-700 focus:text-rose-200 hover:text-rose-100 transition-all"
-          >
-            <Trash2 /> {t("assets.assetList.delete")}
-          </Button>
-        </div>
+      {enableCheckbox && (
+        <SelectionBar
+          count={selected.length}
+          allSelected={
+            selected.length > 0 &&
+            selected.length === filteredAssets.length + filteredDirectories.length
+          }
+          onClear={() => setSelected([])}
+          onSelectAll={selectAllItems}
+          onMove={handleBulkMove}
+          onDelete={handleBulkDelete}
+        />
       )}
 
       {previewAsset && (

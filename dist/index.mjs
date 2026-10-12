@@ -1087,7 +1087,7 @@ var nitxuilib_default = {
       deleteFailed:
         '\u0641\u0634\u0644 \u062D\u0630\u0641 "{{name}}". \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629.',
       deleteItems:
-        "\u062D\u0630\u0641 {{count}} \u0639\u0646\u0635\u0631{plural}",
+        "\u062D\u0630\u0641 {{count}} \u0639\u0646\u0635\u0631 \u0645\u062D\u062F\u062F",
       deleteItemsConfirm:
         "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0623\u0646\u0643 \u062A\u0631\u064A\u062F \u062D\u0630\u0641 {{count}} \u0645\u0646 \u0627\u0644\u0639\u0646\u0627\u0635\u0631\u061F \u0644\u0627 \u064A\u0645\u0643\u0646 \u0627\u0644\u062A\u0631\u0627\u062C\u0639 \u0639\u0646 \u0647\u0630\u0627 \u0627\u0644\u0625\u062C\u0631\u0627\u0621.",
       deletingItems:
@@ -1137,6 +1137,16 @@ var nitxuilib_default = {
       createSequence:
         "\u0625\u0646\u0634\u0627\u0621 \u062A\u0633\u0644\u0633\u0644",
       comingSoon: "\u0642\u0631\u064A\u0628\u0627\u064B",
+    },
+    selectionBar: {
+      region:
+        "\u0627\u0644\u0623\u0635\u0648\u0644 \u0627\u0644\u0645\u062D\u062F\u062F\u0629",
+      clear:
+        "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062A\u062D\u062F\u064A\u062F",
+      selectAll: "\u062A\u062D\u062F\u064A\u062F \u0627\u0644\u0643\u0644",
+      deselectAll:
+        "\u0625\u0644\u063A\u0627\u0621 \u062A\u062D\u062F\u064A\u062F \u0627\u0644\u0643\u0644",
+      count: "{{count}} \u0645\u062D\u062F\u062F",
     },
     assetsHeader: {
       searchPlaceholder: "\u0628\u062D\u062B...",
@@ -2169,7 +2179,7 @@ var nitxuilib_default2 = {
       deleting: 'Deleting "{{name}}"...',
       deletedSuccess: '"{{name}}" has been deleted successfully',
       deleteFailed: 'Failed to delete "{{name}}". Please try again.',
-      deleteItems: "Delete {{count}} Item{plural}",
+      deleteItems: "Delete {{count}} selected",
       deleteItemsConfirm:
         "Are you sure you want to delete these {{count}} items? This action cannot be undone.",
       deletingItems: "Deleting ...",
@@ -2196,6 +2206,13 @@ var nitxuilib_default2 = {
       delete: "Delete",
       createSequence: "Create Sequence",
       comingSoon: "Coming soon",
+    },
+    selectionBar: {
+      region: "Selected assets",
+      clear: "Clear selection",
+      selectAll: "Select all",
+      deselectAll: "Deselect all",
+      count: "{{count}} selected",
     },
     assetsHeader: {
       searchPlaceholder: "Search...",
@@ -9683,7 +9700,7 @@ var createContentBrowserApi = (client) => ({
 import * as React25 from "react";
 
 // src/components/assets/hooks/use-assets-store.ts
-import { useEffect as useEffect11 } from "react";
+import { useEffect as useEffect12 } from "react";
 import { create } from "zustand";
 var ROOT_PATH = [{ id: null, label: "Root" }];
 var useAssetsStore = create((set) => ({
@@ -9712,7 +9729,7 @@ var useAssetsStore = create((set) => ({
 function useAssetsMenuDismiss() {
   const openMenuId = useAssetsStore((s) => s.openMenuId);
   const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
-  useEffect11(() => {
+  useEffect12(() => {
     if (!openMenuId) return;
     const handlePointerDown = (event) => {
       const target = event.target;
@@ -10235,7 +10252,7 @@ function useMoveFolderMutation(folderId) {
 // src/components/assets/hooks/use-lazy-loading.ts
 import {
   useState as useState15,
-  useEffect as useEffect13,
+  useEffect as useEffect14,
   useRef,
   useCallback as useCallback2,
   useMemo as useMemo5,
@@ -10254,7 +10271,7 @@ function useLazyLoading(items, options = {}) {
     return items.slice(0, visibleCount);
   }, [items, visibleCount]);
   const hasMore = visibleCount < items.length;
-  useEffect13(() => {
+  useEffect14(() => {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [items, itemsPerBatch]);
@@ -10270,7 +10287,7 @@ function useLazyLoading(items, options = {}) {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [itemsPerBatch]);
-  useEffect13(() => {
+  useEffect14(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -10305,10 +10322,9 @@ function useLazyLoading(items, options = {}) {
 
 // src/components/assets/components/AssetsBrowser.tsx
 import React40, {
-  useEffect as useEffect20,
+  useEffect as useEffect21,
   useState as useState24,
 } from "react";
-import { FolderSymlink, Trash2 as Trash25 } from "lucide-react";
 import { toast as toast9 } from "sonner";
 import { useQueryClient as useQueryClient4 } from "@tanstack/react-query";
 
@@ -10995,7 +11011,7 @@ var AssetsHeader_default = AssetsHeader;
 import {
   useState as useState17,
   useRef as useRef2,
-  useEffect as useEffect14,
+  useEffect as useEffect15,
   useCallback as useCallback3,
 } from "react";
 import {
@@ -11153,10 +11169,9 @@ var AssetCard = ({
   const isRenaming = renamingItemId === data.uuid;
   const isListLike = viewType === "list" || viewType === "grid-list";
   const [newTitle, setNewTitle] = useState17(data.name);
-  const [showMenu, setShowMenu] = useState17(false);
   const inputRef = useRef2(null);
   const isCancelledRef = useRef2(false);
-  useEffect14(() => {
+  useEffect15(() => {
     if (!isRenaming) return;
     setNewTitle(data.name);
     const frame = requestAnimationFrame(() => {
@@ -11374,11 +11389,14 @@ var AssetCard = ({
               }),
               /* @__PURE__ */ jsxs43("div", {
                 className: "relative flex items-center shrink-0 gap-1",
+                "data-nitxui-card-actions": "",
+                onClick: (e) => e.stopPropagation(),
                 children: [
                   renderActions?.(data),
                   /* @__PURE__ */ jsxs43(DropdownMenu, {
-                    open: showMenu,
-                    onOpenChange: (value) => setShowMenu(value),
+                    open: openMenuId === data.uuid,
+                    onOpenChange: (value) =>
+                      setOpenMenuId(value ? data.uuid : null),
                     children: [
                       /* @__PURE__ */ jsxs43(Tooltip, {
                         children: [
@@ -11458,15 +11476,16 @@ var AssetCard = ({
                             features.links &&
                             navigation &&
                             /* @__PURE__ */ jsxs43(DropdownMenuItem, {
-                              disabled: allowSelect,
-                              className: "disabled:text-muted-foreground",
-                              asChild: true,
-                              children: /* @__PURE__ */ jsx59("button", {
-                                className: "icon ",
-                                children: /* @__PURE__ */ jsx59(MoreVertical3, {
-                                  className: "size-4",
-                                }),
-                              }),
+                              onSelect: (e) => {
+                                e.preventDefault();
+                                navigation.toLinkEdit(data.link.uuid);
+                              },
+                              className:
+                                "flex gap-4 rounded-[10px] px-4 cursor-pointer",
+                              children: [
+                                RenameIcon,
+                                t("assets.assetCard.edit"),
+                              ],
                             }),
                           /* @__PURE__ */ jsx61(DropdownMenuSeparator, {}),
                           /* @__PURE__ */ jsxs43(DropdownMenuItem, {
@@ -11557,7 +11576,7 @@ var AssetCard_default = AssetCard;
 import React31, {
   useState as useState18,
   useRef as useRef3,
-  useEffect as useEffect15,
+  useEffect as useEffect16,
   useCallback as useCallback4,
 } from "react";
 import {
@@ -11622,10 +11641,10 @@ var FolderCard = React31.forwardRef(
     const [newTitle, setNewTitle] = useState18(data.name);
     const inputRef = useRef3(null);
     const isCancelledRef = useRef3(false);
-    useEffect15(() => {
+    useEffect16(() => {
       setNewTitle(data.name);
     }, [data.name]);
-    useEffect15(() => {
+    useEffect16(() => {
       if (!isRenaming) return;
       setNewTitle(data.name);
       const frame = requestAnimationFrame(() => {
@@ -11770,7 +11789,12 @@ var FolderCard = React31.forwardRef(
                 }),
                 /* @__PURE__ */ jsx62("div", {
                   className: "min-w-14 relative flex shrink-0",
+                  "data-nitxui-card-actions": "",
+                  onClick: (e) => e.stopPropagation(),
                   children: /* @__PURE__ */ jsxs44(DropdownMenu, {
+                    open: openMenuId === data.id,
+                    onOpenChange: (value) =>
+                      setOpenMenuId(value ? data.id : null),
                     children: [
                       /* @__PURE__ */ jsxs44(Tooltip, {
                         children: [
@@ -12276,7 +12300,7 @@ var ConfirmDeleteDialog = ({ state, onClose }) => {
 var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
 
 // src/components/assets/components/modals/MoveModal.tsx
-import { useEffect as useEffect16, useState as useState19 } from "react";
+import { useEffect as useEffect17, useState as useState19 } from "react";
 import { ChevronRight as ChevronRight7 } from "lucide-react";
 import {
   Fragment as Fragment10,
@@ -12307,7 +12331,7 @@ var MoveModal = ({
       return [];
     }
   };
-  useEffect16(() => {
+  useEffect17(() => {
     if (isOpen) {
       const initialPath = path.map((p) => ({
         id: p.id,
@@ -12807,7 +12831,7 @@ var CreateFolderModal = ({ open, onClose }) => {
 var CreateFolderModal_default = CreateFolderModal;
 
 // src/components/assets/components/modals/UploadModal.tsx
-import { useEffect as useEffect18, useState as useState22 } from "react";
+import { useEffect as useEffect19, useState as useState22 } from "react";
 import Dashboard2 from "@uppy/react/dashboard";
 import "@uppy/dashboard/css/style.css";
 import { useQueryClient as useQueryClient2 } from "@tanstack/react-query";
@@ -12820,7 +12844,7 @@ function AssetsUploadModal({ open, onClose, folderUuid, onUploadComplete }) {
   const [uploader, setUploader] = useState22(null);
   const currentFolderUuid =
     folderUuid !== void 0 ? folderUuid : (path[path.length - 1]?.id ?? null);
-  useEffect18(() => {
+  useEffect19(() => {
     if (!open || !upload || !spaceUuid) {
       return;
     }
@@ -12880,7 +12904,7 @@ function AssetsUploadModal({ open, onClose, folderUuid, onUploadComplete }) {
 var UploadModal_default2 = AssetsUploadModal;
 
 // src/components/assets/components/modals/NewLinkModal.tsx
-import { useState as useState23, useEffect as useEffect19 } from "react";
+import { useState as useState23, useEffect as useEffect20 } from "react";
 import QRCode from "react-qr-code";
 import { toast as toast8 } from "sonner";
 import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
@@ -12931,7 +12955,7 @@ var NewLinkModal = ({ open, onClose }) => {
   const [showQr, setShowQr] = useState23(false);
   const [qrPosition, setQrPosition] = useState23("bottom_right");
   const [loading, setLoading] = useState23(false);
-  useEffect19(() => {
+  useEffect20(() => {
     try {
       new URL(url);
       setIsValid(true);
@@ -12940,7 +12964,7 @@ var NewLinkModal = ({ open, onClose }) => {
       setIsAccessible(null);
     }
   }, [url]);
-  useEffect19(() => {
+  useEffect20(() => {
     if (!isValid || !url?.length) return;
     if (!api.checkIframeAccess) {
       setIsAccessible(true);
@@ -13178,8 +13202,108 @@ var NewLinkModal = ({ open, onClose }) => {
 };
 var NewLinkModal_default = NewLinkModal;
 
-// src/components/assets/components/AssetsBrowser.tsx
+// src/components/assets/components/SelectionBar.tsx
+import {
+  CheckCheck,
+  FolderSymlink,
+  Trash2 as Trash25,
+  X as X6,
+} from "lucide-react";
 import { jsx as jsx74, jsxs as jsxs54 } from "react/jsx-runtime";
+var SelectionBar = ({
+  count,
+  allSelected,
+  onClear,
+  onSelectAll,
+  onMove,
+  onDelete,
+  className,
+}) => {
+  const { t } = useNitxUiTranslation();
+  if (count < 1) return null;
+  return /* @__PURE__ */ jsx74("div", {
+    className: cn(
+      "pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 md:bottom-10",
+      className,
+    ),
+    children: /* @__PURE__ */ jsxs54("div", {
+      role: "region",
+      "aria-label": t("assets.selectionBar.region"),
+      className: cn(
+        "pointer-events-auto flex max-w-[calc(100vw_-_2rem)] items-center gap-1 overflow-x-auto rounded-[14px] border p-2 shadow-lg sm:gap-2",
+        "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
+        "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-200",
+      ),
+      children: [
+        /* @__PURE__ */ jsx74(Button, {
+          variant: "ghost",
+          size: "icon",
+          onClick: onClear,
+          "aria-label": t("assets.selectionBar.clear"),
+          className:
+            "size-8 shrink-0 rounded-[8px] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
+          children: /* @__PURE__ */ jsx74(X6, { className: "size-4" }),
+        }),
+        /* @__PURE__ */ jsx74("p", {
+          "aria-live": "polite",
+          className:
+            "shrink-0 whitespace-nowrap border-zinc-200 pe-1 text-sm font-medium text-zinc-900 sm:border-e sm:pe-3 dark:border-zinc-800 dark:text-zinc-100",
+          children: t("assets.selectionBar.count", { count }),
+        }),
+        /* @__PURE__ */ jsxs54(Button, {
+          variant: "ghost",
+          size: "sm",
+          onClick: allSelected ? onClear : onSelectAll,
+          className:
+            "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal sm:px-3",
+          children: [
+            /* @__PURE__ */ jsx74(CheckCheck, { className: "size-4 shrink-0" }),
+            /* @__PURE__ */ jsx74("span", {
+              className: "hidden sm:inline",
+              children: allSelected
+                ? t("assets.selectionBar.deselectAll")
+                : t("assets.selectionBar.selectAll"),
+            }),
+          ],
+        }),
+        /* @__PURE__ */ jsxs54(Button, {
+          variant: "ghost",
+          size: "sm",
+          onClick: onMove,
+          className:
+            "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal sm:px-3",
+          children: [
+            /* @__PURE__ */ jsx74(FolderSymlink, {
+              className: "size-4 shrink-0",
+            }),
+            /* @__PURE__ */ jsx74("span", {
+              className: "hidden sm:inline",
+              children: t("assets.assetList.moveTo"),
+            }),
+          ],
+        }),
+        /* @__PURE__ */ jsxs54(Button, {
+          variant: "ghost",
+          size: "sm",
+          onClick: onDelete,
+          className:
+            "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal text-rose-600 hover:bg-rose-50 hover:text-rose-700 sm:px-3 dark:text-rose-400 dark:hover:bg-rose-950/40 dark:hover:text-rose-300",
+          children: [
+            /* @__PURE__ */ jsx74(Trash25, { className: "size-4 shrink-0" }),
+            /* @__PURE__ */ jsx74("span", {
+              className: "hidden sm:inline",
+              children: t("assets.assetList.delete"),
+            }),
+          ],
+        }),
+      ],
+    }),
+  });
+};
+var SelectionBar_default = SelectionBar;
+
+// src/components/assets/components/AssetsBrowser.tsx
+import { jsx as jsx75, jsxs as jsxs55 } from "react/jsx-runtime";
 var getExtensionFromMimeType = (mimeType) => {
   const mimeToExt = {
     "image/jpeg": ".jpg",
@@ -13269,10 +13393,10 @@ var AssetsBrowser = ({
   const [confirmDelete, setConfirmDelete] = useState24(null);
   const [draggedAssets, setDraggedAssets] = useState24([]);
   const [dropTarget, setDropTarget] = useState24(null);
-  useEffect20(() => {
+  useEffect21(() => {
     onTitleChange?.(t("assets.headerWithCustomTabbar.asset"));
   }, [onTitleChange, t]);
-  useEffect20(() => {
+  useEffect21(() => {
     if (!enableCheckbox) {
       setSelected([]);
     }
@@ -13311,7 +13435,14 @@ var AssetsBrowser = ({
     itemsPerBatch: 12,
     rootMargin: "200px",
   });
-  useEffect20(() => {
+  const selectAllItems = React40.useCallback(() => {
+    setSelected([
+      ...filteredAssets.map((asset) => asset.uuid),
+      ...filteredDirectories.map((folder) => folder.id),
+    ]);
+    setEnableCheckbox(true);
+  }, [filteredAssets, filteredDirectories]);
+  useEffect21(() => {
     if (typeof window === "undefined") return;
     const handleKeyDown = (e) => {
       if (
@@ -13320,12 +13451,7 @@ var AssetsBrowser = ({
         renamingItemId === null
       ) {
         e.preventDefault();
-        const folderIds = filteredDirectories.map((folder) => folder.id);
-        const assetUuids = filteredAssets.map((asset) => asset.uuid);
-        setSelected([...assetUuids, ...folderIds]);
-        if (!enableCheckbox) {
-          setEnableCheckbox(true);
-        }
+        selectAllItems();
       }
       if (e.key === "Escape") {
         setSelected([]);
@@ -13344,14 +13470,7 @@ var AssetsBrowser = ({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [
-    filteredAssets,
-    filteredDirectories,
-    enableCheckbox,
-    previewAsset,
-    previewIndex,
-    renamingItemId,
-  ]);
+  }, [selectAllItems, previewAsset, previewIndex, renamingItemId]);
   const onDownload = async (asset) => {
     try {
       const downloadToast = toast9.loading(
@@ -13714,20 +13833,20 @@ var AssetsBrowser = ({
   }
   const isEmpty =
     !isFetching && !filteredAssets.length && !filteredDirectories.length;
-  return /* @__PURE__ */ jsxs54("div", {
+  return /* @__PURE__ */ jsxs55("div", {
     className: cn("w-full h-full relative dark:bg-card", className),
     children: [
-      /* @__PURE__ */ jsx74("div", {
+      /* @__PURE__ */ jsx75("div", {
         className: "sticky top-0 z-20 bg-white dark:bg-card",
-        children: /* @__PURE__ */ jsx74(AssetsTabbar_default, {}),
+        children: /* @__PURE__ */ jsx75(AssetsTabbar_default, {}),
       }),
-      /* @__PURE__ */ jsxs54("div", {
+      /* @__PURE__ */ jsxs55("div", {
         className: "w-full h-full p-6 flex flex-col",
         children: [
-          /* @__PURE__ */ jsx74("div", {
+          /* @__PURE__ */ jsx75("div", {
             className:
               "sticky top-[43px] w-full z-10 bg-zinc-50 dark:bg-card mb-5",
-            children: /* @__PURE__ */ jsx74(AssetsHeader_default, {
+            children: /* @__PURE__ */ jsx75(AssetsHeader_default, {
               viewType,
               onChangeView: (v) => setViewType(v),
               enableCheckbox,
@@ -13741,12 +13860,15 @@ var AssetsBrowser = ({
             }),
           }),
           isEmpty
-            ? /* @__PURE__ */ jsx74(EmptyList_default2, { image: emptyImage })
-            : /* @__PURE__ */ jsx74("div", {
+            ? /* @__PURE__ */ jsx75(EmptyList_default2, { image: emptyImage })
+            : /* @__PURE__ */ jsx75("div", {
                 className: "h-full z-0",
-                children: /* @__PURE__ */ jsxs54("div", {
+                children: /* @__PURE__ */ jsxs55("div", {
                   className: cn(
                     "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+                    // The selection bar is fixed over the viewport, so the last
+                    // row needs room to clear it or it cannot be reached.
+                    selected.length > 0 && "pb-24 md:pb-32",
                     viewType === "list" &&
                       "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
                     viewType === "grid-list" &&
@@ -13754,13 +13876,13 @@ var AssetsBrowser = ({
                   ),
                   children: [
                     filteredDirectories.map((folder, i) =>
-                      /* @__PURE__ */ jsx74(
+                      /* @__PURE__ */ jsx75(
                         "div",
                         {
                           className:
                             "animate-in fade-in slide-in-from-bottom-4 duration-200",
                           style: { transitionDelay: `${i * 30}ms` },
-                          children: /* @__PURE__ */ jsx74(FolderCard_default, {
+                          children: /* @__PURE__ */ jsx75(FolderCard_default, {
                             data: folder,
                             viewType,
                             onMove: handleMove,
@@ -13793,7 +13915,7 @@ var AssetsBrowser = ({
                       ),
                     ),
                     visibleAssets.map((asset, i) =>
-                      /* @__PURE__ */ jsx74(
+                      /* @__PURE__ */ jsx75(
                         "div",
                         {
                           className:
@@ -13801,7 +13923,7 @@ var AssetsBrowser = ({
                           style: {
                             transitionDelay: `${(filteredDirectories.length + i) * 30}ms`,
                           },
-                          children: /* @__PURE__ */ jsx74(AssetCard_default, {
+                          children: /* @__PURE__ */ jsx75(AssetCard_default, {
                             data: asset,
                             viewType,
                             allowSelect: enableCheckbox,
@@ -13827,13 +13949,13 @@ var AssetsBrowser = ({
                       ),
                     ),
                     loadingMore &&
-                      /* @__PURE__ */ jsx74(LazyLoadingSkeleton_default, {
+                      /* @__PURE__ */ jsx75(LazyLoadingSkeleton_default, {
                         viewType,
                         count: 6,
                       }),
                     hasMore &&
                       !loadingMore &&
-                      /* @__PURE__ */ jsx74("div", {
+                      /* @__PURE__ */ jsx75("div", {
                         ref: observerRef,
                         className: "h-4 w-full",
                       }),
@@ -13841,7 +13963,7 @@ var AssetsBrowser = ({
                       !filteredAssets.length &&
                       !filteredDirectories.length &&
                       [...Array(20)].map((_, i) =>
-                        /* @__PURE__ */ jsx74(
+                        /* @__PURE__ */ jsx75(
                           AssetCardSkeleton,
                           { viewType },
                           i,
@@ -13853,41 +13975,19 @@ var AssetsBrowser = ({
         ],
       }),
       enableCheckbox &&
-        selected.length > 0 &&
-        /* @__PURE__ */ jsxs54("div", {
-          className:
-            "absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-10 z-50 shadow-md w-full max-w-lg p-2 px-4 rounded-[14px] bg-white dark:bg-card flex items-center justify-between",
-          children: [
-            /* @__PURE__ */ jsx74("p", {
-              className: "text-sm",
-              children: t("assets.assetList.itemsSelected", {
-                count: selected.length,
-              }),
-            }),
-            /* @__PURE__ */ jsxs54(Button, {
-              variant: "ghost",
-              className: "flex gap-4 rounded-[8px] px-4",
-              onClick: handleBulkMove,
-              children: [
-                /* @__PURE__ */ jsx74(FolderSymlink, {}),
-                t("assets.assetList.moveTo"),
-              ],
-            }),
-            /* @__PURE__ */ jsxs54(Button, {
-              onClick: handleBulkDelete,
-              variant: "ghost",
-              className:
-                "flex gap-4 px-4 rounded-[8px] text-rose-500 hover:bg-rose-700 focus:text-rose-200 hover:text-rose-100 transition-all",
-              children: [
-                /* @__PURE__ */ jsx74(Trash25, {}),
-                " ",
-                t("assets.assetList.delete"),
-              ],
-            }),
-          ],
+        /* @__PURE__ */ jsx75(SelectionBar_default, {
+          count: selected.length,
+          allSelected:
+            selected.length > 0 &&
+            selected.length ===
+              filteredAssets.length + filteredDirectories.length,
+          onClear: () => setSelected([]),
+          onSelectAll: selectAllItems,
+          onMove: handleBulkMove,
+          onDelete: handleBulkDelete,
         }),
       previewAsset &&
-        /* @__PURE__ */ jsx74(AssetsPreview_default, {
+        /* @__PURE__ */ jsx75(AssetsPreview_default, {
           previewAsset,
           previewIndex,
           filteredAssets,
@@ -13898,7 +13998,7 @@ var AssetsBrowser = ({
           onDownload,
         }),
       features.folders &&
-        /* @__PURE__ */ jsx74(MoveModal_default, {
+        /* @__PURE__ */ jsx75(MoveModal_default, {
           isOpen: showMoveModal,
           onClose: () => setShowMoveModal(false),
           onMove: performMove,
@@ -13906,21 +14006,21 @@ var AssetsBrowser = ({
           moveItemType,
         }),
       features.folders &&
-        /* @__PURE__ */ jsx74(CreateFolderModal_default, {
+        /* @__PURE__ */ jsx75(CreateFolderModal_default, {
           open: showCreateFolderModal,
           onClose: () => setShowCreateFolderModal(false),
         }),
       features.upload &&
-        /* @__PURE__ */ jsx74(UploadModal_default2, {
+        /* @__PURE__ */ jsx75(UploadModal_default2, {
           open: showUploadModal,
           onClose: () => setShowUploadModal(false),
         }),
       features.links &&
-        /* @__PURE__ */ jsx74(NewLinkModal_default, {
+        /* @__PURE__ */ jsx75(NewLinkModal_default, {
           open: showNewLinkModal,
           onClose: () => setShowNewLinkModal(false),
         }),
-      /* @__PURE__ */ jsx74(ConfirmDeleteDialog_default, {
+      /* @__PURE__ */ jsx75(ConfirmDeleteDialog_default, {
         state: confirmDelete,
         onClose: () => setConfirmDelete(null),
       }),
@@ -13938,16 +14038,16 @@ import { useQueryClient as useQueryClient5 } from "@tanstack/react-query";
 // src/components/ui/switch.tsx
 import * as React41 from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
-import { jsx as jsx75 } from "react/jsx-runtime";
+import { jsx as jsx76 } from "react/jsx-runtime";
 var Switch = React41.forwardRef(({ className, ...props }, ref) =>
-  /* @__PURE__ */ jsx75(SwitchPrimitives.Root, {
+  /* @__PURE__ */ jsx76(SwitchPrimitives.Root, {
     className: cn(
       "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
       className,
     ),
     ...props,
     ref,
-    children: /* @__PURE__ */ jsx75(SwitchPrimitives.Thumb, {
+    children: /* @__PURE__ */ jsx76(SwitchPrimitives.Thumb, {
       className: cn(
         "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0",
       ),
@@ -13957,7 +14057,7 @@ var Switch = React41.forwardRef(({ className, ...props }, ref) =>
 Switch.displayName = SwitchPrimitives.Root.displayName;
 
 // src/components/assets/links/LinkEditor.tsx
-import { jsx as jsx76, jsxs as jsxs55 } from "react/jsx-runtime";
+import { jsx as jsx77, jsxs as jsxs56 } from "react/jsx-runtime";
 var qrPositionToClass2 = (pos) => {
   switch (pos) {
     case "top_left":
@@ -14077,66 +14177,66 @@ var LinkEditor = (props) => {
     }
   };
   const previewUrl = ensureProtocol(url);
-  return /* @__PURE__ */ jsxs55("div", {
+  return /* @__PURE__ */ jsxs56("div", {
     className: "flex flex-col lg:flex-row w-full h-full",
     children: [
-      /* @__PURE__ */ jsxs55("div", {
+      /* @__PURE__ */ jsxs56("div", {
         className: "w-full lg:w-5/12 p-6 flex flex-col gap-3 mt-4",
         children: [
-          /* @__PURE__ */ jsx76(Label5, {
+          /* @__PURE__ */ jsx77(Label5, {
             children: t("assets.linkEditPage.url"),
           }),
-          /* @__PURE__ */ jsx76(Input2, {
+          /* @__PURE__ */ jsx77(Input2, {
             value: url,
             onChange: (e) => setUrl(e.target.value),
             placeholder: t("assets.linkEditPage.urlPlaceholder"),
           }),
-          /* @__PURE__ */ jsxs55("div", {
+          /* @__PURE__ */ jsxs56("div", {
             className: "w-full flex items-center justify-between gap-2",
             children: [
-              /* @__PURE__ */ jsx76("p", {
+              /* @__PURE__ */ jsx77("p", {
                 className: "text-xs",
                 children: t("assets.linkEditPage.addQrCode"),
               }),
-              /* @__PURE__ */ jsx76(Switch, {
+              /* @__PURE__ */ jsx77(Switch, {
                 checked: showQR,
                 onCheckedChange: (v) => setShowQR(!!v),
               }),
             ],
           }),
           showQR &&
-            /* @__PURE__ */ jsxs55("div", {
+            /* @__PURE__ */ jsxs56("div", {
               className: "w-full flex flex-col mt-4 gap-3",
               children: [
-                /* @__PURE__ */ jsx76(Label5, {
+                /* @__PURE__ */ jsx77(Label5, {
                   className: "text-sm",
                   children: t("assets.linkEditPage.qrPosition"),
                 }),
-                /* @__PURE__ */ jsxs55(Select, {
+                /* @__PURE__ */ jsxs56(Select, {
                   value: qrPosition,
                   onValueChange: (v) => setQrPosition(v),
                   children: [
-                    /* @__PURE__ */ jsx76(SelectTrigger, {
+                    /* @__PURE__ */ jsx77(SelectTrigger, {
                       className: "w-full",
-                      children: /* @__PURE__ */ jsx76(SelectValue, {
+                      children: /* @__PURE__ */ jsx77(SelectValue, {
                         placeholder: t("assets.linkEditPage.selectPosition"),
                       }),
                     }),
-                    /* @__PURE__ */ jsxs55(SelectContent, {
+                    /* @__PURE__ */ jsxs56(SelectContent, {
                       children: [
-                        /* @__PURE__ */ jsx76(SelectItem, {
+                        /* @__PURE__ */ jsx77(SelectItem, {
                           value: "top_left",
                           children: t("assets.linkEditPage.topLeft"),
                         }),
-                        /* @__PURE__ */ jsx76(SelectItem, {
+                        /* @__PURE__ */ jsx77(SelectItem, {
                           value: "top_right",
                           children: t("assets.linkEditPage.topRight"),
                         }),
-                        /* @__PURE__ */ jsx76(SelectItem, {
+                        /* @__PURE__ */ jsx77(SelectItem, {
                           value: "bottom_left",
                           children: t("assets.linkEditPage.bottomLeft"),
                         }),
-                        /* @__PURE__ */ jsx76(SelectItem, {
+                        /* @__PURE__ */ jsx77(SelectItem, {
                           value: "bottom_right",
                           children: t("assets.linkEditPage.bottomRight"),
                         }),
@@ -14146,7 +14246,7 @@ var LinkEditor = (props) => {
                 }),
               ],
             }),
-          /* @__PURE__ */ jsx76(Button, {
+          /* @__PURE__ */ jsx77(Button, {
             onClick: handleSave,
             disabled: saving || loading,
             className: "mt-2",
@@ -14156,13 +14256,13 @@ var LinkEditor = (props) => {
           }),
         ],
       }),
-      /* @__PURE__ */ jsx76("div", {
+      /* @__PURE__ */ jsx77("div", {
         className: "flex-grow w-full h-full bg-muted dark:bg-card relative",
         children: previewUrl
-          ? /* @__PURE__ */ jsxs55("div", {
+          ? /* @__PURE__ */ jsxs56("div", {
               className: "relative w-full h-full min-h-[320px]",
               children: [
-                /* @__PURE__ */ jsx76(
+                /* @__PURE__ */ jsx77(
                   "iframe",
                   {
                     src: previewUrl,
@@ -14173,19 +14273,19 @@ var LinkEditor = (props) => {
                 ),
                 showQR &&
                   url &&
-                  /* @__PURE__ */ jsx76("div", {
+                  /* @__PURE__ */ jsx77("div", {
                     className: `absolute z-10 p-1 ${qrPositionToClass2(qrPosition)}`,
-                    children: /* @__PURE__ */ jsx76(QRCode2, {
+                    children: /* @__PURE__ */ jsx77(QRCode2, {
                       value: previewUrl,
                       size: 60,
                     }),
                   }),
               ],
             })
-          : /* @__PURE__ */ jsx76("div", {
+          : /* @__PURE__ */ jsx77("div", {
               className:
                 "w-full h-full min-h-[320px] flex items-center justify-center text-muted-foreground",
-              children: /* @__PURE__ */ jsx76("p", {
+              children: /* @__PURE__ */ jsx77("p", {
                 children: t("assets.newLinkModal.previewWillAppearHere"),
               }),
             }),
@@ -14201,7 +14301,7 @@ import { twMerge as twMerge3 } from "tailwind-merge";
 var cx = (...inputs) => twMerge3(clsx3(inputs));
 
 // src/components/sidebar/sidebar-shell.tsx
-import { jsx as jsx77, jsxs as jsxs56 } from "react/jsx-runtime";
+import { jsx as jsx78, jsxs as jsxs57 } from "react/jsx-runtime";
 var RAIL_CONTROL = "size-9 rounded-[10px]";
 function SidebarShell({
   collapsed,
@@ -14211,7 +14311,7 @@ function SidebarShell({
   footer,
   className,
 }) {
-  return /* @__PURE__ */ jsxs56("aside", {
+  return /* @__PURE__ */ jsxs57("aside", {
     dir,
     "data-collapsed": collapsed ? "" : void 0,
     className: cx(
@@ -14222,12 +14322,12 @@ function SidebarShell({
     ),
     children: [
       header
-        ? /* @__PURE__ */ jsx77("div", {
+        ? /* @__PURE__ */ jsx78("div", {
             className: "shrink-0",
             children: header,
           })
         : null,
-      /* @__PURE__ */ jsx77("div", {
+      /* @__PURE__ */ jsx78("div", {
         className: cx(
           "flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
@@ -14236,7 +14336,7 @@ function SidebarShell({
         children,
       }),
       footer
-        ? /* @__PURE__ */ jsx77("div", {
+        ? /* @__PURE__ */ jsx78("div", {
             className: cx(
               "flex shrink-0 flex-col gap-3",
               collapsed && "items-center",
@@ -14248,7 +14348,7 @@ function SidebarShell({
   });
 }
 function ToggleGlyph({ dir, className }) {
-  return /* @__PURE__ */ jsxs56("svg", {
+  return /* @__PURE__ */ jsxs57("svg", {
     viewBox: "0 0 20 20",
     fill: "none",
     stroke: "currentColor",
@@ -14258,20 +14358,20 @@ function ToggleGlyph({ dir, className }) {
     className: cx("size-5", dir === "rtl" && "-scale-x-100", className),
     "aria-hidden": "true",
     children: [
-      /* @__PURE__ */ jsx77("rect", {
+      /* @__PURE__ */ jsx78("rect", {
         x: "2.5",
         y: "3.5",
         width: "15",
         height: "13",
         rx: "3",
       }),
-      /* @__PURE__ */ jsx77("path", { d: "M7.5 3.5v13" }),
-      /* @__PURE__ */ jsx77("path", { d: "M12.5 8.5 11 10l1.5 1.5" }),
+      /* @__PURE__ */ jsx78("path", { d: "M7.5 3.5v13" }),
+      /* @__PURE__ */ jsx78("path", { d: "M12.5 8.5 11 10l1.5 1.5" }),
     ],
   });
 }
 function SidebarToggle({ collapsed, onToggle, label, dir = "ltr", className }) {
-  return /* @__PURE__ */ jsx77("button", {
+  return /* @__PURE__ */ jsx78("button", {
     type: "button",
     onClick: onToggle,
     "aria-label": label,
@@ -14283,11 +14383,11 @@ function SidebarToggle({ collapsed, onToggle, label, dir = "ltr", className }) {
       "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
       className,
     ),
-    children: /* @__PURE__ */ jsx77(ToggleGlyph, { dir }),
+    children: /* @__PURE__ */ jsx78(ToggleGlyph, { dir }),
   });
 }
 function SidebarBrandToggle({ mark, onToggle, label, dir = "ltr", className }) {
-  return /* @__PURE__ */ jsxs56("button", {
+  return /* @__PURE__ */ jsxs57("button", {
     type: "button",
     onClick: onToggle,
     "aria-label": label,
@@ -14300,12 +14400,12 @@ function SidebarBrandToggle({ mark, onToggle, label, dir = "ltr", className }) {
       className,
     ),
     children: [
-      /* @__PURE__ */ jsx77("span", {
+      /* @__PURE__ */ jsx78("span", {
         className:
           "flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full",
         children: mark,
       }),
-      /* @__PURE__ */ jsx77(ToggleGlyph, {
+      /* @__PURE__ */ jsx78(ToggleGlyph, {
         dir,
         className:
           "absolute scale-75 opacity-0 transition-all duration-200 group-hover/brand:scale-100 group-hover/brand:opacity-100 group-focus-visible/brand:scale-100 group-focus-visible/brand:opacity-100",
@@ -14318,14 +14418,14 @@ function SidebarBrandToggle({ mark, onToggle, label, dir = "ltr", className }) {
 import * as Tooltip2 from "@radix-ui/react-tooltip";
 import {
   Fragment as Fragment11,
-  jsx as jsx78,
-  jsxs as jsxs57,
+  jsx as jsx79,
+  jsxs as jsxs58,
 } from "react/jsx-runtime";
 var DefaultLink = ({ href, children, ...rest }) =>
-  /* @__PURE__ */ jsx78("a", { href, ...rest, children });
+  /* @__PURE__ */ jsx79("a", { href, ...rest, children });
 var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 function Badge({ children }) {
-  return /* @__PURE__ */ jsx78("span", {
+  return /* @__PURE__ */ jsx79("span", {
     className:
       "ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400",
     children,
@@ -14356,9 +14456,9 @@ function SidebarNavItem({
       "bg-primary text-white shadow-sm hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-neutral-100",
     item.disabled && "cursor-not-allowed opacity-70 hover:bg-transparent",
   );
-  const content = /* @__PURE__ */ jsxs57(Fragment11, {
+  const content = /* @__PURE__ */ jsxs58(Fragment11, {
     children: [
-      /* @__PURE__ */ jsx78("span", {
+      /* @__PURE__ */ jsx79("span", {
         className: cx(
           "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
           active || filled
@@ -14373,15 +14473,15 @@ function SidebarNavItem({
         children: filled ? (item.collapsedIcon ?? item.icon) : item.icon,
       }),
       !collapsed &&
-        /* @__PURE__ */ jsxs57("span", {
+        /* @__PURE__ */ jsxs58("span", {
           className: "flex min-w-0 flex-1 items-center justify-between",
           children: [
-            /* @__PURE__ */ jsx78("span", {
+            /* @__PURE__ */ jsx79("span", {
               className: cx("truncate", !active && "font-normal"),
               children: item.label,
             }),
             item.badge
-              ? /* @__PURE__ */ jsx78(Badge, { children: item.badge })
+              ? /* @__PURE__ */ jsx79(Badge, { children: item.badge })
               : null,
           ],
         }),
@@ -14389,13 +14489,13 @@ function SidebarNavItem({
   });
   const control =
     item.href && !item.disabled
-      ? /* @__PURE__ */ jsx78(LinkComponent, {
+      ? /* @__PURE__ */ jsx79(LinkComponent, {
           href: item.href,
           className,
           "aria-current": active ? "page" : void 0,
           children: content,
         })
-      : /* @__PURE__ */ jsx78("button", {
+      : /* @__PURE__ */ jsx79("button", {
           type: "button",
           className,
           onClick: item.disabled ? void 0 : item.onSelect,
@@ -14404,28 +14504,28 @@ function SidebarNavItem({
           children: content,
         });
   if (!collapsed) return control;
-  return /* @__PURE__ */ jsx78(Tooltip2.Provider, {
+  return /* @__PURE__ */ jsx79(Tooltip2.Provider, {
     delayDuration: 150,
-    children: /* @__PURE__ */ jsxs57(Tooltip2.Root, {
+    children: /* @__PURE__ */ jsxs58(Tooltip2.Root, {
       children: [
-        /* @__PURE__ */ jsx78(Tooltip2.Trigger, {
+        /* @__PURE__ */ jsx79(Tooltip2.Trigger, {
           asChild: true,
           children: control,
         }),
-        /* @__PURE__ */ jsx78(Tooltip2.Portal, {
-          children: /* @__PURE__ */ jsx78(Tooltip2.Content, {
+        /* @__PURE__ */ jsx79(Tooltip2.Portal, {
+          children: /* @__PURE__ */ jsx79(Tooltip2.Content, {
             side: dir === "rtl" ? "left" : "right",
             sideOffset: 8,
             className: cx(
               "z-50 flex h-9 items-center rounded-[10px] px-3 text-sm font-medium text-neutral-700 shadow-md dark:text-zinc-200",
               RAIL_HOVER,
             ),
-            children: /* @__PURE__ */ jsxs57("span", {
+            children: /* @__PURE__ */ jsxs58("span", {
               className: "flex items-center gap-1.5",
               children: [
                 item.label,
                 item.badge
-                  ? /* @__PURE__ */ jsx78(Badge, { children: item.badge })
+                  ? /* @__PURE__ */ jsx79(Badge, { children: item.badge })
                   : null,
               ],
             }),
@@ -14437,12 +14537,12 @@ function SidebarNavItem({
 }
 
 // src/components/sidebar/sidebar-nav.tsx
-import { jsx as jsx79, jsxs as jsxs58 } from "react/jsx-runtime";
+import { jsx as jsx80, jsxs as jsxs59 } from "react/jsx-runtime";
 function SidebarNav({ groups, collapsed, dir, LinkComponent, className }) {
-  return /* @__PURE__ */ jsx79("nav", {
+  return /* @__PURE__ */ jsx80("nav", {
     className: cx("flex w-full flex-col gap-3", className),
     children: groups.map((group) =>
-      /* @__PURE__ */ jsxs58(
+      /* @__PURE__ */ jsxs59(
         "div",
         {
           className: cx(
@@ -14451,7 +14551,7 @@ function SidebarNav({ groups, collapsed, dir, LinkComponent, className }) {
           ),
           children: [
             group.dividerAbove &&
-              /* @__PURE__ */ jsx79("div", {
+              /* @__PURE__ */ jsx80("div", {
                 className: cx(
                   "mb-2 border-t border-zinc-100 dark:border-zinc-800",
                   collapsed ? "w-6" : "mx-3",
@@ -14459,13 +14559,13 @@ function SidebarNav({ groups, collapsed, dir, LinkComponent, className }) {
               }),
             group.label &&
               !collapsed &&
-              /* @__PURE__ */ jsx79("span", {
+              /* @__PURE__ */ jsx80("span", {
                 className:
                   "mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500",
                 children: group.label,
               }),
             group.items.map((item) =>
-              /* @__PURE__ */ jsx79(
+              /* @__PURE__ */ jsx80(
                 SidebarNavItem,
                 {
                   item,
