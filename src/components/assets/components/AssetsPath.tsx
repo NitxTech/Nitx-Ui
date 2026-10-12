@@ -61,7 +61,7 @@ const AssetsPath: React.FC<AssetsPathProps> = ({ className }) => {
       {path.length > 1 && (
         <button
           onClick={goBack}
-          className="flex-shrink-0 mr-1 p-1 rounded hover:bg-muted"
+          className="flex-shrink-0 me-1 p-1 rounded hover:bg-muted"
           aria-label="Go back one level"
           type="button"
         >

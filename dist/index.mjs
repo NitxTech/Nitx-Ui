@@ -2324,7 +2324,7 @@ var DialogContent = React4.forwardRef(({ className, children, overlayClassName, 
         ...props,
         children: [
           children,
-          showCloseButton && /* @__PURE__ */ jsxs4(DialogPrimitive.Close, { className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-[10001]", children: [
+          showCloseButton && /* @__PURE__ */ jsxs4(DialogPrimitive.Close, { className: "absolute end-4 top-4 right-4 rtl:right-auto rtl:left-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-[10001]", children: [
             /* @__PURE__ */ jsx6(X, { className: "h-4 w-4" }),
             /* @__PURE__ */ jsx6("span", { className: "sr-only", children: t("dialog.close") })
           ] })
@@ -2340,7 +2340,7 @@ var DialogHeader = ({
 }) => /* @__PURE__ */ jsx6(
   "div",
   {
-    className: cn("flex flex-col text-center sm:text-left", className),
+    className: cn("flex flex-col text-center sm:text-start", className),
     ...props
   }
 );
@@ -2352,7 +2352,7 @@ var DialogFooter = ({
   "div",
   {
     className: cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 rtl:sm:space-x-reverse",
       className
     ),
     ...props
@@ -8207,7 +8207,7 @@ var AssetsPath = ({ className }) => {
           "button",
           {
             onClick: goBack,
-            className: "flex-shrink-0 mr-1 p-1 rounded hover:bg-muted",
+            className: "flex-shrink-0 me-1 p-1 rounded hover:bg-muted",
             "aria-label": "Go back one level",
             type: "button",
             children: /* @__PURE__ */ jsx58(ChevronLeft2, { className: "w-4 h-4 rtl:rotate-180" })
@@ -8779,7 +8779,7 @@ var AssetCard = ({
                 "span",
                 {
                   className: cn(
-                    "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                    "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
                     selected && "border-primary bg-primary text-white"
                   ),
                   children: selected && /* @__PURE__ */ jsx61(Check7, { className: "size-3" })
@@ -8790,7 +8790,7 @@ var AssetCard = ({
               CardContent2,
               {
                 className: cn(
-                  "w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3",
+                  "w-full p-2 sm:p-3 pe-0 flex justify-between items-center gap-2 sm:gap-3",
                   isListLike && "max-w-[calc(100%-90px)]"
                 ),
                 children: [
@@ -8809,10 +8809,10 @@ var AssetCard = ({
                         onClick: (e) => e.stopPropagation()
                       }
                     ) : /* @__PURE__ */ jsxs43(Tooltip, { children: [
-                      /* @__PURE__ */ jsx61(TooltipTrigger, { children: /* @__PURE__ */ jsx61("h2", { className: "text-xs sm:text-sm text-left font-bold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
+                      /* @__PURE__ */ jsx61(TooltipTrigger, { children: /* @__PURE__ */ jsx61("h2", { className: "text-xs sm:text-sm text-start font-bold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
                       /* @__PURE__ */ jsx61(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
                     ] }),
-                    /* @__PURE__ */ jsxs43("p", { className: "text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
+                    /* @__PURE__ */ jsxs43("p", { className: "text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none text-start", children: [
                       data.type === "image" && data.image?.size,
                       data.type === "video" && data.video?.size,
                       data.type === "document" && data.document?.size
@@ -9148,14 +9148,14 @@ var FolderCard = React31.forwardRef(
                   "span",
                   {
                     className: cn(
-                      "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                      "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
                       selected && "border-primary bg-primary text-white"
                     ),
                     children: selected && /* @__PURE__ */ jsx62(Check8, { className: "size-3" })
                   }
                 )
               ] }),
-              /* @__PURE__ */ jsxs44(CardContent2, { className: "w-full p-3 pr-0 flex justify-between items-center gap-3", children: [
+              /* @__PURE__ */ jsxs44(CardContent2, { className: "w-full p-3 pe-0 flex justify-between items-center gap-3", children: [
                 /* @__PURE__ */ jsxs44("div", { className: "flex flex-col w-full max-w-[calc(100%-50px)]", children: [
                   isRenaming ? /* @__PURE__ */ jsx62(
                     Input2,
@@ -9171,10 +9171,10 @@ var FolderCard = React31.forwardRef(
                       onClick: (e) => e.stopPropagation()
                     }
                   ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                    /* @__PURE__ */ jsx62(TooltipTrigger, { children: /* @__PURE__ */ jsx62("h2", { className: "text-sm font-bold text-foreground truncate text-left max-w-full pointer-events-none", children: data.name }) }),
+                    /* @__PURE__ */ jsx62(TooltipTrigger, { children: /* @__PURE__ */ jsx62("h2", { className: "text-sm font-bold text-foreground truncate text-start max-w-full pointer-events-none", children: data.name }) }),
                     /* @__PURE__ */ jsx62(TooltipContent, { side: "bottom", children: data.name })
                   ] }),
-                  /* @__PURE__ */ jsxs44("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none", children: [
+                  /* @__PURE__ */ jsxs44("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none text-start", children: [
                     data.assets_count || 0,
                     " ",
                     data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
@@ -9410,20 +9410,22 @@ var AssetsPreview = ({
           /* @__PURE__ */ jsx63(
             "button",
             {
-              className: "absolute left-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
+              className: "absolute start-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
               onClick: () => handlePreviewNavigation("prev"),
               disabled: previewIndex === 0,
-              children: /* @__PURE__ */ jsx63(ChevronLeft3, { className: "h-6 w-6" })
+              "aria-label": "Previous",
+              children: /* @__PURE__ */ jsx63(ChevronLeft3, { className: "h-6 w-6 rtl:rotate-180" })
             }
           ),
           /* @__PURE__ */ jsx63("div", { className: "flex items-center justify-center w-full h-full max-h-[80vh]", children: renderMedia() }),
           /* @__PURE__ */ jsx63(
             "button",
             {
-              className: "absolute right-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
+              className: "absolute end-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
               onClick: () => handlePreviewNavigation("next"),
               disabled: previewIndex === filteredAssets.length - 1,
-              children: /* @__PURE__ */ jsx63(ChevronRight6, { className: "h-6 w-6" })
+              "aria-label": "Next",
+              children: /* @__PURE__ */ jsx63(ChevronRight6, { className: "h-6 w-6 rtl:rotate-180" })
             }
           )
         ] }),
@@ -9924,7 +9926,7 @@ function DrawerDialog2({
               className: "flex items-center hover:scale-95 hover:opacity-80 transition-all duration-300 w-fit",
               onClick: back,
               children: [
-                /* @__PURE__ */ jsx69(ChevronLeft4, { className: "w-4 h-4 mr-1" }),
+                /* @__PURE__ */ jsx69(ChevronLeft4, { className: "w-4 h-4 me-1 rtl:rotate-180" }),
                 t("drawerDialog.back")
               ]
             }
