@@ -20,6 +20,9 @@ export interface SidebarShellProps {
 /**
  * The sidebar frame. Owns background, border, padding and the
  * header / scroll body / footer stacking; knows nothing about routes.
+ * Width is the parent's job (e.g., CSS variable or width utility).
+ * The same `gap-3` separates header, body sections and footer so the rhythm
+ * is identical at every root font-size.
  */
 export function SidebarShell({
   collapsed,
@@ -110,7 +113,7 @@ export function SidebarToggle({
       className={cx(
         RAIL_CONTROL,
         "flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
         className,
       )}
     >

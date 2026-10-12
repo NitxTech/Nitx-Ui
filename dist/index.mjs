@@ -1932,11 +1932,18 @@ import { twMerge } from "tailwind-merge";
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
+function cx(...args) {
+  return twMerge(clsx(...args));
+}
 
 // src/components/ui/dropdown-menu.tsx
 import { jsx, jsxs } from "react/jsx-runtime";
 var DropdownMenu = DropdownMenuPrimitive.Root;
 var DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+var DropdownMenuGroup = DropdownMenuPrimitive.Group;
+var DropdownMenuPortal = DropdownMenuPrimitive.Portal;
+var DropdownMenuSub = DropdownMenuPrimitive.Sub;
+var DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 var DropdownMenuSubTrigger = React.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ jsxs(
   DropdownMenuPrimitive.SubTrigger,
   {
@@ -2067,22 +2074,22 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { jsx as jsx2 } from "react/jsx-runtime";
 var buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xs sm:text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/20 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer",
   {
     variants: {
       variant: {
-        default: "bg-primary dark:text-zinc-800 text-primary-foreground hover:bg-primary dark:text-zinc-800/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-zinc-100 text-secondary-foreground hover:bg-zinc-100/80 border border-zinc-200/50",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline"
+        default: "bg-[#0000FF] text-white hover:bg-blue-700 shadow-xs dark:bg-[#0000FF] dark:text-white dark:hover:bg-blue-600",
+        destructive: "bg-red-600 text-white hover:bg-red-700 shadow-xs dark:bg-red-600 dark:hover:bg-red-500",
+        outline: "border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-800 dark:text-zinc-200 shadow-xs",
+        secondary: "bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-zinc-100 hover:bg-gray-200 dark:hover:bg-zinc-700 shadow-xs",
+        ghost: "hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-700 dark:text-zinc-300",
+        link: "text-[#0000FF] dark:text-blue-400 underline-offset-4 hover:underline"
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-12 rounded-[10px] px-8",
-        icon: "h-10 w-10 rounded-[10px]"
+        sm: "h-8 rounded-lg px-3 text-xs",
+        lg: "h-11 rounded-xl px-5 text-xs sm:text-sm",
+        icon: "h-10 w-10 rounded-xl"
       }
     },
     defaultVariants: {
@@ -2380,6 +2387,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check as Check2, ChevronDown, ChevronUp } from "lucide-react";
 import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
 var Select = SelectPrimitive.Root;
+var SelectGroup = SelectPrimitive.Group;
 var SelectValue = SelectPrimitive.Value;
 var SelectTrigger = React5.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs5(
   SelectPrimitive.Trigger,
@@ -3803,7 +3811,7 @@ var SpaceCard = ({ id, name, members, className }) => {
               "h2",
               {
                 className: cn2(
-                  "text-[12.42px] text-neutral-500 dark:text-neutral-400"
+                  "text-xs text-neutral-600 dark:text-neutral-300"
                 ),
                 children: [
                   members,
@@ -6254,7 +6262,7 @@ var SpaceSelectorContent = () => {
           /* @__PURE__ */ jsx49(
             "p",
             {
-              className: `text-[11px] text-zinc-600 uppercase p-3 ${isRTL ? "!text-right" : "!text-left"}`,
+              className: `text-xs font-semibold text-zinc-600 dark:text-zinc-300 uppercase p-3 ${isRTL ? "!text-right" : "!text-left"}`,
               children: t("sidebar.Recently Spaces")
             }
           ),
@@ -6784,7 +6792,7 @@ var AddContentModal = ({
           ] }),
           /* @__PURE__ */ jsxs38("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate", children: asset.name.slice(0, 10) }),
-            /* @__PURE__ */ jsxs38("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+            /* @__PURE__ */ jsxs38("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
               t("addContentModal.upload"),
               " ",
               formatDate(asset.created_at)
@@ -6814,7 +6822,7 @@ var AddContentModal = ({
         /* @__PURE__ */ jsx52("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-sky-100", children: /* @__PURE__ */ jsx52(FolderOpen, { className: "text-sky-600 size-8" }) }),
         /* @__PURE__ */ jsxs38("div", { className: "pl-3", children: [
           /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate", children: folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name }),
-          /* @__PURE__ */ jsxs38("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+          /* @__PURE__ */ jsxs38("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
             folder.assets_count || 0,
             " ",
             t("addContentModal.items")
@@ -6866,7 +6874,7 @@ var AddContentModal = ({
           /* @__PURE__ */ jsx52("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#00C4CC]", children: /* @__PURE__ */ jsx52(Film, { className: "text-white size-8" }) }),
           /* @__PURE__ */ jsxs38("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate", children: sequence.name }),
-            /* @__PURE__ */ jsx52("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: sequence.total_duration || "No duration" })
+            /* @__PURE__ */ jsx52("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: sequence.total_duration || "No duration" })
           ] }),
           /* @__PURE__ */ jsx52(
             "div",
@@ -6897,7 +6905,7 @@ var AddContentModal = ({
           /* @__PURE__ */ jsx52("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#575DFC]", children: /* @__PURE__ */ jsx52(ChannelSolidPlayIcon, { baseColor: "white", playColor: "#4B53FB" }) }),
           /* @__PURE__ */ jsxs38("div", { className: "pl-3", children: [
             /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate", children: channel.name }),
-            /* @__PURE__ */ jsx52("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: channel.isPublished ? "Published" : "Draft" })
+            /* @__PURE__ */ jsx52("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: channel.isPublished ? "Published" : "Draft" })
           ] }),
           /* @__PURE__ */ jsx52(
             "div",
@@ -6994,7 +7002,7 @@ var AddContentModal = ({
                   /* @__PURE__ */ jsx52("div", { className: "w-[86px] h-[86px] flex-shrink-0 flex items-center justify-center bg-gray-50 dark:bg-card", children: inst.app_icon_url ? /* @__PURE__ */ jsx52("img", { src: inst.app_icon_url, alt: inst.app_name, className: "w-10 h-10" }) : /* @__PURE__ */ jsx52("div", { className: "w-10 h-10 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-semibold", children: (inst.app_name || "A").charAt(0) }) }),
                   /* @__PURE__ */ jsxs38("div", { className: "pl-3 pr-8 py-2", children: [
                     /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate max-w-[220px]", children: inst.name }),
-                    /* @__PURE__ */ jsx52("p", { className: "text-[11px] text-gray-500 dark:text-zinc-400 truncate max-w-[220px]", children: inst.app_name })
+                    /* @__PURE__ */ jsx52("p", { className: "text-xs text-gray-600 dark:text-zinc-300 truncate max-w-[220px]", children: inst.app_name })
                   ] }),
                   /* @__PURE__ */ jsx52(
                     "div",
@@ -7040,7 +7048,7 @@ var AddContentModal = ({
                   /* @__PURE__ */ jsx52("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]", children: /* @__PURE__ */ jsx52(Monitor, { className: "text-white size-8" }) }),
                   /* @__PURE__ */ jsxs38("div", { className: "pl-3 pr-8 py-2", children: [
                     /* @__PURE__ */ jsx52("p", { className: "text-sm font-medium truncate max-w-[220px]", children: canvas.name }),
-                    /* @__PURE__ */ jsxs38("p", { className: "text-[10px] text-gray-500 dark:text-zinc-400", children: [
+                    /* @__PURE__ */ jsxs38("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
                       t("addContentModal.upload"),
                       " ",
                       format(new Date(canvas.created_at), "MMM d, yyyy")
@@ -7416,7 +7424,7 @@ function createAssetsApi(client) {
 // src/components/assets/lib/default-images.ts
 var DEFAULT_ASSET_IMAGES = {
   clock: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTIgN1YxMkgxNU0yMSAxMkMyMSAxNi45NzA2IDE2Ljk3MDYgMjEgMTIgMjFDNy4wMjk0NCAyMSAzIDE2Ljk3MDYgMyAxMkMzIDcuMDI5NDQgNy4wMjk0NCAzIDEyIDNDMTYuOTcwNiAzIDIxIDcuMDI5NDQgMjEgMTJaIiBzdHJva2U9IiNGQUM2MjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2VMaW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg0K",
-  folder: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNEMkVDRjciLz4KPHBhdGggZD0iTTExMSA3My4zNDUyVjExMC42OTJDMTExIDExMy4xMDcgMTEyLjk1OCAxMTUuMDY1IDExNS4zNzQgMTE1LjA2NUgxNjUuNjI3QzE2OC4wNDIgMTE1LjA2NSAxNzAgMTEzLjEwNyAxNzAgMTEwLjY5MlY3OS42NDQ3QzE3MCA3Ny4yMjkzIDE2OC4wNDIgNzUuMjcxMiAxNjUuNjI3IDc1LjI3MTJIMTQwLjAwNkMxMzguMzA1IDc1LjI3MTIgMTM2Ljc3NiA3NC4yNzA3IDEzNS44MjkgNzIuODU4OEMxMzQuNjM2IDcxLjA4MTMgMTMyLjc4NyA2OC45NzE3IDEzMC43MzEgNjguOTcxN0gxMTUuMzdDMTEyLjk1NCA2OC45NzE3IDExMSA3MC45Mjk4IDExMSA3My4zNDUyWiIgZmlsbD0iIzQ1NUVGRiIvPgo8cGF0aCBkPSJNMTY5Ljk5OSA3OS41NTFWMTEwLjkzOUMxNjkuOTk5IDExMi42NDUgMTY4LjYxNiAxMTQuMDI4IDE2Ni45MSAxMTQuMDI4SDExNC4wODhDMTEyLjM4MiAxMTQuMDI4IDExMC45OTkgMTEyLjY0NSAxMTAuOTk5IDExMC45MzlWODIuNjc4M0MxMTAuOTk5IDgwLjk3MjMgMTEyLjM3OCA3OS41ODkzIDExNC4wODQgNzkuNTg5M0gxMjkuNjg4QzEzNC45MzkgNzkuNTg5MyAxMzQuMjA1IDc2LjQ2MTcgMTM3Ljc5NiA3Ni40NjE5QzE0Ny41OTQgNzYuNDYyNCAxNjAuOTU5IDc2LjQ2MjEgMTY2LjkxNSA3Ni40NjJDMTY4LjYyMiA3Ni40NjIgMTY5Ljk5OSA3Ny44NDUgMTY5Ljk5OSA3OS41NTFaIiBmaWxsPSIjMDAwMEZGIi8+Cjwvc3ZnPgo=",
+  folder: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xMTEgNzMuMzQ1MlYxMTAuNjkyQzExMSAxMTMuMTA3IDExMi45NTggMTE1LjA2NSAxMTUuMzc0IDExNS4wNjVIMTY1LjYyN0MxNjguMDQyIDExNS4wNjUgMTcwIDExMy4xMDcgMTcwIDExMC42OTJWNzkuNjQ0N0MxNzAgNzcuMjI5MyAxNjguMDQyIDc1LjI3MTIgMTY1LjYyNyA3NS4yNzEySDE0MC4wMDZDMTM4LjMwNSA3NS4yNzEyIDEzNi43NzYgNzQuMjcwNyAxMzUuODI5IDcyLjg1ODhDMTM0LjYzNiA3MS4wODEzIDEzMi43ODcgNjguOTcxNyAxMzAuNzMxIDY4Ljk3MTdIMTE1LjM3QzExMi45NTQgNjguOTcxNyAxMTEgNzAuOTI5OCAxMTEgNzMuMzQ1MloiIGZpbGw9IiM0NTU1RkYiLz4KPHBhdGggZD0iTTE2OS45OTkgNzkuNTUxVjExMC45MzlDMTY5Ljk5OSAxMTIuNjQ1IDE2OC42MTYgMTE0LjAyOCAxNjYuOTEgMTE0LjAyOEgxMTQuMDg4QzExMi4zODIgMTE0LjAyOCAxMTAuOTk5IDExMi42NDUgMTEwLjk5OSAxMTAuOTM5VjgyLjY3ODNDMTEwLjk5OSA4MC45NzIzIDExMi4zNzggNzkuNTg5MyAxMTQuMDg0IDc5LjU4OTNIMTI5LjY4OEMxMzQuOTM5IDc5LjU4OTMgMTM0LjIwNSA3Ni40NjE3IDEzNy43OTYgNzYuNDYxOUMxNDcuNTk0IDc2LjQ2MjQgMTYwLjk1OSA3Ni40NjIxIDE2Ni45MTUgNzYuNDYyQzE2OC42MjIgNzYuNDYyIDE2OS45OTkgNzcuODQ1IDE2OS45OTkgNzkuNTUxWiIgZmlsbD0iIzAwMDBGRiIvPgo8L3N2Zz4=",
   pdf: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNGNTBCMUUiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTQwLjE0IDcxLjYwMjNDMTQxLjMyOCA3MS42MDA3IDE0Mi4zNzkgNzEuNTk5MyAxNDMuMzY5IDcxLjk1MDdDMTQzLjU3MyA3Mi4wMjMxIDE0My43NzQgNzIuMTA2NCAxNDMuOTY5IDcyLjIwMDNDMTQ0LjkxNiA3Mi42NTU4IDE0NS42NTkgNzMuNDAzOSAxNDYuNDk3IDc0LjI0OUwxNTYuNDYxIDg0LjI2NDlDMTU3LjQzNSA4NS4yNDA3IDE1OC4yOTkgODYuMTA2NyAxNTguNzY2IDg3LjIzOTVDMTU5LjIzMyA4OC4zNzIzIDE1OS4yMzEgODkuNTk4OCAxNTkuMjI5IDkwLjk4MVY5MS4zOTM5QzE1OS4yMjkgOTQuMzQwMSAxNTkuMjI5IDk1LjgxMzMgMTU4LjMxMyA5Ni43Mjg1QzE1Ny4zOTggOTcuNjQzNyAxNTUuOTI1IDk3LjY0MzcgMTUyLjk3OSA5Ny42NDM3SDEyOS4wMjFDMTI2LjA3NCA5Ny42NDM3IDEyNC42MDEgOTcuNjQzNyAxMjMuNjg2IDk2LjcyODVDMTIyLjc3MSA5NS44MTMxIDEyMi43NzEgOTQuMzM5OSAxMjIuNzcxIDkxLjM5MzdWODguNjkwOEMxMjIuNzcxIDg1LjQ5NTcgMTIyLjc3MSA4Mi45MTk2IDEyMy4wMDkgODAuODY5OUMxMjMuMjU1IDc4Ljc0OTIgMTIzLjc3OSA3Ni45MzIgMTI1LjAxNCA3NS4zOTI4QzEyNS40NjcgNzQuODI3NyAxMjUuOTc5IDc0LjMxMzEgMTI2LjU0MSA3My44NTc1QzEyOC4wNzMgNzIuNjE2NCAxMjkuODggNzIuMDg5MyAxMzEuOTkgNzEuODQxN0MxMzQuMDI5IDcxLjYwMjQgMTM2Ljk2MiA3MS42MDIyIDE0MC4xNCA3MS42MDIzWk0xNTUuMDI0IDg4Ljc5NzdDMTU0LjkwNSA4OC41MTA1IDE1NC42ODYgODguMjM4OSAxNTMuMzk4IDg2Ljk0NDZMMTQzLjgwNSA3Ny4zMDExQzE0Mi42OTQgNzYuMTg1IDE0Mi40IDc1LjkwNzEgMTQyLjAyMSA3NS43OTMxVjc1LjgxMDZDMTQyLjAyMSA3OC42NDc4IDE0Mi4wMjEgNzkuOTk3MiAxNDIuMjYzIDgxLjc5OTdDMTQyLjUxNiA4My42NzQ5IDE0My4wNTUgODUuMjUzOCAxNDQuMzA5IDg2LjUwNzhDMTQ1LjU2MyA4Ny43NjE4IDE0Ny4xNDIgODguMzAxMiAxNDkuMDE3IDg4LjU1MzNDMTUwLjgyMyA4OC43OTYxIDE1Mi4xNzUgODguNzk3NyAxNTUuMDI0IDg4Ljc5NzdaTTEyNC44NTQgMTAwLjc3M0MxMjMuOTkxIDEwMC43NzMgMTIzLjI5MiAxMDEuNDcyIDEyMy4yOTIgMTAyLjMzNVYxMTQuODM1QzEyMy4yOTIgMTE1LjY5OCAxMjMuOTkxIDExNi4zOTggMTI0Ljg1NCAxMTYuMzk4QzEyNS43MTcgMTE2LjM5OCAxMjYuNDE3IDExNS42OTggMTI2LjQxNyAxMTQuODM1VjExMS4xOUgxMjguNUMxMzEuMzc2IDExMS4xOSAxMzMuNzA4IDEwOC44NTggMTMzLjcwOCAxMDUuOTgxQzEzMy43MDggMTAzLjEwNSAxMzEuMzc2IDEwMC43NzMgMTI4LjUgMTAwLjc3M0gxMjQuODU0Wk0xMjguNSAxMDguMDY1SDEyNi40MTdWMTAzLjg5OEgxMjguNUMxMjkuNjUxIDEwMy44OTggMTMwLjU4MyAxMDQuODMxIDEzMC41ODMgMTA1Ljk4MUMxMzAuNTgzIDEwNy4xMzIgMTI5LjY1MSAxMDguMDY1IDEyOC41IDEwOC4wNjVaTTEzNy4zNTQgMTAwLjc3M0MxMzYuNDkxIDEwMC43NzMgMTM1Ljc5MiAxMDEuNDcyIDEzNS43OTIgMTAyLjMzNVYxMTQuODM1QzEzNS43OTIgMTE1LjY5OCAxMzYuNDkxIDExNi4zOTggMTM3LjM1NCAxMTYuMzk4SDE0MC40NzlDMTQzLjY0MyAxMTYuMzk4IDE0Ni4yMDggMTEzLjgzMyAxNDYuMjA4IDExMC42NjlWMTA2LjUwMkMxNDYuMjA4IDEwMy4zMzggMTQzLjY0MyAxMDAuNzczIDE0MC40NzkgMTAwLjc3M0gxMzcuMzU0Wk0xMzguOTE3IDExMy4yNzNWMTAzLjg5OEgxNDAuNDc5QzE0MS45MTcgMTAzLjg5OCAxNDMuMDgzIDEwNS4wNjQgMTQzLjA4MyAxMDYuNTAyVjExMC42NjlDMTQzLjA4MyAxMTIuMTA3IDE0MS45MTcgMTEzLjI3MyAxNDAuNDc5IDExMy4yNzNIMTM4LjkxN1pNMTUxLjkzNyAxMDAuNzczQzE0OS45MjQgMTAwLjc3MyAxNDguMjkyIDEwMi40MDUgMTQ4LjI5MiAxMDQuNDE5VjExNC44MzVDMTQ4LjI5MiAxMTUuNjk4IDE0OC45OTEgMTE2LjM5OCAxNDkuODU0IDExNi4zOThDMTUwLjcxNyAxMTYuMzk4IDE1MS40MTcgMTE1LjY5OCAxNTEuNDE3IDExNC44MzVWMTEwLjE0OEgxNTYuMTA0QzE1Ni45NjcgMTEwLjE0OCAxNTcuNjY3IDEwOS40NDggMTU3LjY2NyAxMDguNTg1QzE1Ny42NjcgMTA3LjcyMiAxNTYuOTY3IDEwNy4wMjMgMTU2LjEwNCAxMDcuMDIzSDE1MS40MTdWMTA0LjQxOUMxNTEuNDE3IDEwNC4xMzEgMTUxLjY1IDEwMy44OTggMTUxLjkzNyAxMDMuODk4SDE1Ny4xNDZDMTU4LjAwOSAxMDMuODk4IDE1OC43MDggMTAzLjE5OCAxNTguNzA4IDEwMi4zMzVDMTU4LjcwOCAxMDEuNDcyIDE1OC4wMDkgMTAwLjc3MyAxNTcuMTQ2IDEwMC43NzNIMTUxLjkzN1oiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=",
   doc: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiMyMTcyRjMiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTI1LjI1NSAxMDAuNzcxQzEyOS40NTUgMTAwLjc3MSAxMzIuNyAxMDQuMzU5IDEzMi43IDEwOC41ODNDMTMyLjcgMTEyLjgwNyAxMjkuNDU1IDExNi4zOTYgMTI1LjI1NSAxMTYuMzk2QzEyNS4yMzggMTE2LjM5NiAxMjUuMjIxIDExNi4zOTYgMTI1LjIwNCAxMTYuMzk2QzEyNC44ODMgMTE2LjM5NiAxMjQuNTQxIDExNi4zOTYgMTI0LjI0NyAxMTYuMzY4QzEyMy45MTIgMTE2LjMzNSAxMjMuNDg2IDExNi4yNTYgMTIzLjA2NiAxMTUuOTk4QzEyMi4yNDYgMTE1LjQ5NSAxMjEuOTI2IDExNC43MjkgMTIxLjgwOSAxMTQuMTE1QzEyMS43MjEgMTEzLjY2IDEyMS43MjcgMTEzLjE1NyAxMjEuNzMxIDExMi44NzFDMTIxLjczMSAxMTIuODI1IDEyMS43MzIgMTEyLjc4NCAxMjEuNzMyIDExMi43NVYxMDQuNDE3QzEyMS43MzIgMTA0LjM4MyAxMjEuNzMxIDEwNC4zNDIgMTIxLjczMSAxMDQuMjk1QzEyMS43MjcgMTA0LjAwOSAxMjEuNzIxIDEwMy41MDcgMTIxLjgwOSAxMDMuMDUxQzEyMS45MjYgMTAyLjQzNyAxMjIuMjQ2IDEwMS42NzIgMTIzLjA2NiAxMDEuMTY5QzEyMy40ODYgMTAwLjkxMSAxMjMuOTEyIDEwMC44MzEgMTI0LjI0NyAxMDAuNzk5QzEyNC41NDEgMTAwLjc3MSAxMjQuOTM0IDEwMC43NzEgMTI1LjI1NSAxMDAuNzcxWk0xMjQuODU3IDEwMy44OTdDMTI0Ljg1NyAxMDMuODk3IDEyNS4wOTYgMTAzLjg5NiAxMjUuMjU1IDEwMy44OTZDMTI3LjU1MyAxMDMuODk2IDEyOS41NzUgMTA1LjkwNCAxMjkuNTc1IDEwOC41ODNDMTI5LjU3NSAxMTEuMjYzIDEyNy41NTMgMTEzLjI3MSAxMjUuMjU1IDExMy4yNzFDMTI1LjA5NiAxMTMuMjcxIDEyNC44NTcgMTEzLjI2OSAxMjQuODU3IDExMy4yNjlWMTAzLjg5N1oiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGxSdWxlPSJldmVub2RkIiBjbGlwUnVsZT0iZXZlbm9kZCIgZD0iTTE0MC45OTkgMTAwLjc3MUMxNDEuODQxIDEwMC43NzEgMTQyLjcyNiAxMDAuNzcxIDE0My4zNzEgMTAwLjg2M0MxNDQuMDk3IDEwMC45NjYgMTQ0Ljg2MyAxMDEuMjEzIDE0NS40ODQgMTAxLjg3M0MxNDYuMDkzIDEwMi41MTkgMTQ2LjMwNyAxMDMuMjk0IDE0Ni4zOTkgMTA0LjAxOEMxNDYuNDgzIDEwNC42ODQgMTQ2LjQ4MyAxMDUuNTA1IDE0Ni40ODMgMTA2LjQxMVYxMTAuNzU2QzE0Ni40ODMgMTExLjY2MSAxNDYuNDgzIDExMi40ODIgMTQ2LjM5OSAxMTMuMTQ5QzE0Ni4zMDcgMTEzLjg3MyAxNDYuMDkzIDExNC42NDcgMTQ1LjQ4NCAxMTUuMjk0QzE0NC44NjMgMTE1Ljk1NCAxNDQuMDk3IDExNi4yIDE0My4zNzEgMTE2LjMwNEMxNDIuNzI2IDExNi4zOTYgMTQxLjg0MSAxMTYuMzk2IDE0MC45OTkgMTE2LjM5NkMxNDAuMTU3IDExNi4zOTYgMTM5LjI3MiAxMTYuMzk2IDEzOC42MjcgMTE2LjMwNEMxMzcuOTAxIDExNi4yIDEzNy4xMzUgMTE1Ljk1NCAxMzYuNTE0IDExNS4yOTRDMTM1LjkwNSAxMTQuNjQ3IDEzNS42OTEgMTEzLjg3MyAxMzUuNTk5IDExMy4xNDlDMTM1LjUxNSAxMTIuNDgyIDEzNS41MTUgMTExLjY2MSAxMzUuNTE1IDExMC43NTZDMTM1LjUxNSAxMTAuNzI2IDEzNS41MTUgMTEwLjY5NiAxMzUuNTE1IDExMC42NjdWMTA2LjVDMTM1LjUxNSAxMDYuNDcgMTM1LjUxNSAxMDYuNDQgMTM1LjUxNSAxMDYuNDExQzEzNS41MTUgMTA1LjUwNSAxMzUuNTE1IDEwNC42ODQgMTM1LjU5OSAxMDQuMDE4QzEzNS42OTEgMTAzLjI5NCAxMzUuOTA1IDEwMi41MTkgMTM2LjUxNCAxMDEuODczQzEzNy4xMzUgMTAxLjIxMyAxMzcuOTAxIDEwMC45NjYgMTM4LjYyNyAxMDAuODYzQzEzOS4yNzIgMTAwLjc3MSAxNDAuMTU3IDEwMC43NzEgMTQwLjk5OSAxMDAuNzcxWk0xMzguNzg3IDEwNC4wMjFDMTM4Ljc4NSAxMDQuMDI2IDEzOC43ODEgMTA0LjAzNCAxMzguNzc3IDEwNC4wNDVDMTM4Ljc1NyAxMDQuMDk2IDEzOC43MjUgMTA0LjIwNCAxMzguNjk5IDEwNC40MUMxMzguNjQzIDEwNC44NTYgMTM4LjY0IDEwNS40NzYgMTM4LjY0IDEwNi41VjExMC42NjdDMTM4LjY0IDExMS42OSAxMzguNjQzIDExMi4zMSAxMzguNjk5IDExMi43NTZDMTM4LjcyNSAxMTIuOTYzIDEzOC43NTcgMTEzLjA3IDEzOC43NzcgMTEzLjEyMkMxMzguNzgxIDExMy4xMzMgMTM4Ljc4NSAxMTMuMTQxIDEzOC43ODcgMTEzLjE0NkMxMzguODE3IDExMy4xNTkgMTM4Ljg5OCAxMTMuMTg2IDEzOS4wNjggMTEzLjIxQzEzOS40NjYgMTEzLjI2NyAxNDAuMDI4IDExMy4yNzEgMTQwLjk5OSAxMTMuMjcxQzE0MS45NyAxMTMuMjcxIDE0Mi41MzIgMTEzLjI2NyAxNDIuOTMgMTEzLjIxQzE0My4xIDExMy4xODYgMTQzLjE4MSAxMTMuMTU5IDE0My4yMTEgMTEzLjE0NkMxNDMuMjEzIDExMy4xNDEgMTQzLjIxNyAxMTMuMTMzIDE0My4yMjEgMTEzLjEyMkMxNDMuMjQxIDExMy4wNyAxNDMuMjcyIDExMi45NjMgMTQzLjI5OSAxMTIuNzU2QzE0My4zNTUgMTEyLjMxIDE0My4zNTggMTExLjY5IDE0My4zNTggMTEwLjY2N1YxMDYuNUMxNDMuMzU4IDEwNS40NzYgMTQzLjM1NSAxMDQuODU2IDE0My4yOTkgMTA0LjQxQzE0My4yNzIgMTA0LjIwNCAxNDMuMjQxIDEwNC4wOTYgMTQzLjIyMSAxMDQuMDQ1QzE0My4yMTcgMTA0LjAzNCAxNDMuMjEzIDEwNC4wMjYgMTQzLjIxMSAxMDQuMDIxQzE0My4xODEgMTA0LjAwOCAxNDMuMSAxMDMuOTgxIDE0Mi45MyAxMDMuOTU2QzE0Mi41MzIgMTAzLjkgMTQxLjk3IDEwMy44OTYgMTQwLjk5OSAxMDMuODk2QzE0MC4wMjggMTAzLjg5NiAxMzkuNDY2IDEwMy45IDEzOS4wNjggMTAzLjk1NkMxMzguODk4IDEwMy45ODEgMTM4LjgxNyAxMDQuMDA4IDEzOC43ODcgMTA0LjAyMVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGxSdWxlPSJldmVub2RkIiBjbGlwUnVsZT0iZXZlbm9kZCIgZD0iTTE1MC40MDEgMTAyLjEyOUMxNTEuNDcyIDEwMC45MzIgMTUzLjE0MyAxMDAuNzcxIDE1NC43OTUgMTAwLjc3MUMxNTUuMzM0IDEwMC43NzEgMTU1LjkxOCAxMDAuNzczIDE1Ni40NjQgMTAwLjgyNkMxNTcuMDA5IDEwMC44NzkgMTU3LjYyMSAxMDAuOTg5IDE1OC4xOTYgMTAxLjI2QzE1OC44MDUgMTAxLjU0NyAxNTkuMzQyIDEwMS45OTggMTU5LjcxNyAxMDIuNjYxQzE2MC4wNzYgMTAzLjI5NiAxNjAuMjMzIDEwNC4wMjggMTYwLjI2NyAxMDQuODA2QzE2MC4zMDUgMTA1LjY2OCAxNTkuNjM3IDEwNi4zOTcgMTU4Ljc3NSAxMDYuNDM1QzE1Ny45MTMgMTA2LjQ3MyAxNTcuMTgzIDEwNS44MDUgMTU3LjE0NSAxMDQuOTQyQzE1Ny4xMjUgMTA0LjQ4IDE1Ny4wNCAxMDQuMjc1IDE1Ni45OTggMTA0LjIwMUMxNTYuOTcxIDEwNC4xNTQgMTU2Ljk0NyAxMDQuMTI2IDE1Ni44NjUgMTA0LjA4N0MxNTYuNzUgMTA0LjAzMyAxNTYuNTQxIDEwMy45NzMgMTU2LjE2NCAxMDMuOTM3QzE1NS43ODkgMTAzLjkwMSAxNTUuMzUgMTAzLjg5NiAxNTQuNzk1IDEwMy44OTZDMTUzLjA3NCAxMDMuODk2IDE1Mi43NzkgMTA0LjE1NyAxNTIuNzI4IDEwNC4yMTRDMTUyLjcwMiAxMDQuMjQzIDE1Mi42MTIgMTA0LjM1OSAxNTIuNTM4IDEwNC43NDNDMTUyLjQ2MSAxMDUuMTM5IDE1Mi40MjYgMTA1LjY5MyAxNTIuNDI2IDEwNi41VjExMC42NjdDMTUyLjQyNiAxMTEuNDczIDE1Mi40NjEgMTEyLjAyOCAxNTIuNTM4IDExMi40MjNDMTUyLjYxMiAxMTIuODA4IDE1Mi43MDIgMTEyLjkyNCAxNTIuNzI4IDExMi45NTNDMTUyLjc3OSAxMTMuMDEgMTUzLjA3NCAxMTMuMjcxIDE1NC43OTUgMTEzLjI3MUMxNTUuMzUgMTEzLjI3MSAxNTUuNzg5IDExMy4yNjYgMTU2LjE2NCAxMTMuMjNDMTU2LjU0MSAxMTMuMTkzIDE1Ni43NSAxMTMuMTMzIDE1Ni44NjUgMTEzLjA3OUMxNTYuOTQ3IDExMy4wNDEgMTU2Ljk3MSAxMTMuMDEyIDE1Ni45OTggMTEyLjk2NkMxNTcuMDQgMTEyLjg5MiAxNTcuMTI1IDExMi42ODYgMTU3LjE0NSAxMTIuMjI0QzE1Ny4xODMgMTExLjM2MiAxNTcuOTEzIDExMC42OTQgMTU4Ljc3NSAxMTAuNzMxQzE1OS42MzcgMTEwLjc2OSAxNjAuMzA1IDExMS40OTkgMTYwLjI2NyAxMTIuMzYxQzE2MC4yMzMgMTEzLjEzOSAxNjAuMDc2IDExMy44NzEgMTU5LjcxNyAxMTQuNTA2QzE1OS4zNDIgMTE1LjE2OCAxNTguODA1IDExNS42MiAxNTguMTk2IDExNS45MDZDMTU3LjYyMSAxMTYuMTc4IDE1Ny4wMDkgMTE2LjI4OCAxNTYuNDY0IDExNi4zNEMxNTUuOTE4IDExNi4zOTMgMTU1LjMzNCAxMTYuMzk2IDE1NC43OTUgMTE2LjM5NkMxNTMuMTQzIDExNi4zOTYgMTUxLjQ3MiAxMTYuMjM0IDE1MC40MDEgMTE1LjAzOEMxNDkuODY1IDExNC40NCAxNDkuNjA1IDExMy43MjIgMTQ5LjQ2OSAxMTMuMDE0QzE0OS4zMzUgMTEyLjMxNyAxNDkuMzAxIDExMS41MjEgMTQ5LjMwMSAxMTAuNjY3VjEwNi41QzE0OS4zMDEgMTA1LjY0NiAxNDkuMzM1IDEwNC44NSAxNDkuNDY5IDEwNC4xNTNDMTQ5LjYwNSAxMDMuNDQ1IDE0OS44NjUgMTAyLjcyNiAxNTAuNDAxIDEwMi4xMjlaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNDMuMzY5IDcxLjk1MzFDMTQyLjM3OSA3MS42MDE3IDE0MS4zMjggNzEuNjAzMSAxNDAuMTQgNzEuNjA0N0MxMzYuOTYyIDcxLjYwNDcgMTM0LjAyOSA3MS42MDQ4IDEzMS45OSA3MS44NDQyQzEyOS44OCA3Mi4wOTE4IDEyOC4wNzMgNzIuNjE4OSAxMjYuNTQxIDczLjg2QzEyNS45NzkgNzQuMzE1NSAxMjUuNDY3IDc0LjgzMDIgMTI1LjAxNCA3NS4zOTUyQzEyMy43NzkgNzYuOTM0NSAxMjMuMjU1IDc4Ljc1MTYgMTIzLjAwOSA4MC44NzIzQzEyMi43NzEgODIuOTIyIDEyMi43NzEgODUuNDk4MSAxMjIuNzcxIDg4LjY5MzJWOTEuMzk2MUMxMjIuNzcxIDk0LjM0MjQgMTIyLjc3MSA5NS44MTU1IDEyMy42ODYgOTYuNzMwOUMxMjQuNjAxIDk3LjY0NjEgMTI2LjA3NCA5Ny42NDYxIDEyOS4wMjEgOTcuNjQ2MUgxNTIuOTc5QzE1NS45MjUgOTcuNjQ2MSAxNTcuMzk4IDk3LjY0NjEgMTU4LjMxMyA5Ni43MzA5QzE1OS4yMjkgOTUuODE1NyAxNTkuMjI5IDk0LjM0MjYgMTU5LjIyOSA5MS4zOTYzVjkwLjk4MzRDMTU5LjIzMSA4OS42MDEzIDE1OS4yMzMgODguMzc0NyAxNTguNzY2IDg3LjI0MTlDMTU4LjI5OSA4Ni4xMDkxIDE1Ny40MzUgODUuMjQzMSAxNTYuNDYxIDg0LjI2NzRMMTQ2LjQ5NyA3NC4yNTE1QzE0NS42NTkgNzMuNDA2MyAxNDQuOTE2IDcyLjY1ODMgMTQzLjk2OSA3Mi4yMDI3QzE0My43NzQgNzIuMTA4OCAxNDMuNTczIDcyLjAyNTUgMTQzLjM2OSA3MS45NTMxWk0xNTMuMzk4IDg2Ljk0N0MxNTQuNjg2IDg4LjI0MTQgMTU0LjkwNSA4OC41MTMgMTU1LjAyNCA4OC44MDAxQzE1Mi4xNzUgODguODAwMiAxNTAuODIzIDg4Ljc5ODYgMTQ5LjAxNyA4OC41NTU3QzE0Ny4xNDIgODguMzAzNiAxNDUuNTYzIDg3Ljc2NDIgMTQ0LjMwOSA4Ni41MTAyQzE0My4wNTUgODUuMjU2MiAxNDIuNTE2IDgzLjY3NzMgMTQyLjI2MyA4MS44MDIxQzE0Mi4wMjEgNzkuOTk5NiAxNDIuMDIxIDc4LjY1MDIgMTQyLjAyMSA3NS44MTNWNzUuNzk1NkMxNDIuNCA3NS45MDk1IDE0Mi42OTQgNzYuMTg3NSAxNDMuODA1IDc3LjMwMzZMMTUzLjM5OCA4Ni45NDdaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
   ppt: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjE4OCIgdmlld0JveD0iMCAwIDI4MiAxODgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDIzLjY3MzhDMCAxMi41MTM5IDAgNi45MzM4OSAzLjQ2Njk1IDMuNDY2OTVDNi45MzM4OSAwIDEyLjUxMzkgMCAyMy42NzM4IDBIMjU3LjQ1MkMyNjguNjEyIDAgMjc0LjE5MiAwIDI3Ny42NTkgMy40NjY5NUMyODEuMTI2IDYuOTMzODkgMjgxLjEyNiAxMi41MTM5IDI4MS4xMjYgMjMuNjczOFYxODcuNDE3SDBWMjMuNjczOFoiIGZpbGw9IiNGRjQ4MDAiLz4KPHBhdGggZmlsbFJ1bGU9ImV2ZW5vZGQiIGNsaXBSdWxlPSJldmVub2RkIiBkPSJNMTQwLjE0IDcxLjYwNDVDMTQxLjMyOCA3MS42MDI5IDE0Mi4zNzkgNzEuNjAxNSAxNDMuMzY5IDcxLjk1MjlDMTQzLjU3MyA3Mi4wMjUzIDE0My43NzQgNzIuMTA4NiAxNDMuOTY5IDcyLjIwMjVDMTQ0LjkxNiA3Mi42NTggMTQ1LjY1OSA3My40MDYxIDE0Ni40OTcgNzQuMjUxMkwxNTYuNDYxIDg0LjI2NzFDMTU3LjQzNSA4NS4yNDI5IDE1OC4yOTkgODYuMTA4OCAxNTguNzY2IDg3LjI0MTdDMTU5LjIzMyA4OC4zNzQ1IDE1OS4yMzEgODkuNjAxIDE1OS4yMjkgOTAuOTgzVjkxLjM5NjFDMTU5LjIyOSA5NC4zNDI0IDE1OS4yMjkgOTUuODE1NSAxNTguMzEzIDk2LjczMDdDMTU3LjM5OCA5Ny42NDU5IDE1NS45MjUgOTcuNjQ1OSAxNTIuOTc5IDk3LjY0NTlIMTI5LjAyMUMxMjYuMDc0IDk3LjY0NTkgMTI0LjYwMSA5Ny42NDU5IDEyMy42ODYgOTYuNzMwNUMxMjIuNzcxIDk1LjgxNTMgMTIyLjc3MSA5NC4zNDIyIDEyMi43NzEgOTEuMzk1OVY4OC42OTNDMTIyLjc3MSA4NS40OTc5IDEyMi43NzEgODIuOTIxNyAxMjMuMDA5IDgwLjg3MjFDMTIzLjI1NSA3OC43NTEzIDEyMy43NzkgNzYuOTM0MiAxMjUuMDE0IDc1LjM5NUMxMjUuNDY3IDc0LjgyOTkgMTI1Ljk3OSA3NC4zMTUyIDEyNi41NDEgNzMuODU5N0MxMjguMDczIDcyLjYxODYgMTI5Ljg4IDcyLjA5MTUgMTMxLjk5IDcxLjg0MzlDMTM0LjAyOSA3MS42MDQ2IDEzNi45NjIgNzEuNjA0NCAxNDAuMTQgNzEuNjA0NVpNMTU1LjAyNCA4OC43OTk5QzE1NC45MDUgODguNTEyOCAxNTQuNjg2IDg4LjI0MTEgMTUzLjM5OCA4Ni45NDY4TDE0My44MDUgNzcuMzAzM0MxNDIuNjk0IDc2LjE4NzIgMTQyLjQgNzUuOTA5MyAxNDIuMDIxIDc1Ljc5NTNWNzUuODEyOEMxNDIuMDIxIDc4LjY1IDE0Mi4wMjEgNzkuOTk5NCAxNDIuMjYzIDgxLjgwMTlDMTQyLjUxNiA4My42NzcxIDE0My4wNTUgODUuMjU2IDE0NC4zMDkgODYuNTFDMTQ1LjU2MyA4Ny43NjQgMTQ3LjE0MiA4OC4zMDM0IDE0OS4wMTcgODguNTU1NUMxNTAuODIzIDg4Ljc5ODMgMTUyLjE3NSA4OC43OTk5IDE1NS4wMjQgODguNzk5OVpNMTI0LjMzMyAxMDAuNzcxQzEyMy40NyAxMDAuNzcxIDEyMi43NzEgMTAxLjQ3MSAxMjIuNzcxIDEwMi4zMzNWMTE0LjgzM0MxMjIuNzcxIDExNS42OTYgMTIzLjQ3IDExNi4zOTYgMTI0LjMzMyAxMTYuMzk2QzEyNS4xOTYgMTE2LjM5NiAxMjUuODk2IDExNS42OTYgMTI1Ljg5NiAxMTQuODMzVjExMC4xNDZIMTI4LjVDMTMxLjA4OSAxMTAuMTQ2IDEzMy4xODcgMTA4LjA0NyAxMzMuMTg3IDEwNS40NThDMTMzLjE4NyAxMDIuODcgMTMxLjA4OSAxMDAuNzcxIDEyOC41IDEwMC43NzFIMTI0LjMzM1pNMTI4LjUgMTA3LjAyMUgxMjUuODk2VjEwMy44OTZIMTI4LjVDMTI5LjM2MyAxMDMuODk2IDEzMC4wNjIgMTA0LjU5NiAxMzAuMDYyIDEwNS40NThDMTMwLjA2MiAxMDYuMzIxIDEyOS4zNjMgMTA3LjAyMSAxMjguNSAxMDcuMDIxWk0xMzYuODMzIDEwMC43NzFDMTM1Ljk3IDEwMC43NzEgMTM1LjI3MSAxMDEuNDcxIDEzNS4yNzEgMTAyLjMzM1YxMTQuODMzQzEzNS4yNzEgMTE1LjY5NiAxMzUuOTcgMTE2LjM5NiAxMzYuODMzIDExNi4zOTZDMTM3LjY5NiAxMTYuMzk2IDEzOC4zOTYgMTE1LjY5NiAxMzguMzk2IDExNC44MzNWMTEwLjE0NkgxNDFDMTQzLjU4OSAxMTAuMTQ2IDE0NS42ODcgMTA4LjA0NyAxNDUuNjg3IDEwNS40NThDMTQ1LjY4NyAxMDIuODcgMTQzLjU4OSAxMDAuNzcxIDE0MSAxMDAuNzcxSDEzNi44MzNaTTE0MSAxMDcuMDIxSDEzOC4zOTZWMTAzLjg5NkgxNDFDMTQxLjg2MyAxMDMuODk2IDE0Mi41NjIgMTA0LjU5NiAxNDIuNTYyIDEwNS40NThDMTQyLjU2MiAxMDYuMzIxIDE0MS44NjMgMTA3LjAyMSAxNDEgMTA3LjAyMVpNMTQ5LjMzMyAxMDAuNzcxQzE0OC40NyAxMDAuNzcxIDE0Ny43NzEgMTAxLjQ3MSAxNDcuNzcxIDEwMi4zMzNDMTQ3Ljc3MSAxMDMuMTk2IDE0OC40NyAxMDMuODk2IDE0OS4zMzMgMTAzLjg5NkgxNTEuOTM3VjExNC44MzNDMTUxLjkzNyAxMTUuNjk2IDE1Mi42MzcgMTE2LjM5NiAxNTMuNSAxMTYuMzk2QzE1NC4zNjMgMTE2LjM5NiAxNTUuMDYyIDExNS42OTYgMTU1LjA2MiAxMTQuODMzVjEwMy44OTZIMTU3LjY2N0MxNTguNTI5IDEwMy44OTYgMTU5LjIyOSAxMDMuMTk2IDE1OS4yMjkgMTAyLjMzM0MxNTkuMjI5IDEwMS40NzEgMTU4LjUyOSAxMDAuNzcxIDE1Ny42NjcgMTAwLjc3MUgxNDkuMzMzWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==",
@@ -7897,26 +7905,38 @@ var CustomTabbar = ({
     "div",
     {
       className: cn(
-        "w-full bg-card border-y",
-        sticky && "sticky top-0 z-10",
+        "w-full bg-white dark:bg-zinc-950 border-y border-gray-200 dark:border-zinc-800 transition-all duration-200",
+        sticky && "sticky top-0 z-30",
         className
       ),
-      children: /* @__PURE__ */ jsx55("div", { className: "flex items-start px-4 pt-3 sm:px-6 gap-4 sm:gap-6 md:gap-8", children: tabs.map((tab) => /* @__PURE__ */ jsxs39(
-        "button",
-        {
-          onClick: () => onTabChange(tab.id),
-          className: cn(
-            "text-xs sm:text-sm font-normal flex items-center gap-2 sm:gap-3 pb-2 sm:pb-3  transition-all duration-200 relative",
-            "hover:text-foreground",
-            activeTab === tab.id ? "border-b border-foreground text-foreground" : "border-b border-transparent text-muted-foreground"
-          ),
-          children: [
-            /* @__PURE__ */ jsx55("span", { className: "flex-shrink-0", children: tab.icon }),
-            /* @__PURE__ */ jsx55("span", { className: "whitespace-nowrap", children: tab.label })
-          ]
-        },
-        tab.id
-      )) })
+      children: /* @__PURE__ */ jsx55("div", { className: "flex items-center px-4 sm:px-6 lg:px-6 gap-4 sm:gap-6 md:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]", children: tabs.map((tab) => {
+        const active = activeTab === tab.id;
+        return /* @__PURE__ */ jsxs39(
+          "button",
+          {
+            type: "button",
+            onClick: () => onTabChange(tab.id),
+            className: cn(
+              "font-normal flex items-center gap-2 pb-3 transition-all duration-200 relative whitespace-nowrap pt-3 border-b-2 select-none cursor-pointer text-xs sm:text-sm",
+              active ? "border-[#212121] dark:border-white text-[#212121] dark:text-white font-normal" : "border-transparent text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200"
+            ),
+            children: [
+              /* @__PURE__ */ jsx55(
+                "span",
+                {
+                  className: cn(
+                    "flex-shrink-0 transition-colors",
+                    active ? "text-[#212121] dark:text-white" : "text-gray-400 dark:text-zinc-500"
+                  ),
+                  children: tab.icon
+                }
+              ),
+              /* @__PURE__ */ jsx55("span", { children: tab.label })
+            ]
+          },
+          tab.id
+        );
+      }) })
     }
   );
 };
@@ -8140,7 +8160,7 @@ var TooltipContent = React26.forwardRef(({ className, sideOffset = 4, ...props }
     ref,
     sideOffset,
     className: cn(
-      "z-[9999] overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "z-[9999] overflow-hidden rounded-md bg-[#0000FF] dark:bg-[#0000FF] px-3 py-1.5 text-xs font-medium text-white dark:text-white shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     ),
     ...props
@@ -8269,7 +8289,7 @@ var AssetsHeader = ({
     }
   };
   return /* @__PURE__ */ jsx59(TooltipProvider, { children: /* @__PURE__ */ jsxs42("div", { className: "w-full flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxs42("div", { className: "w-full flex items-center mt-6 gap-4", children: [
+    /* @__PURE__ */ jsxs42("div", { className: "w-full flex items-center mt-6 gap-3", children: [
       /* @__PURE__ */ jsxs42("div", { className: "relative flex-grow", children: [
         /* @__PURE__ */ jsx59(
           Input2,
@@ -8277,25 +8297,24 @@ var AssetsHeader = ({
             type: "search",
             placeholder: t("assets.assetsHeader.searchPlaceholder"),
             onChange: onSearch,
-            className: "w-full px-6 border-input rounded-[12px] shadow-none"
+            className: "w-full px-5 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20"
           }
         ),
-        /* @__PURE__ */ jsx59(SearchIcon2, { className: "w-4 h-4 absolute top-1/2 right-6 rtl:right-auto rtl:left-6 -translate-y-1/2 text-muted-foreground" })
+        /* @__PURE__ */ jsx59(SearchIcon2, { className: "w-4 h-4 absolute top-1/2 right-4 rtl:right-auto rtl:left-4 -translate-y-1/2 text-muted-foreground" })
       ] }),
       showCreateLink ? /* @__PURE__ */ jsxs42(Tooltip, { children: [
         /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs42(
           Button,
           {
             "aria-label": t("assets.assetsHeader.createLink"),
-            size: "lg",
             onClick: onCreateLinkClick,
-            className: "py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden",
+            className: "h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
             children: [
               /* @__PURE__ */ jsx59(
                 HugeiconsIcon7,
                 {
                   icon: PlusSignSquareIcon,
-                  className: "w-4 h-4 stroke-[1.5] mx-auto text-white"
+                  className: "w-4 h-4 stroke-[2] mx-auto text-white"
                 }
               ),
               /* @__PURE__ */ jsx59("span", { className: "hidden md:inline", children: t("assets.assetsHeader.createLink") })
@@ -8310,14 +8329,13 @@ var AssetsHeader = ({
             {
               "aria-label": t("assets.assetsHeader.upload"),
               onClick: onUploadClick,
-              size: "lg",
-              className: "py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden",
+              className: "h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700  active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
               children: [
                 /* @__PURE__ */ jsx59(
                   HugeiconsIcon7,
                   {
                     icon: PlusSignSquareIcon,
-                    className: "w-4 h-4 stroke-[1.5] mx-auto text-white"
+                    className: "w-4 h-4 stroke-[2] mx-auto text-white"
                   }
                 ),
                 /* @__PURE__ */ jsx59("span", { className: "hidden md:inline", children: t("assets.assetsHeader.upload") })
@@ -8332,15 +8350,14 @@ var AssetsHeader = ({
             {
               "aria-label": t("assets.assetsHeader.newFolder"),
               variant: "outline",
-              size: "lg",
               onClick: onNewFolderClick,
-              className: "items-center gap-2 py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex hidden",
+              className: "group h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors",
               children: [
                 /* @__PURE__ */ jsx59(
                   HugeiconsIcon7,
                   {
                     icon: FolderAddIcon,
-                    className: "w-4 h-4 stroke-[1.5] mx-auto"
+                    className: "w-4 h-4 stroke-[2] mx-auto text-gray-600 dark:text-zinc-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors"
                   }
                 ),
                 /* @__PURE__ */ jsx59("span", { className: "hidden md:inline", children: t("assets.assetsHeader.newFolder") })
@@ -8353,17 +8370,18 @@ var AssetsHeader = ({
     ] }),
     /* @__PURE__ */ jsxs42("div", { className: "flex items-center gap-3", children: [
       features.folders && path.length > 1 && /* @__PURE__ */ jsx59(AssetsPath_default, { className: "w-full flex-1 mb-2 py-2 text-xs" }),
-      /* @__PURE__ */ jsxs42("div", { className: "flex gap-0 ml-auto rtl:ml-0 rtl:mr-auto", children: [
+      /* @__PURE__ */ jsxs42("div", { className: "flex items-center p-1 rounded-xl bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ml-auto rtl:ml-0 rtl:mr-auto", children: [
         /* @__PURE__ */ jsxs42(Tooltip, { children: [
           /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
             "button",
             {
+              type: "button",
               onClick: () => onChangeView("grid"),
               className: cn(
-                "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                viewType === "grid" && "text-primary focus:text-primary bg-card shadow-sm"
+                "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                viewType === "grid" ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
-              children: /* @__PURE__ */ jsx59(LayoutDashboard, { className: "w-4 h-4 stroke-[1.5]" })
+              children: /* @__PURE__ */ jsx59(LayoutDashboard, { className: "w-4 h-4 stroke-[1.8]" })
             }
           ) }),
           /* @__PURE__ */ jsx59(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.gridView") })
@@ -8372,12 +8390,13 @@ var AssetsHeader = ({
           /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx59(
             "button",
             {
+              type: "button",
               onClick: () => onChangeView("list"),
               className: cn(
-                "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                viewType === "list" && "text-primary focus:text-primary bg-card shadow-sm"
+                "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                viewType === "list" ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
-              children: /* @__PURE__ */ jsx59(AlignJustify, { className: "w-4 h-4 stroke-[1.5]" })
+              children: /* @__PURE__ */ jsx59(AlignJustify, { className: "w-4 h-4 stroke-[1.8]" })
             }
           ) }),
           /* @__PURE__ */ jsx59(TooltipContent, { side: "bottom", children: t("assets.assetsHeader.listView") })
@@ -8386,21 +8405,19 @@ var AssetsHeader = ({
           /* @__PURE__ */ jsx59(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs42(
             "button",
             {
+              type: "button",
               onClick: () => onEnableCheckbox(!enableCheckbox),
               className: cn(
-                "icon flex items-center gap-1 p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                enableCheckbox && "w-auto gap-1 px-2 text-primary"
+                "flex items-center gap-1.5 p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                enableCheckbox ? "bg-blue-50 dark:bg-blue-950/60 text-[#0000FF] dark:text-blue-400 shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
               children: [
-                enableCheckbox && /* @__PURE__ */ jsx59("p", { className: "text-xs text-primary", children: t("assets.assetsHeader.multiSelect") }),
+                enableCheckbox && /* @__PURE__ */ jsx59("span", { className: "text-xs font-semibold px-0.5", children: t("assets.assetsHeader.multiSelect") }),
                 /* @__PURE__ */ jsx59(
                   HugeiconsIcon7,
                   {
                     icon: CheckmarkSquare02Icon,
-                    className: cn(
-                      "size-4 stroke-primary text-primary",
-                      enableCheckbox && "size-5 fill-primary stroke-primary text-white"
-                    )
+                    className: "w-4 h-4"
                   }
                 )
               ]
@@ -8795,120 +8812,136 @@ var AssetCard = ({
                       /* @__PURE__ */ jsx61(TooltipTrigger, { children: /* @__PURE__ */ jsx61("h2", { className: "text-xs sm:text-sm text-left font-bold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
                       /* @__PURE__ */ jsx61(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
                     ] }),
-                    /* @__PURE__ */ jsxs43("p", { className: "text-[10px] sm:text-[11.2px] text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
+                    /* @__PURE__ */ jsxs43("p", { className: "text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none", children: [
                       data.type === "image" && data.image?.size,
                       data.type === "video" && data.video?.size,
                       data.type === "document" && data.document?.size
                     ] })
                   ] }),
-                  /* @__PURE__ */ jsxs43("div", { className: "relative flex items-center shrink-0 gap-1", children: [
-                    renderActions?.(data),
-                    /* @__PURE__ */ jsxs43(
-                      DropdownMenu,
-                      {
-                        open: showMenu,
-                        onOpenChange: (value) => setShowMenu(value),
-                        children: [
-                          /* @__PURE__ */ jsxs43(Tooltip, { children: [
-                            /* @__PURE__ */ jsx61(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx61(
-                              DropdownMenuTrigger,
-                              {
-                                disabled: allowSelect,
-                                className: "disabled:text-muted-foreground",
-                                asChild: true,
-                                children: /* @__PURE__ */ jsx61("button", { className: "icon ", children: /* @__PURE__ */ jsx61(MoreVertical3, { className: "size-4" }) })
-                              }
-                            ) }),
-                            /* @__PURE__ */ jsx61(TooltipContent, { children: /* @__PURE__ */ jsx61("p", { children: t("assets.assetCard.moreOptions") }) })
-                          ] }),
-                          /* @__PURE__ */ jsxs43(
-                            DropdownMenuContent,
-                            {
-                              align: "end",
-                              className: "rounded-[14px]",
-                              onCloseAutoFocus: (event) => event.preventDefault(),
-                              children: [
-                                data.type !== "link" && /* @__PURE__ */ jsxs43(Fragment8, { children: [
-                                  /* @__PURE__ */ jsxs43(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        setRenamingItemId(data.uuid);
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        RenameIcon,
-                                        t("assets.assetCard.rename")
-                                      ]
-                                    }
-                                  ),
-                                  features.folders && /* @__PURE__ */ jsxs43(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        onMove(data.uuid, "asset");
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        MoveIcon,
-                                        t("assets.assetCard.moveTo")
-                                      ]
-                                    }
-                                  ),
-                                  onDownload && /* @__PURE__ */ jsxs43(
-                                    DropdownMenuItem,
-                                    {
-                                      onClick: (e) => {
-                                        e.stopPropagation();
-                                        onDownload(data);
-                                      },
-                                      className: "flex gap-4 rounded-[10px] px-4",
-                                      children: [
-                                        /* @__PURE__ */ jsx61(Download, { className: "size-4 stroke-[1.5]" }),
-                                        t("assets.assetCard.download")
-                                      ]
-                                    }
-                                  )
-                                ] }),
-                                data.type === "link" && features.links && navigation && /* @__PURE__ */ jsxs43(
-                                  DropdownMenuItem,
+                  /* @__PURE__ */ jsxs43(
+                    "div",
+                    {
+                      className: "relative flex items-center shrink-0 gap-1",
+                      onClick: (e) => e.stopPropagation(),
+                      children: [
+                        renderActions?.(data),
+                        /* @__PURE__ */ jsxs43(
+                          DropdownMenu,
+                          {
+                            open: showMenu,
+                            onOpenChange: (value) => setShowMenu(value),
+                            children: [
+                              /* @__PURE__ */ jsxs43(Tooltip, { children: [
+                                /* @__PURE__ */ jsx61(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx61(
+                                  DropdownMenuTrigger,
                                   {
-                                    onSelect: (e) => {
-                                      e.preventDefault();
-                                      navigation.toLinkEdit(data.link.uuid);
-                                    },
-                                    className: "flex gap-4 rounded-[10px] px-4 cursor-pointer",
-                                    children: [
-                                      RenameIcon,
-                                      t("assets.assetCard.edit")
-                                    ]
+                                    disabled: allowSelect,
+                                    className: "disabled:text-muted-foreground",
+                                    asChild: true,
+                                    children: /* @__PURE__ */ jsx61(
+                                      "button",
+                                      {
+                                        type: "button",
+                                        className: "icon ",
+                                        onClick: (e) => e.stopPropagation(),
+                                        children: /* @__PURE__ */ jsx61(MoreVertical3, { className: "size-4" })
+                                      }
+                                    )
                                   }
-                                ),
-                                /* @__PURE__ */ jsx61(DropdownMenuSeparator, {}),
-                                /* @__PURE__ */ jsxs43(
-                                  DropdownMenuItem,
-                                  {
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      onDelete?.();
-                                    },
-                                    className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600",
-                                    children: [
-                                      /* @__PURE__ */ jsx61(Trash23, {}),
-                                      " ",
-                                      t("assets.assetCard.delete")
-                                    ]
-                                  }
-                                )
-                              ]
-                            }
-                          )
-                        ]
-                      }
-                    )
-                  ] })
+                                ) }),
+                                /* @__PURE__ */ jsx61(TooltipContent, { children: /* @__PURE__ */ jsx61("p", { children: t("assets.assetCard.moreOptions") }) })
+                              ] }),
+                              /* @__PURE__ */ jsxs43(
+                                DropdownMenuContent,
+                                {
+                                  align: "end",
+                                  className: "rounded-[14px]",
+                                  onClick: (e) => e.stopPropagation(),
+                                  onCloseAutoFocus: (event) => event.preventDefault(),
+                                  children: [
+                                    data.type !== "link" && /* @__PURE__ */ jsxs43(Fragment8, { children: [
+                                      /* @__PURE__ */ jsxs43(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            setRenamingItemId(data.uuid);
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            RenameIcon,
+                                            t("assets.assetCard.rename")
+                                          ]
+                                        }
+                                      ),
+                                      features.folders && /* @__PURE__ */ jsxs43(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            onMove(data.uuid, "asset");
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            MoveIcon,
+                                            t("assets.assetCard.moveTo")
+                                          ]
+                                        }
+                                      ),
+                                      onDownload && /* @__PURE__ */ jsxs43(
+                                        DropdownMenuItem,
+                                        {
+                                          onClick: (e) => {
+                                            e.stopPropagation();
+                                            onDownload(data);
+                                          },
+                                          className: "flex gap-4 rounded-[10px] px-4",
+                                          children: [
+                                            /* @__PURE__ */ jsx61(Download, { className: "size-4 stroke-[1.5]" }),
+                                            t("assets.assetCard.download")
+                                          ]
+                                        }
+                                      )
+                                    ] }),
+                                    data.type === "link" && features.links && navigation && /* @__PURE__ */ jsxs43(
+                                      DropdownMenuItem,
+                                      {
+                                        onSelect: (e) => {
+                                          e.preventDefault();
+                                          navigation.toLinkEdit(data.link.uuid);
+                                        },
+                                        className: "flex gap-4 rounded-[10px] px-4 cursor-pointer",
+                                        children: [
+                                          RenameIcon,
+                                          t("assets.assetCard.edit")
+                                        ]
+                                      }
+                                    ),
+                                    /* @__PURE__ */ jsx61(DropdownMenuSeparator, {}),
+                                    /* @__PURE__ */ jsxs43(
+                                      DropdownMenuItem,
+                                      {
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          onDelete?.();
+                                        },
+                                        className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600",
+                                        children: [
+                                          /* @__PURE__ */ jsx61(Trash23, {}),
+                                          " ",
+                                          t("assets.assetCard.delete")
+                                        ]
+                                      }
+                                    )
+                                  ]
+                                }
+                              )
+                            ]
+                          }
+                        )
+                      ]
+                    }
+                  )
                 ]
               }
             )
@@ -9105,7 +9138,7 @@ var FolderCard = React31.forwardRef(
                     src: images.folder,
                     alt: data.name,
                     className: cn(
-                      "size-full object-cover rounded-[4px] bg-no-repeat inset-0 shrink-0 bg-sky-200/80 dark:bg-white/10",
+                      "size-full object-cover rounded-[6px] bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50",
                       allowSelect && "brightness-50",
                       viewType === "grid" ? "h-40" : "h-24 w-[162px]"
                     )
@@ -9141,102 +9174,114 @@ var FolderCard = React31.forwardRef(
                     /* @__PURE__ */ jsx62(TooltipTrigger, { children: /* @__PURE__ */ jsx62("h2", { className: "text-sm font-bold text-foreground truncate text-left max-w-full pointer-events-none", children: data.name }) }),
                     /* @__PURE__ */ jsx62(TooltipContent, { side: "bottom", children: data.name })
                   ] }),
-                  /* @__PURE__ */ jsxs44("p", { className: "text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none", children: [
+                  /* @__PURE__ */ jsxs44("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none", children: [
                     data.assets_count || 0,
                     " ",
                     data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
                   ] })
                 ] }),
-                /* @__PURE__ */ jsx62("div", { className: "min-w-14 relative flex shrink-0", children: /* @__PURE__ */ jsxs44(DropdownMenu, { children: [
-                  /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                    /* @__PURE__ */ jsx62(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx62(
-                      DropdownMenuTrigger,
-                      {
-                        disabled: allowSelect,
-                        className: "disabled:text-muted-foreground",
-                        asChild: true,
-                        children: /* @__PURE__ */ jsx62(
-                          Button,
+                /* @__PURE__ */ jsx62(
+                  "div",
+                  {
+                    className: "min-w-14 relative flex shrink-0",
+                    onClick: (e) => e.stopPropagation(),
+                    children: /* @__PURE__ */ jsxs44(DropdownMenu, { children: [
+                      /* @__PURE__ */ jsxs44(Tooltip, { children: [
+                        /* @__PURE__ */ jsx62(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx62(
+                          DropdownMenuTrigger,
                           {
-                            size: "icon",
-                            variant: "ghost",
-                            className: "flex gap-2 rounded-[7px]",
-                            "aria-label": t("assets.folderCard.moreOptions"),
-                            children: /* @__PURE__ */ jsx62(MoreVertical4, {})
+                            disabled: allowSelect,
+                            className: "disabled:text-muted-foreground",
+                            asChild: true,
+                            children: /* @__PURE__ */ jsx62(
+                              Button,
+                              {
+                                type: "button",
+                                size: "icon",
+                                variant: "ghost",
+                                className: "flex gap-2 rounded-[7px]",
+                                "aria-label": t("assets.folderCard.moreOptions"),
+                                onClick: (e) => e.stopPropagation(),
+                                children: /* @__PURE__ */ jsx62(MoreVertical4, {})
+                              }
+                            )
                           }
-                        )
-                      }
-                    ) }),
-                    /* @__PURE__ */ jsx62(TooltipContent, { children: /* @__PURE__ */ jsx62("p", { children: t("assets.folderCard.moreOptions") }) })
-                  ] }),
-                  /* @__PURE__ */ jsxs44(
-                    DropdownMenuContent,
-                    {
-                      align: "end",
-                      className: "rounded-[14px]",
-                      onClick: (e) => e.stopPropagation(),
-                      onCloseAutoFocus: (event) => event.preventDefault(),
-                      children: [
-                        renderMenuItems?.(data),
-                        /* @__PURE__ */ jsxs44(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: () => setRenamingItemId(data.id),
-                            children: [
-                              /* @__PURE__ */ jsx62(FilePenLine, { className: "size-4 stroke-[1.5]" }),
-                              t("assets.folderCard.rename")
-                            ]
-                          }
-                        ),
-                        onMove && /* @__PURE__ */ jsxs44(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onMove(data.id, "folder");
-                            },
-                            children: [
-                              MoveIcon2,
-                              t("assets.folderCard.moveTo")
-                            ]
-                          }
-                        ),
-                        onDownload && /* @__PURE__ */ jsxs44(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 rounded-[10px] px-4",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onDownload(data);
-                            },
-                            children: [
-                              /* @__PURE__ */ jsx62(Download2, { className: "size-4 stroke-[1.5]" }),
-                              t("assets.folderCard.download")
-                            ]
-                          }
-                        ),
-                        /* @__PURE__ */ jsx62(DropdownMenuSeparator, {}),
-                        /* @__PURE__ */ jsxs44(
-                          DropdownMenuItem,
-                          {
-                            className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              onDelete?.();
-                            },
-                            children: [
-                              /* @__PURE__ */ jsx62(Trash24, { className: "size-4" }),
-                              " ",
-                              t("assets.folderCard.delete")
-                            ]
-                          }
-                        )
-                      ]
-                    }
-                  )
-                ] }) })
+                        ) }),
+                        /* @__PURE__ */ jsx62(TooltipContent, { children: /* @__PURE__ */ jsx62("p", { children: t("assets.folderCard.moreOptions") }) })
+                      ] }),
+                      /* @__PURE__ */ jsxs44(
+                        DropdownMenuContent,
+                        {
+                          align: "end",
+                          className: "rounded-[14px]",
+                          onClick: (e) => e.stopPropagation(),
+                          onCloseAutoFocus: (event) => event.preventDefault(),
+                          children: [
+                            renderMenuItems?.(data),
+                            /* @__PURE__ */ jsxs44(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  setRenamingItemId(data.id);
+                                },
+                                children: [
+                                  /* @__PURE__ */ jsx62(FilePenLine, { className: "size-4 stroke-[1.5]" }),
+                                  t("assets.folderCard.rename")
+                                ]
+                              }
+                            ),
+                            onMove && /* @__PURE__ */ jsxs44(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onMove(data.id, "folder");
+                                },
+                                children: [
+                                  MoveIcon2,
+                                  t("assets.folderCard.moveTo")
+                                ]
+                              }
+                            ),
+                            onDownload && /* @__PURE__ */ jsxs44(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 rounded-[10px] px-4",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onDownload(data);
+                                },
+                                children: [
+                                  /* @__PURE__ */ jsx62(Download2, { className: "size-4 stroke-[1.5]" }),
+                                  t("assets.folderCard.download")
+                                ]
+                              }
+                            ),
+                            /* @__PURE__ */ jsx62(DropdownMenuSeparator, {}),
+                            /* @__PURE__ */ jsxs44(
+                              DropdownMenuItem,
+                              {
+                                className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  onDelete?.();
+                                },
+                                children: [
+                                  /* @__PURE__ */ jsx62(Trash24, { className: "size-4" }),
+                                  " ",
+                                  t("assets.folderCard.delete")
+                                ]
+                              }
+                            )
+                          ]
+                        }
+                      )
+                    ] })
+                  }
+                )
               ] })
             ]
           }
@@ -11152,11 +11197,6 @@ var LinkEditor = (props) => {
 };
 var LinkEditor_default = LinkEditor;
 
-// src/components/sidebar/cx.ts
-import { clsx as clsx3 } from "clsx";
-import { twMerge as twMerge3 } from "tailwind-merge";
-var cx = (...inputs) => twMerge3(clsx3(inputs));
-
 // src/components/sidebar/sidebar-shell.tsx
 import { jsx as jsx77, jsxs as jsxs56 } from "react/jsx-runtime";
 var RAIL_CONTROL = "size-9 rounded-[10px]";
@@ -11244,7 +11284,7 @@ function SidebarToggle({
       className: cx(
         RAIL_CONTROL,
         "flex shrink-0 items-center justify-center",
-        "text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800",
+        "text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
         className
       ),
       children: /* @__PURE__ */ jsx77(ToggleGlyph, { dir })
@@ -11292,7 +11332,7 @@ import { Fragment as Fragment11, jsx as jsx78, jsxs as jsxs57 } from "react/jsx-
 var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx78("a", { href, ...rest, children });
 var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 function Badge({ children }) {
-  return /* @__PURE__ */ jsx78("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-3xs font-bold leading-none text-amber-600 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-400", children });
+  return /* @__PURE__ */ jsx78("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-xs font-bold leading-none text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300", children });
 }
 function SidebarNavItem({
   item,
@@ -11316,7 +11356,7 @@ function SidebarNavItem({
       {
         className: cx(
           "flex size-5 shrink-0 items-center justify-center [&>*]:size-full",
-          active || filled ? "text-white dark:text-black" : "text-neutral-500 dark:text-zinc-400",
+          active || filled ? "text-white dark:text-black [&>svg]:text-white dark:[&>svg]:text-black" : "text-neutral-600 dark:text-zinc-300",
           filled && "dark:text-white",
           // Accented (tool) icons lift a touch instead of relying on the row wash.
           item.accentClassName && !filled && "transition-transform duration-200 group-hover/nav:scale-110"
@@ -11395,7 +11435,7 @@ function SidebarNav({
             )
           }
         ),
-        group.label && !collapsed && /* @__PURE__ */ jsx79("span", { className: "mb-1 px-3 text-2xs font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-500", children: group.label }),
+        group.label && !collapsed && /* @__PURE__ */ jsx79("span", { className: "mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-zinc-300", children: group.label }),
         group.items.map((item) => /* @__PURE__ */ jsx79(
           SidebarNavItem,
           {
@@ -11411,6 +11451,113 @@ function SidebarNav({
     group.id
   )) });
 }
+
+// src/components/sidebar/sidebar-credits-card.tsx
+import * as Popover from "@radix-ui/react-popover";
+import { jsx as jsx80, jsxs as jsxs59 } from "react/jsx-runtime";
+var SURFACE = "rounded-[10px] border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/40";
+function ProgressBar({ percent }) {
+  return /* @__PURE__ */ jsx80("span", { className: "block h-1 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-zinc-800", children: /* @__PURE__ */ jsx80(
+    "span",
+    {
+      className: "block h-full rounded-full bg-primary transition-[width] duration-500",
+      style: { width: `${Math.min(100, Math.max(0, percent))}%` }
+    }
+  ) });
+}
+function SidebarCreditsCard({
+  collapsed,
+  label,
+  hoverLabel,
+  value,
+  percent,
+  icon,
+  onClick,
+  dir = "ltr",
+  className
+}) {
+  const showBar = typeof percent === "number";
+  if (collapsed) {
+    return /* @__PURE__ */ jsxs59(Popover.Root, { children: [
+      /* @__PURE__ */ jsx80(Popover.Trigger, { asChild: true, children: /* @__PURE__ */ jsx80(
+        "button",
+        {
+          type: "button",
+          title: `${label}: ${value}`,
+          className: cx(
+            SURFACE,
+            RAIL_CONTROL,
+            "flex cursor-pointer items-center justify-center transition-colors hover:bg-zinc-100 data-[state=open]:bg-zinc-100 dark:hover:bg-zinc-900/60 dark:data-[state=open]:bg-zinc-900/60",
+            className
+          ),
+          children: /* @__PURE__ */ jsx80("span", { className: "flex size-5 items-center justify-center [&>*]:size-full", children: icon })
+        }
+      ) }),
+      /* @__PURE__ */ jsx80(Popover.Portal, { children: /* @__PURE__ */ jsxs59(
+        Popover.Content,
+        {
+          side: dir === "rtl" ? "left" : "right",
+          align: "end",
+          sideOffset: 10,
+          className: "z-50 flex w-56 flex-col gap-2.5 rounded-[10px] border border-zinc-100 bg-white p-3 text-start shadow-lg dark:border-zinc-800 dark:bg-zinc-900",
+          children: [
+            /* @__PURE__ */ jsxs59("span", { className: "flex items-center justify-between gap-2 text-xs font-medium", children: [
+              /* @__PURE__ */ jsx80("span", { className: "text-neutral-600 dark:text-zinc-300", children: label }),
+              /* @__PURE__ */ jsxs59("span", { className: "flex items-center gap-1.5 tabular-nums text-neutral-900 dark:text-zinc-100", children: [
+                /* @__PURE__ */ jsx80("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+                value
+              ] })
+            ] }),
+            showBar && /* @__PURE__ */ jsx80(ProgressBar, { percent }),
+            hoverLabel && onClick && /* @__PURE__ */ jsx80(Popover.Close, { asChild: true, children: /* @__PURE__ */ jsx80(
+              "button",
+              {
+                type: "button",
+                onClick,
+                className: "mt-0.5 h-8 rounded-[10px] bg-primary text-xs font-medium text-white transition-colors hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-neutral-100",
+                children: hoverLabel
+              }
+            ) })
+          ]
+        }
+      ) })
+    ] });
+  }
+  return /* @__PURE__ */ jsxs59(
+    "button",
+    {
+      type: "button",
+      onClick,
+      className: cx(
+        SURFACE,
+        "group/credits flex w-full cursor-pointer flex-col p-2.5 text-start transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900/60",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs59("span", { className: "flex w-full items-center justify-between gap-2", children: [
+          /* @__PURE__ */ jsxs59("span", { className: "relative h-5 min-w-0 flex-1 overflow-hidden text-xs font-medium", children: [
+            /* @__PURE__ */ jsx80(
+              "span",
+              {
+                className: cx(
+                  "absolute inset-y-0 start-0 flex items-center truncate text-neutral-600 transition-all duration-300 dark:text-zinc-300",
+                  hoverLabel && "group-hover/credits:-translate-y-full group-hover/credits:opacity-0"
+                ),
+                children: label
+              }
+            ),
+            hoverLabel && /* @__PURE__ */ jsx80("span", { className: "absolute inset-y-0 start-0 flex translate-y-full items-center truncate text-neutral-800 opacity-0 transition-all duration-300 group-hover/credits:translate-y-0 group-hover/credits:opacity-100 dark:text-zinc-100", children: hoverLabel })
+          ] }),
+          /* @__PURE__ */ jsxs59("span", { className: "flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium tabular-nums text-neutral-900 dark:text-zinc-100", children: [
+            /* @__PURE__ */ jsx80("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+            value
+          ] })
+        ] }),
+        showBar && /* @__PURE__ */ jsx80("span", { className: "mt-2 block w-full", children: /* @__PURE__ */ jsx80(ProgressBar, { percent }) })
+      ]
+    }
+  );
+}
 export {
   ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AccountPreferencesModal,
@@ -11420,29 +11567,97 @@ export {
   AssetsProvider,
   AssetsTabbar_default as AssetsTabbar,
   AssetsUploadModal,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Card2 as Card,
+  CardContent2 as CardContent,
+  CardDescription2 as CardDescription,
+  CardFooter2 as CardFooter,
+  CardHeader2 as CardHeader,
+  CardTitle2 as CardTitle,
+  Checkbox,
   DEFAULT_ASSET_IMAGES,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  Drawer2 as Drawer,
+  DrawerClose2 as DrawerClose,
+  DrawerContent2 as DrawerContent,
+  DrawerDescription2 as DrawerDescription,
+  DrawerFooter2 as DrawerFooter,
+  DrawerHeader2 as DrawerHeader,
+  DrawerOverlay2 as DrawerOverlay,
+  DrawerPortal2 as DrawerPortal,
+  DrawerTitle2 as DrawerTitle,
+  DrawerTrigger2 as DrawerTrigger,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   error_state_default as ErrorState,
+  Input2 as Input,
+  Label5 as Label,
   LinkEditor_default as LinkEditor,
   MembersAndNumbers_default as MembersAndNumbers,
   MembersManager_default as MembersManager,
   ProductSwitcher,
   RAIL_CONTROL,
   RAIL_HOVER,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
   SidebarBrandToggle,
+  SidebarCreditsCard,
   SidebarNav,
   SidebarNavItem,
   SidebarShell,
   SidebarToggle,
+  Skeleton,
   SpaceBrowser_default as SpaceBrowser,
   SpaceSelector,
   SpaceSelectorProvider,
+  Switch,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
   UploadModal_default as UploadModal,
   UserAccount,
   assetKeys,
+  buttonVariants,
+  cn,
   createAssetUploader,
   createAssetsApi,
   createContentBrowserApi,
   createSpaceSelectorApi,
+  cx,
   useAssetsConfig,
   useAssetsQuery,
   useAssetsStore,

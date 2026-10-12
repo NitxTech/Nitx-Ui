@@ -343,14 +343,17 @@ const AssetCard: React.FC<AssetCardProps> = ({
                   </TooltipContent>
                 </Tooltip>
               )}
-              <p className="text-[10px] sm:text-[11.2px] text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none">
+              <p className="text-xs text-muted-foreground truncate max-w-20 sm:max-w-28 pointer-events-none">
                 {data.type === "image" && data.image?.size}
                 {data.type === "video" && data.video?.size}
                 {data.type === "document" && data.document?.size}
               </p>
             </div>
 
-            <div className="relative flex items-center shrink-0 gap-1">
+            <div
+              className="relative flex items-center shrink-0 gap-1"
+              onClick={(e) => e.stopPropagation()}
+            >
               {renderActions?.(data)}
 
               <DropdownMenu
@@ -364,7 +367,11 @@ const AssetCard: React.FC<AssetCardProps> = ({
                       className="disabled:text-muted-foreground"
                       asChild
                     >
-                      <button className="icon ">
+                      <button
+                        type="button"
+                        className="icon "
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <MoreVertical className="size-4" />
                       </button>
                     </DropdownMenuTrigger>
@@ -376,6 +383,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
                 <DropdownMenuContent
                   align="end"
                   className="rounded-[14px]"
+                  onClick={(e) => e.stopPropagation()}
                   onCloseAutoFocus={(event) => event.preventDefault()}
                 >
                   {data.type !== "link" && (
