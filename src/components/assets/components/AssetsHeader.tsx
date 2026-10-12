@@ -75,15 +75,15 @@ const AssetsHeader = ({
   return (
     <TooltipProvider>
       <div className="w-full flex flex-col gap-2">
-        <div className="w-full flex items-center mt-6 gap-4">
+        <div className="w-full flex items-center mt-6 gap-3">
           <div className="relative flex-grow">
             <Input
               type="search"
               placeholder={t("assets.assetsHeader.searchPlaceholder")}
               onChange={onSearch}
-              className="w-full px-6 border-input rounded-[12px] shadow-none"
+              className="w-full px-5 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20"
             />
-            <SearchIcon className="w-4 h-4 absolute top-1/2 right-6 rtl:right-auto rtl:left-6 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className="w-4 h-4 absolute top-1/2 right-4 rtl:right-auto rtl:left-4 -translate-y-1/2 text-muted-foreground" />
           </div>
 
           {showCreateLink ? (
@@ -91,13 +91,12 @@ const AssetsHeader = ({
               <TooltipTrigger asChild>
                 <Button
                   aria-label={t("assets.assetsHeader.createLink")}
-                  size="lg"
                   onClick={onCreateLinkClick}
-                  className="py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden"
+                  className="h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
                 >
                   <HugeiconsIcon
                     icon={PlusSignSquareIcon}
-                    className="w-4 h-4 stroke-[1.5] mx-auto text-white"
+                    className="w-4 h-4 stroke-[2] mx-auto text-white"
                   />
                   <span className="hidden md:inline">
                     {t("assets.assetsHeader.createLink")}
@@ -116,12 +115,11 @@ const AssetsHeader = ({
                     <Button
                       aria-label={t("assets.assetsHeader.upload")}
                       onClick={onUploadClick}
-                      size="lg"
-                      className="py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex items-center gap-2 hidden"
+                      className="h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700  active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
                     >
                       <HugeiconsIcon
                         icon={PlusSignSquareIcon}
-                        className="w-4 h-4 stroke-[1.5] mx-auto text-white"
+                        className="w-4 h-4 stroke-[2] mx-auto text-white"
                       />
                       <span className="hidden md:inline">
                         {t("assets.assetsHeader.upload")}
@@ -140,13 +138,12 @@ const AssetsHeader = ({
                     <Button
                       aria-label={t("assets.assetsHeader.newFolder")}
                       variant="outline"
-                      size="lg"
                       onClick={onNewFolderClick}
-                      className="items-center gap-2 py-0 px-0 aspect-square rounded-[12px] lg:w-auto lg:aspect-auto lg:px-5 md:flex hidden"
+                      className="group h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors"
                     >
                       <HugeiconsIcon
                         icon={FolderAddIcon}
-                        className="w-4 h-4 stroke-[1.5] mx-auto"
+                        className="w-4 h-4 stroke-[2] mx-auto text-gray-600 dark:text-zinc-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors"
                       />
                       <span className="hidden md:inline">
                         {t("assets.assetsHeader.newFolder")}
@@ -166,18 +163,20 @@ const AssetsHeader = ({
           {features.folders && path.length > 1 && (
             <AssetsPath className="w-full flex-1 mb-2 py-2 text-xs" />
           )}
-          <div className="flex gap-0 ml-auto rtl:ml-0 rtl:mr-auto">
+          <div className="flex items-center p-1 rounded-xl bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ml-auto rtl:ml-0 rtl:mr-auto">
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
+                  type="button"
                   onClick={() => onChangeView("grid")}
                   className={cn(
-                    "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                    viewType === "grid" &&
-                      "text-primary focus:text-primary bg-card shadow-sm"
+                    "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    viewType === "grid"
+                      ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs"
+                      : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
                   )}
                 >
-                  <LayoutDashboard className="w-4 h-4 stroke-[1.5]" />
+                  <LayoutDashboard className="w-4 h-4 stroke-[1.8]" />
                 </button>
               </TooltipTrigger>
               <TooltipContent side="bottom">
@@ -187,14 +186,16 @@ const AssetsHeader = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
+                  type="button"
                   onClick={() => onChangeView("list")}
                   className={cn(
-                    "icon flex items-center justify-center p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                    viewType === "list" &&
-                      "text-primary focus:text-primary bg-card shadow-sm"
+                    "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    viewType === "list"
+                      ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs"
+                      : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
                   )}
                 >
-                  <AlignJustify className="w-4 h-4 stroke-[1.5]" />
+                  <AlignJustify className="w-4 h-4 stroke-[1.8]" />
                 </button>
               </TooltipTrigger>
               <TooltipContent side="bottom">
@@ -204,24 +205,23 @@ const AssetsHeader = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
+                  type="button"
                   onClick={() => onEnableCheckbox(!enableCheckbox)}
                   className={cn(
-                    "icon flex items-center gap-1 p-2 rounded-md transition-all text-muted-foreground hover:text-foreground",
-                    enableCheckbox && "w-auto gap-1 px-2 text-primary"
+                    "flex items-center gap-1.5 p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    enableCheckbox
+                      ? "bg-blue-50 dark:bg-blue-950/60 text-[#0000FF] dark:text-blue-400 shadow-xs"
+                      : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
                   )}
                 >
                   {enableCheckbox && (
-                    <p className="text-xs text-primary">
+                    <span className="text-xs font-semibold px-0.5">
                       {t("assets.assetsHeader.multiSelect")}
-                    </p>
+                    </span>
                   )}
                   <HugeiconsIcon
                     icon={CheckmarkSquare02Icon}
-                    className={cn(
-                      "size-4 stroke-primary text-primary",
-                      enableCheckbox &&
-                        "size-5 fill-primary stroke-primary text-white"
-                    )}
+                    className="w-4 h-4"
                   />
                 </button>
               </TooltipTrigger>

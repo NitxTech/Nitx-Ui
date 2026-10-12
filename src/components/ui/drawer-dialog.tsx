@@ -93,7 +93,7 @@ export function DrawerDialog({
               className="flex items-center hover:scale-95 hover:opacity-80 transition-all duration-300 w-fit"
               onClick={back}
             >
-              <ChevronLeft className="w-4 h-4 mr-1" />
+              <ChevronLeft className="w-4 h-4 me-1 rtl:rotate-180" />
               {t("drawerDialog.back")}
             </button>
           )}

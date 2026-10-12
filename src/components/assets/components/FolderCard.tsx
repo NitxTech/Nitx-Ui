@@ -193,7 +193,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 src={images.folder}
                 alt={data.name}
                 className={cn(
-                  "size-full object-cover rounded-[4px] bg-no-repeat inset-0 shrink-0 bg-sky-200/80 dark:bg-white/10",
+                  "size-full object-cover rounded-[6px] bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50",
                   allowSelect && "brightness-50",
                   viewType === "grid" ? "h-40" : "h-24 w-[162px]"
                 )}
@@ -201,7 +201,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
               {allowSelect && (
                 <span
                   className={cn(
-                    "absolute top-2 left-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                    "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
                     selected && "border-primary bg-primary text-white"
                   )}
                 >
@@ -210,7 +210,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
               )}
             </CardHeader>
 
-            <CardContent className="w-full p-3 pr-0 flex justify-between items-center gap-3">
+            <CardContent className="w-full p-3 pe-0 flex justify-between items-center gap-3">
               <div className="flex flex-col w-full max-w-[calc(100%-50px)]">
                 {isRenaming ? (
                   <Input
@@ -227,14 +227,14 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 ) : (
                   <Tooltip>
                     <TooltipTrigger>
-                      <h2 className="text-sm font-bold text-foreground truncate text-left max-w-full pointer-events-none">
+                      <h2 className="text-sm font-bold text-foreground truncate text-start max-w-full pointer-events-none">
                         {data.name}
                       </h2>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">{data.name}</TooltipContent>
                   </Tooltip>
                 )}
-                <p className="text-[11.2px] text-muted-foreground truncate max-w-28 pointer-events-none">
+                <p className="text-xs text-muted-foreground truncate max-w-28 pointer-events-none text-start">
                   {data.assets_count || 0}{" "}
                   {data.assets_count === 1
                     ? t("assets.folderCard.item")
@@ -260,10 +260,12 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                         asChild
                       >
                         <Button
+                          type="button"
                           size="icon"
                           variant="ghost"
                           className="flex gap-2 rounded-[7px]"
                           aria-label={t("assets.folderCard.moreOptions")}
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <MoreVertical />
                         </Button>
@@ -282,7 +284,10 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                     {renderMenuItems?.(data)}
                     <DropdownMenuItem
                       className="flex gap-4 rounded-[10px] px-4"
-                      onClick={() => setRenamingItemId(data.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRenamingItemId(data.id);
+                      }}
                     >
                       <FilePenLine className="size-4 stroke-[1.5]" />
                       {t("assets.folderCard.rename")}

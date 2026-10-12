@@ -107,7 +107,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
           <p className="text-sm max-w-[10rem] truncate">{name}</p>
           <h2
             className={cn(
-              "text-[12.42px] text-neutral-500 dark:text-neutral-400"
+              "text-xs text-neutral-600 dark:text-neutral-300"
             )}
           >
             {members} {t("spaceCard.members")}
