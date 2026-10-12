@@ -24,6 +24,8 @@ export default {
       fontSize: {
         // xs: ["0.85rem", { lineHeight: "1.125rem" }],
         sm: ["0.93rem", { lineHeight: "1.375rem" }],
+        "2xs": ["0.6875rem", { lineHeight: "0.875rem" }],
+        "3xs": ["0.625rem", { lineHeight: "0.75rem" }],
       },
       colors: {
         "border-gray": "#EEEFEF",
@@ -75,5 +77,24 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        ".corner-squircle": {
+          "corner-shape": "squircle",
+          "@supports (corner-shape: superellipse(1.79))": {
+            "corner-shape": "superellipse(1.79)",
+          },
+        },
+        ".squircle": {
+          "corner-shape": "squircle",
+          "border-radius": "24px",
+          "@supports (corner-shape: superellipse(1.79))": {
+            "corner-shape": "superellipse(1.79)",
+          },
+        },
+      });
+    },
+  ],
 };

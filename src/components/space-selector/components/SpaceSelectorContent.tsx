@@ -67,8 +67,7 @@ export const SpaceSelectorContent = () => {
             >
               {isExpanded ? (
                 <>
-                  <div className="w-full flex flex-col gap-1">
-                    <span className="text-xs">{t("sidebar.Space")}</span>
+                  <div className="w-full flex flex-col justify-center">
                     <div className="text-sm xl:text-base w-full max-w-40 capitalize truncate">
                       <p>{activeSpace?.name}</p>
                       {!activeSpace?.name && (
@@ -90,7 +89,19 @@ export const SpaceSelectorContent = () => {
               )}
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full min-w-[260px] bg-white rounded-lg p-1 border flex-col gap-1 text-sm shadow-lg z-[100]">
+          <DropdownMenuContent
+            style={{
+              width: isExpanded
+                ? "var(--radix-dropdown-menu-trigger-width)"
+                : undefined,
+            }}
+            className={cn(
+              "bg-white rounded-lg p-1 border flex-col gap-1 text-sm shadow-lg z-[100]",
+              isExpanded
+                ? "w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] max-w-[var(--radix-dropdown-menu-trigger-width)]"
+                : "w-64"
+            )}
+          >
             <p
               className={`text-[11px] text-zinc-600 uppercase p-3 ${
                 isRTL ? "!text-right" : "!text-left"
