@@ -18,6 +18,8 @@ import {
   TvMinimalPlay,
 } from "lucide-react";
 
+import { SequenceDuration } from "../../ui/sequence-duration";
+
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { DrawerDialog } from "../../space-selector/ui/drawer-dialog";
 import { Button } from "../../space-selector/ui/button";
@@ -557,9 +559,10 @@ const AddContentModal = ({
         </div>
         <div className="pl-3">
           <p className="text-sm font-medium truncate">{sequence.name}</p>
-          <p className="text-xs text-gray-600 dark:text-zinc-300">
-            {sequence.total_duration || "No duration"}
-          </p>
+          <SequenceDuration
+            seconds={sequence.total_duration}
+            className="text-xs text-gray-600 dark:text-zinc-300"
+          />
         </div>
         <div
           className={cn(

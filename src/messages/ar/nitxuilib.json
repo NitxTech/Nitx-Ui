@@ -953,5 +953,10 @@
       "moveFolderSuccess": "تم نقل المجلد بنجاح",
       "moveFolderFailed": "فشل نقل المجلد"
     }
+  },
+  "sequenceDuration": {
+    "label": "المدة: {{count}} ثانية",
+    "none": "لم تحدد مدة",
+    "value": "{{count}} ث"
   }
 }

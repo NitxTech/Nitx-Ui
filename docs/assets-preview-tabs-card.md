@@ -142,6 +142,14 @@ and `nitx-pay` (1.5.3) install nitxui but render no assets browser;
 | nitx-reach-dash | 2.1.3 | fixed on upgrade | already styled, gains a name | `components/ui/custom-tabbar.tsx`, 58 lines, unused, delete | no bottom chrome, nothing to clear |
 | nitx-studio-dash | 2.1.3 | fixed on upgrade | **gains hit area, hover, focus ring** | `components/ui/custom-tabbar.tsx`, 58 lines, unused, delete | sets `--nitx-bottom-inset`, correct |
 
+One more change rides in the same version, from the sequence-duration
+ticket: `AddContentModal`'s sequence card printed `total_duration` on its own,
+so a 45 second sequence read as "45". It now uses the exported
+`SequenceDuration`, which puts a clock immediately before the value and gives
+screen readers the spelled-out phrase. Signage has the matching treatment on
+its own sequence cards already; its local copy of the component should be
+dropped for this one once this version is published.
+
 Nothing in a consumer needs editing for the preview, the ellipsis or the
 selection bar: no public prop changed and the defaults hold. The tab bar
 migrations and the deletions are the only consumer edits, and they wait on a

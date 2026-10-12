@@ -951,5 +951,10 @@
       "moveFolderSuccess": "Folder moved successfully",
       "moveFolderFailed": "Failed to move folder"
     }
+  },
+  "sequenceDuration": {
+    "label": "Duration: {{count}} seconds",
+    "none": "No duration set",
+    "value": "{{count}}s"
   }
 }
