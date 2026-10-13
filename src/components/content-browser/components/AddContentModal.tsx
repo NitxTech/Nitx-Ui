@@ -394,7 +394,7 @@ const AddContentModal = ({
             {pathItem.label}
           </button>
           {index < currentPath.length - 1 && (
-            <ChevronRight className="size-3 text-gray-400 dark:text-zinc-500" />
+            <ChevronRight className="size-3 text-gray-400 dark:text-zinc-500 rtl:rotate-180" />
           )}
         </React.Fragment>
       ))}
@@ -468,7 +468,7 @@ const AddContentModal = ({
             />
           )}
         </div>
-        <div className="pl-3">
+        <div className="ps-3 pe-8 text-start">
           <p className="text-sm font-medium truncate">{asset.name.slice(0, 10)}</p>
           <p className="text-xs text-gray-600 dark:text-zinc-300">
             {t("addContentModal.upload")} {formatDate(asset.created_at)}
@@ -476,7 +476,7 @@ const AddContentModal = ({
         </div>
         <div
           className={cn(
-            "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+            "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
             isSelected
               ? "bg-blue-500"
               : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -497,7 +497,7 @@ const AddContentModal = ({
       <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-sky-100">
         <FolderOpen className="text-sky-600 size-8" />
       </div>
-      <div className="pl-3">
+      <div className="ps-3 text-start">
         <p className="text-sm font-medium truncate">
           {folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name}
         </p>
@@ -524,12 +524,12 @@ const AddContentModal = ({
         <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#FEBC2E]">
           <Layout className="fill-white text-[#FEBC2E] size-8" />
         </div>
-        <div className="pl-3">
+        <div className="ps-3 pe-8 text-start">
           <p className="text-sm font-medium truncate">{layout.name}</p>
         </div>
         <div
           className={cn(
-            "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+            "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
             isSelected
               ? "bg-blue-500"
               : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -557,7 +557,7 @@ const AddContentModal = ({
         <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#00C4CC]">
           <Film className="text-white size-8" />
         </div>
-        <div className="pl-3">
+        <div className="ps-3 pe-8 text-start">
           <p className="text-sm font-medium truncate">{sequence.name}</p>
           <SequenceDuration
             seconds={sequence.total_duration}
@@ -566,7 +566,7 @@ const AddContentModal = ({
         </div>
         <div
           className={cn(
-            "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+            "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
             isSelected
               ? "bg-blue-500"
               : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -594,15 +594,15 @@ const AddContentModal = ({
         <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#575DFC]">
           <ChannelSolidPlayIcon baseColor="white" playColor="#4B53FB" />
         </div>
-        <div className="pl-3">
+        <div className="ps-3 pe-8 text-start">
           <p className="text-sm font-medium truncate">{channel.name}</p>
           <p className="text-xs text-gray-600 dark:text-zinc-300">
-            {channel.isPublished ? "Published" : "Draft"}
+            {channel.isPublished ? t("addContentModal.published") : t("addContentModal.draft")}
           </p>
         </div>
         <div
           className={cn(
-            "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+            "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
             isSelected
               ? "bg-blue-500"
               : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -739,7 +739,7 @@ const AddContentModal = ({
                         </div>
                       )}
                     </div>
-                    <div className="pl-3 pr-8 py-2">
+                    <div className="ps-3 pe-8 py-2 text-start">
                       <p className="text-sm font-medium truncate max-w-[220px]">{inst.name}</p>
                       <p className="text-xs text-gray-600 dark:text-zinc-300 truncate max-w-[220px]">
                         {inst.app_name}
@@ -747,7 +747,7 @@ const AddContentModal = ({
                     </div>
                     <div
                       className={cn(
-                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected
                           ? "bg-blue-500 dark:bg-blue-600"
                           : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -787,7 +787,7 @@ const AddContentModal = ({
         return filteredCanvasAssets.length > 0 ? (
           <div>
             <h3 className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
-              Canvas
+              {t("addContentModal.canvas")}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2">
               {filteredCanvasAssets.map((canvas, index) => {
@@ -807,7 +807,7 @@ const AddContentModal = ({
                     <div className="w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]">
                       <Monitor className="text-white size-8" />
                     </div>
-                    <div className="pl-3 pr-8 py-2">
+                    <div className="ps-3 pe-8 py-2 text-start">
                       <p className="text-sm font-medium truncate max-w-[220px]">{canvas.name}</p>
                       <p className="text-xs text-gray-600 dark:text-zinc-300">
                         {t("addContentModal.upload")} {format(new Date(canvas.created_at), "MMM d, yyyy")}
@@ -815,7 +815,7 @@ const AddContentModal = ({
                     </div>
                     <div
                       className={cn(
-                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected
                           ? "bg-blue-500 dark:bg-blue-600"
                           : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700",
@@ -844,19 +844,19 @@ const AddContentModal = ({
     Sequences: { label: t("addContentModal.sequences"), icon: TvMinimalPlay },
     Channels: { label: t("addContentModal.channels"), icon: Tv },
     Layout: { label: t("addContentModal.layout"), icon: Grid2x2 },
-    Canvas: { label: "Canvas", icon: Monitor },
+    Canvas: { label: t("addContentModal.canvas"), icon: Monitor },
   };
 
   return (
     <DrawerDialog size="2xl" open={open} onClose={onClose}>
       <div className="flex flex-col h-[90vh]">
         <div className="px-3 lg:px-5 -mt-5 flex-shrink-0">
-          <p className="font-semibold">{t("addContentModal.title")}</p>
+          <p className="font-semibold text-start">{t("addContentModal.title")}</p>
         </div>
 
         {/* Tabs */}
         <div className="w-full px-3 lg:px-5 flex-shrink-0 mt-5">
-          <div className="flex border-b w-full">
+          <div className="flex border-b dark:border-zinc-800 w-full overflow-x-auto">
             {effectiveTabs.map((tabId) => {
               const { label, icon: Icon } = tabConfig[tabId];
               return (
@@ -865,9 +865,9 @@ const AddContentModal = ({
                   size="sm"
                   variant="ghost"
                   className={cn(
-                    "rounded-none font-light",
+                    "rounded-none font-light gap-2",
                     activeTab === tabId
-                      ? "border-b border-b-black text-black dark:text-white"
+                      ? "border-b-2 border-b-black text-black dark:border-b-white dark:text-white"
                       : "text-gray-700 dark:text-zinc-300",
                   )}
                   onClick={() => handleActiveTab(tabId)}
@@ -885,8 +885,8 @@ const AddContentModal = ({
           <div className="flex gap-3 items-center flex-shrink-0 pt-5">
             <SearchInput onChange={(e) => setSearchTerm(e.target.value)} />
             {onUploadClick && (
-              <Button size="lg" onClick={onUploadClick}>
-                <span className="w-5 h-5 mr-2 flex items-center justify-center border-[1px] border-gray-200 dark:border-zinc-700 rounded-[4px]">
+              <Button size="lg" onClick={onUploadClick} className="shrink-0">
+                <span className="w-5 h-5 me-2 flex items-center justify-center border-[1px] border-gray-200 dark:border-zinc-700 rounded-[4px]">
                   <Plus className="stroke-[1.8]" />
                 </span>
                 {t("addContentModal.upload")}
@@ -898,19 +898,34 @@ const AddContentModal = ({
           <div className="flex-1 overflow-y-auto min-h-0">{renderTabContent()}</div>
 
           {/* Footer */}
-          <div className="flex justify-between items-center gap-4 py-5 flex-shrink-0 border-t">
-            <div className="text-sm text-gray-600 dark:text-zinc-400">
+          <div className="flex justify-between items-center gap-4 py-5 flex-shrink-0 border-t dark:border-zinc-800">
+            <div className="text-sm text-gray-600 dark:text-zinc-400 text-start">
               {selectedAssets.length > 0 && (
                 <span>
                   {selectedAssets.length}{" "}
                   {selectedAssets.length > 1
                     ? t("addContentModal.assetsSelectedPlural")
-                    : t("addContentModal.assetsSelected")}{" "}
-                  selected
+                    : t("addContentModal.assetsSelected")}
+                </span>
+              )}
+              {selectedAppInstances.length > 0 && (
+                <span>
+                  {selectedAppInstances.length}{" "}
+                  {selectedAppInstances.length > 1
+                    ? t("addContentModal.appsSelectedPlural")
+                    : t("addContentModal.appsSelected")}
+                </span>
+              )}
+              {selectedCanvasAssets.length > 0 && (
+                <span>
+                  {selectedCanvasAssets.length}{" "}
+                  {selectedCanvasAssets.length > 1
+                    ? t("addContentModal.canvasSelectedPlural")
+                    : t("addContentModal.canvasSelected")}
                 </span>
               )}
               {selectedLayout && <span>{t("addContentModal.layoutSelected")}</span>}
-              {selectedSequences && <span>{t("addContentModal.sequenceSelected")}</span>}
+              {selectedSequences.length > 0 && <span>{t("addContentModal.sequenceSelected")}</span>}
               {selectedChannel && <span>{t("addContentModal.channelSelected")}</span>}
             </div>
             <div className="flex gap-4">
@@ -920,6 +935,7 @@ const AddContentModal = ({
                 onClick={() => {
                   setSelectedAssets([]);
                   setSelectedAppInstances([]);
+                  setSelectedCanvasAssets([]);
                   setSelectedLayout(null);
                   setSelectedSequences([]);
                   setSelectedChannel(null);

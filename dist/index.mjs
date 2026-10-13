@@ -680,15 +680,23 @@ var nitxuilib_default = {
     sequences: "\u0627\u0644\u0633\u0644\u0627\u0633\u0644",
     channels: "\u0627\u0644\u0642\u0646\u0648\u0627\u062A",
     layout: "\u0627\u0644\u0645\u062E\u0637\u0637",
+    canvas: "\u0643\u0627\u0646\u0641\u0627\u0633",
     folders: "\u0627\u0644\u0645\u062C\u0644\u062F\u0627\u062A",
     items: "\u0639\u0646\u0627\u0635\u0631",
     upload: "\u0631\u0641\u0639",
     itemSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0639\u0646\u0635\u0631 \u0648\u0627\u062D\u062F",
     assetsSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0623\u0635\u0644 \u0648\u0627\u062D\u062F",
     assetsSelectedPlural: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0623\u0635\u0648\u0644",
+    appsSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0637\u0628\u064A\u0642 \u0648\u0627\u062D\u062F",
+    appsSelectedPlural: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0637\u0628\u064A\u0642\u0627\u062A",
+    canvasSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0635\u0645\u064A\u0645 \u0648\u0627\u062D\u062F",
+    canvasSelectedPlural: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0635\u0627\u0645\u064A\u0645",
     layoutSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0645\u062E\u0637\u0637 \u0648\u0627\u062D\u062F",
     sequenceSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u062A\u0633\u0644\u0633\u0644 \u0648\u0627\u062D\u062F",
     channelSelected: "\u062A\u0645 \u0627\u062E\u062A\u064A\u0627\u0631 \u0642\u0646\u0627\u0629 \u0648\u0627\u062D\u062F\u0629",
+    noDuration: "\u0628\u062F\u0648\u0646 \u0645\u062F\u0629",
+    published: "\u0645\u0646\u0634\u0648\u0631",
+    draft: "\u0645\u0633\u0648\u062F\u0629",
     add: "\u0625\u0636\u0627\u0641\u0629",
     addItem: "\u0625\u0636\u0627\u0641\u0629 \u0639\u0646\u0635\u0631",
     cancel: "\u0625\u0644\u063A\u0627\u0621"
@@ -1644,15 +1652,23 @@ var nitxuilib_default2 = {
     sequences: "Sequences",
     channels: "Channels",
     layout: "Layout",
+    canvas: "Canvas",
     folders: "Folders",
     items: "items",
     upload: "Upload",
     itemSelected: "1 item selected",
     assetsSelected: "asset selected",
     assetsSelectedPlural: "assets selected",
+    appsSelected: "app selected",
+    appsSelectedPlural: "apps selected",
+    canvasSelected: "canvas selected",
+    canvasSelectedPlural: "canvases selected",
     layoutSelected: "1 layout selected",
     sequenceSelected: "1 sequence selected",
     channelSelected: "1 channel selected",
+    noDuration: "No duration",
+    published: "Published",
+    draft: "Draft",
     add: "Add",
     addItem: "Add Item",
     cancel: "Cancel"
@@ -6884,7 +6900,7 @@ var AddContentModal = ({
             "div",
             {
               className: cn2(
-                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
               children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -6931,7 +6947,7 @@ var AddContentModal = ({
             "div",
             {
               className: cn2(
-                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
               children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -6968,7 +6984,7 @@ var AddContentModal = ({
             "div",
             {
               className: cn2(
-                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
               children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -6999,7 +7015,7 @@ var AddContentModal = ({
             "div",
             {
               className: cn2(
-                "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
               children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -7096,7 +7112,7 @@ var AddContentModal = ({
                     "div",
                     {
                       className: cn2(
-                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
                       ),
                       children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -7146,7 +7162,7 @@ var AddContentModal = ({
                     "div",
                     {
                       className: cn2(
-                        "w-5 h-5 rounded-full flex absolute right-4 items-center justify-center",
+                        "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
                       ),
                       children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
@@ -7169,7 +7185,7 @@ var AddContentModal = ({
     Sequences: { label: t("addContentModal.sequences"), icon: TvMinimalPlay },
     Channels: { label: t("addContentModal.channels"), icon: Tv },
     Layout: { label: t("addContentModal.layout"), icon: Grid2x2 },
-    Canvas: { label: "Canvas", icon: Monitor }
+    Canvas: { label: t("addContentModal.canvas"), icon: Monitor }
   };
   return /* @__PURE__ */ jsx53(DrawerDialog, { size: "2xl", open, onClose, children: /* @__PURE__ */ jsxs39("div", { className: "flex flex-col h-[90vh]", children: [
     /* @__PURE__ */ jsx53("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx53("p", { className: "font-semibold", children: t("addContentModal.title") }) }),
@@ -7181,8 +7197,8 @@ var AddContentModal = ({
           size: "sm",
           variant: "ghost",
           className: cn2(
-            "rounded-none font-light",
-            activeTab === tabId ? "border-b border-b-black text-black dark:text-white" : "text-gray-700 dark:text-zinc-300"
+            "rounded-none font-light gap-2",
+            activeTab === tabId ? "border-b-2 border-b-black text-black dark:border-b-white dark:text-white" : "text-gray-700 dark:text-zinc-300"
           ),
           onClick: () => handleActiveTab(tabId),
           children: [
@@ -7207,9 +7223,17 @@ var AddContentModal = ({
           selectedAssets.length > 0 && /* @__PURE__ */ jsxs39("span", { children: [
             selectedAssets.length,
             " ",
-            selectedAssets.length > 1 ? t("addContentModal.assetsSelectedPlural") : t("addContentModal.assetsSelected"),
+            selectedAssets.length > 1 ? t("addContentModal.assetsSelectedPlural") : t("addContentModal.assetsSelected")
+          ] }),
+          selectedAppInstances.length > 0 && /* @__PURE__ */ jsxs38("span", { children: [
+            selectedAppInstances.length,
             " ",
-            "selected"
+            selectedAppInstances.length > 1 ? t("addContentModal.appsSelectedPlural") : t("addContentModal.appsSelected")
+          ] }),
+          selectedCanvasAssets.length > 0 && /* @__PURE__ */ jsxs38("span", { children: [
+            selectedCanvasAssets.length,
+            " ",
+            selectedCanvasAssets.length > 1 ? t("addContentModal.canvasSelectedPlural") : t("addContentModal.canvasSelected")
           ] }),
           selectedLayout && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.layoutSelected") }),
           selectedSequences && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.sequenceSelected") }),
@@ -7224,6 +7248,7 @@ var AddContentModal = ({
               onClick: () => {
                 setSelectedAssets([]);
                 setSelectedAppInstances([]);
+                setSelectedCanvasAssets([]);
                 setSelectedLayout(null);
                 setSelectedSequences([]);
                 setSelectedChannel(null);
