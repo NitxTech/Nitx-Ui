@@ -993,6 +993,178 @@ interface SidebarCreditsCardProps {
 }
 declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): React$1.JSX.Element;
 
+type AdBlockerStorageType = "session" | "local" | "memory";
+type AdBlockerDetectionReason = "network_probe_blocked" | "dom_probe_hidden" | "script_blocked" | "none";
+interface AdBlockerDetectionResult {
+    /** True if ad blocking was actively detected */
+    isBlocked: boolean;
+    /** True if the browser or device appears offline */
+    isOffline: boolean;
+    /** The specific vector that triggered detection */
+    reason: AdBlockerDetectionReason;
+    /** Timestamp of detection */
+    timestamp: number;
+}
+interface AdBlockerDetectorOptions {
+    /**
+     * Probe timeout in milliseconds (default: 4000ms).
+     */
+    timeoutMs?: number;
+    /**
+     * Custom bait URL to test network blocking against.
+     * Defaults to standard Google Ads script endpoint.
+     */
+    baitUrl?: string;
+    /**
+     * Optional custom connectivity test URL.
+     */
+    connectivityTestUrl?: string;
+}
+interface UseAdBlockerOptions extends AdBlockerDetectorOptions {
+    /**
+     * Whether to check automatically on mount (default: true).
+     */
+    autoCheck?: boolean;
+    /**
+     * Storage type used to persist user dismissal (default: "session").
+     */
+    storageType?: AdBlockerStorageType;
+    /**
+     * Key used for dismissal storage (default: "nitx_adblocker_dismissed").
+     */
+    storageKey?: string;
+    /**
+     * Callback fired when an ad blocker is detected.
+     */
+    onDetected?: (result: AdBlockerDetectionResult) => void;
+    /**
+     * Callback fired after manual or automatic recheck.
+     */
+    onRecheck?: (result: AdBlockerDetectionResult) => void;
+}
+interface AdBlockerState extends AdBlockerDetectionResult {
+    /** True if checking is in progress */
+    isChecking: boolean;
+    /** True if user has dismissed the notice */
+    isDismissed: boolean;
+    /** Trigger a fresh detection check */
+    check: () => Promise<AdBlockerDetectionResult>;
+    /** Dismiss the notice */
+    dismiss: () => void;
+    /** Reset dismissal status */
+    resetDismissal: () => void;
+}
+interface AdBlockerPageProps {
+    /** Custom heading (defaults to "Ad blocker detected") */
+    title?: string;
+    /** Custom allow URL (defaults to "https://nitx.io") */
+    allowUrl?: string;
+    /** Custom target service name (defaults to "the AppLovin Ads dashboard") */
+    serviceName?: string;
+    /** Full custom description override if needed */
+    description?: string;
+    /** Whether to show a subtle recheck button below the description (default: false) */
+    showRecheckButton?: boolean;
+    /** Additional container class name */
+    className?: string;
+    /** Fired when recheck is triggered */
+    onRecheck?: () => void;
+}
+interface AdBlockerNoticeProps {
+    /**
+     * Visual presentation style.
+     * - "page": Full-screen design page with centered badge and watermark (default design)
+     * - "banner": Top or inline slim alert banner
+     * - "card": Boxed widget with squircle corners
+     * - "dialog": Modal dialog overlay
+     * Defaults to "page".
+     */
+    variant?: "page" | "banner" | "card" | "dialog";
+    /** Custom heading */
+    title?: string;
+    /** Custom description */
+    description?: string;
+    /** Custom allow URL for page variant (defaults to "https://nitx.io") */
+    allowUrl?: string;
+    /** Custom target service name for page variant (defaults to "the AppLovin Ads dashboard") */
+    serviceName?: string;
+    /**
+     * List of product-specific capabilities impacted by blocking.
+     * If omitted, uses localized default capabilities.
+     */
+    affectedFeatures?: string[];
+    /** Custom instructions content or component */
+    customInstructions?: ReactNode;
+    /** Whether to display the recheck button (default: true for banner/card/dialog, false for page) */
+    showRecheckButton?: boolean;
+    /** Whether to display the dismiss button (default: true for banner/card/dialog, false for page) */
+    showDismissButton?: boolean;
+    /** Whether to show expandable allowlist guide (default: true for banner/card/dialog) */
+    showInstructions?: boolean;
+    /** Storage type used for dismissal (default: "session") */
+    storageType?: AdBlockerStorageType;
+    /** Storage key for dismissal (default: "nitx_adblocker_dismissed") */
+    storageKey?: string;
+    /** Force display notice for testing or storybook regardless of detection */
+    forceShow?: boolean;
+    /** Additional class names */
+    className?: string;
+    /** Fired when dismissed */
+    onDismiss?: () => void;
+    /** Fired after recheck */
+    onRecheck?: (result: AdBlockerDetectionResult) => void;
+}
+
+/**
+ * Checks whether the browser is definitely offline according to navigator.
+ */
+declare function isBrowserOffline(): boolean;
+/**
+ * Probes whether the DOM is actively applying cosmetic ad filtering rules.
+ * Ad blockers typically inject CSS rules that hide elements matching
+ * standard ad banner classes (e.g., display: none !important).
+ */
+declare function testDomCosmeticFiltering(): boolean;
+/**
+ * Performs a comprehensive, multi-vector ad blocker detection check.
+ *
+ * Rules:
+ * 1. Never flags an ad blocker when the client is offline or general network fails.
+ * 2. Combines DOM cosmetic filter detection with network bait probe.
+ * 3. Safe in SSR and hydration environments.
+ */
+declare function detectAdBlocker(options?: AdBlockerDetectorOptions): Promise<AdBlockerDetectionResult>;
+
+declare function useAdBlocker(options?: UseAdBlockerOptions): AdBlockerState;
+
+interface AdBlockerInstructionsProps {
+    className?: string;
+}
+declare const AdBlockerInstructions: React__default.FC<AdBlockerInstructionsProps>;
+
+/**
+ * 12-lobed smooth scalloped badge icon matching the official Nitx ad-blocker design.
+ */
+declare const AdBlockerBadgeIcon: React__default.FC<{
+    className?: string;
+}>;
+/**
+ * Full-screen Ad Blocker detected design page.
+ * Features centered scalloped info badge, title, localized instructions,
+ * and the oversized Nitx brand watermark.
+ */
+declare const AdBlockerPage: React__default.FC<AdBlockerPageProps>;
+
+interface NitxLogoWatermarkProps extends React__default.SVGProps<SVGSVGElement> {
+    className?: string;
+}
+/**
+ * Scalable vector Nitx wordmark used for background watermarks and brand display.
+ */
+declare const NitxLogoWatermark: React__default.FC<NitxLogoWatermarkProps>;
+
+declare const AdBlockerNotice: React__default.FC<AdBlockerNoticeProps>;
+
 interface SearchShortcut {
     /** Keys as printed on the keyboard, one per <kbd>. */
     keys: readonly string[];
@@ -1441,4 +1613,4 @@ declare function DrawerDialog({ title, accessibleTitle, description, children, c
 declare function cn(...inputs: ClassValue[]): string;
 declare function cx(...args: ClassValue[]): string;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, isApplePlatform, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, searchShortcut, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, isApplePlatform, isBrowserOffline, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, searchShortcut, testDomCosmeticFiltering, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector };

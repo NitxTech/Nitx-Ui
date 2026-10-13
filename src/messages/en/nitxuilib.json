@@ -961,6 +961,35 @@
       "moveFolderFailed": "Failed to move folder"
     }
   },
+  "adBlocker": {
+    "title": "Ad blocker detected",
+    "description": "An ad blocker is active and may prevent key features from functioning correctly.",
+    "affectedNotice": "The following capabilities may be restricted or unavailable:",
+    "features": {
+      "adDelivery": "Ad serving, creative previews, and inventory testing",
+      "analytics": "Real-time metrics, impression tracking, and reporting",
+      "integrations": "Third-party publisher tags and partner verification"
+    },
+    "howToAllow": "How to allow Nitx",
+    "howToAllowInstructions": "Follow these quick steps to whitelist this product in your browser extension:",
+    "stepUblockTitle": "uBlock Origin",
+    "stepUblockText": "Click the uBlock Origin icon in your toolbar, then click the blue Power button to disable blocking on this site.",
+    "stepAdblockTitle": "AdBlock or Adblock Plus",
+    "stepAdblockText": "Click the extension icon, toggle 'Block ads on this site' to off, and refresh the page.",
+    "stepBraveTitle": "Brave Shields",
+    "stepBraveText": "Click the Lion icon in your address bar and toggle the main Shields switch to Down.",
+    "stepOtherTitle": "Other extensions",
+    "stepOtherText": "Open your ad blocker or privacy extension and add this domain to the allowed list.",
+    "recheck": "Recheck",
+    "rechecking": "Checking...",
+    "dismiss": "Dismiss",
+    "dismissAria": "Dismiss ad blocker notification",
+    "offlineNotice": "You are currently offline. Check your connection to resume normal operation.",
+    "allClear": "No ad blocker detected. All features are operating normally.",
+    "pageAllowPrefix": "Please allow list",
+    "pageAllowMiddle": "in your ad blocker, or disable it to access",
+    "pageDefaultService": "the AppLovin Ads dashboard."
+  },
   "sequenceDuration": {
     "label": "Duration: {{count}} seconds",
     "none": "No duration set",

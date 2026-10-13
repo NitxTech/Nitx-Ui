@@ -970,6 +970,35 @@ var nitxuilib_default = {
       moveFolderFailed: "\u0641\u0634\u0644 \u0646\u0642\u0644 \u0627\u0644\u0645\u062C\u0644\u062F"
     }
   },
+  adBlocker: {
+    title: "\u062A\u0645 \u0627\u0643\u062A\u0634\u0627\u0641 \u0645\u0627\u0646\u0639 \u0625\u0639\u0644\u0627\u0646\u0627\u062A",
+    description: "\u064A\u0628\u062F\u0648 \u0623\u0646 \u0647\u0646\u0627\u0643 \u0623\u062F\u0627\u0629 \u0644\u062D\u062C\u0628 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A \u0645\u0641\u0639\u0644\u0629\u060C \u0645\u0645\u0627 \u0642\u062F \u064A\u0645\u0646\u0639 \u0628\u0639\u0636 \u0627\u0644\u0645\u064A\u0632\u0627\u062A \u0627\u0644\u0623\u0633\u0627\u0633\u064A\u0629 \u0645\u0646 \u0627\u0644\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 \u0633\u0644\u064A\u0645.",
+    affectedNotice: "\u0642\u062F \u062A\u062A\u0623\u062B\u0631 \u0627\u0644\u0648\u0638\u0627\u0626\u0641 \u0627\u0644\u062A\u0627\u0644\u064A\u0629 \u0623\u0648 \u062A\u0635\u0628\u062D \u063A\u064A\u0631 \u0645\u062A\u0627\u062D\u0629:",
+    features: {
+      adDelivery: "\u0639\u0631\u0636 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A\u060C \u0645\u0639\u0627\u064A\u0646\u0629 \u0627\u0644\u062A\u0635\u0627\u0645\u064A\u0645\u060C \u0648\u0627\u062E\u062A\u0628\u0627\u0631 \u0627\u0644\u0645\u0633\u0627\u062D\u0627\u062A \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u064A\u0629",
+      analytics: "\u0627\u0644\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A \u0627\u0644\u0645\u0628\u0627\u0634\u0631\u0629\u060C \u062A\u062A\u0628\u0639 \u0627\u0644\u0638\u0647\u0648\u0631\u060C \u0648\u0625\u0639\u062F\u0627\u062F \u0627\u0644\u062A\u0642\u0627\u0631\u064A\u0631",
+      integrations: "\u0623\u0643\u0648\u0627\u062F \u0627\u0644\u0646\u0627\u0634\u0631\u064A\u0646 \u0627\u0644\u062E\u0627\u0631\u062C\u064A\u0629 \u0648\u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0627\u0621"
+    },
+    howToAllow: "\u0637\u0631\u064A\u0642\u0629 \u0627\u0644\u0633\u0645\u0627\u062D \u0644\u0640 Nitx",
+    howToAllowInstructions: "\u0627\u062A\u0628\u0639 \u0647\u0630\u0647 \u0627\u0644\u062E\u0637\u0648\u0627\u062A \u0627\u0644\u0628\u0633\u064A\u0637\u0629 \u0644\u0627\u0633\u062A\u062B\u0646\u0627\u0621 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639 \u0641\u064A \u0645\u062A\u0635\u0641\u062D\u0643:",
+    stepUblockTitle: "uBlock Origin",
+    stepUblockText: "\u0627\u0646\u0642\u0631 \u0639\u0644\u0649 \u0623\u064A\u0642\u0648\u0646\u0629 uBlock Origin \u0641\u064A \u0634\u0631\u064A\u0637 \u0627\u0644\u0623\u062F\u0648\u0627\u062A\u060C \u062B\u0645 \u0627\u0636\u063A\u0637 \u0639\u0644\u0649 \u0632\u0631 \u0627\u0644\u062A\u0634\u063A\u064A\u0644 \u0627\u0644\u0623\u0632\u0631\u0642 \u0644\u062A\u0639\u0637\u064A\u0644 \u0627\u0644\u062D\u062C\u0628 \u0641\u064A \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639.",
+    stepAdblockTitle: "AdBlock \u0623\u0648 Adblock Plus",
+    stepAdblockText: "\u0627\u0646\u0642\u0631 \u0639\u0644\u0649 \u0623\u064A\u0642\u0648\u0646\u0629 \u0627\u0644\u0623\u062F\u0627\u0629\u060C \u0648\u0642\u0645 \u0628\u0625\u0644\u063A\u0627\u0621 \u062A\u0641\u0639\u064A\u0644 \u062E\u064A\u0627\u0631 \u062D\u062C\u0628 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A \u0644\u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639\u060C \u062B\u0645 \u0623\u0639\u062F \u062A\u062D\u0645\u064A\u0644 \u0627\u0644\u0635\u0641\u062D\u0629.",
+    stepBraveTitle: "Brave Shields",
+    stepBraveText: "\u0627\u0646\u0642\u0631 \u0639\u0644\u0649 \u0623\u064A\u0642\u0648\u0646\u0629 \u0627\u0644\u0623\u0633\u062F \u0641\u064A \u0634\u0631\u064A\u0637 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0648\u0642\u0645 \u0628\u062A\u0639\u0637\u064A\u0644 \u062F\u0631\u0639 \u0627\u0644\u062D\u0645\u0627\u064A\u0629 \u0644\u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639.",
+    stepOtherTitle: "\u0625\u0636\u0627\u0641\u0627\u062A \u0623\u062E\u0631\u0649",
+    stepOtherText: "\u0627\u0641\u062A\u062D \u0625\u0636\u0627\u0641\u0629 \u062D\u062C\u0628 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A \u0623\u0648 \u0627\u0644\u062E\u0635\u0648\u0635\u064A\u0629 \u0648\u0623\u0636\u0641 \u0646\u0637\u0627\u0642 \u0627\u0644\u0645\u0648\u0642\u0639 \u0625\u0644\u0649 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u0648\u0627\u0642\u0639 \u0627\u0644\u0645\u0633\u0645\u0648\u062D \u0628\u0647\u0627.",
+    recheck: "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0641\u062D\u0635",
+    rechecking: "\u062C\u0627\u0631\u064D \u0627\u0644\u0641\u062D\u0635...",
+    dismiss: "\u062A\u062C\u0627\u0647\u0644",
+    dismissAria: "\u0625\u063A\u0644\u0627\u0642 \u062A\u0646\u0628\u064A\u0647 \u0645\u0627\u0646\u0639 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A",
+    offlineNotice: "\u0623\u0646\u062A \u063A\u064A\u0631 \u0645\u062A\u0635\u0644 \u0628\u0627\u0644\u0625\u0646\u062A\u0631\u0646\u062A \u062D\u0627\u0644\u064A\u0627\u064B. \u064A\u0631\u062C\u0649 \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u062A\u0635\u0627\u0644\u0643.",
+    allClear: "\u0644\u0645 \u064A\u062A\u0645 \u0627\u0643\u062A\u0634\u0627\u0641 \u0623\u064A \u0645\u0627\u0646\u0639 \u0644\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A. \u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u064A\u0632\u0627\u062A \u062A\u0639\u0645\u0644 \u0628\u0634\u0643\u0644 \u0637\u0628\u064A\u0639\u064A.",
+    pageAllowPrefix: "\u064A\u0631\u062C\u0649 \u0627\u0633\u062A\u062B\u0646\u0627\u0621",
+    pageAllowMiddle: "\u0641\u064A \u0645\u0627\u0646\u0639 \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A\u060C \u0623\u0648 \u062A\u0639\u0637\u064A\u0644\u0647 \u0644\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649",
+    pageDefaultService: "\u0644\u0648\u062D\u0629 \u062A\u062D\u0643\u0645 \u0625\u0639\u0644\u0627\u0646\u0627\u062A AppLovin."
+  },
   sequenceDuration: {
     label: "\u0627\u0644\u0645\u062F\u0629: {{count}} \u062B\u0627\u0646\u064A\u0629",
     none: "\u0644\u0645 \u062A\u062D\u062F\u062F \u0645\u062F\u0629",
@@ -1955,6 +1984,35 @@ var nitxuilib_default2 = {
       moveFolderSuccess: "Folder moved successfully",
       moveFolderFailed: "Failed to move folder"
     }
+  },
+  adBlocker: {
+    title: "Ad blocker detected",
+    description: "An ad blocker is active and may prevent key features from functioning correctly.",
+    affectedNotice: "The following capabilities may be restricted or unavailable:",
+    features: {
+      adDelivery: "Ad serving, creative previews, and inventory testing",
+      analytics: "Real-time metrics, impression tracking, and reporting",
+      integrations: "Third-party publisher tags and partner verification"
+    },
+    howToAllow: "How to allow Nitx",
+    howToAllowInstructions: "Follow these quick steps to whitelist this product in your browser extension:",
+    stepUblockTitle: "uBlock Origin",
+    stepUblockText: "Click the uBlock Origin icon in your toolbar, then click the blue Power button to disable blocking on this site.",
+    stepAdblockTitle: "AdBlock or Adblock Plus",
+    stepAdblockText: "Click the extension icon, toggle 'Block ads on this site' to off, and refresh the page.",
+    stepBraveTitle: "Brave Shields",
+    stepBraveText: "Click the Lion icon in your address bar and toggle the main Shields switch to Down.",
+    stepOtherTitle: "Other extensions",
+    stepOtherText: "Open your ad blocker or privacy extension and add this domain to the allowed list.",
+    recheck: "Recheck",
+    rechecking: "Checking...",
+    dismiss: "Dismiss",
+    dismissAria: "Dismiss ad blocker notification",
+    offlineNotice: "You are currently offline. Check your connection to resume normal operation.",
+    allClear: "No ad blocker detected. All features are operating normally.",
+    pageAllowPrefix: "Please allow list",
+    pageAllowMiddle: "in your ad blocker, or disable it to access",
+    pageDefaultService: "the AppLovin Ads dashboard."
   },
   sequenceDuration: {
     label: "Duration: {{count}} seconds",
@@ -12398,21 +12456,862 @@ function SidebarCreditsCard({
   );
 }
 
+// src/components/ad-blocker/ad-blocker-detector.ts
+var DEFAULT_BAIT_URL = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+var DEFAULT_TIMEOUT_MS = 3500;
+function isBrowserOffline() {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+  return navigator.onLine === false;
+}
+function testDomCosmeticFiltering() {
+  if (typeof document === "undefined" || !document.body) {
+    return false;
+  }
+  const bait = document.createElement("div");
+  bait.className = "adsbox ad-banner pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links banner-ad";
+  bait.setAttribute("aria-hidden", "true");
+  bait.setAttribute("data-ad-client", "ca-pub-0000000000000000");
+  bait.style.setProperty("position", "absolute", "important");
+  bait.style.setProperty("top", "-9999px", "important");
+  bait.style.setProperty("left", "-9999px", "important");
+  bait.style.setProperty("width", "1px", "important");
+  bait.style.setProperty("height", "1px", "important");
+  bait.style.setProperty("pointer-events", "none", "important");
+  try {
+    document.body.appendChild(bait);
+    const style = window.getComputedStyle(bait);
+    const isHidden = style.display === "none" || style.visibility === "hidden" || bait.offsetParent === null || bait.offsetHeight === 0 || bait.offsetWidth === 0 || bait.clientHeight === 0 || bait.clientWidth === 0;
+    return isHidden;
+  } catch {
+    return false;
+  } finally {
+    if (bait.parentNode) {
+      bait.parentNode.removeChild(bait);
+    }
+  }
+}
+async function probeGeneralConnectivity(customUrl, timeoutMs = DEFAULT_TIMEOUT_MS) {
+  if (isBrowserOffline()) {
+    return false;
+  }
+  const probeUrl = customUrl || (typeof window !== "undefined" ? `${window.location.origin}/favicon.ico` : "");
+  if (!probeUrl) {
+    return true;
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    await fetch(probeUrl, {
+      method: "HEAD",
+      mode: "no-cors",
+      cache: "no-store",
+      signal: controller.signal
+    });
+    return true;
+  } catch {
+    return typeof navigator !== "undefined" ? navigator.onLine : false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+async function probeAdEndpoint(baitUrl, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    await fetch(baitUrl, {
+      method: "HEAD",
+      mode: "no-cors",
+      cache: "no-store",
+      signal: controller.signal
+    });
+    return true;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+async function detectAdBlocker(options = {}) {
+  const now = Date.now();
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return {
+      isBlocked: false,
+      isOffline: false,
+      reason: "none",
+      timestamp: now
+    };
+  }
+  if (isBrowserOffline()) {
+    return {
+      isBlocked: false,
+      isOffline: true,
+      reason: "none",
+      timestamp: now
+    };
+  }
+  const isDomFiltered = testDomCosmeticFiltering();
+  if (isDomFiltered) {
+    return {
+      isBlocked: true,
+      isOffline: false,
+      reason: "dom_probe_hidden",
+      timestamp: now
+    };
+  }
+  const baitUrl = options.baitUrl || DEFAULT_BAIT_URL;
+  const timeoutMs = options.timeoutMs || DEFAULT_TIMEOUT_MS;
+  const adProbeSucceeded = await probeAdEndpoint(baitUrl, timeoutMs);
+  if (adProbeSucceeded) {
+    return {
+      isBlocked: false,
+      isOffline: false,
+      reason: "none",
+      timestamp: now
+    };
+  }
+  const isOnline = await probeGeneralConnectivity(
+    options.connectivityTestUrl,
+    timeoutMs
+  );
+  if (!isOnline) {
+    return {
+      isBlocked: false,
+      isOffline: true,
+      reason: "none",
+      timestamp: now
+    };
+  }
+  return {
+    isBlocked: true,
+    isOffline: false,
+    reason: "network_probe_blocked",
+    timestamp: now
+  };
+}
+
+// src/components/ad-blocker/use-ad-blocker.ts
+import { useCallback as useCallback5, useEffect as useEffect21, useRef as useRef5, useState as useState25 } from "react";
+var DEFAULT_STORAGE_KEY = "nitx_adblocker_dismissed";
+function getStorageItem(type, key) {
+  if (typeof window === "undefined" || type === "memory") {
+    return null;
+  }
+  try {
+    const storage = type === "local" ? window.localStorage : window.sessionStorage;
+    return storage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+function setStorageItem(type, key, value) {
+  if (typeof window === "undefined" || type === "memory") {
+    return;
+  }
+  try {
+    const storage = type === "local" ? window.localStorage : window.sessionStorage;
+    storage.setItem(key, value);
+  } catch {
+  }
+}
+function removeStorageItem(type, key) {
+  if (typeof window === "undefined" || type === "memory") {
+    return;
+  }
+  try {
+    const storage = type === "local" ? window.localStorage : window.sessionStorage;
+    storage.removeItem(key);
+  } catch {
+  }
+}
+function useAdBlocker(options = {}) {
+  const {
+    autoCheck = true,
+    storageType = "session",
+    storageKey = DEFAULT_STORAGE_KEY,
+    timeoutMs,
+    baitUrl,
+    connectivityTestUrl,
+    onDetected,
+    onRecheck
+  } = options;
+  const [isRawBlocked, setIsRawBlocked] = useState25(false);
+  const [isOffline, setIsOffline] = useState25(() => isBrowserOffline());
+  const [isChecking, setIsChecking] = useState25(false);
+  const [reason, setReason] = useState25("none");
+  const [timestamp, setTimestamp] = useState25(() => Date.now());
+  const [isDismissed, setIsDismissed] = useState25(() => {
+    return getStorageItem(storageType, storageKey) === "true";
+  });
+  const onDetectedRef = useRef5(onDetected);
+  onDetectedRef.current = onDetected;
+  const onRecheckRef = useRef5(onRecheck);
+  onRecheckRef.current = onRecheck;
+  const check = useCallback5(async () => {
+    setIsChecking(true);
+    try {
+      const result = await detectAdBlocker({
+        timeoutMs,
+        baitUrl,
+        connectivityTestUrl
+      });
+      setIsRawBlocked(result.isBlocked);
+      setIsOffline(result.isOffline);
+      setReason(result.reason);
+      setTimestamp(result.timestamp);
+      if (result.isBlocked) {
+        onDetectedRef.current?.(result);
+      }
+      onRecheckRef.current?.(result);
+      return result;
+    } finally {
+      setIsChecking(false);
+    }
+  }, [baitUrl, connectivityTestUrl, timeoutMs]);
+  const dismiss = useCallback5(() => {
+    setIsDismissed(true);
+    setStorageItem(storageType, storageKey, "true");
+  }, [storageKey, storageType]);
+  const resetDismissal = useCallback5(() => {
+    setIsDismissed(false);
+    removeStorageItem(storageType, storageKey);
+  }, [storageKey, storageType]);
+  useEffect21(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const handleOnline = () => {
+      setIsOffline(false);
+      void check();
+    };
+    const handleOffline = () => {
+      setIsOffline(true);
+      setIsRawBlocked(false);
+    };
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [check]);
+  useEffect21(() => {
+    if (autoCheck) {
+      void check();
+    }
+  }, [autoCheck, check]);
+  const isBlocked = isRawBlocked && !isDismissed;
+  return {
+    isBlocked,
+    isOffline,
+    reason,
+    timestamp,
+    isChecking,
+    isDismissed,
+    check,
+    dismiss,
+    resetDismissal
+  };
+}
+
+// src/components/ad-blocker/ad-blocker-instructions.tsx
+import { useState as useState26 } from "react";
+import { jsx as jsx84, jsxs as jsxs61 } from "react/jsx-runtime";
+var EXTENSION_ITEMS = [
+  {
+    id: "ublock",
+    titleKey: "adBlocker.stepUblockTitle",
+    textKey: "adBlocker.stepUblockText"
+  },
+  {
+    id: "adblock",
+    titleKey: "adBlocker.stepAdblockTitle",
+    textKey: "adBlocker.stepAdblockText"
+  },
+  {
+    id: "brave",
+    titleKey: "adBlocker.stepBraveTitle",
+    textKey: "adBlocker.stepBraveText"
+  },
+  {
+    id: "other",
+    titleKey: "adBlocker.stepOtherTitle",
+    textKey: "adBlocker.stepOtherText"
+  }
+];
+var AdBlockerInstructions = ({
+  className
+}) => {
+  const { t } = useNitxUiTranslation();
+  const [activeTab, setActiveTab] = useState26("ublock");
+  return /* @__PURE__ */ jsxs61(
+    "div",
+    {
+      className: cn(
+        "rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-4 text-start dark:border-zinc-800 dark:bg-zinc-900/60 corner-squircle",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs61("div", { className: "mb-2", children: [
+          /* @__PURE__ */ jsx84("h4", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: t("adBlocker.howToAllow") }),
+          /* @__PURE__ */ jsx84("p", { className: "mt-0.5 text-xs text-zinc-500 dark:text-zinc-400", children: t("adBlocker.howToAllowInstructions") })
+        ] }),
+        /* @__PURE__ */ jsx84("div", { className: "mt-3 flex flex-wrap gap-1.5 border-b border-zinc-200/70 pb-2.5 dark:border-zinc-800", children: EXTENSION_ITEMS.map((item) => {
+          const isActive = activeTab === item.id;
+          return /* @__PURE__ */ jsx84(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab(item.id),
+              className: cn(
+                "rounded-lg px-2.5 py-1 text-xs font-medium transition-colors corner-squircle",
+                isActive ? "bg-zinc-900 text-white shadow-xs dark:bg-zinc-100 dark:text-zinc-900" : "text-zinc-600 hover:bg-zinc-200/70 dark:text-zinc-400 dark:hover:bg-zinc-800"
+              ),
+              children: t(item.titleKey)
+            },
+            item.id
+          );
+        }) }),
+        /* @__PURE__ */ jsx84("div", { className: "mt-2.5", children: EXTENSION_ITEMS.map((item) => {
+          if (activeTab !== item.id) return null;
+          return /* @__PURE__ */ jsx84(
+            "p",
+            {
+              className: "text-xs leading-relaxed text-zinc-700 dark:text-zinc-300",
+              children: t(item.textKey)
+            },
+            item.id
+          );
+        }) })
+      ]
+    }
+  );
+};
+
+// src/components/ad-blocker/nitx-logo-watermark.tsx
+import { jsx as jsx85, jsxs as jsxs62 } from "react/jsx-runtime";
+var NitxLogoWatermark = ({
+  className,
+  ...props
+}) => {
+  return /* @__PURE__ */ jsxs62(
+    "svg",
+    {
+      viewBox: "0 0 68 24",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      "aria-hidden": "true",
+      className: cn("w-full h-auto", className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M10.8406 12.8433C10.6401 13.2737 10.5255 13.5102 10.4243 13.7466C9.27475 16.5655 8.14046 19.3899 7.02145 22.2199C6.69109 23.0678 6.18887 23.4428 5.29901 23.4705C4.07879 23.5259 2.8433 23.6792 1.62308 23.7753C0.590002 23.8584 0.488794 23.7476 0.876438 22.7888C2.29907 19.2606 3.71979 15.7472 5.14243 12.219C6.27671 9.42781 7.411 6.62187 8.50328 3.81592C8.83364 2.98282 9.32249 2.58013 10.2257 2.52471C11.4459 2.45451 12.6814 2.33075 13.9016 2.14972C14.7342 2.02411 15.1219 2.33075 15.3663 3.05302C16.2848 5.67793 17.2319 8.3047 18.181 10.9296C18.2669 11.179 18.3815 11.4302 18.5839 11.8883C19.1148 10.5823 19.6476 9.26341 20.1784 7.94264C20.9403 6.03999 21.7156 4.15027 22.447 2.24762C22.7201 1.55307 23.1497 1.22056 23.8677 1.1633C25.1739 1.05247 26.4819 0.899146 27.7881 0.775381C28.7925 0.677478 28.8937 0.817867 28.5061 1.78951C26.2222 7.55472 23.9288 13.3088 21.6278 19.0556C21.3261 19.7926 21.0244 20.5278 20.7379 21.2778C20.5221 21.8338 20.1498 22.1257 19.5463 22.1811C18.0817 22.3067 16.6018 22.4305 15.1371 22.5838C14.4631 22.654 14.2759 22.2513 14.1041 21.7507C13.1856 19.1258 12.2518 16.499 11.3046 13.8741C11.1901 13.597 11.0468 13.3052 10.8444 12.847L10.8406 12.8433Z",
+            fill: "currentColor"
+          }
+        ),
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M37.1046 10.4268C36.9442 10.3991 36.78 10.3843 36.6157 10.3843C35.3382 10.4268 35.3096 10.3973 35.8118 9.13377C36.1135 8.35608 36.4572 7.59133 36.7303 6.80071C36.9881 6.06367 37.433 5.66097 38.1949 5.68868C38.8404 5.71639 39.1994 5.4393 39.4018 4.80016C39.6882 3.93935 40.1064 3.09147 40.4062 2.23066C40.6354 1.59152 41.023 1.27195 41.6837 1.21653C42.904 1.11863 44.1395 0.967155 45.3597 0.856321C46.1636 0.786126 46.2935 0.954224 46.0051 1.71713C45.6175 2.75897 45.2012 3.78603 44.7123 5.03661L47.1814 4.80016C47.5404 4.77245 47.8841 4.72997 48.2431 4.70226C48.732 4.65977 48.8752 4.92393 48.7167 5.35433C48.2718 6.507 47.8555 7.65968 47.3093 8.77171C47.1661 9.0765 46.62 9.35544 46.2476 9.41085C45.3291 9.5771 44.3953 9.59188 43.4768 9.71564C43.219 9.75813 42.8028 9.90961 42.7302 10.1054C41.9549 11.9804 41.2216 13.8553 40.4903 15.745L43.3909 15.4809C44.6258 15.37 45.0039 15.9026 44.5252 17.0787C44.2387 17.801 43.937 18.5232 43.6773 19.2603C43.4768 19.8163 43.1178 20.0805 42.5564 20.1211C40.7614 20.2744 38.9664 20.4536 37.1581 20.5792C34.8895 20.9394 33.9271 18.913 34.5591 17.1064C35.2485 15.1484 36.039 13.2161 36.7991 11.2858C36.9155 11.0032 37.0148 10.7168 37.1008 10.425L37.1046 10.4268Z",
+            fill: "currentColor"
+          }
+        ),
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M53.5041 15.97C52.6143 16.9564 51.8676 17.7341 51.1783 18.5543C50.6321 19.2064 50.0153 19.5407 49.1675 19.5813C47.6456 19.6645 46.1083 19.8307 44.5864 19.9693C44.3 19.997 44.0116 19.984 43.4941 19.997C43.8379 19.5943 44.0116 19.3578 44.2121 19.1639C46.5094 16.9971 48.7932 14.8303 51.1191 12.7041C51.8084 12.0797 51.9956 11.5644 51.6652 10.7313C51.0045 8.98008 50.4011 7.23075 49.7709 5.46665C49.5265 4.81457 49.7709 4.57813 50.4163 4.50793L55.5569 4.00733C56.1031 3.95192 56.3895 4.17358 56.548 4.67418C57.9974 9.00779 59.4525 13.3414 60.9133 17.6768C61.1138 18.2606 60.8846 18.5099 60.3251 18.5654L54.7683 19.066C54.2374 19.1214 53.9777 18.872 53.8918 18.3714C53.8058 17.6491 53.676 16.9546 53.5041 15.9682V15.97Z",
+            fill: "currentColor"
+          }
+        ),
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M26.7663 21.5532C26.1208 21.6086 25.4601 21.664 24.8128 21.7342C24.11 21.8044 23.9363 21.5402 24.2093 20.8863C25.1565 18.5255 26.0998 16.1629 27.0393 13.8022C27.8872 11.6908 28.7331 9.5794 29.5523 7.46802C29.8101 6.78824 30.213 6.44096 30.9597 6.38369C32.1226 6.3135 33.3008 6.16202 34.4771 6.05119C35.4529 5.95329 35.5541 6.0789 35.1798 7.0099C33.6865 10.806 32.178 14.5946 30.6561 18.3722C30.383 19.0668 30.0813 19.7613 29.8235 20.4559C29.6077 21.0526 29.2067 21.3444 28.5746 21.3721C27.9712 21.4275 27.3678 21.4977 26.7663 21.5532Z",
+            fill: "currentColor"
+          }
+        ),
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M67.1022 3.02453C66.8157 3.35703 66.642 3.58055 66.4414 3.77451C64.5319 5.64945 62.607 7.53916 60.6688 9.39933C59.9947 10.0514 59.7789 10.0237 59.4772 9.20537C59.1755 8.38704 58.8738 7.56687 58.5721 6.75963C58.4976 6.58784 58.4594 6.40312 58.4575 6.21839C58.5014 5.56632 60.3824 3.55099 61.0564 3.48265C62.9087 3.28869 64.761 3.10766 66.6133 2.94141C66.7775 2.95618 66.9418 2.98389 67.1022 3.02453Z",
+            fill: "currentColor"
+          }
+        ),
+        /* @__PURE__ */ jsx85(
+          "path",
+          {
+            d: "M33.4154 4.7189C32.77 4.7891 32.1093 4.82974 31.4619 4.91286C30.8585 4.99599 30.6294 4.75954 30.8451 4.1906C31.2328 3.14876 31.6357 2.10692 32.1227 1.10757C32.3365 0.769523 32.6841 0.529382 33.0851 0.440715C34.4065 0.246756 35.7566 0.135922 37.0914 0.0103102C37.7082 -0.0598846 37.8667 0.231978 37.6509 0.775064C37.248 1.78919 36.889 2.81626 36.4154 3.78975C36.2569 4.10932 35.7699 4.40118 35.3957 4.49724C34.735 4.66349 34.0742 4.65056 33.4135 4.7189H33.4154Z",
+            fill: "currentColor"
+          }
+        )
+      ]
+    }
+  );
+};
+
+// src/components/ad-blocker/ad-blocker-page.tsx
+import { jsx as jsx86, jsxs as jsxs63 } from "react/jsx-runtime";
+var AdBlockerBadgeIcon = ({
+  className
+}) => {
+  return /* @__PURE__ */ jsxs63(
+    "svg",
+    {
+      viewBox: "0 0 32 32",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      className: cn("size-9 shrink-0", className),
+      "aria-hidden": "true",
+      children: [
+        /* @__PURE__ */ jsx86(
+          "path",
+          {
+            d: "M16 2.5C17.3 2.5 18.3 3.4 19.3 4C20.4 4.5 21.7 4.7 22.8 5.5C23.9 6.3 24.4 7.6 25.1 8.7C25.8 9.8 26.9 10.7 27.2 12C27.6 13.2 27.2 14.5 27.2 15.8C27.2 17.1 27.6 18.4 27.2 19.6C26.9 20.9 25.8 21.8 25.1 22.9C24.4 24 23.9 25.3 22.8 26.1C21.7 26.9 20.4 27.1 19.3 27.7C18.3 28.3 17.3 29.2 16 29.2C14.7 29.2 13.7 28.3 12.7 27.7C11.6 27.1 10.3 26.9 9.2 26.1C8.1 25.3 7.6 24 6.9 22.9C6.2 21.8 5.1 20.9 4.8 19.6C4.4 18.4 4.8 17.1 4.8 15.8C4.8 14.5 4.4 13.2 4.8 12C5.1 10.7 6.2 9.8 6.9 8.7C7.6 7.6 8.1 6.3 9.2 5.5C10.3 4.7 11.6 4.5 12.7 4C13.7 3.4 14.7 2.5 16 2.5Z",
+            fill: "#FEE2E2",
+            className: "dark:fill-rose-950/70"
+          }
+        ),
+        /* @__PURE__ */ jsx86(
+          "circle",
+          {
+            cx: "16",
+            cy: "11.2",
+            r: "1.3",
+            fill: "#E11D48",
+            className: "dark:fill-rose-400"
+          }
+        ),
+        /* @__PURE__ */ jsx86(
+          "rect",
+          {
+            x: "14.8",
+            y: "14.3",
+            width: "2.4",
+            height: "7.2",
+            rx: "1.2",
+            fill: "#E11D48",
+            className: "dark:fill-rose-400"
+          }
+        )
+      ]
+    }
+  );
+};
+var AdBlockerPage = ({
+  title,
+  allowUrl = "https://nitx.io",
+  serviceName,
+  description,
+  showRecheckButton = false,
+  className,
+  onRecheck
+}) => {
+  const { t } = useNitxUiTranslation();
+  const resolvedTitle = title || t("adBlocker.title");
+  const resolvedService = serviceName || t("adBlocker.pageDefaultService");
+  return /* @__PURE__ */ jsxs63(
+    "main",
+    {
+      role: "alert",
+      className: cn(
+        "relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-white p-6 select-none dark:bg-black",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs63("div", { className: "relative z-10 mx-auto flex max-w-lg flex-col items-center justify-center text-center", children: [
+          /* @__PURE__ */ jsx86("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ jsx86(AdBlockerBadgeIcon, { className: "size-10" }) }),
+          /* @__PURE__ */ jsx86("h1", { className: "mt-4 text-base font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white", children: resolvedTitle }),
+          /* @__PURE__ */ jsx86("div", { className: "mt-2 text-xs leading-relaxed text-neutral-500 sm:text-[13px] dark:text-neutral-400", children: description ? /* @__PURE__ */ jsx86("p", { children: description }) : /* @__PURE__ */ jsxs63("p", { children: [
+            /* @__PURE__ */ jsxs63("span", { children: [
+              t("adBlocker.pageAllowPrefix"),
+              " "
+            ] }),
+            /* @__PURE__ */ jsx86(
+              "a",
+              {
+                href: allowUrl,
+                target: "_blank",
+                rel: "noreferrer",
+                className: "text-neutral-700 underline underline-offset-2 transition-colors hover:text-black dark:text-neutral-300 dark:hover:text-white",
+                children: allowUrl
+              }
+            ),
+            " ",
+            /* @__PURE__ */ jsxs63("span", { children: [
+              t("adBlocker.pageAllowMiddle"),
+              " "
+            ] }),
+            /* @__PURE__ */ jsx86("span", { children: resolvedService })
+          ] }) }),
+          showRecheckButton && /* @__PURE__ */ jsx86("div", { className: "mt-5", children: /* @__PURE__ */ jsx86(
+            "button",
+            {
+              type: "button",
+              onClick: onRecheck,
+              className: "rounded-lg border border-neutral-200 bg-neutral-50 px-3.5 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 corner-squircle",
+              children: t("adBlocker.recheck")
+            }
+          ) })
+        ] }),
+        /* @__PURE__ */ jsx86(
+          "div",
+          {
+            "aria-hidden": "true",
+            className: "pointer-events-none absolute -bottom-10 left-1/2 z-0 w-[90vw] max-w-[1200px] -translate-x-1/2 text-[#F3F4F7] select-none sm:-bottom-16 md:-bottom-24 dark:text-[#18181A]",
+            children: /* @__PURE__ */ jsx86(NitxLogoWatermark, { className: "w-full h-auto" })
+          }
+        )
+      ]
+    }
+  );
+};
+
+// src/components/ad-blocker/ad-blocker-notice.tsx
+import { useState as useState27 } from "react";
+import {
+  ChevronDown as ChevronDown5,
+  ChevronUp as ChevronUp2,
+  RefreshCw as RefreshCw3,
+  ShieldAlert,
+  ShieldCheck,
+  WifiOff,
+  X as X7
+} from "lucide-react";
+import { jsx as jsx87, jsxs as jsxs64 } from "react/jsx-runtime";
+var AdBlockerNotice = ({
+  variant = "page",
+  title,
+  description,
+  allowUrl,
+  serviceName,
+  affectedFeatures,
+  customInstructions,
+  showRecheckButton,
+  showDismissButton = true,
+  showInstructions = true,
+  storageType = "session",
+  storageKey,
+  forceShow = false,
+  className,
+  onDismiss,
+  onRecheck
+}) => {
+  const { t } = useNitxUiTranslation();
+  const [instructionsOpen, setInstructionsOpen] = useState27(false);
+  const [justCleared, setJustCleared] = useState27(false);
+  const {
+    isBlocked,
+    isOffline,
+    isChecking,
+    check,
+    dismiss
+  } = useAdBlocker({
+    storageType,
+    storageKey,
+    onRecheck: (result) => {
+      onRecheck?.(result);
+      if (!result.isBlocked && !result.isOffline) {
+        setJustCleared(true);
+        const timer = setTimeout(() => setJustCleared(false), 3500);
+        return () => clearTimeout(timer);
+      }
+    }
+  });
+  const shouldRender = forceShow || isBlocked || justCleared;
+  if (!shouldRender) {
+    return null;
+  }
+  const handleDismiss = () => {
+    dismiss();
+    onDismiss?.();
+  };
+  const handleRecheck = async () => {
+    const res = await check();
+    if (!res.isBlocked && !res.isOffline) {
+      setJustCleared(true);
+      setTimeout(() => setJustCleared(false), 3500);
+    }
+  };
+  const resolvedTitle = title || t("adBlocker.title");
+  const resolvedDescription = description || t("adBlocker.description");
+  const defaultFeatureList = [
+    t("adBlocker.features.adDelivery"),
+    t("adBlocker.features.analytics"),
+    t("adBlocker.features.integrations")
+  ];
+  const featuresToDisplay = affectedFeatures || defaultFeatureList;
+  if (justCleared) {
+    return /* @__PURE__ */ jsxs64(
+      "div",
+      {
+        role: "status",
+        "aria-live": "polite",
+        className: cn(
+          "flex items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-800 transition-all dark:border-emerald-500/20 dark:bg-emerald-950/30 dark:text-emerald-300 corner-squircle",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-2.5", children: [
+            /* @__PURE__ */ jsx87(ShieldCheck, { className: "size-4 shrink-0 text-emerald-600 dark:text-emerald-400" }),
+            /* @__PURE__ */ jsx87("span", { children: t("adBlocker.allClear") })
+          ] }),
+          /* @__PURE__ */ jsx87(
+            "button",
+            {
+              type: "button",
+              onClick: () => setJustCleared(false),
+              className: "rounded-md p-1 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300",
+              "aria-label": t("adBlocker.dismissAria"),
+              children: /* @__PURE__ */ jsx87(X7, { className: "size-3.5" })
+            }
+          )
+        ]
+      }
+    );
+  }
+  if (isOffline && !forceShow) {
+    return /* @__PURE__ */ jsx87(
+      "div",
+      {
+        role: "alert",
+        className: cn(
+          "flex items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-100/90 px-4 py-3 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-300 corner-squircle",
+          className
+        ),
+        children: /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-2.5", children: [
+          /* @__PURE__ */ jsx87(WifiOff, { className: "size-4 shrink-0 text-zinc-500" }),
+          /* @__PURE__ */ jsx87("span", { children: t("adBlocker.offlineNotice") })
+        ] })
+      }
+    );
+  }
+  if (variant === "page") {
+    return /* @__PURE__ */ jsx87(
+      AdBlockerPage,
+      {
+        title: resolvedTitle,
+        description,
+        allowUrl,
+        serviceName,
+        showRecheckButton: showRecheckButton ?? false,
+        onRecheck: handleRecheck,
+        className
+      }
+    );
+  }
+  if (variant === "card") {
+    return /* @__PURE__ */ jsxs64(
+      Card2,
+      {
+        role: "alert",
+        className: cn(
+          "relative overflow-hidden border-amber-500/30 bg-amber-500/5 p-5 text-start shadow-xs dark:border-amber-500/20 dark:bg-amber-950/20 corner-squircle",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsxs64("div", { className: "flex items-start justify-between gap-3", children: [
+            /* @__PURE__ */ jsxs64("div", { className: "flex items-start gap-3", children: [
+              /* @__PURE__ */ jsx87("span", { className: "flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-5" }) }),
+              /* @__PURE__ */ jsxs64("div", { children: [
+                /* @__PURE__ */ jsx87("h3", { className: "text-sm font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
+                /* @__PURE__ */ jsx87("p", { className: "mt-1 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed", children: resolvedDescription })
+              ] })
+            ] }),
+            showDismissButton && /* @__PURE__ */ jsx87(
+              "button",
+              {
+                type: "button",
+                onClick: handleDismiss,
+                className: "rounded-lg p-1 text-zinc-400 hover:bg-zinc-200/60 hover:text-zinc-700 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-200",
+                "aria-label": t("adBlocker.dismissAria"),
+                children: /* @__PURE__ */ jsx87(X7, { className: "size-4" })
+              }
+            )
+          ] }),
+          featuresToDisplay.length > 0 && /* @__PURE__ */ jsxs64("div", { className: "mt-3.5 rounded-lg border border-amber-500/20 bg-background/60 p-3 dark:bg-background/40", children: [
+            /* @__PURE__ */ jsx87("p", { className: "text-[11px] font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
+            /* @__PURE__ */ jsx87("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs64("li", { className: "flex items-center gap-1.5", children: [
+              /* @__PURE__ */ jsx87("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
+              /* @__PURE__ */ jsx87("span", { children: item })
+            ] }, index)) })
+          ] }),
+          showInstructions && /* @__PURE__ */ jsx87("div", { className: "mt-3.5", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) }),
+          /* @__PURE__ */ jsxs64("div", { className: "mt-4 flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-amber-500/15", children: [
+            showDismissButton && /* @__PURE__ */ jsx87(
+              Button,
+              {
+                type: "button",
+                variant: "outline",
+                size: "sm",
+                onClick: handleDismiss,
+                children: t("adBlocker.dismiss")
+              }
+            ),
+            showRecheckButton && /* @__PURE__ */ jsxs64(
+              Button,
+              {
+                type: "button",
+                variant: "default",
+                size: "sm",
+                onClick: handleRecheck,
+                disabled: isChecking,
+                className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
+                children: [
+                  /* @__PURE__ */ jsx87(
+                    RefreshCw3,
+                    {
+                      className: cn("size-3.5", isChecking && "animate-spin")
+                    }
+                  ),
+                  isChecking ? t("adBlocker.rechecking") : t("adBlocker.recheck")
+                ]
+              }
+            )
+          ] })
+        ]
+      }
+    );
+  }
+  if (variant === "dialog") {
+    return /* @__PURE__ */ jsx87(Dialog, { open: shouldRender, onOpenChange: (open) => !open && handleDismiss(), children: /* @__PURE__ */ jsxs64(DialogContent, { className: "max-w-lg p-6 corner-squircle", children: [
+      /* @__PURE__ */ jsx87(DialogHeader, { className: "text-start", children: /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ jsx87("span", { className: "flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-5" }) }),
+        /* @__PURE__ */ jsxs64("div", { children: [
+          /* @__PURE__ */ jsx87(DialogTitle, { className: "text-base font-semibold", children: resolvedTitle }),
+          /* @__PURE__ */ jsx87("p", { className: "mt-1 text-xs text-muted-foreground leading-relaxed", children: resolvedDescription })
+        ] })
+      ] }) }),
+      featuresToDisplay.length > 0 && /* @__PURE__ */ jsxs64("div", { className: "rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 dark:bg-amber-950/20", children: [
+        /* @__PURE__ */ jsx87("p", { className: "text-xs font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
+        /* @__PURE__ */ jsx87("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs64("li", { className: "flex items-center gap-1.5", children: [
+          /* @__PURE__ */ jsx87("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
+          /* @__PURE__ */ jsx87("span", { children: item })
+        ] }, index)) })
+      ] }),
+      showInstructions && /* @__PURE__ */ jsx87("div", { className: "mt-2", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) }),
+      /* @__PURE__ */ jsxs64("div", { className: "mt-4 flex items-center justify-end gap-2 pt-2 border-t border-border", children: [
+        showDismissButton && /* @__PURE__ */ jsx87(
+          Button,
+          {
+            type: "button",
+            variant: "outline",
+            size: "sm",
+            onClick: handleDismiss,
+            children: t("adBlocker.dismiss")
+          }
+        ),
+        showRecheckButton && /* @__PURE__ */ jsxs64(
+          Button,
+          {
+            type: "button",
+            variant: "default",
+            size: "sm",
+            onClick: handleRecheck,
+            disabled: isChecking,
+            className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
+            children: [
+              /* @__PURE__ */ jsx87(
+                RefreshCw3,
+                {
+                  className: cn("size-3.5", isChecking && "animate-spin")
+                }
+              ),
+              isChecking ? t("adBlocker.rechecking") : t("adBlocker.recheck")
+            ]
+          }
+        )
+      ] })
+    ] }) });
+  }
+  return /* @__PURE__ */ jsxs64(
+    "div",
+    {
+      role: "alert",
+      className: cn(
+        "relative w-full rounded-xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-start transition-all dark:border-amber-500/25 dark:bg-amber-950/30 corner-squircle",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs64("div", { className: "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between", children: [
+          /* @__PURE__ */ jsxs64("div", { className: "flex items-start gap-2.5", children: [
+            /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-4.5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" }),
+            /* @__PURE__ */ jsxs64("div", { className: "space-y-0.5", children: [
+              /* @__PURE__ */ jsxs64("div", { className: "flex flex-wrap items-center gap-2", children: [
+                /* @__PURE__ */ jsx87("span", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
+                /* @__PURE__ */ jsx87("span", { className: "hidden text-zinc-400 dark:text-zinc-600 sm:inline", children: "\u2022" }),
+                /* @__PURE__ */ jsx87("span", { className: "text-xs text-zinc-600 dark:text-zinc-300", children: resolvedDescription })
+              ] }),
+              showInstructions && /* @__PURE__ */ jsxs64(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setInstructionsOpen((prev) => !prev),
+                  className: "inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300 underline underline-offset-2",
+                  children: [
+                    /* @__PURE__ */ jsx87("span", { children: t("adBlocker.howToAllow") }),
+                    instructionsOpen ? /* @__PURE__ */ jsx87(ChevronUp2, { className: "size-3" }) : /* @__PURE__ */ jsx87(ChevronDown5, { className: "size-3" })
+                  ]
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-2 self-end sm:self-center shrink-0", children: [
+            showRecheckButton && /* @__PURE__ */ jsxs64(
+              Button,
+              {
+                type: "button",
+                variant: "outline",
+                size: "sm",
+                onClick: handleRecheck,
+                disabled: isChecking,
+                className: "h-7 px-2.5 text-xs border-amber-500/30 bg-background/80 hover:bg-amber-500/15",
+                children: [
+                  /* @__PURE__ */ jsx87(
+                    RefreshCw3,
+                    {
+                      className: cn("size-3", isChecking && "animate-spin")
+                    }
+                  ),
+                  isChecking ? t("adBlocker.rechecking") : t("adBlocker.recheck")
+                ]
+              }
+            ),
+            showDismissButton && /* @__PURE__ */ jsx87(
+              "button",
+              {
+                type: "button",
+                onClick: handleDismiss,
+                className: "rounded-lg p-1 text-zinc-500 hover:bg-amber-500/20 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
+                "aria-label": t("adBlocker.dismissAria"),
+                children: /* @__PURE__ */ jsx87(X7, { className: "size-4" })
+              }
+            )
+          ] })
+        ] }),
+        showInstructions && instructionsOpen && /* @__PURE__ */ jsx87("div", { className: "mt-3 pt-3 border-t border-amber-500/20", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) })
+      ]
+    }
+  );
+};
+
 // src/components/search/search-provider.tsx
-import * as React45 from "react";
+import * as React47 from "react";
 
 // src/components/search/search-dialog.tsx
-import * as React44 from "react";
+import * as React46 from "react";
 import * as DialogPrimitive3 from "@radix-ui/react-dialog";
-import { Loader2 as Loader26, Search as Search2, X as X7 } from "lucide-react";
+import { Loader2 as Loader26, Search as Search2, X as X8 } from "lucide-react";
 
 // src/components/ui/kbd.tsx
-import { jsx as jsx84 } from "react/jsx-runtime";
+import { jsx as jsx88 } from "react/jsx-runtime";
 function Kbd({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx84(
+  return /* @__PURE__ */ jsx88(
     "kbd",
     {
       className: cn(
@@ -12427,11 +13326,11 @@ function KbdGroup({
   keys,
   className
 }) {
-  return /* @__PURE__ */ jsx84("span", { dir: "ltr", className: cn("inline-flex items-center gap-1", className), children: keys.map((key) => /* @__PURE__ */ jsx84(Kbd, { children: key }, key)) });
+  return /* @__PURE__ */ jsx88("span", { dir: "ltr", className: cn("inline-flex items-center gap-1", className), children: keys.map((key) => /* @__PURE__ */ jsx88(Kbd, { children: key }, key)) });
 }
 
 // src/components/search/search-result-row.tsx
-import { jsx as jsx85, jsxs as jsxs61 } from "react/jsx-runtime";
+import { jsx as jsx89, jsxs as jsxs65 } from "react/jsx-runtime";
 function SearchResultRow({
   id,
   active,
@@ -12439,7 +13338,7 @@ function SearchResultRow({
   onChoose,
   children
 }) {
-  return /* @__PURE__ */ jsx85(
+  return /* @__PURE__ */ jsx89(
     "div",
     {
       id,
@@ -12460,16 +13359,16 @@ function SearchResultText({
   title,
   detail
 }) {
-  return /* @__PURE__ */ jsxs61("div", { className: "min-w-0 flex-1", children: [
-    /* @__PURE__ */ jsx85("p", { className: "truncate text-sm font-semibold text-foreground", children: title }),
-    detail && /* @__PURE__ */ jsx85("p", { className: "truncate text-xs text-muted-foreground", children: detail })
+  return /* @__PURE__ */ jsxs65("div", { className: "min-w-0 flex-1", children: [
+    /* @__PURE__ */ jsx89("p", { className: "truncate text-sm font-semibold text-foreground", children: title }),
+    detail && /* @__PURE__ */ jsx89("p", { className: "truncate text-xs text-muted-foreground", children: detail })
   ] });
 }
 function SearchResultIcon({
   className,
   children
 }) {
-  return /* @__PURE__ */ jsx85(
+  return /* @__PURE__ */ jsx89(
     "span",
     {
       className: cn(
@@ -12557,7 +13456,7 @@ function useSearchEngine(sources, query) {
 }
 
 // src/components/search/search-dialog.tsx
-import { Fragment as Fragment13, jsx as jsx86, jsxs as jsxs62 } from "react/jsx-runtime";
+import { Fragment as Fragment13, jsx as jsx90, jsxs as jsxs66 } from "react/jsx-runtime";
 function SearchDialog({
   open,
   onOpenChange,
@@ -12566,15 +13465,15 @@ function SearchDialog({
   rtl
 }) {
   const { t } = useNitxUiTranslation();
-  const choosingRef = React44.useRef(false);
+  const choosingRef = React46.useRef(false);
   const choose = (hit) => {
     choosingRef.current = true;
     onOpenChange(false);
     hit.open();
   };
-  return /* @__PURE__ */ jsx86(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs62(DialogPortal, { children: [
-    /* @__PURE__ */ jsx86(DialogOverlay, {}),
-    /* @__PURE__ */ jsxs62(
+  return /* @__PURE__ */ jsx90(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs66(DialogPortal, { children: [
+    /* @__PURE__ */ jsx90(DialogOverlay, {}),
+    /* @__PURE__ */ jsxs66(
       DialogPrimitive3.Content,
       {
         "aria-describedby": void 0,
@@ -12596,8 +13495,8 @@ function SearchDialog({
           "duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 md:data-[state=open]:zoom-in-95 md:data-[state=closed]:zoom-out-95"
         ),
         children: [
-          /* @__PURE__ */ jsx86(DialogPrimitive3.Title, { className: "sr-only", children: t("globalSearch.title") }),
-          /* @__PURE__ */ jsx86(SearchPanel, { sources, onChoose: choose })
+          /* @__PURE__ */ jsx90(DialogPrimitive3.Title, { className: "sr-only", children: t("globalSearch.title") }),
+          /* @__PURE__ */ jsx90(SearchPanel, { sources, onChoose: choose })
         ]
       }
     )
@@ -12608,20 +13507,20 @@ function SearchPanel({
   onChoose
 }) {
   const { t } = useNitxUiTranslation();
-  const [query, setQuery] = React44.useState("");
-  const [activeId, setActiveId] = React44.useState(null);
+  const [query, setQuery] = React46.useState("");
+  const [activeId, setActiveId] = React46.useState(null);
   const { groups, hits, loading, failed, retry } = useSearchEngine(
     sources,
     query
   );
-  const baseId = React44.useId();
+  const baseId = React46.useId();
   const listboxId = `${baseId}-listbox`;
   const optionId = (index) => `${baseId}-option-${index}`;
   const activeIndex = hits.length === 0 ? -1 : Math.max(
     0,
     hits.findIndex((hit) => hit.id === activeId)
   );
-  React44.useEffect(() => {
+  React46.useEffect(() => {
     if (activeIndex < 0) return;
     document.getElementById(`${baseId}-option-${activeIndex}`)?.scrollIntoView({ block: "nearest" });
   }, [activeIndex, baseId]);
@@ -12642,10 +13541,10 @@ function SearchPanel({
   const hasFailed = trimmed !== "" && failed;
   const isEmpty = trimmed !== "" && hits.length === 0 && !loading && !failed;
   const announcement = !trimmed ? "" : hits.length > 0 ? t("globalSearch.resultCount", { count: hits.length }) : isLoading ? t("globalSearch.loading") : hasFailed ? t("globalSearch.loadError") : t("globalSearch.noResults", { query: trimmed });
-  return /* @__PURE__ */ jsxs62(Fragment13, { children: [
-    /* @__PURE__ */ jsxs62("div", { className: "flex shrink-0 items-center gap-3.5 border-b border-border ps-5 pe-3 md:px-7", children: [
-      /* @__PURE__ */ jsx86(Search2, { "aria-hidden": true, className: "size-6 shrink-0 text-muted-foreground" }),
-      /* @__PURE__ */ jsx86(
+  return /* @__PURE__ */ jsxs66(Fragment13, { children: [
+    /* @__PURE__ */ jsxs66("div", { className: "flex shrink-0 items-center gap-3.5 border-b border-border ps-5 pe-3 md:px-7", children: [
+      /* @__PURE__ */ jsx90(Search2, { "aria-hidden": true, className: "size-6 shrink-0 text-muted-foreground" }),
+      /* @__PURE__ */ jsx90(
         "input",
         {
           role: "combobox",
@@ -12669,26 +13568,26 @@ function SearchPanel({
           className: "h-[4.5rem] min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
         }
       ),
-      /* @__PURE__ */ jsx86(DialogPrimitive3.Close, { asChild: true, children: /* @__PURE__ */ jsx86(
+      /* @__PURE__ */ jsx90(DialogPrimitive3.Close, { asChild: true, children: /* @__PURE__ */ jsx90(
         Button,
         {
           variant: "ghost",
           size: "icon",
           "aria-label": t("globalSearch.close"),
           className: "shrink-0 rounded-full md:hidden",
-          children: /* @__PURE__ */ jsx86(X7, { "aria-hidden": true })
+          children: /* @__PURE__ */ jsx90(X8, { "aria-hidden": true })
         }
       ) })
     ] }),
-    /* @__PURE__ */ jsxs62("div", { className: "min-h-0 flex-1 overflow-y-auto overscroll-contain p-3 md:px-4", children: [
-      /* @__PURE__ */ jsx86("div", { role: "listbox", id: listboxId, "aria-label": t("globalSearch.title"), children: groups.map((group) => /* @__PURE__ */ jsxs62(
+    /* @__PURE__ */ jsxs66("div", { className: "min-h-0 flex-1 overflow-y-auto overscroll-contain p-3 md:px-4", children: [
+      /* @__PURE__ */ jsx90("div", { role: "listbox", id: listboxId, "aria-label": t("globalSearch.title"), children: groups.map((group) => /* @__PURE__ */ jsxs66(
         "div",
         {
           role: "group",
           "aria-labelledby": `${baseId}-${group.kind}`,
           className: "pb-2",
           children: [
-            /* @__PURE__ */ jsx86(
+            /* @__PURE__ */ jsx90(
               "div",
               {
                 id: `${baseId}-${group.kind}`,
@@ -12698,7 +13597,7 @@ function SearchPanel({
             ),
             group.hits.map((hit) => {
               const index = hits.indexOf(hit);
-              return /* @__PURE__ */ jsx86(
+              return /* @__PURE__ */ jsx90(
                 SearchResultRow,
                 {
                   id: optionId(index),
@@ -12714,37 +13613,37 @@ function SearchPanel({
         },
         group.kind
       )) }),
-      isLoading && /* @__PURE__ */ jsxs62("div", { className: "flex items-center gap-2.5 px-3 py-3", children: [
-        /* @__PURE__ */ jsx86(
+      isLoading && /* @__PURE__ */ jsxs66("div", { className: "flex items-center gap-2.5 px-3 py-3", children: [
+        /* @__PURE__ */ jsx90(
           Loader26,
           {
             "aria-hidden": true,
             className: "size-4 animate-spin text-muted-foreground"
           }
         ),
-        /* @__PURE__ */ jsx86("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.loading") })
+        /* @__PURE__ */ jsx90("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.loading") })
       ] }),
-      hasFailed && /* @__PURE__ */ jsxs62("div", { className: "flex items-center justify-between gap-3 ps-3", children: [
-        /* @__PURE__ */ jsx86("p", { className: "text-sm text-rose-600 dark:text-rose-400", children: t("globalSearch.loadError") }),
-        /* @__PURE__ */ jsx86(Button, { variant: "ghost", size: "sm", onClick: retry, children: t("globalSearch.retry") })
+      hasFailed && /* @__PURE__ */ jsxs66("div", { className: "flex items-center justify-between gap-3 ps-3", children: [
+        /* @__PURE__ */ jsx90("p", { className: "text-sm text-rose-600 dark:text-rose-400", children: t("globalSearch.loadError") }),
+        /* @__PURE__ */ jsx90(Button, { variant: "ghost", size: "sm", onClick: retry, children: t("globalSearch.retry") })
       ] }),
-      isEmpty && /* @__PURE__ */ jsxs62("div", { className: "flex h-full flex-col items-center justify-center gap-1 px-6 text-center", children: [
-        /* @__PURE__ */ jsx86("p", { className: "max-w-full break-words text-base font-semibold text-foreground", children: t("globalSearch.noResults", { query: trimmed }) }),
-        /* @__PURE__ */ jsx86("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.noResultsHint") })
+      isEmpty && /* @__PURE__ */ jsxs66("div", { className: "flex h-full flex-col items-center justify-center gap-1 px-6 text-center", children: [
+        /* @__PURE__ */ jsx90("p", { className: "max-w-full break-words text-base font-semibold text-foreground", children: t("globalSearch.noResults", { query: trimmed }) }),
+        /* @__PURE__ */ jsx90("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.noResultsHint") })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs62("footer", { className: "hidden shrink-0 items-center gap-6 border-t border-border px-7 py-4 md:flex", children: [
-      /* @__PURE__ */ jsx86(Hint, { keys: ["\u2191", "\u2193"], label: t("globalSearch.hintNavigate") }),
-      /* @__PURE__ */ jsx86(Hint, { keys: ["\u21B5"], label: t("globalSearch.hintOpen") }),
-      /* @__PURE__ */ jsx86(Hint, { keys: ["Esc"], label: t("globalSearch.hintClose") })
+    /* @__PURE__ */ jsxs66("footer", { className: "hidden shrink-0 items-center gap-6 border-t border-border px-7 py-4 md:flex", children: [
+      /* @__PURE__ */ jsx90(Hint, { keys: ["\u2191", "\u2193"], label: t("globalSearch.hintNavigate") }),
+      /* @__PURE__ */ jsx90(Hint, { keys: ["\u21B5"], label: t("globalSearch.hintOpen") }),
+      /* @__PURE__ */ jsx90(Hint, { keys: ["Esc"], label: t("globalSearch.hintClose") })
     ] }),
-    /* @__PURE__ */ jsx86("p", { role: "status", "aria-live": "polite", className: "sr-only", children: announcement })
+    /* @__PURE__ */ jsx90("p", { role: "status", "aria-live": "polite", className: "sr-only", children: announcement })
   ] });
 }
 function Hint({ keys, label }) {
-  return /* @__PURE__ */ jsxs62("span", { className: "flex items-center gap-1.5", children: [
-    /* @__PURE__ */ jsx86(KbdGroup, { keys }),
-    /* @__PURE__ */ jsx86("span", { className: "text-xs text-muted-foreground", children: label })
+  return /* @__PURE__ */ jsxs66("span", { className: "flex items-center gap-1.5", children: [
+    /* @__PURE__ */ jsx90(KbdGroup, { keys }),
+    /* @__PURE__ */ jsx90("span", { className: "text-xs text-muted-foreground", children: label })
   ] });
 }
 
@@ -12764,10 +13663,10 @@ function isSearchShortcut(event, apple) {
 }
 
 // src/components/search/search-provider.tsx
-import { jsx as jsx87, jsxs as jsxs63 } from "react/jsx-runtime";
-var GlobalSearchContext = React45.createContext(null);
+import { jsx as jsx91, jsxs as jsxs67 } from "react/jsx-runtime";
+var GlobalSearchContext = React47.createContext(null);
 function useGlobalSearch() {
-  const context = React45.useContext(GlobalSearchContext);
+  const context = React47.useContext(GlobalSearchContext);
   if (!context) {
     throw new Error(
       "useGlobalSearch must be used inside <GlobalSearchProvider>"
@@ -12787,18 +13686,18 @@ function GlobalSearchProvider({
   const { i18n } = useNitxUiTranslation();
   const language = i18n?.resolvedLanguage ?? i18n?.language;
   const isRtl = rtl ?? language?.toLowerCase().startsWith("ar") ?? false;
-  const [open, setOpen] = React45.useState(false);
-  const openRef = React45.useRef(open);
-  const returnFocusRef = React45.useRef(null);
-  const isApple = React45.useSyncExternalStore(
+  const [open, setOpen] = React47.useState(false);
+  const openRef = React47.useRef(open);
+  const returnFocusRef = React47.useRef(null);
+  const isApple = React47.useSyncExternalStore(
     subscribe,
     getIsApple,
     getServerIsApple
   );
-  React45.useEffect(() => {
+  React47.useEffect(() => {
     openRef.current = open;
   }, [open]);
-  const openSearch = React45.useCallback(
+  const openSearch = React47.useCallback(
     (returnFocusTo) => {
       const focused = document.activeElement;
       returnFocusRef.current = returnFocusTo ?? (focused instanceof HTMLElement ? focused : null);
@@ -12806,7 +13705,7 @@ function GlobalSearchProvider({
     },
     []
   );
-  React45.useEffect(() => {
+  React47.useEffect(() => {
     if (isApple === null) return;
     const onKeyDown = (event) => {
       if (event.repeat || event.isComposing || !isSearchShortcut(event, isApple)) {
@@ -12819,16 +13718,16 @@ function GlobalSearchProvider({
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [isApple, openSearch]);
-  const value = React45.useMemo(
+  const value = React47.useMemo(
     () => ({
       openSearch,
       shortcut: isApple === null ? null : searchShortcut(isApple)
     }),
     [isApple, openSearch]
   );
-  return /* @__PURE__ */ jsxs63(GlobalSearchContext.Provider, { value, children: [
+  return /* @__PURE__ */ jsxs67(GlobalSearchContext.Provider, { value, children: [
     children,
-    /* @__PURE__ */ jsx87(
+    /* @__PURE__ */ jsx91(
       SearchDialog,
       {
         open,
@@ -12843,12 +13742,12 @@ function GlobalSearchProvider({
 
 // src/components/search/search-trigger.tsx
 import { Search as Search3 } from "lucide-react";
-import { jsx as jsx88, jsxs as jsxs64 } from "react/jsx-runtime";
+import { jsx as jsx92, jsxs as jsxs68 } from "react/jsx-runtime";
 var triggerSurface = "rounded-[10px] border-zinc-200 bg-white shadow-none hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800";
 function SearchTrigger({ className }) {
   const { t } = useNitxUiTranslation();
   const { openSearch, shortcut } = useGlobalSearch();
-  return /* @__PURE__ */ jsxs64(
+  return /* @__PURE__ */ jsxs68(
     Button,
     {
       type: "button",
@@ -12862,9 +13761,9 @@ function SearchTrigger({ className }) {
         className
       ),
       children: [
-        /* @__PURE__ */ jsx88(Search3, { "aria-hidden": true }),
-        /* @__PURE__ */ jsx88("span", { className: "flex-1 truncate text-start", children: t("globalSearch.trigger") }),
-        shortcut && /* @__PURE__ */ jsx88(KbdGroup, { keys: shortcut.keys })
+        /* @__PURE__ */ jsx92(Search3, { "aria-hidden": true }),
+        /* @__PURE__ */ jsx92("span", { className: "flex-1 truncate text-start", children: t("globalSearch.trigger") }),
+        shortcut && /* @__PURE__ */ jsx92(KbdGroup, { keys: shortcut.keys })
       ]
     }
   );
@@ -12872,7 +13771,7 @@ function SearchTrigger({ className }) {
 function SearchIconTrigger({ className }) {
   const { t } = useNitxUiTranslation();
   const { openSearch } = useGlobalSearch();
-  return /* @__PURE__ */ jsx88(
+  return /* @__PURE__ */ jsx92(
     Button,
     {
       type: "button",
@@ -12886,13 +13785,17 @@ function SearchIconTrigger({ className }) {
         triggerSurface,
         className
       ),
-      children: /* @__PURE__ */ jsx88(Search3, { "aria-hidden": true })
+      children: /* @__PURE__ */ jsx92(Search3, { "aria-hidden": true })
     }
   );
 }
 export {
   ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AccountPreferencesModal,
+  AdBlockerBadgeIcon,
+  AdBlockerInstructions,
+  AdBlockerNotice,
+  AdBlockerPage,
   AddContentModal_default as AddContentModal,
   AssetsBrowser_default as AssetsBrowser,
   AssetsPath_default as AssetsPath,
@@ -12958,6 +13861,7 @@ export {
   MembersManager_default as MembersManager,
   DrawerDialog as Modal,
   DrawerDialog as ModalShell,
+  NitxLogoWatermark,
   ProductSwitcher,
   RAIL_CONTROL,
   RAIL_HOVER,
@@ -13004,12 +13908,16 @@ export {
   createContentBrowserApi,
   createSpaceSelectorApi,
   cx,
+  detectAdBlocker,
   isApplePlatform,
+  isBrowserOffline,
   isSearchShortcut,
   matchRank,
   normalizeSearchText,
   rankMatches,
   searchShortcut,
+  testDomCosmeticFiltering,
+  useAdBlocker,
   useAssetsConfig,
   useAssetsQuery,
   useAssetsStore,
