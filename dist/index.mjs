@@ -16,7 +16,8 @@ var nitxuilib_default = {
     "Recently Spaces": "\u0623\u062D\u062F\u062B \u0627\u0644\u0645\u0633\u0627\u062D\u0627\u062A",
     "Browse More": "\u0627\u0633\u062A\u0639\u0631\u0627\u0636 \u0627\u0644\u0645\u0632\u064A\u062F",
     "New Space": "\u0645\u0633\u0627\u062D\u0629 \u062C\u062F\u064A\u062F\u0629",
-    "Manage Members": "\u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u0623\u0639\u0636\u0627\u0621"
+    "Manage Members": "\u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u0623\u0639\u0636\u0627\u0621",
+    Assets: "\u0645\u0644\u0641\u0627\u062A"
   },
   fields: {
     profile_discription: "\u062A\u0633\u0627\u0639\u062F \u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u0634\u062E\u0635\u064A \u0641\u064A \u0625\u0636\u0641\u0627\u0621 \u0637\u0627\u0628\u0639 \u0634\u062E\u0635\u064A \u0639\u0644\u0649 \u062D\u0633\u0627\u0628\u0643",
@@ -967,7 +968,8 @@ var nitxuilib_default2 = {
     "Recently Spaces": "Recent spaces",
     "Browse More": "Browse more",
     "New Space": "New space",
-    "Manage Members": "Manage members"
+    "Manage Members": "Manage members",
+    Assets: "Assets"
   },
   fields: {
     profile_discription: "A profile picture helps personalize your account",
