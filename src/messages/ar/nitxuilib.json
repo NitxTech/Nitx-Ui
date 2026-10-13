@@ -780,13 +780,29 @@
     "assetsPreview": {
       "of": "من",
       "notAvailable": "المعاينة غير متوفرة لهذا النوع",
-      "linkPreview": "معاينة الرابط: {{url}}"
+      "linkPreview": "معاينة الرابط: {{url}}",
+      "documentLoading": "جارٍ تحميل المستند",
+      "documentRegion": "معاينة المستند",
+      "documentPage": "صفحة {{current}} من {{total}}",
+      "documentPrevPage": "الصفحة السابقة",
+      "documentNextPage": "الصفحة التالية",
+      "documentZoomIn": "تكبير",
+      "documentZoomOut": "تصغير",
+      "documentZoomReset": "إعادة التكبير إلى 100%",
+      "documentOpen": "فتح في تبويب جديد",
+      "documentRetry": "إعادة المحاولة",
+      "documentError": "لا يمكن فتح هذا المستند",
+      "documentErrorHint": "قد يكون الملف تالفًا أو غير متاح. يمكنك إعادة المحاولة أو فتحه في تبويب جديد أو تنزيله.",
+      "documentProtected": "هذا المستند محمي بكلمة مرور",
+      "documentProtectedHint": "افتحه في تبويب جديد أو نزّله لإدخال كلمة المرور.",
+      "documentUnsupported": "لا تتوفر معاينة لهذا النوع من المستندات"
     },
     "assetsTabbar": {
       "all": "الكل",
       "media": "الوسائط",
       "documents": "المستندات",
-      "links": "الروابط"
+      "links": "الروابط",
+      "region": "أنواع الأصول"
     },
     "folderCard": {
       "deleteFolder": "حذف المجلد",
@@ -975,5 +991,25 @@
     "pageAllowPrefix": "يرجى استثناء",
     "pageAllowMiddle": "في مانع الإعلانات، أو تعطيله للوصول إلى",
     "pageDefaultService": "لوحة تحكم إعلانات AppLovin."
+  },
+  "sequenceDuration": {
+    "label": "المدة: {{count}} ثانية",
+    "none": "لم تحدد مدة",
+    "value": "{{count}} ث"
+  },
+  "globalSearch": {
+    "trigger": "بحث",
+    "title": "بحث",
+    "placeholder": "بحث",
+    "close": "إغلاق البحث",
+    "loading": "جارٍ تحميل النتائج",
+    "loadError": "تعذّر تحميل بعض النتائج.",
+    "retry": "إعادة المحاولة",
+    "noResults": "لا توجد نتائج لـ «{{query}}»",
+    "noResultsHint": "تحقق من الإملاء أو ابحث عن شيء آخر.",
+    "resultCount": "{{count}} نتيجة",
+    "hintNavigate": "تنقّل",
+    "hintOpen": "فتح",
+    "hintClose": "إغلاق"
   }
 }

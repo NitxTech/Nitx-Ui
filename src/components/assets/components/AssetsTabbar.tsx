@@ -162,6 +162,7 @@ const AssetsTabbar = ({ className, sticky = true }: AssetsTabbarProps) => {
     <CustomTabbar
       tabs={tabs}
       sticky={sticky}
+      ariaLabel={t("assets.assetsTabbar.region")}
       className={className}
       activeTab={activeTab}
       onTabChange={(tabId) => setActiveTab(tabId as AssetsTab)}

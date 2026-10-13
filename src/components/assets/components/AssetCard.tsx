@@ -23,6 +23,7 @@ import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
 import { useAssetsStore, type AssetsViewType } from "../hooks/use-assets-store";
+import { assetCardIconButtonClass } from "../lib/card-styles";
 import type { Asset } from "../types";
 
 interface AssetCardProps {
@@ -375,10 +376,11 @@ const AssetCard: React.FC<AssetCardProps> = ({
                     >
                       <button
                         type="button"
-                        className="icon "
+                        className={assetCardIconButtonClass}
+                        aria-label={t("assets.assetCard.moreOptions")}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <MoreVertical className="size-4" />
+                        <MoreVertical className="size-4" aria-hidden />
                       </button>
                     </DropdownMenuTrigger>
                   </TooltipTrigger>
