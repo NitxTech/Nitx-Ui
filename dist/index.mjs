@@ -2338,8 +2338,9 @@ var DialogOverlay = React4.forwardRef(({ className, ...props }, ref) => /* @__PU
   }
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
-var DialogContent = React4.forwardRef(({ className, children, overlayClassName, showCloseButton = true, closeButtonClassName, ...props }, ref) => {
+var DialogContent = React4.forwardRef(({ className, children, overlayClassName, showCloseButton = true, hideClose, closeButtonClassName, ...props }, ref) => {
   const { t } = useNitxUiTranslation();
+  const shouldShowClose = hideClose !== void 0 ? !hideClose : showCloseButton;
   return /* @__PURE__ */ jsxs4(DialogPortal, { children: [
     /* @__PURE__ */ jsx6(DialogOverlay, { className: overlayClassName }),
     /* @__PURE__ */ jsxs4(
@@ -2354,7 +2355,7 @@ var DialogContent = React4.forwardRef(({ className, children, overlayClassName, 
         ...props,
         children: [
           children,
-          showCloseButton && /* @__PURE__ */ jsxs4(
+          shouldShowClose && /* @__PURE__ */ jsxs4(
             DialogPrimitive.Close,
             {
               className: cn(

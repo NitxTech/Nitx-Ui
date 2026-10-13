@@ -37,9 +37,11 @@ const DialogContent = React.forwardRef<
     overlayClassName?: string;
     showCloseButton?: boolean;
     closeButtonClassName?: string;
+    hideClose?: boolean;
   }
->(({ className, children, overlayClassName, showCloseButton = true, closeButtonClassName, ...props }, ref) => {
+>(({ className, children, overlayClassName, showCloseButton = true, hideClose, closeButtonClassName, ...props }, ref) => {
   const { t } = useNitxUiTranslation();
+  const shouldShowClose = hideClose !== undefined ? !hideClose : showCloseButton;
   return (
     <DialogPortal>
       <DialogOverlay className={overlayClassName} />
@@ -53,7 +55,7 @@ const DialogContent = React.forwardRef<
         {...props}
       >
         {children}
-        {showCloseButton && (
+        {shouldShowClose && (
           <DialogPrimitive.Close
             className={cn(
               "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none",

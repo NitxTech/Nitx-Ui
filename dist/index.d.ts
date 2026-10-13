@@ -1000,6 +1000,7 @@ declare const DialogContent: React$1.ForwardRefExoticComponent<Omit<DialogPrimit
     overlayClassName?: string;
     showCloseButton?: boolean;
     closeButtonClassName?: string;
+    hideClose?: boolean;
 } & React$1.RefAttributes<HTMLDivElement>>;
 declare const DialogHeader: {
     ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
