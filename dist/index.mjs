@@ -6828,7 +6828,7 @@ var AddContentModal = ({
           children: pathItem.label
         }
       ),
-      index < currentPath.length - 1 && /* @__PURE__ */ jsx53(ChevronRight4, { className: "size-3 text-gray-400 dark:text-zinc-500" })
+      index < currentPath.length - 1 && /* @__PURE__ */ jsx53(ChevronRight4, { className: "size-3 text-gray-400 dark:text-zinc-500 rtl:rotate-180" })
     ] }, index))
   ] });
   const renderAssetCard = (asset) => {
@@ -6888,7 +6888,7 @@ var AddContentModal = ({
               }
             )
           ] }),
-          /* @__PURE__ */ jsxs39("div", { className: "pl-3", children: [
+          /* @__PURE__ */ jsxs39("div", { className: "ps-3 pe-8 text-start", children: [
             /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: asset.name.slice(0, 10) }),
             /* @__PURE__ */ jsxs39("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
               t("addContentModal.upload"),
@@ -6918,7 +6918,7 @@ var AddContentModal = ({
       onClick: () => handleFolderClick(folder),
       children: [
         /* @__PURE__ */ jsx53("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-sky-100", children: /* @__PURE__ */ jsx53(FolderOpen, { className: "text-sky-600 size-8" }) }),
-        /* @__PURE__ */ jsxs39("div", { className: "pl-3", children: [
+        /* @__PURE__ */ jsxs39("div", { className: "ps-3 text-start", children: [
           /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: folder.name.length > 20 ? `${folder.name.slice(0, 20)}...` : folder.name }),
           /* @__PURE__ */ jsxs39("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
             folder.assets_count || 0,
@@ -6942,7 +6942,7 @@ var AddContentModal = ({
         onClick: () => toggleLayoutSelection(layout.uuid),
         children: [
           /* @__PURE__ */ jsx53("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#FEBC2E]", children: /* @__PURE__ */ jsx53(Layout, { className: "fill-white text-[#FEBC2E] size-8" }) }),
-          /* @__PURE__ */ jsx53("div", { className: "pl-3", children: /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: layout.name }) }),
+          /* @__PURE__ */ jsx53("div", { className: "ps-3 pe-8 text-start", children: /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: layout.name }) }),
           /* @__PURE__ */ jsx53(
             "div",
             {
@@ -6970,7 +6970,7 @@ var AddContentModal = ({
         onClick: () => toggleSequenceSelection(sequence.id),
         children: [
           /* @__PURE__ */ jsx53("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#00C4CC]", children: /* @__PURE__ */ jsx53(Film, { className: "text-white size-8" }) }),
-          /* @__PURE__ */ jsxs39("div", { className: "pl-3", children: [
+          /* @__PURE__ */ jsxs39("div", { className: "ps-3 pe-8 text-start", children: [
             /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: sequence.name }),
             /* @__PURE__ */ jsx53(
               SequenceDuration,
@@ -7007,9 +7007,9 @@ var AddContentModal = ({
         onClick: () => toggleChannelSelection(channel.id),
         children: [
           /* @__PURE__ */ jsx53("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#575DFC]", children: /* @__PURE__ */ jsx53(ChannelSolidPlayIcon, { baseColor: "white", playColor: "#4B53FB" }) }),
-          /* @__PURE__ */ jsxs39("div", { className: "pl-3", children: [
+          /* @__PURE__ */ jsxs39("div", { className: "ps-3 pe-8 text-start", children: [
             /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate", children: channel.name }),
-            /* @__PURE__ */ jsx53("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: channel.isPublished ? "Published" : "Draft" })
+            /* @__PURE__ */ jsx53("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: channel.isPublished ? t("addContentModal.published") : t("addContentModal.draft") })
           ] }),
           /* @__PURE__ */ jsx53(
             "div",
@@ -7104,7 +7104,7 @@ var AddContentModal = ({
                 ),
                 children: [
                   /* @__PURE__ */ jsx53("div", { className: "w-[86px] h-[86px] flex-shrink-0 flex items-center justify-center bg-gray-50 dark:bg-card", children: inst.app_icon_url ? /* @__PURE__ */ jsx53("img", { src: inst.app_icon_url, alt: inst.app_name, className: "w-10 h-10" }) : /* @__PURE__ */ jsx53("div", { className: "w-10 h-10 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 flex items-center justify-center text-sm font-semibold", children: (inst.app_name || "A").charAt(0) }) }),
-                  /* @__PURE__ */ jsxs39("div", { className: "pl-3 pr-8 py-2", children: [
+                  /* @__PURE__ */ jsxs39("div", { className: "ps-3 pe-8 py-2 text-start", children: [
                     /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate max-w-[220px]", children: inst.name }),
                     /* @__PURE__ */ jsx53("p", { className: "text-xs text-gray-600 dark:text-zinc-300 truncate max-w-[220px]", children: inst.app_name })
                   ] }),
@@ -7136,7 +7136,7 @@ var AddContentModal = ({
       case "Canvas":
         if (isLoadingCanvas) return /* @__PURE__ */ jsx53(SkeletonGrid, { count: 6 });
         return filteredCanvasAssets.length > 0 ? /* @__PURE__ */ jsxs39("div", { children: [
-          /* @__PURE__ */ jsx53("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: "Canvas" }),
+          /* @__PURE__ */ jsx53("h3", { className: "text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2", children: t("addContentModal.canvas") }),
           /* @__PURE__ */ jsx53("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 py-2", children: filteredCanvasAssets.map((canvas, index) => {
             const isSelected = selectedCanvasAssets.includes(canvas.uuid);
             return /* @__PURE__ */ jsxs39(
@@ -7150,7 +7150,7 @@ var AddContentModal = ({
                 onClick: () => toggleCanvasSelection(canvas.uuid),
                 children: [
                   /* @__PURE__ */ jsx53("div", { className: "w-[110px] h-[86px] flex-shrink-0 flex items-center justify-center bg-[#7C3AED]", children: /* @__PURE__ */ jsx53(Monitor, { className: "text-white size-8" }) }),
-                  /* @__PURE__ */ jsxs39("div", { className: "pl-3 pr-8 py-2", children: [
+                  /* @__PURE__ */ jsxs39("div", { className: "ps-3 pe-8 py-2 text-start", children: [
                     /* @__PURE__ */ jsx53("p", { className: "text-sm font-medium truncate max-w-[220px]", children: canvas.name }),
                     /* @__PURE__ */ jsxs39("p", { className: "text-xs text-gray-600 dark:text-zinc-300", children: [
                       t("addContentModal.upload"),
@@ -7188,8 +7188,8 @@ var AddContentModal = ({
     Canvas: { label: t("addContentModal.canvas"), icon: Monitor }
   };
   return /* @__PURE__ */ jsx53(DrawerDialog, { size: "2xl", open, onClose, children: /* @__PURE__ */ jsxs39("div", { className: "flex flex-col h-[90vh]", children: [
-    /* @__PURE__ */ jsx53("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx53("p", { className: "font-semibold", children: t("addContentModal.title") }) }),
-    /* @__PURE__ */ jsx53("div", { className: "w-full px-3 lg:px-5 flex-shrink-0 mt-5", children: /* @__PURE__ */ jsx53("div", { className: "flex border-b w-full", children: effectiveTabs.map((tabId) => {
+    /* @__PURE__ */ jsx53("div", { className: "px-3 lg:px-5 -mt-5 flex-shrink-0", children: /* @__PURE__ */ jsx53("p", { className: "font-semibold text-start", children: t("addContentModal.title") }) }),
+    /* @__PURE__ */ jsx53("div", { className: "w-full px-3 lg:px-5 flex-shrink-0 mt-5", children: /* @__PURE__ */ jsx53("div", { className: "flex border-b dark:border-zinc-800 w-full overflow-x-auto", children: effectiveTabs.map((tabId) => {
       const { label, icon: Icon2 } = tabConfig[tabId];
       return /* @__PURE__ */ jsxs39(
         Button2,
@@ -7212,31 +7212,31 @@ var AddContentModal = ({
     /* @__PURE__ */ jsxs39("div", { className: "px-3 lg:px-5 flex flex-col gap-3 flex-1 min-h-0", children: [
       /* @__PURE__ */ jsxs39("div", { className: "flex gap-3 items-center flex-shrink-0 pt-5", children: [
         /* @__PURE__ */ jsx53(search_input_default, { onChange: (e) => setSearchTerm(e.target.value) }),
-        onUploadClick && /* @__PURE__ */ jsxs39(Button2, { size: "lg", onClick: onUploadClick, children: [
-          /* @__PURE__ */ jsx53("span", { className: "w-5 h-5 mr-2 flex items-center justify-center border-[1px] border-gray-200 dark:border-zinc-700 rounded-[4px]", children: /* @__PURE__ */ jsx53(Plus, { className: "stroke-[1.8]" }) }),
+        onUploadClick && /* @__PURE__ */ jsxs39(Button2, { size: "lg", onClick: onUploadClick, className: "shrink-0", children: [
+          /* @__PURE__ */ jsx53("span", { className: "w-5 h-5 me-2 flex items-center justify-center border-[1px] border-gray-200 dark:border-zinc-700 rounded-[4px]", children: /* @__PURE__ */ jsx53(Plus, { className: "stroke-[1.8]" }) }),
           t("addContentModal.upload")
         ] })
       ] }),
       /* @__PURE__ */ jsx53("div", { className: "flex-1 overflow-y-auto min-h-0", children: renderTabContent() }),
-      /* @__PURE__ */ jsxs39("div", { className: "flex justify-between items-center gap-4 py-5 flex-shrink-0 border-t", children: [
-        /* @__PURE__ */ jsxs39("div", { className: "text-sm text-gray-600 dark:text-zinc-400", children: [
+      /* @__PURE__ */ jsxs39("div", { className: "flex justify-between items-center gap-4 py-5 flex-shrink-0 border-t dark:border-zinc-800", children: [
+        /* @__PURE__ */ jsxs39("div", { className: "text-sm text-gray-600 dark:text-zinc-400 text-start", children: [
           selectedAssets.length > 0 && /* @__PURE__ */ jsxs39("span", { children: [
             selectedAssets.length,
             " ",
             selectedAssets.length > 1 ? t("addContentModal.assetsSelectedPlural") : t("addContentModal.assetsSelected")
           ] }),
-          selectedAppInstances.length > 0 && /* @__PURE__ */ jsxs38("span", { children: [
+          selectedAppInstances.length > 0 && /* @__PURE__ */ jsxs39("span", { children: [
             selectedAppInstances.length,
             " ",
             selectedAppInstances.length > 1 ? t("addContentModal.appsSelectedPlural") : t("addContentModal.appsSelected")
           ] }),
-          selectedCanvasAssets.length > 0 && /* @__PURE__ */ jsxs38("span", { children: [
+          selectedCanvasAssets.length > 0 && /* @__PURE__ */ jsxs39("span", { children: [
             selectedCanvasAssets.length,
             " ",
             selectedCanvasAssets.length > 1 ? t("addContentModal.canvasSelectedPlural") : t("addContentModal.canvasSelected")
           ] }),
           selectedLayout && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.layoutSelected") }),
-          selectedSequences && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.sequenceSelected") }),
+          selectedSequences.length > 0 && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.sequenceSelected") }),
           selectedChannel && /* @__PURE__ */ jsx53("span", { children: t("addContentModal.channelSelected") })
         ] }),
         /* @__PURE__ */ jsxs39("div", { className: "flex gap-4", children: [
