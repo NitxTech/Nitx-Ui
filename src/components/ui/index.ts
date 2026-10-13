@@ -11,3 +11,4 @@ export * from "./label";
 export * from "./select";
 export * from "./switch";
 export * from "./tooltip";
+export * from "./drawer-dialog";
