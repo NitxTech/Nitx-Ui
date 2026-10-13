@@ -964,5 +964,20 @@
     "label": "Duration: {{count}} seconds",
     "none": "No duration set",
     "value": "{{count}}s"
+  },
+  "globalSearch": {
+    "trigger": "Search",
+    "title": "Search",
+    "placeholder": "Search",
+    "close": "Close search",
+    "loading": "Loading results",
+    "loadError": "Some results couldn't be loaded.",
+    "retry": "Try again",
+    "noResults": "No results for “{{query}}”",
+    "noResultsHint": "Check the spelling or search for something else.",
+    "resultCount": "{{count}} results",
+    "hintNavigate": "Navigate",
+    "hintOpen": "Open",
+    "hintClose": "Close"
   }
 }

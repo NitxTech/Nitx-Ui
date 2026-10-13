@@ -966,5 +966,20 @@
     "label": "المدة: {{count}} ثانية",
     "none": "لم تحدد مدة",
     "value": "{{count}} ث"
+  },
+  "globalSearch": {
+    "trigger": "بحث",
+    "title": "بحث",
+    "placeholder": "بحث",
+    "close": "إغلاق البحث",
+    "loading": "جارٍ تحميل النتائج",
+    "loadError": "تعذّر تحميل بعض النتائج.",
+    "retry": "إعادة المحاولة",
+    "noResults": "لا توجد نتائج لـ «{{query}}»",
+    "noResultsHint": "تحقق من الإملاء أو ابحث عن شيء آخر.",
+    "resultCount": "{{count}} نتيجة",
+    "hintNavigate": "تنقّل",
+    "hintOpen": "فتح",
+    "hintClose": "إغلاق"
   }
 }

@@ -973,6 +973,21 @@ var nitxuilib_default = {
     label: "\u0627\u0644\u0645\u062F\u0629: {{count}} \u062B\u0627\u0646\u064A\u0629",
     none: "\u0644\u0645 \u062A\u062D\u062F\u062F \u0645\u062F\u0629",
     value: "{{count}} \u062B"
+  },
+  globalSearch: {
+    trigger: "\u0628\u062D\u062B",
+    title: "\u0628\u062D\u062B",
+    placeholder: "\u0628\u062D\u062B",
+    close: "\u0625\u063A\u0644\u0627\u0642 \u0627\u0644\u0628\u062D\u062B",
+    loading: "\u062C\u0627\u0631\u064D \u062A\u062D\u0645\u064A\u0644 \u0627\u0644\u0646\u062A\u0627\u0626\u062C",
+    loadError: "\u062A\u0639\u0630\u0651\u0631 \u062A\u062D\u0645\u064A\u0644 \u0628\u0639\u0636 \u0627\u0644\u0646\u062A\u0627\u0626\u062C.",
+    retry: "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629",
+    noResults: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0646\u062A\u0627\u0626\u062C \u0644\u0640 \xAB{{query}}\xBB",
+    noResultsHint: "\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u0644\u0625\u0645\u0644\u0627\u0621 \u0623\u0648 \u0627\u0628\u062D\u062B \u0639\u0646 \u0634\u064A\u0621 \u0622\u062E\u0631.",
+    resultCount: "{{count}} \u0646\u062A\u064A\u062C\u0629",
+    hintNavigate: "\u062A\u0646\u0642\u0651\u0644",
+    hintOpen: "\u0641\u062A\u062D",
+    hintClose: "\u0625\u063A\u0644\u0627\u0642"
   }
 };
 
@@ -1943,6 +1958,21 @@ var nitxuilib_default2 = {
     label: "Duration: {{count}} seconds",
     none: "No duration set",
     value: "{{count}}s"
+  },
+  globalSearch: {
+    trigger: "Search",
+    title: "Search",
+    placeholder: "Search",
+    close: "Close search",
+    loading: "Loading results",
+    loadError: "Some results couldn't be loaded.",
+    retry: "Try again",
+    noResults: "No results for \u201C{{query}}\u201D",
+    noResultsHint: "Check the spelling or search for something else.",
+    resultCount: "{{count}} results",
+    hintNavigate: "Navigate",
+    hintOpen: "Open",
+    hintClose: "Close"
   }
 };
 
@@ -12451,6 +12481,496 @@ function SidebarCreditsCard({
     }
   );
 }
+
+// src/components/search/search-provider.tsx
+import * as React47 from "react";
+
+// src/components/search/search-dialog.tsx
+import * as React46 from "react";
+import * as DialogPrimitive3 from "@radix-ui/react-dialog";
+import { Loader2 as Loader26, Search as Search2, X as X7 } from "lucide-react";
+
+// src/components/ui/kbd.tsx
+import { jsx as jsx86 } from "react/jsx-runtime";
+function Kbd({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx86(
+    "kbd",
+    {
+      className: cn(
+        "inline-flex h-5 min-w-5 items-center justify-center rounded-[5px] border border-zinc-200 bg-zinc-100 px-1 font-sans text-xs font-medium leading-none text-muted-foreground dark:border-zinc-600 dark:bg-zinc-800",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function KbdGroup({
+  keys,
+  className
+}) {
+  return /* @__PURE__ */ jsx86("span", { dir: "ltr", className: cn("inline-flex items-center gap-1", className), children: keys.map((key) => /* @__PURE__ */ jsx86(Kbd, { children: key }, key)) });
+}
+
+// src/components/search/search-result-row.tsx
+import { jsx as jsx87, jsxs as jsxs63 } from "react/jsx-runtime";
+function SearchResultRow({
+  id,
+  active,
+  onActivate,
+  onChoose,
+  children
+}) {
+  return /* @__PURE__ */ jsx87(
+    "div",
+    {
+      id,
+      role: "option",
+      "aria-selected": active,
+      onMouseDown: (event) => event.preventDefault(),
+      onMouseMove: onActivate,
+      onClick: onChoose,
+      className: cn(
+        "flex min-h-16 cursor-pointer select-none items-center gap-4 rounded-[18px] px-3 py-2.5",
+        active && "bg-muted"
+      ),
+      children
+    }
+  );
+}
+function SearchResultText({
+  title,
+  detail
+}) {
+  return /* @__PURE__ */ jsxs63("div", { className: "min-w-0 flex-1", children: [
+    /* @__PURE__ */ jsx87("p", { className: "truncate text-sm font-semibold text-foreground", children: title }),
+    detail && /* @__PURE__ */ jsx87("p", { className: "truncate text-xs text-muted-foreground", children: detail })
+  ] });
+}
+function SearchResultIcon({
+  className,
+  children
+}) {
+  return /* @__PURE__ */ jsx87(
+    "span",
+    {
+      className: cn(
+        "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px]",
+        className
+      ),
+      "aria-hidden": true,
+      children
+    }
+  );
+}
+
+// src/components/search/match.ts
+var ARABIC_FOLDS = [
+  // NFKD already splits the hamza and madda off أ إ آ; alef wasla needs folding.
+  [/ٱ/g, "\u0627"],
+  [/ى/g, "\u064A"],
+  [/ة/g, "\u0647"],
+  // Tatweel is pure stretching.
+  [/ـ/g, ""]
+];
+function normalizeSearchText(text) {
+  let normalized = text.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+  for (const [pattern, replacement] of ARABIC_FOLDS) {
+    normalized = normalized.replace(pattern, replacement);
+  }
+  return normalized.replace(/[\s\-_./]+/g, " ").trim();
+}
+function matchRank(text, query) {
+  const name = normalizeSearchText(text);
+  if (!name.includes(query)) return null;
+  if (name === query) return 0;
+  if (name.startsWith(query)) return 1;
+  if (` ${name}`.includes(` ${query}`)) return 2;
+  return 3;
+}
+function rankMatches(items, query, getText) {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return [...items];
+  const ranked = [];
+  for (const item of items) {
+    const rank = matchRank(getText(item), normalizedQuery);
+    if (rank !== null) ranked.push({ item, rank });
+  }
+  return ranked.sort((a, b) => a.rank - b.rank).map(({ item }) => item);
+}
+
+// src/components/search/use-search-engine.ts
+var DEFAULT_LIMIT = 8;
+function useSearchEngine(sources, query) {
+  const states = sources.map((source) => source.useItems());
+  const typing = query.trim().length > 0;
+  const groups = [];
+  const retries = [];
+  let loading = false;
+  let failed = false;
+  sources.forEach((source, index) => {
+    const state = states[index];
+    if (state.loading) loading = true;
+    if (state.failed) {
+      failed = true;
+      if (state.retry) retries.push(state.retry);
+    }
+    if (!typing && !source.initial) return;
+    const ordered = typing ? rankMatches(state.items, query, source.getText) : source.sortInitial ? [...source.sortInitial(state.items)] : [...state.items];
+    const hits = ordered.slice(0, source.limit ?? DEFAULT_LIMIT).map((item) => ({
+      id: `${source.kind}:${source.getKey(item)}`,
+      kind: source.kind,
+      render: () => source.renderRow(item),
+      open: () => source.onOpen(item)
+    }));
+    if (hits.length > 0) {
+      groups.push({ kind: source.kind, label: source.label, hits });
+    }
+  });
+  return {
+    groups,
+    hits: groups.flatMap((group) => group.hits),
+    loading,
+    failed,
+    retry: () => {
+      for (const retry of retries) retry();
+    }
+  };
+}
+
+// src/components/search/search-dialog.tsx
+import { Fragment as Fragment13, jsx as jsx88, jsxs as jsxs64 } from "react/jsx-runtime";
+function SearchDialog({
+  open,
+  onOpenChange,
+  returnFocusRef,
+  sources,
+  rtl
+}) {
+  const { t } = useNitxUiTranslation();
+  const choosingRef = React46.useRef(false);
+  const choose = (hit) => {
+    choosingRef.current = true;
+    onOpenChange(false);
+    hit.open();
+  };
+  return /* @__PURE__ */ jsx88(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs64(DialogPortal, { children: [
+    /* @__PURE__ */ jsx88(DialogOverlay, {}),
+    /* @__PURE__ */ jsxs64(
+      DialogPrimitive3.Content,
+      {
+        "aria-describedby": void 0,
+        dir: rtl ? "rtl" : "ltr",
+        onCloseAutoFocus: (event) => {
+          event.preventDefault();
+          if (!choosingRef.current) returnFocusRef.current?.focus();
+          choosingRef.current = false;
+        },
+        className: cn(
+          // Phones: a full-screen sheet. From md: a fixed-size panel
+          // centred by `inset-0 m-auto`, so it never resizes or moves as
+          // results change, and centring does not depend on text direction.
+          "fixed inset-0 z-[200] flex flex-col overflow-hidden bg-background text-start text-foreground outline-none",
+          "md:m-auto md:h-[min(42rem,calc(100dvh-4rem))] md:w-[calc(100%-2rem)] md:max-w-[48rem] md:rounded-[32px] md:border md:border-border md:shadow-2xl",
+          "duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 md:data-[state=open]:zoom-in-95 md:data-[state=closed]:zoom-out-95"
+        ),
+        children: [
+          /* @__PURE__ */ jsx88(DialogPrimitive3.Title, { className: "sr-only", children: t("globalSearch.title") }),
+          /* @__PURE__ */ jsx88(SearchPanel, { sources, onChoose: choose })
+        ]
+      }
+    )
+  ] }) });
+}
+function SearchPanel({
+  sources,
+  onChoose
+}) {
+  const { t } = useNitxUiTranslation();
+  const [query, setQuery] = React46.useState("");
+  const [activeId, setActiveId] = React46.useState(null);
+  const { groups, hits, loading, failed, retry } = useSearchEngine(
+    sources,
+    query
+  );
+  const baseId = React46.useId();
+  const listboxId = `${baseId}-listbox`;
+  const optionId = (index) => `${baseId}-option-${index}`;
+  const activeIndex = hits.length === 0 ? -1 : Math.max(
+    0,
+    hits.findIndex((hit) => hit.id === activeId)
+  );
+  React46.useEffect(() => {
+    if (activeIndex < 0) return;
+    document.getElementById(`${baseId}-option-${activeIndex}`)?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex, baseId]);
+  const onKeyDown = (event) => {
+    if (event.nativeEvent.isComposing) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      if (hits.length === 0) return;
+      const step = event.key === "ArrowDown" ? 1 : -1;
+      setActiveId(hits[(activeIndex + step + hits.length) % hits.length].id);
+    } else if (event.key === "Enter" && activeIndex >= 0) {
+      event.preventDefault();
+      onChoose(hits[activeIndex]);
+    }
+  };
+  const trimmed = query.trim();
+  const isLoading = trimmed !== "" && loading;
+  const hasFailed = trimmed !== "" && failed;
+  const isEmpty = trimmed !== "" && hits.length === 0 && !loading && !failed;
+  const announcement = !trimmed ? "" : hits.length > 0 ? t("globalSearch.resultCount", { count: hits.length }) : isLoading ? t("globalSearch.loading") : hasFailed ? t("globalSearch.loadError") : t("globalSearch.noResults", { query: trimmed });
+  return /* @__PURE__ */ jsxs64(Fragment13, { children: [
+    /* @__PURE__ */ jsxs64("div", { className: "flex shrink-0 items-center gap-3.5 border-b border-border ps-5 pe-3 md:px-7", children: [
+      /* @__PURE__ */ jsx88(Search2, { "aria-hidden": true, className: "size-6 shrink-0 text-muted-foreground" }),
+      /* @__PURE__ */ jsx88(
+        "input",
+        {
+          role: "combobox",
+          "aria-label": t("globalSearch.title"),
+          "aria-expanded": hits.length > 0,
+          "aria-controls": listboxId,
+          "aria-activedescendant": activeIndex >= 0 ? optionId(activeIndex) : void 0,
+          "aria-autocomplete": "list",
+          autoComplete: "off",
+          autoCorrect: "off",
+          autoCapitalize: "off",
+          spellCheck: false,
+          enterKeyHint: "go",
+          placeholder: t("globalSearch.placeholder"),
+          value: query,
+          onChange: (event) => {
+            setQuery(event.target.value);
+            setActiveId(null);
+          },
+          onKeyDown,
+          className: "h-[4.5rem] min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
+        }
+      ),
+      /* @__PURE__ */ jsx88(DialogPrimitive3.Close, { asChild: true, children: /* @__PURE__ */ jsx88(
+        Button,
+        {
+          variant: "ghost",
+          size: "icon",
+          "aria-label": t("globalSearch.close"),
+          className: "shrink-0 rounded-full md:hidden",
+          children: /* @__PURE__ */ jsx88(X7, { "aria-hidden": true })
+        }
+      ) })
+    ] }),
+    /* @__PURE__ */ jsxs64("div", { className: "min-h-0 flex-1 overflow-y-auto overscroll-contain p-3 md:px-4", children: [
+      /* @__PURE__ */ jsx88("div", { role: "listbox", id: listboxId, "aria-label": t("globalSearch.title"), children: groups.map((group) => /* @__PURE__ */ jsxs64(
+        "div",
+        {
+          role: "group",
+          "aria-labelledby": `${baseId}-${group.kind}`,
+          className: "pb-2",
+          children: [
+            /* @__PURE__ */ jsx88(
+              "div",
+              {
+                id: `${baseId}-${group.kind}`,
+                className: "px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-[0.06em] text-muted-foreground",
+                children: group.label
+              }
+            ),
+            group.hits.map((hit) => {
+              const index = hits.indexOf(hit);
+              return /* @__PURE__ */ jsx88(
+                SearchResultRow,
+                {
+                  id: optionId(index),
+                  active: index === activeIndex,
+                  onActivate: () => setActiveId(hit.id),
+                  onChoose: () => onChoose(hit),
+                  children: hit.render()
+                },
+                hit.id
+              );
+            })
+          ]
+        },
+        group.kind
+      )) }),
+      isLoading && /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-2.5 px-3 py-3", children: [
+        /* @__PURE__ */ jsx88(
+          Loader26,
+          {
+            "aria-hidden": true,
+            className: "size-4 animate-spin text-muted-foreground"
+          }
+        ),
+        /* @__PURE__ */ jsx88("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.loading") })
+      ] }),
+      hasFailed && /* @__PURE__ */ jsxs64("div", { className: "flex items-center justify-between gap-3 ps-3", children: [
+        /* @__PURE__ */ jsx88("p", { className: "text-sm text-rose-600 dark:text-rose-400", children: t("globalSearch.loadError") }),
+        /* @__PURE__ */ jsx88(Button, { variant: "ghost", size: "sm", onClick: retry, children: t("globalSearch.retry") })
+      ] }),
+      isEmpty && /* @__PURE__ */ jsxs64("div", { className: "flex h-full flex-col items-center justify-center gap-1 px-6 text-center", children: [
+        /* @__PURE__ */ jsx88("p", { className: "max-w-full break-words text-base font-semibold text-foreground", children: t("globalSearch.noResults", { query: trimmed }) }),
+        /* @__PURE__ */ jsx88("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.noResultsHint") })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs64("footer", { className: "hidden shrink-0 items-center gap-6 border-t border-border px-7 py-4 md:flex", children: [
+      /* @__PURE__ */ jsx88(Hint, { keys: ["\u2191", "\u2193"], label: t("globalSearch.hintNavigate") }),
+      /* @__PURE__ */ jsx88(Hint, { keys: ["\u21B5"], label: t("globalSearch.hintOpen") }),
+      /* @__PURE__ */ jsx88(Hint, { keys: ["Esc"], label: t("globalSearch.hintClose") })
+    ] }),
+    /* @__PURE__ */ jsx88("p", { role: "status", "aria-live": "polite", className: "sr-only", children: announcement })
+  ] });
+}
+function Hint({ keys, label }) {
+  return /* @__PURE__ */ jsxs64("span", { className: "flex items-center gap-1.5", children: [
+    /* @__PURE__ */ jsx88(KbdGroup, { keys }),
+    /* @__PURE__ */ jsx88("span", { className: "text-xs text-muted-foreground", children: label })
+  ] });
+}
+
+// src/components/search/shortcut.ts
+var APPLE_SHORTCUT = { keys: ["\u2318", "K"], aria: "Meta+K" };
+var DEFAULT_SHORTCUT = { keys: ["Ctrl", "K"], aria: "Control+K" };
+function isApplePlatform(nav) {
+  const platform = nav.userAgentData?.platform || nav.platform || "";
+  return /mac|iphone|ipad|ipod/i.test(platform);
+}
+var searchShortcut = (apple) => apple ? APPLE_SHORTCUT : DEFAULT_SHORTCUT;
+function isSearchShortcut(event, apple) {
+  const modifier = apple ? event.metaKey && !event.ctrlKey : event.ctrlKey && !event.metaKey;
+  if (!modifier || event.altKey || event.shiftKey) return false;
+  const key = event.key.toLowerCase();
+  return key === "k" || !/^[a-z]$/.test(key) && event.code === "KeyK";
+}
+
+// src/components/search/search-provider.tsx
+import { jsx as jsx89, jsxs as jsxs65 } from "react/jsx-runtime";
+var GlobalSearchContext = React47.createContext(null);
+function useGlobalSearch() {
+  const context = React47.useContext(GlobalSearchContext);
+  if (!context) {
+    throw new Error(
+      "useGlobalSearch must be used inside <GlobalSearchProvider>"
+    );
+  }
+  return context;
+}
+var subscribe = () => () => {
+};
+var getIsApple = () => isApplePlatform(navigator);
+var getServerIsApple = () => null;
+function GlobalSearchProvider({
+  sources,
+  rtl,
+  children
+}) {
+  const { i18n } = useNitxUiTranslation();
+  const language = i18n?.resolvedLanguage ?? i18n?.language;
+  const isRtl = rtl ?? language?.toLowerCase().startsWith("ar") ?? false;
+  const [open, setOpen] = React47.useState(false);
+  const openRef = React47.useRef(open);
+  const returnFocusRef = React47.useRef(null);
+  const isApple = React47.useSyncExternalStore(
+    subscribe,
+    getIsApple,
+    getServerIsApple
+  );
+  React47.useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+  const openSearch = React47.useCallback(
+    (returnFocusTo) => {
+      const focused = document.activeElement;
+      returnFocusRef.current = returnFocusTo ?? (focused instanceof HTMLElement ? focused : null);
+      setOpen(true);
+    },
+    []
+  );
+  React47.useEffect(() => {
+    if (isApple === null) return;
+    const onKeyDown = (event) => {
+      if (event.repeat || event.isComposing || !isSearchShortcut(event, isApple)) {
+        return;
+      }
+      event.preventDefault();
+      if (openRef.current) setOpen(false);
+      else openSearch();
+    };
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [isApple, openSearch]);
+  const value = React47.useMemo(
+    () => ({
+      openSearch,
+      shortcut: isApple === null ? null : searchShortcut(isApple)
+    }),
+    [isApple, openSearch]
+  );
+  return /* @__PURE__ */ jsxs65(GlobalSearchContext.Provider, { value, children: [
+    children,
+    /* @__PURE__ */ jsx89(
+      SearchDialog,
+      {
+        open,
+        onOpenChange: setOpen,
+        returnFocusRef,
+        sources,
+        rtl: isRtl
+      }
+    )
+  ] });
+}
+
+// src/components/search/search-trigger.tsx
+import { Search as Search3 } from "lucide-react";
+import { jsx as jsx90, jsxs as jsxs66 } from "react/jsx-runtime";
+var triggerSurface = "rounded-[10px] border-zinc-200 bg-white shadow-none hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800";
+function SearchTrigger({ className }) {
+  const { t } = useNitxUiTranslation();
+  const { openSearch, shortcut } = useGlobalSearch();
+  return /* @__PURE__ */ jsxs66(
+    Button,
+    {
+      type: "button",
+      variant: "outline",
+      "aria-haspopup": "dialog",
+      "aria-keyshortcuts": shortcut?.aria,
+      onClick: (event) => openSearch(event.currentTarget),
+      className: cn(
+        "h-10 w-72 justify-start gap-2.5 ps-3.5 pe-2 text-sm font-normal text-muted-foreground hover:text-foreground",
+        triggerSurface,
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsx90(Search3, { "aria-hidden": true }),
+        /* @__PURE__ */ jsx90("span", { className: "flex-1 truncate text-start", children: t("globalSearch.trigger") }),
+        shortcut && /* @__PURE__ */ jsx90(KbdGroup, { keys: shortcut.keys })
+      ]
+    }
+  );
+}
+function SearchIconTrigger({ className }) {
+  const { t } = useNitxUiTranslation();
+  const { openSearch } = useGlobalSearch();
+  return /* @__PURE__ */ jsx90(
+    Button,
+    {
+      type: "button",
+      variant: "outline",
+      size: "icon",
+      "aria-haspopup": "dialog",
+      "aria-label": t("globalSearch.trigger"),
+      onClick: (event) => openSearch(event.currentTarget),
+      className: cn(
+        "size-10 shrink-0 text-muted-foreground dark:text-zinc-200",
+        triggerSurface,
+        className
+      ),
+      children: /* @__PURE__ */ jsx90(Search3, { "aria-hidden": true })
+    }
+  );
+}
 export {
   ALLOWED_ASSET_UPLOAD_FILE_TYPES,
   AccountPreferencesModal,
@@ -12510,6 +13030,7 @@ export {
   DropdownMenuTrigger,
   error_state_default as ErrorState,
   FloatingBar,
+  GlobalSearchProvider,
   Input2 as Input,
   Label5 as Label,
   LinkEditor_default as LinkEditor,
@@ -12518,6 +13039,11 @@ export {
   ProductSwitcher,
   RAIL_CONTROL,
   RAIL_HOVER,
+  SearchIconTrigger,
+  SearchResultIcon,
+  SearchResultRow,
+  SearchResultText,
+  SearchTrigger,
   Select,
   SelectContent,
   SelectGroup,
@@ -12556,6 +13082,12 @@ export {
   createContentBrowserApi,
   createSpaceSelectorApi,
   cx,
+  isApplePlatform,
+  isSearchShortcut,
+  matchRank,
+  normalizeSearchText,
+  rankMatches,
+  searchShortcut,
   useAssetsConfig,
   useAssetsQuery,
   useAssetsStore,
@@ -12563,6 +13095,7 @@ export {
   useCreateFolderMutation,
   useDeleteAssetMutation,
   useDeleteFolderMutation,
+  useGlobalSearch,
   useLazyLoading,
   useMoveAssetMutation,
   useMoveFolderMutation,
@@ -12570,5 +13103,6 @@ export {
   useOptionalSpaceSelector,
   useRenameAssetMutation,
   useRenameFolderMutation,
+  useSearchEngine,
   useSpaceSelector
 };
