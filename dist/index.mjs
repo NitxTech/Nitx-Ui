@@ -2359,12 +2359,12 @@ var DialogContent = React4.forwardRef(({ className, children, overlayClassName, 
             DialogPrimitive.Close,
             {
               className: cn(
-                "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none",
+                "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none cursor-pointer",
                 closeButtonClassName
               ),
               "aria-label": t("dialog.close"),
               children: [
-                /* @__PURE__ */ jsx6(X, { className: "size-4 shrink-0" }),
+                /* @__PURE__ */ jsx6(X, { className: "size-4 shrink-0 stroke-[2.5]", strokeWidth: 2.5 }),
                 /* @__PURE__ */ jsx6("span", { className: "sr-only", children: t("dialog.close") })
               ]
             }
@@ -5941,8 +5941,8 @@ var DialogContent2 = React20.forwardRef(({ className, children, overlayClassName
         ...props,
         children: [
           children,
-          showCloseButton && /* @__PURE__ */ jsxs32(DialogPrimitive2.Close, { className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-[10001]", children: [
-            /* @__PURE__ */ jsx45(X4, { className: "h-4 w-4" }),
+          showCloseButton && /* @__PURE__ */ jsxs32(DialogPrimitive2.Close, { className: "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none cursor-pointer", children: [
+            /* @__PURE__ */ jsx45(X4, { className: "size-4 shrink-0 stroke-[2.5]", strokeWidth: 2.5 }),
             /* @__PURE__ */ jsx45("span", { className: "sr-only", children: t("dialog.close") })
           ] })
         ]

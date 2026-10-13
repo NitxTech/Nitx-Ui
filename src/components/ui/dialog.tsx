@@ -58,12 +58,12 @@ const DialogContent = React.forwardRef<
         {shouldShowClose && (
           <DialogPrimitive.Close
             className={cn(
-              "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none",
+              "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none cursor-pointer",
               closeButtonClassName
             )}
             aria-label={t("dialog.close")}
           >
-            <X className="size-4 shrink-0" />
+            <X className="size-4 shrink-0 stroke-[2.5]" strokeWidth={2.5} />
             <span className="sr-only">{t("dialog.close")}</span>
           </DialogPrimitive.Close>
         )}
