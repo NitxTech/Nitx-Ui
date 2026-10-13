@@ -14,3 +14,4 @@ export * from "./tooltip";
 export * from "./tab-bar";
 export * from "./floating-bar";
 export * from "./sequence-duration";
+export * from "./drawer-dialog";

@@ -1184,7 +1184,7 @@ declare function matchRank(text: string, query: string): number | null;
 declare function rankMatches<T>(items: readonly T[], query: string, getText: (item: T) => string): T[];
 
 declare const buttonVariants: (props?: ({
-    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -1215,6 +1215,8 @@ declare const DialogOverlay: React$1.ForwardRefExoticComponent<Omit<DialogPrimit
 declare const DialogContent: React$1.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & {
     overlayClassName?: string;
     showCloseButton?: boolean;
+    closeButtonClassName?: string;
+    hideClose?: boolean;
 } & React$1.RefAttributes<HTMLDivElement>>;
 declare const DialogHeader: {
     ({ className, ...props }: React$1.HTMLAttributes<HTMLDivElement>): React$1.JSX.Element;
@@ -1405,7 +1407,38 @@ interface SequenceDurationProps {
  */
 declare const SequenceDuration: React$1.FC<SequenceDurationProps>;
 
+declare const sizeVariants: {
+    default: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    "2xl": string;
+    full: string;
+    auto: string;
+};
+type DrawerDialogSize = keyof typeof sizeVariants;
+interface DrawerDialogProps {
+    title?: React$1.ReactNode;
+    accessibleTitle?: string;
+    description?: React$1.ReactNode;
+    children: React$1.ReactNode;
+    className?: string;
+    bodyClassName?: string;
+    headerClassName?: string;
+    overlayClassName?: string;
+    size?: DrawerDialogSize;
+    back?: () => void;
+    backLabel?: string;
+    onClose?: () => void;
+    onOpenChange?: (open: boolean) => void;
+    open?: boolean;
+    hideClose?: boolean;
+    dir?: "ltr" | "rtl";
+}
+declare function DrawerDialog({ title, accessibleTitle, description, children, className, bodyClassName, headerClassName, overlayClassName, size, back, backLabel, onClose, onOpenChange, open, hideClose, dir, }: DrawerDialogProps): React$1.JSX.Element | null;
+
 declare function cn(...inputs: ClassValue[]): string;
 declare function cx(...args: ClassValue[]): string;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, isApplePlatform, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, searchShortcut, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, isApplePlatform, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, searchShortcut, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector };
