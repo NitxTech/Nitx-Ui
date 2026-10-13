@@ -9,6 +9,7 @@ import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
 import type { Asset } from "../types";
 import type { AssetsTab } from "../hooks/use-assets-store";
+import DocumentPreview from "./DocumentPreview";
 
 interface AssetsPreviewProps {
   previewAsset: Asset;
@@ -67,6 +68,15 @@ const AssetsPreview: React.FC<AssetsPreviewProps> = ({
             title="URL Preview"
           />
         </div>
+      );
+    }
+    if (previewAsset.type === "document") {
+      return (
+        <DocumentPreview
+          asset={previewAsset}
+          document={previewAsset.document}
+          onDownload={onDownload}
+        />
       );
     }
     return (

@@ -103,7 +103,7 @@ const AssetsBrowser = ({
   renderFolderMenuItems,
 }: AssetsBrowserProps) => {
   const { t } = useNitxUiTranslation();
-  const { api, spaceUuid, features } = useAssetsConfig();
+  const { api, spaceUuid, features, rtl } = useAssetsConfig();
   const queryClient = useQueryClient();
 
   const path = useAssetsStore((s) => s.path);
@@ -236,10 +236,12 @@ const AssetsBrowser = ({
       }
 
       if (previewAsset) {
+        // Arrows follow the reading direction: in Arabic the next asset is to
+        // the left, so the mapping flips with the layout.
         if (e.key === "ArrowLeft") {
-          handlePreviewNavigation("prev");
+          handlePreviewNavigation(rtl ? "next" : "prev");
         } else if (e.key === "ArrowRight") {
-          handlePreviewNavigation("next");
+          handlePreviewNavigation(rtl ? "prev" : "next");
         }
       }
     };

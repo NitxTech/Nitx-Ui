@@ -9,7 +9,8 @@
     "Recently Spaces": "Recent spaces",
     "Browse More": "Browse more",
     "New Space": "New space",
-    "Manage Members": "Manage members"
+    "Manage Members": "Manage members",
+    "Assets": "Assets"
   },
   "fields": {
     "profile_discription": "A profile picture helps personalize your account",
@@ -777,13 +778,29 @@
     "assetsPreview": {
       "of": "of",
       "notAvailable": "Preview not available for this type",
-      "linkPreview": "Link Preview: {{url}}"
+      "linkPreview": "Link Preview: {{url}}",
+      "documentLoading": "Loading document",
+      "documentRegion": "Document preview",
+      "documentPage": "Page {{current}} of {{total}}",
+      "documentPrevPage": "Previous page",
+      "documentNextPage": "Next page",
+      "documentZoomIn": "Zoom in",
+      "documentZoomOut": "Zoom out",
+      "documentZoomReset": "Reset zoom to 100%",
+      "documentOpen": "Open in new tab",
+      "documentRetry": "Try again",
+      "documentError": "This document could not be opened",
+      "documentErrorHint": "It may be damaged, or the file could not be reached. You can try again, open it in a new tab or download it.",
+      "documentProtected": "This document is password protected",
+      "documentProtectedHint": "Open it in a new tab or download it to enter the password.",
+      "documentUnsupported": "No preview for this document type"
     },
     "assetsTabbar": {
       "all": "All",
       "media": "Media",
       "documents": "Documents",
-      "links": "Links"
+      "links": "Links",
+      "region": "Asset types"
     },
     "folderCard": {
       "deleteFolder": "Delete Folder",
@@ -943,5 +960,54 @@
       "moveFolderSuccess": "Folder moved successfully",
       "moveFolderFailed": "Failed to move folder"
     }
+  },
+  "adBlocker": {
+    "title": "Ad blocker detected",
+    "description": "An ad blocker is active and may prevent key features from functioning correctly.",
+    "affectedNotice": "The following capabilities may be restricted or unavailable:",
+    "features": {
+      "adDelivery": "Ad serving, creative previews, and inventory testing",
+      "analytics": "Real-time metrics, impression tracking, and reporting",
+      "integrations": "Third-party publisher tags and partner verification"
+    },
+    "howToAllow": "How to allow Nitx",
+    "howToAllowInstructions": "Follow these quick steps to whitelist this product in your browser extension:",
+    "stepUblockTitle": "uBlock Origin",
+    "stepUblockText": "Click the uBlock Origin icon in your toolbar, then click the blue Power button to disable blocking on this site.",
+    "stepAdblockTitle": "AdBlock or Adblock Plus",
+    "stepAdblockText": "Click the extension icon, toggle 'Block ads on this site' to off, and refresh the page.",
+    "stepBraveTitle": "Brave Shields",
+    "stepBraveText": "Click the Lion icon in your address bar and toggle the main Shields switch to Down.",
+    "stepOtherTitle": "Other extensions",
+    "stepOtherText": "Open your ad blocker or privacy extension and add this domain to the allowed list.",
+    "recheck": "Recheck",
+    "rechecking": "Checking...",
+    "dismiss": "Dismiss",
+    "dismissAria": "Dismiss ad blocker notification",
+    "offlineNotice": "You are currently offline. Check your connection to resume normal operation.",
+    "allClear": "No ad blocker detected. All features are operating normally.",
+    "pageAllowPrefix": "Please allow list",
+    "pageAllowMiddle": "in your ad blocker, or disable it to access",
+    "pageDefaultService": "the AppLovin Ads dashboard."
+  },
+  "sequenceDuration": {
+    "label": "Duration: {{count}} seconds",
+    "none": "No duration set",
+    "value": "{{count}}s"
+  },
+  "globalSearch": {
+    "trigger": "Search",
+    "title": "Search",
+    "placeholder": "Search",
+    "close": "Close search",
+    "loading": "Loading results",
+    "loadError": "Some results couldn't be loaded.",
+    "retry": "Try again",
+    "noResults": "No results for “{{query}}”",
+    "noResultsHint": "Check the spelling or search for something else.",
+    "resultCount": "{{count}} results",
+    "hintNavigate": "Navigate",
+    "hintOpen": "Open",
+    "hintClose": "Close"
   }
 }

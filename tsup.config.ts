@@ -26,5 +26,10 @@ export default defineConfig({
     "class-variance-authority",
     "tailwind-merge",
     "sonner",
+    // Loaded on demand by the document preview. Left external so the dynamic
+    // import survives into dist and the host's bundler splits pdf.js out of
+    // the main chunk.
+    "react-pdf",
+    /^pdfjs-dist/,
   ],
 });

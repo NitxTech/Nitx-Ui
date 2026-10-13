@@ -9,7 +9,8 @@
     "Recently Spaces": "أحدث المساحات",
     "Browse More": "استعراض المزيد",
     "New Space": "مساحة جديدة",
-    "Manage Members": "إدارة الأعضاء"
+    "Manage Members": "إدارة الأعضاء",
+    "Assets": "ملفات"
   },
   "fields": {
     "profile_discription": "تساعد صورة الملف الشخصي في إضفاء طابع شخصي على حسابك",
@@ -779,13 +780,29 @@
     "assetsPreview": {
       "of": "من",
       "notAvailable": "المعاينة غير متوفرة لهذا النوع",
-      "linkPreview": "معاينة الرابط: {{url}}"
+      "linkPreview": "معاينة الرابط: {{url}}",
+      "documentLoading": "جارٍ تحميل المستند",
+      "documentRegion": "معاينة المستند",
+      "documentPage": "صفحة {{current}} من {{total}}",
+      "documentPrevPage": "الصفحة السابقة",
+      "documentNextPage": "الصفحة التالية",
+      "documentZoomIn": "تكبير",
+      "documentZoomOut": "تصغير",
+      "documentZoomReset": "إعادة التكبير إلى 100%",
+      "documentOpen": "فتح في تبويب جديد",
+      "documentRetry": "إعادة المحاولة",
+      "documentError": "لا يمكن فتح هذا المستند",
+      "documentErrorHint": "قد يكون الملف تالفًا أو غير متاح. يمكنك إعادة المحاولة أو فتحه في تبويب جديد أو تنزيله.",
+      "documentProtected": "هذا المستند محمي بكلمة مرور",
+      "documentProtectedHint": "افتحه في تبويب جديد أو نزّله لإدخال كلمة المرور.",
+      "documentUnsupported": "لا تتوفر معاينة لهذا النوع من المستندات"
     },
     "assetsTabbar": {
       "all": "الكل",
       "media": "الوسائط",
       "documents": "المستندات",
-      "links": "الروابط"
+      "links": "الروابط",
+      "region": "أنواع الأصول"
     },
     "folderCard": {
       "deleteFolder": "حذف المجلد",
@@ -945,5 +962,54 @@
       "moveFolderSuccess": "تم نقل المجلد بنجاح",
       "moveFolderFailed": "فشل نقل المجلد"
     }
+  },
+  "adBlocker": {
+    "title": "تم اكتشاف مانع إعلانات",
+    "description": "يبدو أن هناك أداة لحجب الإعلانات مفعلة، مما قد يمنع بعض الميزات الأساسية من العمل بشكل سليم.",
+    "affectedNotice": "قد تتأثر الوظائف التالية أو تصبح غير متاحة:",
+    "features": {
+      "adDelivery": "عرض الإعلانات، معاينة التصاميم، واختبار المساحات الإعلانية",
+      "analytics": "الإحصائيات المباشرة، تتبع الظهور، وإعداد التقارير",
+      "integrations": "أكواد الناشرين الخارجية والتحقق من الشركاء"
+    },
+    "howToAllow": "طريقة السماح لـ Nitx",
+    "howToAllowInstructions": "اتبع هذه الخطوات البسيطة لاستثناء هذا الموقع في متصفحك:",
+    "stepUblockTitle": "uBlock Origin",
+    "stepUblockText": "انقر على أيقونة uBlock Origin في شريط الأدوات، ثم اضغط على زر التشغيل الأزرق لتعطيل الحجب في هذا الموقع.",
+    "stepAdblockTitle": "AdBlock أو Adblock Plus",
+    "stepAdblockText": "انقر على أيقونة الأداة، وقم بإلغاء تفعيل خيار حجب الإعلانات لهذا الموقع، ثم أعد تحميل الصفحة.",
+    "stepBraveTitle": "Brave Shields",
+    "stepBraveText": "انقر على أيقونة الأسد في شريط العنوان وقم بتعطيل درع الحماية لهذا الموقع.",
+    "stepOtherTitle": "إضافات أخرى",
+    "stepOtherText": "افتح إضافة حجب الإعلانات أو الخصوصية وأضف نطاق الموقع إلى قائمة المواقع المسموح بها.",
+    "recheck": "إعادة الفحص",
+    "rechecking": "جارٍ الفحص...",
+    "dismiss": "تجاهل",
+    "dismissAria": "إغلاق تنبيه مانع الإعلانات",
+    "offlineNotice": "أنت غير متصل بالإنترنت حالياً. يرجى التحقق من اتصالك.",
+    "allClear": "لم يتم اكتشاف أي مانع للإعلانات. جميع الميزات تعمل بشكل طبيعي.",
+    "pageAllowPrefix": "يرجى استثناء",
+    "pageAllowMiddle": "في مانع الإعلانات، أو تعطيله للوصول إلى",
+    "pageDefaultService": "لوحة تحكم إعلانات AppLovin."
+  },
+  "sequenceDuration": {
+    "label": "المدة: {{count}} ثانية",
+    "none": "لم تحدد مدة",
+    "value": "{{count}} ث"
+  },
+  "globalSearch": {
+    "trigger": "بحث",
+    "title": "بحث",
+    "placeholder": "بحث",
+    "close": "إغلاق البحث",
+    "loading": "جارٍ تحميل النتائج",
+    "loadError": "تعذّر تحميل بعض النتائج.",
+    "retry": "إعادة المحاولة",
+    "noResults": "لا توجد نتائج لـ «{{query}}»",
+    "noResultsHint": "تحقق من الإملاء أو ابحث عن شيء آخر.",
+    "resultCount": "{{count}} نتيجة",
+    "hintNavigate": "تنقّل",
+    "hintOpen": "فتح",
+    "hintClose": "إغلاق"
   }
 }
