@@ -12722,7 +12722,7 @@ function SearchPanel({
     }
   };
   const trimmed = query.trim();
-  const isLoading = trimmed !== "" && loading;
+  const isLoading = loading;
   const hasFailed = trimmed !== "" && failed;
   const isEmpty = trimmed !== "" && hits.length === 0 && !loading && !failed;
   const announcement = !trimmed ? "" : hits.length > 0 ? t("globalSearch.resultCount", { count: hits.length }) : isLoading ? t("globalSearch.loading") : hasFailed ? t("globalSearch.loadError") : t("globalSearch.noResults", { query: trimmed });

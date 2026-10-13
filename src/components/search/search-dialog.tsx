@@ -126,7 +126,9 @@ function SearchPanel({
   };
 
   const trimmed = query.trim();
-  const isLoading = trimmed !== "" && loading;
+  // Not gated on typing: a product whose suggestions are fetched is loading
+  // the moment search opens, and silence there reads as "this is all there is".
+  const isLoading = loading;
   const hasFailed = trimmed !== "" && failed;
   const isEmpty = trimmed !== "" && hits.length === 0 && !loading && !failed;
   const announcement = !trimmed
