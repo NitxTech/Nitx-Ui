@@ -3,7 +3,12 @@ export {
   useAssetsConfig,
   useOptionalAssetsConfig,
 } from "./context";
-export type { AssetsProviderProps, AssetsConfig } from "./context";
+export type {
+  AssetsProviderProps,
+  AssetsConfig,
+  AssetsDocumentPreviewConfig,
+} from "./context";
+export { assetCardIconButtonClass } from "./lib/card-styles";
 
 export { createAssetsApi } from "./lib/create-api";
 export {

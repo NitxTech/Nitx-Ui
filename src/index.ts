@@ -10,6 +10,7 @@ export type { ErrorStateProps } from "./components/ui/error-state";
 export * from "./components/content-browser";
 export * from "./components/assets";
 export * from "./components/sidebar";
+export * from "./components/search";
 export * from "./components/ui";
 export { cn, cx } from "./lib/utils";
 

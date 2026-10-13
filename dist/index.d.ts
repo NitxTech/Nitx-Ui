@@ -626,9 +626,19 @@ interface AssetsProviderProps {
     navigation?: AssetsNavigation;
     /** Override any of the bundled card/preview images. */
     images?: Partial<AssetImagesMap>;
+    /**
+     * PDF previewing. `workerSrc` points pdf.js at a worker copy; it defaults to
+     * a CDN build matching the bundled version, so only a host that has to
+     * self-host (offline or a strict script policy) needs to set it.
+     */
+    documentPreview?: AssetsDocumentPreviewConfig;
     /** Defaults to `true` when the app language is Arabic. */
     rtl?: boolean;
     children: React$1.ReactNode;
+}
+interface AssetsDocumentPreviewConfig {
+    /** Absolute or app-relative URL of `pdf.worker.min.mjs`. */
+    workerSrc?: string;
 }
 interface AssetsConfig {
     api: AssetsApi;
@@ -637,11 +647,27 @@ interface AssetsConfig {
     upload?: AssetsUploadConfig;
     navigation?: AssetsNavigation;
     images: AssetImagesMap;
+    documentPreview?: AssetsDocumentPreviewConfig;
     rtl: boolean;
 }
-declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, rtl, children, }: AssetsProviderProps): React$1.JSX.Element;
+declare function AssetsProvider({ client, api, spaceUuid, features, upload, navigation, images, documentPreview, rtl, children, }: AssetsProviderProps): React$1.JSX.Element;
 declare function useAssetsConfig(): AssetsConfig;
 declare function useOptionalAssetsConfig(): AssetsConfig | null;
+
+/**
+ * Icon-button treatment for the asset and folder cards.
+ *
+ * The options ellipsis used to carry `className="icon"`, a utility the library
+ * never ships: only Signage and Reach define `.icon` in their own
+ * `globals.css`, so on Ads, Publisher and Studio the button had no hit area,
+ * no hover and no focus ring. The geometry here is Signage's `.icon` (a 32px
+ * square, 8px radius) plus a hover surface and a focus ring, so the control
+ * looks and behaves the same in every dashboard.
+ *
+ * Exported so a host styling its own `renderAssetActions` buttons matches the
+ * ellipsis beside them.
+ */
+declare const assetCardIconButtonClass: string;
 
 type AxiosLike = {
     get: (url: string, config?: any) => Promise<any>;
@@ -967,6 +993,196 @@ interface SidebarCreditsCardProps {
 }
 declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): React$1.JSX.Element;
 
+interface SearchShortcut {
+    /** Keys as printed on the keyboard, one per <kbd>. */
+    keys: readonly string[];
+    /** Value for `aria-keyshortcuts`. */
+    aria: string;
+}
+type PlatformNavigator = Pick<Navigator, "platform"> & {
+    userAgentData?: {
+        platform?: string;
+    };
+};
+/** macOS, iOS and iPadOS (which reports itself as a Mac). */
+declare function isApplePlatform(nav: PlatformNavigator): boolean;
+declare const searchShortcut: (apple: boolean) => SearchShortcut;
+type ShortcutEvent = Pick<KeyboardEvent, "key" | "code" | "metaKey" | "ctrlKey" | "altKey" | "shiftKey">;
+declare function isSearchShortcut(event: ShortcutEvent, apple: boolean): boolean;
+
+/** What a source reports on each render. */
+interface SearchSourceState<T> {
+    items: readonly T[];
+    /** First load in flight. The dialog says so without hiding other sources. */
+    loading?: boolean;
+    /** This source failed. The others still show, and `retry` is offered. */
+    failed?: boolean;
+    retry?: () => void;
+}
+/**
+ * One kind of thing search can find, supplied by the host.
+ *
+ * The package owns the dialog, the shortcut, the ranking, the grouping, the
+ * keyboard and the states. A product owns what it has and where that opens,
+ * which is this.
+ *
+ * `useItems` is called as a hook, once per render, in array order, so the
+ * array of sources must be stable: same sources in the same order every
+ * render. Define it at module scope, or memoise it.
+ */
+interface SearchSource<T = any> {
+    /** Stable identifier, also the group key. */
+    kind: string;
+    /** Group heading, already translated by the host. */
+    label: string;
+    /** Most rows to show in this group. Defaults to 8. */
+    limit?: number;
+    /**
+     * Show this source before anything is typed. Suggestions, in effect.
+     * Sources that have to be fetched are better left out of the empty state.
+     */
+    initial?: boolean;
+    useItems: () => SearchSourceState<T>;
+    /** Unique within the source. */
+    getKey: (item: T) => string;
+    /** The text a query is matched against. */
+    getText: (item: T) => string;
+    /** The row's contents. The option chrome around it is supplied. */
+    renderRow: (item: T) => React$1.ReactNode;
+    onOpen: (item: T) => void;
+    /**
+     * Reorders items for the empty state, where there is no query to rank by:
+     * putting the current space first, for instance.
+     */
+    sortInitial?: (items: readonly T[]) => readonly T[];
+}
+/** One row, flattened so the keyboard can walk the whole list. */
+interface SearchHit {
+    /** `kind:key`. */
+    id: string;
+    kind: string;
+    render: () => React$1.ReactNode;
+    open: () => void;
+}
+interface SearchGroup {
+    kind: string;
+    label: string;
+    hits: SearchHit[];
+}
+interface SearchResults {
+    /** Only the groups with something in them, in source order. */
+    groups: SearchGroup[];
+    /** Every hit, in the order the groups show them. */
+    hits: SearchHit[];
+    /** Some source is loading its first page. */
+    loading: boolean;
+    /** Some source failed. */
+    failed: boolean;
+    /** Retries only the sources that failed. */
+    retry: () => void;
+}
+
+interface GlobalSearch {
+    /**
+     * Opens search. When it is dismissed without choosing anything, focus
+     * returns to `returnFocusTo`, or to whatever had focus when it opened.
+     */
+    openSearch: (returnFocusTo?: HTMLElement | null) => void;
+    /** This platform's shortcut; null until hydrated, since only the browser knows it. */
+    shortcut: SearchShortcut | null;
+}
+declare function useGlobalSearch(): GlobalSearch;
+interface GlobalSearchProviderProps {
+    /**
+     * What search can find, in the order the groups should appear. Must be
+     * stable: each source's `useItems` is a hook. Define it at module scope or
+     * memoise it.
+     */
+    sources: readonly SearchSource<any>[];
+    /** Defaults to `true` when the app language is Arabic. */
+    rtl?: boolean;
+    children: React$1.ReactNode;
+}
+/**
+ * Global search: the dialog, its shortcut, and `useGlobalSearch` for whatever
+ * opens it.
+ *
+ * The package owns all of that. What a product can find, and where each
+ * result opens, comes in through `sources`.
+ */
+declare function GlobalSearchProvider({ sources, rtl, children, }: GlobalSearchProviderProps): React$1.JSX.Element;
+
+/** Opens search. The full field, for an expanded sidebar. */
+declare function SearchTrigger({ className }: {
+    className?: string;
+}): React$1.JSX.Element;
+/** Compact trigger for a collapsed rail or a narrow screen, where there is no shortcut to show. */
+declare function SearchIconTrigger({ className }: {
+    className?: string;
+}): React$1.JSX.Element;
+
+interface SearchResultRowProps {
+    id: string;
+    active: boolean;
+    onActivate: () => void;
+    onChoose: () => void;
+    children: React$1.ReactNode;
+}
+/**
+ * One listbox option: the chrome around whatever a source renders.
+ *
+ * The pointer moves the active row rather than adding a hover style of its
+ * own, so mouse and keyboard share one highlight and there is never a second
+ * row looking selected. Mouse down is prevented so the field keeps focus and
+ * goes on driving the list.
+ */
+declare function SearchResultRow({ id, active, onActivate, onChoose, children, }: SearchResultRowProps): React$1.JSX.Element;
+/**
+ * The usual row body: a title with an optional second line, both clipped.
+ * A source can ignore this and render whatever it likes.
+ */
+declare function SearchResultText({ title, detail, }: {
+    title: string;
+    detail?: string;
+}): React$1.JSX.Element;
+/** A 44px leading tile, for a source's icon or thumbnail. */
+declare function SearchResultIcon({ className, children, }: {
+    className?: string;
+    children: React$1.ReactNode;
+}): React$1.JSX.Element;
+
+/**
+ * Runs the host's sources against a query and returns grouped, ranked rows.
+ *
+ * Groups keep the order the sources were given, so a product decides what
+ * comes first. Before anything is typed only the sources marked `initial`
+ * show, which keeps the empty state to things already in memory rather than
+ * a list of everything.
+ *
+ * Nothing here is memoised. Ranking is a substring match over lists that are
+ * already in the browser, and it has to re-run on every keystroke anyway; a
+ * memo keyed on anything cheap enough to compare would have gone stale on a
+ * rename, which is worse than the work it saved.
+ *
+ * `sources` must be stable: each source's `useItems` is a hook, and they are
+ * called in array order.
+ */
+declare function useSearchEngine(sources: readonly SearchSource<any>[], query: string): SearchResults;
+
+declare function normalizeSearchText(text: string): string;
+/**
+ * How well `text` matches a query already passed through
+ * `normalizeSearchText`: 0 exact, 1 prefix, 2 start of a later word,
+ * 3 inside a word, null no match.
+ */
+declare function matchRank(text: string, query: string): number | null;
+/**
+ * The items whose text matches `query`, best match first. Ties keep their
+ * input order (sort is stable), so pre-sorted lists stay sorted within a
+ * rank. An empty query returns every item.
+ */
+declare function rankMatches<T>(items: readonly T[], query: string, getText: (item: T) => string): T[];
+
 declare const buttonVariants: (props?: ({
     variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
@@ -1080,6 +1296,117 @@ declare const Tooltip: React$1.FC<TooltipPrimitive.TooltipProps>;
 declare const TooltipTrigger: React$1.ForwardRefExoticComponent<TooltipPrimitive.TooltipTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
 declare const TooltipContent: React$1.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 
+interface TabBarItem {
+    /** Identifier reported by `onTabChange`. Falls back to a string label. */
+    id?: string;
+    /** Tab label. `title` and `label` are interchangeable. */
+    title?: React$1.ReactNode;
+    /** Interchangeable with `title`. */
+    label?: React$1.ReactNode;
+    /** Rendered element, or a component taking `className`. */
+    icon?: React$1.ReactNode | React$1.ComponentType<{
+        className?: string;
+    }>;
+    /** Count or status shown after the label. */
+    badge?: string | number;
+    disabled?: boolean;
+    /** Overrides the active comparison for this tab. */
+    active?: boolean;
+    /** `id` of the panel this tab controls, announced to screen readers. */
+    panelId?: string;
+}
+interface TabBarProps {
+    /** `items` and `tabs` are interchangeable. */
+    items?: TabBarItem[];
+    /** Interchangeable with `items`. */
+    tabs?: TabBarItem[];
+    /** Controlled active tab. Without it the bar tracks its own. */
+    activeTab?: string;
+    defaultActiveTab?: string;
+    onTabChange?: (tabId: string) => void;
+    /** `non-rounded` is the underline bar; `rounded` is the pill group. */
+    variant?: "rounded" | "non-rounded";
+    /** `neutral` is near-black text and underline; `primary` is the brand colour. */
+    tone?: "primary" | "neutral";
+    size?: "sm" | "default" | "lg";
+    /** Sticks to the top of the scroll container, below `--nitx-top-inset`. */
+    sticky?: boolean;
+    /** Trailing element on the bar, opposite the tabs. */
+    action?: React$1.ReactNode;
+    /** Interchangeable with `action`. */
+    rightElement?: React$1.ReactNode;
+    /** Spreads the tabs across the full width. */
+    fullWidth?: boolean;
+    /** Names the tab list for screen readers. */
+    ariaLabel?: string;
+    className?: string;
+}
+/**
+ * The tab bar every dashboard shares.
+ *
+ * The default `non-rounded` variant is the Assets tab bar: a full-width strip
+ * with a hairline above and below, tabs that carry a 2px underline when
+ * active, and a horizontally scrolling track with no visible scrollbar. The
+ * `rounded` variant is the pill group used for in-page switches.
+ *
+ * Tabs are a real tab list: arrow keys move between them following the
+ * reading direction, Home and End jump to the ends, and only the active tab
+ * is in the tab order.
+ *
+ * It does not navigate. A tab that changes the route calls `router.push` from
+ * the host's `onTabChange`, which keeps the library free of a router.
+ */
+declare function TabBar({ items, tabs, activeTab: controlledActiveTab, defaultActiveTab, onTabChange, variant, tone, size, sticky, fullWidth, action, rightElement, ariaLabel, className, }: TabBarProps): React$1.JSX.Element;
+/** Name the dashboards' local copies used. Keeps a migration a one-line diff. */
+declare const CustomTabbar: typeof TabBar;
+type TabItem = TabBarItem;
+type CustomTabbarProps = TabBarProps;
+
+interface FloatingBarProps extends React$1.HTMLAttributes<HTMLDivElement> {
+    /** Styles the bar itself; `className` styles the anchor around it. */
+    barClassName?: string;
+    children: React$1.ReactNode;
+}
+/**
+ * Anchors a floating toolbar to the bottom of the viewport.
+ *
+ * `fixed`, not `absolute`: every dashboard scrolls its content inside its own
+ * container, so an absolutely placed bar sits at the bottom of the content,
+ * far below the fold, and is never seen. Because it is fixed it also stays put
+ * through nested scrolling, resize and browser zoom.
+ *
+ * Two custom properties position it, both 0 when a host sets neither:
+ *
+ * - `--nitx-bottom-inset`: the host's own bottom chrome (a mobile nav bar, a
+ *   player). The bar rides above it instead of hiding underneath.
+ * - `--nitx-side-inset`: the width of a persistent sidebar, as a logical
+ *   inset, so the bar centres on the content rather than the window. It flips
+ *   with the layout, so Arabic needs no separate value.
+ *
+ * The anchor takes no pointer events, so the page underneath stays usable
+ * everywhere the bar does not cover it.
+ */
+declare const FloatingBar: React$1.ForwardRefExoticComponent<FloatingBarProps & React$1.RefAttributes<HTMLDivElement>>;
+
+interface SequenceDurationProps {
+    /** Total length in seconds, as the API returns it on `total_duration`. */
+    seconds: string | number | null | undefined;
+    className?: string;
+}
+/**
+ * The duration on a sequence card, in one treatment for every surface a
+ * sequence card appears on.
+ *
+ * The clock sits immediately before the value, which is what gives a bare
+ * number its meaning: the cards used to print `total_duration` on its own, so
+ * a 45 second sequence read as "45" with nothing to say what that counted.
+ *
+ * `gap-1` and `inline-flex` keep the order logical, so Arabic mirrors with no
+ * extra rules. The glyph and the short value are hidden from screen readers,
+ * which read the spelled-out phrase instead.
+ */
+declare const SequenceDuration: React$1.FC<SequenceDurationProps>;
+
 declare const sizeVariants: {
     default: string;
     sm: string;
@@ -1114,4 +1441,4 @@ declare function DrawerDialog({ title, accessibleTitle, description, children, c
 declare function cn(...inputs: ClassValue[]): string;
 declare function cx(...args: ClassValue[]): string;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, type Folder, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, type TabId, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSpaceSelector };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, cn, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, isApplePlatform, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, searchShortcut, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector };

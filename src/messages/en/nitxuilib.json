@@ -778,13 +778,29 @@
     "assetsPreview": {
       "of": "of",
       "notAvailable": "Preview not available for this type",
-      "linkPreview": "Link Preview: {{url}}"
+      "linkPreview": "Link Preview: {{url}}",
+      "documentLoading": "Loading document",
+      "documentRegion": "Document preview",
+      "documentPage": "Page {{current}} of {{total}}",
+      "documentPrevPage": "Previous page",
+      "documentNextPage": "Next page",
+      "documentZoomIn": "Zoom in",
+      "documentZoomOut": "Zoom out",
+      "documentZoomReset": "Reset zoom to 100%",
+      "documentOpen": "Open in new tab",
+      "documentRetry": "Try again",
+      "documentError": "This document could not be opened",
+      "documentErrorHint": "It may be damaged, or the file could not be reached. You can try again, open it in a new tab or download it.",
+      "documentProtected": "This document is password protected",
+      "documentProtectedHint": "Open it in a new tab or download it to enter the password.",
+      "documentUnsupported": "No preview for this document type"
     },
     "assetsTabbar": {
       "all": "All",
       "media": "Media",
       "documents": "Documents",
-      "links": "Links"
+      "links": "Links",
+      "region": "Asset types"
     },
     "folderCard": {
       "deleteFolder": "Delete Folder",
@@ -944,5 +960,25 @@
       "moveFolderSuccess": "Folder moved successfully",
       "moveFolderFailed": "Failed to move folder"
     }
+  },
+  "sequenceDuration": {
+    "label": "Duration: {{count}} seconds",
+    "none": "No duration set",
+    "value": "{{count}}s"
+  },
+  "globalSearch": {
+    "trigger": "Search",
+    "title": "Search",
+    "placeholder": "Search",
+    "close": "Close search",
+    "loading": "Loading results",
+    "loadError": "Some results couldn't be loaded.",
+    "retry": "Try again",
+    "noResults": "No results for “{{query}}”",
+    "noResultsHint": "Check the spelling or search for something else.",
+    "resultCount": "{{count}} results",
+    "hintNavigate": "Navigate",
+    "hintOpen": "Open",
+    "hintClose": "Close"
   }
 }

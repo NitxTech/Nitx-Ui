@@ -37,9 +37,20 @@ export interface AssetsProviderProps {
   navigation?: AssetsNavigation;
   /** Override any of the bundled card/preview images. */
   images?: Partial<AssetImagesMap>;
+  /**
+   * PDF previewing. `workerSrc` points pdf.js at a worker copy; it defaults to
+   * a CDN build matching the bundled version, so only a host that has to
+   * self-host (offline or a strict script policy) needs to set it.
+   */
+  documentPreview?: AssetsDocumentPreviewConfig;
   /** Defaults to `true` when the app language is Arabic. */
   rtl?: boolean;
   children: React.ReactNode;
+}
+
+export interface AssetsDocumentPreviewConfig {
+  /** Absolute or app-relative URL of `pdf.worker.min.mjs`. */
+  workerSrc?: string;
 }
 
 export interface AssetsConfig {
@@ -49,6 +60,7 @@ export interface AssetsConfig {
   upload?: AssetsUploadConfig;
   navigation?: AssetsNavigation;
   images: AssetImagesMap;
+  documentPreview?: AssetsDocumentPreviewConfig;
   rtl: boolean;
 }
 
@@ -70,6 +82,7 @@ export function AssetsProvider({
   upload,
   navigation,
   images,
+  documentPreview,
   rtl,
   children,
 }: AssetsProviderProps) {
@@ -111,6 +124,7 @@ export function AssetsProvider({
       upload: resolvedUpload,
       navigation,
       images: { ...DEFAULT_ASSET_IMAGES, ...images },
+      documentPreview,
       rtl: rtl ?? language?.toLowerCase().startsWith("ar") ?? false,
     }),
     [
@@ -120,6 +134,7 @@ export function AssetsProvider({
       resolvedUpload,
       navigation,
       images,
+      documentPreview,
       rtl,
       language,
     ],
