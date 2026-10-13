@@ -56,7 +56,10 @@ export function SearchDialog({
             // Phones: a full-screen sheet. From md: a fixed-size panel
             // centred by `inset-0 m-auto`, so it never resizes or moves as
             // results change, and centring does not depend on text direction.
-            "fixed inset-0 z-[200] flex flex-col overflow-hidden bg-background text-start text-foreground outline-none",
+            // Above the overlay, which is z-[9999] and carries a backdrop blur in
+            // dark mode: below it, the dialog is rendered and then blurred by it.
+            // Same layer the package's own DialogContent uses.
+            "fixed inset-0 z-[10000] flex flex-col overflow-hidden bg-background text-start text-foreground outline-none",
             "md:m-auto md:h-[min(42rem,calc(100dvh-4rem))] md:w-[calc(100%-2rem)] md:max-w-[48rem] md:rounded-[32px] md:border md:border-border md:shadow-2xl",
             "duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 md:data-[state=open]:zoom-in-95 md:data-[state=closed]:zoom-out-95",
           )}
