@@ -1356,7 +1356,7 @@ declare function matchRank(text: string, query: string): number | null;
 declare function rankMatches<T>(items: readonly T[], query: string, getText: (item: T) => string): T[];
 
 declare const buttonVariants: (props?: ({
-    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
