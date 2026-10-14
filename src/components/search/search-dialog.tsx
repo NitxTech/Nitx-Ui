@@ -173,9 +173,9 @@ function SearchPanel({
             variant="ghost"
             size="icon"
             aria-label={t("globalSearch.close")}
-            className="shrink-0 rounded-full md:hidden"
+            className="shrink-0 rounded-md md:hidden"
           >
-            <X aria-hidden />
+            <X aria-hidden className="stroke-[2.75]" strokeWidth={2.75} />
           </Button>
         </DialogPrimitive.Close>
       </div>

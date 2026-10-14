@@ -2839,10 +2839,10 @@ function AccountPreferencesModal({
             "button",
             {
               type: "button",
-              className: "inline-flex items-center justify-center rounded-full size-8 sm:size-9 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors focus:outline-none cursor-pointer",
+              className: "inline-flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer",
               "aria-label": isRTL ? "\u0625\u0644\u063A\u0627\u0621" : "Cancel",
               children: [
-                /* @__PURE__ */ jsx8(X2, { className: "size-4.5 sm:size-5 stroke-[2]" }),
+                /* @__PURE__ */ jsx8(X2, { className: "size-4 shrink-0 stroke-[2.75]", strokeWidth: 2.75 }),
                 /* @__PURE__ */ jsx8("span", { className: "sr-only", children: isRTL ? "\u0625\u0644\u063A\u0627\u0621" : "Cancel" })
               ]
             }
@@ -13574,8 +13574,8 @@ function SearchPanel({
           variant: "ghost",
           size: "icon",
           "aria-label": t("globalSearch.close"),
-          className: "shrink-0 rounded-full md:hidden",
-          children: /* @__PURE__ */ jsx90(X8, { "aria-hidden": true })
+          className: "shrink-0 rounded-md md:hidden",
+          children: /* @__PURE__ */ jsx90(X8, { "aria-hidden": true, className: "stroke-[2.75]", strokeWidth: 2.75 })
         }
       ) })
     ] }),
