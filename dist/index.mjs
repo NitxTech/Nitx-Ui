@@ -2676,7 +2676,107 @@ import {
   ArrowRight,
   X as X2
 } from "lucide-react";
+import { toast } from "sonner";
 import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+var displayModeToTheme = (displayMode) => {
+  if (displayMode === 1) return "light";
+  if (displayMode === 2) return "dark";
+  return "system";
+};
+var themeToDisplayMode = (theme) => {
+  if (theme === "light") return 1;
+  if (theme === "dark") return 2;
+  return 0;
+};
+function cookieDomain() {
+  if (typeof window === "undefined") return "";
+  const host = window.location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") return "";
+  if (host.endsWith(".nitx.app")) return "domain=.nitx.app;";
+  if (host.endsWith(".nitx.io")) return "domain=.nitx.io;";
+  if (host.endsWith(".nitx.local")) return "domain=.nitx.local;";
+  return "";
+}
+function readThemeCookie() {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(/(?:^|;\s*)nitx-theme=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function writeThemeCookie(theme) {
+  const domainStr = cookieDomain();
+  document.cookie = `nitx-theme=${theme}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  try {
+    localStorage.setItem("nitx-theme", theme);
+    localStorage.setItem("theme", theme);
+  } catch {
+  }
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("nitx-theme-change", { detail: theme })
+    );
+  }
+}
+function readLanguageCookie() {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(/(?:^|;\s*)(?:nitx-language|nitx-lang)=([^;]+)/);
+  if (!m) return null;
+  const lang = decodeURIComponent(m[1]);
+  return lang === "ar" || lang === "en" ? lang : null;
+}
+function writeLanguageCookie(lang) {
+  const domainStr = cookieDomain();
+  document.cookie = `nitx-language=${lang}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  document.cookie = `nitx-lang=${lang}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  try {
+    localStorage.setItem("nitx-language", lang);
+    localStorage.setItem("i18nextLng", lang);
+  } catch {
+  }
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("nitx-language-change", { detail: lang })
+    );
+  }
+}
+async function callUpdateBasicInfo(payload, options) {
+  if (options?.onUpdateUser) {
+    return await options.onUpdateUser(payload);
+  }
+  const client = options?.apiClient || typeof window !== "undefined" && (window.__NITX_API_CLIENT__ || window.axios);
+  if (client && typeof client.post === "function") {
+    return await client.post("/api/user-info/update-basic-info", payload);
+  }
+  const rawBaseUrl = options?.apiUrl || (typeof process !== "undefined" ? process.env.NEXT_PUBLIC_API_URL : void 0);
+  let baseUrl = rawBaseUrl || "";
+  if (!baseUrl && typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host.includes(".dev.") || host === "localhost" || host === "127.0.0.1") {
+      baseUrl = "https://api.dev.nitx.app";
+    } else if (host.endsWith(".nitx.app")) {
+      baseUrl = "https://api.nitx.app";
+    } else if (host.endsWith(".nitx.io")) {
+      baseUrl = "https://api.nitx.io";
+    } else {
+      baseUrl = "https://api.dev.nitx.app";
+    }
+  }
+  const endpoint = `${baseUrl ? baseUrl.replace(/\/$/, "") : ""}/api/user-info/update-basic-info`;
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    credentials: "include",
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.message || `Request failed with status ${res.status}`);
+  }
+  return await res.json().catch(() => ({}));
+}
 function AccountPreferencesModal({
   open,
   onOpenChange,
@@ -2690,7 +2790,10 @@ function AccountPreferencesModal({
   theme: controlledTheme,
   onThemeChange,
   onManageAccount,
-  myNitxUrl
+  myNitxUrl,
+  apiUrl,
+  apiClient,
+  onUpdateUser
 }) {
   let params = null;
   try {
@@ -2705,11 +2808,39 @@ function AccountPreferencesModal({
   useEffect2(() => {
     setMounted(true);
     if (typeof document !== "undefined") {
-      const docLang = document.documentElement.lang || (document.documentElement.getAttribute("dir") === "rtl" ? "ar" : "en");
+      const cookieLang = readLanguageCookie();
+      const docLang = cookieLang || document.documentElement.lang || (document.documentElement.getAttribute("dir") === "rtl" ? "ar" : "en");
       if (docLang === "ar" || docLang === "en") {
         setInternalLanguage(docLang);
       }
+      const cookieTheme = readThemeCookie();
+      if (cookieTheme) {
+        setInternalTheme(cookieTheme);
+      } else if (document.documentElement.classList.contains("dark")) {
+        setInternalTheme("dark");
+      } else {
+        setInternalTheme("light");
+      }
     }
+  }, []);
+  useEffect2(() => {
+    if (typeof window === "undefined") return;
+    const handleThemeChangeEvt = (e) => {
+      if (e.detail && (e.detail === "light" || e.detail === "dark" || e.detail === "system")) {
+        setInternalTheme(e.detail);
+      }
+    };
+    const handleLangChangeEvt = (e) => {
+      if (e.detail && (e.detail === "ar" || e.detail === "en")) {
+        setInternalLanguage(e.detail);
+      }
+    };
+    window.addEventListener("nitx-theme-change", handleThemeChangeEvt);
+    window.addEventListener("nitx-language-change", handleLangChangeEvt);
+    return () => {
+      window.removeEventListener("nitx-theme-change", handleThemeChangeEvt);
+      window.removeEventListener("nitx-language-change", handleLangChangeEvt);
+    };
   }, []);
   const language = controlledLanguage ?? internalLanguage;
   const isRTL = language === "ar";
@@ -2769,8 +2900,10 @@ function AccountPreferencesModal({
   const shouldShowPlan = showPlan !== void 0 ? Boolean(showPlan) : platform === "studio" ? true : isStudio && Boolean(plan);
   const platformDisplayName = platform === "studio" ? "Nitx Studio" : platform === "my-nitx" ? "My Nitx" : platform === "signage" ? "Nitx Signage" : platform === "publisher" ? "Nitx Publisher" : platform === "ads" ? "Nitx Ads" : isStudio ? "Nitx Studio" : "Nitx";
   const initials = userName.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "AA";
-  const handleLanguageChange = (value) => {
+  const handleLanguageChange = async (value) => {
+    const prevLang = internalLanguage;
     setInternalLanguage(value);
+    writeLanguageCookie(value);
     if (onLanguageChange) {
       onLanguageChange(value);
     }
@@ -2780,19 +2913,35 @@ function AccountPreferencesModal({
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("dir", value === "ar" ? "rtl" : "ltr");
       document.documentElement.setAttribute("lang", value);
-      try {
-        localStorage.setItem("nitx-language", value);
-      } catch {
-      }
     }
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("nitx-language-change", { detail: value })
+    try {
+      await callUpdateBasicInfo(
+        { language: value },
+        { apiClient, apiUrl, onUpdateUser }
+      );
+    } catch (error) {
+      console.error("Failed to update language:", error);
+      setInternalLanguage(prevLang);
+      writeLanguageCookie(prevLang);
+      if (onLanguageChange) {
+        onLanguageChange(prevLang);
+      }
+      if (i18n?.changeLanguage) {
+        i18n.changeLanguage(prevLang);
+      }
+      if (typeof document !== "undefined") {
+        document.documentElement.setAttribute("dir", prevLang === "ar" ? "rtl" : "ltr");
+        document.documentElement.setAttribute("lang", prevLang);
+      }
+      toast.error(
+        value === "ar" ? "\u0641\u0634\u0644 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0644\u063A\u0629. \u062A\u0645\u062A \u0627\u0633\u062A\u0639\u0627\u062F\u0629 \u0627\u0644\u0625\u0639\u062F\u0627\u062F \u0627\u0644\u0633\u0627\u0628\u0642." : "Failed to update language. Reverted to previous setting."
       );
     }
   };
-  const handleThemeChange = (newTheme) => {
+  const handleThemeChange = async (newTheme) => {
+    const prevTheme = internalTheme;
     setInternalTheme(newTheme);
+    writeThemeCookie(newTheme);
     if (onThemeChange) {
       onThemeChange(newTheme);
     }
@@ -2802,17 +2951,29 @@ function AccountPreferencesModal({
       } else {
         document.documentElement.classList.remove("dark");
       }
-      const isLocal = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
-      const domainStr = isLocal ? "" : "domain=.nitx.app;";
-      document.cookie = `nitx-theme=${newTheme}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
-      try {
-        localStorage.setItem("theme", newTheme);
-      } catch {
-      }
     }
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("nitx-theme-change", { detail: newTheme })
+    try {
+      const displayMode = themeToDisplayMode(newTheme);
+      await callUpdateBasicInfo(
+        { display_mode: displayMode },
+        { apiClient, apiUrl, onUpdateUser }
+      );
+    } catch (error) {
+      console.error("Failed to update appearance mode:", error);
+      setInternalTheme(prevTheme);
+      writeThemeCookie(prevTheme);
+      if (onThemeChange) {
+        onThemeChange(prevTheme);
+      }
+      if (typeof document !== "undefined") {
+        if (prevTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+      toast.error(
+        language === "ar" ? "\u0641\u0634\u0644 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0645\u0638\u0647\u0631. \u062A\u0645\u062A \u0627\u0633\u062A\u0639\u0627\u062F\u0629 \u0627\u0644\u0625\u0639\u062F\u0627\u062F \u0627\u0644\u0633\u0627\u0628\u0642." : "Failed to update appearance mode. Reverted to previous setting."
       );
     }
   };
@@ -3035,7 +3196,10 @@ var UserAccount = ({
   settingsHref,
   preferencesOpen,
   onPreferencesOpenChange,
-  accountPreferencesProps
+  accountPreferencesProps,
+  apiClient,
+  apiUrl,
+  onUpdateUser
 }) => {
   const { t } = useNitxUiTranslation();
   const [onOpen, setOnOpen] = useState3(false);
@@ -3269,6 +3433,9 @@ var UserAccount = ({
         authUser: auth_user,
         showPlan: showPlan ?? accountPreferencesProps?.showPlan,
         platform: platform ?? accountPreferencesProps?.platform,
+        apiClient: apiClient ?? accountPreferencesProps?.apiClient,
+        apiUrl: apiUrl ?? accountPreferencesProps?.apiUrl,
+        onUpdateUser: onUpdateUser ?? accountPreferencesProps?.onUpdateUser,
         user: activeAccount ? {
           name: activeAccount.name,
           email: activeAccount.email,
@@ -3284,8 +3451,161 @@ var UserAccount = ({
 import {
   createContext,
   useContext,
-  useState as useState4
+  useState as useState4,
+  useEffect as useEffect4,
+  useCallback,
+  useMemo as useMemo2
 } from "react";
+
+// src/components/space-selector/lib/space-recent.ts
+var SPACE_RECENT_STORAGE_PREFIX = "nitx_space_last_used_";
+var SPACE_RECENT_EVENT_NAME = "nitx-space-recent-updated";
+function getSpaceIdentifier(space) {
+  if (!space) return "";
+  return space.space_uuid || space.proxyId || space.uuid || "";
+}
+function getRecentSpacesStorageKey(authUser) {
+  const normalized = authUser !== void 0 && authUser !== null && String(authUser).trim() !== "" ? String(authUser).trim() : "default";
+  return `${SPACE_RECENT_STORAGE_PREFIX}${normalized}`;
+}
+function getRecentSpacesMap(authUser) {
+  if (typeof window === "undefined") {
+    return {};
+  }
+  try {
+    const key = getRecentSpacesStorageKey(authUser);
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed;
+    }
+    return {};
+  } catch {
+    return {};
+  }
+}
+function recordSpaceUsage(spaceOrId, authUser, timestamp = Date.now()) {
+  if (typeof window === "undefined" || !spaceOrId) {
+    return {};
+  }
+  const primaryId = typeof spaceOrId === "string" ? spaceOrId : getSpaceIdentifier(spaceOrId);
+  if (!primaryId) return {};
+  try {
+    const key = getRecentSpacesStorageKey(authUser);
+    const currentMap = getRecentSpacesMap(authUser);
+    const updatedMap = {
+      ...currentMap,
+      [primaryId]: timestamp
+    };
+    if (typeof spaceOrId === "object") {
+      if (spaceOrId.space_uuid) updatedMap[spaceOrId.space_uuid] = timestamp;
+      if (spaceOrId.proxyId) updatedMap[spaceOrId.proxyId] = timestamp;
+      if (spaceOrId.uuid) updatedMap[spaceOrId.uuid] = timestamp;
+    }
+    window.localStorage.setItem(key, JSON.stringify(updatedMap));
+    window.dispatchEvent(
+      new CustomEvent(SPACE_RECENT_EVENT_NAME, {
+        detail: { authUser, spaceId: primaryId, timestamp }
+      })
+    );
+    return updatedMap;
+  } catch {
+    return {};
+  }
+}
+function removeSpaceRecent(spaceOrId, authUser) {
+  if (typeof window === "undefined" || !spaceOrId) {
+    return {};
+  }
+  const idsToRemove = [];
+  if (typeof spaceOrId === "string") {
+    idsToRemove.push(spaceOrId);
+  } else {
+    if (spaceOrId.space_uuid) idsToRemove.push(spaceOrId.space_uuid);
+    if (spaceOrId.proxyId) idsToRemove.push(spaceOrId.proxyId);
+    if (spaceOrId.uuid) idsToRemove.push(spaceOrId.uuid);
+  }
+  try {
+    const key = getRecentSpacesStorageKey(authUser);
+    const currentMap = getRecentSpacesMap(authUser);
+    const updatedMap = { ...currentMap };
+    for (const id of idsToRemove) {
+      delete updatedMap[id];
+    }
+    window.localStorage.setItem(key, JSON.stringify(updatedMap));
+    window.dispatchEvent(
+      new CustomEvent(SPACE_RECENT_EVENT_NAME, {
+        detail: { authUser, spaceId: idsToRemove[0] || "", removed: true }
+      })
+    );
+    return updatedMap;
+  } catch {
+    return {};
+  }
+}
+function getSpaceTimestamp(space, recentMap) {
+  let timestamp = 0;
+  if (space.last_used_at) {
+    if (typeof space.last_used_at === "number" && Number.isFinite(space.last_used_at)) {
+      timestamp = space.last_used_at;
+    } else if (typeof space.last_used_at === "string") {
+      const parsed = new Date(space.last_used_at).getTime();
+      if (Number.isFinite(parsed) && parsed > 0) {
+        timestamp = parsed;
+      }
+    }
+  }
+  const candidateIds = [space.space_uuid, space.proxyId, space.uuid].filter(
+    Boolean
+  );
+  for (const id of candidateIds) {
+    const localTime = recentMap[id];
+    if (typeof localTime === "number" && Number.isFinite(localTime) && localTime > timestamp) {
+      timestamp = localTime;
+    }
+  }
+  return timestamp;
+}
+function isSameSpace(a, b) {
+  if (!a || !b) return false;
+  if (a.space_uuid && b.space_uuid && a.space_uuid === b.space_uuid) return true;
+  if (a.proxyId && b.proxyId && a.proxyId === b.proxyId) return true;
+  if (a.uuid && b.uuid && a.uuid === b.uuid) return true;
+  return false;
+}
+function sortSpacesByLastUsed(spaces, recentMap = {}, activeSpace) {
+  if (!spaces || spaces.length === 0) return [];
+  const indexed = spaces.map((space, originalIndex) => {
+    let timestamp = getSpaceTimestamp(space, recentMap);
+    if (isSameSpace(space, activeSpace) && timestamp === 0) {
+      timestamp = 1;
+    }
+    return {
+      space,
+      originalIndex,
+      timestamp
+    };
+  });
+  indexed.sort((a, b) => {
+    if (a.timestamp > 0 && b.timestamp > 0) {
+      if (b.timestamp !== a.timestamp) {
+        return b.timestamp - a.timestamp;
+      }
+      return a.originalIndex - b.originalIndex;
+    }
+    if (a.timestamp > 0 && b.timestamp === 0) {
+      return -1;
+    }
+    if (b.timestamp > 0 && a.timestamp === 0) {
+      return 1;
+    }
+    return a.originalIndex - b.originalIndex;
+  });
+  return indexed.map((item) => item.space);
+}
+
+// src/components/space-selector/context.tsx
 import { jsx as jsx10 } from "react/jsx-runtime";
 var SpaceSelectorContext = createContext(void 0);
 var useOptionalSpaceSelector = () => {
@@ -3309,6 +3629,8 @@ var SpaceSelectorProvider = ({
   authUser,
   api,
   isExpanded = true,
+  className,
+  triggerClassName,
   isLoading = false,
   error = null,
   onFail = () => {
@@ -3316,6 +3638,40 @@ var SpaceSelectorProvider = ({
 }) => {
   const [activeModal, setActiveModal] = useState4(null);
   const [modalProps, setModalProps] = useState4({});
+  const [recentMap, setRecentMap] = useState4(
+    () => getRecentSpacesMap(authUser)
+  );
+  useEffect4(() => {
+    setRecentMap(getRecentSpacesMap(authUser));
+    const handleSync = () => {
+      setRecentMap(getRecentSpacesMap(authUser));
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener(SPACE_RECENT_EVENT_NAME, handleSync);
+      window.addEventListener("storage", handleSync);
+      return () => {
+        window.removeEventListener(SPACE_RECENT_EVENT_NAME, handleSync);
+        window.removeEventListener("storage", handleSync);
+      };
+    }
+  }, [authUser]);
+  useEffect4(() => {
+    if (activeSpace) {
+      const updated = recordSpaceUsage(activeSpace, authUser);
+      setRecentMap(updated);
+    }
+  }, [activeSpace, authUser]);
+  const handleSpaceSelect = useCallback(
+    (space) => {
+      const updated = recordSpaceUsage(space, authUser);
+      setRecentMap(updated);
+      onSpaceSelect(space);
+    },
+    [authUser, onSpaceSelect]
+  );
+  const sortedSpaces = useMemo2(() => {
+    return sortSpacesByLastUsed(spaces, recentMap, activeSpace);
+  }, [spaces, recentMap, activeSpace]);
   const setModal = (modal) => {
     setActiveModal(modal);
     if (modal === null) setModalProps({});
@@ -3325,17 +3681,26 @@ var SpaceSelectorProvider = ({
     {
       value: {
         activeSpace,
-        spaces,
+        spaces: sortedSpaces,
+        sortedSpaces,
+        rawSpaces: spaces,
         isExpanded,
-        setActiveSpace: onSpaceSelect,
+        className,
+        triggerClassName,
+        setActiveSpace: handleSpaceSelect,
         refreshSpaces: onRefreshSpaces || (() => {
         }),
+        recordRecentSpace: (space) => {
+          const updated = recordSpaceUsage(space, authUser);
+          setRecentMap(updated);
+        },
         activeModal,
         setModal,
         modalProps,
         setModalProps,
         api,
         authUser,
+        recentMap,
         isLoading,
         error,
         onFail
@@ -3575,7 +3940,7 @@ function DrawerDialog({
 }
 
 // src/components/spaces/SpaceBrowser.tsx
-import { useEffect as useEffect5, useState as useState7 } from "react";
+import { useEffect as useEffect6, useState as useState7 } from "react";
 
 // src/components/space-selector/ui/search-input.tsx
 import { SearchIcon } from "lucide-react";
@@ -3829,7 +4194,7 @@ DropdownMenuShortcut2.displayName = "DropdownMenuShortcut";
 
 // src/components/space-selector/components/SpaceCard.tsx
 import { useState as useState6 } from "react";
-import { toast } from "sonner";
+import { toast as toast2 } from "sonner";
 
 // src/components/ui/skeleton.tsx
 import { jsx as jsx17 } from "react/jsx-runtime";
@@ -3870,18 +4235,20 @@ var SpaceCard = ({ id, name, members, className }) => {
     setModal,
     setModalProps: setProps,
     api,
-    refreshSpaces
+    refreshSpaces,
+    authUser
   } = useSpaceSelector();
   const handleDeleteSpace = async () => {
     if (!api?.deleteSpace) return;
     setIsLoading(true);
     try {
       await api.deleteSpace(id);
-      toast.success(t("spaceCard.spaceDeletedSuccessfully", { name }));
+      removeSpaceRecent(id, authUser);
+      toast2.success(t("spaceCard.spaceDeletedSuccessfully", { name }));
       refreshSpaces();
     } catch (error) {
       console.error("Error deleting space:", error);
-      toast.error(t("spaceCard.errorDeletingSpace"));
+      toast2.error(t("spaceCard.errorDeletingSpace"));
     } finally {
       setIsLoading(false);
     }
@@ -4212,7 +4579,7 @@ var SpaceBrowser = (props) => {
   const { t } = useNitxUiTranslation();
   const { spaces, setModal, setActiveSpace } = useSpaceSelector();
   const [filteredSpaces, setFilteredSpaces] = useState7(spaces);
-  useEffect5(() => {
+  useEffect6(() => {
     setFilteredSpaces(spaces);
   }, [spaces]);
   const handleSearch = (searchTerm) => {
@@ -4269,7 +4636,7 @@ var BrowseSpaceModal = () => {
 var BrowseSpaceModal_default = BrowseSpaceModal;
 
 // src/components/space-selector/components/modals/NewSpaceModal.tsx
-import { useEffect as useEffect6, useState as useState8 } from "react";
+import { useEffect as useEffect7, useState as useState8 } from "react";
 
 // src/components/space-selector/ui/button.tsx
 import * as React14 from "react";
@@ -4336,7 +4703,7 @@ var Label4 = React15.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
 Label4.displayName = LabelPrimitive.Root.displayName;
 
 // src/components/space-selector/components/modals/NewSpaceModal.tsx
-import { toast as toast2 } from "sonner";
+import { toast as toast3 } from "sonner";
 import { jsx as jsx25, jsxs as jsxs16 } from "react/jsx-runtime";
 var NewSpaceModal = () => {
   const { t } = useNitxUiTranslation();
@@ -4351,7 +4718,7 @@ var NewSpaceModal = () => {
   const [name, setName] = useState8("");
   const [isLoading, setIsLoading] = useState8(false);
   const isModalOpen = activeModal === "newSpace";
-  useEffect6(() => {
+  useEffect7(() => {
     if (!isModalOpen) {
       setName("");
       setIsLoading(false);
@@ -4371,12 +4738,12 @@ var NewSpaceModal = () => {
       }
       refreshSpaces();
       setActiveSpace(spaceData);
-      toast2.success(t("newSpaceModal.spaceCreatedSuccessfully"));
+      toast3.success(t("newSpaceModal.spaceCreatedSuccessfully"));
       setName("");
       setModal(null);
     } catch (error) {
       console.error("Error creating space:", error);
-      toast2.error(t("newSpaceModal.failedToCreateSpace"));
+      toast3.error(t("newSpaceModal.failedToCreateSpace"));
     } finally {
       setIsLoading(false);
     }
@@ -4443,13 +4810,13 @@ var NewSpaceModal = () => {
 var NewSpaceModal_default = NewSpaceModal;
 
 // src/components/spaces/MembersAndNumbers.tsx
-import { useEffect as useEffect8, useState as useState10 } from "react";
+import { useEffect as useEffect9, useState as useState10 } from "react";
 import { HugeiconsIcon as HugeiconsIcon6 } from "@hugeicons/react";
 import { Key01Icon, Tv01Icon } from "@hugeicons/core-free-icons";
-import { toast as toast4 } from "sonner";
+import { toast as toast5 } from "sonner";
 
 // src/components/spaces/MembersManager.tsx
-import { useEffect as useEffect7, useState as useState9 } from "react";
+import { useEffect as useEffect8, useState as useState9 } from "react";
 import { HugeiconsIcon as HugeiconsIcon2 } from "@hugeicons/react";
 import {
   Tick02Icon,
@@ -4477,7 +4844,7 @@ Label5.displayName = LabelPrimitive2.Root.displayName;
 // src/components/spaces/MembersManager.tsx
 import { Loader2, X as X3 } from "lucide-react";
 
-// node_modules/.pnpm/uuid@11.1.1/node_modules/uuid/dist/esm/stringify.js
+// node_modules/uuid/dist/esm/stringify.js
 var byteToHex = [];
 for (let i = 0; i < 256; ++i) {
   byteToHex.push((i + 256).toString(16).slice(1));
@@ -4486,7 +4853,7 @@ function unsafeStringify(arr, offset = 0) {
   return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
 }
 
-// node_modules/.pnpm/uuid@11.1.1/node_modules/uuid/dist/esm/rng.js
+// node_modules/uuid/dist/esm/rng.js
 import { randomFillSync } from "crypto";
 var rnds8Pool = new Uint8Array(256);
 var poolPtr = rnds8Pool.length;
@@ -4498,11 +4865,11 @@ function rng() {
   return rnds8Pool.slice(poolPtr, poolPtr += 16);
 }
 
-// node_modules/.pnpm/uuid@11.1.1/node_modules/uuid/dist/esm/native.js
+// node_modules/uuid/dist/esm/native.js
 import { randomUUID } from "crypto";
 var native_default = { randomUUID };
 
-// node_modules/.pnpm/uuid@11.1.1/node_modules/uuid/dist/esm/v4.js
+// node_modules/uuid/dist/esm/v4.js
 function v4(options, buf, offset) {
   if (native_default.randomUUID && !buf && !options) {
     return native_default.randomUUID();
@@ -4529,7 +4896,7 @@ function v4(options, buf, offset) {
 var v4_default = v4;
 
 // src/components/spaces/MembersManager.tsx
-import { toast as toast3 } from "sonner";
+import { toast as toast4 } from "sonner";
 
 // src/components/spaces/MemberRoleSelect.tsx
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -4697,7 +5064,7 @@ var MembersManager = ({
   );
   const [isLoading, setIsLoading] = useState9(false);
   const [isSuccess, setIsSuccess] = useState9(false);
-  useEffect7(() => {
+  useEffect8(() => {
     if (initialEmail) {
       setEmail(initialEmail);
       setPendingEmails([{ id: v4_default(), email: initialEmail }]);
@@ -4749,7 +5116,7 @@ var MembersManager = ({
       onSuccess?.();
     } catch (e2) {
       console.error("INVITATION_ERROR:", e2);
-      toast3.error(t("manageMembersModal.wrong"));
+      toast4.error(t("manageMembersModal.wrong"));
     } finally {
       setIsLoading(false);
     }
@@ -5723,7 +6090,7 @@ var MembersAndNumbers = ({
   const [settingsSpaceName, setSettingsSpaceName] = useState10("");
   const [savingSettings, setSavingSettings] = useState10(false);
   const [showInviteModal, setShowInviteModal] = useState10(false);
-  useEffect8(() => {
+  useEffect9(() => {
     if (spaceName) {
       setSettingsSpaceName(spaceName);
     }
@@ -5749,7 +6116,7 @@ var MembersAndNumbers = ({
       setLoading(false);
     }
   };
-  useEffect8(() => {
+  useEffect9(() => {
     if (isOpen && spaceId) {
       fetchData();
     }
@@ -5777,10 +6144,10 @@ var MembersAndNumbers = ({
       await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
-      toast4.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
+      toast5.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
     } catch (error) {
       const renameErrorMessage = error?.response?.data?.errors?.name?.[0] ?? error?.response?.data?.message ?? t("membersAndNumbers.toasts.failedToUpdateSpaceName");
-      toast4.error(renameErrorMessage);
+      toast5.error(renameErrorMessage);
     } finally {
       setSavingSettings(false);
     }
@@ -5795,9 +6162,9 @@ var MembersAndNumbers = ({
         )
       );
       await api.updateMemberRole(spaceId, memberId, newRole, member.email);
-      toast4.success(t("manageMembersModal.role_success"));
+      toast5.success(t("manageMembersModal.role_success"));
     } catch (error) {
-      toast4.error(t("manageMembersModal.error"));
+      toast5.error(t("manageMembersModal.error"));
       fetchData();
     }
   };
@@ -5808,49 +6175,49 @@ var MembersAndNumbers = ({
         (prev) => prev.filter((invite) => invite.id !== invitationToCancel.id)
       );
       await api.revokeInvitation(spaceId, invitationToCancel.id);
-      toast4.success(t("membersAndNumbers.toasts.invitationCancelled"));
+      toast5.success(t("membersAndNumbers.toasts.invitationCancelled"));
       setInvitationToCancel(null);
     } catch (error) {
-      toast4.error(t("membersAndNumbers.toasts.failedToCancelInvitation"));
+      toast5.error(t("membersAndNumbers.toasts.failedToCancelInvitation"));
       fetchData();
     }
   };
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email);
-    toast4.success(t("membersAndNumbers.toasts.emailCopied"));
+    toast5.success(t("membersAndNumbers.toasts.emailCopied"));
   };
   const confirmRemoveMember = async () => {
     if (!memberToRemove) return;
     try {
       setMembers((prev) => prev.filter((member) => member.id !== memberToRemove.id));
       await api.removeMember(spaceId, memberToRemove.id);
-      toast4.success(t("manageMembersModal.removed"));
+      toast5.success(t("manageMembersModal.removed"));
       setMemberToRemove(null);
     } catch (error) {
-      toast4.error(t("manageMembersModal.error_remove"));
+      toast5.error(t("manageMembersModal.error_remove"));
       fetchData();
     }
   };
   const handleResendInvitation = async (id) => {
     try {
       await api.resendInvitation(spaceId, id);
-      toast4.success(t("membersAndNumbers.toasts.invitationResent"));
+      toast5.success(t("membersAndNumbers.toasts.invitationResent"));
     } catch (error) {
-      toast4.error(t("membersAndNumbers.toasts.failedToResendInvitation"));
+      toast5.error(t("membersAndNumbers.toasts.failedToResendInvitation"));
     }
   };
   const handleCopyInviteLink = async (invite) => {
     try {
       const link = await api.getInviteLink(spaceId, invite.id);
       if (!link) {
-        toast4.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
+        toast5.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
         return;
       }
       await navigator.clipboard.writeText(link);
-      toast4.success(t("membersAndNumbers.toasts.inviteLinkCopied"));
+      toast5.success(t("membersAndNumbers.toasts.inviteLinkCopied"));
     } catch (error) {
       console.error(error);
-      toast4.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
+      toast5.error(t("membersAndNumbers.toasts.failedToGetInviteLink"));
     }
   };
   const stats = [
@@ -6193,7 +6560,7 @@ var DeleteConfirmationModal = () => {
 var DeleteConfirmationModal_default = DeleteConfirmationModal;
 
 // src/components/space-selector/components/modals/RenameSpaceModal.tsx
-import { useEffect as useEffect9, useMemo as useMemo2, useState as useState11 } from "react";
+import { useEffect as useEffect10, useMemo as useMemo3, useState as useState11 } from "react";
 import { Check as Check5, Loader2 as Loader24, RefreshCw, TriangleAlert } from "lucide-react";
 import { Fragment as Fragment4, jsx as jsx47, jsxs as jsxs34 } from "react/jsx-runtime";
 var getFallbackText2 = (value) => value.trim().slice(0, 2).toUpperCase();
@@ -6347,7 +6714,7 @@ var RenameSpaceModal = () => {
   const [view, setView] = useState11("form");
   const [isSaving, setIsSaving] = useState11(false);
   const [errorMessage, setErrorMessage] = useState11("");
-  useEffect9(() => {
+  useEffect10(() => {
     if (!isOpen) {
       setDraftName("");
       setLastAttemptedName("");
@@ -6362,7 +6729,7 @@ var RenameSpaceModal = () => {
     setIsSaving(false);
     setErrorMessage("");
   }, [initialName, isOpen]);
-  const logoName = useMemo2(() => draftName.trim() || initialName || "Space", [
+  const logoName = useMemo3(() => draftName.trim() || initialName || "Space", [
     draftName,
     initialName
   ]);
@@ -6433,7 +6800,7 @@ var RenameSpaceModal = () => {
 var RenameSpaceModal_default = RenameSpaceModal;
 
 // src/components/space-selector/components/SpaceSelectorContent.tsx
-import { useMemo as useMemo3, useState as useState12 } from "react";
+import { useState as useState12 } from "react";
 import {
   Building2,
   CheckCircle,
@@ -6471,17 +6838,13 @@ var SpaceSelectorContent = () => {
     setActiveSpace,
     isExpanded,
     setModal,
-    setModalProps
+    setModalProps,
+    className,
+    triggerClassName
   } = useSpaceSelector();
   const [showOptions, setShowOptions] = useState12(false);
   const isRTL = typeof document !== "undefined" && document.dir === "rtl";
-  const sortedSpaces = useMemo3(() => {
-    return [...spaces].sort((a, b) => {
-      if (a.proxyId === activeSpace?.proxyId) return -1;
-      if (b.proxyId === activeSpace?.proxyId) return 1;
-      return 0;
-    });
-  }, [spaces, activeSpace]);
+  const sortedSpaces = spaces;
   const handleChange = (space) => {
     setShowOptions(false);
     setActiveSpace(space);
@@ -6491,25 +6854,30 @@ var SpaceSelectorContent = () => {
       "div",
       {
         className: cn2(
-          "w-full h-auto bg-accent dark:bg-zinc-900 px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
-          !isExpanded && "items-center justify-center w-[40px] h-[40px] mx-auto",
-          showOptions && "border-primary"
+          "w-full h-auto bg-accent dark:bg-zinc-900 px-3.5 py-2 rounded-md flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary gap-2.5",
+          !isExpanded && "items-center justify-center w-[40px] h-[40px] mx-auto p-0 rounded-md",
+          showOptions && "border-primary",
+          triggerClassName,
+          className
         ),
         children: isExpanded ? /* @__PURE__ */ jsxs35(Fragment5, { children: [
-          /* @__PURE__ */ jsx49("div", { className: "w-full flex flex-col justify-center", children: /* @__PURE__ */ jsxs35("div", { className: "text-sm xl:text-base w-full max-w-40 capitalize truncate", children: [
-            /* @__PURE__ */ jsx49("p", { children: activeSpace?.name }),
-            !activeSpace?.name && /* @__PURE__ */ jsx49(Skeleton2, { className: "h-4 w-3/4 bg-gray-300/80" })
-          ] }) }),
+          /* @__PURE__ */ jsxs35("div", { className: "flex items-center gap-2.5 min-w-0 flex-1", children: [
+            /* @__PURE__ */ jsx49("div", { className: "flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsx49(Building2, { className: "w-4 h-4 xl:w-5 xl:h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8] shrink-0" }) }),
+            /* @__PURE__ */ jsx49("div", { className: "flex flex-col justify-center min-w-0 flex-1", children: /* @__PURE__ */ jsxs35("div", { className: "text-sm xl:text-base w-full max-w-40 capitalize truncate", children: [
+              /* @__PURE__ */ jsx49("p", { children: activeSpace?.name }),
+              !activeSpace?.name && /* @__PURE__ */ jsx49(Skeleton2, { className: "h-4 w-3/4 bg-gray-300/80" })
+            ] }) })
+          ] }),
           /* @__PURE__ */ jsx49(
             ChevronDown4,
             {
               className: cn2(
-                "w-4 h-4 xl:w-5 xl:h-5 transition ease-linear duration-300",
+                "w-4 h-4 xl:w-5 xl:h-5 transition ease-linear duration-300 shrink-0 ms-auto",
                 showOptions && "-scale-y-100"
               )
             }
           )
-        ] }) : /* @__PURE__ */ jsx49("div", { children: /* @__PURE__ */ jsx49(Building2, { className: "w-5 h-5" }) })
+        ] }) : /* @__PURE__ */ jsx49("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ jsx49(Building2, { className: "w-5 h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8]" }) })
       }
     ) }),
     /* @__PURE__ */ jsxs35(
@@ -6530,19 +6898,22 @@ var SpaceSelectorContent = () => {
               children: t("sidebar.Recently Spaces")
             }
           ),
-          sortedSpaces.slice(0, 3).map((option, key) => /* @__PURE__ */ jsxs35(
-            DropdownMenuItem2,
-            {
-              onClick: () => handleChange(option),
-              className: "w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
-              children: [
-                /* @__PURE__ */ jsx49(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
-                /* @__PURE__ */ jsx49("p", { className: "max-w-[8rem] truncate", children: option.name }),
-                activeSpace?.proxyId === option.proxyId && /* @__PURE__ */ jsx49(CheckCircle, { className: "ms-auto w-4 h-4 stroke-primary" })
-              ]
-            },
-            key
-          )),
+          sortedSpaces.slice(0, 3).map((option, key) => {
+            const isSelected = activeSpace && (activeSpace.proxyId === option.proxyId || activeSpace.space_uuid && activeSpace.space_uuid === option.space_uuid);
+            return /* @__PURE__ */ jsxs35(
+              DropdownMenuItem2,
+              {
+                onClick: () => handleChange(option),
+                className: "w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer",
+                children: [
+                  /* @__PURE__ */ jsx49(Building2, { className: "w-4 h-4 stroke-[1.5]" }),
+                  /* @__PURE__ */ jsx49("p", { className: "max-w-[8rem] truncate", children: option.name }),
+                  isSelected && /* @__PURE__ */ jsx49(CheckCircle, { className: "ms-auto w-4 h-4 stroke-primary" })
+                ]
+              },
+              option.space_uuid || option.proxyId || key
+            );
+          }),
           /* @__PURE__ */ jsx49(DropdownMenuSeparator2, {}),
           /* @__PURE__ */ jsxs35("div", { className: "w-full flex flex-col", children: [
             /* @__PURE__ */ jsx49(
@@ -6668,7 +7039,7 @@ var createSpaceSelectorApi = (client) => {
 };
 
 // src/components/content-browser/components/AddContentModal.tsx
-import React24, { useEffect as useEffect10, useState as useState13 } from "react";
+import React24, { useEffect as useEffect11, useState as useState13 } from "react";
 import { format } from "date-fns";
 import {
   Check as Check6,
@@ -6821,7 +7192,7 @@ var AddContentModal = ({
   const [selectedCanvasAssets, setSelectedCanvasAssets] = useState13([]);
   const effectiveTabs = ALL_TABS.filter((t2) => allowedTabs.includes(t2));
   const firstTab = effectiveTabs[0] ?? "Assets";
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open) return;
     setActiveTab(firstTab);
     setSearchTerm("");
@@ -6834,7 +7205,7 @@ var AddContentModal = ({
     setSelectedAppInstances([]);
     setSelectedCanvasAssets([]);
   }, [open]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open) return;
     setIsLoadingAssets(true);
     api.fetchAssets(currentFolderId).then(({ assets: assets2, folders: folders2 }) => {
@@ -6842,22 +7213,22 @@ var AddContentModal = ({
       setFolders(folders2);
     }).catch(console.error).finally(() => setIsLoadingAssets(false));
   }, [open, currentFolderId, api]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open || !effectiveTabs.includes("Layout")) return;
     setIsLoadingLayouts(true);
     api.fetchLayouts().then(setLayouts).catch(console.error).finally(() => setIsLoadingLayouts(false));
   }, [open]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open || !effectiveTabs.includes("Sequences")) return;
     setIsLoadingSequences(true);
     api.fetchSequences().then(setSequences).catch(console.error).finally(() => setIsLoadingSequences(false));
   }, [open]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open || !effectiveTabs.includes("Channels")) return;
     setIsLoadingChannels(true);
     api.fetchChannels().then(setChannels).catch(console.error).finally(() => setIsLoadingChannels(false));
   }, [open]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open || !effectiveTabs.includes("Apps")) return;
     setIsLoadingApps(true);
     api.fetchApps(spaceUuid).then((fetchedApps) => {
@@ -6867,7 +7238,7 @@ var AddContentModal = ({
       );
     }).then((results) => setAppInstances(results.flat())).catch(console.error).finally(() => setIsLoadingApps(false));
   }, [open, spaceUuid]);
-  useEffect10(() => {
+  useEffect11(() => {
     if (!open || !effectiveTabs.includes("Canvas")) return;
     setIsLoadingCanvas(true);
     api.fetchCanvasAssets().then(setCanvasAssets).catch(console.error).finally(() => setIsLoadingCanvas(false));
@@ -7466,13 +7837,13 @@ var AddContentModal = ({
 var AddContentModal_default = AddContentModal;
 
 // src/components/content-browser/components/UploadModal.tsx
-import { useEffect as useEffect11, useState as useState14 } from "react";
+import { useEffect as useEffect12, useState as useState14 } from "react";
 import Uppy from "@uppy/core";
 import Tus from "@uppy/tus";
 import Dashboard from "@uppy/react/dashboard";
 import Dropbox from "@uppy/dropbox";
 import GoogleDrive from "@uppy/google-drive";
-import { toast as toast5 } from "sonner";
+import { toast as toast6 } from "sonner";
 import { jsx as jsx54 } from "react/jsx-runtime";
 function createUppy(uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, companionUrl, onComplete, onCloseModal, translations) {
   return new Uppy({
@@ -7505,19 +7876,19 @@ function createUppy(uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, c
     retryDelays: [0, 1e3, 3e3, 5e3],
     allowedMetaFields: true
   }).on("upload-success", (file) => {
-    toast5.success(`${file?.name || "File"} ${translations.fileUploadedSuccessfully}`);
+    toast6.success(`${file?.name || "File"} ${translations.fileUploadedSuccessfully}`);
   }).on("complete", (result) => {
     if ((result.successful || []).length > 0) {
-      toast5.loading(translations.processingUploads, {
+      toast6.loading(translations.processingUploads, {
         id: "upload-processing",
         description: translations.filesWillAppear
       });
     }
     onComplete();
     onCloseModal();
-    setTimeout(() => toast5.dismiss("upload-processing"), 2e3);
+    setTimeout(() => toast6.dismiss("upload-processing"), 2e3);
   }).on("error", (error) => {
-    toast5.error(translations.uploadFailed, {
+    toast6.error(translations.uploadFailed, {
       description: error?.message || translations.pleaseTryAgain
     });
   });
@@ -7534,7 +7905,7 @@ var UploadModal = ({
 }) => {
   const { t } = useNitxUiTranslation();
   const [uppy, setUppy] = useState14(null);
-  useEffect11(() => {
+  useEffect12(() => {
     if (!open && uppy) {
       try {
         uppy.clear();
@@ -7548,7 +7919,7 @@ var UploadModal = ({
       setUppy(null);
     }
   }, [open, uppy]);
-  useEffect11(() => {
+  useEffect12(() => {
     if (!open) return;
     setUppy(
       createUppy(
@@ -7622,7 +7993,7 @@ var createContentBrowserApi = (client) => ({
 import * as React25 from "react";
 
 // src/components/assets/hooks/use-assets-store.ts
-import { useEffect as useEffect12 } from "react";
+import { useEffect as useEffect13 } from "react";
 import { create } from "zustand";
 var ROOT_PATH = [{ id: null, label: "Root" }];
 var useAssetsStore = create((set) => ({
@@ -7650,7 +8021,7 @@ var useAssetsStore = create((set) => ({
 function useAssetsMenuDismiss() {
   const openMenuId = useAssetsStore((s) => s.openMenuId);
   const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
-  useEffect12(() => {
+  useEffect13(() => {
     if (!openMenuId) return;
     const handlePointerDown = (event) => {
       const target = event.target;
@@ -7853,7 +8224,7 @@ import Uppy2 from "@uppy/core";
 import Dropbox2 from "@uppy/dropbox";
 import GoogleDrive2 from "@uppy/google-drive";
 import Tus2 from "@uppy/tus";
-import { toast as toast6 } from "sonner";
+import { toast as toast7 } from "sonner";
 var DEFAULT_MAX_UPLOAD_SIZE_BYTES = 1024 * 1024 * 1024;
 var ALLOWED_ASSET_UPLOAD_FILE_TYPES = [
   "image/png",
@@ -7897,21 +8268,21 @@ function createAssetUploader({
     retryDelays: [0, 1e3, 3e3, 5e3],
     allowedMetaFields: true
   }).on("upload-success", (file) => {
-    toast6.success(
+    toast7.success(
       `${file?.name ?? "File"} ${messages.fileUploadedSuccessfully}`
     );
   }).on("complete", (result) => {
     if ((result.successful ?? []).length > 0) {
-      toast6.loading(messages.processingUploads, {
+      toast7.loading(messages.processingUploads, {
         id: "upload-processing",
         description: messages.filesWillAppear
       });
     }
     onUploadComplete();
     onClose();
-    window.setTimeout(() => toast6.dismiss("upload-processing"), 2e3);
+    window.setTimeout(() => toast7.dismiss("upload-processing"), 2e3);
   }).on("error", (error) => {
-    toast6.error(messages.uploadFailed, {
+    toast7.error(messages.uploadFailed, {
       description: error.message || messages.pleaseTryAgain
     });
   });
@@ -7919,7 +8290,7 @@ function createAssetUploader({
 
 // src/components/assets/hooks/use-assets-query.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast as toast7 } from "sonner";
+import { toast as toast8 } from "sonner";
 var assetKeys = {
   all: (spaceUuid) => ["assets", spaceUuid ?? "no-space"],
   list: (spaceUuid, folderId) => [...assetKeys.all(spaceUuid), "list", folderId]
@@ -7969,7 +8340,7 @@ function useDeleteAssetMutation(folderId) {
     },
     onError: (err, uuids, context) => {
       queryClient.setQueryData(key, context?.previousData);
-      toast7.error(t("assets.mutations.deleteAssetFailed"));
+      toast8.error(t("assets.mutations.deleteAssetFailed"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: key });
@@ -8012,10 +8383,10 @@ function useCreateFolderMutation(folderId) {
     },
     onError: (err, newFolder, context) => {
       queryClient.setQueryData(key, context?.previousData);
-      toast7.error(t("assets.mutations.createFolderFailed"));
+      toast8.error(t("assets.mutations.createFolderFailed"));
     },
     onSuccess: () => {
-      toast7.success(t("assets.mutations.createFolderSuccess"));
+      toast8.success(t("assets.mutations.createFolderSuccess"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: key });
@@ -8045,7 +8416,7 @@ function useDeleteFolderMutation(folderId) {
     },
     onError: (err, id, context) => {
       queryClient.setQueryData(key, context?.previousData);
-      toast7.error(t("assets.mutations.deleteFolderFailed"));
+      toast8.error(t("assets.mutations.deleteFolderFailed"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: key });
@@ -8063,10 +8434,10 @@ function useBulkDeleteFoldersMutation(folderId) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: key });
-      toast7.success(t("assets.mutations.deleteFoldersSuccess"));
+      toast8.success(t("assets.mutations.deleteFoldersSuccess"));
     },
     onError: () => {
-      toast7.error(t("assets.mutations.deleteFoldersFailed"));
+      toast8.error(t("assets.mutations.deleteFoldersFailed"));
     }
   });
 }
@@ -8081,10 +8452,10 @@ function useRenameAssetMutation(folderId) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: key });
-      toast7.success(t("assets.mutations.renameAssetSuccess"));
+      toast8.success(t("assets.mutations.renameAssetSuccess"));
     },
     onError: () => {
-      toast7.error(t("assets.mutations.renameAssetFailed"));
+      toast8.error(t("assets.mutations.renameAssetFailed"));
     }
   });
 }
@@ -8103,10 +8474,10 @@ function useRenameFolderMutation(folderId) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: key });
-      toast7.success(t("assets.mutations.renameFolderSuccess"));
+      toast8.success(t("assets.mutations.renameFolderSuccess"));
     },
     onError: () => {
-      toast7.error(t("assets.mutations.renameFolderFailed"));
+      toast8.error(t("assets.mutations.renameFolderFailed"));
     }
   });
 }
@@ -8131,10 +8502,10 @@ function useMoveAssetMutation(folderId) {
           queryKey: assetKeys.list(spaceUuid, data.destinationId)
         });
       }
-      toast7.success(t("assets.mutations.moveAssetsSuccess"));
+      toast8.success(t("assets.mutations.moveAssetsSuccess"));
     },
     onError: () => {
-      toast7.error(t("assets.mutations.moveAssetsFailed"));
+      toast8.error(t("assets.mutations.moveAssetsFailed"));
     }
   });
 }
@@ -8159,16 +8530,16 @@ function useMoveFolderMutation(folderId) {
           queryKey: assetKeys.list(spaceUuid, data.parentId)
         });
       }
-      toast7.success(t("assets.mutations.moveFolderSuccess"));
+      toast8.success(t("assets.mutations.moveFolderSuccess"));
     },
     onError: () => {
-      toast7.error(t("assets.mutations.moveFolderFailed"));
+      toast8.error(t("assets.mutations.moveFolderFailed"));
     }
   });
 }
 
 // src/components/assets/hooks/use-lazy-loading.ts
-import { useState as useState15, useEffect as useEffect14, useRef, useCallback as useCallback2, useMemo as useMemo5 } from "react";
+import { useState as useState15, useEffect as useEffect15, useRef, useCallback as useCallback3, useMemo as useMemo6 } from "react";
 function useLazyLoading(items, options = {}) {
   const {
     itemsPerBatch = 12,
@@ -8179,15 +8550,15 @@ function useLazyLoading(items, options = {}) {
   const [visibleCount, setVisibleCount] = useState15(itemsPerBatch);
   const [loadingMore, setLoadingMore] = useState15(false);
   const observerRef = useRef(null);
-  const visibleItems = useMemo5(() => {
+  const visibleItems = useMemo6(() => {
     return items.slice(0, visibleCount);
   }, [items, visibleCount]);
   const hasMore = visibleCount < items.length;
-  useEffect14(() => {
+  useEffect15(() => {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [items, itemsPerBatch]);
-  const loadMore = useCallback2(() => {
+  const loadMore = useCallback3(() => {
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
     setTimeout(() => {
@@ -8195,11 +8566,11 @@ function useLazyLoading(items, options = {}) {
       setLoadingMore(false);
     }, 100);
   }, [itemsPerBatch, loadingMore, hasMore, items.length]);
-  const reset = useCallback2(() => {
+  const reset = useCallback3(() => {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [itemsPerBatch]);
-  useEffect14(() => {
+  useEffect15(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -8233,8 +8604,8 @@ function useLazyLoading(items, options = {}) {
 }
 
 // src/components/assets/components/AssetsBrowser.tsx
-import React41, { useEffect as useEffect20, useState as useState24 } from "react";
-import { toast as toast9 } from "sonner";
+import React41, { useEffect as useEffect21, useState as useState24 } from "react";
+import { toast as toast10 } from "sonner";
 import { useQueryClient as useQueryClient4 } from "@tanstack/react-query";
 
 // src/components/ui/tab-bar.tsx
@@ -9074,7 +9445,7 @@ var AssetsHeader = ({
 var AssetsHeader_default = AssetsHeader;
 
 // src/components/assets/components/AssetCard.tsx
-import { useState as useState18, useRef as useRef3, useEffect as useEffect15, useCallback as useCallback3 } from "react";
+import { useState as useState18, useRef as useRef3, useEffect as useEffect16, useCallback as useCallback4 } from "react";
 import { Check as Check7, Download, MoreVertical as MoreVertical3, Trash2 as Trash23 } from "lucide-react";
 
 // src/components/ui/card.tsx
@@ -9229,7 +9600,7 @@ var AssetCard = ({
   const [newTitle, setNewTitle] = useState18(data.name);
   const inputRef = useRef3(null);
   const isCancelledRef = useRef3(false);
-  useEffect15(() => {
+  useEffect16(() => {
     if (!isRenaming) return;
     setNewTitle(data.name);
     const frame = requestAnimationFrame(() => {
@@ -9240,7 +9611,7 @@ var AssetCard = ({
     });
     return () => cancelAnimationFrame(frame);
   }, [isRenaming, data.name]);
-  const handleRename = useCallback3(async () => {
+  const handleRename = useCallback4(async () => {
     const trimmed = newTitle.trim();
     if (data.name !== trimmed && trimmed !== "") {
       if (onRename) {
@@ -9251,13 +9622,13 @@ var AssetCard = ({
     }
     setRenamingItemId(null);
   }, [data.name, newTitle, onRename, setRenamingItemId]);
-  const handleBlur = useCallback3(() => {
+  const handleBlur = useCallback4(() => {
     if (!isCancelledRef.current) {
       handleRename();
     }
     isCancelledRef.current = false;
   }, [handleRename]);
-  const handleKeyDown = useCallback3(
+  const handleKeyDown = useCallback4(
     (e) => {
       if (e.key === "Enter") {
         isCancelledRef.current = false;
@@ -9586,7 +9957,7 @@ var AssetCardSkeleton = ({
 var AssetCard_default = AssetCard;
 
 // src/components/assets/components/FolderCard.tsx
-import React32, { useState as useState19, useRef as useRef4, useEffect as useEffect16, useCallback as useCallback4 } from "react";
+import React32, { useState as useState19, useRef as useRef4, useEffect as useEffect17, useCallback as useCallback5 } from "react";
 import { Check as Check8, Download as Download2, FilePenLine, MoreVertical as MoreVertical4, Trash2 as Trash24 } from "lucide-react";
 import { jsx as jsx64, jsxs as jsxs45 } from "react/jsx-runtime";
 var MoveIcon2 = /* @__PURE__ */ jsxs45(
@@ -9649,10 +10020,10 @@ var FolderCard = React32.forwardRef(
     const [newTitle, setNewTitle] = useState19(data.name);
     const inputRef = useRef4(null);
     const isCancelledRef = useRef4(false);
-    useEffect16(() => {
+    useEffect17(() => {
       setNewTitle(data.name);
     }, [data.name]);
-    useEffect16(() => {
+    useEffect17(() => {
       if (!isRenaming) return;
       setNewTitle(data.name);
       const frame = requestAnimationFrame(() => {
@@ -9663,7 +10034,7 @@ var FolderCard = React32.forwardRef(
       });
       return () => cancelAnimationFrame(frame);
     }, [isRenaming, data.name]);
-    const handleRename = useCallback4(async () => {
+    const handleRename = useCallback5(async () => {
       const trimmed = newTitle.trim();
       if (data.name !== trimmed && trimmed !== "") {
         if (onRename) {
@@ -9674,7 +10045,7 @@ var FolderCard = React32.forwardRef(
       }
       setRenamingItemId(null);
     }, [data.name, newTitle, onRename, setRenamingItemId]);
-    const handleKeyDown = useCallback4(
+    const handleKeyDown = useCallback5(
       (e) => {
         if (e.key === "Enter") {
           isCancelledRef.current = false;
@@ -9689,7 +10060,7 @@ var FolderCard = React32.forwardRef(
       },
       [handleRename, data.name, setRenamingItemId]
     );
-    const handleBlur = useCallback4(() => {
+    const handleBlur = useCallback5(() => {
       if (!isCancelledRef.current) {
         handleRename();
       }
@@ -10576,7 +10947,7 @@ var ConfirmDeleteDialog = ({ state, onClose }) => {
 var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
 
 // src/components/assets/components/modals/MoveModal.tsx
-import { useEffect as useEffect17, useState as useState20 } from "react";
+import { useEffect as useEffect18, useState as useState20 } from "react";
 import { ChevronRight as ChevronRight8 } from "lucide-react";
 import { Fragment as Fragment10, jsx as jsx70, jsxs as jsxs51 } from "react/jsx-runtime";
 var MoveModal = ({
@@ -10605,7 +10976,7 @@ var MoveModal = ({
       return [];
     }
   };
-  useEffect17(() => {
+  useEffect18(() => {
     if (isOpen) {
       const initialPath = path.map((p) => ({
         id: p.id,
@@ -10798,7 +11169,7 @@ var CreateFolderModal = ({ open, onClose }) => {
 var CreateFolderModal_default = CreateFolderModal;
 
 // src/components/assets/components/modals/UploadModal.tsx
-import { useEffect as useEffect18, useState as useState22 } from "react";
+import { useEffect as useEffect19, useState as useState22 } from "react";
 import Dashboard2 from "@uppy/react/dashboard";
 import "@uppy/dashboard/css/style.css";
 import { useQueryClient as useQueryClient2 } from "@tanstack/react-query";
@@ -10815,7 +11186,7 @@ function AssetsUploadModal({
   const path = useAssetsStore((s) => s.path);
   const [uploader, setUploader] = useState22(null);
   const currentFolderUuid = folderUuid !== void 0 ? folderUuid : path[path.length - 1]?.id ?? null;
-  useEffect18(() => {
+  useEffect19(() => {
     if (!open || !upload || !spaceUuid) {
       return;
     }
@@ -10867,9 +11238,9 @@ function AssetsUploadModal({
 var UploadModal_default2 = AssetsUploadModal;
 
 // src/components/assets/components/modals/NewLinkModal.tsx
-import { useState as useState23, useEffect as useEffect19 } from "react";
+import { useState as useState23, useEffect as useEffect20 } from "react";
 import QRCode from "react-qr-code";
-import { toast as toast8 } from "sonner";
+import { toast as toast9 } from "sonner";
 import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
 
 // src/components/ui/checkbox.tsx
@@ -10922,7 +11293,7 @@ var NewLinkModal = ({ open, onClose }) => {
   const [showQr, setShowQr] = useState23(false);
   const [qrPosition, setQrPosition] = useState23("bottom_right");
   const [loading, setLoading] = useState23(false);
-  useEffect19(() => {
+  useEffect20(() => {
     try {
       new URL(url);
       setIsValid(true);
@@ -10931,7 +11302,7 @@ var NewLinkModal = ({ open, onClose }) => {
       setIsAccessible(null);
     }
   }, [url]);
-  useEffect19(() => {
+  useEffect20(() => {
     if (!isValid || !url?.length) return;
     if (!api.checkIframeAccess) {
       setIsAccessible(true);
@@ -10956,23 +11327,23 @@ var NewLinkModal = ({ open, onClose }) => {
       return;
     }
     try {
-      toast8.loading(t("assets.newLinkModal.creatingLink"));
+      toast9.loading(t("assets.newLinkModal.creatingLink"));
       await api.createLink({
         url,
         is_qr_code: showQr,
         qr_code_position: qrPosition
       });
       queryClient.invalidateQueries({ queryKey: assetKeys.all(spaceUuid) });
-      toast8.dismiss();
-      toast8.success(t("assets.newLinkModal.linkCreatedSuccessfully"));
+      toast9.dismiss();
+      toast9.success(t("assets.newLinkModal.linkCreatedSuccessfully"));
       onClose();
       setUrl("");
     } catch (e2) {
-      toast8.dismiss();
+      toast9.dismiss();
       if (e2?.response?.status === 422 && e2?.response?.data?.message) {
-        toast8.error(e2.response.data.errors.url[0]);
+        toast9.error(e2.response.data.errors.url[0]);
       } else {
-        toast8.error(t("assets.newLinkModal.somethingWentWrong"));
+        toast9.error(t("assets.newLinkModal.somethingWentWrong"));
       }
     } finally {
       setLoading(false);
@@ -11305,10 +11676,10 @@ var AssetsBrowser = ({
   const [confirmDelete, setConfirmDelete] = useState24(null);
   const [draggedAssets, setDraggedAssets] = useState24([]);
   const [dropTarget, setDropTarget] = useState24(null);
-  useEffect20(() => {
+  useEffect21(() => {
     onTitleChange?.(t("assets.headerWithCustomTabbar.asset"));
   }, [onTitleChange, t]);
-  useEffect20(() => {
+  useEffect21(() => {
     if (!enableCheckbox) {
       setSelected([]);
     }
@@ -11356,7 +11727,7 @@ var AssetsBrowser = ({
     ]);
     setEnableCheckbox(true);
   }, [filteredAssets, filteredDirectories]);
-  useEffect20(() => {
+  useEffect21(() => {
     if (typeof window === "undefined") return;
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {
@@ -11388,7 +11759,7 @@ var AssetsBrowser = ({
   ]);
   const onDownload = async (asset) => {
     try {
-      const downloadToast = toast9.loading(
+      const downloadToast = toast10.loading(
         t("assets.assetList.downloading", { name: asset.name })
       );
       const blob = await api.downloadAsset(asset.uuid);
@@ -11407,29 +11778,29 @@ var AssetsBrowser = ({
         );
       }
       saveBlob(blob, fileName);
-      toast9.dismiss(downloadToast);
-      toast9.success(
+      toast10.dismiss(downloadToast);
+      toast10.success(
         t("assets.assetList.downloadedSuccess", { name: asset.name })
       );
     } catch (error) {
       console.error("Error downloading asset:", error);
-      toast9.error(t("assets.assetList.downloadFailed", { name: asset.name }));
+      toast10.error(t("assets.assetList.downloadFailed", { name: asset.name }));
     }
   };
   const onDownloadFolder = async (folder) => {
     try {
-      const downloadToast = toast9.loading(
+      const downloadToast = toast10.loading(
         t("assets.folderCard.preparingDownload")
       );
       const blob = await api.downloadFolderContents(folder.id);
       saveBlob(blob, `${folder.name}-${folder.id}.zip`);
-      toast9.dismiss(downloadToast);
-      toast9.success(
+      toast10.dismiss(downloadToast);
+      toast10.success(
         t("assets.folderCard.folderDownloadedSuccess", { name: folder.name })
       );
     } catch (error) {
       console.error("Error downloading folder:", error);
-      toast9.error(
+      toast10.error(
         t("assets.folderCard.folderDownloadFailed", { name: folder.name })
       );
     }
@@ -11439,18 +11810,18 @@ var AssetsBrowser = ({
       title: t("assets.assetList.deleteAsset"),
       description: t("assets.assetList.deleteConfirm", { name: asset.name }),
       onConfirm: async () => {
-        const deletingToast = toast9.loading(
+        const deletingToast = toast10.loading(
           t("assets.assetList.deleting", { name: asset.name })
         );
         try {
           await deleteAssets([asset.uuid]);
-          toast9.success(
+          toast10.success(
             t("assets.assetList.deletedSuccess", { name: asset.name }),
             { id: deletingToast }
           );
         } catch (error) {
           console.error("Error deleting asset:", error);
-          toast9.error(
+          toast10.error(
             t("assets.assetList.deleteFailed", { name: asset.name }),
             { id: deletingToast }
           );
@@ -11463,18 +11834,18 @@ var AssetsBrowser = ({
       title: t("assets.folderCard.deleteFolder"),
       description: t("assets.folderCard.deleteConfirm", { name: folder.name }),
       onConfirm: async () => {
-        const deletingToast = toast9.loading(
+        const deletingToast = toast10.loading(
           t("assets.assetList.deleting", { name: folder.name })
         );
         try {
           await deleteFolder(folder.id);
-          toast9.success(
+          toast10.success(
             t("assets.assetList.deletedSuccess", { name: folder.name }),
             { id: deletingToast }
           );
         } catch (error) {
           console.error("Error deleting folder:", error);
-          toast9.error(
+          toast10.error(
             t("assets.assetList.deleteFailed", { name: folder.name }),
             { id: deletingToast }
           );
@@ -11494,7 +11865,7 @@ var AssetsBrowser = ({
         count: selected.length
       }),
       onConfirm: async () => {
-        const deletingToast = toast9.loading(
+        const deletingToast = toast10.loading(
           t("assets.assetList.deletingItems")
         );
         try {
@@ -11504,12 +11875,12 @@ var AssetsBrowser = ({
           if (folderIds.length > 0) {
             await deleteFolders(folderIds);
           }
-          toast9.success(t("assets.assetList.itemsDeletedSuccess"), {
+          toast10.success(t("assets.assetList.itemsDeletedSuccess"), {
             id: deletingToast
           });
         } catch (error) {
           console.error("Error deleting asset/folder:", error);
-          toast9.error(t("assets.assetList.itemsDeleteFailed"), {
+          toast10.error(t("assets.assetList.itemsDeleteFailed"), {
             id: deletingToast
           });
         } finally {
@@ -11615,7 +11986,7 @@ var AssetsBrowser = ({
       (a) => a.uuid !== asset.uuid && a.folder_id === asset.folder_id && a.type === asset.type && normalize(a.name) === normalize(newName)
     );
     if (hasDuplicate) {
-      toast9.error(
+      toast10.error(
         t("assets.assetCard.duplicateNameError", {
           type: asset.type,
           name: newName
@@ -11624,15 +11995,15 @@ var AssetsBrowser = ({
       setRenamingItemId(null);
       return;
     }
-    const renameToast = toast9.loading(
+    const renameToast = toast10.loading(
       t("assets.assetList.renaming", { name: newName })
     );
     try {
       await renameAsset({ id: asset.uuid, name: newName });
-      toast9.dismiss(renameToast);
+      toast10.dismiss(renameToast);
     } catch (error) {
       console.error("Error renaming asset:", error);
-      toast9.dismiss(renameToast);
+      toast10.dismiss(renameToast);
     }
   };
   const handleRenameFolder = async (folder, newName) => {
@@ -11641,13 +12012,13 @@ var AssetsBrowser = ({
       (f) => f.id !== folder.id && f.parent_id === folder.parent_id && normalize(f.name) === normalize(newName)
     );
     if (hasDuplicate) {
-      toast9.error(
+      toast10.error(
         t("assets.folderCard.duplicateFolderError", { name: newName })
       );
       setRenamingItemId(null);
       return;
     }
-    const renameToast = toast9.loading(
+    const renameToast = toast10.loading(
       t("assets.assetList.renamingFolder", { name: newName })
     );
     try {
@@ -11656,10 +12027,10 @@ var AssetsBrowser = ({
         name: newName,
         parentId: folder.parent_id
       });
-      toast9.dismiss(renameToast);
+      toast10.dismiss(renameToast);
     } catch (error) {
       console.error("Error renaming folder:", error);
-      toast9.dismiss(renameToast);
+      toast10.dismiss(renameToast);
     }
   };
   const handleAssetDragStart = (e, assetId) => {
@@ -11711,7 +12082,7 @@ var AssetsBrowser = ({
       }
     } catch (error) {
       console.error("Error moving assets:", error);
-      toast9.error(t("assets.assetList.assetsMoveFailed"));
+      toast10.error(t("assets.assetList.assetsMoveFailed"));
     } finally {
       setDraggedAssets([]);
     }
@@ -11900,7 +12271,7 @@ var AssetsBrowser_default = AssetsBrowser;
 // src/components/assets/links/LinkEditor.tsx
 import React43 from "react";
 import QRCode2 from "react-qr-code";
-import { toast as toast10 } from "sonner";
+import { toast as toast11 } from "sonner";
 import { useQueryClient as useQueryClient5 } from "@tanstack/react-query";
 
 // src/components/ui/switch.tsx
@@ -11994,7 +12365,7 @@ var LinkEditor = (props) => {
       } catch (e) {
         console.error(e);
         if (!cancelled) {
-          toast10.error(t("assets.linkEditPage.failedToLoad"));
+          toast11.error(t("assets.linkEditPage.failedToLoad"));
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -12008,7 +12379,7 @@ var LinkEditor = (props) => {
   const handleSave = async () => {
     try {
       setSaving(true);
-      toast10.loading(t("assets.linkEditPage.saving"));
+      toast11.loading(t("assets.linkEditPage.saving"));
       if (props.mode === "edit") {
         await api.updateLink(props.linkUuid, {
           url: ensureProtocol(url),
@@ -12024,15 +12395,15 @@ var LinkEditor = (props) => {
         });
       }
       queryClient.invalidateQueries({ queryKey: assetKeys.all(spaceUuid) });
-      toast10.dismiss();
-      toast10.success(t("assets.linkEditPage.linkUpdated"));
+      toast11.dismiss();
+      toast11.success(t("assets.linkEditPage.linkUpdated"));
       if (props.mode === "create") {
         navigation?.fromLinksBack();
       }
     } catch (e) {
       console.error(e);
-      toast10.dismiss();
-      toast10.error(t("assets.linkEditPage.saveError"));
+      toast11.dismiss();
+      toast11.error(t("assets.linkEditPage.saveError"));
     } finally {
       setSaving(false);
     }
@@ -12592,7 +12963,7 @@ async function detectAdBlocker(options = {}) {
 }
 
 // src/components/ad-blocker/use-ad-blocker.ts
-import { useCallback as useCallback5, useEffect as useEffect21, useRef as useRef5, useState as useState25 } from "react";
+import { useCallback as useCallback6, useEffect as useEffect22, useRef as useRef5, useState as useState25 } from "react";
 var DEFAULT_STORAGE_KEY = "nitx_adblocker_dismissed";
 function getStorageItem(type, key) {
   if (typeof window === "undefined" || type === "memory") {
@@ -12648,7 +13019,7 @@ function useAdBlocker(options = {}) {
   onDetectedRef.current = onDetected;
   const onRecheckRef = useRef5(onRecheck);
   onRecheckRef.current = onRecheck;
-  const check = useCallback5(async () => {
+  const check = useCallback6(async () => {
     setIsChecking(true);
     try {
       const result = await detectAdBlocker({
@@ -12669,15 +13040,15 @@ function useAdBlocker(options = {}) {
       setIsChecking(false);
     }
   }, [baitUrl, connectivityTestUrl, timeoutMs]);
-  const dismiss = useCallback5(() => {
+  const dismiss = useCallback6(() => {
     setIsDismissed(true);
     setStorageItem(storageType, storageKey, "true");
   }, [storageKey, storageType]);
-  const resetDismissal = useCallback5(() => {
+  const resetDismissal = useCallback6(() => {
     setIsDismissed(false);
     removeStorageItem(storageType, storageKey);
   }, [storageKey, storageType]);
-  useEffect21(() => {
+  useEffect22(() => {
     if (typeof window === "undefined") {
       return;
     }
@@ -12696,7 +13067,7 @@ function useAdBlocker(options = {}) {
       window.removeEventListener("offline", handleOffline);
     };
   }, [check]);
-  useEffect21(() => {
+  useEffect22(() => {
     if (autoCheck) {
       void check();
     }
@@ -12976,7 +13347,6 @@ import {
   ChevronUp as ChevronUp2,
   RefreshCw as RefreshCw3,
   ShieldAlert,
-  ShieldCheck,
   WifiOff,
   X as X7
 } from "lucide-react";
@@ -13001,7 +13371,6 @@ var AdBlockerNotice = ({
 }) => {
   const { t } = useNitxUiTranslation();
   const [instructionsOpen, setInstructionsOpen] = useState27(false);
-  const [justCleared, setJustCleared] = useState27(false);
   const {
     isBlocked,
     isOffline,
@@ -13013,14 +13382,9 @@ var AdBlockerNotice = ({
     storageKey,
     onRecheck: (result) => {
       onRecheck?.(result);
-      if (!result.isBlocked && !result.isOffline) {
-        setJustCleared(true);
-        const timer = setTimeout(() => setJustCleared(false), 3500);
-        return () => clearTimeout(timer);
-      }
     }
   });
-  const shouldRender = forceShow || isBlocked || justCleared;
+  const shouldRender = forceShow || isBlocked;
   if (!shouldRender) {
     return null;
   }
@@ -13029,11 +13393,7 @@ var AdBlockerNotice = ({
     onDismiss?.();
   };
   const handleRecheck = async () => {
-    const res = await check();
-    if (!res.isBlocked && !res.isOffline) {
-      setJustCleared(true);
-      setTimeout(() => setJustCleared(false), 3500);
-    }
+    await check();
   };
   const resolvedTitle = title || t("adBlocker.title");
   const resolvedDescription = description || t("adBlocker.description");
@@ -13043,35 +13403,6 @@ var AdBlockerNotice = ({
     t("adBlocker.features.integrations")
   ];
   const featuresToDisplay = affectedFeatures || defaultFeatureList;
-  if (justCleared) {
-    return /* @__PURE__ */ jsxs64(
-      "div",
-      {
-        role: "status",
-        "aria-live": "polite",
-        className: cn(
-          "flex items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-800 transition-all dark:border-emerald-500/20 dark:bg-emerald-950/30 dark:text-emerald-300 corner-squircle",
-          className
-        ),
-        children: [
-          /* @__PURE__ */ jsxs64("div", { className: "flex items-center gap-2.5", children: [
-            /* @__PURE__ */ jsx87(ShieldCheck, { className: "size-4 shrink-0 text-emerald-600 dark:text-emerald-400" }),
-            /* @__PURE__ */ jsx87("span", { children: t("adBlocker.allClear") })
-          ] }),
-          /* @__PURE__ */ jsx87(
-            "button",
-            {
-              type: "button",
-              onClick: () => setJustCleared(false),
-              className: "rounded-md p-1 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300",
-              "aria-label": t("adBlocker.dismissAria"),
-              children: /* @__PURE__ */ jsx87(X7, { className: "size-3.5" })
-            }
-          )
-        ]
-      }
-    );
-  }
   if (isOffline && !forceShow) {
     return /* @__PURE__ */ jsx87(
       "div",
@@ -13865,6 +14196,8 @@ export {
   ProductSwitcher,
   RAIL_CONTROL,
   RAIL_HOVER,
+  SPACE_RECENT_EVENT_NAME,
+  SPACE_RECENT_STORAGE_PREFIX,
   SearchIconTrigger,
   SearchResultIcon,
   SearchResultRow,
@@ -13902,21 +14235,35 @@ export {
   assetCardIconButtonClass,
   assetKeys,
   buttonVariants,
+  callUpdateBasicInfo,
   cn,
+  cookieDomain,
   createAssetUploader,
   createAssetsApi,
   createContentBrowserApi,
   createSpaceSelectorApi,
   cx,
   detectAdBlocker,
+  displayModeToTheme,
+  getRecentSpacesMap,
+  getRecentSpacesStorageKey,
+  getSpaceIdentifier,
+  getSpaceTimestamp,
   isApplePlatform,
   isBrowserOffline,
+  isSameSpace,
   isSearchShortcut,
   matchRank,
   normalizeSearchText,
   rankMatches,
+  readLanguageCookie,
+  readThemeCookie,
+  recordSpaceUsage,
+  removeSpaceRecent,
   searchShortcut,
+  sortSpacesByLastUsed,
   testDomCosmeticFiltering,
+  themeToDisplayMode,
   useAdBlocker,
   useAssetsConfig,
   useAssetsQuery,
@@ -13934,5 +14281,7 @@ export {
   useRenameAssetMutation,
   useRenameFolderMutation,
   useSearchEngine,
-  useSpaceSelector
+  useSpaceSelector,
+  writeLanguageCookie,
+  writeThemeCookie
 };

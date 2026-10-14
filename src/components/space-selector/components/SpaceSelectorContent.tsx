@@ -33,19 +33,15 @@ export const SpaceSelectorContent = () => {
     isExpanded,
     setModal,
     setModalProps,
+    className,
+    triggerClassName,
   } = useSpaceSelector();
 
   const [showOptions, setShowOptions] = useState(false);
 
   const isRTL = typeof document !== "undefined" && document.dir === "rtl";
 
-  const sortedSpaces = useMemo(() => {
-    return [...spaces].sort((a, b) => {
-      if (a.proxyId === activeSpace?.proxyId) return -1;
-      if (b.proxyId === activeSpace?.proxyId) return 1;
-      return 0;
-    });
-  }, [spaces, activeSpace]);
+  const sortedSpaces = spaces;
 
   const handleChange = (space: ProxySpace) => {
     setShowOptions(false);
@@ -59,32 +55,39 @@ export const SpaceSelectorContent = () => {
           <DropdownMenuTrigger asChild>
             <div
               className={cn(
-                "w-full h-auto bg-accent dark:bg-zinc-900 px-5 py-2 rounded-lg flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary",
+                "w-full h-auto bg-accent dark:bg-zinc-900 px-3.5 py-2 rounded-md flex items-center cursor-pointer transition-all duration-300 border border-transparent hover:border-primary gap-2.5",
                 !isExpanded &&
-                  "items-center justify-center w-[40px] h-[40px] mx-auto",
-                showOptions && "border-primary"
+                  "items-center justify-center w-[40px] h-[40px] mx-auto p-0 rounded-md",
+                showOptions && "border-primary",
+                triggerClassName,
+                className
               )}
             >
               {isExpanded ? (
                 <>
-                  <div className="w-full flex flex-col justify-center">
-                    <div className="text-sm xl:text-base w-full max-w-40 capitalize truncate">
-                      <p>{activeSpace?.name}</p>
-                      {!activeSpace?.name && (
-                        <Skeleton className="h-4 w-3/4 bg-gray-300/80" />
-                      )}
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="flex items-center justify-center shrink-0">
+                      <Building2 className="w-4 h-4 xl:w-5 xl:h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8] shrink-0" />
+                    </div>
+                    <div className="flex flex-col justify-center min-w-0 flex-1">
+                      <div className="text-sm xl:text-base w-full max-w-40 capitalize truncate">
+                        <p>{activeSpace?.name}</p>
+                        {!activeSpace?.name && (
+                          <Skeleton className="h-4 w-3/4 bg-gray-300/80" />
+                        )}
+                      </div>
                     </div>
                   </div>
                   <ChevronDown
                     className={cn(
-                      "w-4 h-4 xl:w-5 xl:h-5 transition ease-linear duration-300",
+                      "w-4 h-4 xl:w-5 xl:h-5 transition ease-linear duration-300 shrink-0 ms-auto",
                       showOptions && "-scale-y-100"
                     )}
                   />
                 </>
               ) : (
-                <div>
-                  <Building2 className="w-5 h-5" />
+                <div className="flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8]" />
                 </div>
               )}
             </div>
@@ -110,19 +113,25 @@ export const SpaceSelectorContent = () => {
               {t("sidebar.Recently Spaces")}
             </p>
 
-            {sortedSpaces.slice(0, 3).map((option, key) => (
-              <DropdownMenuItem
-                key={key}
-                onClick={() => handleChange(option)}
-                className="w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer"
-              >
-                <Building2 className="w-4 h-4 stroke-[1.5]" />
-                <p className="max-w-[8rem] truncate">{option.name}</p>
-                {activeSpace?.proxyId === option.proxyId && (
-                  <CheckCircle className="ms-auto w-4 h-4 stroke-primary" />
-                )}
-              </DropdownMenuItem>
-            ))}
+            {sortedSpaces.slice(0, 3).map((option, key) => {
+              const isSelected =
+                activeSpace &&
+                (activeSpace.proxyId === option.proxyId ||
+                  (activeSpace.space_uuid && activeSpace.space_uuid === option.space_uuid));
+              return (
+                <DropdownMenuItem
+                  key={option.space_uuid || option.proxyId || key}
+                  onClick={() => handleChange(option)}
+                  className="w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer"
+                >
+                  <Building2 className="w-4 h-4 stroke-[1.5]" />
+                  <p className="max-w-[8rem] truncate">{option.name}</p>
+                  {isSelected && (
+                    <CheckCircle className="ms-auto w-4 h-4 stroke-primary" />
+                  )}
+                </DropdownMenuItem>
+              );
+            })}
             <DropdownMenuSeparator />
             <div className="w-full flex flex-col">
               <DropdownMenuItem

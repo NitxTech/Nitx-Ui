@@ -5,7 +5,6 @@ import {
   ChevronUp,
   RefreshCw,
   ShieldAlert,
-  ShieldCheck,
   WifiOff,
   X,
 } from "lucide-react";
@@ -39,7 +38,6 @@ export const AdBlockerNotice: React.FC<AdBlockerNoticeProps> = ({
 }) => {
   const { t } = useNitxUiTranslation();
   const [instructionsOpen, setInstructionsOpen] = useState<boolean>(false);
-  const [justCleared, setJustCleared] = useState<boolean>(false);
 
   const {
     isBlocked,
@@ -52,15 +50,10 @@ export const AdBlockerNotice: React.FC<AdBlockerNoticeProps> = ({
     storageKey,
     onRecheck: (result) => {
       onRecheck?.(result);
-      if (!result.isBlocked && !result.isOffline) {
-        setJustCleared(true);
-        const timer = setTimeout(() => setJustCleared(false), 3500);
-        return () => clearTimeout(timer);
-      }
     },
   });
 
-  const shouldRender = forceShow || isBlocked || justCleared;
+  const shouldRender = forceShow || isBlocked;
 
   if (!shouldRender) {
     return null;
@@ -72,11 +65,7 @@ export const AdBlockerNotice: React.FC<AdBlockerNoticeProps> = ({
   };
 
   const handleRecheck = async () => {
-    const res = await check();
-    if (!res.isBlocked && !res.isOffline) {
-      setJustCleared(true);
-      setTimeout(() => setJustCleared(false), 3500);
-    }
+    await check();
   };
 
   const resolvedTitle = title || t("adBlocker.title");
@@ -89,33 +78,6 @@ export const AdBlockerNotice: React.FC<AdBlockerNoticeProps> = ({
   ];
 
   const featuresToDisplay = affectedFeatures || defaultFeatureList;
-
-  // When recheck succeeds and blocking is removed
-  if (justCleared) {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className={cn(
-          "flex items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-xs font-medium text-emerald-800 transition-all dark:border-emerald-500/20 dark:bg-emerald-950/30 dark:text-emerald-300 corner-squircle",
-          className,
-        )}
-      >
-        <div className="flex items-center gap-2.5">
-          <ShieldCheck className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-          <span>{t("adBlocker.allClear")}</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => setJustCleared(false)}
-          className="rounded-md p-1 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300"
-          aria-label={t("adBlocker.dismissAria")}
-        >
-          <X className="size-3.5" />
-        </button>
-      </div>
-    );
-  }
 
   // If user is currently offline
   if (isOffline && !forceShow) {

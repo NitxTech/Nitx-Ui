@@ -38,6 +38,7 @@ export interface ProxySpace {
   features?: SpaceFeature[];
   uuid?: string; // Sometimes used interchangeably
   avatar?: string;
+  last_used_at?: string | number | null;
 }
 
 export interface SpaceSelectorProps {
@@ -70,6 +71,11 @@ export interface SpaceSelectorProps {
    * Class name for the trigger button
    */
   className?: string;
+
+  /**
+   * Optional custom class name applied directly to the space selector trigger
+   */
+  triggerClassName?: string;
 
   /**
    * Whether the sidebar is expanded (visual mode)
