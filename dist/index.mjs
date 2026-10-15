@@ -2480,7 +2480,7 @@ var DialogContent = React4.forwardRef(({ className, children, overlayClassName, 
       {
         ref,
         className: cn(
-          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-800 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-2xl",
+          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-800 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-xl",
           className
         ),
         style: { pointerEvents: "auto" },
@@ -2496,7 +2496,7 @@ var DialogContent = React4.forwardRef(({ className, children, overlayClassName, 
               ),
               "aria-label": t("dialog.close"),
               children: [
-                /* @__PURE__ */ jsx6(X, { className: "size-4 shrink-0 stroke-[2.5]", strokeWidth: 2.5 }),
+                /* @__PURE__ */ jsx6(X, { className: "size-4 shrink-0 stroke-[2.75]", strokeWidth: 2.75 }),
                 /* @__PURE__ */ jsx6("span", { className: "sr-only", children: t("dialog.close") })
               ]
             }
@@ -2839,10 +2839,10 @@ function AccountPreferencesModal({
             "button",
             {
               type: "button",
-              className: "inline-flex items-center justify-center rounded-full size-8 sm:size-9 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors focus:outline-none cursor-pointer",
+              className: "inline-flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer",
               "aria-label": isRTL ? "\u0625\u0644\u063A\u0627\u0621" : "Cancel",
               children: [
-                /* @__PURE__ */ jsx8(X2, { className: "size-4.5 sm:size-5 stroke-[2]" }),
+                /* @__PURE__ */ jsx8(X2, { className: "size-4 shrink-0 stroke-[2.75]", strokeWidth: 2.75 }),
                 /* @__PURE__ */ jsx8("span", { className: "sr-only", children: isRTL ? "\u0625\u0644\u063A\u0627\u0621" : "Cancel" })
               ]
             }
@@ -3515,7 +3515,7 @@ function DrawerDialog({
         showCloseButton: !hideClose,
         dir,
         className: cn(
-          "flex flex-col gap-0 max-h-[96vh] p-0 border dark:border-zinc-800 bg-background dark:bg-zinc-950 overflow-hidden rounded-2xl shadow-2xl",
+          "flex flex-col gap-0 max-h-[96vh] p-0 border dark:border-zinc-800 bg-background dark:bg-zinc-950 overflow-hidden rounded-xl shadow-2xl",
           sizeVariants[size],
           className
         ),
@@ -6066,7 +6066,7 @@ var DialogContent2 = React20.forwardRef(({ className, children, overlayClassName
       {
         ref,
         className: cn(
-          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-600 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+          "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border dark:border-zinc-800 bg-background dark:bg-black p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-xl",
           className
         ),
         style: { pointerEvents: "auto" },
@@ -6074,7 +6074,7 @@ var DialogContent2 = React20.forwardRef(({ className, children, overlayClassName
         children: [
           children,
           showCloseButton && /* @__PURE__ */ jsxs32(DialogPrimitive2.Close, { className: "absolute end-4 top-4 rtl:right-auto rtl:left-4 z-[10001] flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none cursor-pointer", children: [
-            /* @__PURE__ */ jsx45(X4, { className: "size-4 shrink-0 stroke-[2.5]", strokeWidth: 2.5 }),
+            /* @__PURE__ */ jsx45(X4, { className: "size-4 shrink-0 stroke-[2.75]", strokeWidth: 2.75 }),
             /* @__PURE__ */ jsx45("span", { className: "sr-only", children: t("dialog.close") })
           ] })
         ]
@@ -13574,8 +13574,8 @@ function SearchPanel({
           variant: "ghost",
           size: "icon",
           "aria-label": t("globalSearch.close"),
-          className: "shrink-0 rounded-full md:hidden",
-          children: /* @__PURE__ */ jsx90(X8, { "aria-hidden": true })
+          className: "shrink-0 rounded-md md:hidden",
+          children: /* @__PURE__ */ jsx90(X8, { "aria-hidden": true, className: "stroke-[2.75]", strokeWidth: 2.75 })
         }
       ) })
     ] }),
