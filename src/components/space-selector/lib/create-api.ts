@@ -1,8 +1,12 @@
 
 import { SpaceSelectorApi } from "../types";
+import { setSharedApiClient } from "../../../lib/api-client";
 
 // Expects an axios-like instance (with get, post, put, delete methods returning { data: { data: ... } })
 export const createSpaceSelectorApi = (client: any): SpaceSelectorApi => {
+  if (client) {
+    setSharedApiClient(client);
+  }
   return {
     createSpace: async (name: string) => {
       const { data } = await client.post("/api/spaces", { name });

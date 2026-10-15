@@ -14,4 +14,5 @@ export * from "./components/ad-blocker";
 export * from "./components/search";
 export * from "./components/ui";
 export { cn, cx } from "./lib/utils";
+export * from "./lib/api-client";
 
