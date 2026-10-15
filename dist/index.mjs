@@ -2677,7 +2677,104 @@ import {
   X as X2
 } from "lucide-react";
 import { toast } from "sonner";
+
+// src/lib/api-client.ts
+var sharedClient = null;
+var setSharedApiClient = (client) => {
+  if (client) {
+    sharedClient = client;
+    if (typeof window !== "undefined") {
+      window.__NITX_API_CLIENT__ = client;
+    }
+  }
+};
+var getSharedApiClient = () => {
+  if (sharedClient) return sharedClient;
+  if (typeof window !== "undefined") {
+    return window.__NITX_API_CLIENT__ || window.axios || null;
+  }
+  return null;
+};
+
+// src/components/user-account/account-preferences-modal.tsx
 import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+function getSessionTokenFromCookie() {
+  if (typeof document === "undefined") return null;
+  const cookieNames = [
+    "session",
+    "sessions",
+    "sessions-dev",
+    "token",
+    "access_token",
+    "auth_token"
+  ];
+  for (const name of cookieNames) {
+    const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`));
+    if (match) {
+      try {
+        const decoded = decodeURIComponent(match[1]);
+        if (decoded.startsWith("[") || decoded.startsWith("{")) {
+          const parsed = JSON.parse(decoded);
+          const arr = Array.isArray(parsed) ? parsed : [parsed];
+          for (const item of arr) {
+            if (item?.access_token) return item.access_token;
+            if (item?.token) return item.token;
+          }
+        } else if (decoded.length > 20 && !decoded.includes(" ")) {
+          return decoded;
+        }
+      } catch {
+      }
+    }
+  }
+  return null;
+}
+function getTokenFromStorage() {
+  if (typeof window === "undefined") return null;
+  try {
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key) {
+        const val = sessionStorage.getItem(key);
+        if (val) {
+          if (val.startsWith("{") || val.startsWith("[")) {
+            const parsed = JSON.parse(val);
+            if (parsed?.access_token) return parsed.access_token;
+            if (parsed?.state?.auth?.access_token) return parsed.state.auth.access_token;
+            if (parsed?.auth?.access_token) return parsed.auth.access_token;
+          } else if (key.toLowerCase().includes("token") && val.length > 20) {
+            return val;
+          }
+        }
+      }
+    }
+  } catch {
+  }
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key) {
+        const val = localStorage.getItem(key);
+        if (val) {
+          if (val.startsWith("{") || val.startsWith("[")) {
+            const parsed = JSON.parse(val);
+            if (parsed?.access_token) return parsed.access_token;
+            if (parsed?.state?.auth?.access_token) return parsed.state.auth.access_token;
+            if (parsed?.state?.sessions) {
+              for (const s of parsed.state.sessions) {
+                if (s?.access_token) return s.access_token;
+              }
+            }
+          } else if (key.toLowerCase().includes("token") && val.length > 20) {
+            return val;
+          }
+        }
+      }
+    }
+  } catch {
+  }
+  return null;
+}
 var displayModeToTheme = (displayMode) => {
   if (displayMode === 1) return "light";
   if (displayMode === 2) return "dark";
@@ -2742,7 +2839,7 @@ async function callUpdateBasicInfo(payload, options) {
   if (options?.onUpdateUser) {
     return await options.onUpdateUser(payload);
   }
-  const client = options?.apiClient || typeof window !== "undefined" && (window.__NITX_API_CLIENT__ || window.axios);
+  const client = options?.apiClient || getSharedApiClient();
   if (client && typeof client.post === "function") {
     return await client.post("/api/user-info/update-basic-info", payload);
   }
@@ -2761,13 +2858,18 @@ async function callUpdateBasicInfo(payload, options) {
     }
   }
   const endpoint = `${baseUrl ? baseUrl.replace(/\/$/, "") : ""}/api/user-info/update-basic-info`;
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "X-Requested-With": "XMLHttpRequest"
+  };
+  const detectedToken = client?.defaults?.headers?.common?.["Authorization"] || typeof window !== "undefined" && (window.__NITX_AUTH_TOKEN__ || window.__NITX_API_CLIENT__?.defaults?.headers?.common?.["Authorization"] || window.axios?.defaults?.headers?.common?.["Authorization"]) || getSessionTokenFromCookie() || getTokenFromStorage();
+  if (detectedToken) {
+    headers["Authorization"] = detectedToken.startsWith("Bearer ") ? detectedToken : `Bearer ${detectedToken}`;
+  }
   const res = await fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "X-Requested-With": "XMLHttpRequest"
-    },
+    headers,
     credentials: "include",
     body: JSON.stringify(payload)
   });
@@ -6981,6 +7083,9 @@ var SpaceSelector = (props) => {
 
 // src/components/space-selector/lib/create-api.ts
 var createSpaceSelectorApi = (client) => {
+  if (client) {
+    setSharedApiClient(client);
+  }
   return {
     createSpace: async (name) => {
       const { data } = await client.post("/api/spaces", { name });
@@ -14247,6 +14352,7 @@ export {
   displayModeToTheme,
   getRecentSpacesMap,
   getRecentSpacesStorageKey,
+  getSharedApiClient,
   getSpaceIdentifier,
   getSpaceTimestamp,
   isApplePlatform,
@@ -14261,6 +14367,7 @@ export {
   recordSpaceUsage,
   removeSpaceRecent,
   searchShortcut,
+  setSharedApiClient,
   sortSpacesByLastUsed,
   testDomCosmeticFiltering,
   themeToDisplayMode,
