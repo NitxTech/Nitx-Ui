@@ -523,10 +523,10 @@ export function AccountPreferencesModal({
           <DialogClose asChild>
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-full size-8 sm:size-9 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-200/70 dark:hover:bg-zinc-800 transition-colors focus:outline-none cursor-pointer"
+              className="inline-flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer"
               aria-label={isRTL ? "إلغاء" : "Cancel"}
             >
-              <X className="size-4.5 sm:size-5 stroke-[2]" />
+              <X className="size-4 shrink-0 stroke-[2.75]" strokeWidth={2.75} />
               <span className="sr-only">{isRTL ? "إلغاء" : "Cancel"}</span>
             </button>
           </DialogClose>

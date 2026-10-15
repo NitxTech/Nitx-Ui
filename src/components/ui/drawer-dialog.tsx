@@ -125,7 +125,7 @@ export function DrawerDialog({
           showCloseButton={!hideClose}
           dir={dir}
           className={cn(
-            "flex flex-col gap-0 max-h-[96vh] p-0 border dark:border-zinc-800 bg-background dark:bg-zinc-950 overflow-hidden rounded-2xl shadow-2xl",
+            "flex flex-col gap-0 max-h-[96vh] p-0 border dark:border-zinc-800 bg-background dark:bg-zinc-950 overflow-hidden rounded-xl shadow-2xl",
             sizeVariants[size],
             className,
           )}
