@@ -23,8 +23,138 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "../../lib/utils";
 import { useNitxUiTranslation } from "../../i18n/nitxuilib";
+
+export const displayModeToTheme = (
+  displayMode: unknown
+): "light" | "dark" | "system" => {
+  if (displayMode === 1) return "light";
+  if (displayMode === 2) return "dark";
+  return "system";
+};
+
+export const themeToDisplayMode = (
+  theme: "light" | "dark" | "system"
+): 0 | 1 | 2 => {
+  if (theme === "light") return 1;
+  if (theme === "dark") return 2;
+  return 0;
+};
+
+export function cookieDomain(): string {
+  if (typeof window === "undefined") return "";
+  const host = window.location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") return "";
+  if (host.endsWith(".nitx.app")) return "domain=.nitx.app;";
+  if (host.endsWith(".nitx.io")) return "domain=.nitx.io;";
+  if (host.endsWith(".nitx.local")) return "domain=.nitx.local;";
+  return "";
+}
+
+export function readThemeCookie(): "light" | "dark" | "system" | null {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(/(?:^|;\s*)nitx-theme=([^;]+)/);
+  return m ? (decodeURIComponent(m[1]) as "light" | "dark" | "system") : null;
+}
+
+export function writeThemeCookie(theme: "light" | "dark" | "system") {
+  const domainStr = cookieDomain();
+  document.cookie = `nitx-theme=${theme}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  try {
+    localStorage.setItem("nitx-theme", theme);
+    localStorage.setItem("theme", theme);
+  } catch {}
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("nitx-theme-change", { detail: theme })
+    );
+  }
+}
+
+export function readLanguageCookie(): "ar" | "en" | null {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(/(?:^|;\s*)(?:nitx-language|nitx-lang)=([^;]+)/);
+  if (!m) return null;
+  const lang = decodeURIComponent(m[1]);
+  return lang === "ar" || lang === "en" ? lang : null;
+}
+
+export function writeLanguageCookie(lang: string) {
+  const domainStr = cookieDomain();
+  document.cookie = `nitx-language=${lang}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  document.cookie = `nitx-lang=${lang}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
+  try {
+    localStorage.setItem("nitx-language", lang);
+    localStorage.setItem("i18nextLng", lang);
+  } catch {}
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("nitx-language-change", { detail: lang })
+    );
+  }
+}
+
+export async function callUpdateBasicInfo(
+  payload: { language?: string; display_mode?: 0 | 1 | 2 },
+  options?: {
+    apiClient?: any;
+    apiUrl?: string;
+    onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2 }) => Promise<any>;
+  }
+): Promise<any> {
+  // 1. Direct callback prop
+  if (options?.onUpdateUser) {
+    return await options.onUpdateUser(payload);
+  }
+
+  // 2. Client with post method (e.g. axios instance from props or window)
+  const client =
+    options?.apiClient ||
+    (typeof window !== "undefined" && ((window as any).__NITX_API_CLIENT__ || (window as any).axios));
+  if (client && typeof client.post === "function") {
+    return await client.post("/api/user-info/update-basic-info", payload);
+  }
+
+  // 3. Native fetch fallback
+  const rawBaseUrl =
+    options?.apiUrl ||
+    (typeof process !== "undefined" ? process.env.NEXT_PUBLIC_API_URL : undefined);
+
+  let baseUrl = rawBaseUrl || "";
+  if (!baseUrl && typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host.includes(".dev.") || host === "localhost" || host === "127.0.0.1") {
+      baseUrl = "https://api.dev.nitx.app";
+    } else if (host.endsWith(".nitx.app")) {
+      baseUrl = "https://api.nitx.app";
+    } else if (host.endsWith(".nitx.io")) {
+      baseUrl = "https://api.nitx.io";
+    } else {
+      baseUrl = "https://api.dev.nitx.app";
+    }
+  }
+
+  const endpoint = `${baseUrl ? baseUrl.replace(/\/$/, "") : ""}/api/user-info/update-basic-info`;
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-Requested-With": "XMLHttpRequest",
+    },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.message || `Request failed with status ${res.status}`);
+  }
+
+  return await res.json().catch(() => ({}));
+}
 
 export interface AccountPreferencesModalProps {
   open: boolean;
@@ -51,6 +181,9 @@ export interface AccountPreferencesModalProps {
   onThemeChange?: (theme: "light" | "dark" | "system") => void;
   onManageAccount?: () => void;
   myNitxUrl?: string;
+  apiUrl?: string;
+  apiClient?: any;
+  onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2 }) => Promise<any>;
 }
 
 export function AccountPreferencesModal({
@@ -67,6 +200,9 @@ export function AccountPreferencesModal({
   onThemeChange,
   onManageAccount,
   myNitxUrl,
+  apiUrl,
+  apiClient,
+  onUpdateUser,
 }: AccountPreferencesModalProps) {
   let params: any = null;
   try {
@@ -84,13 +220,43 @@ export function AccountPreferencesModal({
   useEffect(() => {
     setMounted(true);
     if (typeof document !== "undefined") {
+      const cookieLang = readLanguageCookie();
       const docLang =
+        cookieLang ||
         document.documentElement.lang ||
         (document.documentElement.getAttribute("dir") === "rtl" ? "ar" : "en");
       if (docLang === "ar" || docLang === "en") {
         setInternalLanguage(docLang);
       }
+      const cookieTheme = readThemeCookie();
+      if (cookieTheme) {
+        setInternalTheme(cookieTheme);
+      } else if (document.documentElement.classList.contains("dark")) {
+        setInternalTheme("dark");
+      } else {
+        setInternalTheme("light");
+      }
     }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleThemeChangeEvt = (e: any) => {
+      if (e.detail && (e.detail === "light" || e.detail === "dark" || e.detail === "system")) {
+        setInternalTheme(e.detail);
+      }
+    };
+    const handleLangChangeEvt = (e: any) => {
+      if (e.detail && (e.detail === "ar" || e.detail === "en")) {
+        setInternalLanguage(e.detail);
+      }
+    };
+    window.addEventListener("nitx-theme-change", handleThemeChangeEvt as EventListener);
+    window.addEventListener("nitx-language-change", handleLangChangeEvt as EventListener);
+    return () => {
+      window.removeEventListener("nitx-theme-change", handleThemeChangeEvt as EventListener);
+      window.removeEventListener("nitx-language-change", handleLangChangeEvt as EventListener);
+    };
   }, []);
 
   const language = controlledLanguage ?? internalLanguage;
@@ -243,8 +409,11 @@ export function AccountPreferencesModal({
       .map((part) => part[0]?.toUpperCase())
       .join("") || "AA";
 
-  const handleLanguageChange = (value: string) => {
+  const handleLanguageChange = async (value: string) => {
+    const prevLang = internalLanguage;
     setInternalLanguage(value);
+    writeLanguageCookie(value);
+
     if (onLanguageChange) {
       onLanguageChange(value);
     }
@@ -254,19 +423,40 @@ export function AccountPreferencesModal({
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("dir", value === "ar" ? "rtl" : "ltr");
       document.documentElement.setAttribute("lang", value);
-      try {
-        localStorage.setItem("nitx-language", value);
-      } catch {}
     }
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("nitx-language-change", { detail: value })
+
+    try {
+      await callUpdateBasicInfo(
+        { language: value },
+        { apiClient, apiUrl, onUpdateUser }
+      );
+    } catch (error) {
+      console.error("Failed to update language:", error);
+      setInternalLanguage(prevLang);
+      writeLanguageCookie(prevLang);
+      if (onLanguageChange) {
+        onLanguageChange(prevLang);
+      }
+      if (i18n?.changeLanguage) {
+        i18n.changeLanguage(prevLang);
+      }
+      if (typeof document !== "undefined") {
+        document.documentElement.setAttribute("dir", prevLang === "ar" ? "rtl" : "ltr");
+        document.documentElement.setAttribute("lang", prevLang);
+      }
+      toast.error(
+        value === "ar"
+          ? "فشل تحديث اللغة. تمت استعادة الإعداد السابق."
+          : "Failed to update language. Reverted to previous setting."
       );
     }
   };
 
-  const handleThemeChange = (newTheme: "light" | "dark") => {
+  const handleThemeChange = async (newTheme: "light" | "dark") => {
+    const prevTheme = internalTheme;
     setInternalTheme(newTheme);
+    writeThemeCookie(newTheme);
+
     if (onThemeChange) {
       onThemeChange(newTheme);
     }
@@ -276,19 +466,32 @@ export function AccountPreferencesModal({
       } else {
         document.documentElement.classList.remove("dark");
       }
-      const isLocal =
-        typeof window !== "undefined" &&
-        (window.location.hostname === "localhost" ||
-          window.location.hostname === "127.0.0.1");
-      const domainStr = isLocal ? "" : "domain=.nitx.app;";
-      document.cookie = `nitx-theme=${newTheme}; path=/; max-age=31536000; ${domainStr} samesite=lax`;
-      try {
-        localStorage.setItem("theme", newTheme);
-      } catch {}
     }
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("nitx-theme-change", { detail: newTheme })
+
+    try {
+      const displayMode = themeToDisplayMode(newTheme);
+      await callUpdateBasicInfo(
+        { display_mode: displayMode },
+        { apiClient, apiUrl, onUpdateUser }
+      );
+    } catch (error) {
+      console.error("Failed to update appearance mode:", error);
+      setInternalTheme(prevTheme);
+      writeThemeCookie(prevTheme);
+      if (onThemeChange) {
+        onThemeChange(prevTheme);
+      }
+      if (typeof document !== "undefined") {
+        if (prevTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+      toast.error(
+        language === "ar"
+          ? "فشل تحديث المظهر. تمت استعادة الإعداد السابق."
+          : "Failed to update appearance mode. Reverted to previous setting."
       );
     }
   };

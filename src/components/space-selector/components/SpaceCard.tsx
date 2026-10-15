@@ -14,6 +14,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useSpaceSelector } from "../context";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
+import { removeSpaceRecent } from "../lib/space-recent";
 
 interface SpaceCardProps {
   id: string;
@@ -54,6 +55,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
     setModalProps: setProps,
     api,
     refreshSpaces,
+    authUser,
   } = useSpaceSelector();
 
   const handleDeleteSpace = async () => {
@@ -61,6 +63,7 @@ const SpaceCard = ({ id, name, members, className }: SpaceCardProps) => {
     setIsLoading(true);
     try {
       await api.deleteSpace(id);
+      removeSpaceRecent(id, authUser);
       toast.success(t("spaceCard.spaceDeletedSuccessfully", { name }));
       // Use refreshSpaces instead of removeSpace in package context
       refreshSpaces();

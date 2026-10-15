@@ -37,6 +37,9 @@ export interface UserAccountProps {
   preferencesOpen?: boolean;
   onPreferencesOpenChange?: (open: boolean) => void;
   accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
+  apiClient?: any;
+  apiUrl?: string;
+  onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2 }) => Promise<any>;
 }
 
 export const UserAccount = ({
@@ -51,6 +54,9 @@ export const UserAccount = ({
   preferencesOpen,
   onPreferencesOpenChange,
   accountPreferencesProps,
+  apiClient,
+  apiUrl,
+  onUpdateUser,
 }: UserAccountProps) => {
   const { t } = useNitxUiTranslation();
   const [onOpen, setOnOpen] = useState(false);
@@ -300,6 +306,9 @@ export const UserAccount = ({
         authUser={auth_user}
         showPlan={showPlan ?? accountPreferencesProps?.showPlan}
         platform={platform ?? accountPreferencesProps?.platform}
+        apiClient={apiClient ?? accountPreferencesProps?.apiClient}
+        apiUrl={apiUrl ?? accountPreferencesProps?.apiUrl}
+        onUpdateUser={onUpdateUser ?? accountPreferencesProps?.onUpdateUser}
         user={
           activeAccount
             ? {

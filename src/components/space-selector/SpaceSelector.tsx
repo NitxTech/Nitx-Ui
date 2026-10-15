@@ -21,6 +21,7 @@ interface SpaceSelectorProps {
   authUser?: string | number;
   isExpanded?: boolean;
   className?: string;
+  triggerClassName?: string;
   onRefreshSpaces?: () => void | Promise<void>;
 
   showtype?: "DropDown" | "Browser" | "SpaceManager";
