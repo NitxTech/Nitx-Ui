@@ -607,7 +607,7 @@ export function AccountPreferencesModal({
       title={isRTL ? "الإعدادات العامة" : "General Settings"}
       dir={isRTL ? "rtl" : "ltr"}
       size="2xl"
-      className="!rounded-[24px] sm:!rounded-[32px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden"
+      className="!rounded-[16px] sm:!rounded-[20px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden"
       headerClassName="px-6 py-4 border-b border-zinc-200/80 dark:border-zinc-800/80"
       bodyClassName="p-4 sm:p-6 md:p-7 bg-[#FAFAFA] dark:bg-zinc-950"
     >

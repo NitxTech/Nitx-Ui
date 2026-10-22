@@ -3326,7 +3326,7 @@ function AccountPreferencesModal({
       title: isRTL ? "\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Settings",
       dir: isRTL ? "rtl" : "ltr",
       size: "2xl",
-      className: "!rounded-[24px] sm:!rounded-[32px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden",
+      className: "!rounded-[16px] sm:!rounded-[20px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden",
       headerClassName: "px-6 py-4 border-b border-zinc-200/80 dark:border-zinc-800/80",
       bodyClassName: "p-4 sm:p-6 md:p-7 bg-[#FAFAFA] dark:bg-zinc-950",
       children: /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-6 sm:gap-7 w-full", children: [
