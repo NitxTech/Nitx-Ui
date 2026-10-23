@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogClose,
-} from "../ui/dialog";
+import { DrawerDialog } from "../ui/drawer-dialog";
 import {
   Select,
   SelectContent,
@@ -21,7 +16,6 @@ import {
   Sun,
   Moon,
   ArrowRight,
-  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "../../lib/utils";
@@ -606,30 +600,18 @@ export function AccountPreferencesModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        showCloseButton={false}
-        className="w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] max-w-7xl max-h-[90dvh] overflow-y-auto p-4 sm:p-7 md:p-8 rounded-[24px] sm:rounded-[32px] corner-squircle border border-zinc-200/90 dark:border-zinc-800 bg-[#FAFAFA] dark:bg-zinc-950 shadow-2xl transition-all"
-        dir={isRTL ? "rtl" : "ltr"}
-      >
-        {/* Modal Header */}
-        <div className="flex flex-row items-center justify-between w-full pb-3 border-b border-zinc-200/80 dark:border-zinc-800/80">
-          <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            {isRTL ? "الإعدادات العامة" : "General Settings"}
-          </DialogTitle>
-          <DialogClose asChild>
-            <button
-              type="button"
-              className="inline-flex size-8 items-center justify-center rounded-md bg-transparent text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer"
-              aria-label={isRTL ? "إلغاء" : "Cancel"}
-            >
-              <X className="size-4 shrink-0 stroke-[2.75]" strokeWidth={2.75} />
-              <span className="sr-only">{isRTL ? "إلغاء" : "Cancel"}</span>
-            </button>
-          </DialogClose>
-        </div>
-
-        <div className="flex flex-col gap-6 sm:gap-7 w-full pt-1">
+    <DrawerDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      onClose={() => onOpenChange(false)}
+      title={isRTL ? "الإعدادات العامة" : "General Settings"}
+      dir={isRTL ? "rtl" : "ltr"}
+      size="2xl"
+      className="!rounded-[24px] sm:!rounded-[32px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden"
+      headerClassName="px-6 py-4 border-b border-zinc-200/80 dark:border-zinc-800/80"
+      bodyClassName="p-4 sm:p-6 md:p-7 bg-[#FAFAFA] dark:bg-zinc-950"
+    >
+      <div className="flex flex-col gap-6 sm:gap-7 w-full">
           {/* SECTION 1: PROFILE */}
           <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden">
             {/* Header */}
@@ -898,9 +880,8 @@ export function AccountPreferencesModal({
             </div>
           )}
         </div>
-      </DialogContent>
-    </Dialog>
-  );
+      </DrawerDialog>
+    );
 }
 
 export default AccountPreferencesModal;
