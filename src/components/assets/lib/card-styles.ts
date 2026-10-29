@@ -12,11 +12,11 @@
  * ellipsis beside them.
  */
 export const assetCardIconButtonClass = [
-  "flex size-8 shrink-0 items-center justify-center rounded-[8px]",
-  "text-zinc-700 transition-colors duration-200",
-  "hover:bg-zinc-100 hover:text-primary",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
-  "disabled:pointer-events-none disabled:text-zinc-400",
-  "dark:text-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-primary",
-  "dark:disabled:text-zinc-600",
+  "flex size-8 shrink-0 items-center justify-center rounded-full",
+  "bg-black/50 text-white backdrop-blur-md border border-white/10",
+  "transition-all duration-200 shadow-sm",
+  "hover:bg-black/75 hover:scale-105 active:scale-95 hover:text-white",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60",
+  "disabled:pointer-events-none disabled:opacity-40",
 ].join(" ");
+
