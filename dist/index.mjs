@@ -2445,7 +2445,7 @@ import { useEffect as useEffect4, useState as useState4 } from "react";
 import Link2 from "next/link";
 
 // src/components/user-account/account-preferences-modal.tsx
-import { useState as useState3, useEffect as useEffect3 } from "react";
+import { useState as useState3, useEffect as useEffect3, useMemo as useMemo2 } from "react";
 import { useParams } from "next/navigation";
 
 // src/components/ui/drawer-dialog.tsx
@@ -2902,7 +2902,17 @@ import {
   Globe,
   Sun,
   Moon,
-  ArrowRight
+  ChevronRight as ChevronRight3,
+  ChevronLeft as ChevronLeft2,
+  User,
+  Sliders,
+  CreditCard,
+  Shield,
+  Check as Check3,
+  RefreshCw,
+  ExternalLink,
+  AlertCircle,
+  Sparkles
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -2924,8 +2934,26 @@ var getSharedApiClient = () => {
   return null;
 };
 
+// src/components/ui/skeleton.tsx
+import { jsx as jsx10 } from "react/jsx-runtime";
+function Skeleton({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    "div",
+    {
+      className: cn(
+        "animate-shimmer rounded-md bg-gray-300/50 dark:bg-gray-700/50",
+        className
+      ),
+      ...props
+    }
+  );
+}
+
 // src/components/user-account/account-preferences-modal.tsx
-import { jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs8 } from "react/jsx-runtime";
 function getSessionTokenFromCookie() {
   if (typeof document === "undefined") return null;
   const cookieNames = [
@@ -3135,6 +3163,20 @@ function AccountPreferencesModal({
   const [internalLanguage, setInternalLanguage] = useState3("en");
   const [internalTheme, setInternalTheme] = useState3("system");
   const [mounted, setMounted] = useState3(false);
+  const [isMobile, setIsMobile] = useState3(false);
+  const [activeSection, setActiveSection] = useState3(null);
+  const [isEditingName, setIsEditingName] = useState3(false);
+  const [userNameInput, setUserNameInput] = useState3(user?.name || "Abdulaziz Al-Qahtani");
+  const [currentUserName, setCurrentUserName] = useState3(user?.name || "Abdulaziz Al-Qahtani");
+  const [isSavingName, setIsSavingName] = useState3(false);
+  const [sectionErrors, setSectionErrors] = useState3({});
+  const [sectionLoading, setSectionLoading] = useState3({});
+  useEffect3(() => {
+    if (user?.name) {
+      setCurrentUserName(user.name);
+      setUserNameInput(user.name);
+    }
+  }, [user?.name]);
   useEffect3(() => {
     setMounted(true);
     if (typeof document !== "undefined") {
@@ -3152,7 +3194,19 @@ function AccountPreferencesModal({
         setInternalTheme("light");
       }
     }
-  }, []);
+    const checkMobile = () => {
+      if (typeof window !== "undefined") {
+        const mobile = window.innerWidth < 768;
+        setIsMobile(mobile);
+        if (!mobile && activeSection === null) {
+          setActiveSection("profile");
+        }
+      }
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [activeSection]);
   useEffect3(() => {
     if (typeof window === "undefined") return;
     const handleThemeChangeEvt = (e) => {
@@ -3172,6 +3226,12 @@ function AccountPreferencesModal({
       window.removeEventListener("nitx-language-change", handleLangChangeEvt);
     };
   }, []);
+  useEffect3(() => {
+    if (!open && isMobile) {
+      setActiveSection(null);
+      setIsEditingName(false);
+    }
+  }, [open, isMobile]);
   const language = controlledLanguage ?? internalLanguage;
   const isRTL = language === "ar";
   const theme = controlledTheme ?? internalTheme;
@@ -3181,7 +3241,7 @@ function AccountPreferencesModal({
   const isDummyUrl = !rawMyNitxUrl || rawMyNitxUrl === "http://example.com";
   const myNitxBaseUrl = isDummyUrl ? typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:3001" : "https://my.nitx.app" : rawMyNitxUrl;
   const myNitxDashboardUrl = `${myNitxBaseUrl}/${encodeURIComponent(String(resolvedAuthUser))}`;
-  const userName = user?.name || "Abdulaziz Al-Qahtani";
+  const userName = currentUserName;
   const userEmail = user?.email || "abdalazizqa@nitx.io";
   const userImage = user?.imageUrl ?? null;
   const planName = plan?.name || "Pro Plan (5000 Credit)";
@@ -3307,6 +3367,32 @@ function AccountPreferencesModal({
       );
     }
   };
+  const handleSaveName = async () => {
+    if (!userNameInput.trim()) {
+      toast.error(isRTL ? "\u0627\u0644\u0631\u062C\u0627\u0621 \u0625\u062F\u062E\u0627\u0644 \u0627\u0633\u0645 \u0635\u0627\u0644\u062D" : "Please enter a valid name");
+      return;
+    }
+    setIsSavingName(true);
+    setSectionErrors((prev) => ({ ...prev, profile: null }));
+    try {
+      await callUpdateBasicInfo(
+        { name: userNameInput.trim() },
+        { apiClient, apiUrl, onUpdateUser }
+      );
+      setCurrentUserName(userNameInput.trim());
+      setIsEditingName(false);
+      toast.success(isRTL ? "\u062A\u0645 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0627\u0633\u0645 \u0628\u0646\u062C\u0627\u062D" : "Name updated successfully");
+    } catch (err) {
+      console.error("Failed to save name:", err);
+      setSectionErrors((prev) => ({
+        ...prev,
+        profile: isRTL ? "\u0641\u0634\u0644 \u062D\u0641\u0638 \u0627\u0644\u062A\u063A\u064A\u064A\u0631\u0627\u062A. \u064A\u0631\u062C\u0649 \u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629." : "Failed to save changes. Please try again."
+      }));
+      toast.error(isRTL ? "\u062A\u0639\u0630\u0631 \u062D\u0641\u0638 \u0627\u0644\u0627\u0633\u0645" : "Could not save name");
+    } finally {
+      setIsSavingName(false);
+    }
+  };
   const handleManageAccountClick = (e) => {
     if (onManageAccount) {
       e?.preventDefault();
@@ -3317,193 +3403,451 @@ function AccountPreferencesModal({
       window.location.href = myNitxDashboardUrl;
     }
   };
-  return /* @__PURE__ */ jsx10(
+  const sections = useMemo2(() => {
+    const list = [
+      {
+        key: "profile",
+        title: "Profile & Account",
+        titleAr: "\u0627\u0644\u0645\u0644\u0641 \u0648\u0627\u0644\u062D\u0633\u0627\u0628",
+        description: `Your personal identity in ${platformDisplayName}`,
+        descriptionAr: `\u0645\u0639\u0644\u0648\u0645\u0627\u062A \u062D\u0633\u0627\u0628\u0643 \u0641\u064A ${platformDisplayName}`,
+        icon: /* @__PURE__ */ jsx11(User, { className: "size-4 shrink-0 text-zinc-700 dark:text-zinc-300" })
+      },
+      {
+        key: "preferences",
+        title: "General Preferences",
+        titleAr: "\u0627\u0644\u062A\u0641\u0636\u064A\u0644\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629",
+        description: "Language and appearance settings",
+        descriptionAr: "\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0644\u063A\u0629 \u0648\u0645\u0638\u0647\u0631 \u0627\u0644\u0648\u0627\u062C\u0647\u0629",
+        icon: /* @__PURE__ */ jsx11(Sliders, { className: "size-4 shrink-0 text-zinc-700 dark:text-zinc-300" })
+      }
+    ];
+    if (shouldShowPlan) {
+      list.push({
+        key: "plan",
+        title: "Current Plan",
+        titleAr: "\u0627\u0644\u062E\u0637\u0629 \u0627\u0644\u062D\u0627\u0644\u064A\u0629",
+        description: "Subscription credits and quota details",
+        descriptionAr: "\u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u0627\u0634\u062A\u0631\u0627\u0643 \u0648\u0627\u0644\u0631\u0635\u064A\u062F \u0627\u0644\u0645\u062A\u0628\u0642\u064A",
+        icon: /* @__PURE__ */ jsx11(CreditCard, { className: "size-4 shrink-0 text-zinc-700 dark:text-zinc-300" })
+      });
+    }
+    list.push({
+      key: "security",
+      title: "Security & Sessions",
+      titleAr: "\u0627\u0644\u0623\u0645\u0627\u0646 \u0648\u0627\u0644\u062C\u0644\u0633\u0627\u062A",
+      description: "Account protection and authentication status",
+      descriptionAr: "\u062D\u0645\u0627\u064A\u0629 \u0627\u0644\u062D\u0633\u0627\u0628 \u0648\u062D\u0627\u0644\u0629 \u062C\u0644\u0633\u0627\u062A \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644",
+      icon: /* @__PURE__ */ jsx11(Shield, { className: "size-4 shrink-0 text-zinc-700 dark:text-zinc-300" })
+    });
+    return list;
+  }, [shouldShowPlan, platformDisplayName]);
+  const modalTitle = useMemo2(() => {
+    if (isMobile) {
+      if (activeSection === null) {
+        return isRTL ? "\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Settings";
+      }
+      const section = sections.find((s) => s.key === activeSection);
+      return section ? isRTL ? section.titleAr : section.title : isRTL ? "\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A" : "Settings";
+    }
+    return isRTL ? "\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Settings";
+  }, [isMobile, activeSection, sections, isRTL]);
+  const handleBack = isMobile && activeSection !== null ? () => {
+    setActiveSection(null);
+    setIsEditingName(false);
+  } : void 0;
+  const renderProfileDetail = () => {
+    const error = sectionErrors.profile;
+    const loading = sectionLoading.profile;
+    if (loading) {
+      return /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4 p-4 sm:p-6", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-4", children: [
+          /* @__PURE__ */ jsx11(Skeleton, { className: "size-16 rounded-[16px] corner-squircle" }),
+          /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-2 flex-1", children: [
+            /* @__PURE__ */ jsx11(Skeleton, { className: "h-5 w-40" }),
+            /* @__PURE__ */ jsx11(Skeleton, { className: "h-4 w-56" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx11(Skeleton, { className: "h-12 w-full mt-4" })
+      ] });
+    }
+    return /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-5", children: [
+      error && /* @__PURE__ */ jsxs8("div", { className: "p-3 rounded-[12px] bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-center justify-between text-xs text-red-700 dark:text-red-300", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx11(AlertCircle, { className: "size-4 shrink-0" }),
+          /* @__PURE__ */ jsx11("span", { children: error })
+        ] }),
+        /* @__PURE__ */ jsxs8(
+          "button",
+          {
+            type: "button",
+            onClick: () => handleSaveName(),
+            className: "font-medium underline hover:text-red-900 dark:hover:text-red-100 flex items-center gap-1 cursor-pointer",
+            children: [
+              /* @__PURE__ */ jsx11(RefreshCw, { className: "size-3" }),
+              /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629" : "Retry" })
+            ]
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx11("div", { className: "bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle p-5 sm:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.02)]", children: /* @__PURE__ */ jsx11("div", { className: "flex flex-col sm:flex-row sm:items-center gap-4 justify-between", children: /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-4", children: [
+        /* @__PURE__ */ jsxs8(Avatar, { className: "size-14 sm:size-16 !rounded-[16px] sm:!rounded-[18px] corner-squircle overflow-hidden shrink-0 border border-black/5 dark:border-white/10", children: [
+          userImage && /* @__PURE__ */ jsx11(AvatarImage, { src: userImage, alt: userName, className: "!rounded-[16px]" }),
+          /* @__PURE__ */ jsx11(AvatarFallback, { className: "!rounded-none bg-[#183EC2] text-white font-semibold text-lg flex items-center justify-center", children: initials })
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "flex flex-col min-w-0", children: [
+          /* @__PURE__ */ jsx11("span", { className: "text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 truncate", children: userName }),
+          /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 truncate mt-0.5", children: userEmail }),
+          /* @__PURE__ */ jsx11("div", { className: "flex items-center gap-2 mt-2", children: /* @__PURE__ */ jsxs8("span", { className: "inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-[6px]", children: [
+            /* @__PURE__ */ jsx11(Check3, { className: "size-3" }),
+            /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u062D\u0633\u0627\u0628 \u0645\u0641\u0639\u0644" : "Active account" })
+          ] }) })
+        ] })
+      ] }) }) }),
+      /* @__PURE__ */ jsxs8("div", { className: "bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
+          /* @__PURE__ */ jsx11("h4", { className: "text-sm font-semibold text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u062D\u0633\u0627\u0628" : "Account Details" }),
+          /* @__PURE__ */ jsx11("p", { className: "text-xs text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? "\u064A\u0645\u0643\u0646\u0643 \u062A\u062D\u062F\u064A\u062B \u0627\u0633\u0645\u0643 \u0648\u0625\u062F\u0627\u0631\u0629 \u0628\u064A\u0627\u0646\u0627\u062A\u0643 \u0647\u0646\u0627 \u0645\u0628\u0627\u0634\u0631\u0629" : "Update your name and view account settings directly here" })
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [
+          /* @__PURE__ */ jsx11("div", { className: "sm:w-36 shrink-0 text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0643\u0627\u0645\u0644" : "Full Name" }),
+          /* @__PURE__ */ jsx11("div", { className: "flex-1 min-w-0", children: isEditingName ? /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx11(
+              "input",
+              {
+                type: "text",
+                value: userNameInput,
+                onChange: (e) => setUserNameInput(e.target.value),
+                disabled: isSavingName,
+                className: "flex-1 h-9 px-3 text-xs sm:text-sm rounded-[10px] corner-squircle border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-blue-600",
+                placeholder: "Enter full name",
+                autoFocus: true
+              }
+            ),
+            /* @__PURE__ */ jsx11(
+              "button",
+              {
+                type: "button",
+                onClick: handleSaveName,
+                disabled: isSavingName,
+                className: "h-9 px-3.5 rounded-[10px] corner-squircle bg-[#183EC2] text-white text-xs font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer",
+                children: isSavingName ? isRTL ? "\u062C\u0627\u0631\u064A \u0627\u0644\u062D\u0641\u0638..." : "Saving..." : isRTL ? "\u062D\u0641\u0638" : "Save"
+              }
+            ),
+            /* @__PURE__ */ jsx11(
+              "button",
+              {
+                type: "button",
+                onClick: () => {
+                  setUserNameInput(userName);
+                  setIsEditingName(false);
+                },
+                disabled: isSavingName,
+                className: "h-9 px-3 rounded-[10px] corner-squircle border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer",
+                children: isRTL ? "\u0625\u0644\u063A\u0627\u0621" : "Cancel"
+              }
+            )
+          ] }) : /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-sm text-zinc-800 dark:text-zinc-200", children: userName }) }),
+          !isEditingName && /* @__PURE__ */ jsx11(
+            "button",
+            {
+              type: "button",
+              onClick: () => setIsEditingName(true),
+              className: "text-xs font-medium text-[#183EC2] dark:text-blue-400 hover:underline shrink-0 cursor-pointer self-start sm:self-center",
+              children: isRTL ? "\u062A\u0639\u062F\u064A\u0644" : "Edit"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [
+          /* @__PURE__ */ jsx11("div", { className: "sm:w-36 shrink-0 text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A" : "Email Address" }),
+          /* @__PURE__ */ jsx11("div", { className: "flex-1 min-w-0 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 truncate", children: userEmail }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[11px] font-medium text-zinc-400 shrink-0", children: isRTL ? "\u0623\u0633\u0627\u0633\u064A" : "Primary" })
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex items-center justify-between gap-3 bg-zinc-50/50 dark:bg-zinc-950/40", children: [
+          /* @__PURE__ */ jsxs8("div", { className: "flex flex-col", children: [
+            /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0645\u0631\u0643\u0632 \u062D\u0633\u0627\u0628\u0627\u062A My Nitx" : "My Nitx Account Portal" }),
+            /* @__PURE__ */ jsx11("span", { className: "text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400", children: isRTL ? "\u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u0641\u0648\u0627\u062A\u064A\u0631 \u0648\u0627\u0644\u0627\u0634\u062A\u0631\u0627\u0643\u0627\u062A \u0627\u0644\u0645\u062A\u0642\u062F\u0645\u0629" : "Manage billing, invoices, and organization spaces" })
+          ] }),
+          /* @__PURE__ */ jsxs8(
+            "a",
+            {
+              href: myNitxDashboardUrl,
+              onClick: handleManageAccountClick,
+              className: "inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white px-3 py-1.5 rounded-[10px] corner-squircle border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 transition-colors shrink-0",
+              children: [
+                /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u0641\u062A\u062D \u0627\u0644\u0645\u0631\u0643\u0632" : "Open Portal" }),
+                /* @__PURE__ */ jsx11(ExternalLink, { className: "size-3.5" })
+              ]
+            }
+          )
+        ] })
+      ] })
+    ] });
+  };
+  const renderPreferencesDetail = () => {
+    return /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
+        /* @__PURE__ */ jsx11("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u062A\u0641\u0636\u064A\u0644\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Preferences" }),
+        /* @__PURE__ */ jsx11("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? `\u0643\u064A\u0641 \u064A\u0628\u062F\u0648 \u0648\u064A\u062A\u062D\u062F\u062B \u0625\u0644\u064A\u0643 ${platformDisplayName}` : `How ${platformDisplayName} looks and speaks to you` })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
+          /* @__PURE__ */ jsx11(Globe, { className: "size-[18px] text-zinc-700 dark:text-zinc-300 shrink-0 stroke-[1.75]" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0644\u063A\u0629" : "Language" })
+        ] }),
+        /* @__PURE__ */ jsx11("div", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 flex-1 sm:px-2", children: isRTL ? "\u0627\u062E\u062A\u0631 \u0644\u063A\u0629 \u0627\u0644\u0648\u0627\u062C\u0647\u0629" : "Choose your interface language" }),
+        /* @__PURE__ */ jsx11("div", { className: "sm:self-center shrink-0 w-full sm:w-auto", children: /* @__PURE__ */ jsxs8(Select, { value: language, onValueChange: handleLanguageChange, children: [
+          /* @__PURE__ */ jsx11(SelectTrigger, { className: "h-9 sm:h-10 min-w-[120px] sm:min-w-[145px] w-full sm:w-auto rounded-[12px] corner-squircle border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 px-3 py-2 text-xs sm:text-sm font-normal text-zinc-800 dark:text-zinc-200 shadow-none hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors focus:ring-1 focus:ring-zinc-400", children: /* @__PURE__ */ jsx11(SelectValue, { placeholder: "Language" }) }),
+          /* @__PURE__ */ jsxs8(SelectContent, { className: "rounded-[16px] corner-squircle border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-lg", children: [
+            /* @__PURE__ */ jsx11(SelectItem, { value: "en", className: "text-xs sm:text-sm py-2", children: "English" }),
+            /* @__PURE__ */ jsx11(SelectItem, { value: "ar", className: "text-xs sm:text-sm py-2", children: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629" })
+          ] })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
+          /* @__PURE__ */ jsxs8("svg", { width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-zinc-800 dark:text-zinc-200 shrink-0", children: [
+            /* @__PURE__ */ jsxs8("g", { clipPath: "url(#clip0_theme_icon)", children: [
+              /* @__PURE__ */ jsx11("path", { d: "M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
+              /* @__PURE__ */ jsx11("path", { d: "M9 16.5V1.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
+              /* @__PURE__ */ jsx11("path", { d: "M9 5.25H15.375", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" }),
+              /* @__PURE__ */ jsx11("path", { d: "M9 12.75H15.375", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" }),
+              /* @__PURE__ */ jsx11("path", { d: "M9 9H16.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" })
+            ] }),
+            /* @__PURE__ */ jsx11("defs", { children: /* @__PURE__ */ jsx11("clipPath", { id: "clip0_theme_icon", children: /* @__PURE__ */ jsx11("rect", { width: "18", height: "18", fill: "white" }) }) })
+          ] }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0645\u0638\u0647\u0631" : "Theme" })
+        ] }),
+        /* @__PURE__ */ jsx11("div", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 flex-1 sm:px-2", children: isRTL ? "\u0627\u062E\u062A\u0631 \u0645\u0638\u0647\u0631 \u0627\u0644\u0648\u0627\u062C\u0647\u0629" : "Choose your interface appearance" }),
+        /* @__PURE__ */ jsx11("div", { className: "sm:self-center shrink-0", children: /* @__PURE__ */ jsxs8("div", { className: "inline-flex items-center p-1 rounded-[14px] sm:rounded-[16px] corner-squircle border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50/50 dark:bg-zinc-850 gap-1", children: [
+          /* @__PURE__ */ jsxs8(
+            "button",
+            {
+              type: "button",
+              onClick: () => handleThemeChange("light"),
+              className: cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] sm:rounded-[12px] corner-squircle text-xs font-medium transition-all cursor-pointer",
+                !isDarkActive ? "bg-[#18181b] text-white shadow-sm" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 bg-transparent"
+              ),
+              children: [
+                /* @__PURE__ */ jsx11(Sun, { className: "size-3.5 stroke-[2]" }),
+                /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u0641\u0627\u062A\u062D" : "Light" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs8(
+            "button",
+            {
+              type: "button",
+              onClick: () => handleThemeChange("dark"),
+              className: cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] sm:rounded-[12px] corner-squircle text-xs font-medium transition-all cursor-pointer",
+                isDarkActive ? "bg-[#18181b] dark:bg-white text-white dark:text-zinc-900 shadow-sm" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 bg-transparent"
+              ),
+              children: [
+                /* @__PURE__ */ jsx11(Moon, { className: "size-3.5 stroke-[2]" }),
+                /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u062F\u0627\u0643\u0646" : "Dark" })
+              ]
+            }
+          )
+        ] }) })
+      ] })
+    ] });
+  };
+  const renderPlanDetail = () => {
+    if (!plan && !shouldShowPlan) {
+      return /* @__PURE__ */ jsx11("div", { className: "p-8 text-center bg-white dark:bg-zinc-900 rounded-[16px] border border-zinc-200 dark:border-zinc-800", children: /* @__PURE__ */ jsx11("p", { className: "text-sm text-zinc-500", children: isRTL ? "\u0644\u0627 \u062A\u0648\u062C\u062F \u062A\u0641\u0627\u0635\u064A\u0644 \u062E\u0637\u0629 \u0646\u0634\u0637\u0629 \u0645\u062A\u0627\u062D\u0629" : "No active plan details available" }) });
+    }
+    return /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
+        /* @__PURE__ */ jsx11("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u062E\u0637\u0629 \u0627\u0644\u062D\u0627\u0644\u064A\u0629" : "Current Plan" }),
+        /* @__PURE__ */ jsx11("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? `\u0627\u0634\u062A\u0631\u0627\u0643\u0643 \u0641\u064A ${platformDisplayName}` : `Your ${platformDisplayName} subscription` })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
+          /* @__PURE__ */ jsx11(Sparkles, { className: "size-4 text-zinc-700 dark:text-zinc-300 shrink-0" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u062E\u0637\u0629" : "Plan" })
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 flex-wrap flex-1", children: [
+          /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200", children: planName }),
+          /* @__PURE__ */ jsx11("span", { className: "bg-[#EEF2FF] dark:bg-blue-950/60 text-[#305DFD] dark:text-blue-400 text-[11px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-[8px] corner-squircle inline-flex items-center leading-none", children: planBadge })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
+          /* @__PURE__ */ jsx11(CreditCard, { className: "size-4 text-zinc-700 dark:text-zinc-300 shrink-0" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u062F\u0641\u0639 \u0627\u0644\u062A\u0627\u0644\u064A" : "Next payment" })
+        ] }),
+        /* @__PURE__ */ jsx11("div", { className: "text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200 flex-1", children: nextPaymentDate })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 md:w-44 shrink-0", children: [
+          /* @__PURE__ */ jsx11(Sliders, { className: "size-4 text-zinc-700 dark:text-zinc-300 shrink-0" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0631\u0635\u064A\u062F" : "Credits" })
+        ] }),
+        /* @__PURE__ */ jsxs8("div", { className: "flex-1 flex flex-col gap-1.5 w-full", children: [
+          /* @__PURE__ */ jsxs8("div", { className: "flex items-center justify-between text-xs font-medium", children: [
+            /* @__PURE__ */ jsx11("span", { className: "text-zinc-700 dark:text-zinc-300", children: isRTL ? `\u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645: ${usedCredits.toLocaleString()}` : `Used: ${usedCredits.toLocaleString()}` }),
+            /* @__PURE__ */ jsx11("span", { className: "text-zinc-500 dark:text-zinc-400", children: isRTL ? `\u0627\u0644\u0645\u062A\u0627\u062D: ${availableCredits.toLocaleString()}` : `Available: ${availableCredits.toLocaleString()}` })
+          ] }),
+          /* @__PURE__ */ jsx11("div", { className: "w-full h-1.5 sm:h-2 bg-[#E5E7EB] dark:bg-zinc-800 rounded-full overflow-hidden", children: /* @__PURE__ */ jsx11(
+            "div",
+            {
+              className: "h-full bg-[#183EC2] dark:bg-[#305DFD] rounded-full transition-all duration-500",
+              style: { width: `${usagePercentage}%` }
+            }
+          ) })
+        ] })
+      ] })
+    ] });
+  };
+  const renderSecurityDetail = () => {
+    return /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
+        /* @__PURE__ */ jsx11("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u0623\u0645\u0627\u0646 \u0648\u0627\u0644\u062C\u0644\u0633\u0627\u062A" : "Security & Sessions" }),
+        /* @__PURE__ */ jsx11("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? "\u0625\u062F\u0627\u0631\u0629 \u0623\u0645\u0627\u0646 \u0627\u0644\u062D\u0633\u0627\u0628 \u0648\u062C\u0644\u0633\u0627\u062A \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0627\u0644\u0646\u0634\u0637\u0629" : "Account protection and active login sessions" })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex flex-col", children: [
+          /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u062D\u0627\u0644\u0629 \u0627\u0644\u0623\u0645\u0627\u0646" : "Security Status" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-xs text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? "\u062A\u0633\u062C\u064A\u0644 \u062F\u062E\u0648\u0644 \u0622\u0645\u0646 \u0628\u0648\u0627\u0633\u0637\u0629 \u0631\u0645\u0648\u0632 \u0627\u0644\u062C\u0644\u0633\u0627\u062A \u0627\u0644\u0645\u0639\u062A\u0645\u062F\u0629" : "Protected via authenticated browser tokens" })
+        ] }),
+        /* @__PURE__ */ jsxs8("span", { className: "inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-[8px] self-start sm:self-center", children: [
+          /* @__PURE__ */ jsx11(Check3, { className: "size-3.5" }),
+          /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u0622\u0645\u0646 \u0648\u0645\u062D\u0645\u064A" : "Secure" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [
+        /* @__PURE__ */ jsxs8("div", { className: "flex flex-col", children: [
+          /* @__PURE__ */ jsx11("span", { className: "text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u062C\u0644\u0633\u0629 \u0627\u0644\u062D\u0627\u0644\u064A\u0629" : "Current Session" }),
+          /* @__PURE__ */ jsx11("span", { className: "text-xs text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? "\u0627\u0644\u062C\u0647\u0627\u0632 \u0627\u0644\u062D\u0627\u0644\u064A \u0646\u0634\u0637 \u0648\u0645\u062A\u0635\u0644 \u0628\u0627\u0644\u0646\u0638\u0627\u0645" : "This browser device is active and verified" })
+        ] }),
+        /* @__PURE__ */ jsx11("span", { className: "text-xs text-zinc-600 dark:text-zinc-300 font-mono bg-zinc-100 dark:bg-zinc-800 px-2.5 py-1 rounded-[8px] self-start sm:self-center", children: resolvedAuthUser ? `Session: #${resolvedAuthUser}` : "Session: Default" })
+      ] })
+    ] });
+  };
+  const renderMobileSectionList = () => {
+    return /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-3 w-full", children: [
+      /* @__PURE__ */ jsxs8(
+        "div",
+        {
+          onClick: () => setActiveSection("profile"),
+          className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] corner-squircle p-4 flex items-center justify-between gap-3 active:scale-[0.99] transition-transform cursor-pointer",
+          children: [
+            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-3 min-w-0", children: [
+              /* @__PURE__ */ jsxs8(Avatar, { className: "size-12 !rounded-[12px] corner-squircle overflow-hidden shrink-0 border border-black/5 dark:border-white/10", children: [
+                userImage && /* @__PURE__ */ jsx11(AvatarImage, { src: userImage, alt: userName, className: "!rounded-[12px]" }),
+                /* @__PURE__ */ jsx11(AvatarFallback, { className: "!rounded-none bg-[#183EC2] text-white font-semibold text-sm flex items-center justify-center", children: initials })
+              ] }),
+              /* @__PURE__ */ jsxs8("div", { className: "flex flex-col min-w-0", children: [
+                /* @__PURE__ */ jsx11("span", { className: "text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate", children: userName }),
+                /* @__PURE__ */ jsx11("span", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate mt-0.5", children: userEmail })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx11(ChevronRight3, { className: cn("size-5 text-zinc-400 shrink-0", isRTL && "rotate-180") })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx11("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: sections.map((section) => /* @__PURE__ */ jsxs8(
+        "button",
+        {
+          type: "button",
+          onClick: () => setActiveSection(section.key),
+          className: "w-full p-4 flex items-center justify-between gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors text-start cursor-pointer",
+          children: [
+            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-3 min-w-0", children: [
+              /* @__PURE__ */ jsx11("div", { className: "size-9 rounded-[10px] corner-squircle bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0", children: section.icon }),
+              /* @__PURE__ */ jsxs8("div", { className: "flex flex-col min-w-0", children: [
+                /* @__PURE__ */ jsx11("span", { className: "text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate", children: isRTL ? section.titleAr : section.title }),
+                /* @__PURE__ */ jsx11("span", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate mt-0.5", children: isRTL ? section.descriptionAr : section.description })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx11(ChevronRight3, { className: cn("size-4 text-zinc-400 shrink-0", isRTL && "rotate-180") })
+          ]
+        },
+        section.key
+      )) })
+    ] });
+  };
+  const renderActiveDetailView = () => {
+    switch (activeSection) {
+      case "profile":
+        return renderProfileDetail();
+      case "preferences":
+        return renderPreferencesDetail();
+      case "plan":
+        return renderPlanDetail();
+      case "security":
+        return renderSecurityDetail();
+      default:
+        return renderProfileDetail();
+    }
+  };
+  return /* @__PURE__ */ jsx11(
     DrawerDialog,
     {
       open,
       onOpenChange,
       onClose: () => onOpenChange(false),
-      title: isRTL ? "\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Settings",
+      title: modalTitle,
       dir: isRTL ? "rtl" : "ltr",
       size: "2xl",
-      className: "!rounded-[16px] sm:!rounded-[20px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden",
-      headerClassName: "px-6 py-4 border-b border-zinc-200/80 dark:border-zinc-800/80",
-      bodyClassName: "p-4 sm:p-6 md:p-7 bg-[#FAFAFA] dark:bg-zinc-950",
-      children: /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-6 sm:gap-7 w-full", children: [
-        /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
-            /* @__PURE__ */ jsx10("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u0634\u062E\u0635\u064A" : "Profile" }),
-            /* @__PURE__ */ jsx10("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? `\u0645\u0639\u0644\u0648\u0645\u0627\u062A \u062D\u0633\u0627\u0628\u0643 \u0641\u064A ${platformDisplayName}` : `Your account information in ${platformDisplayName}` })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-3.5", children: [
-              /* @__PURE__ */ jsxs8(Avatar, { className: "size-11 sm:size-12 !rounded-[12px] sm:!rounded-[14px] corner-squircle overflow-hidden shrink-0 border border-black/5 dark:border-white/10", children: [
-                userImage && /* @__PURE__ */ jsx10(AvatarImage, { src: userImage, alt: userName, className: "!rounded-[12px] sm:!rounded-[14px]" }),
-                /* @__PURE__ */ jsx10(AvatarFallback, { className: "!rounded-none bg-[#183EC2] text-white font-semibold text-sm sm:text-base flex items-center justify-center", children: initials })
-              ] }),
-              /* @__PURE__ */ jsxs8("div", { className: "flex flex-col min-w-0", children: [
-                /* @__PURE__ */ jsx10("span", { className: "text-[14px] sm:text-[15px] font-semibold text-zinc-900 dark:text-zinc-100 truncate", children: userName }),
-                /* @__PURE__ */ jsx10("span", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5", children: userEmail })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxs8(
-              "a",
+      back: handleBack,
+      backLabel: isRTL ? "\u0631\u062C\u0648\u0639" : "Back",
+      className: "!rounded-[16px] sm:!rounded-[24px] corner-squircle bg-[#FAFAFA] dark:bg-zinc-950 overflow-hidden max-h-[88dvh]",
+      headerClassName: "px-5 sm:px-6 py-4 border-b border-zinc-200/80 dark:border-zinc-800/80",
+      bodyClassName: "p-4 sm:p-6 bg-[#FAFAFA] dark:bg-zinc-950 overflow-y-auto max-h-[calc(88dvh-5rem)] pb-[calc(env(safe-area-inset-bottom,0px)+1.5rem)]",
+      children: isMobile ? (
+        // Mobile View: Either the Section List, or the Selected Detail View with top back navigation
+        /* @__PURE__ */ jsx11("div", { className: "flex flex-col w-full", children: activeSection === null ? renderMobileSectionList() : /* @__PURE__ */ jsxs8("div", { className: "flex flex-col w-full", children: [
+          /* @__PURE__ */ jsxs8(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveSection(null),
+              className: "flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white mb-3 cursor-pointer self-start",
+              children: [
+                /* @__PURE__ */ jsx11(ChevronLeft2, { className: cn("size-4", isRTL && "rotate-180") }),
+                /* @__PURE__ */ jsx11("span", { children: isRTL ? "\u0627\u0644\u0631\u062C\u0648\u0639 \u0625\u0644\u0649 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A" : "Back to settings list" })
+              ]
+            }
+          ),
+          renderActiveDetailView()
+        ] }) })
+      ) : (
+        // Desktop View: Two-pane section navigation (Tabs on left, Detail on right)
+        /* @__PURE__ */ jsxs8("div", { className: "flex gap-6 w-full items-start min-h-[420px]", children: [
+          /* @__PURE__ */ jsx11("div", { className: "w-56 shrink-0 flex flex-col gap-1.5 bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[18px] corner-squircle p-2 shadow-[0_1px_2px_rgba(0,0,0,0.02)]", children: sections.map((section) => {
+            const isActive = (activeSection || "profile") === section.key;
+            return /* @__PURE__ */ jsxs8(
+              "button",
               {
-                href: myNitxDashboardUrl,
-                onClick: handleManageAccountClick,
-                className: "group flex items-center gap-1.5 text-xs sm:text-[13px] font-medium text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer self-start sm:self-center shrink-0",
+                type: "button",
+                onClick: () => setActiveSection(section.key),
+                className: cn(
+                  "flex items-center gap-3 w-full px-3 py-2.5 rounded-[12px] corner-squircle text-xs sm:text-sm font-medium transition-all text-start cursor-pointer",
+                  isActive ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold" : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-zinc-100"
+                ),
                 children: [
-                  /* @__PURE__ */ jsx10("span", { children: isRTL ? "\u0625\u062F\u0627\u0631\u0629 \u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u062D\u0633\u0627\u0628" : "Manage account details" }),
-                  /* @__PURE__ */ jsx10(
-                    ArrowRight,
-                    {
-                      className: cn(
-                        "size-3.5 sm:size-4 text-zinc-700 dark:text-zinc-300 group-hover:translate-x-0.5 transition-transform",
-                        isRTL && "rotate-180 group-hover:-translate-x-0.5"
-                      )
-                    }
-                  )
+                  /* @__PURE__ */ jsx11("div", { className: cn(
+                    "size-7 rounded-[8px] corner-squircle flex items-center justify-center shrink-0",
+                    isActive ? "bg-white dark:bg-zinc-700 shadow-xs" : "bg-zinc-100 dark:bg-zinc-800"
+                  ), children: section.icon }),
+                  /* @__PURE__ */ jsx11("span", { className: "truncate", children: isRTL ? section.titleAr : section.title })
                 ]
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
-            /* @__PURE__ */ jsx10("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u062A\u0641\u0636\u064A\u0644\u0627\u062A \u0627\u0644\u0639\u0627\u0645\u0629" : "General Preferences" }),
-            /* @__PURE__ */ jsx10("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? `\u0643\u064A\u0641 \u064A\u0628\u062F\u0648 \u0648\u064A\u062A\u062D\u062F\u062B \u0625\u0644\u064A\u0643 ${platformDisplayName}` : `How ${platformDisplayName} looks and speaks to you` })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
-              /* @__PURE__ */ jsx10(Globe, { className: "size-[18px] text-zinc-700 dark:text-zinc-300 shrink-0 stroke-[1.75]" }),
-              /* @__PURE__ */ jsx10("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0644\u063A\u0629" : "Language" })
-            ] }),
-            /* @__PURE__ */ jsx10("div", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 flex-1 sm:px-2", children: isRTL ? "\u0627\u062E\u062A\u0631 \u0644\u063A\u0629 \u0627\u0644\u0648\u0627\u062C\u0647\u0629" : "Choose your interface language" }),
-            /* @__PURE__ */ jsx10("div", { className: "sm:self-center shrink-0 w-full sm:w-auto", children: /* @__PURE__ */ jsxs8(Select, { value: language, onValueChange: handleLanguageChange, children: [
-              /* @__PURE__ */ jsx10(SelectTrigger, { className: "h-9 sm:h-10 min-w-[120px] sm:min-w-[145px] w-full sm:w-auto rounded-[12px] corner-squircle border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 px-3 py-2 text-xs sm:text-sm font-normal text-zinc-800 dark:text-zinc-200 shadow-none hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors focus:ring-1 focus:ring-zinc-400", children: /* @__PURE__ */ jsx10(SelectValue, { placeholder: "Language" }) }),
-              /* @__PURE__ */ jsxs8(SelectContent, { className: "rounded-[16px] corner-squircle border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-lg", children: [
-                /* @__PURE__ */ jsx10(SelectItem, { value: "en", className: "text-xs sm:text-sm py-2", children: "English" }),
-                /* @__PURE__ */ jsx10(SelectItem, { value: "ar", className: "text-xs sm:text-sm py-2", children: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629" })
-              ] })
-            ] }) })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
-              /* @__PURE__ */ jsxs8("svg", { width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-zinc-800 dark:text-zinc-200 shrink-0", children: [
-                /* @__PURE__ */ jsxs8("g", { clipPath: "url(#clip0_20945_12529)", children: [
-                  /* @__PURE__ */ jsx10("path", { d: "M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M9 16.5V1.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M9 5.25H15.375", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M9 12.75H15.375", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M9 9H16.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round" })
-                ] }),
-                /* @__PURE__ */ jsx10("defs", { children: /* @__PURE__ */ jsx10("clipPath", { id: "clip0_20945_12529", children: /* @__PURE__ */ jsx10("rect", { width: "18", height: "18", fill: "white" }) }) })
-              ] }),
-              /* @__PURE__ */ jsx10("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0645\u0638\u0647\u0631" : "Theme" })
-            ] }),
-            /* @__PURE__ */ jsx10("div", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 flex-1 sm:px-2", children: isRTL ? "\u0627\u062E\u062A\u0631 \u0645\u0638\u0647\u0631 \u0627\u0644\u0648\u0627\u062C\u0647\u0629" : "Choose your interface appearance" }),
-            /* @__PURE__ */ jsx10("div", { className: "sm:self-center shrink-0", children: /* @__PURE__ */ jsxs8("div", { className: "inline-flex items-center p-1 rounded-[14px] sm:rounded-[16px] corner-squircle border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50/50 dark:bg-zinc-850 gap-1", children: [
-              /* @__PURE__ */ jsxs8(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => handleThemeChange("light"),
-                  className: cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] sm:rounded-[12px] corner-squircle text-xs font-medium transition-all cursor-pointer",
-                    !isDarkActive ? "bg-[#18181b] text-white shadow-sm" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 bg-transparent"
-                  ),
-                  children: [
-                    /* @__PURE__ */ jsx10(Sun, { className: "size-3.5 stroke-[2]" }),
-                    /* @__PURE__ */ jsx10("span", { children: isRTL ? "\u0641\u0627\u062A\u062D" : "Light" })
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsxs8(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => handleThemeChange("dark"),
-                  className: cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] sm:rounded-[12px] corner-squircle text-xs font-medium transition-all cursor-pointer",
-                    isDarkActive ? "bg-[#18181b] dark:bg-white text-white dark:text-zinc-900 shadow-sm" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 bg-transparent"
-                  ),
-                  children: [
-                    /* @__PURE__ */ jsx10(Moon, { className: "size-3.5 stroke-[2]" }),
-                    /* @__PURE__ */ jsx10("span", { children: isRTL ? "\u062F\u0627\u0643\u0646" : "Dark" })
-                  ]
-                }
-              )
-            ] }) })
-          ] })
-        ] }),
-        shouldShowPlan && /* @__PURE__ */ jsxs8("div", { className: "w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden", children: [
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4", children: [
-            /* @__PURE__ */ jsx10("h3", { className: "text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight", children: isRTL ? "\u0627\u0644\u062E\u0637\u0629 \u0627\u0644\u062D\u0627\u0644\u064A\u0629" : "Current Plan" }),
-            /* @__PURE__ */ jsx10("p", { className: "text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5", children: isRTL ? "\u0627\u0634\u062A\u0631\u0627\u0643\u0643 \u0641\u064A Nitx Studio" : "Your Nitx Studio subscription" })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
-              /* @__PURE__ */ jsxs8("svg", { width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-zinc-800 dark:text-zinc-200 shrink-0", children: [
-                /* @__PURE__ */ jsxs8("g", { clipPath: "url(#clip0_20945_12551)", children: [
-                  /* @__PURE__ */ jsx10("path", { d: "M3.75 15H14.25", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M5.99998 9C5.17155 9 4.49998 8.32845 4.49998 7.5C4.49998 7.3417 4.5245 7.18912 4.56996 7.04587L2.65475 5.41741C2.37889 5.18284 1.96314 5.1963 1.70394 5.44817C1.52028 5.62665 1.45412 5.88964 1.53234 6.13033L3.4071 11.7265C3.61194 12.3379 4.1846 12.75 4.82941 12.75H13.1706C13.8154 12.75 14.3881 12.3379 14.5929 11.7265L16.4677 6.13033C16.5459 5.88964 16.4797 5.62665 16.2961 5.44817C16.0369 5.1963 15.6211 5.18284 15.3452 5.41741L13.43 7.04589C13.4755 7.18914 13.5 7.3417 13.5 7.5C13.5 8.32845 12.8284 9 12 9C11.1715 9 10.5 8.32845 10.5 7.5C10.5 7.02214 10.7234 6.59647 11.0716 6.32178L9.51922 2.59615C9.43185 2.38654 9.2271 2.25 9 2.25C8.7729 2.25 8.56807 2.38654 8.48077 2.59615L6.92841 6.32178C7.27653 6.59647 7.49998 7.02214 7.49998 7.5C7.49998 8.32845 6.82841 9 5.99998 9Z", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" })
-                ] }),
-                /* @__PURE__ */ jsx10("defs", { children: /* @__PURE__ */ jsx10("clipPath", { id: "clip0_20945_12551", children: /* @__PURE__ */ jsx10("rect", { width: "18", height: "18", fill: "white" }) }) })
-              ] }),
-              /* @__PURE__ */ jsx10("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u062E\u0637\u0629" : "Plan" })
-            ] }),
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 flex-wrap flex-1", children: [
-              /* @__PURE__ */ jsx10("span", { className: "text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200", children: planName }),
-              /* @__PURE__ */ jsx10("span", { className: "bg-[#EEF2FF] dark:bg-blue-950/60 text-[#305DFD] dark:text-blue-400 text-[11px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-[8px] corner-squircle inline-flex items-center leading-none", children: planBadge })
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0", children: [
-              /* @__PURE__ */ jsxs8("svg", { width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-zinc-800 dark:text-zinc-200 shrink-0", children: [
-                /* @__PURE__ */ jsxs8("g", { clipPath: "url(#clip0_20945_12598)", children: [
-                  /* @__PURE__ */ jsx10("path", { d: "M12 1.5V4.5M6 1.5V4.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M9.75 3H8.25C5.42157 3 4.00736 3 3.12868 3.87868C2.25 4.75736 2.25 6.17157 2.25 9V10.5C2.25 13.3284 2.25 14.7427 3.12868 15.6213C4.00736 16.5 5.42157 16.5 8.25 16.5H9.75C12.5784 16.5 13.9927 16.5 14.8713 15.6213C15.75 14.7427 15.75 13.3284 15.75 10.5V9C15.75 6.17157 15.75 4.75736 14.8713 3.87868C13.9927 3 12.5784 3 9.75 3Z", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M2.25 7.5H15.75", stroke: "currentColor", strokeWidth: "1.35", strokeLinecap: "round", strokeLinejoin: "round" })
-                ] }),
-                /* @__PURE__ */ jsx10("defs", { children: /* @__PURE__ */ jsx10("clipPath", { id: "clip0_20945_12598", children: /* @__PURE__ */ jsx10("rect", { width: "18", height: "18", fill: "white" }) }) })
-              ] }),
-              /* @__PURE__ */ jsx10("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u062F\u0641\u0639 \u0627\u0644\u062A\u0627\u0644\u064A" : "Next payment" })
-            ] }),
-            /* @__PURE__ */ jsx10("div", { className: "text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200 flex-1", children: nextPaymentDate })
-          ] }),
-          /* @__PURE__ */ jsxs8("div", { className: "p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4", children: [
-            /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2.5 md:w-44 shrink-0", children: [
-              /* @__PURE__ */ jsxs8("svg", { width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-zinc-800 dark:text-zinc-200 shrink-0", children: [
-                /* @__PURE__ */ jsxs8("g", { clipPath: "url(#clip0_20945_12612)", children: [
-                  /* @__PURE__ */ jsx10("path", { d: "M1.5 4.5L6.68476 7.43773C8.5962 8.52075 9.4038 8.52075 11.3152 7.43773L16.5 4.5", stroke: "currentColor", strokeWidth: "1.35", strokeLinejoin: "round" }),
-                  /* @__PURE__ */ jsx10("path", { d: "M1.51183 10.1067C1.56086 12.4059 1.58537 13.5554 2.43372 14.4071C3.28206 15.2586 4.46275 15.2882 6.82412 15.3476C8.27948 15.3842 9.72053 15.3842 11.1759 15.3476C13.5373 15.2882 14.7179 15.2586 15.5663 14.4071C16.4147 13.5554 16.4392 12.4059 16.4881 10.1067C16.504 9.36743 16.504 8.63258 16.4881 7.8933C16.4392 5.59415 16.4147 4.44457 15.5663 3.593C14.7179 2.74142 13.5373 2.71176 11.1759 2.65243C9.72053 2.61586 8.27947 2.61586 6.82411 2.65242C4.46275 2.71175 3.28206 2.74141 2.43371 3.59299C1.58537 4.44456 1.56085 5.59414 1.51182 7.8933C1.49605 8.63258 1.49606 9.36743 1.51183 10.1067Z", stroke: "currentColor", strokeWidth: "1.35", strokeLinejoin: "round" })
-                ] }),
-                /* @__PURE__ */ jsx10("defs", { children: /* @__PURE__ */ jsx10("clipPath", { id: "clip0_20945_12612", children: /* @__PURE__ */ jsx10("rect", { width: "18", height: "18", fill: "white" }) }) })
-              ] }),
-              /* @__PURE__ */ jsx10("span", { className: "text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100", children: isRTL ? "\u0627\u0644\u0631\u0635\u064A\u062F" : "Credits" })
-            ] }),
-            /* @__PURE__ */ jsxs8("div", { className: "flex-1 flex flex-col gap-1.5 w-full", children: [
-              /* @__PURE__ */ jsxs8("div", { className: "flex items-center justify-between text-xs font-medium", children: [
-                /* @__PURE__ */ jsx10("span", { className: "text-zinc-700 dark:text-zinc-300", children: isRTL ? `\u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645: ${usedCredits.toLocaleString()}` : `Used: ${usedCredits.toLocaleString()}` }),
-                /* @__PURE__ */ jsx10("span", { className: "text-zinc-500 dark:text-zinc-400", children: isRTL ? `\u0627\u0644\u0645\u062A\u0627\u062D: ${availableCredits.toLocaleString()}` : `Available: ${availableCredits.toLocaleString()}` })
-              ] }),
-              /* @__PURE__ */ jsx10("div", { className: "w-full h-1.5 sm:h-2 bg-[#E5E7EB] dark:bg-zinc-800 rounded-full overflow-hidden", children: /* @__PURE__ */ jsx10(
-                "div",
-                {
-                  className: "h-full bg-[#183EC2] dark:bg-[#305DFD] rounded-full transition-all duration-500",
-                  style: { width: `${usagePercentage}%` }
-                }
-              ) })
-            ] })
-          ] })
+              },
+              section.key
+            );
+          }) }),
+          /* @__PURE__ */ jsx11("div", { className: "flex-1 min-w-0", children: renderActiveDetailView() })
         ] })
-      ] })
+      )
     }
   );
 }
 
 // src/components/user-account/account.tsx
-import { Fragment, jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
 var UserAccount = ({
   accounts,
   isExpanded,
@@ -3564,15 +3908,15 @@ var UserAccount = ({
   const shouldShowCompact = !isExpanded || isMobile;
   return /* @__PURE__ */ jsxs9("div", { className: "relative w-full", children: [
     /* @__PURE__ */ jsxs9(DropdownMenu, { onOpenChange: () => setOnOpen(!onOpen), children: [
-      /* @__PURE__ */ jsx11(DropdownMenuTrigger, { asChild: true, children: shouldShowCompact ? /* @__PURE__ */ jsxs9(
+      /* @__PURE__ */ jsx12(DropdownMenuTrigger, { asChild: true, children: shouldShowCompact ? /* @__PURE__ */ jsxs9(
         Avatar,
         {
           className: cn(
             "rounded-[10px] size-10 lg:size-[40px] overflow-clip cursor-pointer mx-auto"
           ),
           children: [
-            /* @__PURE__ */ jsx11(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-            /* @__PURE__ */ jsx11(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
+            /* @__PURE__ */ jsx12(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+            /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
           ]
         }
       ) : /* @__PURE__ */ jsxs9(
@@ -3590,17 +3934,17 @@ var UserAccount = ({
                   "rounded-[10px] corner-squircle size-10 lg:size-12 overflow-clip shrink-0"
                 ),
                 children: [
-                  /* @__PURE__ */ jsx11(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
-                  /* @__PURE__ */ jsx11(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
+                  /* @__PURE__ */ jsx12(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+                  /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
                 ]
               }
             ),
             /* @__PURE__ */ jsxs9("div", { className: "w-full hidden lg:flex items-center gap-2 min-w-0", children: [
               /* @__PURE__ */ jsxs9("div", { className: "w-full flex flex-col gap-0.5 min-w-0", children: [
-                /* @__PURE__ */ jsx11("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
-                /* @__PURE__ */ jsx11("p", { className: "text-xs max-w-[80%] truncate text-zinc-500 dark:text-zinc-400", children: activeAccount.email })
+                /* @__PURE__ */ jsx12("span", { className: "text-sm max-w-[80%] truncate ", children: activeAccount.name }),
+                /* @__PURE__ */ jsx12("p", { className: "text-xs max-w-[80%] truncate text-zinc-500 dark:text-zinc-400", children: activeAccount.email })
               ] }),
-              /* @__PURE__ */ jsx11("div", { children: /* @__PURE__ */ jsx11(
+              /* @__PURE__ */ jsx12("div", { children: /* @__PURE__ */ jsx12(
                 ChevronDown2,
                 {
                   className: cn(
@@ -3631,24 +3975,24 @@ var UserAccount = ({
                   className: "w-full h-auto p-2 rounded-[12px] corner-squircle flex items-center gap-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
                   children: [
                     /* @__PURE__ */ jsxs9(Avatar, { className: "rounded-[8px] corner-squircle size-8 shrink-0", children: [
-                      /* @__PURE__ */ jsx11(
+                      /* @__PURE__ */ jsx12(
                         AvatarImage,
                         {
                           className: "rounded-[8px] size-8 overflow-clip",
                           src: `${account.imageUrl}`
                         }
                       ),
-                      /* @__PURE__ */ jsx11(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
+                      /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
                     ] }),
                     /* @__PURE__ */ jsxs9("div", { className: "w-full flex flex-col gap-0.5 min-w-0", children: [
-                      /* @__PURE__ */ jsx11("span", { className: "text-sm font-medium truncate", children: account.name }),
-                      /* @__PURE__ */ jsx11("p", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate", children: account.email })
+                      /* @__PURE__ */ jsx12("span", { className: "text-sm font-medium truncate", children: account.name }),
+                      /* @__PURE__ */ jsx12("p", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate", children: account.email })
                     ] }),
-                    /* @__PURE__ */ jsx11(BadgeCheck, { className: "w-4 h-4 mr-1 shrink-0 text-white fill-primary" })
+                    /* @__PURE__ */ jsx12(BadgeCheck, { className: "w-4 h-4 mr-1 shrink-0 text-white fill-primary" })
                   ]
                 },
                 account.id
-              ) : /* @__PURE__ */ jsx11(
+              ) : /* @__PURE__ */ jsx12(
                 DropdownMenuItem,
                 {
                   className: "w-full h-auto p-2 rounded-[12px] corner-squircle flex items-center gap-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer transition duration-300",
@@ -3668,18 +4012,18 @@ var UserAccount = ({
                       },
                       children: [
                         /* @__PURE__ */ jsxs9(Avatar, { className: "rounded-[8px] corner-squircle size-8 shrink-0", children: [
-                          /* @__PURE__ */ jsx11(
+                          /* @__PURE__ */ jsx12(
                             AvatarImage,
                             {
                               className: "rounded-[8px] size-8 overflow-clip",
                               src: `${account.imageUrl}`
                             }
                           ),
-                          /* @__PURE__ */ jsx11(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
+                          /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
                         ] }),
                         /* @__PURE__ */ jsxs9("div", { className: "w-full flex flex-col gap-0.5 min-w-0", children: [
-                          /* @__PURE__ */ jsx11("span", { className: "text-sm font-medium truncate", children: account.name }),
-                          /* @__PURE__ */ jsx11("p", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate", children: account.email })
+                          /* @__PURE__ */ jsx12("span", { className: "text-sm font-medium truncate", children: account.name }),
+                          /* @__PURE__ */ jsx12("p", { className: "text-xs text-zinc-500 dark:text-zinc-400 truncate", children: account.email })
                         ] })
                       ]
                     }
@@ -3688,7 +4032,7 @@ var UserAccount = ({
                 account.id
               )
             ),
-            /* @__PURE__ */ jsx11(
+            /* @__PURE__ */ jsx12(
               DropdownMenuItem,
               {
                 asChild: true,
@@ -3699,14 +4043,14 @@ var UserAccount = ({
                     target: "_blank",
                     href: `${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`,
                     children: [
-                      /* @__PURE__ */ jsx11(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
-                      /* @__PURE__ */ jsx11("span", { children: t("userAccount.addAnotherAccount") })
+                      /* @__PURE__ */ jsx12(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
+                      /* @__PURE__ */ jsx12("span", { children: t("userAccount.addAnotherAccount") })
                     ]
                   }
                 )
               }
             ),
-            /* @__PURE__ */ jsx11(
+            /* @__PURE__ */ jsx12(
               DropdownMenuItem,
               {
                 onClick: handleSettingsClick,
@@ -3720,23 +4064,23 @@ var UserAccount = ({
                 className: "w-full dark:hover:bg-zinc-700/60 hover:bg-zinc-100 rounded-lg py-3 px-4 mb-1 gap-2.5 cursor-pointer text-sm font-normal text-zinc-800 dark:text-zinc-200 flex items-center",
                 asChild: !!settingsHref,
                 children: settingsHref ? /* @__PURE__ */ jsxs9(Link2, { href: settingsHref, children: [
-                  /* @__PURE__ */ jsx11(Settings, { className: "w-4 h-4 stroke-[1.5]" }),
-                  /* @__PURE__ */ jsx11("span", { children: t("userAccount.settings") || "Settings" })
+                  /* @__PURE__ */ jsx12(Settings, { className: "w-4 h-4 stroke-[1.5]" }),
+                  /* @__PURE__ */ jsx12("span", { children: t("userAccount.settings") || "Settings" })
                 ] }) : /* @__PURE__ */ jsxs9(Fragment, { children: [
-                  /* @__PURE__ */ jsx11(Settings, { className: "w-4 h-4 stroke-[1.5]" }),
-                  /* @__PURE__ */ jsx11("span", { children: t("userAccount.settings") || "Settings" })
+                  /* @__PURE__ */ jsx12(Settings, { className: "w-4 h-4 stroke-[1.5]" }),
+                  /* @__PURE__ */ jsx12("span", { children: t("userAccount.settings") || "Settings" })
                 ] })
               }
             ),
-            /* @__PURE__ */ jsx11(DropdownMenuSeparator, {}),
+            /* @__PURE__ */ jsx12(DropdownMenuSeparator, {}),
             /* @__PURE__ */ jsxs9(
               DropdownMenuItem,
               {
                 onClick: handleSignOut,
                 className: "w-full flex justify-start py-3 px-4 gap-2.5 items-center transition ease-in-out text-sm rounded-lg text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 cursor-pointer",
                 children: [
-                  /* @__PURE__ */ jsx11(LogOut, { className: "w-4 h-4 stroke-[1.5] text-red-500" }),
-                  /* @__PURE__ */ jsx11("span", { className: "text-red-500", children: t("userAccount.signOut") })
+                  /* @__PURE__ */ jsx12(LogOut, { className: "w-4 h-4 stroke-[1.5] text-red-500" }),
+                  /* @__PURE__ */ jsx12("span", { className: "text-red-500", children: t("userAccount.signOut") })
                 ]
               }
             )
@@ -3744,7 +4088,7 @@ var UserAccount = ({
         }
       )
     ] }),
-    /* @__PURE__ */ jsx11(
+    /* @__PURE__ */ jsx12(
       AccountPreferencesModal,
       {
         open: isPreferencesModalOpen,
@@ -3772,8 +4116,8 @@ import {
   useContext,
   useState as useState5,
   useEffect as useEffect5,
-  useCallback,
-  useMemo as useMemo2
+  useCallback as useCallback2,
+  useMemo as useMemo3
 } from "react";
 
 // src/components/space-selector/lib/space-recent.ts
@@ -3925,7 +4269,7 @@ function sortSpacesByLastUsed(spaces, recentMap = {}, activeSpace) {
 }
 
 // src/components/space-selector/context.tsx
-import { jsx as jsx12 } from "react/jsx-runtime";
+import { jsx as jsx13 } from "react/jsx-runtime";
 var SpaceSelectorContext = createContext(void 0);
 var useOptionalSpaceSelector = () => {
   return useContext(SpaceSelectorContext);
@@ -3980,7 +4324,7 @@ var SpaceSelectorProvider = ({
       setRecentMap(updated);
     }
   }, [activeSpace, authUser]);
-  const handleSpaceSelect = useCallback(
+  const handleSpaceSelect = useCallback2(
     (space) => {
       const updated = recordSpaceUsage(space, authUser);
       setRecentMap(updated);
@@ -3988,14 +4332,14 @@ var SpaceSelectorProvider = ({
     },
     [authUser, onSpaceSelect]
   );
-  const sortedSpaces = useMemo2(() => {
+  const sortedSpaces = useMemo3(() => {
     return sortSpacesByLastUsed(spaces, recentMap, activeSpace);
   }, [spaces, recentMap, activeSpace]);
   const setModal = (modal) => {
     setActiveModal(modal);
     if (modal === null) setModalProps({});
   };
-  return /* @__PURE__ */ jsx12(
+  return /* @__PURE__ */ jsx13(
     SpaceSelectorContext.Provider,
     {
       value: {
@@ -4046,10 +4390,10 @@ function cn2(...inputs) {
 }
 
 // src/components/space-selector/ui/input.tsx
-import { jsx as jsx13 } from "react/jsx-runtime";
+import { jsx as jsx14 } from "react/jsx-runtime";
 var Input = React10.forwardRef(
   ({ className, type, ...props }, ref) => {
-    return /* @__PURE__ */ jsx13(
+    return /* @__PURE__ */ jsx14(
       "input",
       {
         type,
@@ -4066,11 +4410,11 @@ var Input = React10.forwardRef(
 Input.displayName = "Input";
 
 // src/components/space-selector/ui/search-input.tsx
-import { jsx as jsx14, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs10 } from "react/jsx-runtime";
 var SearchInput = (props) => {
   const { t } = useNitxUiTranslation();
   return /* @__PURE__ */ jsxs10("div", { className: "relative flex-grow", children: [
-    /* @__PURE__ */ jsx14(
+    /* @__PURE__ */ jsx15(
       Input,
       {
         type: "search",
@@ -4079,7 +4423,7 @@ var SearchInput = (props) => {
         ...props
       }
     ),
-    /* @__PURE__ */ jsx14(SearchIcon, { className: "w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500" })
+    /* @__PURE__ */ jsx15(SearchIcon, { className: "w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500" })
   ] });
 };
 var search_input_default = SearchInput;
@@ -4089,8 +4433,8 @@ import { SquarePlusIcon } from "lucide-react";
 
 // src/components/space-selector/ui/card.tsx
 import * as React11 from "react";
-import { jsx as jsx15 } from "react/jsx-runtime";
-var Card = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15(
+import { jsx as jsx16 } from "react/jsx-runtime";
+var Card = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
   "div",
   {
     ref,
@@ -4102,7 +4446,7 @@ var Card = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ 
   }
 ));
 Card.displayName = "Card";
-var CardHeader = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15(
+var CardHeader = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
   "div",
   {
     ref,
@@ -4111,7 +4455,7 @@ var CardHeader = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE
   }
 ));
 CardHeader.displayName = "CardHeader";
-var CardTitle = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15(
+var CardTitle = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
   "div",
   {
     ref,
@@ -4123,7 +4467,7 @@ var CardTitle = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   }
 ));
 CardTitle.displayName = "CardTitle";
-var CardDescription = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15(
+var CardDescription = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
   "div",
   {
     ref,
@@ -4132,9 +4476,9 @@ var CardDescription = React11.forwardRef(({ className, ...props }, ref) => /* @_
   }
 ));
 CardDescription.displayName = "CardDescription";
-var CardContent = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15("div", { ref, className: cn2("p-6 pt-0", className), ...props }));
+var CardContent = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16("div", { ref, className: cn2("p-6 pt-0", className), ...props }));
 CardContent.displayName = "CardContent";
-var CardFooter = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx15(
+var CardFooter = React11.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
   "div",
   {
     ref,
@@ -4150,8 +4494,8 @@ import { MoreHorizontal, Pen, Trash2, Users2 } from "lucide-react";
 // src/components/space-selector/ui/dropdown-menu.tsx
 import * as React12 from "react";
 import * as DropdownMenuPrimitive2 from "@radix-ui/react-dropdown-menu";
-import { Check as Check3, ChevronRight as ChevronRight3, Circle as Circle2 } from "lucide-react";
-import { jsx as jsx16, jsxs as jsxs11 } from "react/jsx-runtime";
+import { Check as Check4, ChevronRight as ChevronRight4, Circle as Circle2 } from "lucide-react";
+import { jsx as jsx17, jsxs as jsxs11 } from "react/jsx-runtime";
 var DropdownMenu2 = DropdownMenuPrimitive2.Root;
 var DropdownMenuTrigger2 = DropdownMenuPrimitive2.Trigger;
 var DropdownMenuSubTrigger2 = React12.forwardRef(({ className, inset, children, ...props }, ref) => /* @__PURE__ */ jsxs11(
@@ -4166,12 +4510,12 @@ var DropdownMenuSubTrigger2 = React12.forwardRef(({ className, inset, children, 
     ...props,
     children: [
       children,
-      /* @__PURE__ */ jsx16(ChevronRight3, { className: "ml-auto" })
+      /* @__PURE__ */ jsx17(ChevronRight4, { className: "ml-auto" })
     ]
   }
 ));
 DropdownMenuSubTrigger2.displayName = DropdownMenuPrimitive2.SubTrigger.displayName;
-var DropdownMenuSubContent2 = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
+var DropdownMenuSubContent2 = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx17(
   DropdownMenuPrimitive2.SubContent,
   {
     ref,
@@ -4183,7 +4527,7 @@ var DropdownMenuSubContent2 = React12.forwardRef(({ className, ...props }, ref) 
   }
 ));
 DropdownMenuSubContent2.displayName = DropdownMenuPrimitive2.SubContent.displayName;
-var DropdownMenuContent2 = React12.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx16(DropdownMenuPrimitive2.Portal, { children: /* @__PURE__ */ jsx16(
+var DropdownMenuContent2 = React12.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx17(DropdownMenuPrimitive2.Portal, { children: /* @__PURE__ */ jsx17(
   DropdownMenuPrimitive2.Content,
   {
     ref,
@@ -4197,7 +4541,7 @@ var DropdownMenuContent2 = React12.forwardRef(({ className, sideOffset = 4, ...p
   }
 ) }));
 DropdownMenuContent2.displayName = DropdownMenuPrimitive2.Content.displayName;
-var DropdownMenuItem2 = React12.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx16(
+var DropdownMenuItem2 = React12.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx17(
   DropdownMenuPrimitive2.Item,
   {
     ref,
@@ -4221,7 +4565,7 @@ var DropdownMenuCheckboxItem2 = React12.forwardRef(({ className, children, check
     checked,
     ...props,
     children: [
-      /* @__PURE__ */ jsx16("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx16(DropdownMenuPrimitive2.ItemIndicator, { children: /* @__PURE__ */ jsx16(Check3, { className: "h-4 w-4" }) }) }),
+      /* @__PURE__ */ jsx17("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx17(DropdownMenuPrimitive2.ItemIndicator, { children: /* @__PURE__ */ jsx17(Check4, { className: "h-4 w-4" }) }) }),
       children
     ]
   }
@@ -4237,13 +4581,13 @@ var DropdownMenuRadioItem2 = React12.forwardRef(({ className, children, ...props
     ),
     ...props,
     children: [
-      /* @__PURE__ */ jsx16("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx16(DropdownMenuPrimitive2.ItemIndicator, { children: /* @__PURE__ */ jsx16(Circle2, { className: "h-2 w-2 fill-current" }) }) }),
+      /* @__PURE__ */ jsx17("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsx17(DropdownMenuPrimitive2.ItemIndicator, { children: /* @__PURE__ */ jsx17(Circle2, { className: "h-2 w-2 fill-current" }) }) }),
       children
     ]
   }
 ));
 DropdownMenuRadioItem2.displayName = DropdownMenuPrimitive2.RadioItem.displayName;
-var DropdownMenuLabel2 = React12.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx16(
+var DropdownMenuLabel2 = React12.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx17(
   DropdownMenuPrimitive2.Label,
   {
     ref,
@@ -4256,7 +4600,7 @@ var DropdownMenuLabel2 = React12.forwardRef(({ className, inset, ...props }, ref
   }
 ));
 DropdownMenuLabel2.displayName = DropdownMenuPrimitive2.Label.displayName;
-var DropdownMenuSeparator2 = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx16(
+var DropdownMenuSeparator2 = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx17(
   DropdownMenuPrimitive2.Separator,
   {
     ref,
@@ -4272,7 +4616,7 @@ var DropdownMenuShortcut2 = ({
   className,
   ...props
 }) => {
-  return /* @__PURE__ */ jsx16(
+  return /* @__PURE__ */ jsx17(
     "span",
     {
       className: cn("ml-auto text-xs tracking-widest opacity-60", className),
@@ -4285,26 +4629,6 @@ DropdownMenuShortcut2.displayName = "DropdownMenuShortcut";
 // src/components/space-selector/components/SpaceCard.tsx
 import { useState as useState6 } from "react";
 import { toast as toast2 } from "sonner";
-
-// src/components/ui/skeleton.tsx
-import { jsx as jsx17 } from "react/jsx-runtime";
-function Skeleton({
-  className,
-  ...props
-}) {
-  return /* @__PURE__ */ jsx17(
-    "div",
-    {
-      className: cn(
-        "animate-shimmer rounded-md bg-gray-300/50 dark:bg-gray-700/50",
-        className
-      ),
-      ...props
-    }
-  );
-}
-
-// src/components/space-selector/components/SpaceCard.tsx
 import { jsx as jsx18, jsxs as jsxs12 } from "react/jsx-runtime";
 var SpaceCardSkeleton = () => {
   return /* @__PURE__ */ jsxs12(Card, { className: "shadow-none bg-neutral-50 border-[.5px] border-neutral-200 p-3 w-full lg:w-auto min-w-72 flex gap-4 dark:bg-neutral-900 dark:border-neutral-800", children: [
@@ -4990,7 +5314,7 @@ import { toast as toast4 } from "sonner";
 
 // src/components/spaces/MemberRoleSelect.tsx
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Check as Check4, ChevronDown as ChevronDown3 } from "lucide-react";
+import { Check as Check5, ChevronDown as ChevronDown3 } from "lucide-react";
 
 // src/components/spaces/member-role-config.ts
 import {
@@ -5121,7 +5445,7 @@ var MemberRoleSelect = ({
                   /* @__PURE__ */ jsx27("span", { className: "text-base font-medium text-neutral-900 dark:text-neutral-100", children: t(roleOption.labelKey) }),
                   /* @__PURE__ */ jsx27("span", { className: "text-sm leading-6 text-neutral-500 dark:text-neutral-400", children: t(roleOption.descriptionKey) })
                 ] }),
-                value === roleOption.value ? /* @__PURE__ */ jsx27("div", { className: "absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary dark:text-zinc-800 text-white  dark:text-zinc-800", children: /* @__PURE__ */ jsx27(Check4, { className: "h-3.5 w-3.5" }) }) : null
+                value === roleOption.value ? /* @__PURE__ */ jsx27("div", { className: "absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-primary dark:text-zinc-800 text-white  dark:text-zinc-800", children: /* @__PURE__ */ jsx27(Check5, { className: "h-3.5 w-3.5" }) }) : null
               ]
             },
             roleOption.value
@@ -6650,8 +6974,8 @@ var DeleteConfirmationModal = () => {
 var DeleteConfirmationModal_default = DeleteConfirmationModal;
 
 // src/components/space-selector/components/modals/RenameSpaceModal.tsx
-import { useEffect as useEffect10, useMemo as useMemo3, useState as useState11 } from "react";
-import { Check as Check5, Loader2 as Loader24, RefreshCw, TriangleAlert } from "lucide-react";
+import { useEffect as useEffect10, useMemo as useMemo4, useState as useState11 } from "react";
+import { Check as Check6, Loader2 as Loader24, RefreshCw as RefreshCw2, TriangleAlert } from "lucide-react";
 import { Fragment as Fragment4, jsx as jsx47, jsxs as jsxs34 } from "react/jsx-runtime";
 var getFallbackText2 = (value) => value.trim().slice(0, 2).toUpperCase();
 var RenameSpaceFormState = ({
@@ -6724,7 +7048,7 @@ var RenameSpaceSuccessState = ({
   onDone
 }) => {
   return /* @__PURE__ */ jsxs34("div", { className: "flex w-full flex-col items-center gap-4 p-6 text-center", children: [
-    /* @__PURE__ */ jsx47("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400", children: /* @__PURE__ */ jsx47(Check5, { className: "h-7 w-7" }) }),
+    /* @__PURE__ */ jsx47("div", { className: "flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400", children: /* @__PURE__ */ jsx47(Check6, { className: "h-7 w-7" }) }),
     /* @__PURE__ */ jsxs34("div", { className: "flex flex-col gap-2", children: [
       /* @__PURE__ */ jsx47("h2", { className: "text-xl font-semibold text-neutral-900 dark:text-neutral-50", children: t("renameSpaceModal.successTitle") }),
       /* @__PURE__ */ jsx47("p", { className: "max-w-sm text-sm text-neutral-500 dark:text-neutral-400", children: t("renameSpaceModal.successDescription", { name: spaceName }) })
@@ -6777,7 +7101,7 @@ var RenameSpaceErrorState = ({
           disabled: isSaving,
           className: "h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
           children: isSaving ? /* @__PURE__ */ jsx47(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs34(Fragment4, { children: [
-            /* @__PURE__ */ jsx47(RefreshCw, { className: "mr-2 h-4 w-4" }),
+            /* @__PURE__ */ jsx47(RefreshCw2, { className: "mr-2 h-4 w-4" }),
             t("renameSpaceModal.retry")
           ] })
         }
@@ -6819,7 +7143,7 @@ var RenameSpaceModal = () => {
     setIsSaving(false);
     setErrorMessage("");
   }, [initialName, isOpen]);
-  const logoName = useMemo3(() => draftName.trim() || initialName || "Space", [
+  const logoName = useMemo4(() => draftName.trim() || initialName || "Space", [
     draftName,
     initialName
   ]);
@@ -7135,8 +7459,8 @@ var createSpaceSelectorApi = (client) => {
 import React24, { useEffect as useEffect11, useState as useState13 } from "react";
 import { format } from "date-fns";
 import {
-  Check as Check6,
-  ChevronRight as ChevronRight4,
+  Check as Check7,
+  ChevronRight as ChevronRight5,
   Film,
   FolderOpen,
   Grid2x2,
@@ -7484,7 +7808,7 @@ var AddContentModal = ({
           children: pathItem.label
         }
       ),
-      index < currentPath.length - 1 && /* @__PURE__ */ jsx53(ChevronRight4, { className: "size-3 text-gray-400 dark:text-zinc-500 rtl:rotate-180" })
+      index < currentPath.length - 1 && /* @__PURE__ */ jsx53(ChevronRight5, { className: "size-3 text-gray-400 dark:text-zinc-500 rtl:rotate-180" })
     ] }, index))
   ] });
   const renderAssetCard = (asset) => {
@@ -7559,7 +7883,7 @@ var AddContentModal = ({
                 "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
-              children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+              children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
             }
           )
         ]
@@ -7606,7 +7930,7 @@ var AddContentModal = ({
                 "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
-              children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+              children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
             }
           )
         ]
@@ -7643,7 +7967,7 @@ var AddContentModal = ({
                 "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
-              children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+              children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
             }
           )
         ]
@@ -7674,7 +7998,7 @@ var AddContentModal = ({
                 "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                 isSelected ? "bg-blue-500" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
               ),
-              children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+              children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
             }
           )
         ]
@@ -7771,7 +8095,7 @@ var AddContentModal = ({
                         "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
                       ),
-                      children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+                      children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
                     }
                   )
                 ]
@@ -7821,7 +8145,7 @@ var AddContentModal = ({
                         "w-5 h-5 rounded-full flex absolute end-4 right-4 rtl:right-auto rtl:left-4 items-center justify-center",
                         isSelected ? "bg-blue-500 dark:bg-blue-600" : "bg-white dark:bg-card border border-gray-300 dark:border-zinc-700"
                       ),
-                      children: isSelected && /* @__PURE__ */ jsx53(Check6, { className: "w-3 h-3 text-white" })
+                      children: isSelected && /* @__PURE__ */ jsx53(Check7, { className: "w-3 h-3 text-white" })
                     }
                   )
                 ]
@@ -8631,7 +8955,7 @@ function useMoveFolderMutation(folderId) {
 }
 
 // src/components/assets/hooks/use-lazy-loading.ts
-import { useState as useState15, useEffect as useEffect15, useRef, useCallback as useCallback3, useMemo as useMemo6 } from "react";
+import { useState as useState15, useEffect as useEffect15, useRef, useCallback as useCallback4, useMemo as useMemo7 } from "react";
 function useLazyLoading(items, options = {}) {
   const {
     itemsPerBatch = 12,
@@ -8642,7 +8966,7 @@ function useLazyLoading(items, options = {}) {
   const [visibleCount, setVisibleCount] = useState15(itemsPerBatch);
   const [loadingMore, setLoadingMore] = useState15(false);
   const observerRef = useRef(null);
-  const visibleItems = useMemo6(() => {
+  const visibleItems = useMemo7(() => {
     return items.slice(0, visibleCount);
   }, [items, visibleCount]);
   const hasMore = visibleCount < items.length;
@@ -8650,7 +8974,7 @@ function useLazyLoading(items, options = {}) {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [items, itemsPerBatch]);
-  const loadMore = useCallback3(() => {
+  const loadMore = useCallback4(() => {
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
     setTimeout(() => {
@@ -8658,7 +8982,7 @@ function useLazyLoading(items, options = {}) {
       setLoadingMore(false);
     }, 100);
   }, [itemsPerBatch, loadingMore, hasMore, items.length]);
-  const reset = useCallback3(() => {
+  const reset = useCallback4(() => {
     setVisibleCount(itemsPerBatch);
     setLoadingMore(false);
   }, [itemsPerBatch]);
@@ -9220,8 +9544,8 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 // src/components/assets/components/AssetsPath.tsx
 import React28 from "react";
 import {
-  ChevronRight as ChevronRight5,
-  ChevronLeft as ChevronLeft2,
+  ChevronRight as ChevronRight6,
+  ChevronLeft as ChevronLeft3,
   MoreHorizontal as MoreHorizontal2,
   FolderIcon,
   Home as Home2
@@ -9259,11 +9583,11 @@ var AssetsPath = ({ className }) => {
             className: "flex-shrink-0 me-1 p-1 rounded hover:bg-muted",
             "aria-label": "Go back one level",
             type: "button",
-            children: /* @__PURE__ */ jsx60(ChevronLeft2, { className: "w-4 h-4 rtl:rotate-180" })
+            children: /* @__PURE__ */ jsx60(ChevronLeft3, { className: "w-4 h-4 rtl:rotate-180" })
           }
         ),
         path.length > 0 && crumbs.map((crumb, i) => /* @__PURE__ */ jsxs42(React28.Fragment, { children: [
-          i > 0 && /* @__PURE__ */ jsx60(ChevronRight5, { className: "w-4 h-4 flex-shrink-0 rtl:rotate-180" }),
+          i > 0 && /* @__PURE__ */ jsx60(ChevronRight6, { className: "w-4 h-4 flex-shrink-0 rtl:rotate-180" }),
           "hidden" in crumb ? /* @__PURE__ */ jsxs42(DropdownMenu, { children: [
             /* @__PURE__ */ jsx60(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx60(
               "button",
@@ -9537,9 +9861,9 @@ var AssetsHeader = ({
 var AssetsHeader_default = AssetsHeader;
 
 // src/components/assets/components/AssetCard.tsx
-import { useState as useState18, useRef as useRef3, useEffect as useEffect16, useCallback as useCallback4 } from "react";
+import { useState as useState18, useRef as useRef3, useEffect as useEffect16, useCallback as useCallback5 } from "react";
 import {
-  Check as Check7,
+  Check as Check8,
   Download,
   FileText,
   Globe as Globe2,
@@ -9713,7 +10037,7 @@ var AssetCard = ({
     });
     return () => cancelAnimationFrame(frame);
   }, [isRenaming, data.name]);
-  const handleRename = useCallback4(async () => {
+  const handleRename = useCallback5(async () => {
     const trimmed = newTitle.trim();
     if (data.name !== trimmed && trimmed !== "") {
       if (onRename) {
@@ -9724,13 +10048,13 @@ var AssetCard = ({
     }
     setRenamingItemId(null);
   }, [data.name, newTitle, onRename, setRenamingItemId]);
-  const handleBlur = useCallback4(() => {
+  const handleBlur = useCallback5(() => {
     if (!isCancelledRef.current) {
       handleRename();
     }
     isCancelledRef.current = false;
   }, [handleRename]);
-  const handleKeyDown = useCallback4(
+  const handleKeyDown = useCallback5(
     (e) => {
       if (e.key === "Enter") {
         isCancelledRef.current = false;
@@ -9920,7 +10244,7 @@ var AssetCard = ({
                   "absolute top-2 start-2 size-4 shrink-0 rounded-[4px] flex items-center justify-center border",
                   selected ? "border-primary bg-primary text-white" : "border-white/80 bg-black/40 text-transparent"
                 ),
-                children: selected && /* @__PURE__ */ jsx63(Check7, { className: "size-3" })
+                children: selected && /* @__PURE__ */ jsx63(Check8, { className: "size-3" })
               }
             )
           ] }),
@@ -10083,7 +10407,7 @@ var AssetCard = ({
               "absolute top-3 end-3 z-30 size-5 shrink-0 rounded-[6px] flex items-center justify-center border transition-all pointer-events-auto shadow-sm",
               selected ? "border-primary bg-primary text-white" : "border-white/80 bg-black/45 text-transparent hover:border-white hover:bg-black/60"
             ),
-            children: selected && /* @__PURE__ */ jsx63(Check7, { className: "size-3.5 stroke-[2.5]" })
+            children: selected && /* @__PURE__ */ jsx63(Check8, { className: "size-3.5 stroke-[2.5]" })
           }
         ),
         /* @__PURE__ */ jsxs44(
@@ -10186,8 +10510,8 @@ var AssetCardSkeleton = ({
 var AssetCard_default = AssetCard;
 
 // src/components/assets/components/FolderCard.tsx
-import React32, { useState as useState19, useRef as useRef4, useEffect as useEffect17, useCallback as useCallback5 } from "react";
-import { Check as Check8, Download as Download2, FilePenLine, MoreHorizontal as MoreHorizontal4, Trash2 as Trash24 } from "lucide-react";
+import React32, { useState as useState19, useRef as useRef4, useEffect as useEffect17, useCallback as useCallback6 } from "react";
+import { Check as Check9, Download as Download2, FilePenLine, MoreHorizontal as MoreHorizontal4, Trash2 as Trash24 } from "lucide-react";
 import { jsx as jsx64, jsxs as jsxs45 } from "react/jsx-runtime";
 var MoveIcon2 = /* @__PURE__ */ jsxs45(
   "svg",
@@ -10263,7 +10587,7 @@ var FolderCard = React32.forwardRef(
       });
       return () => cancelAnimationFrame(frame);
     }, [isRenaming, data.name]);
-    const handleRename = useCallback5(async () => {
+    const handleRename = useCallback6(async () => {
       const trimmed = newTitle.trim();
       if (data.name !== trimmed && trimmed !== "") {
         if (onRename) {
@@ -10274,7 +10598,7 @@ var FolderCard = React32.forwardRef(
       }
       setRenamingItemId(null);
     }, [data.name, newTitle, onRename, setRenamingItemId]);
-    const handleKeyDown = useCallback5(
+    const handleKeyDown = useCallback6(
       (e) => {
         if (e.key === "Enter") {
           isCancelledRef.current = false;
@@ -10289,7 +10613,7 @@ var FolderCard = React32.forwardRef(
       },
       [handleRename, data.name, setRenamingItemId]
     );
-    const handleBlur = useCallback5(() => {
+    const handleBlur = useCallback6(() => {
       if (!isCancelledRef.current) {
         handleRename();
       }
@@ -10342,7 +10666,7 @@ var FolderCard = React32.forwardRef(
                       "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border shadow-xs",
                       selected && "border-primary bg-primary text-white"
                     ),
-                    children: selected && /* @__PURE__ */ jsx64(Check8, { className: "size-3" })
+                    children: selected && /* @__PURE__ */ jsx64(Check9, { className: "size-3" })
                   }
                 )
               ] }),
@@ -10494,19 +10818,19 @@ var FolderCard_default = FolderCard;
 
 // src/components/assets/components/AssetsPreview.tsx
 import { createPortal } from "react-dom";
-import { ChevronLeft as ChevronLeft4, ChevronRight as ChevronRight7, X as X4, Download as Download4 } from "lucide-react";
+import { ChevronLeft as ChevronLeft5, ChevronRight as ChevronRight8, X as X4, Download as Download4 } from "lucide-react";
 
 // src/components/assets/components/DocumentPreview.tsx
 import React33 from "react";
 import {
-  ChevronLeft as ChevronLeft3,
-  ChevronRight as ChevronRight6,
+  ChevronLeft as ChevronLeft4,
+  ChevronRight as ChevronRight7,
   Download as Download3,
-  ExternalLink,
+  ExternalLink as ExternalLink2,
   FileWarning,
   Loader2 as Loader25,
   Lock,
-  RefreshCw as RefreshCw2,
+  RefreshCw as RefreshCw3,
   ZoomIn,
   ZoomOut
 } from "lucide-react";
@@ -10644,7 +10968,7 @@ var DocumentPreview = ({
       rel: "noreferrer",
       className: chromeTextButton,
       children: [
-        /* @__PURE__ */ jsx65(ExternalLink, { className: "size-4", "aria-hidden": true }),
+        /* @__PURE__ */ jsx65(ExternalLink2, { className: "size-4", "aria-hidden": true }),
         t("assets.assetsPreview.documentOpen")
       ]
     }
@@ -10671,7 +10995,7 @@ var DocumentPreview = ({
         className: chromeTextButton,
         onClick: () => setAttempt((n) => n + 1),
         children: [
-          /* @__PURE__ */ jsx65(RefreshCw2, { className: "size-4", "aria-hidden": true }),
+          /* @__PURE__ */ jsx65(RefreshCw3, { className: "size-4", "aria-hidden": true }),
           t("assets.assetsPreview.documentRetry")
         ]
       }
@@ -10778,7 +11102,7 @@ var DocumentPreview = ({
           onClick: () => goToPage(page - 1),
           disabled: page <= 1,
           "aria-label": t("assets.assetsPreview.documentPrevPage"),
-          children: /* @__PURE__ */ jsx65(ChevronLeft3, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx65(ChevronLeft4, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
         }
       ),
       /* @__PURE__ */ jsx65(
@@ -10800,7 +11124,7 @@ var DocumentPreview = ({
           onClick: () => goToPage(page + 1),
           disabled: pageCount === 0 || page >= pageCount,
           "aria-label": t("assets.assetsPreview.documentNextPage"),
-          children: /* @__PURE__ */ jsx65(ChevronRight6, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx65(ChevronRight7, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
         }
       ),
       /* @__PURE__ */ jsx65("span", { className: "mx-1 h-5 w-px bg-white/20", "aria-hidden": true }),
@@ -10973,7 +11297,7 @@ var AssetsPreview = ({
               onClick: () => handlePreviewNavigation("prev"),
               disabled: previewIndex === 0,
               "aria-label": "Previous",
-              children: /* @__PURE__ */ jsx66(ChevronLeft4, { className: "h-6 w-6 rtl:rotate-180" })
+              children: /* @__PURE__ */ jsx66(ChevronLeft5, { className: "h-6 w-6 rtl:rotate-180" })
             }
           ),
           /* @__PURE__ */ jsx66("div", { className: "flex items-center justify-center w-full h-full max-h-[80vh]", children: renderMedia() }),
@@ -10984,7 +11308,7 @@ var AssetsPreview = ({
               onClick: () => handlePreviewNavigation("next"),
               disabled: previewIndex === filteredAssets.length - 1,
               "aria-label": "Next",
-              children: /* @__PURE__ */ jsx66(ChevronRight7, { className: "h-6 w-6 rtl:rotate-180" })
+              children: /* @__PURE__ */ jsx66(ChevronRight8, { className: "h-6 w-6 rtl:rotate-180" })
             }
           )
         ] }),
@@ -11150,7 +11474,7 @@ var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
 
 // src/components/assets/components/modals/MoveModal.tsx
 import { useEffect as useEffect18, useState as useState20 } from "react";
-import { ChevronRight as ChevronRight8 } from "lucide-react";
+import { ChevronRight as ChevronRight9 } from "lucide-react";
 import { Fragment as Fragment10, jsx as jsx70, jsxs as jsxs50 } from "react/jsx-runtime";
 var MoveModal = ({
   isOpen,
@@ -11224,9 +11548,9 @@ var MoveModal = ({
           children: modalPath[0].name.length > 10 ? modalPath[0].name.slice(0, 10) + "..." : modalPath[0].name
         }
       ),
-      /* @__PURE__ */ jsx70(ChevronRight8, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
       /* @__PURE__ */ jsx70("span", { className: "text-muted-foreground whitespace-nowrap", children: "..." }),
-      /* @__PURE__ */ jsx70(ChevronRight8, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
       /* @__PURE__ */ jsx70(
         "button",
         {
@@ -11236,7 +11560,7 @@ var MoveModal = ({
         }
       )
     ] }) : modalPath.map((pathName, index) => /* @__PURE__ */ jsxs50("div", { className: "flex items-center", children: [
-      index > 0 && /* @__PURE__ */ jsx70(ChevronRight8, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      index > 0 && /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
       /* @__PURE__ */ jsx70(
         "button",
         {
@@ -11448,7 +11772,7 @@ import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
 // src/components/ui/checkbox.tsx
 import * as React38 from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check as Check9 } from "lucide-react";
+import { Check as Check10 } from "lucide-react";
 import { jsx as jsx73 } from "react/jsx-runtime";
 var Checkbox = React38.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx73(
   CheckboxPrimitive.Root,
@@ -11463,7 +11787,7 @@ var Checkbox = React38.forwardRef(({ className, ...props }, ref) => /* @__PURE__
       CheckboxPrimitive.Indicator,
       {
         className: cn("flex items-center justify-center text-current"),
-        children: /* @__PURE__ */ jsx73(Check9, { className: "h-4 w-4" })
+        children: /* @__PURE__ */ jsx73(Check10, { className: "h-4 w-4" })
       }
     )
   }
@@ -13165,7 +13489,7 @@ async function detectAdBlocker(options = {}) {
 }
 
 // src/components/ad-blocker/use-ad-blocker.ts
-import { useCallback as useCallback6, useEffect as useEffect22, useRef as useRef5, useState as useState25 } from "react";
+import { useCallback as useCallback7, useEffect as useEffect22, useRef as useRef5, useState as useState25 } from "react";
 var DEFAULT_STORAGE_KEY = "nitx_adblocker_dismissed";
 function getStorageItem(type, key) {
   if (typeof window === "undefined" || type === "memory") {
@@ -13221,7 +13545,7 @@ function useAdBlocker(options = {}) {
   onDetectedRef.current = onDetected;
   const onRecheckRef = useRef5(onRecheck);
   onRecheckRef.current = onRecheck;
-  const check = useCallback6(async () => {
+  const check = useCallback7(async () => {
     setIsChecking(true);
     try {
       const result = await detectAdBlocker({
@@ -13242,11 +13566,11 @@ function useAdBlocker(options = {}) {
       setIsChecking(false);
     }
   }, [baitUrl, connectivityTestUrl, timeoutMs]);
-  const dismiss = useCallback6(() => {
+  const dismiss = useCallback7(() => {
     setIsDismissed(true);
     setStorageItem(storageType, storageKey, "true");
   }, [storageKey, storageType]);
-  const resetDismissal = useCallback6(() => {
+  const resetDismissal = useCallback7(() => {
     setIsDismissed(false);
     removeStorageItem(storageType, storageKey);
   }, [storageKey, storageType]);
@@ -13547,7 +13871,7 @@ import { useState as useState27 } from "react";
 import {
   ChevronDown as ChevronDown5,
   ChevronUp as ChevronUp2,
-  RefreshCw as RefreshCw3,
+  RefreshCw as RefreshCw4,
   ShieldAlert,
   WifiOff,
   X as X6
@@ -13694,7 +14018,7 @@ var AdBlockerNotice = ({
                 className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
                 children: [
                   /* @__PURE__ */ jsx87(
-                    RefreshCw3,
+                    RefreshCw4,
                     {
                       className: cn("size-3.5", isChecking && "animate-spin")
                     }
@@ -13747,7 +14071,7 @@ var AdBlockerNotice = ({
             className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
             children: [
               /* @__PURE__ */ jsx87(
-                RefreshCw3,
+                RefreshCw4,
                 {
                   className: cn("size-3.5", isChecking && "animate-spin")
                 }
@@ -13803,7 +14127,7 @@ var AdBlockerNotice = ({
                 className: "h-7 px-2.5 text-xs border-amber-500/30 bg-background/80 hover:bg-amber-500/15",
                 children: [
                   /* @__PURE__ */ jsx87(
-                    RefreshCw3,
+                    RefreshCw4,
                     {
                       className: cn("size-3", isChecking && "animate-spin")
                     }
