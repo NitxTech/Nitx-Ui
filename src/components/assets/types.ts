@@ -36,6 +36,7 @@ export type AssetDocument = {
   uuid: string;
   mime_type: string;
   original_path: string;
+  thumbnail_path?: string;
   size: string;
   created_at: string;
   updated_at: string;

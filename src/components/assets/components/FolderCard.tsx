@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Check, Download, FilePenLine, MoreVertical, Trash2 } from "lucide-react";
+import { Check, Download, FilePenLine, MoreHorizontal, Trash2 } from "lucide-react";
 
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { Button } from "../../ui/button";
@@ -162,11 +162,11 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
         <Card
           ref={ref}
           className={cn(
-            "relative bg-card rounded-lg p-2 cursor-pointer transition-all border border-opacity-20 shadow-gray-200/20",
+            "group relative bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
             selected
-              ? "border-primary bg-primary/10 dark:bg-primary/20"
-              : "border-transparent hover:border-border hover:transparent",
-            viewType !== "grid" && "flex items-center gap-4",
+              ? "border-primary bg-primary/10 dark:bg-primary/20 ring-2 ring-primary ring-offset-2"
+              : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-lg",
+            viewType !== "grid" && "flex items-center gap-4 rounded-[16px]",
             isDropTarget &&
               "border-primary bg-primary/10 dark:bg-primary/20 border-2 border-dashed"
           )}
@@ -182,7 +182,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
         >
           <div
             className={cn(
-              "size-full rounded-[12px] overflow-hidden",
+              "size-full rounded-[16px] corner-squircle overflow-hidden",
               viewType === "grid"
                 ? "flex flex-col"
                 : "flex flex-row justify-between"
@@ -193,7 +193,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                 src={images.folder}
                 alt={data.name}
                 className={cn(
-                  "size-full object-cover rounded-[6px] bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50",
+                  "size-full object-cover rounded-[14px] corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
                   allowSelect && "brightness-50",
                   viewType === "grid" ? "h-40" : "h-24 w-[162px]"
                 )}
@@ -201,7 +201,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
               {allowSelect && (
                 <span
                   className={cn(
-                    "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border",
+                    "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border shadow-xs",
                     selected && "border-primary bg-primary text-white"
                   )}
                 >
@@ -256,18 +256,18 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                     <TooltipTrigger asChild>
                       <DropdownMenuTrigger
                         disabled={allowSelect}
-                        className="disabled:text-muted-foreground"
+                        className="disabled:text-muted-foreground focus:outline-none"
                         asChild
                       >
                         <Button
                           type="button"
                           size="icon"
                           variant="ghost"
-                          className="flex gap-2 rounded-[7px]"
+                          className="flex gap-2 rounded-[8px] hover:bg-zinc-100 dark:hover:bg-zinc-800"
                           aria-label={t("assets.folderCard.moreOptions")}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <MoreVertical />
+                          <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
                     </TooltipTrigger>
@@ -277,7 +277,7 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
                   </Tooltip>
                   <DropdownMenuContent
                     align="end"
-                    className="rounded-[14px]"
+                    className="rounded-[16px] corner-squircle min-w-[160px] p-1.5"
                     onClick={(e) => e.stopPropagation()}
                     onCloseAutoFocus={(event) => event.preventDefault()}
                   >
