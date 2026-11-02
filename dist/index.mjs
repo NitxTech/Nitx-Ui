@@ -2463,14 +2463,13 @@ var Dialog = DialogPrimitive.Root;
 var DialogTrigger = DialogPrimitive.Trigger;
 var DialogPortal = DialogPrimitive.Portal;
 var DialogClose = DialogPrimitive.Close;
+var modalOverlayClassName = "fixed inset-0 z-[9999] bg-black/20 backdrop-blur-sm";
+var dialogOverlayClassName = "fixed inset-0 z-[9999] bg-black/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0";
 var DialogOverlay = React4.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx6(
   DialogPrimitive.Overlay,
   {
     ref,
-    className: cn(
-      "fixed inset-0 z-[9999] bg-black/80 dark:bg-black/5 dark:backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    ),
+    className: cn(dialogOverlayClassName, className),
     style: { pointerEvents: "auto" },
     ...props
   }
@@ -2582,14 +2581,14 @@ var DrawerOverlay = React5.forwardRef(({ className, ...props }, ref) => /* @__PU
   DrawerPrimitive.Overlay,
   {
     ref,
-    className: cn("fixed inset-0 z-[9999] bg-black/80", className),
+    className: cn(modalOverlayClassName, className),
     style: { pointerEvents: "auto" },
     ...props
   }
 ));
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
-var DrawerContent = React5.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs5(DrawerPortal, { children: [
-  /* @__PURE__ */ jsx7(DrawerOverlay, {}),
+var DrawerContent = React5.forwardRef(({ className, children, overlayClassName, ...props }, ref) => /* @__PURE__ */ jsxs5(DrawerPortal, { children: [
+  /* @__PURE__ */ jsx7(DrawerOverlay, { className: overlayClassName }),
   /* @__PURE__ */ jsxs5(
     DrawerPrimitive.Content,
     {
@@ -2765,22 +2764,30 @@ function DrawerDialog({
       }
     ) });
   }
-  return /* @__PURE__ */ jsx8(Drawer, { open, onOpenChange: handleOpenChange, children: /* @__PURE__ */ jsxs6(DrawerContent, { className: "max-h-[calc(100vh-3rem)]", dir, children: [
-    /* @__PURE__ */ jsxs6(DrawerHeader, { className: cn("text-start px-4 pt-3 pb-2", headerClassName), children: [
-      title ? /* @__PURE__ */ jsx8(DrawerTitle, { className: "text-lg font-semibold", children: title }) : /* @__PURE__ */ jsx8(VisuallyHidden.Root, { children: /* @__PURE__ */ jsx8(DrawerTitle, { children: fallbackTitle }) }),
-      description && /* @__PURE__ */ jsx8(DrawerDescription, { className: "text-sm text-muted-foreground", children: description })
-    ] }),
-    /* @__PURE__ */ jsx8(
-      "div",
-      {
-        className: cn(
-          "flex flex-col h-auto overflow-y-auto px-4 pb-6",
-          bodyClassName
-        ),
-        children
-      }
-    )
-  ] }) });
+  return /* @__PURE__ */ jsx8(Drawer, { open, onOpenChange: handleOpenChange, children: /* @__PURE__ */ jsxs6(
+    DrawerContent,
+    {
+      overlayClassName,
+      className: "max-h-[calc(100vh-3rem)]",
+      dir,
+      children: [
+        /* @__PURE__ */ jsxs6(DrawerHeader, { className: cn("text-start px-4 pt-3 pb-2", headerClassName), children: [
+          title ? /* @__PURE__ */ jsx8(DrawerTitle, { className: "text-lg font-semibold", children: title }) : /* @__PURE__ */ jsx8(VisuallyHidden.Root, { children: /* @__PURE__ */ jsx8(DrawerTitle, { children: fallbackTitle }) }),
+          description && /* @__PURE__ */ jsx8(DrawerDescription, { className: "text-sm text-muted-foreground", children: description })
+        ] }),
+        /* @__PURE__ */ jsx8(
+          "div",
+          {
+            className: cn(
+              "flex flex-col h-auto overflow-y-auto px-4 pb-6",
+              bodyClassName
+            ),
+            children
+          }
+        )
+      ]
+    }
+  ) });
 }
 
 // src/components/ui/select.tsx
@@ -6825,14 +6832,12 @@ import { X as X3 } from "lucide-react";
 import { jsx as jsx45, jsxs as jsxs32 } from "react/jsx-runtime";
 var Dialog2 = DialogPrimitive2.Root;
 var DialogPortal2 = DialogPrimitive2.Portal;
+var dialogOverlayClassName2 = "fixed inset-0 z-[9999] bg-black/20 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0";
 var DialogOverlay2 = React20.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx45(
   DialogPrimitive2.Overlay,
   {
     ref,
-    className: cn(
-      "fixed inset-0 z-[9999] bg-black/80 dark:bg-black/5 dark:backdrop-blur-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    ),
+    className: cn(dialogOverlayClassName2, className),
     style: { pointerEvents: "auto" },
     ...props
   }
@@ -14770,6 +14775,7 @@ export {
   createSpaceSelectorApi,
   cx,
   detectAdBlocker,
+  dialogOverlayClassName,
   displayModeToTheme,
   getRecentSpacesMap,
   getRecentSpacesStorageKey,
@@ -14781,6 +14787,7 @@ export {
   isSameSpace,
   isSearchShortcut,
   matchRank,
+  modalOverlayClassName,
   normalizeSearchText,
   rankMatches,
   readLanguageCookie,
