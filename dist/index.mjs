@@ -8299,8 +8299,8 @@ function createUppy(uploadEndpoint, accessToken, spaceUuid, currentFolderUuid, c
     allowedMetaFields: true
   }).on("upload-success", (file) => {
     toast6.success(`${file?.name || "File"} ${translations.fileUploadedSuccessfully}`);
-  }).on("complete", (result) => {
-    if ((result.successful || []).length > 0) {
+  }).on("complete", (result2) => {
+    if ((result2.successful || []).length > 0) {
       toast6.loading(translations.processingUploads, {
         id: "upload-processing",
         description: translations.filesWillAppear
@@ -8692,8 +8692,8 @@ function createAssetUploader({
     toast7.success(
       `${file?.name ?? "File"} ${messages.fileUploadedSuccessfully}`
     );
-  }).on("complete", (result) => {
-    if ((result.successful ?? []).length > 0) {
+  }).on("complete", (result2) => {
+    if ((result2.successful ?? []).length > 0) {
       toast7.loading(messages.processingUploads, {
         id: "upload-processing",
         description: messages.filesWillAppear
@@ -9025,7 +9025,7 @@ function useLazyLoading(items, options = {}) {
 }
 
 // src/components/assets/components/AssetsBrowser.tsx
-import React41, { useEffect as useEffect21, useState as useState24 } from "react";
+import React42, { useEffect as useEffect22, useState as useState25 } from "react";
 import { toast as toast10 } from "sonner";
 import { useQueryClient as useQueryClient4 } from "@tanstack/react-query";
 
@@ -9667,18 +9667,18 @@ var AssetsHeader = ({
     }
   };
   return /* @__PURE__ */ jsx61(TooltipProvider, { children: /* @__PURE__ */ jsxs43("div", { className: "w-full flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxs43("div", { className: "w-full flex items-center mt-6 gap-3", children: [
-      /* @__PURE__ */ jsxs43("div", { className: "relative flex-grow", children: [
+    /* @__PURE__ */ jsxs43("div", { className: "w-full flex items-center gap-2 sm:gap-3", children: [
+      /* @__PURE__ */ jsxs43("div", { className: "relative flex-grow min-w-0", children: [
         /* @__PURE__ */ jsx61(
           Input2,
           {
             type: "search",
             placeholder: t("assets.assetsHeader.searchPlaceholder"),
             onChange: onSearch,
-            className: "w-full px-5 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20"
+            className: "h-10 w-full ps-4 pe-10 py-0 rounded-[12px] border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:ring-offset-0"
           }
         ),
-        /* @__PURE__ */ jsx61(SearchIcon2, { className: "w-4 h-4 absolute top-1/2 right-4 rtl:right-auto rtl:left-4 -translate-y-1/2 text-muted-foreground" })
+        /* @__PURE__ */ jsx61(SearchIcon2, { className: "w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-muted-foreground pointer-events-none" })
       ] }),
       showCreateLink ? /* @__PURE__ */ jsxs43(Tooltip, { children: [
         /* @__PURE__ */ jsx61(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsxs43(
@@ -9686,7 +9686,7 @@ var AssetsHeader = ({
           {
             "aria-label": t("assets.assetsHeader.createLink"),
             onClick: onCreateLinkClick,
-            className: "h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
+            className: "h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
             children: [
               /* @__PURE__ */ jsx61(
                 HugeiconsIcon7,
@@ -9707,7 +9707,7 @@ var AssetsHeader = ({
             {
               "aria-label": t("assets.assetsHeader.upload"),
               onClick: onUploadClick,
-              className: "h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700  active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
+              className: "h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer",
               children: [
                 /* @__PURE__ */ jsx61(
                   HugeiconsIcon7,
@@ -9729,7 +9729,7 @@ var AssetsHeader = ({
               "aria-label": t("assets.assetsHeader.newFolder"),
               variant: "outline",
               onClick: onNewFolderClick,
-              className: "group h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors",
+              className: "group h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors",
               children: [
                 /* @__PURE__ */ jsx61(
                   HugeiconsIcon7,
@@ -9747,16 +9747,18 @@ var AssetsHeader = ({
       ] })
     ] }),
     /* @__PURE__ */ jsxs43("div", { className: "flex items-center gap-3", children: [
-      features.folders && path.length > 1 && /* @__PURE__ */ jsx61(AssetsPath_default, { className: "w-full flex-1 mb-2 py-2 text-xs" }),
-      /* @__PURE__ */ jsxs43("div", { className: "flex items-center p-1 rounded-xl bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ml-auto rtl:ml-0 rtl:mr-auto", children: [
+      features.folders && path.length > 1 && /* @__PURE__ */ jsx61(AssetsPath_default, { className: "w-full flex-1 min-w-0 py-2 text-xs" }),
+      /* @__PURE__ */ jsxs43("div", { className: "flex h-10 items-center p-1 rounded-[12px] bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ms-auto shrink-0", children: [
         /* @__PURE__ */ jsxs43(Tooltip, { children: [
           /* @__PURE__ */ jsx61(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx61(
             "button",
             {
               type: "button",
               onClick: () => onChangeView("grid"),
+              "aria-label": t("assets.assetsHeader.gridView"),
+              "aria-pressed": viewType === "grid",
               className: cn(
-                "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                "flex h-8 min-w-8 px-2 items-center justify-center rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                 viewType === "grid" ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
               children: /* @__PURE__ */ jsx61(LayoutDashboard, { className: "w-4 h-4 stroke-[1.8]" })
@@ -9770,8 +9772,10 @@ var AssetsHeader = ({
             {
               type: "button",
               onClick: () => onChangeView("list"),
+              "aria-label": t("assets.assetsHeader.listView"),
+              "aria-pressed": viewType === "list",
               className: cn(
-                "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                "flex h-8 min-w-8 px-2 items-center justify-center rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                 viewType === "list" ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
               children: /* @__PURE__ */ jsx61(AlignJustify, { className: "w-4 h-4 stroke-[1.8]" })
@@ -9785,8 +9789,10 @@ var AssetsHeader = ({
             {
               type: "button",
               onClick: () => onEnableCheckbox(!enableCheckbox),
+              "aria-label": t("assets.assetsHeader.multiSelect"),
+              "aria-pressed": enableCheckbox,
               className: cn(
-                "flex items-center gap-1.5 p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                "flex h-8 min-w-8 px-2 items-center justify-center gap-1.5 rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                 enableCheckbox ? "bg-blue-50 dark:bg-blue-950/60 text-[#0000FF] dark:text-blue-400 shadow-xs" : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
               ),
               children: [
@@ -9866,15 +9872,15 @@ var AssetsHeader = ({
 var AssetsHeader_default = AssetsHeader;
 
 // src/components/assets/components/AssetCard.tsx
-import { useState as useState18, useRef as useRef3, useEffect as useEffect16, useCallback as useCallback5 } from "react";
+import { useState as useState19, useRef as useRef3, useEffect as useEffect17, useCallback as useCallback5 } from "react";
 import {
   Check as Check8,
   Download,
-  FileText,
-  Globe as Globe2,
+  FileText as FileText2,
+  Globe as Globe3,
   Image as ImageIcon,
   MoreHorizontal as MoreHorizontal3,
-  Play,
+  Play as Play2,
   Trash2 as Trash23
 } from "lucide-react";
 
@@ -9935,8 +9941,72 @@ var CardFooter2 = React30.forwardRef(({ className, ...props }, ref) => /* @__PUR
 ));
 CardFooter2.displayName = "CardFooter";
 
+// src/components/assets/components/AssetThumbnail.tsx
+import { useEffect as useEffect16, useState as useState18 } from "react";
+import { FileText, Globe as Globe2, ImageOff, Play } from "lucide-react";
+import { jsx as jsx63 } from "react/jsx-runtime";
+var FALLBACK_ICON = {
+  image: ImageOff,
+  video: Play,
+  document: FileText,
+  link: Globe2
+};
+var AssetThumbnail = ({
+  src,
+  alt,
+  kind,
+  className,
+  fallbackClassName,
+  iconClassName
+}) => {
+  const [failed, setFailed] = useState18(false);
+  useEffect16(() => {
+    setFailed(false);
+  }, [src]);
+  if (!src || failed) {
+    const Icon2 = FALLBACK_ICON[kind];
+    return /* @__PURE__ */ jsx63(
+      "div",
+      {
+        role: "img",
+        "aria-label": alt,
+        className: cn(
+          "flex size-full items-center justify-center",
+          "bg-gradient-to-br from-zinc-100 to-zinc-200 text-zinc-400",
+          "dark:from-zinc-800 dark:to-zinc-900 dark:text-zinc-500",
+          fallbackClassName
+        ),
+        children: /* @__PURE__ */ jsx63(
+          Icon2,
+          {
+            className: cn("size-6 stroke-[1.5]", iconClassName),
+            "aria-hidden": true
+          }
+        )
+      }
+    );
+  }
+  return /* @__PURE__ */ jsx63(
+    "img",
+    {
+      src,
+      alt,
+      loading: "lazy",
+      decoding: "async",
+      draggable: false,
+      onError: () => setFailed(true),
+      className
+    }
+  );
+};
+var AssetThumbnail_default = AssetThumbnail;
+
 // src/components/assets/components/AssetCard.tsx
-import { Fragment as Fragment8, jsx as jsx63, jsxs as jsxs44 } from "react/jsx-runtime";
+import { Fragment as Fragment8, jsx as jsx64, jsxs as jsxs44 } from "react/jsx-runtime";
+var GRID_CARD_RADIUS = "rounded-[20px]";
+var LIST_CARD_RADIUS = "rounded-[16px]";
+var LIST_THUMB_RADIUS = "rounded-[8px]";
+var LIST_THUMB_SIZE = "h-16 w-28 sm:h-20 sm:w-[162px]";
 var RenameIcon = /* @__PURE__ */ jsxs44(
   "svg",
   {
@@ -9946,7 +10016,7 @@ var RenameIcon = /* @__PURE__ */ jsxs44(
     viewBox: "0 0 16 17",
     fill: "none",
     children: [
-      /* @__PURE__ */ jsx63("g", { clipPath: "url(#clip_nitxui_rename)", children: /* @__PURE__ */ jsx63(
+      /* @__PURE__ */ jsx64("g", { clipPath: "url(#clip_nitxui_rename)", children: /* @__PURE__ */ jsx64(
         "path",
         {
           d: "M9.57354 2.76858L10.1915 2.15066C11.2153 1.12686 12.8752 1.12686 13.899 2.15066C14.9228 3.17447 14.9228 4.83438 13.899 5.85818L13.2811 6.4761M9.57354 2.76858C9.57354 2.76858 9.65078 4.08166 10.8094 5.24026C11.968 6.39886 13.2811 6.4761 13.2811 6.4761M9.57354 2.76858L3.89271 8.44941C3.50794 8.83419 3.31555 9.02657 3.15009 9.2387C2.95492 9.48893 2.78759 9.75968 2.65106 10.0462C2.53532 10.289 2.44928 10.5471 2.2772 11.0634L1.54803 13.2509M13.2811 6.4761L7.60023 12.1569C7.21546 12.5417 7.02307 12.7341 6.81094 12.8995C6.56071 13.0947 6.28996 13.2621 6.00348 13.3986C5.76063 13.5143 5.50251 13.6004 4.98628 13.7724L2.79878 14.5016M2.79878 14.5016L2.26406 14.6798C2.01002 14.7645 1.72993 14.6984 1.54058 14.5091C1.35123 14.3197 1.28511 14.0396 1.3698 13.7856L1.54803 13.2509M2.79878 14.5016L1.54803 13.2509",
@@ -9954,7 +10024,7 @@ var RenameIcon = /* @__PURE__ */ jsxs44(
           strokeWidth: "1.2"
         }
       ) }),
-      /* @__PURE__ */ jsx63("defs", { children: /* @__PURE__ */ jsx63("clipPath", { id: "clip_nitxui_rename", children: /* @__PURE__ */ jsx63(
+      /* @__PURE__ */ jsx64("defs", { children: /* @__PURE__ */ jsx64("clipPath", { id: "clip_nitxui_rename", children: /* @__PURE__ */ jsx64(
         "rect",
         {
           width: "16",
@@ -9975,7 +10045,7 @@ var MoveIcon = /* @__PURE__ */ jsxs44(
     viewBox: "0 0 18 19",
     fill: "none",
     children: [
-      /* @__PURE__ */ jsx63(
+      /* @__PURE__ */ jsx64(
         "path",
         {
           d: "M1.5 9.0498V5.26212C1.5 4.60022 1.5 4.26927 1.55201 3.99359C1.78098 2.78004 2.73023 1.83078 3.94379 1.60182C4.21946 1.5498 4.55041 1.5498 5.21231 1.5498C5.50232 1.5498 5.64732 1.5498 5.78668 1.56284C6.38749 1.61902 6.95739 1.85508 7.42196 2.24019C7.52971 2.32952 7.63224 2.43205 7.83731 2.63712L8.25 3.04981C8.86183 3.66164 9.16775 3.96756 9.53409 4.17137C9.73533 4.28334 9.94879 4.37176 10.1703 4.43489C10.5734 4.5498 11.0061 4.5498 11.8713 4.5498H12.1516C14.1258 4.5498 15.113 4.5498 15.7546 5.1269C15.8136 5.17999 15.8698 5.23616 15.9229 5.29518C16.5 5.93682 16.5 6.92396 16.5 8.89823V10.5498C16.5 13.3782 16.5 14.7924 15.6213 15.6711C14.7426 16.5498 13.3284 16.5498 10.5 16.5498H7.5C4.67157 16.5498 3.25736 16.5498 2.37868 15.6711C1.88879 15.1812 1.67203 14.5249 1.57612 13.5498",
@@ -9984,7 +10054,7 @@ var MoveIcon = /* @__PURE__ */ jsxs44(
           strokeLinecap: "round"
         }
       ),
-      /* @__PURE__ */ jsx63(
+      /* @__PURE__ */ jsx64(
         "path",
         {
           d: "M1.5 11.2998C6.33274 11.2998 4.91726 11.2998 9.75 11.2998M9.75 11.2998L6.65625 9.0498M9.75 11.2998L6.65625 13.5498",
@@ -10028,10 +10098,10 @@ var AssetCard = ({
   const isRenaming = renamingItemId === data.uuid;
   const isMenuOpen = openMenuId === data.uuid;
   const isListLike = viewType === "list" || viewType === "grid-list";
-  const [newTitle, setNewTitle] = useState18(data.name);
+  const [newTitle, setNewTitle] = useState19(data.name);
   const inputRef = useRef3(null);
   const isCancelledRef = useRef3(false);
-  useEffect16(() => {
+  useEffect17(() => {
     if (!isRenaming) return;
     setNewTitle(data.name);
     const frame = requestAnimationFrame(() => {
@@ -10074,24 +10144,55 @@ var AssetCard = ({
     },
     [handleRename, data.name, setRenamingItemId]
   );
+  const thumbnail = (() => {
+    switch (data.type) {
+      case "image":
+        return {
+          src: data.is_ready ? data.image?.thumbnail_path : void 0,
+          kind: "image",
+          processing: !data.is_ready
+        };
+      case "video":
+        return {
+          src: data.is_ready ? data.video?.thumbnail_path : void 0,
+          kind: "video",
+          processing: !data.is_ready
+        };
+      case "document":
+        return {
+          src: data.is_ready ? data.document?.thumbnail_path || data.document && documentsImages2[data.document.mime_type] || images.doc : void 0,
+          kind: "document",
+          processing: !data.is_ready
+        };
+      case "link":
+        return {
+          src: data.is_ready && data.link?.thumbnail_url || images.linkFallback,
+          kind: "link",
+          processing: false
+        };
+      default:
+        return { src: void 0, kind: "document", processing: true };
+    }
+  })();
+  const showPlayBadge = data.type === "video" && data.is_ready;
   const renderTypeIcon = () => {
     switch (data.type) {
       case "image":
-        return /* @__PURE__ */ jsx63(ImageIcon, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
+        return /* @__PURE__ */ jsx64(ImageIcon, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
       case "video":
-        return /* @__PURE__ */ jsx63(
-          Play,
+        return /* @__PURE__ */ jsx64(
+          Play2,
           {
             className: "size-3 sm:size-3.5 fill-white text-white translate-x-[0.5px]",
             "aria-hidden": true
           }
         );
       case "document":
-        return /* @__PURE__ */ jsx63(FileText, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
+        return /* @__PURE__ */ jsx64(FileText2, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
       case "link":
-        return /* @__PURE__ */ jsx63(Globe2, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
+        return /* @__PURE__ */ jsx64(Globe3, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
       default:
-        return /* @__PURE__ */ jsx63(FileText, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
+        return /* @__PURE__ */ jsx64(FileText2, { className: "size-3.5 sm:size-4 text-white", "aria-hidden": true });
     }
   };
   const renderDropdownMenuItems = () => /* @__PURE__ */ jsxs44(
@@ -10113,7 +10214,7 @@ var AssetCard = ({
               className: "flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium",
               children: [
                 RenameIcon,
-                /* @__PURE__ */ jsx63("span", { children: t("assets.assetCard.rename") })
+                /* @__PURE__ */ jsx64("span", { children: t("assets.assetCard.rename") })
               ]
             }
           ),
@@ -10127,7 +10228,7 @@ var AssetCard = ({
               className: "flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium",
               children: [
                 MoveIcon,
-                /* @__PURE__ */ jsx63("span", { children: t("assets.assetCard.moveTo") })
+                /* @__PURE__ */ jsx64("span", { children: t("assets.assetCard.moveTo") })
               ]
             }
           ),
@@ -10140,8 +10241,8 @@ var AssetCard = ({
               },
               className: "flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium",
               children: [
-                /* @__PURE__ */ jsx63(Download, { className: "size-4 stroke-[1.5]" }),
-                /* @__PURE__ */ jsx63("span", { children: t("assets.assetCard.download") })
+                /* @__PURE__ */ jsx64(Download, { className: "size-4 stroke-[1.5]" }),
+                /* @__PURE__ */ jsx64("span", { children: t("assets.assetCard.download") })
               ]
             }
           )
@@ -10156,11 +10257,11 @@ var AssetCard = ({
             className: "flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium",
             children: [
               RenameIcon,
-              /* @__PURE__ */ jsx63("span", { children: t("assets.assetCard.edit") })
+              /* @__PURE__ */ jsx64("span", { children: t("assets.assetCard.edit") })
             ]
           }
         ),
-        /* @__PURE__ */ jsx63(DropdownMenuSeparator, { className: "my-1" }),
+        /* @__PURE__ */ jsx64(DropdownMenuSeparator, { className: "my-1" }),
         /* @__PURE__ */ jsxs44(
           DropdownMenuItem,
           {
@@ -10170,8 +10271,8 @@ var AssetCard = ({
             },
             className: "flex gap-3 px-3 py-2 rounded-[10px] text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-950/40 cursor-pointer text-xs sm:text-sm font-medium",
             children: [
-              /* @__PURE__ */ jsx63(Trash23, { className: "size-4 text-red-600" }),
-              /* @__PURE__ */ jsx63("span", { children: t("assets.assetCard.delete") })
+              /* @__PURE__ */ jsx64(Trash23, { className: "size-4 text-red-600" }),
+              /* @__PURE__ */ jsx64("span", { children: t("assets.assetCard.delete") })
             ]
           }
         )
@@ -10179,13 +10280,17 @@ var AssetCard = ({
     }
   );
   if (isListLike) {
-    return /* @__PURE__ */ jsx63(TooltipProvider, { children: /* @__PURE__ */ jsxs44(
+    return /* @__PURE__ */ jsx64(TooltipProvider, { children: /* @__PURE__ */ jsxs44(
       Card2,
       {
         className: cn(
-          "group relative bg-card rounded-[16px] corner-squircle p-2 sm:p-2.5 cursor-pointer transition-all border shadow-xs",
+          // `isolate` keeps the card's own z-indexed children inside the
+          // card. Without it they joined the page's stacking context and
+          // a card scrolled under the sticky search bar painted over it.
+          "group relative isolate bg-card corner-squircle p-2 cursor-pointer transition-all border shadow-xs",
+          LIST_CARD_RADIUS,
           selected ? "border-primary bg-primary/10 dark:bg-primary/20 ring-1 ring-primary" : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700",
-          "flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4",
+          "flex flex-row items-center gap-3 sm:gap-4",
           isDragging && "opacity-50 scale-95"
         ),
         onClick: !isRenaming && onClick ? onClick : void 0,
@@ -10194,68 +10299,55 @@ var AssetCard = ({
         onDragStart,
         onDragEnd,
         children: [
-          /* @__PURE__ */ jsxs44("div", { className: "relative h-20 w-[162px] shrink-0 rounded-[12px] corner-squircle overflow-hidden bg-zinc-100 dark:bg-zinc-800", children: [
-            data.type === "image" && /* @__PURE__ */ jsx63(
-              "img",
-              {
-                src: data.is_ready && data.image?.thumbnail_path ? data.image.thumbnail_path : images.clock,
-                alt: data.name,
-                className: cn(
-                  "size-full object-cover shrink-0",
-                  allowSelect && "brightness-75",
-                  !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
-                )
-              }
-            ),
-            data.type === "video" && /* @__PURE__ */ jsxs44(Fragment8, { children: [
-              /* @__PURE__ */ jsx63(
-                "img",
-                {
-                  src: data.is_ready && data.video?.thumbnail_path ? data.video.thumbnail_path : images.clock,
-                  alt: data.name,
-                  className: cn(
-                    "size-full object-cover shrink-0",
-                    allowSelect && "brightness-75",
-                    !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
-                  )
-                }
+          /* @__PURE__ */ jsxs44(
+            "div",
+            {
+              className: cn(
+                "relative shrink-0 corner-squircle overflow-hidden bg-zinc-100 dark:bg-zinc-800",
+                LIST_THUMB_SIZE,
+                LIST_THUMB_RADIUS
               ),
-              data.is_ready && /* @__PURE__ */ jsx63("div", { className: "absolute inset-0 flex items-center justify-center pointer-events-none", children: /* @__PURE__ */ jsx63("div", { className: "size-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white", children: /* @__PURE__ */ jsx63(Play, { className: "size-3.5 fill-white text-white translate-x-[0.5px]" }) }) })
-            ] }),
-            data.type === "document" && data.document && /* @__PURE__ */ jsx63(
-              "img",
-              {
-                src: data.is_ready ? data.document.thumbnail_path || documentsImages2[data.document.mime_type] || images.doc : images.clock,
-                alt: data.name,
-                className: cn(
-                  "size-full object-cover shrink-0",
-                  allowSelect && "brightness-75",
-                  !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
-                )
-              }
-            ),
-            data.type === "link" && /* @__PURE__ */ jsx63(
-              "img",
-              {
-                src: data.is_ready && data.link?.thumbnail_url ? data.link.thumbnail_url : images.linkFallback,
-                alt: data.name,
-                className: "size-full object-cover shrink-0"
-              }
-            ),
-            allowSelect && /* @__PURE__ */ jsx63(
-              "span",
-              {
-                className: cn(
-                  "absolute top-2 start-2 size-4 shrink-0 rounded-[4px] flex items-center justify-center border",
-                  selected ? "border-primary bg-primary text-white" : "border-white/80 bg-black/40 text-transparent"
+              children: [
+                thumbnail.processing ? /* @__PURE__ */ jsx64(
+                  "img",
+                  {
+                    src: images.clock,
+                    alt: data.name,
+                    className: cn(
+                      "size-full object-contain p-4 bg-amber-50 dark:bg-amber-900/20",
+                      allowSelect && "brightness-75"
+                    )
+                  }
+                ) : /* @__PURE__ */ jsx64(
+                  AssetThumbnail_default,
+                  {
+                    src: thumbnail.src,
+                    alt: data.name,
+                    kind: thumbnail.kind,
+                    className: cn(
+                      "size-full object-cover shrink-0",
+                      allowSelect && "brightness-75"
+                    ),
+                    iconClassName: "size-5"
+                  }
                 ),
-                children: selected && /* @__PURE__ */ jsx63(Check8, { className: "size-3" })
-              }
-            )
-          ] }),
+                showPlayBadge && /* @__PURE__ */ jsx64("div", { className: "absolute inset-0 flex items-center justify-center pointer-events-none", children: /* @__PURE__ */ jsx64("div", { className: "size-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white", children: /* @__PURE__ */ jsx64(Play2, { className: "size-3.5 fill-white text-white translate-x-[0.5px]" }) }) }),
+                allowSelect && /* @__PURE__ */ jsx64(
+                  "span",
+                  {
+                    className: cn(
+                      "absolute top-2 start-2 size-4 shrink-0 rounded-[4px] flex items-center justify-center border",
+                      selected ? "border-primary bg-primary text-white" : "border-white/80 bg-black/40 text-transparent"
+                    ),
+                    children: selected && /* @__PURE__ */ jsx64(Check8, { className: "size-3" })
+                  }
+                )
+              ]
+            }
+          ),
           /* @__PURE__ */ jsxs44("div", { className: "w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0", children: [
-            /* @__PURE__ */ jsxs44("div", { className: "flex flex-col min-w-0 max-w-[calc(100%-80px)]", children: [
-              isRenaming ? /* @__PURE__ */ jsx63(
+            /* @__PURE__ */ jsxs44("div", { className: "flex flex-col flex-1 min-w-0", children: [
+              isRenaming ? /* @__PURE__ */ jsx64(
                 Input2,
                 {
                   ref: inputRef,
@@ -10269,8 +10361,8 @@ var AssetCard = ({
                   onClick: (e) => e.stopPropagation()
                 }
               ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63("h2", { className: "text-xs sm:text-sm text-start font-semibold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
-                /* @__PURE__ */ jsx63(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
+                /* @__PURE__ */ jsx64(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx64("h2", { className: "text-xs sm:text-sm text-start font-semibold text-foreground truncate max-w-full pointer-events-none", children: data.name }) }),
+                /* @__PURE__ */ jsx64(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
               ] }),
               /* @__PURE__ */ jsxs44("p", { className: "text-xs text-muted-foreground truncate max-w-32 pointer-events-none text-start", children: [
                 data.type === "image" && data.image?.size,
@@ -10293,25 +10385,25 @@ var AssetCard = ({
                       onOpenChange: (value) => setOpenMenuId(value ? data.uuid : null),
                       children: [
                         /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                          /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63(
+                          /* @__PURE__ */ jsx64(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx64(
                             DropdownMenuTrigger,
                             {
                               disabled: allowSelect,
                               className: "disabled:text-muted-foreground focus:outline-none",
                               asChild: true,
-                              children: /* @__PURE__ */ jsx63(
+                              children: /* @__PURE__ */ jsx64(
                                 "button",
                                 {
                                   type: "button",
                                   className: "flex size-8 shrink-0 items-center justify-center rounded-[8px] text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors",
                                   "aria-label": t("assets.assetCard.moreOptions"),
                                   onClick: (e) => e.stopPropagation(),
-                                  children: /* @__PURE__ */ jsx63(MoreHorizontal3, { className: "size-4", "aria-hidden": true })
+                                  children: /* @__PURE__ */ jsx64(MoreHorizontal3, { className: "size-4", "aria-hidden": true })
                                 }
                               )
                             }
                           ) }),
-                          /* @__PURE__ */ jsx63(TooltipContent, { children: /* @__PURE__ */ jsx63("p", { children: t("assets.assetCard.moreOptions") }) })
+                          /* @__PURE__ */ jsx64(TooltipContent, { children: /* @__PURE__ */ jsx64("p", { children: t("assets.assetCard.moreOptions") }) })
                         ] }),
                         renderDropdownMenuItems()
                       ]
@@ -10325,11 +10417,16 @@ var AssetCard = ({
       }
     ) });
   }
-  return /* @__PURE__ */ jsx63(TooltipProvider, { children: /* @__PURE__ */ jsxs44(
+  return /* @__PURE__ */ jsx64(TooltipProvider, { children: /* @__PURE__ */ jsxs44(
     Card2,
     {
       className: cn(
-        "group relative aspect-[4/5] w-full rounded-[20px] corner-squircle overflow-hidden cursor-pointer select-none",
+        // `isolate`: see the list card. The overlay below sits at z-20 and
+        // the checkbox at z-30, the same values as the sticky header, so
+        // without a stacking context of their own they won the paint order
+        // and rode over the search bar.
+        "group relative isolate aspect-[4/5] w-full corner-squircle overflow-hidden cursor-pointer select-none",
+        GRID_CARD_RADIUS,
         "border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100 dark:bg-zinc-900 shadow-xs",
         "transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-700",
         selected && "ring-2 ring-primary ring-offset-2 border-primary",
@@ -10342,77 +10439,40 @@ var AssetCard = ({
       onDragEnd,
       children: [
         /* @__PURE__ */ jsxs44("div", { className: "absolute inset-0 size-full overflow-hidden bg-zinc-100 dark:bg-zinc-900", children: [
-          data.type === "image" && /* @__PURE__ */ jsx63(
-            "img",
-            {
-              src: data.is_ready && data.image?.thumbnail_path ? data.image.thumbnail_path : images.clock,
-              alt: data.name,
-              className: cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75",
-                !data.is_ready && "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
-              )
-            }
-          ),
-          data.type === "video" && /* @__PURE__ */ jsxs44(Fragment8, { children: [
-            /* @__PURE__ */ jsx63(
-              "img",
-              {
-                src: data.is_ready && data.video?.thumbnail_path ? data.video.thumbnail_path : images.clock,
-                alt: data.name,
-                className: cn(
-                  "size-full object-cover transition-all duration-300",
-                  "group-hover:scale-105 group-hover:blur-[1px]",
-                  allowSelect && "brightness-75",
-                  !data.is_ready && "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
-                )
-              }
-            ),
-            data.is_ready && /* @__PURE__ */ jsx63("div", { className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-transform duration-300 group-hover:scale-110", children: /* @__PURE__ */ jsx63("div", { className: "size-11 sm:size-12 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white shadow-lg", children: /* @__PURE__ */ jsx63(Play, { className: "size-5 fill-white text-white translate-x-0.5" }) }) })
-          ] }),
-          data.type === "document" && /* @__PURE__ */ jsx63(
-            "img",
-            {
-              src: data.is_ready ? data.document && data.document.thumbnail_path || data.document && documentsImages2[data.document.mime_type] || images.doc : images.clock,
-              alt: data.name,
-              className: cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75",
-                !data.is_ready && "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
-              )
-            }
-          ),
-          data.type === "link" && /* @__PURE__ */ jsx63(
-            "img",
-            {
-              src: data.is_ready && data.link?.thumbnail_url ? data.link.thumbnail_url : images.linkFallback,
-              alt: data.name,
-              className: cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75"
-              )
-            }
-          ),
-          (!data.type || data.type !== "image" && data.type !== "video" && data.type !== "document" && data.type !== "link") && /* @__PURE__ */ jsx63(
+          thumbnail.processing ? /* @__PURE__ */ jsx64(
             "img",
             {
               src: images.clock,
               alt: data.name,
-              className: "size-full object-contain p-8 bg-amber-50 dark:bg-amber-900/20"
+              className: cn(
+                "size-full object-contain p-8 bg-amber-50 dark:bg-amber-900/20",
+                allowSelect && "brightness-75"
+              )
             }
-          )
+          ) : /* @__PURE__ */ jsx64(
+            AssetThumbnail_default,
+            {
+              src: thumbnail.src,
+              alt: data.name,
+              kind: thumbnail.kind,
+              className: cn(
+                "size-full object-cover transition-all duration-300",
+                "group-hover:scale-105 group-hover:blur-[1px]",
+                allowSelect && "brightness-75"
+              ),
+              iconClassName: "size-8 sm:size-10"
+            }
+          ),
+          showPlayBadge && /* @__PURE__ */ jsx64("div", { className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-transform duration-300 group-hover:scale-110", children: /* @__PURE__ */ jsx64("div", { className: "size-11 sm:size-12 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white shadow-lg", children: /* @__PURE__ */ jsx64(Play2, { className: "size-5 fill-white text-white translate-x-0.5" }) }) })
         ] }),
-        allowSelect && /* @__PURE__ */ jsx63(
+        allowSelect && /* @__PURE__ */ jsx64(
           "span",
           {
             className: cn(
               "absolute top-3 end-3 z-30 size-5 shrink-0 rounded-[6px] flex items-center justify-center border transition-all pointer-events-auto shadow-sm",
               selected ? "border-primary bg-primary text-white" : "border-white/80 bg-black/45 text-transparent hover:border-white hover:bg-black/60"
             ),
-            children: selected && /* @__PURE__ */ jsx63(Check8, { className: "size-3.5 stroke-[2.5]" })
+            children: selected && /* @__PURE__ */ jsx64(Check8, { className: "size-3.5 stroke-[2.5]" })
           }
         ),
         /* @__PURE__ */ jsxs44(
@@ -10420,32 +10480,42 @@ var AssetCard = ({
           {
             className: cn(
               "absolute inset-0 z-20 flex flex-col justify-between p-3 transition-opacity duration-200 pointer-events-none",
-              isMenuOpen || isRenaming ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
+              isMenuOpen || isRenaming ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
             ),
             children: [
-              /* @__PURE__ */ jsx63("div", { className: "absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none" }),
-              /* @__PURE__ */ jsx63("div", { className: "relative z-10 flex items-center justify-between gap-2 w-full", children: /* @__PURE__ */ jsxs44("div", { className: "flex items-center gap-2 min-w-0 max-w-[calc(100%-36px)] pointer-events-auto", children: [
-                /* @__PURE__ */ jsx63("div", { className: "size-7 sm:size-8 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center text-white shrink-0 shadow-sm", children: renderTypeIcon() }),
-                isRenaming ? /* @__PURE__ */ jsx63(
-                  Input2,
-                  {
-                    ref: inputRef,
-                    value: newTitle,
-                    onChange: (e) => setNewTitle(e.target.value),
-                    onKeyDown: handleKeyDown,
-                    onBlur: handleBlur,
-                    onFocus: (e) => e.currentTarget.select(),
-                    className: "h-7 text-xs sm:text-sm bg-black/60 backdrop-blur-md text-white border-white/30 focus-visible:ring-white/50 w-full max-w-[170px]",
-                    maxLength: 50,
-                    onClick: (e) => e.stopPropagation()
-                  }
-                ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                  /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63("span", { className: "text-xs sm:text-sm font-semibold text-white truncate max-w-full drop-shadow-sm select-none", children: data.name }) }),
-                  /* @__PURE__ */ jsx63(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
-                ] })
-              ] }) }),
-              /* @__PURE__ */ jsx63("div", { className: "absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" }),
-              /* @__PURE__ */ jsx63("div", { className: "relative z-10 flex items-center justify-end w-full gap-2 pointer-events-auto", children: /* @__PURE__ */ jsxs44(
+              /* @__PURE__ */ jsx64("div", { className: "absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none" }),
+              /* @__PURE__ */ jsx64("div", { className: "relative z-10 flex items-center justify-between gap-2 w-full", children: /* @__PURE__ */ jsxs44(
+                "div",
+                {
+                  className: cn(
+                    "flex items-center gap-2 min-w-0 pointer-events-auto",
+                    // Leave room for the selection checkbox beside the title.
+                    allowSelect ? "max-w-[calc(100%-36px)]" : "max-w-full"
+                  ),
+                  children: [
+                    /* @__PURE__ */ jsx64("div", { className: "size-7 sm:size-8 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center text-white shrink-0 shadow-sm", children: renderTypeIcon() }),
+                    isRenaming ? /* @__PURE__ */ jsx64(
+                      Input2,
+                      {
+                        ref: inputRef,
+                        value: newTitle,
+                        onChange: (e) => setNewTitle(e.target.value),
+                        onKeyDown: handleKeyDown,
+                        onBlur: handleBlur,
+                        onFocus: (e) => e.currentTarget.select(),
+                        className: "h-7 text-xs sm:text-sm bg-black/60 backdrop-blur-md text-white border-white/30 focus-visible:ring-white/50 w-full max-w-[170px]",
+                        maxLength: 50,
+                        onClick: (e) => e.stopPropagation()
+                      }
+                    ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
+                      /* @__PURE__ */ jsx64(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx64("span", { className: "text-xs sm:text-sm font-semibold text-white truncate max-w-full drop-shadow-sm select-none", children: data.name }) }),
+                      /* @__PURE__ */ jsx64(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
+                    ] })
+                  ]
+                }
+              ) }),
+              /* @__PURE__ */ jsx64("div", { className: "absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" }),
+              /* @__PURE__ */ jsx64("div", { className: "relative z-10 flex items-center justify-end w-full gap-2 pointer-events-auto", children: /* @__PURE__ */ jsxs44(
                 "div",
                 {
                   className: "relative flex items-center shrink-0 gap-2 [&>button]:size-8 [&>button]:rounded-full [&>button]:bg-black/50 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:border [&>button]:border-white/10 hover:[&>button]:bg-black/75 hover:[&>button]:scale-105 active:[&>button]:scale-95 transition-all shadow-sm",
@@ -10460,25 +10530,25 @@ var AssetCard = ({
                         onOpenChange: (value) => setOpenMenuId(value ? data.uuid : null),
                         children: [
                           /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                            /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63(
+                            /* @__PURE__ */ jsx64(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx64(
                               DropdownMenuTrigger,
                               {
                                 disabled: allowSelect,
                                 className: "disabled:opacity-40 focus:outline-none",
                                 asChild: true,
-                                children: /* @__PURE__ */ jsx63(
+                                children: /* @__PURE__ */ jsx64(
                                   "button",
                                   {
                                     type: "button",
                                     className: assetCardIconButtonClass,
                                     "aria-label": t("assets.assetCard.moreOptions"),
                                     onClick: (e) => e.stopPropagation(),
-                                    children: /* @__PURE__ */ jsx63(MoreHorizontal3, { className: "size-4 text-white", "aria-hidden": true })
+                                    children: /* @__PURE__ */ jsx64(MoreHorizontal3, { className: "size-4 text-white", "aria-hidden": true })
                                   }
                                 )
                               }
                             ) }),
-                            /* @__PURE__ */ jsx63(TooltipContent, { children: /* @__PURE__ */ jsx63("p", { children: t("assets.assetCard.moreOptions") }) })
+                            /* @__PURE__ */ jsx64(TooltipContent, { children: /* @__PURE__ */ jsx64("p", { children: t("assets.assetCard.moreOptions") }) })
                           ] }),
                           renderDropdownMenuItems()
                         ]
@@ -10499,25 +10569,48 @@ var AssetCardSkeleton = ({
 }) => {
   const isListLike = viewType === "list" || viewType === "grid-list";
   if (isListLike) {
-    return /* @__PURE__ */ jsxs44(Card2, { className: "relative bg-card rounded-[16px] corner-squircle p-2 sm:p-2.5 transition-all border border-zinc-200/60 dark:border-zinc-800/60 flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4 shadow-xs", children: [
-      /* @__PURE__ */ jsx63(Skeleton, { className: "h-20 w-[162px] rounded-[12px] corner-squircle shrink-0" }),
-      /* @__PURE__ */ jsxs44("div", { className: "w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3", children: [
-        /* @__PURE__ */ jsxs44("div", { className: "flex flex-col gap-1 w-full min-w-0", children: [
-          /* @__PURE__ */ jsx63(Skeleton, { className: "w-4/5 h-3 sm:h-4" }),
-          /* @__PURE__ */ jsx63(Skeleton, { className: "w-3/5 h-2.5 sm:h-3" })
-        ] }),
-        /* @__PURE__ */ jsx63("div", { className: "flex gap-1", children: /* @__PURE__ */ jsx63(Skeleton, { className: "size-8 rounded-full" }) })
-      ] })
-    ] });
+    return /* @__PURE__ */ jsxs44(
+      Card2,
+      {
+        className: cn(
+          "relative bg-card corner-squircle p-2 transition-all border border-zinc-200/60 dark:border-zinc-800/60 flex flex-row items-center gap-3 sm:gap-4 shadow-xs",
+          LIST_CARD_RADIUS
+        ),
+        children: [
+          /* @__PURE__ */ jsx64(
+            Skeleton,
+            {
+              className: cn("corner-squircle shrink-0", LIST_THUMB_SIZE, LIST_THUMB_RADIUS)
+            }
+          ),
+          /* @__PURE__ */ jsxs44("div", { className: "w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0", children: [
+            /* @__PURE__ */ jsxs44("div", { className: "flex flex-col gap-1.5 w-full min-w-0", children: [
+              /* @__PURE__ */ jsx64(Skeleton, { className: "w-4/5 h-3 sm:h-4" }),
+              /* @__PURE__ */ jsx64(Skeleton, { className: "w-3/5 h-2.5 sm:h-3" })
+            ] }),
+            /* @__PURE__ */ jsx64(Skeleton, { className: "size-8 rounded-[8px] shrink-0" })
+          ] })
+        ]
+      }
+    );
   }
-  return /* @__PURE__ */ jsx63(Card2, { className: "relative aspect-[4/5] w-full rounded-[20px] corner-squircle overflow-hidden border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-100 dark:bg-zinc-900/60 shadow-xs", children: /* @__PURE__ */ jsx63(Skeleton, { className: "size-full rounded-[20px] corner-squircle" }) });
+  return /* @__PURE__ */ jsx64(
+    Card2,
+    {
+      className: cn(
+        "relative aspect-[4/5] w-full corner-squircle overflow-hidden border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-100 dark:bg-zinc-900/60 shadow-xs",
+        GRID_CARD_RADIUS
+      ),
+      children: /* @__PURE__ */ jsx64(Skeleton, { className: "size-full" })
+    }
+  );
 };
 var AssetCard_default = AssetCard;
 
 // src/components/assets/components/FolderCard.tsx
-import React32, { useState as useState19, useRef as useRef4, useEffect as useEffect17, useCallback as useCallback6 } from "react";
+import React33, { useState as useState20, useRef as useRef4, useEffect as useEffect18, useCallback as useCallback6 } from "react";
 import { Check as Check9, Download as Download2, FilePenLine, MoreHorizontal as MoreHorizontal4, Trash2 as Trash24 } from "lucide-react";
-import { jsx as jsx64, jsxs as jsxs45 } from "react/jsx-runtime";
+import { jsx as jsx65, jsxs as jsxs45 } from "react/jsx-runtime";
 var MoveIcon2 = /* @__PURE__ */ jsxs45(
   "svg",
   {
@@ -10527,7 +10620,7 @@ var MoveIcon2 = /* @__PURE__ */ jsxs45(
     viewBox: "0 0 18 19",
     fill: "none",
     children: [
-      /* @__PURE__ */ jsx64(
+      /* @__PURE__ */ jsx65(
         "path",
         {
           d: "M1.5 9.0498V5.26212C1.5 4.60022 1.5 4.26927 1.55201 3.99359C1.78098 2.78004 2.73023 1.83078 3.94379 1.60182C4.21946 1.5498 4.55041 1.5498 5.21231 1.5498C5.50232 1.5498 5.64732 1.5498 5.78668 1.56284C6.38749 1.61902 6.95739 1.85508 7.42196 2.24019C7.52971 2.32952 7.63224 2.43205 7.83731 2.63712L8.25 3.04981C8.86183 3.66164 9.16775 3.96756 9.53409 4.17137C9.73533 4.28334 9.94879 4.37176 10.1703 4.43489C10.5734 4.5498 11.0061 4.5498 11.8713 4.5498H12.1516C14.1258 4.5498 15.113 4.5498 15.7546 5.1269C15.8136 5.17999 15.8698 5.23616 15.9229 5.29518C16.5 5.93682 16.5 6.92396 16.5 8.89823V10.5498C16.5 13.3782 16.5 14.7924 15.6213 15.6711C14.7426 16.5498 13.3284 16.5498 10.5 16.5498H7.5C4.67157 16.5498 3.25736 16.5498 2.37868 15.6711C1.88879 15.1812 1.67203 14.5249 1.57612 13.5498",
@@ -10536,7 +10629,7 @@ var MoveIcon2 = /* @__PURE__ */ jsxs45(
           strokeLinecap: "round"
         }
       ),
-      /* @__PURE__ */ jsx64(
+      /* @__PURE__ */ jsx65(
         "path",
         {
           d: "M1.5 11.2998C6.33274 11.2998 4.91726 11.2998 9.75 11.2998M9.75 11.2998L6.65625 9.0498M9.75 11.2998L6.65625 13.5498",
@@ -10549,7 +10642,7 @@ var MoveIcon2 = /* @__PURE__ */ jsxs45(
     ]
   }
 );
-var FolderCard = React32.forwardRef(
+var FolderCard = React33.forwardRef(
   ({
     data,
     viewType = "grid",
@@ -10575,13 +10668,13 @@ var FolderCard = React32.forwardRef(
     const openMenuId = useAssetsStore((s) => s.openMenuId);
     const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
     const isRenaming = renamingItemId === data.id;
-    const [newTitle, setNewTitle] = useState19(data.name);
+    const [newTitle, setNewTitle] = useState20(data.name);
     const inputRef = useRef4(null);
     const isCancelledRef = useRef4(false);
-    useEffect17(() => {
+    useEffect18(() => {
       setNewTitle(data.name);
     }, [data.name]);
-    useEffect17(() => {
+    useEffect18(() => {
       if (!isRenaming) return;
       setNewTitle(data.name);
       const frame = requestAnimationFrame(() => {
@@ -10624,14 +10717,16 @@ var FolderCard = React32.forwardRef(
       }
       isCancelledRef.current = false;
     }, [handleRename]);
-    return /* @__PURE__ */ jsx64(TooltipProvider, { children: /* @__PURE__ */ jsx64(
+    return /* @__PURE__ */ jsx65(TooltipProvider, { children: /* @__PURE__ */ jsx65(
       Card2,
       {
         ref,
         className: cn(
-          "group relative bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
+          // `isolate` keeps the card's stacking context to itself so a
+          // hovered card never paints over the sticky search bar.
+          "group relative isolate bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
           selected ? "border-primary bg-primary/10 dark:bg-primary/20 ring-2 ring-primary ring-offset-2" : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-lg",
-          viewType !== "grid" && "flex items-center gap-4 rounded-[16px]",
+          viewType !== "grid" && "flex items-center gap-3 sm:gap-4 rounded-[16px]",
           isDropTarget && "border-primary bg-primary/10 dark:bg-primary/20 border-2 border-dashed"
         ),
         onClick: (e) => {
@@ -10647,170 +10742,182 @@ var FolderCard = React32.forwardRef(
           "div",
           {
             className: cn(
-              "size-full rounded-[16px] corner-squircle overflow-hidden",
-              viewType === "grid" ? "flex flex-col" : "flex flex-row justify-between"
+              // Inner radius = outer radius - 8px padding, so the folder art
+              // sits concentric with the card: 12px inside 20px on the grid,
+              // 8px inside 16px on the list.
+              "size-full corner-squircle overflow-hidden",
+              viewType === "grid" ? "flex flex-col rounded-[12px]" : "flex flex-row justify-between rounded-[8px]"
             ),
             children: [
-              /* @__PURE__ */ jsxs45(CardHeader2, { className: "p-0 w-auto relative", children: [
-                /* @__PURE__ */ jsx64(
+              /* @__PURE__ */ jsxs45(CardHeader2, { className: "p-0 w-auto relative shrink-0", children: [
+                /* @__PURE__ */ jsx65(
                   "img",
                   {
                     src: images.folder,
                     alt: data.name,
                     className: cn(
-                      "size-full object-cover rounded-[14px] corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
+                      "size-full object-cover corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
                       allowSelect && "brightness-50",
-                      viewType === "grid" ? "h-40" : "h-24 w-[162px]"
+                      viewType === "grid" ? "h-40 rounded-[12px]" : "h-16 w-28 sm:h-20 sm:w-[162px] rounded-[8px]"
                     )
                   }
                 ),
-                allowSelect && /* @__PURE__ */ jsx64(
+                allowSelect && /* @__PURE__ */ jsx65(
                   "span",
                   {
                     className: cn(
                       "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border shadow-xs",
                       selected && "border-primary bg-primary text-white"
                     ),
-                    children: selected && /* @__PURE__ */ jsx64(Check9, { className: "size-3" })
+                    children: selected && /* @__PURE__ */ jsx65(Check9, { className: "size-3" })
                   }
                 )
               ] }),
-              /* @__PURE__ */ jsxs45(CardContent2, { className: "w-full p-3 pe-0 flex justify-between items-center gap-3", children: [
-                /* @__PURE__ */ jsxs45("div", { className: "flex flex-col w-full max-w-[calc(100%-50px)]", children: [
-                  isRenaming ? /* @__PURE__ */ jsx64(
-                    Input2,
-                    {
-                      ref: inputRef,
-                      value: newTitle,
-                      onChange: (e) => setNewTitle(e.target.value),
-                      onKeyDown: handleKeyDown,
-                      onBlur: handleBlur,
-                      onFocus: (e) => e.currentTarget.select(),
-                      maxLength: 50,
-                      className: "h-7 text-sm",
-                      onClick: (e) => e.stopPropagation()
-                    }
-                  ) : /* @__PURE__ */ jsxs45(Tooltip, { children: [
-                    /* @__PURE__ */ jsx64(TooltipTrigger, { children: /* @__PURE__ */ jsx64("h2", { className: "text-sm font-bold text-foreground truncate text-start max-w-full pointer-events-none", children: data.name }) }),
-                    /* @__PURE__ */ jsx64(TooltipContent, { side: "bottom", children: data.name })
-                  ] }),
-                  /* @__PURE__ */ jsxs45("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none text-start", children: [
-                    data.assets_count || 0,
-                    " ",
-                    data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
-                  ] })
-                ] }),
-                /* @__PURE__ */ jsx64(
-                  "div",
-                  {
-                    className: "min-w-14 relative flex shrink-0",
-                    "data-nitxui-card-actions": "",
-                    onClick: (e) => e.stopPropagation(),
-                    children: /* @__PURE__ */ jsxs45(
-                      DropdownMenu,
+              /* @__PURE__ */ jsxs45(
+                CardContent2,
+                {
+                  className: cn(
+                    "w-full flex justify-between items-center gap-2 sm:gap-3 min-w-0",
+                    viewType === "grid" ? "p-3 pe-0" : "py-0 ps-1 pe-0 sm:ps-2"
+                  ),
+                  children: [
+                    /* @__PURE__ */ jsxs45("div", { className: "flex flex-col flex-1 min-w-0", children: [
+                      isRenaming ? /* @__PURE__ */ jsx65(
+                        Input2,
+                        {
+                          ref: inputRef,
+                          value: newTitle,
+                          onChange: (e) => setNewTitle(e.target.value),
+                          onKeyDown: handleKeyDown,
+                          onBlur: handleBlur,
+                          onFocus: (e) => e.currentTarget.select(),
+                          maxLength: 50,
+                          className: "h-7 text-sm",
+                          onClick: (e) => e.stopPropagation()
+                        }
+                      ) : /* @__PURE__ */ jsxs45(Tooltip, { children: [
+                        /* @__PURE__ */ jsx65(TooltipTrigger, { children: /* @__PURE__ */ jsx65("h2", { className: "text-sm font-bold text-foreground truncate text-start max-w-full pointer-events-none", children: data.name }) }),
+                        /* @__PURE__ */ jsx65(TooltipContent, { side: "bottom", children: data.name })
+                      ] }),
+                      /* @__PURE__ */ jsxs45("p", { className: "text-xs text-muted-foreground truncate max-w-28 pointer-events-none text-start", children: [
+                        data.assets_count || 0,
+                        " ",
+                        data.assets_count === 1 ? t("assets.folderCard.item") : t("assets.folderCard.items")
+                      ] })
+                    ] }),
+                    /* @__PURE__ */ jsx65(
+                      "div",
                       {
-                        open: openMenuId === data.id,
-                        onOpenChange: (value) => setOpenMenuId(value ? data.id : null),
-                        children: [
-                          /* @__PURE__ */ jsxs45(Tooltip, { children: [
-                            /* @__PURE__ */ jsx64(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx64(
-                              DropdownMenuTrigger,
-                              {
-                                disabled: allowSelect,
-                                className: "disabled:text-muted-foreground focus:outline-none",
-                                asChild: true,
-                                children: /* @__PURE__ */ jsx64(
-                                  Button,
+                        className: "min-w-14 relative flex shrink-0",
+                        "data-nitxui-card-actions": "",
+                        onClick: (e) => e.stopPropagation(),
+                        children: /* @__PURE__ */ jsxs45(
+                          DropdownMenu,
+                          {
+                            open: openMenuId === data.id,
+                            onOpenChange: (value) => setOpenMenuId(value ? data.id : null),
+                            children: [
+                              /* @__PURE__ */ jsxs45(Tooltip, { children: [
+                                /* @__PURE__ */ jsx65(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx65(
+                                  DropdownMenuTrigger,
                                   {
-                                    type: "button",
-                                    size: "icon",
-                                    variant: "ghost",
-                                    className: "flex gap-2 rounded-[8px] hover:bg-zinc-100 dark:hover:bg-zinc-800",
-                                    "aria-label": t("assets.folderCard.moreOptions"),
-                                    onClick: (e) => e.stopPropagation(),
-                                    children: /* @__PURE__ */ jsx64(MoreHorizontal4, { className: "size-4" })
+                                    disabled: allowSelect,
+                                    className: "disabled:text-muted-foreground focus:outline-none",
+                                    asChild: true,
+                                    children: /* @__PURE__ */ jsx65(
+                                      Button,
+                                      {
+                                        type: "button",
+                                        size: "icon",
+                                        variant: "ghost",
+                                        className: "flex gap-2 rounded-[8px] hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                                        "aria-label": t("assets.folderCard.moreOptions"),
+                                        onClick: (e) => e.stopPropagation(),
+                                        children: /* @__PURE__ */ jsx65(MoreHorizontal4, { className: "size-4" })
+                                      }
+                                    )
                                   }
-                                )
-                              }
-                            ) }),
-                            /* @__PURE__ */ jsx64(TooltipContent, { children: /* @__PURE__ */ jsx64("p", { children: t("assets.folderCard.moreOptions") }) })
-                          ] }),
-                          /* @__PURE__ */ jsxs45(
-                            DropdownMenuContent,
-                            {
-                              align: "end",
-                              className: "rounded-[16px] corner-squircle min-w-[160px] p-1.5",
-                              onClick: (e) => e.stopPropagation(),
-                              onCloseAutoFocus: (event) => event.preventDefault(),
-                              children: [
-                                renderMenuItems?.(data),
-                                /* @__PURE__ */ jsxs45(
-                                  DropdownMenuItem,
-                                  {
-                                    className: "flex gap-4 rounded-[10px] px-4",
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      setRenamingItemId(data.id);
-                                    },
-                                    children: [
-                                      /* @__PURE__ */ jsx64(FilePenLine, { className: "size-4 stroke-[1.5]" }),
-                                      t("assets.folderCard.rename")
-                                    ]
-                                  }
-                                ),
-                                onMove && /* @__PURE__ */ jsxs45(
-                                  DropdownMenuItem,
-                                  {
-                                    className: "flex gap-4 rounded-[10px] px-4",
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      onMove(data.id, "folder");
-                                    },
-                                    children: [
-                                      MoveIcon2,
-                                      t("assets.folderCard.moveTo")
-                                    ]
-                                  }
-                                ),
-                                onDownload && /* @__PURE__ */ jsxs45(
-                                  DropdownMenuItem,
-                                  {
-                                    className: "flex gap-4 rounded-[10px] px-4",
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      onDownload(data);
-                                    },
-                                    children: [
-                                      /* @__PURE__ */ jsx64(Download2, { className: "size-4 stroke-[1.5]" }),
-                                      t("assets.folderCard.download")
-                                    ]
-                                  }
-                                ),
-                                /* @__PURE__ */ jsx64(DropdownMenuSeparator, {}),
-                                /* @__PURE__ */ jsxs45(
-                                  DropdownMenuItem,
-                                  {
-                                    className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
-                                    onClick: (e) => {
-                                      e.stopPropagation();
-                                      onDelete?.();
-                                    },
-                                    children: [
-                                      /* @__PURE__ */ jsx64(Trash24, { className: "size-4" }),
-                                      " ",
-                                      t("assets.folderCard.delete")
-                                    ]
-                                  }
-                                )
-                              ]
-                            }
-                          )
-                        ]
+                                ) }),
+                                /* @__PURE__ */ jsx65(TooltipContent, { children: /* @__PURE__ */ jsx65("p", { children: t("assets.folderCard.moreOptions") }) })
+                              ] }),
+                              /* @__PURE__ */ jsxs45(
+                                DropdownMenuContent,
+                                {
+                                  align: "end",
+                                  className: "rounded-[16px] corner-squircle min-w-[160px] p-1.5",
+                                  onClick: (e) => e.stopPropagation(),
+                                  onCloseAutoFocus: (event) => event.preventDefault(),
+                                  children: [
+                                    renderMenuItems?.(data),
+                                    /* @__PURE__ */ jsxs45(
+                                      DropdownMenuItem,
+                                      {
+                                        className: "flex gap-4 rounded-[10px] px-4",
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          setRenamingItemId(data.id);
+                                        },
+                                        children: [
+                                          /* @__PURE__ */ jsx65(FilePenLine, { className: "size-4 stroke-[1.5]" }),
+                                          t("assets.folderCard.rename")
+                                        ]
+                                      }
+                                    ),
+                                    onMove && /* @__PURE__ */ jsxs45(
+                                      DropdownMenuItem,
+                                      {
+                                        className: "flex gap-4 rounded-[10px] px-4",
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          onMove(data.id, "folder");
+                                        },
+                                        children: [
+                                          MoveIcon2,
+                                          t("assets.folderCard.moveTo")
+                                        ]
+                                      }
+                                    ),
+                                    onDownload && /* @__PURE__ */ jsxs45(
+                                      DropdownMenuItem,
+                                      {
+                                        className: "flex gap-4 rounded-[10px] px-4",
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          onDownload(data);
+                                        },
+                                        children: [
+                                          /* @__PURE__ */ jsx65(Download2, { className: "size-4 stroke-[1.5]" }),
+                                          t("assets.folderCard.download")
+                                        ]
+                                      }
+                                    ),
+                                    /* @__PURE__ */ jsx65(DropdownMenuSeparator, {}),
+                                    /* @__PURE__ */ jsxs45(
+                                      DropdownMenuItem,
+                                      {
+                                        className: "flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer",
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          onDelete?.();
+                                        },
+                                        children: [
+                                          /* @__PURE__ */ jsx65(Trash24, { className: "size-4" }),
+                                          " ",
+                                          t("assets.folderCard.delete")
+                                        ]
+                                      }
+                                    )
+                                  ]
+                                }
+                              )
+                            ]
+                          }
+                        )
                       }
                     )
-                  }
-                )
-              ] })
+                  ]
+                }
+              )
             ]
           }
         )
@@ -10826,7 +10933,7 @@ import { createPortal } from "react-dom";
 import { ChevronLeft as ChevronLeft5, ChevronRight as ChevronRight8, X as X4, Download as Download4 } from "lucide-react";
 
 // src/components/assets/components/DocumentPreview.tsx
-import React33 from "react";
+import React34 from "react";
 import {
   ChevronLeft as ChevronLeft4,
   ChevronRight as ChevronRight7,
@@ -10839,7 +10946,7 @@ import {
   ZoomIn,
   ZoomOut
 } from "lucide-react";
-import { jsx as jsx65, jsxs as jsxs46 } from "react/jsx-runtime";
+import { jsx as jsx66, jsxs as jsxs46 } from "react/jsx-runtime";
 var PDF_MIME = "application/pdf";
 var ZOOM_MIN = 0.5;
 var ZOOM_MAX = 3;
@@ -10862,10 +10969,10 @@ function loadPdfModule(workerSrc) {
   return modulePromise;
 }
 var StatePanel = ({ icon, title, description, children }) => /* @__PURE__ */ jsxs46("div", { className: "flex max-w-md flex-col items-center gap-3 rounded-[14px] bg-white/5 px-6 py-8 text-center", children: [
-  /* @__PURE__ */ jsx65("span", { className: "text-white/70", "aria-hidden": true, children: icon }),
-  /* @__PURE__ */ jsx65("p", { className: "text-base font-medium text-white", children: title }),
-  description && /* @__PURE__ */ jsx65("p", { className: "text-sm text-white/70 break-all", children: description }),
-  children && /* @__PURE__ */ jsx65("div", { className: "mt-1 flex flex-wrap items-center justify-center gap-2", children })
+  /* @__PURE__ */ jsx66("span", { className: "text-white/70", "aria-hidden": true, children: icon }),
+  /* @__PURE__ */ jsx66("p", { className: "text-base font-medium text-white", children: title }),
+  description && /* @__PURE__ */ jsx66("p", { className: "text-sm text-white/70 break-all", children: description }),
+  children && /* @__PURE__ */ jsx66("div", { className: "mt-1 flex flex-wrap items-center justify-center gap-2", children })
 ] });
 var chromeButton = "inline-flex size-9 items-center justify-center rounded-[10px] text-white transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 disabled:pointer-events-none disabled:opacity-40";
 var chromeTextButton = "inline-flex h-9 items-center gap-2 rounded-[10px] px-3 text-sm font-medium text-white transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70";
@@ -10877,21 +10984,21 @@ var DocumentPreview = ({
   const { t } = useNitxUiTranslation();
   const { documentPreview } = useAssetsConfig();
   const isPdf = doc.mime_type === PDF_MIME;
-  const [pdf, setPdf] = React33.useState(cachedModule);
-  const [error, setError] = React33.useState(null);
-  const [pageCount, setPageCount] = React33.useState(0);
-  const [page, setPage] = React33.useState(1);
-  const [zoom, setZoom] = React33.useState(1);
-  const [containerWidth, setContainerWidth] = React33.useState();
-  const [attempt, setAttempt] = React33.useState(0);
-  const containerRef = React33.useRef(null);
-  React33.useEffect(() => {
+  const [pdf, setPdf] = React34.useState(cachedModule);
+  const [error, setError] = React34.useState(null);
+  const [pageCount, setPageCount] = React34.useState(0);
+  const [page, setPage] = React34.useState(1);
+  const [zoom, setZoom] = React34.useState(1);
+  const [containerWidth, setContainerWidth] = React34.useState();
+  const [attempt, setAttempt] = React34.useState(0);
+  const containerRef = React34.useRef(null);
+  React34.useEffect(() => {
     setPage(1);
     setZoom(1);
     setPageCount(0);
     setError(null);
   }, [doc.uuid, attempt]);
-  React33.useEffect(() => {
+  React34.useEffect(() => {
     if (!isPdf) return;
     let active = true;
     loadPdfModule(documentPreview?.workerSrc).then((mod) => {
@@ -10903,7 +11010,7 @@ var DocumentPreview = ({
       active = false;
     };
   }, [isPdf, documentPreview?.workerSrc, attempt]);
-  React33.useEffect(() => {
+  React34.useEffect(() => {
     const node = containerRef.current;
     if (!node || typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver((entries) => {
@@ -10913,7 +11020,7 @@ var DocumentPreview = ({
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
-  const goToPage = React33.useCallback(
+  const goToPage = React34.useCallback(
     (next) => {
       setPage((current) => {
         const target = Math.min(Math.max(next, 1), pageCount || 1);
@@ -10922,7 +11029,7 @@ var DocumentPreview = ({
     },
     [pageCount]
   );
-  const changeZoom = React33.useCallback((delta) => {
+  const changeZoom = React34.useCallback((delta) => {
     setZoom(
       (current) => Math.min(Math.max(Number((current + delta).toFixed(2)), ZOOM_MIN), ZOOM_MAX)
     );
@@ -10960,7 +11067,7 @@ var DocumentPreview = ({
       className: chromeTextButton,
       onClick: () => onDownload(asset),
       children: [
-        /* @__PURE__ */ jsx65(Download3, { className: "size-4", "aria-hidden": true }),
+        /* @__PURE__ */ jsx66(Download3, { className: "size-4", "aria-hidden": true }),
         t("assets.assetCard.download")
       ]
     }
@@ -10973,7 +11080,7 @@ var DocumentPreview = ({
       rel: "noreferrer",
       className: chromeTextButton,
       children: [
-        /* @__PURE__ */ jsx65(ExternalLink2, { className: "size-4", "aria-hidden": true }),
+        /* @__PURE__ */ jsx66(ExternalLink2, { className: "size-4", "aria-hidden": true }),
         t("assets.assetsPreview.documentOpen")
       ]
     }
@@ -10982,7 +11089,7 @@ var DocumentPreview = ({
     return /* @__PURE__ */ jsxs46(
       StatePanel,
       {
-        icon: /* @__PURE__ */ jsx65(FileWarning, { className: "size-10" }),
+        icon: /* @__PURE__ */ jsx66(FileWarning, { className: "size-10" }),
         title: t("assets.assetsPreview.documentUnsupported"),
         description: doc.mime_type,
         children: [
@@ -11000,7 +11107,7 @@ var DocumentPreview = ({
         className: chromeTextButton,
         onClick: () => setAttempt((n) => n + 1),
         children: [
-          /* @__PURE__ */ jsx65(RefreshCw3, { className: "size-4", "aria-hidden": true }),
+          /* @__PURE__ */ jsx66(RefreshCw3, { className: "size-4", "aria-hidden": true }),
           t("assets.assetsPreview.documentRetry")
         ]
       }
@@ -11009,7 +11116,7 @@ var DocumentPreview = ({
       return /* @__PURE__ */ jsxs46(
         StatePanel,
         {
-          icon: /* @__PURE__ */ jsx65(Lock, { className: "size-10" }),
+          icon: /* @__PURE__ */ jsx66(Lock, { className: "size-10" }),
           title: t("assets.assetsPreview.documentProtected"),
           description: t("assets.assetsPreview.documentProtectedHint"),
           children: [
@@ -11022,7 +11129,7 @@ var DocumentPreview = ({
     return /* @__PURE__ */ jsxs46(
       StatePanel,
       {
-        icon: /* @__PURE__ */ jsx65(FileWarning, { className: "size-10" }),
+        icon: /* @__PURE__ */ jsx66(FileWarning, { className: "size-10" }),
         title: t("assets.assetsPreview.documentError"),
         description: t("assets.assetsPreview.documentErrorHint"),
         children: [
@@ -11034,11 +11141,11 @@ var DocumentPreview = ({
     );
   }
   const loading = /* @__PURE__ */ jsxs46("div", { className: "flex flex-col items-center gap-3 text-white/80", children: [
-    /* @__PURE__ */ jsx65(Loader25, { className: "size-8 animate-spin", "aria-hidden": true }),
-    /* @__PURE__ */ jsx65("p", { className: "text-sm", children: t("assets.assetsPreview.documentLoading") })
+    /* @__PURE__ */ jsx66(Loader25, { className: "size-8 animate-spin", "aria-hidden": true }),
+    /* @__PURE__ */ jsx66("p", { className: "text-sm", children: t("assets.assetsPreview.documentLoading") })
   ] });
   if (!pdf) {
-    return /* @__PURE__ */ jsx65(
+    return /* @__PURE__ */ jsx66(
       "div",
       {
         role: "status",
@@ -11051,7 +11158,7 @@ var DocumentPreview = ({
   const { Document, Page } = pdf;
   const pageWidth = Math.round((containerWidth || FALLBACK_WIDTH) * zoom);
   return /* @__PURE__ */ jsxs46("div", { className: "flex h-full w-full flex-col items-center gap-3", children: [
-    /* @__PURE__ */ jsx65(
+    /* @__PURE__ */ jsx66(
       "div",
       {
         ref: containerRef,
@@ -11063,13 +11170,13 @@ var DocumentPreview = ({
           "flex w-full flex-1 justify-center overflow-auto rounded-[8px] px-4 outline-none",
           "focus-visible:ring-2 focus-visible:ring-white/70"
         ),
-        children: /* @__PURE__ */ jsx65(
+        children: /* @__PURE__ */ jsx66(
           Document,
           {
             file: doc.original_path,
-            loading: /* @__PURE__ */ jsx65("div", { className: "flex h-full items-center justify-center py-16", children: loading }),
-            error: /* @__PURE__ */ jsx65("span", { className: "sr-only" }),
-            noData: /* @__PURE__ */ jsx65("span", { className: "sr-only" }),
+            loading: /* @__PURE__ */ jsx66("div", { className: "flex h-full items-center justify-center py-16", children: loading }),
+            error: /* @__PURE__ */ jsx66("span", { className: "sr-only" }),
+            noData: /* @__PURE__ */ jsx66("span", { className: "sr-only" }),
             onLoadSuccess: ({ numPages }) => {
               setPageCount(numPages);
               setError(null);
@@ -11077,7 +11184,7 @@ var DocumentPreview = ({
             onLoadError: () => setError("load"),
             onPassword: () => setError("password"),
             className: "flex items-start justify-center",
-            children: /* @__PURE__ */ jsx65(
+            children: /* @__PURE__ */ jsx66(
               Page,
               {
                 pageNumber: page,
@@ -11085,7 +11192,7 @@ var DocumentPreview = ({
                 renderTextLayer: false,
                 renderAnnotationLayer: false,
                 className: "shadow-2xl",
-                loading: /* @__PURE__ */ jsx65(
+                loading: /* @__PURE__ */ jsx66(
                   "div",
                   {
                     className: "bg-white/10",
@@ -11099,7 +11206,7 @@ var DocumentPreview = ({
       }
     ),
     /* @__PURE__ */ jsxs46("div", { className: "flex flex-wrap items-center justify-center gap-1 rounded-[14px] bg-white/10 px-2 py-1.5 sm:gap-2", children: [
-      /* @__PURE__ */ jsx65(
+      /* @__PURE__ */ jsx66(
         "button",
         {
           type: "button",
@@ -11107,10 +11214,10 @@ var DocumentPreview = ({
           onClick: () => goToPage(page - 1),
           disabled: page <= 1,
           "aria-label": t("assets.assetsPreview.documentPrevPage"),
-          children: /* @__PURE__ */ jsx65(ChevronLeft4, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx66(ChevronLeft4, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
         }
       ),
-      /* @__PURE__ */ jsx65(
+      /* @__PURE__ */ jsx66(
         "p",
         {
           "aria-live": "polite",
@@ -11121,7 +11228,7 @@ var DocumentPreview = ({
           })
         }
       ),
-      /* @__PURE__ */ jsx65(
+      /* @__PURE__ */ jsx66(
         "button",
         {
           type: "button",
@@ -11129,11 +11236,11 @@ var DocumentPreview = ({
           onClick: () => goToPage(page + 1),
           disabled: pageCount === 0 || page >= pageCount,
           "aria-label": t("assets.assetsPreview.documentNextPage"),
-          children: /* @__PURE__ */ jsx65(ChevronRight7, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx66(ChevronRight7, { className: "size-5 rtl:rotate-180", "aria-hidden": true })
         }
       ),
-      /* @__PURE__ */ jsx65("span", { className: "mx-1 h-5 w-px bg-white/20", "aria-hidden": true }),
-      /* @__PURE__ */ jsx65(
+      /* @__PURE__ */ jsx66("span", { className: "mx-1 h-5 w-px bg-white/20", "aria-hidden": true }),
+      /* @__PURE__ */ jsx66(
         "button",
         {
           type: "button",
@@ -11141,7 +11248,7 @@ var DocumentPreview = ({
           onClick: () => changeZoom(-ZOOM_STEP),
           disabled: zoom <= ZOOM_MIN,
           "aria-label": t("assets.assetsPreview.documentZoomOut"),
-          children: /* @__PURE__ */ jsx65(ZoomOut, { className: "size-5", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx66(ZoomOut, { className: "size-5", "aria-hidden": true })
         }
       ),
       /* @__PURE__ */ jsxs46(
@@ -11157,7 +11264,7 @@ var DocumentPreview = ({
           ]
         }
       ),
-      /* @__PURE__ */ jsx65(
+      /* @__PURE__ */ jsx66(
         "button",
         {
           type: "button",
@@ -11165,7 +11272,7 @@ var DocumentPreview = ({
           onClick: () => changeZoom(ZOOM_STEP),
           disabled: zoom >= ZOOM_MAX,
           "aria-label": t("assets.assetsPreview.documentZoomIn"),
-          children: /* @__PURE__ */ jsx65(ZoomIn, { className: "size-5", "aria-hidden": true })
+          children: /* @__PURE__ */ jsx66(ZoomIn, { className: "size-5", "aria-hidden": true })
         }
       )
     ] })
@@ -11174,7 +11281,7 @@ var DocumentPreview = ({
 var DocumentPreview_default = DocumentPreview;
 
 // src/components/assets/components/AssetsPreview.tsx
-import { jsx as jsx66, jsxs as jsxs47 } from "react/jsx-runtime";
+import { jsx as jsx67, jsxs as jsxs47 } from "react/jsx-runtime";
 var AssetsPreview = ({
   previewAsset,
   previewIndex,
@@ -11188,7 +11295,7 @@ var AssetsPreview = ({
   const { images } = useAssetsConfig();
   const renderMedia = () => {
     if (previewAsset.type === "image") {
-      return /* @__PURE__ */ jsx66(
+      return /* @__PURE__ */ jsx67(
         "img",
         {
           src: previewAsset.image.compressed_path,
@@ -11198,7 +11305,7 @@ var AssetsPreview = ({
       );
     }
     if (previewAsset.type === "video") {
-      return /* @__PURE__ */ jsx66("video", { controls: true, className: "max-w-full max-h-[80vh]", children: /* @__PURE__ */ jsx66(
+      return /* @__PURE__ */ jsx67("video", { controls: true, className: "max-w-full max-h-[80vh]", children: /* @__PURE__ */ jsx67(
         "source",
         {
           src: previewAsset.video.compressed_path,
@@ -11208,10 +11315,10 @@ var AssetsPreview = ({
     }
     if (previewAsset.type === "link") {
       return /* @__PURE__ */ jsxs47("div", { className: "bg-card p-4 rounded text-center", children: [
-        /* @__PURE__ */ jsx66("p", { className: "mb-2", children: t("assets.assetsPreview.linkPreview", {
+        /* @__PURE__ */ jsx67("p", { className: "mb-2", children: t("assets.assetsPreview.linkPreview", {
           url: previewAsset.link.url
         }) }),
-        /* @__PURE__ */ jsx66(
+        /* @__PURE__ */ jsx67(
           "iframe",
           {
             src: previewAsset.link.url,
@@ -11222,7 +11329,7 @@ var AssetsPreview = ({
       ] });
     }
     if (previewAsset.type === "document") {
-      return /* @__PURE__ */ jsx66(
+      return /* @__PURE__ */ jsx67(
         DocumentPreview_default,
         {
           asset: previewAsset,
@@ -11231,7 +11338,7 @@ var AssetsPreview = ({
         }
       );
     }
-    return /* @__PURE__ */ jsx66("div", { className: "text-white", children: t("assets.assetsPreview.notAvailable") });
+    return /* @__PURE__ */ jsx67("div", { className: "text-white", children: t("assets.assetsPreview.notAvailable") });
   };
   const getThumbnailWindow = () => {
     const total = filteredAssets.length;
@@ -11247,7 +11354,7 @@ var AssetsPreview = ({
     return [previewIndex - 2, previewIndex + 3];
   };
   const [start, end] = getThumbnailWindow();
-  const modalContent = /* @__PURE__ */ jsx66(
+  const modalContent = /* @__PURE__ */ jsx67(
     "div",
     {
       className: "fixed inset-0 bg-black/95 flex items-center justify-center z-[99999] p-0",
@@ -11262,7 +11369,7 @@ var AssetsPreview = ({
       children: /* @__PURE__ */ jsxs47("div", { className: "relative w-full h-full max-w-none flex flex-col", children: [
         /* @__PURE__ */ jsxs47("div", { className: "flex items-center justify-between px-6 py-4 text-white flex-shrink-0", children: [
           /* @__PURE__ */ jsxs47("div", { className: "flex items-center gap-4", children: [
-            /* @__PURE__ */ jsx66("h2", { className: "text-lg font-medium truncate max-w-md", children: previewAsset.name }),
+            /* @__PURE__ */ jsx67("h2", { className: "text-lg font-medium truncate max-w-md", children: previewAsset.name }),
             /* @__PURE__ */ jsxs47("span", { className: "text-sm text-muted-foreground", children: [
               previewIndex + 1,
               " ",
@@ -11272,52 +11379,52 @@ var AssetsPreview = ({
             ] })
           ] }),
           /* @__PURE__ */ jsxs47("div", { className: "flex items-center gap-2", children: [
-            onDownload && /* @__PURE__ */ jsx66(
+            onDownload && /* @__PURE__ */ jsx67(
               Button,
               {
                 variant: "ghost",
                 size: "sm",
                 className: "text-white hover:bg-card/20",
                 onClick: () => onDownload(previewAsset),
-                children: /* @__PURE__ */ jsx66(Download4, { className: "h-4 w-4" })
+                children: /* @__PURE__ */ jsx67(Download4, { className: "h-4 w-4" })
               }
             ),
-            /* @__PURE__ */ jsx66(
+            /* @__PURE__ */ jsx67(
               Button,
               {
                 variant: "ghost",
                 size: "sm",
                 className: "text-white hover:bg-card/20",
                 onClick: () => setPreviewAsset(null),
-                children: /* @__PURE__ */ jsx66(X4, { className: "h-4 w-4" })
+                children: /* @__PURE__ */ jsx67(X4, { className: "h-4 w-4" })
               }
             )
           ] })
         ] }),
         /* @__PURE__ */ jsxs47("div", { className: "flex-1 flex items-center justify-center relative w-full min-h-0 pb-6", children: [
-          /* @__PURE__ */ jsx66(
+          /* @__PURE__ */ jsx67(
             "button",
             {
               className: "absolute start-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
               onClick: () => handlePreviewNavigation("prev"),
               disabled: previewIndex === 0,
               "aria-label": "Previous",
-              children: /* @__PURE__ */ jsx66(ChevronLeft5, { className: "h-6 w-6 rtl:rotate-180" })
+              children: /* @__PURE__ */ jsx67(ChevronLeft5, { className: "h-6 w-6 rtl:rotate-180" })
             }
           ),
-          /* @__PURE__ */ jsx66("div", { className: "flex items-center justify-center w-full h-full max-h-[80vh]", children: renderMedia() }),
-          /* @__PURE__ */ jsx66(
+          /* @__PURE__ */ jsx67("div", { className: "flex items-center justify-center w-full h-full max-h-[80vh]", children: renderMedia() }),
+          /* @__PURE__ */ jsx67(
             "button",
             {
               className: "absolute end-8 top-1/2 -translate-y-1/2 z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all",
               onClick: () => handlePreviewNavigation("next"),
               disabled: previewIndex === filteredAssets.length - 1,
               "aria-label": "Next",
-              children: /* @__PURE__ */ jsx66(ChevronRight8, { className: "h-6 w-6 rtl:rotate-180" })
+              children: /* @__PURE__ */ jsx67(ChevronRight8, { className: "h-6 w-6 rtl:rotate-180" })
             }
           )
         ] }),
-        /* @__PURE__ */ jsx66("div", { className: "w-full pt-6 pb-8 flex-shrink-0", children: /* @__PURE__ */ jsx66("div", { className: "flex items-center justify-center gap-2 overflow-x-auto w-full px-6", children: filteredAssets.slice(start, end).map((asset, idx) => {
+        /* @__PURE__ */ jsx67("div", { className: "w-full pt-6 pb-8 flex-shrink-0", children: /* @__PURE__ */ jsx67("div", { className: "flex items-center justify-center gap-2 overflow-x-auto w-full px-6", children: filteredAssets.slice(start, end).map((asset, idx) => {
           const actualIndex = start + idx;
           return /* @__PURE__ */ jsxs47(
             "button",
@@ -11333,7 +11440,7 @@ var AssetsPreview = ({
                 }
               },
               children: [
-                asset.type === "image" && /* @__PURE__ */ jsx66(
+                asset.type === "image" && /* @__PURE__ */ jsx67(
                   "img",
                   {
                     src: asset.image.compressed_path || images.clock,
@@ -11341,7 +11448,7 @@ var AssetsPreview = ({
                     className: "w-full h-full object-cover bg-yellow-50"
                   }
                 ),
-                asset.type === "link" && !asset.link.thumbnail_url && /* @__PURE__ */ jsx66(
+                asset.type === "link" && !asset.link.thumbnail_url && /* @__PURE__ */ jsx67(
                   "img",
                   {
                     src: asset.link.thumbnail_url || images.linkFallback,
@@ -11349,7 +11456,7 @@ var AssetsPreview = ({
                     className: "w-full h-full object-cover bg-yellow-50"
                   }
                 ),
-                asset.type === "link" && asset.link.thumbnail_url && /* @__PURE__ */ jsx66(
+                asset.type === "link" && asset.link.thumbnail_url && /* @__PURE__ */ jsx67(
                   "iframe",
                   {
                     src: asset.link.url,
@@ -11357,13 +11464,13 @@ var AssetsPreview = ({
                     title: "URL Preview"
                   }
                 ),
-                asset.type === "video" && /* @__PURE__ */ jsx66("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx66(
+                asset.type === "video" && /* @__PURE__ */ jsx67("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx67(
                   "svg",
                   {
                     className: "w-6 h-6 text-white",
                     fill: "currentColor",
                     viewBox: "0 0 20 20",
-                    children: /* @__PURE__ */ jsx66(
+                    children: /* @__PURE__ */ jsx67(
                       "path",
                       {
                         fillRule: "evenodd",
@@ -11373,13 +11480,13 @@ var AssetsPreview = ({
                     )
                   }
                 ) }),
-                asset.type === "document" && /* @__PURE__ */ jsx66("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx66(
+                asset.type === "document" && /* @__PURE__ */ jsx67("div", { className: "w-full h-full bg-gray-700 flex items-center justify-center", children: /* @__PURE__ */ jsx67(
                   "svg",
                   {
                     className: "w-6 h-6 text-white",
                     fill: "currentColor",
                     viewBox: "0 0 20 20",
-                    children: /* @__PURE__ */ jsx66(
+                    children: /* @__PURE__ */ jsx67(
                       "path",
                       {
                         fillRule: "evenodd",
@@ -11405,7 +11512,7 @@ var AssetsPreview = ({
 var AssetsPreview_default = AssetsPreview;
 
 // src/components/assets/components/EmptyList.tsx
-import { jsx as jsx67, jsxs as jsxs48 } from "react/jsx-runtime";
+import { jsx as jsx68, jsxs as jsxs48 } from "react/jsx-runtime";
 var EmptyList2 = ({ title, description, image, className }) => {
   const { t } = useNitxUiTranslation();
   return /* @__PURE__ */ jsxs48(
@@ -11416,7 +11523,7 @@ var EmptyList2 = ({ title, description, image, className }) => {
         className
       ),
       children: [
-        image && /* @__PURE__ */ jsx67("div", { className: "relative w-[214px] h-[170px]", children: /* @__PURE__ */ jsx67(
+        image && /* @__PURE__ */ jsx68("div", { className: "relative w-[214px] h-[170px]", children: /* @__PURE__ */ jsx68(
           "img",
           {
             src: image,
@@ -11424,8 +11531,8 @@ var EmptyList2 = ({ title, description, image, className }) => {
             className: "w-full h-full object-contain"
           }
         ) }),
-        /* @__PURE__ */ jsx67("p", { className: "text-lg font-semibold text-center", children: title ?? t("assets.emptyList.title") }),
-        /* @__PURE__ */ jsx67("p", { className: "text-muted-foreground text-sm max-w-[499px] text-center", children: description ?? t("assets.emptyList.description") })
+        /* @__PURE__ */ jsx68("p", { className: "text-lg font-semibold text-center", children: title ?? t("assets.emptyList.title") }),
+        /* @__PURE__ */ jsx68("p", { className: "text-muted-foreground text-sm max-w-[499px] text-center", children: description ?? t("assets.emptyList.description") })
       ]
     }
   );
@@ -11433,12 +11540,12 @@ var EmptyList2 = ({ title, description, image, className }) => {
 var EmptyList_default2 = EmptyList2;
 
 // src/components/assets/components/LazyLoadingSkeleton.tsx
-import { Fragment as Fragment9, jsx as jsx68 } from "react/jsx-runtime";
+import { Fragment as Fragment9, jsx as jsx69 } from "react/jsx-runtime";
 var LazyLoadingSkeleton = ({
   viewType,
   count = 6
 }) => {
-  return /* @__PURE__ */ jsx68(Fragment9, { children: [...Array(count)].map((_, i) => /* @__PURE__ */ jsx68(
+  return /* @__PURE__ */ jsx69(Fragment9, { children: [...Array(count)].map((_, i) => /* @__PURE__ */ jsx69(
     AssetCardSkeleton,
     {
       viewType
@@ -11449,11 +11556,11 @@ var LazyLoadingSkeleton = ({
 var LazyLoadingSkeleton_default = LazyLoadingSkeleton;
 
 // src/components/assets/components/ConfirmDeleteDialog.tsx
-import React34 from "react";
-import { jsx as jsx69, jsxs as jsxs49 } from "react/jsx-runtime";
+import React35 from "react";
+import { jsx as jsx70, jsxs as jsxs49 } from "react/jsx-runtime";
 var ConfirmDeleteDialog = ({ state, onClose }) => {
   const { t } = useNitxUiTranslation();
-  const [busy, setBusy] = React34.useState(false);
+  const [busy, setBusy] = React35.useState(false);
   if (!state) return null;
   const handleConfirm = async () => {
     setBusy(true);
@@ -11464,23 +11571,23 @@ var ConfirmDeleteDialog = ({ state, onClose }) => {
       onClose();
     }
   };
-  return /* @__PURE__ */ jsx69(Dialog, { open: true, onOpenChange: (open) => !open && onClose(), children: /* @__PURE__ */ jsxs49(DialogContent, { className: "sm:max-w-md", children: [
+  return /* @__PURE__ */ jsx70(Dialog, { open: true, onOpenChange: (open) => !open && onClose(), children: /* @__PURE__ */ jsxs49(DialogContent, { className: "sm:max-w-md", children: [
     /* @__PURE__ */ jsxs49(DialogHeader, { children: [
-      /* @__PURE__ */ jsx69(DialogTitle, { children: state.title }),
-      /* @__PURE__ */ jsx69(DialogDescription, { children: state.description })
+      /* @__PURE__ */ jsx70(DialogTitle, { children: state.title }),
+      /* @__PURE__ */ jsx70(DialogDescription, { children: state.description })
     ] }),
     /* @__PURE__ */ jsxs49(DialogFooter, { className: "gap-2 sm:gap-0", children: [
-      /* @__PURE__ */ jsx69(Button, { variant: "outline", onClick: onClose, disabled: busy, children: t("assets.confirmDeleteModal.cancel") }),
-      /* @__PURE__ */ jsx69(Button, { variant: "destructive", onClick: handleConfirm, disabled: busy, children: t("assets.confirmDeleteModal.delete") })
+      /* @__PURE__ */ jsx70(Button, { variant: "outline", onClick: onClose, disabled: busy, children: t("assets.confirmDeleteModal.cancel") }),
+      /* @__PURE__ */ jsx70(Button, { variant: "destructive", onClick: handleConfirm, disabled: busy, children: t("assets.confirmDeleteModal.delete") })
     ] })
   ] }) });
 };
 var ConfirmDeleteDialog_default = ConfirmDeleteDialog;
 
 // src/components/assets/components/modals/MoveModal.tsx
-import { useEffect as useEffect18, useState as useState20 } from "react";
+import { useEffect as useEffect19, useState as useState21 } from "react";
 import { ChevronRight as ChevronRight9 } from "lucide-react";
-import { Fragment as Fragment10, jsx as jsx70, jsxs as jsxs50 } from "react/jsx-runtime";
+import { Fragment as Fragment10, jsx as jsx71, jsxs as jsxs50 } from "react/jsx-runtime";
 var MoveModal = ({
   isOpen,
   onClose,
@@ -11491,12 +11598,12 @@ var MoveModal = ({
   const { t } = useNitxUiTranslation();
   const { api } = useAssetsConfig();
   const path = useAssetsStore((s) => s.path);
-  const [selectedDestination, setSelectedDestination] = useState20(
+  const [selectedDestination, setSelectedDestination] = useState21(
     null
   );
-  const [currentFolders, setCurrentFolders] = useState20([]);
-  const [search, setSearch] = useState20("");
-  const [modalPath, setModalPath] = useState20([]);
+  const [currentFolders, setCurrentFolders] = useState21([]);
+  const [search, setSearch] = useState21("");
+  const [modalPath, setModalPath] = useState21([]);
   const fetchFoldersForPath = async (targetPath) => {
     try {
       const activePathId = targetPath[targetPath.length - 1]?.id;
@@ -11507,7 +11614,7 @@ var MoveModal = ({
       return [];
     }
   };
-  useEffect18(() => {
+  useEffect19(() => {
     if (isOpen) {
       const initialPath = path.map((p) => ({
         id: p.id,
@@ -11542,10 +11649,10 @@ var MoveModal = ({
   const visibleFolders = search ? currentFolders.filter(
     (f) => f.name.toLowerCase().includes(search.toLowerCase())
   ) : currentFolders;
-  return /* @__PURE__ */ jsx70(Dialog, { open: isOpen, onOpenChange: onClose, children: /* @__PURE__ */ jsxs50(DialogContent, { className: "sm:max-w-md", children: [
-    /* @__PURE__ */ jsx70(DialogHeader, { children: /* @__PURE__ */ jsx70(DialogTitle, { children: t("assets.folderModal.title") }) }),
-    /* @__PURE__ */ jsx70("div", { className: "flex items-center gap-1 text-sm mb-2 overflow-x-auto pb-2", children: modalPath.length > 3 ? /* @__PURE__ */ jsxs50(Fragment10, { children: [
-      /* @__PURE__ */ jsx70(
+  return /* @__PURE__ */ jsx71(Dialog, { open: isOpen, onOpenChange: onClose, children: /* @__PURE__ */ jsxs50(DialogContent, { className: "sm:max-w-md", children: [
+    /* @__PURE__ */ jsx71(DialogHeader, { children: /* @__PURE__ */ jsx71(DialogTitle, { children: t("assets.folderModal.title") }) }),
+    /* @__PURE__ */ jsx71("div", { className: "flex items-center gap-1 text-sm mb-2 overflow-x-auto pb-2", children: modalPath.length > 3 ? /* @__PURE__ */ jsxs50(Fragment10, { children: [
+      /* @__PURE__ */ jsx71(
         "button",
         {
           onClick: () => handlePathClick(0),
@@ -11553,10 +11660,10 @@ var MoveModal = ({
           children: modalPath[0].name.length > 10 ? modalPath[0].name.slice(0, 10) + "..." : modalPath[0].name
         }
       ),
-      /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
-      /* @__PURE__ */ jsx70("span", { className: "text-muted-foreground whitespace-nowrap", children: "..." }),
-      /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
-      /* @__PURE__ */ jsx70(
+      /* @__PURE__ */ jsx71(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx71("span", { className: "text-muted-foreground whitespace-nowrap", children: "..." }),
+      /* @__PURE__ */ jsx71(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx71(
         "button",
         {
           onClick: () => handlePathClick(modalPath.length - 1),
@@ -11565,8 +11672,8 @@ var MoveModal = ({
         }
       )
     ] }) : modalPath.map((pathName, index) => /* @__PURE__ */ jsxs50("div", { className: "flex items-center", children: [
-      index > 0 && /* @__PURE__ */ jsx70(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
-      /* @__PURE__ */ jsx70(
+      index > 0 && /* @__PURE__ */ jsx71(ChevronRight9, { className: "h-4 w-4 mx-1 rtl:rotate-180" }),
+      /* @__PURE__ */ jsx71(
         "button",
         {
           onClick: () => handlePathClick(index),
@@ -11578,7 +11685,7 @@ var MoveModal = ({
         }
       )
     ] }, index)) }),
-    /* @__PURE__ */ jsx70("div", { className: "mb-2", children: /* @__PURE__ */ jsx70(
+    /* @__PURE__ */ jsx71("div", { className: "mb-2", children: /* @__PURE__ */ jsx71(
       Input2,
       {
         placeholder: t("assets.folderModal.searchFoldersPlaceholder"),
@@ -11587,7 +11694,7 @@ var MoveModal = ({
         className: "w-full"
       }
     ) }),
-    /* @__PURE__ */ jsx70("div", { className: "h-[300px] overflow-y-auto border rounded-md p-4", children: visibleFolders.length === 0 ? /* @__PURE__ */ jsx70("div", { className: "flex items-center justify-center h-full text-muted-foreground", children: t("assets.folderModal.noFoldersAvailable") }) : /* @__PURE__ */ jsx70("div", { className: "space-y-2", children: visibleFolders.map((folder) => {
+    /* @__PURE__ */ jsx71("div", { className: "h-[300px] overflow-y-auto border rounded-md p-4", children: visibleFolders.length === 0 ? /* @__PURE__ */ jsx71("div", { className: "flex items-center justify-center h-full text-muted-foreground", children: t("assets.folderModal.noFoldersAvailable") }) : /* @__PURE__ */ jsx71("div", { className: "space-y-2", children: visibleFolders.map((folder) => {
       const isBeingMoved = moveItemType === "folder" && itemsToMove.includes(folder.id);
       const isDisabled = isBeingMoved;
       return /* @__PURE__ */ jsxs50(
@@ -11599,7 +11706,7 @@ var MoveModal = ({
           ),
           onClick: () => !isDisabled && handleFolderClick(folder),
           children: [
-            /* @__PURE__ */ jsx70("div", { className: "w-6 h-6 mr-2 rtl:mr-0 rtl:ml-2 flex items-center justify-center bg-yellow-100 rounded text-yellow-600", children: /* @__PURE__ */ jsx70(
+            /* @__PURE__ */ jsx71("div", { className: "w-6 h-6 mr-2 rtl:mr-0 rtl:ml-2 flex items-center justify-center bg-yellow-100 rounded text-yellow-600", children: /* @__PURE__ */ jsx71(
               "svg",
               {
                 xmlns: "http://www.w3.org/2000/svg",
@@ -11611,31 +11718,31 @@ var MoveModal = ({
                 strokeWidth: "2",
                 strokeLinecap: "round",
                 strokeLinejoin: "round",
-                children: /* @__PURE__ */ jsx70("path", { d: "M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" })
+                children: /* @__PURE__ */ jsx71("path", { d: "M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" })
               }
             ) }),
-            /* @__PURE__ */ jsx70("span", { children: folder.name.length > 30 ? folder.name.slice(0, 30) + "..." : folder.name }),
-            isDisabled && /* @__PURE__ */ jsx70("span", { className: "ml-auto rtl:ml-0 rtl:mr-auto text-xs text-muted-foreground", children: t("assets.folderModal.current") })
+            /* @__PURE__ */ jsx71("span", { children: folder.name.length > 30 ? folder.name.slice(0, 30) + "..." : folder.name }),
+            isDisabled && /* @__PURE__ */ jsx71("span", { className: "ml-auto rtl:ml-0 rtl:mr-auto text-xs text-muted-foreground", children: t("assets.folderModal.current") })
           ]
         },
         folder.id
       );
     }) }) }),
     /* @__PURE__ */ jsxs50(DialogFooter, { className: "gap-2 sm:gap-0", children: [
-      /* @__PURE__ */ jsx70(Button, { variant: "outline", onClick: onClose, children: t("assets.folderModal.cancel") }),
-      /* @__PURE__ */ jsx70(Button, { onClick: handleMove, children: t("assets.folderModal.move") })
+      /* @__PURE__ */ jsx71(Button, { variant: "outline", onClick: onClose, children: t("assets.folderModal.cancel") }),
+      /* @__PURE__ */ jsx71(Button, { onClick: handleMove, children: t("assets.folderModal.move") })
     ] })
   ] }) });
 };
 var MoveModal_default = MoveModal;
 
 // src/components/assets/components/modals/CreateFolderModal.tsx
-import { useState as useState21 } from "react";
-import { jsx as jsx71, jsxs as jsxs51 } from "react/jsx-runtime";
+import { useState as useState22 } from "react";
+import { jsx as jsx72, jsxs as jsxs51 } from "react/jsx-runtime";
 var CreateFolderModal = ({ open, onClose }) => {
   const { t } = useNitxUiTranslation();
-  const [folderName, setFolderName] = useState21(null);
-  const [error, setError] = useState21(null);
+  const [folderName, setFolderName] = useState22(null);
+  const [error, setError] = useState22(null);
   const path = useAssetsStore((s) => s.path);
   const parentId = path[path.length - 1]?.id || null;
   const { data } = useAssetsQuery(parentId, { enabled: open });
@@ -11668,14 +11775,14 @@ var CreateFolderModal = ({ open, onClose }) => {
     e.preventDefault();
     handleCreate();
   };
-  return /* @__PURE__ */ jsx71(DrawerDialog, { title: t("assets.createFolderModal.title"), onClose, children: /* @__PURE__ */ jsxs51(
+  return /* @__PURE__ */ jsx72(DrawerDialog, { title: t("assets.createFolderModal.title"), onClose, children: /* @__PURE__ */ jsxs51(
     "form",
     {
       onSubmit: handleSubmit,
       className: "px-3 lg:px-7 flex flex-col gap-3 lg:gap-5 pt-1 pb-5",
       children: [
         /* @__PURE__ */ jsxs51("div", { className: "mb-4", children: [
-          /* @__PURE__ */ jsx71(
+          /* @__PURE__ */ jsx72(
             Input2,
             {
               placeholder: t("assets.createFolderModal.folderNamePlaceholder"),
@@ -11687,11 +11794,11 @@ var CreateFolderModal = ({ open, onClose }) => {
               className: "w-full"
             }
           ),
-          error && /* @__PURE__ */ jsx71("p", { className: "text-error text-sm mt-1", children: error })
+          error && /* @__PURE__ */ jsx72("p", { className: "text-error text-sm mt-1", children: error })
         ] }),
         /* @__PURE__ */ jsxs51("div", { className: "flex justify-end gap-3", children: [
-          /* @__PURE__ */ jsx71(Button, { variant: "outline", type: "button", onClick: onClose, children: t("assets.createFolderModal.cancel") }),
-          /* @__PURE__ */ jsx71(Button, { type: "submit", children: t("assets.createFolderModal.create") })
+          /* @__PURE__ */ jsx72(Button, { variant: "outline", type: "button", onClick: onClose, children: t("assets.createFolderModal.cancel") }),
+          /* @__PURE__ */ jsx72(Button, { type: "submit", children: t("assets.createFolderModal.create") })
         ] })
       ]
     }
@@ -11700,11 +11807,11 @@ var CreateFolderModal = ({ open, onClose }) => {
 var CreateFolderModal_default = CreateFolderModal;
 
 // src/components/assets/components/modals/UploadModal.tsx
-import { useEffect as useEffect19, useState as useState22 } from "react";
+import { useEffect as useEffect20, useState as useState23 } from "react";
 import Dashboard2 from "@uppy/react/dashboard";
 import "@uppy/dashboard/css/style.css";
 import { useQueryClient as useQueryClient2 } from "@tanstack/react-query";
-import { jsx as jsx72 } from "react/jsx-runtime";
+import { jsx as jsx73 } from "react/jsx-runtime";
 function AssetsUploadModal({
   open,
   onClose,
@@ -11715,9 +11822,9 @@ function AssetsUploadModal({
   const { upload, spaceUuid } = useAssetsConfig();
   const queryClient = useQueryClient2();
   const path = useAssetsStore((s) => s.path);
-  const [uploader, setUploader] = useState22(null);
+  const [uploader, setUploader] = useState23(null);
   const currentFolderUuid = folderUuid !== void 0 ? folderUuid : path[path.length - 1]?.id ?? null;
-  useEffect19(() => {
+  useEffect20(() => {
     if (!open || !upload || !spaceUuid) {
       return;
     }
@@ -11755,31 +11862,31 @@ function AssetsUploadModal({
   if (!open || !upload) {
     return null;
   }
-  return /* @__PURE__ */ jsx72(
+  return /* @__PURE__ */ jsx73(
     DrawerDialog,
     {
       size: "lg",
       title: t("assets.uploadModal.title"),
       description: t("assets.uploadModal.videoFormatNotice"),
       onClose,
-      children: /* @__PURE__ */ jsx72("div", { className: "flex w-full flex-col gap-3 px-3 pb-3 lg:gap-5 lg:px-7 lg:pb-7", children: uploader && /* @__PURE__ */ jsx72(Dashboard2, { uppy: uploader, proudlyDisplayPoweredByUppy: false }) })
+      children: /* @__PURE__ */ jsx73("div", { className: "flex w-full flex-col gap-3 px-3 pb-3 lg:gap-5 lg:px-7 lg:pb-7", children: uploader && /* @__PURE__ */ jsx73(Dashboard2, { uppy: uploader, proudlyDisplayPoweredByUppy: false }) })
     }
   );
 }
 var UploadModal_default2 = AssetsUploadModal;
 
 // src/components/assets/components/modals/NewLinkModal.tsx
-import { useState as useState23, useEffect as useEffect20 } from "react";
+import { useState as useState24, useEffect as useEffect21 } from "react";
 import QRCode from "react-qr-code";
 import { toast as toast9 } from "sonner";
 import { useQueryClient as useQueryClient3 } from "@tanstack/react-query";
 
 // src/components/ui/checkbox.tsx
-import * as React38 from "react";
+import * as React39 from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { Check as Check10 } from "lucide-react";
-import { jsx as jsx73 } from "react/jsx-runtime";
-var Checkbox = React38.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx73(
+import { jsx as jsx74 } from "react/jsx-runtime";
+var Checkbox = React39.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx74(
   CheckboxPrimitive.Root,
   {
     ref,
@@ -11788,11 +11895,11 @@ var Checkbox = React38.forwardRef(({ className, ...props }, ref) => /* @__PURE__
       className
     ),
     ...props,
-    children: /* @__PURE__ */ jsx73(
+    children: /* @__PURE__ */ jsx74(
       CheckboxPrimitive.Indicator,
       {
         className: cn("flex items-center justify-center text-current"),
-        children: /* @__PURE__ */ jsx73(Check10, { className: "h-4 w-4" })
+        children: /* @__PURE__ */ jsx74(Check10, { className: "h-4 w-4" })
       }
     )
   }
@@ -11800,7 +11907,7 @@ var Checkbox = React38.forwardRef(({ className, ...props }, ref) => /* @__PURE__
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
 // src/components/assets/components/modals/NewLinkModal.tsx
-import { jsx as jsx74, jsxs as jsxs52 } from "react/jsx-runtime";
+import { jsx as jsx75, jsxs as jsxs52 } from "react/jsx-runtime";
 var qrPositionToClass = (pos) => {
   switch (pos) {
     case "top_left":
@@ -11818,13 +11925,13 @@ var NewLinkModal = ({ open, onClose }) => {
   const { t } = useNitxUiTranslation();
   const { api, spaceUuid } = useAssetsConfig();
   const queryClient = useQueryClient3();
-  const [url, setUrl] = useState23("");
-  const [isValid, setIsValid] = useState23(false);
-  const [isAccessible, setIsAccessible] = useState23(null);
-  const [showQr, setShowQr] = useState23(false);
-  const [qrPosition, setQrPosition] = useState23("bottom_right");
-  const [loading, setLoading] = useState23(false);
-  useEffect20(() => {
+  const [url, setUrl] = useState24("");
+  const [isValid, setIsValid] = useState24(false);
+  const [isAccessible, setIsAccessible] = useState24(null);
+  const [showQr, setShowQr] = useState24(false);
+  const [qrPosition, setQrPosition] = useState24("bottom_right");
+  const [loading, setLoading] = useState24(false);
+  useEffect21(() => {
     try {
       new URL(url);
       setIsValid(true);
@@ -11833,7 +11940,7 @@ var NewLinkModal = ({ open, onClose }) => {
       setIsAccessible(null);
     }
   }, [url]);
-  useEffect20(() => {
+  useEffect21(() => {
     if (!isValid || !url?.length) return;
     if (!api.checkIframeAccess) {
       setIsAccessible(true);
@@ -11880,22 +11987,22 @@ var NewLinkModal = ({ open, onClose }) => {
       setLoading(false);
     }
   };
-  return /* @__PURE__ */ jsx74(
+  return /* @__PURE__ */ jsx75(
     DrawerDialog,
     {
       size: "xl",
       title: t("assets.newLinkModal.title"),
       onClose,
       children: /* @__PURE__ */ jsxs52("div", { className: " w-full h-full flex flex-col lg:flex-row", children: [
-        /* @__PURE__ */ jsx74("div", { className: "w-full h-full lg:w-1/2 p-5 pt-0 flex flex-col gap-5", children: /* @__PURE__ */ jsxs52(
+        /* @__PURE__ */ jsx75("div", { className: "w-full h-full lg:w-1/2 p-5 pt-0 flex flex-col gap-5", children: /* @__PURE__ */ jsxs52(
           "form",
           {
             onSubmit: handleSubmit,
             className: "h-full min-h-[350px] flex flex-col gap-4",
             children: [
               /* @__PURE__ */ jsxs52("div", { children: [
-                /* @__PURE__ */ jsx74(Label5, { htmlFor: "link-url", children: t("assets.newLinkModal.url") }),
-                /* @__PURE__ */ jsx74(
+                /* @__PURE__ */ jsx75(Label5, { htmlFor: "link-url", children: t("assets.newLinkModal.url") }),
+                /* @__PURE__ */ jsx75(
                   Input2,
                   {
                     id: "link-url",
@@ -11907,9 +12014,9 @@ var NewLinkModal = ({ open, onClose }) => {
                   }
                 )
               ] }),
-              url && (isValid ? isAccessible === null ? /* @__PURE__ */ jsx74("p", { className: "text-sm text-muted-foreground", children: t("assets.newLinkModal.checkingAccessibility") }) : isAccessible ? /* @__PURE__ */ jsxs52("div", { className: "flex flex-col gap-2", children: [
+              url && (isValid ? isAccessible === null ? /* @__PURE__ */ jsx75("p", { className: "text-sm text-muted-foreground", children: t("assets.newLinkModal.checkingAccessibility") }) : isAccessible ? /* @__PURE__ */ jsxs52("div", { className: "flex flex-col gap-2", children: [
                 /* @__PURE__ */ jsxs52("div", { className: "flex items-center gap-3", children: [
-                  /* @__PURE__ */ jsx74(
+                  /* @__PURE__ */ jsx75(
                     Checkbox,
                     {
                       id: "show-qr",
@@ -11918,7 +12025,7 @@ var NewLinkModal = ({ open, onClose }) => {
                       onCheckedChange: (checked) => setShowQr(!!checked)
                     }
                   ),
-                  /* @__PURE__ */ jsx74(
+                  /* @__PURE__ */ jsx75(
                     Label5,
                     {
                       htmlFor: "show-qr",
@@ -11928,7 +12035,7 @@ var NewLinkModal = ({ open, onClose }) => {
                   )
                 ] }),
                 showQr && /* @__PURE__ */ jsxs52("div", { className: "flex items-center justify-between gap-3 ml-6 rtl:ml-0 rtl:mr-6", children: [
-                  /* @__PURE__ */ jsx74(
+                  /* @__PURE__ */ jsx75(
                     Label5,
                     {
                       htmlFor: "qr-position",
@@ -11942,12 +12049,12 @@ var NewLinkModal = ({ open, onClose }) => {
                       value: qrPosition,
                       onValueChange: (value) => setQrPosition(value),
                       children: [
-                        /* @__PURE__ */ jsx74(
+                        /* @__PURE__ */ jsx75(
                           SelectTrigger,
                           {
                             id: "qr-position",
                             className: "w-36 rounded-md border-input ",
-                            children: /* @__PURE__ */ jsx74(
+                            children: /* @__PURE__ */ jsx75(
                               SelectValue,
                               {
                                 placeholder: t(
@@ -11958,17 +12065,17 @@ var NewLinkModal = ({ open, onClose }) => {
                           }
                         ),
                         /* @__PURE__ */ jsxs52(SelectContent, { children: [
-                          /* @__PURE__ */ jsx74(SelectItem, { value: "top_left", children: t("assets.newLinkModal.topLeft") }),
-                          /* @__PURE__ */ jsx74(SelectItem, { value: "top_right", children: t("assets.newLinkModal.topRight") }),
-                          /* @__PURE__ */ jsx74(SelectItem, { value: "bottom_left", children: t("assets.newLinkModal.bottomLeft") }),
-                          /* @__PURE__ */ jsx74(SelectItem, { value: "bottom_right", children: t("assets.newLinkModal.bottomRight") })
+                          /* @__PURE__ */ jsx75(SelectItem, { value: "top_left", children: t("assets.newLinkModal.topLeft") }),
+                          /* @__PURE__ */ jsx75(SelectItem, { value: "top_right", children: t("assets.newLinkModal.topRight") }),
+                          /* @__PURE__ */ jsx75(SelectItem, { value: "bottom_left", children: t("assets.newLinkModal.bottomLeft") }),
+                          /* @__PURE__ */ jsx75(SelectItem, { value: "bottom_right", children: t("assets.newLinkModal.bottomRight") })
                         ] })
                       ]
                     }
                   )
                 ] })
-              ] }) : /* @__PURE__ */ jsx74("p", { className: "text-sm text-error", children: t("assets.newLinkModal.urlCannotBeEmbedded") }) : /* @__PURE__ */ jsx74("p", { className: "text-sm text-error", children: t("assets.newLinkModal.invalidUrl") })),
-              /* @__PURE__ */ jsx74(
+              ] }) : /* @__PURE__ */ jsx75("p", { className: "text-sm text-error", children: t("assets.newLinkModal.urlCannotBeEmbedded") }) : /* @__PURE__ */ jsx75("p", { className: "text-sm text-error", children: t("assets.newLinkModal.invalidUrl") })),
+              /* @__PURE__ */ jsx75(
                 Button,
                 {
                   type: "submit",
@@ -11980,8 +12087,8 @@ var NewLinkModal = ({ open, onClose }) => {
             ]
           }
         ) }),
-        /* @__PURE__ */ jsx74("div", { className: "w-full lg:w-1/2 p-5 border-l rtl:border-l-0 rtl:border-r border-border relative", children: url && isValid && isAccessible ? /* @__PURE__ */ jsx74("div", { className: "w-full h-full flex justify-center items-center", children: /* @__PURE__ */ jsxs52("div", { className: "w-full min-h-60 border rounded-md overflow-hidden relative", children: [
-          /* @__PURE__ */ jsx74(
+        /* @__PURE__ */ jsx75("div", { className: "w-full lg:w-1/2 p-5 border-l rtl:border-l-0 rtl:border-r border-border relative", children: url && isValid && isAccessible ? /* @__PURE__ */ jsx75("div", { className: "w-full h-full flex justify-center items-center", children: /* @__PURE__ */ jsxs52("div", { className: "w-full min-h-60 border rounded-md overflow-hidden relative", children: [
+          /* @__PURE__ */ jsx75(
             "iframe",
             {
               src: url,
@@ -11989,14 +12096,14 @@ var NewLinkModal = ({ open, onClose }) => {
               title: "URL Preview"
             }
           ),
-          showQr && /* @__PURE__ */ jsx74(
+          showQr && /* @__PURE__ */ jsx75(
             "div",
             {
               className: `absolute p-1 ${qrPositionToClass(qrPosition)}`,
-              children: /* @__PURE__ */ jsx74(QRCode, { value: url, size: 64 })
+              children: /* @__PURE__ */ jsx75(QRCode, { value: url, size: 64 })
             }
           )
-        ] }) }) : /* @__PURE__ */ jsx74("div", { className: "w-full h-full flex justify-center items-center text-muted-foreground", children: /* @__PURE__ */ jsx74("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
+        ] }) }) : /* @__PURE__ */ jsx75("div", { className: "w-full h-full flex justify-center items-center text-muted-foreground", children: /* @__PURE__ */ jsx75("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
       ] })
     }
   );
@@ -12012,10 +12119,10 @@ import {
 } from "lucide-react";
 
 // src/components/ui/floating-bar.tsx
-import * as React40 from "react";
-import { jsx as jsx75 } from "react/jsx-runtime";
-var FloatingBar = React40.forwardRef(
-  ({ className, barClassName, children, ...props }, ref) => /* @__PURE__ */ jsx75(
+import * as React41 from "react";
+import { jsx as jsx76 } from "react/jsx-runtime";
+var FloatingBar = React41.forwardRef(
+  ({ className, barClassName, children, ...props }, ref) => /* @__PURE__ */ jsx76(
     "div",
     {
       className: cn(
@@ -12024,7 +12131,7 @@ var FloatingBar = React40.forwardRef(
         "start-[var(--nitx-side-inset,0px)] end-0",
         className
       ),
-      children: /* @__PURE__ */ jsx75(
+      children: /* @__PURE__ */ jsx76(
         "div",
         {
           ref,
@@ -12044,7 +12151,7 @@ var FloatingBar = React40.forwardRef(
 FloatingBar.displayName = "FloatingBar";
 
 // src/components/assets/components/SelectionBar.tsx
-import { Fragment as Fragment11, jsx as jsx76, jsxs as jsxs53 } from "react/jsx-runtime";
+import { Fragment as Fragment11, jsx as jsx77, jsxs as jsxs53 } from "react/jsx-runtime";
 var SelectionBar = ({
   count,
   allSelected,
@@ -12056,14 +12163,14 @@ var SelectionBar = ({
 }) => {
   const { t } = useNitxUiTranslation();
   if (count < 1) return null;
-  return /* @__PURE__ */ jsx76(
+  return /* @__PURE__ */ jsx77(
     FloatingBar,
     {
       role: "region",
       "aria-label": t("assets.selectionBar.region"),
       className,
       children: /* @__PURE__ */ jsxs53(Fragment11, { children: [
-        /* @__PURE__ */ jsx76(
+        /* @__PURE__ */ jsx77(
           Button,
           {
             variant: "ghost",
@@ -12071,10 +12178,10 @@ var SelectionBar = ({
             onClick: onClear,
             "aria-label": t("assets.selectionBar.clear"),
             className: "size-8 shrink-0 rounded-[8px] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
-            children: /* @__PURE__ */ jsx76(X5, { className: "size-4" })
+            children: /* @__PURE__ */ jsx77(X5, { className: "size-4" })
           }
         ),
-        /* @__PURE__ */ jsx76(
+        /* @__PURE__ */ jsx77(
           "p",
           {
             "aria-live": "polite",
@@ -12090,8 +12197,8 @@ var SelectionBar = ({
             onClick: allSelected ? onClear : onSelectAll,
             className: "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal sm:px-3",
             children: [
-              /* @__PURE__ */ jsx76(CheckCheck, { className: "size-4 shrink-0" }),
-              /* @__PURE__ */ jsx76("span", { className: "hidden sm:inline", children: allSelected ? t("assets.selectionBar.deselectAll") : t("assets.selectionBar.selectAll") })
+              /* @__PURE__ */ jsx77(CheckCheck, { className: "size-4 shrink-0" }),
+              /* @__PURE__ */ jsx77("span", { className: "hidden sm:inline", children: allSelected ? t("assets.selectionBar.deselectAll") : t("assets.selectionBar.selectAll") })
             ]
           }
         ),
@@ -12103,8 +12210,8 @@ var SelectionBar = ({
             onClick: onMove,
             className: "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal sm:px-3",
             children: [
-              /* @__PURE__ */ jsx76(FolderSymlink, { className: "size-4 shrink-0" }),
-              /* @__PURE__ */ jsx76("span", { className: "hidden sm:inline", children: t("assets.assetList.moveTo") })
+              /* @__PURE__ */ jsx77(FolderSymlink, { className: "size-4 shrink-0" }),
+              /* @__PURE__ */ jsx77("span", { className: "hidden sm:inline", children: t("assets.assetList.moveTo") })
             ]
           }
         ),
@@ -12116,8 +12223,8 @@ var SelectionBar = ({
             onClick: onDelete,
             className: "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal text-rose-600 hover:bg-rose-50 hover:text-rose-700 sm:px-3 dark:text-rose-400 dark:hover:bg-rose-950/40 dark:hover:text-rose-300",
             children: [
-              /* @__PURE__ */ jsx76(Trash25, { className: "size-4 shrink-0" }),
-              /* @__PURE__ */ jsx76("span", { className: "hidden sm:inline", children: t("assets.assetList.delete") })
+              /* @__PURE__ */ jsx77(Trash25, { className: "size-4 shrink-0" }),
+              /* @__PURE__ */ jsx77("span", { className: "hidden sm:inline", children: t("assets.assetList.delete") })
             ]
           }
         )
@@ -12128,7 +12235,7 @@ var SelectionBar = ({
 var SelectionBar_default = SelectionBar;
 
 // src/components/assets/components/AssetsBrowser.tsx
-import { jsx as jsx77, jsxs as jsxs54 } from "react/jsx-runtime";
+import { jsx as jsx78, jsxs as jsxs54 } from "react/jsx-runtime";
 var getExtensionFromMimeType = (mimeType) => {
   const mimeToExt = {
     "image/jpeg": ".jpg",
@@ -12183,8 +12290,8 @@ var AssetsBrowser = ({
   const { data, isLoading: isFetching } = useAssetsQuery(currentFolderId);
   const assetsRaw = data?.assets || [];
   const foldersRaw = data?.folders || [];
-  const assets = React41.useMemo(() => assetsRaw, [JSON.stringify(assetsRaw)]);
-  const folders = React41.useMemo(() => foldersRaw, [JSON.stringify(foldersRaw)]);
+  const assets = React42.useMemo(() => assetsRaw, [JSON.stringify(assetsRaw)]);
+  const folders = React42.useMemo(() => foldersRaw, [JSON.stringify(foldersRaw)]);
   const { mutateAsync: deleteAssets } = useDeleteAssetMutation(currentFolderId);
   const { mutateAsync: deleteFolder } = useDeleteFolderMutation(currentFolderId);
   const { mutateAsync: deleteFolders } = useBulkDeleteFoldersMutation(currentFolderId);
@@ -12192,30 +12299,30 @@ var AssetsBrowser = ({
   const { mutateAsync: renameFolder } = useRenameFolderMutation(currentFolderId);
   const { mutateAsync: moveAssets } = useMoveAssetMutation(currentFolderId);
   const { mutateAsync: moveFolder } = useMoveFolderMutation(currentFolderId);
-  const [enableCheckbox, setEnableCheckbox] = useState24(false);
-  const [selected, setSelected] = useState24([]);
-  const [searchTerm, setSearchTerm] = useState24("");
-  const [previewAsset, setPreviewAsset] = useState24(null);
-  const [previewIndex, setPreviewIndex] = useState24(0);
-  const [lastClickedAsset, setLastClickedAsset] = useState24(null);
-  const [showMoveModal, setShowMoveModal] = useState24(false);
-  const [itemsToMove, setItemsToMove] = useState24([]);
-  const [moveItemType, setMoveItemType] = useState24("asset");
-  const [showUploadModal, setShowUploadModal] = useState24(false);
-  const [showCreateFolderModal, setShowCreateFolderModal] = useState24(false);
-  const [showNewLinkModal, setShowNewLinkModal] = useState24(false);
-  const [confirmDelete, setConfirmDelete] = useState24(null);
-  const [draggedAssets, setDraggedAssets] = useState24([]);
-  const [dropTarget, setDropTarget] = useState24(null);
-  useEffect21(() => {
+  const [enableCheckbox, setEnableCheckbox] = useState25(false);
+  const [selected, setSelected] = useState25([]);
+  const [searchTerm, setSearchTerm] = useState25("");
+  const [previewAsset, setPreviewAsset] = useState25(null);
+  const [previewIndex, setPreviewIndex] = useState25(0);
+  const [lastClickedAsset, setLastClickedAsset] = useState25(null);
+  const [showMoveModal, setShowMoveModal] = useState25(false);
+  const [itemsToMove, setItemsToMove] = useState25([]);
+  const [moveItemType, setMoveItemType] = useState25("asset");
+  const [showUploadModal, setShowUploadModal] = useState25(false);
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState25(false);
+  const [showNewLinkModal, setShowNewLinkModal] = useState25(false);
+  const [confirmDelete, setConfirmDelete] = useState25(null);
+  const [draggedAssets, setDraggedAssets] = useState25([]);
+  const [dropTarget, setDropTarget] = useState25(null);
+  useEffect22(() => {
     onTitleChange?.(t("assets.headerWithCustomTabbar.asset"));
   }, [onTitleChange, t]);
-  useEffect21(() => {
+  useEffect22(() => {
     if (!enableCheckbox) {
       setSelected([]);
     }
   }, [enableCheckbox]);
-  const filteredAssets = React41.useMemo(() => {
+  const filteredAssets = React42.useMemo(() => {
     let filtered = assets;
     if (activeTab === "media") {
       filtered = assets.filter(
@@ -12234,7 +12341,7 @@ var AssetsBrowser = ({
     }
     return filtered;
   }, [assets, activeTab, searchTerm]);
-  const filteredDirectories = React41.useMemo(() => {
+  const filteredDirectories = React42.useMemo(() => {
     if (!features.folders || activeTab !== "all") return [];
     if (searchTerm) {
       const lowercased = searchTerm.toLowerCase();
@@ -12251,14 +12358,14 @@ var AssetsBrowser = ({
     itemsPerBatch: 12,
     rootMargin: "200px"
   });
-  const selectAllItems = React41.useCallback(() => {
+  const selectAllItems = React42.useCallback(() => {
     setSelected([
       ...filteredAssets.map((asset) => asset.uuid),
       ...filteredDirectories.map((folder) => folder.id)
     ]);
     setEnableCheckbox(true);
   }, [filteredAssets, filteredDirectories]);
-  useEffect21(() => {
+  useEffect22(() => {
     if (typeof window === "undefined") return;
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "a" && renamingItemId === null) {
@@ -12637,9 +12744,9 @@ var AssetsBrowser = ({
         className
       ),
       children: [
-        /* @__PURE__ */ jsxs54("div", { className: "sticky top-[var(--nitx-top-inset,0px)] z-20 bg-zinc-50 dark:bg-card", children: [
-          /* @__PURE__ */ jsx77(AssetsTabbar_default, { sticky: false }),
-          /* @__PURE__ */ jsx77("div", { className: "px-6 pt-6 pb-5", children: /* @__PURE__ */ jsx77(
+        /* @__PURE__ */ jsxs54("div", { className: "sticky top-[var(--nitx-top-inset,0px)] z-30 bg-zinc-50 dark:bg-card", children: [
+          /* @__PURE__ */ jsx78(AssetsTabbar_default, { sticky: false }),
+          /* @__PURE__ */ jsx78("div", { className: "px-4 pt-3 pb-3 sm:px-6 sm:pt-4 sm:pb-4", children: /* @__PURE__ */ jsx78(
             AssetsHeader_default,
             {
               viewType,
@@ -12653,26 +12760,26 @@ var AssetsBrowser = ({
             }
           ) })
         ] }),
-        /* @__PURE__ */ jsx77("div", { className: "w-full flex-1 flex flex-col px-6 pb-6", children: isEmpty ? /* @__PURE__ */ jsx77(EmptyList_default2, { image: emptyImage }) : /* @__PURE__ */ jsx77("div", { className: "w-full", children: /* @__PURE__ */ jsxs54(
+        /* @__PURE__ */ jsx78("div", { className: "w-full flex-1 flex flex-col px-4 pb-6 sm:px-6", children: isEmpty ? /* @__PURE__ */ jsx78(EmptyList_default2, { image: emptyImage }) : /* @__PURE__ */ jsx78("div", { className: "w-full", children: /* @__PURE__ */ jsxs54(
           "div",
           {
             className: cn(
-              "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+              "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4 pb-5",
               // The selection bar is fixed over the viewport, so the last
               // row needs room to clear it, plus whatever bottom chrome the
               // host app reports in --nitx-bottom-inset, or it cannot be
               // reached.
               selected.length > 0 && "pb-[calc(6rem_+_var(--nitx-bottom-inset,0px))] md:pb-[calc(8rem_+_var(--nitx-bottom-inset,0px))]",
-              viewType === "list" && "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
+              viewType === "list" && "grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-2 md:gap-3",
               viewType === "grid-list" && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3"
             ),
             children: [
-              filteredDirectories.map((folder, i) => /* @__PURE__ */ jsx77(
+              filteredDirectories.map((folder, i) => /* @__PURE__ */ jsx78(
                 "div",
                 {
                   className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
                   style: { transitionDelay: `${i * 30}ms` },
-                  children: /* @__PURE__ */ jsx77(
+                  children: /* @__PURE__ */ jsx78(
                     FolderCard_default,
                     {
                       data: folder,
@@ -12696,14 +12803,14 @@ var AssetsBrowser = ({
                 },
                 folder.id
               )),
-              visibleAssets.map((asset, i) => /* @__PURE__ */ jsx77(
+              visibleAssets.map((asset, i) => /* @__PURE__ */ jsx78(
                 "div",
                 {
                   className: "animate-in fade-in slide-in-from-bottom-4 duration-200",
                   style: {
                     transitionDelay: `${(filteredDirectories.length + i) * 30}ms`
                   },
-                  children: /* @__PURE__ */ jsx77(
+                  children: /* @__PURE__ */ jsx78(
                     AssetCard_default,
                     {
                       data: asset,
@@ -12725,13 +12832,13 @@ var AssetsBrowser = ({
                 },
                 asset.uuid
               )),
-              loadingMore && /* @__PURE__ */ jsx77(LazyLoadingSkeleton_default, { viewType, count: 6 }),
-              hasMore && !loadingMore && /* @__PURE__ */ jsx77("div", { ref: observerRef, className: "h-4 w-full" }),
-              isFetching && !filteredAssets.length && !filteredDirectories.length && [...Array(20)].map((_, i) => /* @__PURE__ */ jsx77(AssetCardSkeleton, { viewType }, i))
+              loadingMore && /* @__PURE__ */ jsx78(LazyLoadingSkeleton_default, { viewType, count: 6 }),
+              hasMore && !loadingMore && /* @__PURE__ */ jsx78("div", { ref: observerRef, className: "h-4 w-full" }),
+              isFetching && !filteredAssets.length && !filteredDirectories.length && [...Array(20)].map((_, i) => /* @__PURE__ */ jsx78(AssetCardSkeleton, { viewType }, i))
             ]
           }
         ) }) }),
-        enableCheckbox && /* @__PURE__ */ jsx77(
+        enableCheckbox && /* @__PURE__ */ jsx78(
           SelectionBar_default,
           {
             count: selected.length,
@@ -12742,7 +12849,7 @@ var AssetsBrowser = ({
             onDelete: handleBulkDelete
           }
         ),
-        previewAsset && /* @__PURE__ */ jsx77(
+        previewAsset && /* @__PURE__ */ jsx78(
           AssetsPreview_default,
           {
             previewAsset,
@@ -12755,7 +12862,7 @@ var AssetsBrowser = ({
             onDownload
           }
         ),
-        features.folders && /* @__PURE__ */ jsx77(
+        features.folders && /* @__PURE__ */ jsx78(
           MoveModal_default,
           {
             isOpen: showMoveModal,
@@ -12765,28 +12872,28 @@ var AssetsBrowser = ({
             moveItemType
           }
         ),
-        features.folders && /* @__PURE__ */ jsx77(
+        features.folders && /* @__PURE__ */ jsx78(
           CreateFolderModal_default,
           {
             open: showCreateFolderModal,
             onClose: () => setShowCreateFolderModal(false)
           }
         ),
-        features.upload && /* @__PURE__ */ jsx77(
+        features.upload && /* @__PURE__ */ jsx78(
           UploadModal_default2,
           {
             open: showUploadModal,
             onClose: () => setShowUploadModal(false)
           }
         ),
-        features.links && /* @__PURE__ */ jsx77(
+        features.links && /* @__PURE__ */ jsx78(
           NewLinkModal_default,
           {
             open: showNewLinkModal,
             onClose: () => setShowNewLinkModal(false)
           }
         ),
-        /* @__PURE__ */ jsx77(
+        /* @__PURE__ */ jsx78(
           ConfirmDeleteDialog_default,
           {
             state: confirmDelete,
@@ -12800,16 +12907,16 @@ var AssetsBrowser = ({
 var AssetsBrowser_default = AssetsBrowser;
 
 // src/components/assets/links/LinkEditor.tsx
-import React43 from "react";
+import React44 from "react";
 import QRCode2 from "react-qr-code";
 import { toast as toast11 } from "sonner";
 import { useQueryClient as useQueryClient5 } from "@tanstack/react-query";
 
 // src/components/ui/switch.tsx
-import * as React42 from "react";
+import * as React43 from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
-import { jsx as jsx78 } from "react/jsx-runtime";
-var Switch = React42.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx78(
+import { jsx as jsx79 } from "react/jsx-runtime";
+var Switch = React43.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx79(
   SwitchPrimitives.Root,
   {
     className: cn(
@@ -12818,7 +12925,7 @@ var Switch = React42.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
     ),
     ...props,
     ref,
-    children: /* @__PURE__ */ jsx78(
+    children: /* @__PURE__ */ jsx79(
       SwitchPrimitives.Thumb,
       {
         className: cn(
@@ -12831,7 +12938,7 @@ var Switch = React42.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
 Switch.displayName = SwitchPrimitives.Root.displayName;
 
 // src/components/assets/links/LinkEditor.tsx
-import { jsx as jsx79, jsxs as jsxs55 } from "react/jsx-runtime";
+import { jsx as jsx80, jsxs as jsxs55 } from "react/jsx-runtime";
 var qrPositionToClass2 = (pos) => {
   switch (pos) {
     case "top_left":
@@ -12858,13 +12965,13 @@ var LinkEditor = (props) => {
   const queryClient = useQueryClient5();
   const linkUuid = props.mode === "edit" ? props.linkUuid : null;
   const { onTitleChange } = props;
-  const [loading, setLoading] = React43.useState(props.mode === "edit");
-  const [saving, setSaving] = React43.useState(false);
-  const [name, setName] = React43.useState("");
-  const [url, setUrl] = React43.useState("");
-  const [showQR, setShowQR] = React43.useState(false);
-  const [qrPosition, setQrPosition] = React43.useState("bottom_right");
-  React43.useEffect(() => {
+  const [loading, setLoading] = React44.useState(props.mode === "edit");
+  const [saving, setSaving] = React44.useState(false);
+  const [name, setName] = React44.useState("");
+  const [url, setUrl] = React44.useState("");
+  const [showQR, setShowQR] = React44.useState(false);
+  const [qrPosition, setQrPosition] = React44.useState("bottom_right");
+  React44.useEffect(() => {
     if (!linkUuid) {
       onTitleChange?.({
         title: t("assets.newLinkPage.newLink"),
@@ -12942,8 +13049,8 @@ var LinkEditor = (props) => {
   const previewUrl = ensureProtocol(url);
   return /* @__PURE__ */ jsxs55("div", { className: "flex flex-col lg:flex-row w-full h-full", children: [
     /* @__PURE__ */ jsxs55("div", { className: "w-full lg:w-5/12 p-6 flex flex-col gap-3 mt-4", children: [
-      /* @__PURE__ */ jsx79(Label5, { children: t("assets.linkEditPage.url") }),
-      /* @__PURE__ */ jsx79(
+      /* @__PURE__ */ jsx80(Label5, { children: t("assets.linkEditPage.url") }),
+      /* @__PURE__ */ jsx80(
         Input2,
         {
           value: url,
@@ -12952,30 +13059,30 @@ var LinkEditor = (props) => {
         }
       ),
       /* @__PURE__ */ jsxs55("div", { className: "w-full flex items-center justify-between gap-2", children: [
-        /* @__PURE__ */ jsx79("p", { className: "text-xs", children: t("assets.linkEditPage.addQrCode") }),
-        /* @__PURE__ */ jsx79(Switch, { checked: showQR, onCheckedChange: (v) => setShowQR(!!v) })
+        /* @__PURE__ */ jsx80("p", { className: "text-xs", children: t("assets.linkEditPage.addQrCode") }),
+        /* @__PURE__ */ jsx80(Switch, { checked: showQR, onCheckedChange: (v) => setShowQR(!!v) })
       ] }),
       showQR && /* @__PURE__ */ jsxs55("div", { className: "w-full flex flex-col mt-4 gap-3", children: [
-        /* @__PURE__ */ jsx79(Label5, { className: "text-sm", children: t("assets.linkEditPage.qrPosition") }),
+        /* @__PURE__ */ jsx80(Label5, { className: "text-sm", children: t("assets.linkEditPage.qrPosition") }),
         /* @__PURE__ */ jsxs55(Select, { value: qrPosition, onValueChange: (v) => setQrPosition(v), children: [
-          /* @__PURE__ */ jsx79(SelectTrigger, { className: "w-full", children: /* @__PURE__ */ jsx79(
+          /* @__PURE__ */ jsx80(SelectTrigger, { className: "w-full", children: /* @__PURE__ */ jsx80(
             SelectValue,
             {
               placeholder: t("assets.linkEditPage.selectPosition")
             }
           ) }),
           /* @__PURE__ */ jsxs55(SelectContent, { children: [
-            /* @__PURE__ */ jsx79(SelectItem, { value: "top_left", children: t("assets.linkEditPage.topLeft") }),
-            /* @__PURE__ */ jsx79(SelectItem, { value: "top_right", children: t("assets.linkEditPage.topRight") }),
-            /* @__PURE__ */ jsx79(SelectItem, { value: "bottom_left", children: t("assets.linkEditPage.bottomLeft") }),
-            /* @__PURE__ */ jsx79(SelectItem, { value: "bottom_right", children: t("assets.linkEditPage.bottomRight") })
+            /* @__PURE__ */ jsx80(SelectItem, { value: "top_left", children: t("assets.linkEditPage.topLeft") }),
+            /* @__PURE__ */ jsx80(SelectItem, { value: "top_right", children: t("assets.linkEditPage.topRight") }),
+            /* @__PURE__ */ jsx80(SelectItem, { value: "bottom_left", children: t("assets.linkEditPage.bottomLeft") }),
+            /* @__PURE__ */ jsx80(SelectItem, { value: "bottom_right", children: t("assets.linkEditPage.bottomRight") })
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ jsx79(Button, { onClick: handleSave, disabled: saving || loading, className: "mt-2", children: saving ? t("assets.linkEditPage.savingStatus") : t("assets.linkEditPage.saveChanges") })
+      /* @__PURE__ */ jsx80(Button, { onClick: handleSave, disabled: saving || loading, className: "mt-2", children: saving ? t("assets.linkEditPage.savingStatus") : t("assets.linkEditPage.saveChanges") })
     ] }),
-    /* @__PURE__ */ jsx79("div", { className: "flex-grow w-full h-full bg-muted dark:bg-card relative", children: previewUrl ? /* @__PURE__ */ jsxs55("div", { className: "relative w-full h-full min-h-[320px]", children: [
-      /* @__PURE__ */ jsx79(
+    /* @__PURE__ */ jsx80("div", { className: "flex-grow w-full h-full bg-muted dark:bg-card relative", children: previewUrl ? /* @__PURE__ */ jsxs55("div", { className: "relative w-full h-full min-h-[320px]", children: [
+      /* @__PURE__ */ jsx80(
         "iframe",
         {
           src: previewUrl,
@@ -12984,20 +13091,20 @@ var LinkEditor = (props) => {
         },
         previewUrl
       ),
-      showQR && url && /* @__PURE__ */ jsx79(
+      showQR && url && /* @__PURE__ */ jsx80(
         "div",
         {
           className: `absolute z-10 p-1 ${qrPositionToClass2(qrPosition)}`,
-          children: /* @__PURE__ */ jsx79(QRCode2, { value: previewUrl, size: 60 })
+          children: /* @__PURE__ */ jsx80(QRCode2, { value: previewUrl, size: 60 })
         }
       )
-    ] }) : /* @__PURE__ */ jsx79("div", { className: "w-full h-full min-h-[320px] flex items-center justify-center text-muted-foreground", children: /* @__PURE__ */ jsx79("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
+    ] }) : /* @__PURE__ */ jsx80("div", { className: "w-full h-full min-h-[320px] flex items-center justify-center text-muted-foreground", children: /* @__PURE__ */ jsx80("p", { children: t("assets.newLinkModal.previewWillAppearHere") }) }) })
   ] });
 };
 var LinkEditor_default = LinkEditor;
 
 // src/components/sidebar/sidebar-shell.tsx
-import { jsx as jsx80, jsxs as jsxs56 } from "react/jsx-runtime";
+import { jsx as jsx81, jsxs as jsxs56 } from "react/jsx-runtime";
 var RAIL_CONTROL = "size-9 rounded-[10px]";
 function SidebarShell({
   collapsed,
@@ -13019,8 +13126,8 @@ function SidebarShell({
         className
       ),
       children: [
-        header ? /* @__PURE__ */ jsx80("div", { className: "shrink-0", children: header }) : null,
-        /* @__PURE__ */ jsx80(
+        header ? /* @__PURE__ */ jsx81("div", { className: "shrink-0", children: header }) : null,
+        /* @__PURE__ */ jsx81(
           "div",
           {
             className: cx(
@@ -13031,7 +13138,7 @@ function SidebarShell({
             children
           }
         ),
-        footer ? /* @__PURE__ */ jsx80(
+        footer ? /* @__PURE__ */ jsx81(
           "div",
           {
             className: cx(
@@ -13058,9 +13165,9 @@ function ToggleGlyph({ dir, className }) {
       className: cx("size-5", dir === "rtl" && "-scale-x-100", className),
       "aria-hidden": "true",
       children: [
-        /* @__PURE__ */ jsx80("rect", { x: "2.5", y: "3.5", width: "15", height: "13", rx: "3" }),
-        /* @__PURE__ */ jsx80("path", { d: "M7.5 3.5v13" }),
-        /* @__PURE__ */ jsx80("path", { d: "M12.5 8.5 11 10l1.5 1.5" })
+        /* @__PURE__ */ jsx81("rect", { x: "2.5", y: "3.5", width: "15", height: "13", rx: "3" }),
+        /* @__PURE__ */ jsx81("path", { d: "M7.5 3.5v13" }),
+        /* @__PURE__ */ jsx81("path", { d: "M12.5 8.5 11 10l1.5 1.5" })
       ]
     }
   );
@@ -13072,7 +13179,7 @@ function SidebarToggle({
   dir = "ltr",
   className
 }) {
-  return /* @__PURE__ */ jsx80(
+  return /* @__PURE__ */ jsx81(
     "button",
     {
       type: "button",
@@ -13086,7 +13193,7 @@ function SidebarToggle({
         "text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
         className
       ),
-      children: /* @__PURE__ */ jsx80(ToggleGlyph, { dir })
+      children: /* @__PURE__ */ jsx81(ToggleGlyph, { dir })
     }
   );
 }
@@ -13112,8 +13219,8 @@ function SidebarBrandToggle({
         className
       ),
       children: [
-        /* @__PURE__ */ jsx80("span", { className: "flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full", children: mark }),
-        /* @__PURE__ */ jsx80(
+        /* @__PURE__ */ jsx81("span", { className: "flex size-5 items-center justify-center transition-all duration-200 group-hover/brand:scale-75 group-hover/brand:opacity-0 group-focus-visible/brand:scale-75 group-focus-visible/brand:opacity-0 [&>*]:size-full", children: mark }),
+        /* @__PURE__ */ jsx81(
           ToggleGlyph,
           {
             dir,
@@ -13127,11 +13234,11 @@ function SidebarBrandToggle({
 
 // src/components/sidebar/sidebar-nav-item.tsx
 import * as Tooltip2 from "@radix-ui/react-tooltip";
-import { Fragment as Fragment12, jsx as jsx81, jsxs as jsxs57 } from "react/jsx-runtime";
-var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx81("a", { href, ...rest, children });
+import { Fragment as Fragment12, jsx as jsx82, jsxs as jsxs57 } from "react/jsx-runtime";
+var DefaultLink = ({ href, children, ...rest }) => /* @__PURE__ */ jsx82("a", { href, ...rest, children });
 var RAIL_HOVER = "bg-neutral-100 dark:bg-zinc-800";
 function Badge({ children }) {
-  return /* @__PURE__ */ jsx81("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-xs font-bold leading-none text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300", children });
+  return /* @__PURE__ */ jsx82("span", { className: "ms-1.5 shrink-0 rounded-full border border-amber-300 bg-amber-100 px-1.5 py-0.5 text-xs font-bold leading-none text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300", children });
 }
 function SidebarNavItem({
   item,
@@ -13150,7 +13257,7 @@ function SidebarNavItem({
     item.disabled && "cursor-not-allowed opacity-70 hover:bg-transparent"
   );
   const content = /* @__PURE__ */ jsxs57(Fragment12, { children: [
-    /* @__PURE__ */ jsx81(
+    /* @__PURE__ */ jsx82(
       "span",
       {
         className: cx(
@@ -13164,11 +13271,11 @@ function SidebarNavItem({
       }
     ),
     !collapsed && /* @__PURE__ */ jsxs57("span", { className: "flex min-w-0 flex-1 items-center justify-between", children: [
-      /* @__PURE__ */ jsx81("span", { className: cx("truncate", !active && "font-normal"), children: item.label }),
-      item.badge ? /* @__PURE__ */ jsx81(Badge, { children: item.badge }) : null
+      /* @__PURE__ */ jsx82("span", { className: cx("truncate", !active && "font-normal"), children: item.label }),
+      item.badge ? /* @__PURE__ */ jsx82(Badge, { children: item.badge }) : null
     ] })
   ] });
-  const control = item.href && !item.disabled ? /* @__PURE__ */ jsx81(
+  const control = item.href && !item.disabled ? /* @__PURE__ */ jsx82(
     LinkComponent,
     {
       href: item.href,
@@ -13176,7 +13283,7 @@ function SidebarNavItem({
       "aria-current": active ? "page" : void 0,
       children: content
     }
-  ) : /* @__PURE__ */ jsx81(
+  ) : /* @__PURE__ */ jsx82(
     "button",
     {
       type: "button",
@@ -13188,9 +13295,9 @@ function SidebarNavItem({
     }
   );
   if (!collapsed) return control;
-  return /* @__PURE__ */ jsx81(Tooltip2.Provider, { delayDuration: 150, children: /* @__PURE__ */ jsxs57(Tooltip2.Root, { children: [
-    /* @__PURE__ */ jsx81(Tooltip2.Trigger, { asChild: true, children: control }),
-    /* @__PURE__ */ jsx81(Tooltip2.Portal, { children: /* @__PURE__ */ jsx81(
+  return /* @__PURE__ */ jsx82(Tooltip2.Provider, { delayDuration: 150, children: /* @__PURE__ */ jsxs57(Tooltip2.Root, { children: [
+    /* @__PURE__ */ jsx82(Tooltip2.Trigger, { asChild: true, children: control }),
+    /* @__PURE__ */ jsx82(Tooltip2.Portal, { children: /* @__PURE__ */ jsx82(
       Tooltip2.Content,
       {
         side: dir === "rtl" ? "left" : "right",
@@ -13201,7 +13308,7 @@ function SidebarNavItem({
         ),
         children: /* @__PURE__ */ jsxs57("span", { className: "flex items-center gap-1.5", children: [
           item.label,
-          item.badge ? /* @__PURE__ */ jsx81(Badge, { children: item.badge }) : null
+          item.badge ? /* @__PURE__ */ jsx82(Badge, { children: item.badge }) : null
         ] })
       }
     ) })
@@ -13209,7 +13316,7 @@ function SidebarNavItem({
 }
 
 // src/components/sidebar/sidebar-nav.tsx
-import { jsx as jsx82, jsxs as jsxs58 } from "react/jsx-runtime";
+import { jsx as jsx83, jsxs as jsxs58 } from "react/jsx-runtime";
 function SidebarNav({
   groups,
   collapsed,
@@ -13217,7 +13324,7 @@ function SidebarNav({
   LinkComponent,
   className
 }) {
-  return /* @__PURE__ */ jsx82("nav", { className: cx("flex w-full flex-col gap-3", className), children: groups.map((group) => /* @__PURE__ */ jsxs58(
+  return /* @__PURE__ */ jsx83("nav", { className: cx("flex w-full flex-col gap-3", className), children: groups.map((group) => /* @__PURE__ */ jsxs58(
     "div",
     {
       className: cx(
@@ -13225,7 +13332,7 @@ function SidebarNav({
         collapsed ? "items-center gap-2" : "gap-0.5"
       ),
       children: [
-        group.dividerAbove && /* @__PURE__ */ jsx82(
+        group.dividerAbove && /* @__PURE__ */ jsx83(
           "div",
           {
             className: cx(
@@ -13234,8 +13341,8 @@ function SidebarNav({
             )
           }
         ),
-        group.label && !collapsed && /* @__PURE__ */ jsx82("span", { className: "mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-zinc-300", children: group.label }),
-        group.items.map((item) => /* @__PURE__ */ jsx82(
+        group.label && !collapsed && /* @__PURE__ */ jsx83("span", { className: "mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-zinc-300", children: group.label }),
+        group.items.map((item) => /* @__PURE__ */ jsx83(
           SidebarNavItem,
           {
             item,
@@ -13253,10 +13360,10 @@ function SidebarNav({
 
 // src/components/sidebar/sidebar-credits-card.tsx
 import * as Popover from "@radix-ui/react-popover";
-import { jsx as jsx83, jsxs as jsxs59 } from "react/jsx-runtime";
+import { jsx as jsx84, jsxs as jsxs59 } from "react/jsx-runtime";
 var SURFACE = "rounded-[10px] border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/40";
 function ProgressBar({ percent }) {
-  return /* @__PURE__ */ jsx83("span", { className: "block h-1 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-zinc-800", children: /* @__PURE__ */ jsx83(
+  return /* @__PURE__ */ jsx84("span", { className: "block h-1 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-zinc-800", children: /* @__PURE__ */ jsx84(
     "span",
     {
       className: "block h-full rounded-full bg-primary transition-[width] duration-500",
@@ -13278,7 +13385,7 @@ function SidebarCreditsCard({
   const showBar = typeof percent === "number";
   if (collapsed) {
     return /* @__PURE__ */ jsxs59(Popover.Root, { children: [
-      /* @__PURE__ */ jsx83(Popover.Trigger, { asChild: true, children: /* @__PURE__ */ jsx83(
+      /* @__PURE__ */ jsx84(Popover.Trigger, { asChild: true, children: /* @__PURE__ */ jsx84(
         "button",
         {
           type: "button",
@@ -13289,10 +13396,10 @@ function SidebarCreditsCard({
             "flex cursor-pointer items-center justify-center transition-colors hover:bg-zinc-100 data-[state=open]:bg-zinc-100 dark:hover:bg-zinc-900/60 dark:data-[state=open]:bg-zinc-900/60",
             className
           ),
-          children: /* @__PURE__ */ jsx83("span", { className: "flex size-5 items-center justify-center [&>*]:size-full", children: icon })
+          children: /* @__PURE__ */ jsx84("span", { className: "flex size-5 items-center justify-center [&>*]:size-full", children: icon })
         }
       ) }),
-      /* @__PURE__ */ jsx83(Popover.Portal, { children: /* @__PURE__ */ jsxs59(
+      /* @__PURE__ */ jsx84(Popover.Portal, { children: /* @__PURE__ */ jsxs59(
         Popover.Content,
         {
           side: dir === "rtl" ? "left" : "right",
@@ -13301,14 +13408,14 @@ function SidebarCreditsCard({
           className: "z-50 flex w-56 flex-col gap-2.5 rounded-[10px] border border-zinc-100 bg-white p-3 text-start shadow-lg dark:border-zinc-800 dark:bg-zinc-900",
           children: [
             /* @__PURE__ */ jsxs59("span", { className: "flex items-center justify-between gap-2 text-xs font-medium", children: [
-              /* @__PURE__ */ jsx83("span", { className: "text-neutral-600 dark:text-zinc-300", children: label }),
+              /* @__PURE__ */ jsx84("span", { className: "text-neutral-600 dark:text-zinc-300", children: label }),
               /* @__PURE__ */ jsxs59("span", { className: "flex items-center gap-1.5 tabular-nums text-neutral-900 dark:text-zinc-100", children: [
-                /* @__PURE__ */ jsx83("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+                /* @__PURE__ */ jsx84("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
                 value
               ] })
             ] }),
-            showBar && /* @__PURE__ */ jsx83(ProgressBar, { percent }),
-            hoverLabel && onClick && /* @__PURE__ */ jsx83(Popover.Close, { asChild: true, children: /* @__PURE__ */ jsx83(
+            showBar && /* @__PURE__ */ jsx84(ProgressBar, { percent }),
+            hoverLabel && onClick && /* @__PURE__ */ jsx84(Popover.Close, { asChild: true, children: /* @__PURE__ */ jsx84(
               "button",
               {
                 type: "button",
@@ -13335,7 +13442,7 @@ function SidebarCreditsCard({
       children: [
         /* @__PURE__ */ jsxs59("span", { className: "flex w-full items-center justify-between gap-2", children: [
           /* @__PURE__ */ jsxs59("span", { className: "relative h-5 min-w-0 flex-1 overflow-hidden text-xs font-medium", children: [
-            /* @__PURE__ */ jsx83(
+            /* @__PURE__ */ jsx84(
               "span",
               {
                 className: cx(
@@ -13345,22 +13452,34 @@ function SidebarCreditsCard({
                 children: label
               }
             ),
-            hoverLabel && /* @__PURE__ */ jsx83("span", { className: "absolute inset-y-0 start-0 flex translate-y-full items-center truncate text-neutral-800 opacity-0 transition-all duration-300 group-hover/credits:translate-y-0 group-hover/credits:opacity-100 dark:text-zinc-100", children: hoverLabel })
+            hoverLabel && /* @__PURE__ */ jsx84("span", { className: "absolute inset-y-0 start-0 flex translate-y-full items-center truncate text-neutral-800 opacity-0 transition-all duration-300 group-hover/credits:translate-y-0 group-hover/credits:opacity-100 dark:text-zinc-100", children: hoverLabel })
           ] }),
           /* @__PURE__ */ jsxs59("span", { className: "flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium tabular-nums text-neutral-900 dark:text-zinc-100", children: [
-            /* @__PURE__ */ jsx83("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
+            /* @__PURE__ */ jsx84("span", { className: "flex size-3.5 items-center justify-center [&>*]:size-full", children: icon }),
             value
           ] })
         ] }),
-        showBar && /* @__PURE__ */ jsx83("span", { className: "mt-2 block w-full", children: /* @__PURE__ */ jsx83(ProgressBar, { percent }) })
+        showBar && /* @__PURE__ */ jsx84("span", { className: "mt-2 block w-full", children: /* @__PURE__ */ jsx84(ProgressBar, { percent }) })
       ]
     }
   );
 }
 
 // src/components/ad-blocker/ad-blocker-detector.ts
-var DEFAULT_BAIT_URL = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-var DEFAULT_TIMEOUT_MS = 3500;
+var DEFAULT_BAIT_URLS = [
+  "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
+  "https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+];
+var DEFAULT_TIMEOUT_MS = 4e3;
+var CSP_EVENT_GRACE_MS = 40;
+var delay = (ms) => new Promise((r) => setTimeout(r, ms));
+function hostOf(url) {
+  try {
+    return new URL(url).host;
+  } catch {
+    return "";
+  }
+}
 function isBrowserOffline() {
   if (typeof navigator === "undefined") {
     return false;
@@ -13371,131 +13490,154 @@ function testDomCosmeticFiltering() {
   if (typeof document === "undefined" || !document.body) {
     return false;
   }
-  const bait = document.createElement("div");
-  bait.className = "adsbox ad-banner pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links banner-ad";
-  bait.setAttribute("aria-hidden", "true");
+  const makeProbe = (className) => {
+    const el = document.createElement("div");
+    el.className = className;
+    el.setAttribute("aria-hidden", "true");
+    el.style.setProperty("position", "absolute", "important");
+    el.style.setProperty("top", "-9999px", "important");
+    el.style.setProperty("left", "-9999px", "important");
+    el.style.setProperty("width", "10px", "important");
+    el.style.setProperty("height", "10px", "important");
+    el.style.setProperty("pointer-events", "none", "important");
+    el.textContent = "\xA0";
+    return el;
+  };
+  const bait = makeProbe(
+    "adsbox ad-banner pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links banner-ad"
+  );
   bait.setAttribute("data-ad-client", "ca-pub-0000000000000000");
-  bait.style.setProperty("position", "absolute", "important");
-  bait.style.setProperty("top", "-9999px", "important");
-  bait.style.setProperty("left", "-9999px", "important");
-  bait.style.setProperty("width", "1px", "important");
-  bait.style.setProperty("height", "1px", "important");
-  bait.style.setProperty("pointer-events", "none", "important");
+  const control = makeProbe("nitx-adblock-control");
   try {
+    document.body.appendChild(control);
     document.body.appendChild(bait);
-    const style = window.getComputedStyle(bait);
-    const isHidden = style.display === "none" || style.visibility === "hidden" || bait.offsetParent === null || bait.offsetHeight === 0 || bait.offsetWidth === 0 || bait.clientHeight === 0 || bait.clientWidth === 0;
-    return isHidden;
+    const collapsed = (el) => {
+      const style = window.getComputedStyle(el);
+      return style.display === "none" || style.visibility === "hidden" || el.offsetHeight === 0 || el.offsetWidth === 0;
+    };
+    return collapsed(bait) && !collapsed(control);
   } catch {
     return false;
   } finally {
-    if (bait.parentNode) {
-      bait.parentNode.removeChild(bait);
+    bait.parentNode?.removeChild(bait);
+    control.parentNode?.removeChild(control);
+  }
+}
+async function probeUrl(url, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const host = hostOf(url);
+  let cspViolation = false;
+  const onViolation = (event) => {
+    const violation = event;
+    const blocked = violation.blockedURI || "";
+    if (!blocked || host && blocked.includes(host)) {
+      cspViolation = true;
     }
+  };
+  document.addEventListener("securitypolicyviolation", onViolation);
+  try {
+    await fetch(url, {
+      method: "HEAD",
+      mode: "no-cors",
+      cache: "no-store",
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+      signal: controller.signal
+    });
+    return "reachable";
+  } catch {
+    if (controller.signal.aborted) {
+      return "timeout";
+    }
+    await delay(CSP_EVENT_GRACE_MS);
+    return cspViolation ? "csp" : "blocked";
+  } finally {
+    clearTimeout(timer);
+    document.removeEventListener("securitypolicyviolation", onViolation);
   }
 }
 async function probeGeneralConnectivity(customUrl, timeoutMs = DEFAULT_TIMEOUT_MS) {
   if (isBrowserOffline()) {
-    return false;
+    return "blocked";
   }
-  const probeUrl = customUrl || (typeof window !== "undefined" ? `${window.location.origin}/favicon.ico` : "");
-  if (!probeUrl) {
-    return true;
+  const probeUrlValue = customUrl || (typeof window !== "undefined" ? `${window.location.origin}/favicon.ico` : "");
+  if (!probeUrlValue) {
+    return "reachable";
   }
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    await fetch(probeUrl, {
-      method: "HEAD",
-      mode: "no-cors",
-      cache: "no-store",
-      signal: controller.signal
-    });
-    return true;
-  } catch {
-    return typeof navigator !== "undefined" ? navigator.onLine : false;
-  } finally {
-    clearTimeout(timer);
-  }
+  const outcome = await probeUrl(probeUrlValue, timeoutMs);
+  return outcome === "csp" ? "reachable" : outcome;
 }
-async function probeAdEndpoint(baitUrl, timeoutMs) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    await fetch(baitUrl, {
-      method: "HEAD",
-      mode: "no-cors",
-      cache: "no-store",
-      signal: controller.signal
-    });
-    return true;
-  } catch {
-    return false;
-  } finally {
-    clearTimeout(timer);
-  }
+function result(partial, details) {
+  return { ...partial, timestamp: Date.now(), details };
 }
 async function detectAdBlocker(options = {}) {
-  const now = Date.now();
   if (typeof window === "undefined" || typeof document === "undefined") {
-    return {
-      isBlocked: false,
-      isOffline: false,
-      reason: "none",
-      timestamp: now
-    };
+    return result({ isBlocked: false, isOffline: false, reason: "none" });
   }
   if (isBrowserOffline()) {
-    return {
-      isBlocked: false,
-      isOffline: true,
-      reason: "none",
-      timestamp: now
-    };
+    return result({ isBlocked: false, isOffline: true, reason: "none" });
   }
-  const isDomFiltered = testDomCosmeticFiltering();
-  if (isDomFiltered) {
-    return {
-      isBlocked: true,
-      isOffline: false,
-      reason: "dom_probe_hidden",
-      timestamp: now
-    };
-  }
-  const baitUrl = options.baitUrl || DEFAULT_BAIT_URL;
   const timeoutMs = options.timeoutMs || DEFAULT_TIMEOUT_MS;
-  const adProbeSucceeded = await probeAdEndpoint(baitUrl, timeoutMs);
-  if (adProbeSucceeded) {
-    return {
-      isBlocked: false,
-      isOffline: false,
-      reason: "none",
-      timestamp: now
-    };
-  }
-  const isOnline = await probeGeneralConnectivity(
-    options.connectivityTestUrl,
-    timeoutMs
+  const baitUrls = options.baitUrls && options.baitUrls.length > 0 ? options.baitUrls : options.baitUrl ? [options.baitUrl] : DEFAULT_BAIT_URLS;
+  const domHidden = testDomCosmeticFiltering();
+  const network = await Promise.all(
+    baitUrls.map((url) => probeUrl(url, timeoutMs))
   );
-  if (!isOnline) {
-    return {
-      isBlocked: false,
-      isOffline: true,
-      reason: "none",
-      timestamp: now
-    };
+  const details = { domHidden, network };
+  const anyReachable = network.some((o) => o === "reachable");
+  const allBlocked = network.length > 0 && network.every((o) => o === "blocked");
+  if (anyReachable) {
+    return result({ isBlocked: false, isOffline: false, reason: "none" }, details);
   }
-  return {
-    isBlocked: true,
-    isOffline: false,
-    reason: "network_probe_blocked",
-    timestamp: now
-  };
+  if (allBlocked) {
+    const connectivity = await probeGeneralConnectivity(
+      options.connectivityTestUrl,
+      timeoutMs
+    );
+    if (connectivity === "blocked") {
+      return result({ isBlocked: false, isOffline: true, reason: "none" }, details);
+    }
+    if (connectivity === "timeout") {
+      return result(
+        { isBlocked: false, isOffline: false, reason: "inconclusive" },
+        details
+      );
+    }
+    return result(
+      { isBlocked: true, isOffline: false, reason: "network_probe_blocked" },
+      details
+    );
+  }
+  if (domHidden) {
+    return result(
+      { isBlocked: true, isOffline: false, reason: "dom_probe_hidden" },
+      details
+    );
+  }
+  return result(
+    { isBlocked: false, isOffline: false, reason: "inconclusive" },
+    details
+  );
 }
 
 // src/components/ad-blocker/use-ad-blocker.ts
-import { useCallback as useCallback7, useEffect as useEffect22, useRef as useRef5, useState as useState25 } from "react";
+import { useCallback as useCallback7, useEffect as useEffect23, useRef as useRef5, useState as useState26 } from "react";
 var DEFAULT_STORAGE_KEY = "nitx_adblocker_dismissed";
+var DEFAULT_CONFIRM_DELAY_MS = 1500;
+var DEFAULT_RECHECK_INTERVAL_MS = 15e3;
+var delay2 = (ms) => new Promise((r) => setTimeout(r, ms));
+var inflight = /* @__PURE__ */ new Map();
+function detectShared(options) {
+  const key = JSON.stringify(options);
+  const existing = inflight.get(key);
+  if (existing) return existing;
+  const run = detectAdBlocker(options).finally(() => {
+    inflight.delete(key);
+  });
+  inflight.set(key, run);
+  return run;
+}
 function getStorageItem(type, key) {
   if (typeof window === "undefined" || type === "memory") {
     return null;
@@ -13534,43 +13676,69 @@ function useAdBlocker(options = {}) {
     storageKey = DEFAULT_STORAGE_KEY,
     timeoutMs,
     baitUrl,
+    baitUrls,
     connectivityTestUrl,
+    confirmDelayMs = DEFAULT_CONFIRM_DELAY_MS,
+    recheckIntervalMs = DEFAULT_RECHECK_INTERVAL_MS,
     onDetected,
     onRecheck
   } = options;
-  const [isRawBlocked, setIsRawBlocked] = useState25(false);
-  const [isOffline, setIsOffline] = useState25(() => isBrowserOffline());
-  const [isChecking, setIsChecking] = useState25(false);
-  const [reason, setReason] = useState25("none");
-  const [timestamp, setTimestamp] = useState25(() => Date.now());
-  const [isDismissed, setIsDismissed] = useState25(() => {
+  const [isRawBlocked, setIsRawBlocked] = useState26(false);
+  const [isOffline, setIsOffline] = useState26(
+    () => isBrowserOffline()
+  );
+  const [isChecking, setIsChecking] = useState26(false);
+  const [reason, setReason] = useState26("none");
+  const [timestamp, setTimestamp] = useState26(() => Date.now());
+  const [details, setDetails] = useState26(void 0);
+  const [isDismissed, setIsDismissed] = useState26(() => {
     return getStorageItem(storageType, storageKey) === "true";
   });
   const onDetectedRef = useRef5(onDetected);
   onDetectedRef.current = onDetected;
   const onRecheckRef = useRef5(onRecheck);
   onRecheckRef.current = onRecheck;
+  const mountedRef = useRef5(true);
+  useEffect23(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+  const baitUrlsKey = baitUrls ? baitUrls.join("\n") : "";
   const check = useCallback7(async () => {
+    const detectorOptions = {
+      timeoutMs,
+      baitUrl,
+      baitUrls: baitUrlsKey ? baitUrlsKey.split("\n") : void 0,
+      connectivityTestUrl
+    };
     setIsChecking(true);
     try {
-      const result = await detectAdBlocker({
-        timeoutMs,
-        baitUrl,
-        connectivityTestUrl
-      });
-      setIsRawBlocked(result.isBlocked);
-      setIsOffline(result.isOffline);
-      setReason(result.reason);
-      setTimestamp(result.timestamp);
-      if (result.isBlocked) {
-        onDetectedRef.current?.(result);
+      let result2 = await detectShared(detectorOptions);
+      if (result2.isBlocked && confirmDelayMs > 0) {
+        await delay2(confirmDelayMs);
+        if (!mountedRef.current) return result2;
+        const confirmation = await detectShared(detectorOptions);
+        if (!confirmation.isBlocked) {
+          result2 = confirmation;
+        }
       }
-      onRecheckRef.current?.(result);
-      return result;
+      if (!mountedRef.current) return result2;
+      setIsRawBlocked(result2.isBlocked);
+      setIsOffline(result2.isOffline);
+      setReason(result2.reason);
+      setTimestamp(result2.timestamp);
+      setDetails(result2.details);
+      if (result2.isBlocked) {
+        onDetectedRef.current?.(result2);
+      }
+      onRecheckRef.current?.(result2);
+      return result2;
     } finally {
-      setIsChecking(false);
+      if (mountedRef.current) setIsChecking(false);
     }
-  }, [baitUrl, connectivityTestUrl, timeoutMs]);
+  }, [baitUrl, baitUrlsKey, confirmDelayMs, connectivityTestUrl, timeoutMs]);
   const dismiss = useCallback7(() => {
     setIsDismissed(true);
     setStorageItem(storageType, storageKey, "true");
@@ -13579,7 +13747,7 @@ function useAdBlocker(options = {}) {
     setIsDismissed(false);
     removeStorageItem(storageType, storageKey);
   }, [storageKey, storageType]);
-  useEffect22(() => {
+  useEffect23(() => {
     if (typeof window === "undefined") {
       return;
     }
@@ -13598,17 +13766,36 @@ function useAdBlocker(options = {}) {
       window.removeEventListener("offline", handleOffline);
     };
   }, [check]);
-  useEffect22(() => {
+  useEffect23(() => {
     if (autoCheck) {
       void check();
     }
   }, [autoCheck, check]);
+  useEffect23(() => {
+    if (!isRawBlocked || typeof window === "undefined") {
+      return;
+    }
+    const recheckIfVisible = () => {
+      if (document.visibilityState === "visible") {
+        void check();
+      }
+    };
+    window.addEventListener("focus", recheckIfVisible);
+    document.addEventListener("visibilitychange", recheckIfVisible);
+    const interval = recheckIntervalMs > 0 ? window.setInterval(recheckIfVisible, recheckIntervalMs) : void 0;
+    return () => {
+      window.removeEventListener("focus", recheckIfVisible);
+      document.removeEventListener("visibilitychange", recheckIfVisible);
+      if (interval !== void 0) window.clearInterval(interval);
+    };
+  }, [isRawBlocked, recheckIntervalMs, check]);
   const isBlocked = isRawBlocked && !isDismissed;
   return {
     isBlocked,
     isOffline,
     reason,
     timestamp,
+    details,
     isChecking,
     isDismissed,
     check,
@@ -13618,8 +13805,8 @@ function useAdBlocker(options = {}) {
 }
 
 // src/components/ad-blocker/ad-blocker-instructions.tsx
-import { useState as useState26 } from "react";
-import { jsx as jsx84, jsxs as jsxs60 } from "react/jsx-runtime";
+import { useState as useState27 } from "react";
+import { jsx as jsx85, jsxs as jsxs60 } from "react/jsx-runtime";
 var EXTENSION_ITEMS = [
   {
     id: "ublock",
@@ -13646,7 +13833,7 @@ var AdBlockerInstructions = ({
   className
 }) => {
   const { t } = useNitxUiTranslation();
-  const [activeTab, setActiveTab] = useState26("ublock");
+  const [activeTab, setActiveTab] = useState27("ublock");
   return /* @__PURE__ */ jsxs60(
     "div",
     {
@@ -13656,12 +13843,12 @@ var AdBlockerInstructions = ({
       ),
       children: [
         /* @__PURE__ */ jsxs60("div", { className: "mb-2", children: [
-          /* @__PURE__ */ jsx84("h4", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: t("adBlocker.howToAllow") }),
-          /* @__PURE__ */ jsx84("p", { className: "mt-0.5 text-xs text-zinc-500 dark:text-zinc-400", children: t("adBlocker.howToAllowInstructions") })
+          /* @__PURE__ */ jsx85("h4", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: t("adBlocker.howToAllow") }),
+          /* @__PURE__ */ jsx85("p", { className: "mt-0.5 text-xs text-zinc-500 dark:text-zinc-400", children: t("adBlocker.howToAllowInstructions") })
         ] }),
-        /* @__PURE__ */ jsx84("div", { className: "mt-3 flex flex-wrap gap-1.5 border-b border-zinc-200/70 pb-2.5 dark:border-zinc-800", children: EXTENSION_ITEMS.map((item) => {
+        /* @__PURE__ */ jsx85("div", { className: "mt-3 flex flex-wrap gap-1.5 border-b border-zinc-200/70 pb-2.5 dark:border-zinc-800", children: EXTENSION_ITEMS.map((item) => {
           const isActive = activeTab === item.id;
-          return /* @__PURE__ */ jsx84(
+          return /* @__PURE__ */ jsx85(
             "button",
             {
               type: "button",
@@ -13675,9 +13862,9 @@ var AdBlockerInstructions = ({
             item.id
           );
         }) }),
-        /* @__PURE__ */ jsx84("div", { className: "mt-2.5", children: EXTENSION_ITEMS.map((item) => {
+        /* @__PURE__ */ jsx85("div", { className: "mt-2.5", children: EXTENSION_ITEMS.map((item) => {
           if (activeTab !== item.id) return null;
-          return /* @__PURE__ */ jsx84(
+          return /* @__PURE__ */ jsx85(
             "p",
             {
               className: "text-xs leading-relaxed text-zinc-700 dark:text-zinc-300",
@@ -13692,7 +13879,7 @@ var AdBlockerInstructions = ({
 };
 
 // src/components/ad-blocker/nitx-logo-watermark.tsx
-import { jsx as jsx85, jsxs as jsxs61 } from "react/jsx-runtime";
+import { jsx as jsx86, jsxs as jsxs61 } from "react/jsx-runtime";
 var NitxLogoWatermark = ({
   className,
   ...props
@@ -13707,42 +13894,42 @@ var NitxLogoWatermark = ({
       className: cn("w-full h-auto", className),
       ...props,
       children: [
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M10.8406 12.8433C10.6401 13.2737 10.5255 13.5102 10.4243 13.7466C9.27475 16.5655 8.14046 19.3899 7.02145 22.2199C6.69109 23.0678 6.18887 23.4428 5.29901 23.4705C4.07879 23.5259 2.8433 23.6792 1.62308 23.7753C0.590002 23.8584 0.488794 23.7476 0.876438 22.7888C2.29907 19.2606 3.71979 15.7472 5.14243 12.219C6.27671 9.42781 7.411 6.62187 8.50328 3.81592C8.83364 2.98282 9.32249 2.58013 10.2257 2.52471C11.4459 2.45451 12.6814 2.33075 13.9016 2.14972C14.7342 2.02411 15.1219 2.33075 15.3663 3.05302C16.2848 5.67793 17.2319 8.3047 18.181 10.9296C18.2669 11.179 18.3815 11.4302 18.5839 11.8883C19.1148 10.5823 19.6476 9.26341 20.1784 7.94264C20.9403 6.03999 21.7156 4.15027 22.447 2.24762C22.7201 1.55307 23.1497 1.22056 23.8677 1.1633C25.1739 1.05247 26.4819 0.899146 27.7881 0.775381C28.7925 0.677478 28.8937 0.817867 28.5061 1.78951C26.2222 7.55472 23.9288 13.3088 21.6278 19.0556C21.3261 19.7926 21.0244 20.5278 20.7379 21.2778C20.5221 21.8338 20.1498 22.1257 19.5463 22.1811C18.0817 22.3067 16.6018 22.4305 15.1371 22.5838C14.4631 22.654 14.2759 22.2513 14.1041 21.7507C13.1856 19.1258 12.2518 16.499 11.3046 13.8741C11.1901 13.597 11.0468 13.3052 10.8444 12.847L10.8406 12.8433Z",
             fill: "currentColor"
           }
         ),
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M37.1046 10.4268C36.9442 10.3991 36.78 10.3843 36.6157 10.3843C35.3382 10.4268 35.3096 10.3973 35.8118 9.13377C36.1135 8.35608 36.4572 7.59133 36.7303 6.80071C36.9881 6.06367 37.433 5.66097 38.1949 5.68868C38.8404 5.71639 39.1994 5.4393 39.4018 4.80016C39.6882 3.93935 40.1064 3.09147 40.4062 2.23066C40.6354 1.59152 41.023 1.27195 41.6837 1.21653C42.904 1.11863 44.1395 0.967155 45.3597 0.856321C46.1636 0.786126 46.2935 0.954224 46.0051 1.71713C45.6175 2.75897 45.2012 3.78603 44.7123 5.03661L47.1814 4.80016C47.5404 4.77245 47.8841 4.72997 48.2431 4.70226C48.732 4.65977 48.8752 4.92393 48.7167 5.35433C48.2718 6.507 47.8555 7.65968 47.3093 8.77171C47.1661 9.0765 46.62 9.35544 46.2476 9.41085C45.3291 9.5771 44.3953 9.59188 43.4768 9.71564C43.219 9.75813 42.8028 9.90961 42.7302 10.1054C41.9549 11.9804 41.2216 13.8553 40.4903 15.745L43.3909 15.4809C44.6258 15.37 45.0039 15.9026 44.5252 17.0787C44.2387 17.801 43.937 18.5232 43.6773 19.2603C43.4768 19.8163 43.1178 20.0805 42.5564 20.1211C40.7614 20.2744 38.9664 20.4536 37.1581 20.5792C34.8895 20.9394 33.9271 18.913 34.5591 17.1064C35.2485 15.1484 36.039 13.2161 36.7991 11.2858C36.9155 11.0032 37.0148 10.7168 37.1008 10.425L37.1046 10.4268Z",
             fill: "currentColor"
           }
         ),
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M53.5041 15.97C52.6143 16.9564 51.8676 17.7341 51.1783 18.5543C50.6321 19.2064 50.0153 19.5407 49.1675 19.5813C47.6456 19.6645 46.1083 19.8307 44.5864 19.9693C44.3 19.997 44.0116 19.984 43.4941 19.997C43.8379 19.5943 44.0116 19.3578 44.2121 19.1639C46.5094 16.9971 48.7932 14.8303 51.1191 12.7041C51.8084 12.0797 51.9956 11.5644 51.6652 10.7313C51.0045 8.98008 50.4011 7.23075 49.7709 5.46665C49.5265 4.81457 49.7709 4.57813 50.4163 4.50793L55.5569 4.00733C56.1031 3.95192 56.3895 4.17358 56.548 4.67418C57.9974 9.00779 59.4525 13.3414 60.9133 17.6768C61.1138 18.2606 60.8846 18.5099 60.3251 18.5654L54.7683 19.066C54.2374 19.1214 53.9777 18.872 53.8918 18.3714C53.8058 17.6491 53.676 16.9546 53.5041 15.9682V15.97Z",
             fill: "currentColor"
           }
         ),
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M26.7663 21.5532C26.1208 21.6086 25.4601 21.664 24.8128 21.7342C24.11 21.8044 23.9363 21.5402 24.2093 20.8863C25.1565 18.5255 26.0998 16.1629 27.0393 13.8022C27.8872 11.6908 28.7331 9.5794 29.5523 7.46802C29.8101 6.78824 30.213 6.44096 30.9597 6.38369C32.1226 6.3135 33.3008 6.16202 34.4771 6.05119C35.4529 5.95329 35.5541 6.0789 35.1798 7.0099C33.6865 10.806 32.178 14.5946 30.6561 18.3722C30.383 19.0668 30.0813 19.7613 29.8235 20.4559C29.6077 21.0526 29.2067 21.3444 28.5746 21.3721C27.9712 21.4275 27.3678 21.4977 26.7663 21.5532Z",
             fill: "currentColor"
           }
         ),
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M67.1022 3.02453C66.8157 3.35703 66.642 3.58055 66.4414 3.77451C64.5319 5.64945 62.607 7.53916 60.6688 9.39933C59.9947 10.0514 59.7789 10.0237 59.4772 9.20537C59.1755 8.38704 58.8738 7.56687 58.5721 6.75963C58.4976 6.58784 58.4594 6.40312 58.4575 6.21839C58.5014 5.56632 60.3824 3.55099 61.0564 3.48265C62.9087 3.28869 64.761 3.10766 66.6133 2.94141C66.7775 2.95618 66.9418 2.98389 67.1022 3.02453Z",
             fill: "currentColor"
           }
         ),
-        /* @__PURE__ */ jsx85(
+        /* @__PURE__ */ jsx86(
           "path",
           {
             d: "M33.4154 4.7189C32.77 4.7891 32.1093 4.82974 31.4619 4.91286C30.8585 4.99599 30.6294 4.75954 30.8451 4.1906C31.2328 3.14876 31.6357 2.10692 32.1227 1.10757C32.3365 0.769523 32.6841 0.529382 33.0851 0.440715C34.4065 0.246756 35.7566 0.135922 37.0914 0.0103102C37.7082 -0.0598846 37.8667 0.231978 37.6509 0.775064C37.248 1.78919 36.889 2.81626 36.4154 3.78975C36.2569 4.10932 35.7699 4.40118 35.3957 4.49724C34.735 4.66349 34.0742 4.65056 33.4135 4.7189H33.4154Z",
@@ -13755,7 +13942,7 @@ var NitxLogoWatermark = ({
 };
 
 // src/components/ad-blocker/ad-blocker-page.tsx
-import { jsx as jsx86, jsxs as jsxs62 } from "react/jsx-runtime";
+import { jsx as jsx87, jsxs as jsxs62 } from "react/jsx-runtime";
 var AdBlockerBadgeIcon = ({
   className
 }) => {
@@ -13768,7 +13955,7 @@ var AdBlockerBadgeIcon = ({
       className: cn("size-9 shrink-0", className),
       "aria-hidden": "true",
       children: [
-        /* @__PURE__ */ jsx86(
+        /* @__PURE__ */ jsx87(
           "path",
           {
             d: "M16 2.5C17.3 2.5 18.3 3.4 19.3 4C20.4 4.5 21.7 4.7 22.8 5.5C23.9 6.3 24.4 7.6 25.1 8.7C25.8 9.8 26.9 10.7 27.2 12C27.6 13.2 27.2 14.5 27.2 15.8C27.2 17.1 27.6 18.4 27.2 19.6C26.9 20.9 25.8 21.8 25.1 22.9C24.4 24 23.9 25.3 22.8 26.1C21.7 26.9 20.4 27.1 19.3 27.7C18.3 28.3 17.3 29.2 16 29.2C14.7 29.2 13.7 28.3 12.7 27.7C11.6 27.1 10.3 26.9 9.2 26.1C8.1 25.3 7.6 24 6.9 22.9C6.2 21.8 5.1 20.9 4.8 19.6C4.4 18.4 4.8 17.1 4.8 15.8C4.8 14.5 4.4 13.2 4.8 12C5.1 10.7 6.2 9.8 6.9 8.7C7.6 7.6 8.1 6.3 9.2 5.5C10.3 4.7 11.6 4.5 12.7 4C13.7 3.4 14.7 2.5 16 2.5Z",
@@ -13776,7 +13963,7 @@ var AdBlockerBadgeIcon = ({
             className: "dark:fill-rose-950/70"
           }
         ),
-        /* @__PURE__ */ jsx86(
+        /* @__PURE__ */ jsx87(
           "circle",
           {
             cx: "16",
@@ -13786,7 +13973,7 @@ var AdBlockerBadgeIcon = ({
             className: "dark:fill-rose-400"
           }
         ),
-        /* @__PURE__ */ jsx86(
+        /* @__PURE__ */ jsx87(
           "rect",
           {
             x: "14.8",
@@ -13824,14 +14011,14 @@ var AdBlockerPage = ({
       ),
       children: [
         /* @__PURE__ */ jsxs62("div", { className: "relative z-10 mx-auto flex max-w-lg flex-col items-center justify-center text-center", children: [
-          /* @__PURE__ */ jsx86("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ jsx86(AdBlockerBadgeIcon, { className: "size-10" }) }),
-          /* @__PURE__ */ jsx86("h1", { className: "mt-4 text-base font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white", children: resolvedTitle }),
-          /* @__PURE__ */ jsx86("div", { className: "mt-2 text-xs leading-relaxed text-neutral-500 sm:text-[13px] dark:text-neutral-400", children: description ? /* @__PURE__ */ jsx86("p", { children: description }) : /* @__PURE__ */ jsxs62("p", { children: [
+          /* @__PURE__ */ jsx87("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ jsx87(AdBlockerBadgeIcon, { className: "size-10" }) }),
+          /* @__PURE__ */ jsx87("h1", { className: "mt-4 text-base font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white", children: resolvedTitle }),
+          /* @__PURE__ */ jsx87("div", { className: "mt-2 text-xs leading-relaxed text-neutral-500 sm:text-[13px] dark:text-neutral-400", children: description ? /* @__PURE__ */ jsx87("p", { children: description }) : /* @__PURE__ */ jsxs62("p", { children: [
             /* @__PURE__ */ jsxs62("span", { children: [
               t("adBlocker.pageAllowPrefix"),
               " "
             ] }),
-            /* @__PURE__ */ jsx86(
+            /* @__PURE__ */ jsx87(
               "a",
               {
                 href: allowUrl,
@@ -13846,9 +14033,9 @@ var AdBlockerPage = ({
               t("adBlocker.pageAllowMiddle"),
               " "
             ] }),
-            /* @__PURE__ */ jsx86("span", { children: resolvedService })
+            /* @__PURE__ */ jsx87("span", { children: resolvedService })
           ] }) }),
-          showRecheckButton && /* @__PURE__ */ jsx86("div", { className: "mt-5", children: /* @__PURE__ */ jsx86(
+          showRecheckButton && /* @__PURE__ */ jsx87("div", { className: "mt-5", children: /* @__PURE__ */ jsx87(
             "button",
             {
               type: "button",
@@ -13858,12 +14045,12 @@ var AdBlockerPage = ({
             }
           ) })
         ] }),
-        /* @__PURE__ */ jsx86(
+        /* @__PURE__ */ jsx87(
           "div",
           {
             "aria-hidden": "true",
             className: "pointer-events-none absolute -bottom-10 left-1/2 z-0 w-[90vw] max-w-[1200px] -translate-x-1/2 text-[#F3F4F7] select-none sm:-bottom-16 md:-bottom-24 dark:text-[#18181A]",
-            children: /* @__PURE__ */ jsx86(NitxLogoWatermark, { className: "w-full h-auto" })
+            children: /* @__PURE__ */ jsx87(NitxLogoWatermark, { className: "w-full h-auto" })
           }
         )
       ]
@@ -13872,7 +14059,7 @@ var AdBlockerPage = ({
 };
 
 // src/components/ad-blocker/ad-blocker-notice.tsx
-import { useState as useState27 } from "react";
+import { useState as useState28 } from "react";
 import {
   ChevronDown as ChevronDown5,
   ChevronUp as ChevronUp2,
@@ -13881,7 +14068,7 @@ import {
   WifiOff,
   X as X6
 } from "lucide-react";
-import { jsx as jsx87, jsxs as jsxs63 } from "react/jsx-runtime";
+import { jsx as jsx88, jsxs as jsxs63 } from "react/jsx-runtime";
 var AdBlockerNotice = ({
   variant = "page",
   title,
@@ -13901,7 +14088,7 @@ var AdBlockerNotice = ({
   onRecheck
 }) => {
   const { t } = useNitxUiTranslation();
-  const [instructionsOpen, setInstructionsOpen] = useState27(false);
+  const [instructionsOpen, setInstructionsOpen] = useState28(false);
   const {
     isBlocked,
     isOffline,
@@ -13911,8 +14098,8 @@ var AdBlockerNotice = ({
   } = useAdBlocker({
     storageType,
     storageKey,
-    onRecheck: (result) => {
-      onRecheck?.(result);
+    onRecheck: (result2) => {
+      onRecheck?.(result2);
     }
   });
   const shouldRender = forceShow || isBlocked;
@@ -13935,7 +14122,7 @@ var AdBlockerNotice = ({
   ];
   const featuresToDisplay = affectedFeatures || defaultFeatureList;
   if (isOffline && !forceShow) {
-    return /* @__PURE__ */ jsx87(
+    return /* @__PURE__ */ jsx88(
       "div",
       {
         role: "alert",
@@ -13944,14 +14131,14 @@ var AdBlockerNotice = ({
           className
         ),
         children: /* @__PURE__ */ jsxs63("div", { className: "flex items-center gap-2.5", children: [
-          /* @__PURE__ */ jsx87(WifiOff, { className: "size-4 shrink-0 text-zinc-500" }),
-          /* @__PURE__ */ jsx87("span", { children: t("adBlocker.offlineNotice") })
+          /* @__PURE__ */ jsx88(WifiOff, { className: "size-4 shrink-0 text-zinc-500" }),
+          /* @__PURE__ */ jsx88("span", { children: t("adBlocker.offlineNotice") })
         ] })
       }
     );
   }
   if (variant === "page") {
-    return /* @__PURE__ */ jsx87(
+    return /* @__PURE__ */ jsx88(
       AdBlockerPage,
       {
         title: resolvedTitle,
@@ -13976,33 +14163,33 @@ var AdBlockerNotice = ({
         children: [
           /* @__PURE__ */ jsxs63("div", { className: "flex items-start justify-between gap-3", children: [
             /* @__PURE__ */ jsxs63("div", { className: "flex items-start gap-3", children: [
-              /* @__PURE__ */ jsx87("span", { className: "flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-5" }) }),
+              /* @__PURE__ */ jsx88("span", { className: "flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx88(ShieldAlert, { className: "size-5" }) }),
               /* @__PURE__ */ jsxs63("div", { children: [
-                /* @__PURE__ */ jsx87("h3", { className: "text-sm font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
-                /* @__PURE__ */ jsx87("p", { className: "mt-1 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed", children: resolvedDescription })
+                /* @__PURE__ */ jsx88("h3", { className: "text-sm font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
+                /* @__PURE__ */ jsx88("p", { className: "mt-1 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed", children: resolvedDescription })
               ] })
             ] }),
-            showDismissButton && /* @__PURE__ */ jsx87(
+            showDismissButton && /* @__PURE__ */ jsx88(
               "button",
               {
                 type: "button",
                 onClick: handleDismiss,
                 className: "rounded-lg p-1 text-zinc-400 hover:bg-zinc-200/60 hover:text-zinc-700 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-200",
                 "aria-label": t("adBlocker.dismissAria"),
-                children: /* @__PURE__ */ jsx87(X6, { className: "size-4" })
+                children: /* @__PURE__ */ jsx88(X6, { className: "size-4" })
               }
             )
           ] }),
           featuresToDisplay.length > 0 && /* @__PURE__ */ jsxs63("div", { className: "mt-3.5 rounded-lg border border-amber-500/20 bg-background/60 p-3 dark:bg-background/40", children: [
-            /* @__PURE__ */ jsx87("p", { className: "text-[11px] font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
-            /* @__PURE__ */ jsx87("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs63("li", { className: "flex items-center gap-1.5", children: [
-              /* @__PURE__ */ jsx87("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
-              /* @__PURE__ */ jsx87("span", { children: item })
+            /* @__PURE__ */ jsx88("p", { className: "text-[11px] font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
+            /* @__PURE__ */ jsx88("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs63("li", { className: "flex items-center gap-1.5", children: [
+              /* @__PURE__ */ jsx88("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
+              /* @__PURE__ */ jsx88("span", { children: item })
             ] }, index)) })
           ] }),
-          showInstructions && /* @__PURE__ */ jsx87("div", { className: "mt-3.5", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) }),
+          showInstructions && /* @__PURE__ */ jsx88("div", { className: "mt-3.5", children: customInstructions || /* @__PURE__ */ jsx88(AdBlockerInstructions, {}) }),
           /* @__PURE__ */ jsxs63("div", { className: "mt-4 flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-amber-500/15", children: [
-            showDismissButton && /* @__PURE__ */ jsx87(
+            showDismissButton && /* @__PURE__ */ jsx88(
               Button,
               {
                 type: "button",
@@ -14022,7 +14209,7 @@ var AdBlockerNotice = ({
                 disabled: isChecking,
                 className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
                 children: [
-                  /* @__PURE__ */ jsx87(
+                  /* @__PURE__ */ jsx88(
                     RefreshCw4,
                     {
                       className: cn("size-3.5", isChecking && "animate-spin")
@@ -14038,24 +14225,24 @@ var AdBlockerNotice = ({
     );
   }
   if (variant === "dialog") {
-    return /* @__PURE__ */ jsx87(Dialog, { open: shouldRender, onOpenChange: (open) => !open && handleDismiss(), children: /* @__PURE__ */ jsxs63(DialogContent, { className: "max-w-lg p-6 corner-squircle", children: [
-      /* @__PURE__ */ jsx87(DialogHeader, { className: "text-start", children: /* @__PURE__ */ jsxs63("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsx87("span", { className: "flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-5" }) }),
+    return /* @__PURE__ */ jsx88(Dialog, { open: shouldRender, onOpenChange: (open) => !open && handleDismiss(), children: /* @__PURE__ */ jsxs63(DialogContent, { className: "max-w-lg p-6 corner-squircle", children: [
+      /* @__PURE__ */ jsx88(DialogHeader, { className: "text-start", children: /* @__PURE__ */ jsxs63("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ jsx88("span", { className: "flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 corner-squircle", children: /* @__PURE__ */ jsx88(ShieldAlert, { className: "size-5" }) }),
         /* @__PURE__ */ jsxs63("div", { children: [
-          /* @__PURE__ */ jsx87(DialogTitle, { className: "text-base font-semibold", children: resolvedTitle }),
-          /* @__PURE__ */ jsx87("p", { className: "mt-1 text-xs text-muted-foreground leading-relaxed", children: resolvedDescription })
+          /* @__PURE__ */ jsx88(DialogTitle, { className: "text-base font-semibold", children: resolvedTitle }),
+          /* @__PURE__ */ jsx88("p", { className: "mt-1 text-xs text-muted-foreground leading-relaxed", children: resolvedDescription })
         ] })
       ] }) }),
       featuresToDisplay.length > 0 && /* @__PURE__ */ jsxs63("div", { className: "rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 dark:bg-amber-950/20", children: [
-        /* @__PURE__ */ jsx87("p", { className: "text-xs font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
-        /* @__PURE__ */ jsx87("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs63("li", { className: "flex items-center gap-1.5", children: [
-          /* @__PURE__ */ jsx87("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
-          /* @__PURE__ */ jsx87("span", { children: item })
+        /* @__PURE__ */ jsx88("p", { className: "text-xs font-medium text-amber-900 dark:text-amber-300", children: t("adBlocker.affectedNotice") }),
+        /* @__PURE__ */ jsx88("ul", { className: "mt-1.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-300", children: featuresToDisplay.map((item, index) => /* @__PURE__ */ jsxs63("li", { className: "flex items-center gap-1.5", children: [
+          /* @__PURE__ */ jsx88("span", { className: "size-1.5 rounded-full bg-amber-500 shrink-0" }),
+          /* @__PURE__ */ jsx88("span", { children: item })
         ] }, index)) })
       ] }),
-      showInstructions && /* @__PURE__ */ jsx87("div", { className: "mt-2", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) }),
+      showInstructions && /* @__PURE__ */ jsx88("div", { className: "mt-2", children: customInstructions || /* @__PURE__ */ jsx88(AdBlockerInstructions, {}) }),
       /* @__PURE__ */ jsxs63("div", { className: "mt-4 flex items-center justify-end gap-2 pt-2 border-t border-border", children: [
-        showDismissButton && /* @__PURE__ */ jsx87(
+        showDismissButton && /* @__PURE__ */ jsx88(
           Button,
           {
             type: "button",
@@ -14075,7 +14262,7 @@ var AdBlockerNotice = ({
             disabled: isChecking,
             className: "bg-amber-600 hover:bg-amber-700 text-white dark:bg-amber-600 dark:hover:bg-amber-500",
             children: [
-              /* @__PURE__ */ jsx87(
+              /* @__PURE__ */ jsx88(
                 RefreshCw4,
                 {
                   className: cn("size-3.5", isChecking && "animate-spin")
@@ -14099,12 +14286,12 @@ var AdBlockerNotice = ({
       children: [
         /* @__PURE__ */ jsxs63("div", { className: "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between", children: [
           /* @__PURE__ */ jsxs63("div", { className: "flex items-start gap-2.5", children: [
-            /* @__PURE__ */ jsx87(ShieldAlert, { className: "size-4.5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" }),
+            /* @__PURE__ */ jsx88(ShieldAlert, { className: "size-4.5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" }),
             /* @__PURE__ */ jsxs63("div", { className: "space-y-0.5", children: [
               /* @__PURE__ */ jsxs63("div", { className: "flex flex-wrap items-center gap-2", children: [
-                /* @__PURE__ */ jsx87("span", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
-                /* @__PURE__ */ jsx87("span", { className: "hidden text-zinc-400 dark:text-zinc-600 sm:inline", children: "\u2022" }),
-                /* @__PURE__ */ jsx87("span", { className: "text-xs text-zinc-600 dark:text-zinc-300", children: resolvedDescription })
+                /* @__PURE__ */ jsx88("span", { className: "text-xs font-semibold text-zinc-900 dark:text-zinc-100", children: resolvedTitle }),
+                /* @__PURE__ */ jsx88("span", { className: "hidden text-zinc-400 dark:text-zinc-600 sm:inline", children: "\u2022" }),
+                /* @__PURE__ */ jsx88("span", { className: "text-xs text-zinc-600 dark:text-zinc-300", children: resolvedDescription })
               ] }),
               showInstructions && /* @__PURE__ */ jsxs63(
                 "button",
@@ -14113,8 +14300,8 @@ var AdBlockerNotice = ({
                   onClick: () => setInstructionsOpen((prev) => !prev),
                   className: "inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300 underline underline-offset-2",
                   children: [
-                    /* @__PURE__ */ jsx87("span", { children: t("adBlocker.howToAllow") }),
-                    instructionsOpen ? /* @__PURE__ */ jsx87(ChevronUp2, { className: "size-3" }) : /* @__PURE__ */ jsx87(ChevronDown5, { className: "size-3" })
+                    /* @__PURE__ */ jsx88("span", { children: t("adBlocker.howToAllow") }),
+                    instructionsOpen ? /* @__PURE__ */ jsx88(ChevronUp2, { className: "size-3" }) : /* @__PURE__ */ jsx88(ChevronDown5, { className: "size-3" })
                   ]
                 }
               )
@@ -14131,7 +14318,7 @@ var AdBlockerNotice = ({
                 disabled: isChecking,
                 className: "h-7 px-2.5 text-xs border-amber-500/30 bg-background/80 hover:bg-amber-500/15",
                 children: [
-                  /* @__PURE__ */ jsx87(
+                  /* @__PURE__ */ jsx88(
                     RefreshCw4,
                     {
                       className: cn("size-3", isChecking && "animate-spin")
@@ -14141,39 +14328,39 @@ var AdBlockerNotice = ({
                 ]
               }
             ),
-            showDismissButton && /* @__PURE__ */ jsx87(
+            showDismissButton && /* @__PURE__ */ jsx88(
               "button",
               {
                 type: "button",
                 onClick: handleDismiss,
                 className: "rounded-lg p-1 text-zinc-500 hover:bg-amber-500/20 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
                 "aria-label": t("adBlocker.dismissAria"),
-                children: /* @__PURE__ */ jsx87(X6, { className: "size-4" })
+                children: /* @__PURE__ */ jsx88(X6, { className: "size-4" })
               }
             )
           ] })
         ] }),
-        showInstructions && instructionsOpen && /* @__PURE__ */ jsx87("div", { className: "mt-3 pt-3 border-t border-amber-500/20", children: customInstructions || /* @__PURE__ */ jsx87(AdBlockerInstructions, {}) })
+        showInstructions && instructionsOpen && /* @__PURE__ */ jsx88("div", { className: "mt-3 pt-3 border-t border-amber-500/20", children: customInstructions || /* @__PURE__ */ jsx88(AdBlockerInstructions, {}) })
       ]
     }
   );
 };
 
 // src/components/search/search-provider.tsx
-import * as React47 from "react";
+import * as React48 from "react";
 
 // src/components/search/search-dialog.tsx
-import * as React46 from "react";
+import * as React47 from "react";
 import * as DialogPrimitive3 from "@radix-ui/react-dialog";
 import { Loader2 as Loader26, Search as Search2, X as X7 } from "lucide-react";
 
 // src/components/ui/kbd.tsx
-import { jsx as jsx88 } from "react/jsx-runtime";
+import { jsx as jsx89 } from "react/jsx-runtime";
 function Kbd({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx88(
+  return /* @__PURE__ */ jsx89(
     "kbd",
     {
       className: cn(
@@ -14188,11 +14375,11 @@ function KbdGroup({
   keys,
   className
 }) {
-  return /* @__PURE__ */ jsx88("span", { dir: "ltr", className: cn("inline-flex items-center gap-1", className), children: keys.map((key) => /* @__PURE__ */ jsx88(Kbd, { children: key }, key)) });
+  return /* @__PURE__ */ jsx89("span", { dir: "ltr", className: cn("inline-flex items-center gap-1", className), children: keys.map((key) => /* @__PURE__ */ jsx89(Kbd, { children: key }, key)) });
 }
 
 // src/components/search/search-result-row.tsx
-import { jsx as jsx89, jsxs as jsxs64 } from "react/jsx-runtime";
+import { jsx as jsx90, jsxs as jsxs64 } from "react/jsx-runtime";
 function SearchResultRow({
   id,
   active,
@@ -14200,7 +14387,7 @@ function SearchResultRow({
   onChoose,
   children
 }) {
-  return /* @__PURE__ */ jsx89(
+  return /* @__PURE__ */ jsx90(
     "div",
     {
       id,
@@ -14222,15 +14409,15 @@ function SearchResultText({
   detail
 }) {
   return /* @__PURE__ */ jsxs64("div", { className: "min-w-0 flex-1", children: [
-    /* @__PURE__ */ jsx89("p", { className: "truncate text-sm font-semibold text-foreground", children: title }),
-    detail && /* @__PURE__ */ jsx89("p", { className: "truncate text-xs text-muted-foreground", children: detail })
+    /* @__PURE__ */ jsx90("p", { className: "truncate text-sm font-semibold text-foreground", children: title }),
+    detail && /* @__PURE__ */ jsx90("p", { className: "truncate text-xs text-muted-foreground", children: detail })
   ] });
 }
 function SearchResultIcon({
   className,
   children
 }) {
-  return /* @__PURE__ */ jsx89(
+  return /* @__PURE__ */ jsx90(
     "span",
     {
       className: cn(
@@ -14318,7 +14505,7 @@ function useSearchEngine(sources, query) {
 }
 
 // src/components/search/search-dialog.tsx
-import { Fragment as Fragment13, jsx as jsx90, jsxs as jsxs65 } from "react/jsx-runtime";
+import { Fragment as Fragment13, jsx as jsx91, jsxs as jsxs65 } from "react/jsx-runtime";
 function SearchDialog({
   open,
   onOpenChange,
@@ -14327,14 +14514,14 @@ function SearchDialog({
   rtl
 }) {
   const { t } = useNitxUiTranslation();
-  const choosingRef = React46.useRef(false);
+  const choosingRef = React47.useRef(false);
   const choose = (hit) => {
     choosingRef.current = true;
     onOpenChange(false);
     hit.open();
   };
-  return /* @__PURE__ */ jsx90(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs65(DialogPortal, { children: [
-    /* @__PURE__ */ jsx90(DialogOverlay, {}),
+  return /* @__PURE__ */ jsx91(Dialog, { open, onOpenChange, children: /* @__PURE__ */ jsxs65(DialogPortal, { children: [
+    /* @__PURE__ */ jsx91(DialogOverlay, {}),
     /* @__PURE__ */ jsxs65(
       DialogPrimitive3.Content,
       {
@@ -14357,8 +14544,8 @@ function SearchDialog({
           "duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 md:data-[state=open]:zoom-in-95 md:data-[state=closed]:zoom-out-95"
         ),
         children: [
-          /* @__PURE__ */ jsx90(DialogPrimitive3.Title, { className: "sr-only", children: t("globalSearch.title") }),
-          /* @__PURE__ */ jsx90(SearchPanel, { sources, onChoose: choose })
+          /* @__PURE__ */ jsx91(DialogPrimitive3.Title, { className: "sr-only", children: t("globalSearch.title") }),
+          /* @__PURE__ */ jsx91(SearchPanel, { sources, onChoose: choose })
         ]
       }
     )
@@ -14369,20 +14556,20 @@ function SearchPanel({
   onChoose
 }) {
   const { t } = useNitxUiTranslation();
-  const [query, setQuery] = React46.useState("");
-  const [activeId, setActiveId] = React46.useState(null);
+  const [query, setQuery] = React47.useState("");
+  const [activeId, setActiveId] = React47.useState(null);
   const { groups, hits, loading, failed, retry } = useSearchEngine(
     sources,
     query
   );
-  const baseId = React46.useId();
+  const baseId = React47.useId();
   const listboxId = `${baseId}-listbox`;
   const optionId = (index) => `${baseId}-option-${index}`;
   const activeIndex = hits.length === 0 ? -1 : Math.max(
     0,
     hits.findIndex((hit) => hit.id === activeId)
   );
-  React46.useEffect(() => {
+  React47.useEffect(() => {
     if (activeIndex < 0) return;
     document.getElementById(`${baseId}-option-${activeIndex}`)?.scrollIntoView({ block: "nearest" });
   }, [activeIndex, baseId]);
@@ -14405,8 +14592,8 @@ function SearchPanel({
   const announcement = !trimmed ? "" : hits.length > 0 ? t("globalSearch.resultCount", { count: hits.length }) : isLoading ? t("globalSearch.loading") : hasFailed ? t("globalSearch.loadError") : t("globalSearch.noResults", { query: trimmed });
   return /* @__PURE__ */ jsxs65(Fragment13, { children: [
     /* @__PURE__ */ jsxs65("div", { className: "flex shrink-0 items-center gap-3.5 border-b border-border ps-5 pe-3 md:px-7", children: [
-      /* @__PURE__ */ jsx90(Search2, { "aria-hidden": true, className: "size-6 shrink-0 text-muted-foreground" }),
-      /* @__PURE__ */ jsx90(
+      /* @__PURE__ */ jsx91(Search2, { "aria-hidden": true, className: "size-6 shrink-0 text-muted-foreground" }),
+      /* @__PURE__ */ jsx91(
         "input",
         {
           role: "combobox",
@@ -14430,26 +14617,26 @@ function SearchPanel({
           className: "h-[4.5rem] min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
         }
       ),
-      /* @__PURE__ */ jsx90(DialogPrimitive3.Close, { asChild: true, children: /* @__PURE__ */ jsx90(
+      /* @__PURE__ */ jsx91(DialogPrimitive3.Close, { asChild: true, children: /* @__PURE__ */ jsx91(
         Button,
         {
           variant: "ghost",
           size: "icon",
           "aria-label": t("globalSearch.close"),
           className: "shrink-0 rounded-md md:hidden",
-          children: /* @__PURE__ */ jsx90(X7, { "aria-hidden": true, className: "stroke-[2.75]", strokeWidth: 2.75 })
+          children: /* @__PURE__ */ jsx91(X7, { "aria-hidden": true, className: "stroke-[2.75]", strokeWidth: 2.75 })
         }
       ) })
     ] }),
     /* @__PURE__ */ jsxs65("div", { className: "min-h-0 flex-1 overflow-y-auto overscroll-contain p-3 md:px-4", children: [
-      /* @__PURE__ */ jsx90("div", { role: "listbox", id: listboxId, "aria-label": t("globalSearch.title"), children: groups.map((group) => /* @__PURE__ */ jsxs65(
+      /* @__PURE__ */ jsx91("div", { role: "listbox", id: listboxId, "aria-label": t("globalSearch.title"), children: groups.map((group) => /* @__PURE__ */ jsxs65(
         "div",
         {
           role: "group",
           "aria-labelledby": `${baseId}-${group.kind}`,
           className: "pb-2",
           children: [
-            /* @__PURE__ */ jsx90(
+            /* @__PURE__ */ jsx91(
               "div",
               {
                 id: `${baseId}-${group.kind}`,
@@ -14459,7 +14646,7 @@ function SearchPanel({
             ),
             group.hits.map((hit) => {
               const index = hits.indexOf(hit);
-              return /* @__PURE__ */ jsx90(
+              return /* @__PURE__ */ jsx91(
                 SearchResultRow,
                 {
                   id: optionId(index),
@@ -14476,36 +14663,36 @@ function SearchPanel({
         group.kind
       )) }),
       isLoading && /* @__PURE__ */ jsxs65("div", { className: "flex items-center gap-2.5 px-3 py-3", children: [
-        /* @__PURE__ */ jsx90(
+        /* @__PURE__ */ jsx91(
           Loader26,
           {
             "aria-hidden": true,
             className: "size-4 animate-spin text-muted-foreground"
           }
         ),
-        /* @__PURE__ */ jsx90("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.loading") })
+        /* @__PURE__ */ jsx91("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.loading") })
       ] }),
       hasFailed && /* @__PURE__ */ jsxs65("div", { className: "flex items-center justify-between gap-3 ps-3", children: [
-        /* @__PURE__ */ jsx90("p", { className: "text-sm text-rose-600 dark:text-rose-400", children: t("globalSearch.loadError") }),
-        /* @__PURE__ */ jsx90(Button, { variant: "ghost", size: "sm", onClick: retry, children: t("globalSearch.retry") })
+        /* @__PURE__ */ jsx91("p", { className: "text-sm text-rose-600 dark:text-rose-400", children: t("globalSearch.loadError") }),
+        /* @__PURE__ */ jsx91(Button, { variant: "ghost", size: "sm", onClick: retry, children: t("globalSearch.retry") })
       ] }),
       isEmpty && /* @__PURE__ */ jsxs65("div", { className: "flex h-full flex-col items-center justify-center gap-1 px-6 text-center", children: [
-        /* @__PURE__ */ jsx90("p", { className: "max-w-full break-words text-base font-semibold text-foreground", children: t("globalSearch.noResults", { query: trimmed }) }),
-        /* @__PURE__ */ jsx90("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.noResultsHint") })
+        /* @__PURE__ */ jsx91("p", { className: "max-w-full break-words text-base font-semibold text-foreground", children: t("globalSearch.noResults", { query: trimmed }) }),
+        /* @__PURE__ */ jsx91("p", { className: "text-sm text-muted-foreground", children: t("globalSearch.noResultsHint") })
       ] })
     ] }),
     /* @__PURE__ */ jsxs65("footer", { className: "hidden shrink-0 items-center gap-6 border-t border-border px-7 py-4 md:flex", children: [
-      /* @__PURE__ */ jsx90(Hint, { keys: ["\u2191", "\u2193"], label: t("globalSearch.hintNavigate") }),
-      /* @__PURE__ */ jsx90(Hint, { keys: ["\u21B5"], label: t("globalSearch.hintOpen") }),
-      /* @__PURE__ */ jsx90(Hint, { keys: ["Esc"], label: t("globalSearch.hintClose") })
+      /* @__PURE__ */ jsx91(Hint, { keys: ["\u2191", "\u2193"], label: t("globalSearch.hintNavigate") }),
+      /* @__PURE__ */ jsx91(Hint, { keys: ["\u21B5"], label: t("globalSearch.hintOpen") }),
+      /* @__PURE__ */ jsx91(Hint, { keys: ["Esc"], label: t("globalSearch.hintClose") })
     ] }),
-    /* @__PURE__ */ jsx90("p", { role: "status", "aria-live": "polite", className: "sr-only", children: announcement })
+    /* @__PURE__ */ jsx91("p", { role: "status", "aria-live": "polite", className: "sr-only", children: announcement })
   ] });
 }
 function Hint({ keys, label }) {
   return /* @__PURE__ */ jsxs65("span", { className: "flex items-center gap-1.5", children: [
-    /* @__PURE__ */ jsx90(KbdGroup, { keys }),
-    /* @__PURE__ */ jsx90("span", { className: "text-xs text-muted-foreground", children: label })
+    /* @__PURE__ */ jsx91(KbdGroup, { keys }),
+    /* @__PURE__ */ jsx91("span", { className: "text-xs text-muted-foreground", children: label })
   ] });
 }
 
@@ -14525,10 +14712,10 @@ function isSearchShortcut(event, apple) {
 }
 
 // src/components/search/search-provider.tsx
-import { jsx as jsx91, jsxs as jsxs66 } from "react/jsx-runtime";
-var GlobalSearchContext = React47.createContext(null);
+import { jsx as jsx92, jsxs as jsxs66 } from "react/jsx-runtime";
+var GlobalSearchContext = React48.createContext(null);
 function useGlobalSearch() {
-  const context = React47.useContext(GlobalSearchContext);
+  const context = React48.useContext(GlobalSearchContext);
   if (!context) {
     throw new Error(
       "useGlobalSearch must be used inside <GlobalSearchProvider>"
@@ -14548,18 +14735,18 @@ function GlobalSearchProvider({
   const { i18n } = useNitxUiTranslation();
   const language = i18n?.resolvedLanguage ?? i18n?.language;
   const isRtl = rtl ?? language?.toLowerCase().startsWith("ar") ?? false;
-  const [open, setOpen] = React47.useState(false);
-  const openRef = React47.useRef(open);
-  const returnFocusRef = React47.useRef(null);
-  const isApple = React47.useSyncExternalStore(
+  const [open, setOpen] = React48.useState(false);
+  const openRef = React48.useRef(open);
+  const returnFocusRef = React48.useRef(null);
+  const isApple = React48.useSyncExternalStore(
     subscribe,
     getIsApple,
     getServerIsApple
   );
-  React47.useEffect(() => {
+  React48.useEffect(() => {
     openRef.current = open;
   }, [open]);
-  const openSearch = React47.useCallback(
+  const openSearch = React48.useCallback(
     (returnFocusTo) => {
       const focused = document.activeElement;
       returnFocusRef.current = returnFocusTo ?? (focused instanceof HTMLElement ? focused : null);
@@ -14567,7 +14754,7 @@ function GlobalSearchProvider({
     },
     []
   );
-  React47.useEffect(() => {
+  React48.useEffect(() => {
     if (isApple === null) return;
     const onKeyDown = (event) => {
       if (event.repeat || event.isComposing || !isSearchShortcut(event, isApple)) {
@@ -14580,7 +14767,7 @@ function GlobalSearchProvider({
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [isApple, openSearch]);
-  const value = React47.useMemo(
+  const value = React48.useMemo(
     () => ({
       openSearch,
       shortcut: isApple === null ? null : searchShortcut(isApple)
@@ -14589,7 +14776,7 @@ function GlobalSearchProvider({
   );
   return /* @__PURE__ */ jsxs66(GlobalSearchContext.Provider, { value, children: [
     children,
-    /* @__PURE__ */ jsx91(
+    /* @__PURE__ */ jsx92(
       SearchDialog,
       {
         open,
@@ -14604,7 +14791,7 @@ function GlobalSearchProvider({
 
 // src/components/search/search-trigger.tsx
 import { Search as Search3 } from "lucide-react";
-import { jsx as jsx92, jsxs as jsxs67 } from "react/jsx-runtime";
+import { jsx as jsx93, jsxs as jsxs67 } from "react/jsx-runtime";
 var triggerSurface = "rounded-[10px] border-zinc-200 bg-white shadow-none hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800";
 function SearchTrigger({ className }) {
   const { t } = useNitxUiTranslation();
@@ -14623,9 +14810,9 @@ function SearchTrigger({ className }) {
         className
       ),
       children: [
-        /* @__PURE__ */ jsx92(Search3, { "aria-hidden": true }),
-        /* @__PURE__ */ jsx92("span", { className: "flex-1 truncate text-start", children: t("globalSearch.trigger") }),
-        shortcut && /* @__PURE__ */ jsx92(KbdGroup, { keys: shortcut.keys })
+        /* @__PURE__ */ jsx93(Search3, { "aria-hidden": true }),
+        /* @__PURE__ */ jsx93("span", { className: "flex-1 truncate text-start", children: t("globalSearch.trigger") }),
+        shortcut && /* @__PURE__ */ jsx93(KbdGroup, { keys: shortcut.keys })
       ]
     }
   );
@@ -14633,7 +14820,7 @@ function SearchTrigger({ className }) {
 function SearchIconTrigger({ className }) {
   const { t } = useNitxUiTranslation();
   const { openSearch } = useGlobalSearch();
-  return /* @__PURE__ */ jsx92(
+  return /* @__PURE__ */ jsx93(
     Button,
     {
       type: "button",
@@ -14647,7 +14834,7 @@ function SearchIconTrigger({ className }) {
         triggerSurface,
         className
       ),
-      children: /* @__PURE__ */ jsx92(Search3, { "aria-hidden": true })
+      children: /* @__PURE__ */ jsx93(Search3, { "aria-hidden": true })
     }
   );
 }

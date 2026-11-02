@@ -1082,7 +1082,15 @@ interface SidebarCreditsCardProps {
 declare function SidebarCreditsCard({ collapsed, label, hoverLabel, value, percent, icon, onClick, dir, className, }: SidebarCreditsCardProps): React$1.JSX.Element;
 
 type AdBlockerStorageType = "session" | "local" | "memory";
-type AdBlockerDetectionReason = "network_probe_blocked" | "dom_probe_hidden" | "script_blocked" | "none";
+type AdBlockerDetectionReason = "network_probe_blocked" | "dom_probe_hidden" | "script_blocked"
+/**
+ * The probes could not decide: the network was too slow to answer inside
+ * the timeout, or the page's Content Security Policy refused the bait
+ * requests. Never treated as a blocker.
+ */
+ | "inconclusive" | "none";
+/** What happened to one probe request. */
+type AdBlockerProbeOutcome = "reachable" | "blocked" | "timeout" | "csp";
 interface AdBlockerDetectionResult {
     /** True if ad blocking was actively detected */
     isBlocked: boolean;
@@ -1092,10 +1100,18 @@ interface AdBlockerDetectionResult {
     reason: AdBlockerDetectionReason;
     /** Timestamp of detection */
     timestamp: number;
+    /** Raw probe outcomes, for logging why a verdict was reached. */
+    details?: {
+        /** The DOM bait was collapsed by a cosmetic filter. */
+        domHidden: boolean;
+        /** One outcome per bait URL, in the order they were probed. */
+        network: AdBlockerProbeOutcome[];
+    };
 }
 interface AdBlockerDetectorOptions {
     /**
-     * Probe timeout in milliseconds (default: 4000ms).
+     * Probe timeout in milliseconds (default: 4000ms). A probe that runs out
+     * of time is inconclusive, never a blocker.
      */
     timeoutMs?: number;
     /**
@@ -1103,6 +1119,11 @@ interface AdBlockerDetectorOptions {
      * Defaults to standard Google Ads script endpoint.
      */
     baitUrl?: string;
+    /**
+     * Several bait URLs; every one must be refused for a "blocked" verdict.
+     * Overrides `baitUrl`. Defaults to two Google ad script endpoints.
+     */
+    baitUrls?: string[];
     /**
      * Optional custom connectivity test URL.
      */
@@ -1121,6 +1142,17 @@ interface UseAdBlockerOptions extends AdBlockerDetectorOptions {
      * Key used for dismissal storage (default: "nitx_adblocker_dismissed").
      */
     storageKey?: string;
+    /**
+     * A positive result is re-run after this pause and only reported when it
+     * holds both times (default: 1500ms). 0 reports the first result as is.
+     */
+    confirmDelayMs?: number;
+    /**
+     * While blocked, re-run detection on this cadence and whenever the tab
+     * regains focus, so the notice clears itself once the blocker is off
+     * (default: 15000ms). 0 disables the background cadence.
+     */
+    recheckIntervalMs?: number;
     /**
      * Callback fired when an ad blocker is detected.
      */
@@ -1209,17 +1241,31 @@ interface AdBlockerNoticeProps {
 declare function isBrowserOffline(): boolean;
 /**
  * Probes whether the DOM is actively applying cosmetic ad filtering rules.
- * Ad blockers typically inject CSS rules that hide elements matching
- * standard ad banner classes (e.g., display: none !important).
+ *
+ * Ad blockers inject stylesheets that hide elements carrying the standard
+ * EasyList bait classes. A bait and a control element are inserted side by
+ * side: the test is positive only when the bait is collapsed while the
+ * control, which differs solely by class names, is not. That rules out
+ * every ancestor-level cause (a hidden body, a transition, a print
+ * stylesheet) that used to read as a blocker.
+ *
+ * The elements are 10x10px rather than 1x1px, so fractional browser zoom
+ * cannot round a visible box down to zero.
  */
 declare function testDomCosmeticFiltering(): boolean;
 /**
- * Performs a comprehensive, multi-vector ad blocker detection check.
+ * Performs a multi-vector ad blocker detection check.
  *
- * Rules:
- * 1. Never flags an ad blocker when the client is offline or general network fails.
- * 2. Combines DOM cosmetic filter detection with network bait probe.
- * 3. Safe in SSR and hydration environments.
+ * The verdict is `isBlocked: true` only when the evidence cannot be
+ * explained by anything other than a blocker:
+ *
+ * 1. Offline, or a general connectivity probe that fails, is never a blocker.
+ * 2. Every bait endpoint must be rejected outright. One reachable endpoint
+ *    clears the check; a timeout or a CSP refusal makes it inconclusive.
+ * 3. A cosmetic-filter hit on the DOM bait counts only while no ad endpoint
+ *    was reachable, since a reachable network means ad scripts will load.
+ *
+ * Safe in SSR and hydration environments.
  */
 declare function detectAdBlocker(options?: AdBlockerDetectorOptions): Promise<AdBlockerDetectionResult>;
 
@@ -1444,7 +1490,7 @@ declare function matchRank(text: string, query: string): number | null;
 declare function rankMatches<T>(items: readonly T[], query: string, getText: (item: T) => string): T[];
 
 declare const buttonVariants: (props?: ({
-    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -1708,5 +1754,4 @@ declare function cx(...args: ClassValue[]): string;
 declare const setSharedApiClient: (client: any) => void;
 declare const getSharedApiClient: () => any;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };

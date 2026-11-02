@@ -34,6 +34,7 @@ import { useAssetsConfig } from "../context";
 import { useAssetsStore, type AssetsViewType } from "../hooks/use-assets-store";
 import { assetCardIconButtonClass } from "../lib/card-styles";
 import type { Asset } from "../types";
+import AssetThumbnail, { type AssetThumbnailKind } from "./AssetThumbnail";
 
 export interface AssetCardProps {
   data: Asset;
@@ -52,6 +53,19 @@ export interface AssetCardProps {
   /** Extra action buttons rendered before the options menu (e.g. signage's "send to screen"). */
   renderActions?: (asset: Asset) => React.ReactNode;
 }
+
+/**
+ * Card geometry, kept in one place so the grid card, the list card and
+ * their skeletons stay concentric: an inner radius is the outer radius minus
+ * the padding between them, which is what makes nested corners read as one
+ * shape instead of two.
+ */
+const GRID_CARD_RADIUS = "rounded-[20px]";
+const LIST_CARD_RADIUS = "rounded-[16px]";
+/** List card padding is 8px, so 16 - 8 = 8. */
+const LIST_THUMB_RADIUS = "rounded-[8px]";
+/** List thumbnail: compact on a phone, the full 162x80 tile from `sm` up. */
+const LIST_THUMB_SIZE = "h-16 w-28 sm:h-20 sm:w-[162px]";
 
 const RenameIcon = (
   <svg
@@ -198,6 +212,53 @@ const AssetCard: React.FC<AssetCardProps> = ({
     [handleRename, data.name, setRenamingItemId]
   );
 
+  /**
+   * What the card shows in its media slot. `processing` is the amber
+   * "still being prepared" tile; otherwise `src` is the best thumbnail the
+   * asset has and `kind` picks the icon drawn if that thumbnail fails.
+   */
+  const thumbnail = ((): {
+    src: string | undefined;
+    kind: AssetThumbnailKind;
+    processing: boolean;
+  } => {
+    switch (data.type) {
+      case "image":
+        return {
+          src: data.is_ready ? data.image?.thumbnail_path : undefined,
+          kind: "image",
+          processing: !data.is_ready,
+        };
+      case "video":
+        return {
+          src: data.is_ready ? data.video?.thumbnail_path : undefined,
+          kind: "video",
+          processing: !data.is_ready,
+        };
+      case "document":
+        return {
+          src: data.is_ready
+            ? data.document?.thumbnail_path ||
+              (data.document && documentsImages[data.document.mime_type]) ||
+              images.doc
+            : undefined,
+          kind: "document",
+          processing: !data.is_ready,
+        };
+      case "link":
+        return {
+          src:
+            (data.is_ready && data.link?.thumbnail_url) || images.linkFallback,
+          kind: "link",
+          processing: false,
+        };
+      default:
+        return { src: undefined, kind: "document", processing: true };
+    }
+  })();
+
+  const showPlayBadge = data.type === "video" && data.is_ready;
+
   const renderTypeIcon = () => {
     switch (data.type) {
       case "image":
@@ -295,11 +356,15 @@ const AssetCard: React.FC<AssetCardProps> = ({
       <TooltipProvider>
         <Card
           className={cn(
-            "group relative bg-card rounded-[16px] corner-squircle p-2 sm:p-2.5 cursor-pointer transition-all border shadow-xs",
+            // `isolate` keeps the card's own z-indexed children inside the
+            // card. Without it they joined the page's stacking context and
+            // a card scrolled under the sticky search bar painted over it.
+            "group relative isolate bg-card corner-squircle p-2 cursor-pointer transition-all border shadow-xs",
+            LIST_CARD_RADIUS,
             selected
               ? "border-primary bg-primary/10 dark:bg-primary/20 ring-1 ring-primary"
               : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700",
-            "flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4",
+            "flex flex-row items-center gap-3 sm:gap-4",
             isDragging && "opacity-50 scale-95"
           )}
           onClick={!isRenaming && onClick ? onClick : undefined}
@@ -308,73 +373,40 @@ const AssetCard: React.FC<AssetCardProps> = ({
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
         >
-          <div className="relative h-20 w-[162px] shrink-0 rounded-[12px] corner-squircle overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-            {data.type === "image" && (
+          <div
+            className={cn(
+              "relative shrink-0 corner-squircle overflow-hidden bg-zinc-100 dark:bg-zinc-800",
+              LIST_THUMB_SIZE,
+              LIST_THUMB_RADIUS
+            )}
+          >
+            {thumbnail.processing ? (
               <img
-                src={
-                  data.is_ready && data.image?.thumbnail_path
-                    ? data.image.thumbnail_path
-                    : images.clock
-                }
+                src={images.clock}
                 alt={data.name}
                 className={cn(
-                  "size-full object-cover shrink-0",
-                  allowSelect && "brightness-75",
-                  !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
+                  "size-full object-contain p-4 bg-amber-50 dark:bg-amber-900/20",
+                  allowSelect && "brightness-75"
                 )}
               />
-            )}
-            {data.type === "video" && (
-              <>
-                <img
-                  src={
-                    data.is_ready && data.video?.thumbnail_path
-                      ? data.video.thumbnail_path
-                      : images.clock
-                  }
-                  alt={data.name}
-                  className={cn(
-                    "size-full object-cover shrink-0",
-                    allowSelect && "brightness-75",
-                    !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
-                  )}
-                />
-                {data.is_ready && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="size-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white">
-                      <Play className="size-3.5 fill-white text-white translate-x-[0.5px]" />
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-            {data.type === "document" && data.document && (
-              <img
-                src={
-                  data.is_ready
-                    ? data.document.thumbnail_path ||
-                      documentsImages[data.document.mime_type] ||
-                      images.doc
-                    : images.clock
-                }
+            ) : (
+              <AssetThumbnail
+                src={thumbnail.src}
                 alt={data.name}
+                kind={thumbnail.kind}
                 className={cn(
                   "size-full object-cover shrink-0",
-                  allowSelect && "brightness-75",
-                  !data.is_ready && "object-contain p-4 bg-amber-50 dark:bg-amber-900/20"
+                  allowSelect && "brightness-75"
                 )}
+                iconClassName="size-5"
               />
             )}
-            {data.type === "link" && (
-              <img
-                src={
-                  data.is_ready && data.link?.thumbnail_url
-                    ? data.link.thumbnail_url
-                    : images.linkFallback
-                }
-                alt={data.name}
-                className="size-full object-cover shrink-0"
-              />
+            {showPlayBadge && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="size-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white">
+                  <Play className="size-3.5 fill-white text-white translate-x-[0.5px]" />
+                </div>
+              </div>
             )}
             {allowSelect && (
               <span
@@ -391,7 +423,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
           </div>
 
           <div className="w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0">
-            <div className="flex flex-col min-w-0 max-w-[calc(100%-80px)]">
+            <div className="flex flex-col flex-1 min-w-0">
               {isRenaming ? (
                 <Input
                   ref={inputRef}
@@ -464,12 +496,17 @@ const AssetCard: React.FC<AssetCardProps> = ({
     );
   }
 
-  // GRID VIEW (New edge-to-edge Apple-like design matching mockups)
+  // GRID VIEW (edge-to-edge media with a hover scrim)
   return (
     <TooltipProvider>
       <Card
         className={cn(
-          "group relative aspect-[4/5] w-full rounded-[20px] corner-squircle overflow-hidden cursor-pointer select-none",
+          // `isolate`: see the list card. The overlay below sits at z-20 and
+          // the checkbox at z-30, the same values as the sticky header, so
+          // without a stacking context of their own they won the paint order
+          // and rode over the search bar.
+          "group relative isolate aspect-[4/5] w-full corner-squircle overflow-hidden cursor-pointer select-none",
+          GRID_CARD_RADIUS,
           "border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100 dark:bg-zinc-900 shadow-xs",
           "transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-700",
           selected && "ring-2 ring-primary ring-offset-2 border-primary",
@@ -483,97 +520,35 @@ const AssetCard: React.FC<AssetCardProps> = ({
       >
         {/* Media Fill Container */}
         <div className="absolute inset-0 size-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-          {data.type === "image" && (
+          {thumbnail.processing ? (
             <img
-              src={
-                data.is_ready && data.image?.thumbnail_path
-                  ? data.image.thumbnail_path
-                  : images.clock
-              }
+              src={images.clock}
               alt={data.name}
               className={cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75",
-                !data.is_ready &&
-                  "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
+                "size-full object-contain p-8 bg-amber-50 dark:bg-amber-900/20",
+                allowSelect && "brightness-75"
               )}
             />
-          )}
-
-          {data.type === "video" && (
-            <>
-              <img
-                src={
-                  data.is_ready && data.video?.thumbnail_path
-                    ? data.video.thumbnail_path
-                    : images.clock
-                }
-                alt={data.name}
-                className={cn(
-                  "size-full object-cover transition-all duration-300",
-                  "group-hover:scale-105 group-hover:blur-[1px]",
-                  allowSelect && "brightness-75",
-                  !data.is_ready &&
-                    "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
-                )}
-              />
-              {data.is_ready && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-transform duration-300 group-hover:scale-110">
-                  <div className="size-11 sm:size-12 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white shadow-lg">
-                    <Play className="size-5 fill-white text-white translate-x-0.5" />
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-
-          {data.type === "document" && (
-            <img
-              src={
-                data.is_ready
-                  ? (data.document && data.document.thumbnail_path) ||
-                    (data.document && documentsImages[data.document.mime_type]) ||
-                    images.doc
-                  : images.clock
-              }
+          ) : (
+            <AssetThumbnail
+              src={thumbnail.src}
               alt={data.name}
-              className={cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75",
-                !data.is_ready &&
-                  "object-contain p-8 bg-amber-50 dark:bg-amber-900/20 group-hover:scale-100 group-hover:blur-0"
-              )}
-            />
-          )}
-
-          {data.type === "link" && (
-            <img
-              src={
-                data.is_ready && data.link?.thumbnail_url
-                  ? data.link.thumbnail_url
-                  : images.linkFallback
-              }
-              alt={data.name}
+              kind={thumbnail.kind}
               className={cn(
                 "size-full object-cover transition-all duration-300",
                 "group-hover:scale-105 group-hover:blur-[1px]",
                 allowSelect && "brightness-75"
               )}
+              iconClassName="size-8 sm:size-10"
             />
           )}
 
-          {(!data.type ||
-            (data.type !== "image" &&
-              data.type !== "video" &&
-              data.type !== "document" &&
-              data.type !== "link")) && (
-            <img
-              src={images.clock}
-              alt={data.name}
-              className="size-full object-contain p-8 bg-amber-50 dark:bg-amber-900/20"
-            />
+          {showPlayBadge && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-transform duration-300 group-hover:scale-110">
+              <div className="size-11 sm:size-12 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white shadow-lg">
+                <Play className="size-5 fill-white text-white translate-x-0.5" />
+              </div>
+            </div>
           )}
         </div>
 
@@ -591,13 +566,15 @@ const AssetCard: React.FC<AssetCardProps> = ({
           </span>
         )}
 
-        {/* Hover / Active Overlay */}
+        {/* Hover / Active Overlay. A touch screen has no hover, so there it
+            is always on: the name and the actions were otherwise unreachable
+            on a phone. */}
         <div
           className={cn(
             "absolute inset-0 z-20 flex flex-col justify-between p-3 transition-opacity duration-200 pointer-events-none",
             isMenuOpen || isRenaming
               ? "opacity-100"
-              : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
+              : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
           )}
         >
           {/* Top gradient scrim */}
@@ -605,7 +582,13 @@ const AssetCard: React.FC<AssetCardProps> = ({
 
           {/* Top Left: Type Icon + Title */}
           <div className="relative z-10 flex items-center justify-between gap-2 w-full">
-            <div className="flex items-center gap-2 min-w-0 max-w-[calc(100%-36px)] pointer-events-auto">
+            <div
+              className={cn(
+                "flex items-center gap-2 min-w-0 pointer-events-auto",
+                // Leave room for the selection checkbox beside the title.
+                allowSelect ? "max-w-[calc(100%-36px)]" : "max-w-full"
+              )}
+            >
               <div className="size-7 sm:size-8 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center text-white shrink-0 shadow-sm">
                 {renderTypeIcon()}
               </div>
@@ -693,24 +676,34 @@ export const AssetCardSkeleton = ({
 
   if (isListLike) {
     return (
-      <Card className="relative bg-card rounded-[16px] corner-squircle p-2 sm:p-2.5 transition-all border border-zinc-200/60 dark:border-zinc-800/60 flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4 shadow-xs">
-        <Skeleton className="h-20 w-[162px] rounded-[12px] corner-squircle shrink-0" />
-        <div className="w-full p-2 sm:p-3 pr-0 flex justify-between items-center gap-2 sm:gap-3">
-          <div className="flex flex-col gap-1 w-full min-w-0">
+      <Card
+        className={cn(
+          "relative bg-card corner-squircle p-2 transition-all border border-zinc-200/60 dark:border-zinc-800/60 flex flex-row items-center gap-3 sm:gap-4 shadow-xs",
+          LIST_CARD_RADIUS
+        )}
+      >
+        <Skeleton
+          className={cn("corner-squircle shrink-0", LIST_THUMB_SIZE, LIST_THUMB_RADIUS)}
+        />
+        <div className="w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0">
+          <div className="flex flex-col gap-1.5 w-full min-w-0">
             <Skeleton className="w-4/5 h-3 sm:h-4" />
             <Skeleton className="w-3/5 h-2.5 sm:h-3" />
           </div>
-          <div className="flex gap-1">
-            <Skeleton className="size-8 rounded-full" />
-          </div>
+          <Skeleton className="size-8 rounded-[8px] shrink-0" />
         </div>
       </Card>
     );
   }
 
   return (
-    <Card className="relative aspect-[4/5] w-full rounded-[20px] corner-squircle overflow-hidden border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-100 dark:bg-zinc-900/60 shadow-xs">
-      <Skeleton className="size-full rounded-[20px] corner-squircle" />
+    <Card
+      className={cn(
+        "relative aspect-[4/5] w-full corner-squircle overflow-hidden border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-100 dark:bg-zinc-900/60 shadow-xs",
+        GRID_CARD_RADIUS
+      )}
+    >
+      <Skeleton className="size-full" />
     </Card>
   );
 };

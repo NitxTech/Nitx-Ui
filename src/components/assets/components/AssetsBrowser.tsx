@@ -686,9 +686,11 @@ const AssetsBrowser = ({
           It sticks under whatever chrome the host already pins to the top of
           the window: a host with its own sticky topbar sets
           `--nitx-top-inset` to that height, or this block hides behind it. */}
-      <div className="sticky top-[var(--nitx-top-inset,0px)] z-20 bg-zinc-50 dark:bg-card">
+      <div className="sticky top-[var(--nitx-top-inset,0px)] z-30 bg-zinc-50 dark:bg-card">
         <AssetsTabbar sticky={false} />
-        <div className="px-6 pt-6 pb-5">
+        {/* Tight on a phone, where the tabbar already separates the header
+            from the page title; a touch more air from `sm` up. */}
+        <div className="px-4 pt-3 pb-3 sm:px-6 sm:pt-4 sm:pb-4">
           <AssetsHeader
             viewType={viewType}
             onChangeView={(v: AssetsViewType) => setViewType(v)}
@@ -706,14 +708,14 @@ const AssetsBrowser = ({
 
       {/* flex-1 so a short or empty list still fills the pane (EmptyList
           centers itself inside it) while a long one grows past it. */}
-      <div className="w-full flex-1 flex flex-col px-6 pb-6">
+      <div className="w-full flex-1 flex flex-col px-4 pb-6 sm:px-6">
         {isEmpty ? (
           <EmptyList image={emptyImage} />
         ) : (
           <div className="w-full">
             <div
               className={cn(
-                "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4 pb-5",
+                "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4 pb-5",
                 // The selection bar is fixed over the viewport, so the last
                 // row needs room to clear it, plus whatever bottom chrome the
                 // host app reports in --nitx-bottom-inset, or it cannot be
@@ -721,7 +723,7 @@ const AssetsBrowser = ({
                 selected.length > 0 &&
                   "pb-[calc(6rem_+_var(--nitx-bottom-inset,0px))] md:pb-[calc(8rem_+_var(--nitx-bottom-inset,0px))]",
                 viewType === "list" &&
-                  "grid-cols-1 md:grid-cols-1 xl:grid-cols-1",
+                  "grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-2 md:gap-3",
                 viewType === "grid-list" &&
                   "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3"
               )}
