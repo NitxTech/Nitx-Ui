@@ -181,7 +181,11 @@ export function DrawerDialog({
 
   return (
     <Drawer open={open} onOpenChange={handleOpenChange}>
-      <DrawerContent className="max-h-[calc(100vh-3rem)]" dir={dir}>
+      <DrawerContent
+        overlayClassName={overlayClassName}
+        className="max-h-[calc(100vh-3rem)]"
+        dir={dir}
+      >
         <DrawerHeader className={cn("text-start px-4 pt-3 pb-2", headerClassName)}>
           {title ? (
             <DrawerTitle className="text-lg font-semibold">{title}</DrawerTitle>
