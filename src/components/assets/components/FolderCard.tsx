@@ -162,11 +162,13 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
         <Card
           ref={ref}
           className={cn(
-            "group relative bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
+            // `isolate` keeps the card's stacking context to itself so a
+            // hovered card never paints over the sticky search bar.
+            "group relative isolate bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
             selected
               ? "border-primary bg-primary/10 dark:bg-primary/20 ring-2 ring-primary ring-offset-2"
               : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-lg",
-            viewType !== "grid" && "flex items-center gap-4 rounded-[16px]",
+            viewType !== "grid" && "flex items-center gap-3 sm:gap-4 rounded-[16px]",
             isDropTarget &&
               "border-primary bg-primary/10 dark:bg-primary/20 border-2 border-dashed"
           )}
@@ -182,20 +184,25 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
         >
           <div
             className={cn(
-              "size-full rounded-[16px] corner-squircle overflow-hidden",
+              // Inner radius = outer radius - 8px padding, so the folder art
+              // sits concentric with the card: 12px inside 20px on the grid,
+              // 8px inside 16px on the list.
+              "size-full corner-squircle overflow-hidden",
               viewType === "grid"
-                ? "flex flex-col"
-                : "flex flex-row justify-between"
+                ? "flex flex-col rounded-[12px]"
+                : "flex flex-row justify-between rounded-[8px]"
             )}
           >
-            <CardHeader className="p-0 w-auto relative">
+            <CardHeader className="p-0 w-auto relative shrink-0">
               <img
                 src={images.folder}
                 alt={data.name}
                 className={cn(
-                  "size-full object-cover rounded-[14px] corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
+                  "size-full object-cover corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
                   allowSelect && "brightness-50",
-                  viewType === "grid" ? "h-40" : "h-24 w-[162px]"
+                  viewType === "grid"
+                    ? "h-40 rounded-[12px]"
+                    : "h-16 w-28 sm:h-20 sm:w-[162px] rounded-[8px]"
                 )}
               />
               {allowSelect && (
@@ -210,8 +217,13 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
               )}
             </CardHeader>
 
-            <CardContent className="w-full p-3 pe-0 flex justify-between items-center gap-3">
-              <div className="flex flex-col w-full max-w-[calc(100%-50px)]">
+            <CardContent
+              className={cn(
+                "w-full flex justify-between items-center gap-2 sm:gap-3 min-w-0",
+                viewType === "grid" ? "p-3 pe-0" : "py-0 ps-1 pe-0 sm:ps-2"
+              )}
+            >
+              <div className="flex flex-col flex-1 min-w-0">
                 {isRenaming ? (
                   <Input
                     ref={inputRef}

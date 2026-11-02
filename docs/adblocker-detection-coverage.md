@@ -26,20 +26,47 @@ To provide a consistent, non-intrusive user experience across all Nitx web appli
 
 ## Detection Mechanism & False-Positive Prevention
 
+The verdict is `isBlocked: true` only when nothing but a blocker explains the evidence. Every probe outcome is returned in `result.details` so a consumer can log why a verdict was reached.
+
 1. **Offline and Network Outage Guard**:
    - Detection first verifies `navigator.onLine`. If offline, blocking is **never** flagged.
-   - If ad bait network requests fail, a neutral probe (request to current origin / neutral static asset) is performed.
-   - If the neutral probe also fails, network connectivity is determined to be down (`isOffline: true`), preventing false-positive ad-blocker alerts.
+   - When every ad bait request is refused, a neutral probe (current origin's favicon) runs. If it fails too, the network is down (`isOffline: true`); if it times out, the result is `inconclusive`.
 
-2. **Dual-Vector Verification**:
-   - **Vector A (DOM Cosmetic Filtering)**: Injects an isolated probe element with standard ad class identifiers (`adsbox`, `pub_300x250`, `ad-banner`). If CSS rules force `display: none !important` or collapse dimensions to 0, cosmetic filtering is active.
-   - **Vector B (Network Bait Probe)**: Probes standard ad network script endpoints (`pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`).
+2. **Network Bait Probe (Vector B)**:
+   - Two independent ad endpoints are probed (`pagead2.googlesyndication.com/.../adsbygoogle.js` and `securepubads.g.doubleclick.net/tag/js/gpt.js`). **Both** must be refused; one reachable endpoint clears the check.
+   - Each probe is classified, not just pass/fail:
+     - `blocked`: rejected immediately, the way an extension, Brave Shields, tracking protection or a DNS sinkhole behaves.
+     - `timeout`: no answer within `timeoutMs` (4s). A slow network, never a blocker. This was the main false positive in the field: a cold DNS and TLS handshake to the ad host on a slow connection outran the old 3.5s budget while the same-origin probe answered instantly, and a refresh "fixed" it because the handshake was then cached.
+     - `csp`: the page's own Content Security Policy refused the request (detected through the `securitypolicyviolation` event). An app with a `connect-src` policy that omits the ad hosts can never be told apart from a blocker by a network probe, so it is `inconclusive`.
 
-3. **Non-Intrusive Behavior**:
-   - Single probe on mount.
-   - No periodic polling intervals or background CPU consumption.
+3. **DOM Cosmetic Filtering (Vector A)**:
+   - A bait element carrying the standard EasyList classes (`adsbox`, `pub_300x250`, `ad-banner`, ...) is inserted next to a control element identical in every way except the classes. The test is positive only when the bait collapses and the control does not, which rules out ancestor-level causes.
+   - Both elements are 10x10px; the old 1x1px bait could be rounded to zero at fractional browser zoom.
+   - A DOM hit counts only while no ad endpoint was reachable. If ad requests go through, ad scripts will load regardless of cosmetic rules.
+
+4. **Confirmation and Self-Recovery (`useAdBlocker`)**:
+   - A positive result is re-run after `confirmDelayMs` (1.5s) and reported only if it holds both times. Blockers are deterministic; transient network failures are not.
+   - While blocked, detection re-runs whenever the tab regains focus and every `recheckIntervalMs` (15s). The notice clears on its own once a pass comes back clean, so a user who allowlists the site, or who was flagged by a blip, never has to reload.
+   - No polling while not blocked. Concurrent hooks on one page share a single detection run.
    - Persists user dismissal in `sessionStorage` (default) or `localStorage` to avoid repeatedly disrupting user workflows across navigation.
    - Core product features remain completely operable.
+
+### Verified scenarios
+
+Run against the real detector in headless Chrome with `fetch` stubbed per scenario:
+
+| Scenario | Verdict |
+| :--- | :--- |
+| No blocker, live network | not blocked (`none`) |
+| Extension blocking both endpoints, with or without cosmetic rules | blocked (`network_probe_blocked`) |
+| Cosmetic rules only, ad requests hang | blocked (`dom_probe_hidden`) |
+| Ad hosts slow, origin fast | not blocked (`inconclusive`) |
+| One endpoint fails, the other answers | not blocked (`none`) |
+| Every host fails | not blocked, `isOffline: true` |
+| Ancestor hides bait and control | not blocked (`inconclusive`) |
+| Page with `connect-src 'self'` CSP | not blocked (`inconclusive`, probes report `csp`) |
+| Hook: first run fails, confirmation passes | never shows the notice |
+| Hook: real blocker, then switched off | notice shows, then clears on the next recheck |
 
 ---
 

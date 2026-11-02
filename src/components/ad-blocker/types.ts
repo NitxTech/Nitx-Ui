@@ -6,7 +6,16 @@ export type AdBlockerDetectionReason =
   | "network_probe_blocked"
   | "dom_probe_hidden"
   | "script_blocked"
+  /**
+   * The probes could not decide: the network was too slow to answer inside
+   * the timeout, or the page's Content Security Policy refused the bait
+   * requests. Never treated as a blocker.
+   */
+  | "inconclusive"
   | "none";
+
+/** What happened to one probe request. */
+export type AdBlockerProbeOutcome = "reachable" | "blocked" | "timeout" | "csp";
 
 export interface AdBlockerDetectionResult {
   /** True if ad blocking was actively detected */
@@ -17,11 +26,19 @@ export interface AdBlockerDetectionResult {
   reason: AdBlockerDetectionReason;
   /** Timestamp of detection */
   timestamp: number;
+  /** Raw probe outcomes, for logging why a verdict was reached. */
+  details?: {
+    /** The DOM bait was collapsed by a cosmetic filter. */
+    domHidden: boolean;
+    /** One outcome per bait URL, in the order they were probed. */
+    network: AdBlockerProbeOutcome[];
+  };
 }
 
 export interface AdBlockerDetectorOptions {
   /**
-   * Probe timeout in milliseconds (default: 4000ms).
+   * Probe timeout in milliseconds (default: 4000ms). A probe that runs out
+   * of time is inconclusive, never a blocker.
    */
   timeoutMs?: number;
   /**
@@ -29,6 +46,11 @@ export interface AdBlockerDetectorOptions {
    * Defaults to standard Google Ads script endpoint.
    */
   baitUrl?: string;
+  /**
+   * Several bait URLs; every one must be refused for a "blocked" verdict.
+   * Overrides `baitUrl`. Defaults to two Google ad script endpoints.
+   */
+  baitUrls?: string[];
   /**
    * Optional custom connectivity test URL.
    */
@@ -48,6 +70,17 @@ export interface UseAdBlockerOptions extends AdBlockerDetectorOptions {
    * Key used for dismissal storage (default: "nitx_adblocker_dismissed").
    */
   storageKey?: string;
+  /**
+   * A positive result is re-run after this pause and only reported when it
+   * holds both times (default: 1500ms). 0 reports the first result as is.
+   */
+  confirmDelayMs?: number;
+  /**
+   * While blocked, re-run detection on this cadence and whenever the tab
+   * regains focus, so the notice clears itself once the blocker is off
+   * (default: 15000ms). 0 disables the background cadence.
+   */
+  recheckIntervalMs?: number;
   /**
    * Callback fired when an ad blocker is detected.
    */

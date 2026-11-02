@@ -75,15 +75,20 @@ const AssetsHeader = ({
   return (
     <TooltipProvider>
       <div className="w-full flex flex-col gap-2">
-        <div className="w-full flex items-center mt-6 gap-3">
-          <div className="relative flex-grow">
+        {/* Every control on this row is 40px tall with a 12px radius, and
+            the segmented view switch below nests 8px buttons inside the same
+            12px shell (12 - 4px padding). `rounded-xl` and `rounded-lg` are
+            avoided on purpose: the theme remaps `lg` to --radius (13px), so
+            the pair read as mismatched corners. */}
+        <div className="w-full flex items-center gap-2 sm:gap-3">
+          <div className="relative flex-grow min-w-0">
             <Input
               type="search"
               placeholder={t("assets.assetsHeader.searchPlaceholder")}
               onChange={onSearch}
-              className="w-full px-5 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20"
+              className="h-10 w-full ps-4 pe-10 py-0 rounded-[12px] border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs sm:text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-xs focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:ring-offset-0"
             />
-            <SearchIcon className="w-4 h-4 absolute top-1/2 right-4 rtl:right-auto rtl:left-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className="w-4 h-4 absolute top-1/2 end-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
           </div>
 
           {showCreateLink ? (
@@ -92,7 +97,7 @@ const AssetsHeader = ({
                 <Button
                   aria-label={t("assets.assetsHeader.createLink")}
                   onClick={onCreateLinkClick}
-                  className="h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
+                  className="h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
                 >
                   <HugeiconsIcon
                     icon={PlusSignSquareIcon}
@@ -115,7 +120,7 @@ const AssetsHeader = ({
                     <Button
                       aria-label={t("assets.assetsHeader.upload")}
                       onClick={onUploadClick}
-                      className="h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700  active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
+                      className="h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex bg-[#0000FF] hover:bg-blue-700 active:scale-98 text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
                     >
                       <HugeiconsIcon
                         icon={PlusSignSquareIcon}
@@ -139,7 +144,7 @@ const AssetsHeader = ({
                       aria-label={t("assets.assetsHeader.newFolder")}
                       variant="outline"
                       onClick={onNewFolderClick}
-                      className="group h-10 px-4 rounded-xl items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors"
+                      className="group h-10 px-4 rounded-[12px] items-center gap-2 hidden md:inline-flex border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-gray-100 dark:hover:bg-zinc-800 active:scale-98 text-gray-800 dark:text-zinc-200 dark:hover:text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer transition-colors"
                     >
                       <HugeiconsIcon
                         icon={FolderAddIcon}
@@ -161,16 +166,18 @@ const AssetsHeader = ({
 
         <div className="flex items-center gap-3">
           {features.folders && path.length > 1 && (
-            <AssetsPath className="w-full flex-1 mb-2 py-2 text-xs" />
+            <AssetsPath className="w-full flex-1 min-w-0 py-2 text-xs" />
           )}
-          <div className="flex items-center p-1 rounded-xl bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ml-auto rtl:ml-0 rtl:mr-auto">
+          <div className="flex h-10 items-center p-1 rounded-[12px] bg-gray-100 dark:bg-zinc-900/80 border border-gray-200/80 dark:border-zinc-800 gap-1 ms-auto shrink-0">
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   type="button"
                   onClick={() => onChangeView("grid")}
+                  aria-label={t("assets.assetsHeader.gridView")}
+                  aria-pressed={viewType === "grid"}
                   className={cn(
-                    "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    "flex h-8 min-w-8 px-2 items-center justify-center rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                     viewType === "grid"
                       ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs"
                       : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
@@ -188,8 +195,10 @@ const AssetsHeader = ({
                 <button
                   type="button"
                   onClick={() => onChangeView("list")}
+                  aria-label={t("assets.assetsHeader.listView")}
+                  aria-pressed={viewType === "list"}
                   className={cn(
-                    "flex items-center justify-center p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    "flex h-8 min-w-8 px-2 items-center justify-center rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                     viewType === "list"
                       ? "bg-white dark:bg-zinc-800 text-[#0000FF] dark:text-white shadow-xs"
                       : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
@@ -207,8 +216,10 @@ const AssetsHeader = ({
                 <button
                   type="button"
                   onClick={() => onEnableCheckbox(!enableCheckbox)}
+                  aria-label={t("assets.assetsHeader.multiSelect")}
+                  aria-pressed={enableCheckbox}
                   className={cn(
-                    "flex items-center gap-1.5 p-1.5 rounded-lg transition-all text-xs font-medium cursor-pointer",
+                    "flex h-8 min-w-8 px-2 items-center justify-center gap-1.5 rounded-[8px] transition-all text-xs font-medium cursor-pointer",
                     enableCheckbox
                       ? "bg-blue-50 dark:bg-blue-950/60 text-[#0000FF] dark:text-blue-400 shadow-xs"
                       : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"

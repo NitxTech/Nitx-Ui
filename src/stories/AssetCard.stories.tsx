@@ -64,6 +64,19 @@ const mockProcessingAsset: Asset = {
   is_ready: false,
 } as unknown as Asset;
 
+/** A thumbnail URL that 404s: exercises the card's fallback tile. */
+const mockBrokenAsset: Asset = {
+  id: 6,
+  uuid: "asset-broken-1",
+  name: "Expired signed URL",
+  type: "image",
+  is_ready: true,
+  image: {
+    thumbnail_path: "https://example.invalid/thumbnails/does-not-exist.jpg",
+    size: "3.1 MB",
+  },
+} as unknown as Asset;
+
 const SendToScreenDemoButton = () => (
   <button
     type="button"
@@ -179,6 +192,46 @@ export const ProcessingState: Story = {
     onMove: () => {},
     renderActions: () => <SendToScreenDemoButton />,
   },
+};
+
+export const BrokenThumbnail: Story = {
+  args: {
+    data: mockBrokenAsset,
+    viewType: "grid",
+    allowSelect: false,
+    selected: false,
+    onMove: () => {},
+    renderActions: () => <SendToScreenDemoButton />,
+  },
+};
+
+export const ListView: Story = {
+  render: () => (
+    <div className="w-[360px] sm:w-[560px] flex flex-col gap-2">
+      <AssetCard
+        data={mockImageAsset}
+        viewType="list"
+        allowSelect={false}
+        selected={false}
+        onMove={() => {}}
+      />
+      <AssetCard
+        data={mockVideoAsset}
+        viewType="list"
+        allowSelect={false}
+        selected={false}
+        onMove={() => {}}
+      />
+      <AssetCard
+        data={mockBrokenAsset}
+        viewType="list"
+        allowSelect={false}
+        selected={false}
+        onMove={() => {}}
+      />
+      <AssetCardSkeleton viewType="list" />
+    </div>
+  ),
 };
 
 export const CardSkeleton: Story = {
