@@ -45,7 +45,11 @@ export {
 } from "./components/modals/UploadModal";
 export { default as LinkEditor } from "./links/LinkEditor";
 export type { LinkEditorProps, LinkEditorTitleInfo } from "./links/LinkEditor";
-export type { AssetsTab, AssetsViewType } from "./hooks/use-assets-store";
+export type {
+  AssetsSortBy,
+  AssetsTab,
+  AssetsViewType,
+} from "./hooks/use-assets-store";
 
 export type {
   Asset,

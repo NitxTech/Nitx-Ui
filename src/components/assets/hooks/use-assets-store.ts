@@ -5,6 +5,8 @@ import type { Folder, Path } from "../types";
 
 export type AssetsTab = "all" | "media" | "document" | "link";
 export type AssetsViewType = "grid" | "list" | "grid-list";
+/** The header's "Filter" menu: how folders and assets are ordered. */
+export type AssetsSortBy = "last_added" | "oldest" | "name_asc" | "name_desc";
 
 // UI-only state for the asset browser. Server data (assets, folders) lives
 // in react-query — see use-assets-query.ts. This store carries what has to
@@ -19,6 +21,8 @@ interface AssetsStoreState {
   setActiveTab: (value: AssetsTab) => void;
   viewType: AssetsViewType;
   setViewType: (value: AssetsViewType) => void;
+  sortBy: AssetsSortBy;
+  setSortBy: (value: AssetsSortBy) => void;
   activeDirectory: Folder | null;
   setActiveDirectory: (value: Folder | null) => void;
   renamingItemId: string | null;
@@ -39,6 +43,8 @@ export const useAssetsStore = create<AssetsStoreState>((set: any) => ({
   setActiveTab: (value: AssetsTab) => set({ activeTab: value }),
   viewType: "grid",
   setViewType: (value: AssetsViewType) => set({ viewType: value }),
+  sortBy: "last_added",
+  setSortBy: (value: AssetsSortBy) => set({ sortBy: value }),
   activeDirectory: null,
   setActiveDirectory: (value: Folder | null) => set({ activeDirectory: value }),
   renamingItemId: null,

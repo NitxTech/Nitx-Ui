@@ -81,18 +81,13 @@ export default {
     require("tailwindcss-animate"),
     function ({ addUtilities }) {
       addUtilities({
+        // `squircle` = superellipse(2), as squircle.style defines it.
         ".corner-squircle": {
           "corner-shape": "squircle",
-          "@supports (corner-shape: superellipse(1.79))": {
-            "corner-shape": "superellipse(1.79)",
-          },
         },
         ".squircle": {
           "corner-shape": "squircle",
           "border-radius": "24px",
-          "@supports (corner-shape: superellipse(1.79))": {
-            "corner-shape": "superellipse(1.79)",
-          },
         },
       });
     },
