@@ -9213,7 +9213,6 @@ function TabBar({
     const id = resolveId(tab, index);
     const content = tab.title ?? tab.label;
     const shared = {
-      key: id,
       id,
       type: "button",
       role: "tab",
@@ -9245,7 +9244,8 @@ function TabBar({
             content && /* @__PURE__ */ jsx56("span", { children: content }),
             renderBadge(tab, active)
           ]
-        }
+        },
+        id
       );
     }
     return /* @__PURE__ */ jsxs40(
@@ -9267,7 +9267,8 @@ function TabBar({
           content && /* @__PURE__ */ jsx56("span", { children: content }),
           renderBadge(tab, active)
         ]
-      }
+      },
+      id
     );
   };
   const tabButtons = tabList.map(renderTab);

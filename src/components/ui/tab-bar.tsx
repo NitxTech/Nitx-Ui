@@ -243,7 +243,6 @@ export function TabBar({
     const content = tab.title ?? tab.label;
 
     const shared = {
-      key: id,
       id,
       type: "button" as const,
       role: "tab",
@@ -258,6 +257,7 @@ export function TabBar({
     if (variant === "rounded") {
       return (
         <button
+          key={id}
           {...shared}
           className={cn(
             "flex select-none items-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-all duration-200 md:rounded-full",
@@ -284,6 +284,7 @@ export function TabBar({
 
     return (
       <button
+        key={id}
         {...shared}
         className={cn(
           "relative flex cursor-pointer select-none items-center whitespace-nowrap border-b-2 font-normal transition-all duration-200",
