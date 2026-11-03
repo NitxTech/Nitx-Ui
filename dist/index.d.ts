@@ -24,17 +24,33 @@ interface ProductSwitcherProps {
 }
 declare const ProductSwitcher: ({ auth_user, profileImage, profileName, }: ProductSwitcherProps) => React$1.JSX.Element | null;
 
-type SettingsSectionKey = "profile" | "preferences" | "plan" | "security";
+type SettingsSectionKey = "profile" | "preferences" | "plan";
+interface UpdateBasicInfoPayload {
+    language?: string;
+    display_mode?: 0 | 1 | 2;
+    name?: string;
+    last_name?: string;
+}
+/** Host-owned data state for one settings section. */
+interface SettingsSectionStatus {
+    loading?: boolean;
+    error?: string | null;
+    onRetry?: () => void;
+}
 interface AccountPreferencesModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     authUser?: string | number;
     user?: {
         name?: string;
+        /** First and last name are edited separately, matching the update-basic-info contract. Editing is enabled only when firstName is provided. */
+        firstName?: string;
+        lastName?: string;
         email?: string;
         imageUrl?: string | null;
         phone?: string;
     };
+    sectionStatus?: Partial<Record<SettingsSectionKey, SettingsSectionStatus>>;
     plan?: {
         name?: string;
         badgeText?: string;
@@ -53,11 +69,7 @@ interface AccountPreferencesModalProps {
     myNitxUrl?: string;
     apiUrl?: string;
     apiClient?: any;
-    onUpdateUser?: (payload: {
-        language?: string;
-        display_mode?: 0 | 1 | 2;
-        name?: string;
-    }) => Promise<any>;
+    onUpdateUser?: (payload: UpdateBasicInfoPayload) => Promise<unknown>;
 }
 declare const displayModeToTheme: (displayMode: unknown) => "light" | "dark" | "system";
 declare const themeToDisplayMode: (theme: "light" | "dark" | "system") => 0 | 1 | 2;
@@ -66,20 +78,12 @@ declare function readThemeCookie(): "light" | "dark" | "system" | null;
 declare function writeThemeCookie(theme: "light" | "dark" | "system"): void;
 declare function readLanguageCookie(): "ar" | "en" | null;
 declare function writeLanguageCookie(lang: string): void;
-declare function callUpdateBasicInfo(payload: {
-    language?: string;
-    display_mode?: 0 | 1 | 2;
-    name?: string;
-}, options?: {
+declare function callUpdateBasicInfo(payload: UpdateBasicInfoPayload, options?: {
     apiClient?: any;
     apiUrl?: string;
-    onUpdateUser?: (payload: {
-        language?: string;
-        display_mode?: 0 | 1 | 2;
-        name?: string;
-    }) => Promise<any>;
+    onUpdateUser?: (payload: UpdateBasicInfoPayload) => Promise<unknown>;
 }): Promise<any>;
-declare function AccountPreferencesModal({ open, onOpenChange, authUser, user, plan, showPlan, platform, language: controlledLanguage, onLanguageChange, theme: controlledTheme, onThemeChange, onManageAccount, myNitxUrl, apiUrl, apiClient, onUpdateUser, }: AccountPreferencesModalProps): React__default.JSX.Element;
+declare function AccountPreferencesModal({ open, onOpenChange, authUser, user, plan, showPlan, platform, language: controlledLanguage, onLanguageChange, theme: controlledTheme, onThemeChange, onManageAccount, myNitxUrl, apiUrl, apiClient, onUpdateUser, sectionStatus, }: AccountPreferencesModalProps): React__default.JSX.Element;
 
 interface UserAccountProps {
     accounts: {
@@ -101,10 +105,7 @@ interface UserAccountProps {
     accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
     apiClient?: any;
     apiUrl?: string;
-    onUpdateUser?: (payload: {
-        language?: string;
-        display_mode?: 0 | 1 | 2;
-    }) => Promise<any>;
+    onUpdateUser?: AccountPreferencesModalProps["onUpdateUser"];
 }
 declare const UserAccount: ({ accounts, isExpanded, auth_user, showPlan, platform, onOpenSettings, onSettingsClick, settingsHref, preferencesOpen, onPreferencesOpenChange, accountPreferencesProps, apiClient, apiUrl, onUpdateUser, }: UserAccountProps) => React$1.JSX.Element | null;
 
@@ -1758,4 +1759,4 @@ declare function cx(...args: ClassValue[]): string;
 declare const setSharedApiClient: (client: any) => void;
 declare const getSharedApiClient: () => any;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, type SettingsSectionStatus, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, type UpdateBasicInfoPayload, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assetCardIconButtonClass, assetKeys, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
