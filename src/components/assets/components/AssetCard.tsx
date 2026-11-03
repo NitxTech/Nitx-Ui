@@ -614,7 +614,10 @@ const AssetCard: React.FC<AssetCardProps> = ({
             className={cn(
               "relative z-10 flex items-center justify-end gap-1.5 pointer-events-auto",
               "[&>button]:size-7 [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:text-white [&>button]:backdrop-blur-sm",
-              "[&>button:hover]:bg-black/75 [&>button:hover]:text-white [&_svg]:text-white"
+              "[&>button:hover]:bg-black/75 [&>button:hover]:text-white [&_svg]:text-white",
+              // Host glyphs (send to screen) sit at 14px inside the 28px
+              // circle, so they get the same breathing room as the ellipsis.
+              "[&>button:not(:last-child)_svg]:size-3.5"
             )}
             data-nitxui-card-actions=""
             onClick={(e) => e.stopPropagation()}

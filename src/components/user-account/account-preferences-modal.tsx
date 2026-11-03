@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useId, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { DrawerDialog } from "../ui/drawer-dialog";
 import {
@@ -21,8 +21,6 @@ import {
   User,
   Sliders,
   CreditCard,
-  Shield,
-  Check,
   RefreshCw,
   ExternalLink,
   AlertCircle,
@@ -34,7 +32,21 @@ import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 import { getSharedApiClient } from "../../lib/api-client";
 import { Skeleton } from "../ui/skeleton";
 
-export type SettingsSectionKey = "profile" | "preferences" | "plan" | "security";
+export type SettingsSectionKey = "profile" | "preferences" | "plan";
+
+export interface UpdateBasicInfoPayload {
+  language?: string;
+  display_mode?: 0 | 1 | 2;
+  name?: string;
+  last_name?: string;
+}
+
+/** Host-owned data state for one settings section. */
+export interface SettingsSectionStatus {
+  loading?: boolean;
+  error?: string | null;
+  onRetry?: () => void;
+}
 
 export interface AccountPreferencesModalProps {
   open: boolean;
@@ -42,10 +54,14 @@ export interface AccountPreferencesModalProps {
   authUser?: string | number;
   user?: {
     name?: string;
+    /** First and last name are edited separately, matching the update-basic-info contract. Editing is enabled only when firstName is provided. */
+    firstName?: string;
+    lastName?: string;
     email?: string;
     imageUrl?: string | null;
     phone?: string;
   };
+  sectionStatus?: Partial<Record<SettingsSectionKey, SettingsSectionStatus>>;
   plan?: {
     name?: string;
     badgeText?: string;
@@ -64,7 +80,7 @@ export interface AccountPreferencesModalProps {
   myNitxUrl?: string;
   apiUrl?: string;
   apiClient?: any;
-  onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2; name?: string }) => Promise<any>;
+  onUpdateUser?: (payload: UpdateBasicInfoPayload) => Promise<unknown>;
 }
 
 function getSessionTokenFromCookie(): string | null {
@@ -215,11 +231,11 @@ export function writeLanguageCookie(lang: string) {
 }
 
 export async function callUpdateBasicInfo(
-  payload: { language?: string; display_mode?: 0 | 1 | 2; name?: string },
+  payload: UpdateBasicInfoPayload,
   options?: {
     apiClient?: any;
     apiUrl?: string;
-    onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2; name?: string }) => Promise<any>;
+    onUpdateUser?: (payload: UpdateBasicInfoPayload) => Promise<unknown>;
   }
 ): Promise<any> {
   if (options?.onUpdateUser) {
@@ -304,6 +320,7 @@ export function AccountPreferencesModal({
   apiUrl,
   apiClient,
   onUpdateUser,
+  sectionStatus,
 }: AccountPreferencesModalProps) {
   let params: any = null;
   try {
@@ -324,20 +341,24 @@ export function AccountPreferencesModal({
 
   // In-modal profile editing state
   const [isEditingName, setIsEditingName] = useState(false);
-  const [userNameInput, setUserNameInput] = useState(user?.name || "Abdulaziz Al-Qahtani");
-  const [currentUserName, setCurrentUserName] = useState(user?.name || "Abdulaziz Al-Qahtani");
+  const [firstNameInput, setFirstNameInput] = useState(user?.firstName ?? "");
+  const [lastNameInput, setLastNameInput] = useState(user?.lastName ?? "");
+  // Name shown after a successful save, until the host passes fresh user data
+  const [savedUserName, setSavedUserName] = useState<string | null>(null);
   const [isSavingName, setIsSavingName] = useState(false);
 
-  // Section error states for resilient retry
-  const [sectionErrors, setSectionErrors] = useState<Record<string, string | null>>({});
-  const [sectionLoading, setSectionLoading] = useState<Record<string, boolean>>({});
+  // Errors raised inside the modal (saves); host data errors arrive through sectionStatus
+  const [sectionErrors, setSectionErrors] = useState<Partial<Record<SettingsSectionKey, string | null>>>({});
+  const [failedPreference, setFailedPreference] = useState<
+    { kind: "language"; value: string } | { kind: "theme"; value: "light" | "dark" } | null
+  >(null);
+  const nameFieldId = useId();
 
   useEffect(() => {
-    if (user?.name) {
-      setCurrentUserName(user.name);
-      setUserNameInput(user.name);
-    }
-  }, [user?.name]);
+    setFirstNameInput(user?.firstName ?? "");
+    setLastNameInput(user?.lastName ?? "");
+    setSavedUserName(null);
+  }, [user?.name, user?.firstName, user?.lastName]);
 
   useEffect(() => {
     setMounted(true);
@@ -431,22 +452,30 @@ export function AccountPreferencesModal({
 
   const myNitxDashboardUrl = `${myNitxBaseUrl}/${encodeURIComponent(String(resolvedAuthUser))}`;
 
-  const userName = currentUserName;
-  const userEmail = user?.email || "abdalazizqa@nitx.io";
+  const userName =
+    savedUserName ??
+    (user?.name ||
+      [user?.firstName, user?.lastName].filter(Boolean).join(" "));
+  const userEmail = user?.email ?? "";
   const userImage = user?.imageUrl ?? null;
+  const hasUser = Boolean(userName || userEmail);
+  const canEditName = user?.firstName !== undefined;
 
-  const planName = plan?.name || "Pro Plan (5000 Credit)";
-  const planBadge = plan?.badgeText || "Active";
-  const nextPaymentDate = plan?.nextPayment || "Jun 27, 2026";
+  const planName = plan?.name;
+  const planBadge = plan?.badgeText;
+  const nextPaymentDate = plan?.nextPayment;
 
-  const totalCredits = plan?.totalCredits ?? 5000;
-  const usedCredits = plan?.usedCredits ?? 20;
-  const availableCredits = plan?.availableCredits ?? 4980;
-
-  const usagePercentage = Math.min(
-    100,
-    Math.max(1, Math.round((usedCredits / (totalCredits || 5000)) * 100))
+  const totalCredits = plan?.totalCredits;
+  const usedCredits = plan?.usedCredits;
+  const availableCredits = plan?.availableCredits;
+  const hasPlanData = Boolean(
+    planName || availableCredits !== undefined || usedCredits !== undefined
   );
+
+  const usagePercentage =
+    totalCredits && usedCredits !== undefined
+      ? Math.min(100, Math.max(0, Math.round((usedCredits / totalCredits) * 100)))
+      : null;
 
   const isStudioEnv = (() => {
     if (platform) {
@@ -533,7 +562,7 @@ export function AccountPreferencesModal({
       .filter(Boolean)
       .slice(0, 2)
       .map((part) => part[0]?.toUpperCase())
-      .join("") || "AA";
+      .join("") || userEmail.charAt(0).toUpperCase();
 
   const handleLanguageChange = async (value: string) => {
     const prevLang = internalLanguage;
@@ -551,12 +580,23 @@ export function AccountPreferencesModal({
       document.documentElement.setAttribute("lang", value);
     }
 
+    setSectionErrors((prev) => ({ ...prev, preferences: null }));
+    setFailedPreference(null);
+
     try {
       await callUpdateBasicInfo(
         { language: value },
         { apiClient, apiUrl, onUpdateUser }
       );
     } catch (error) {
+      setFailedPreference({ kind: "language", value });
+      setSectionErrors((prev) => ({
+        ...prev,
+        preferences:
+          value === "ar"
+            ? "تعذر حفظ اللغة. تمت استعادة الإعداد السابق."
+            : "Could not save your language. Your previous setting is back.",
+      }));
       console.error("Failed to update language:", error);
       setInternalLanguage(prevLang);
       writeLanguageCookie(prevLang);
@@ -594,6 +634,9 @@ export function AccountPreferencesModal({
       }
     }
 
+    setSectionErrors((prev) => ({ ...prev, preferences: null }));
+    setFailedPreference(null);
+
     try {
       const displayMode = themeToDisplayMode(newTheme);
       await callUpdateBasicInfo(
@@ -601,6 +644,14 @@ export function AccountPreferencesModal({
         { apiClient, apiUrl, onUpdateUser }
       );
     } catch (error) {
+      setFailedPreference({ kind: "theme", value: newTheme });
+      setSectionErrors((prev) => ({
+        ...prev,
+        preferences:
+          language === "ar"
+            ? "تعذر حفظ المظهر. تمت استعادة الإعداد السابق."
+            : "Could not save your theme. Your previous setting is back.",
+      }));
       console.error("Failed to update appearance mode:", error);
       setInternalTheme(prevTheme);
       writeThemeCookie(prevTheme);
@@ -622,9 +673,23 @@ export function AccountPreferencesModal({
     }
   };
 
+  const retryFailedPreference = () => {
+    if (!failedPreference) return;
+    if (failedPreference.kind === "language") {
+      handleLanguageChange(failedPreference.value);
+    } else {
+      handleThemeChange(failedPreference.value);
+    }
+  };
+
   const handleSaveName = async () => {
-    if (!userNameInput.trim()) {
-      toast.error(isRTL ? "الرجاء إدخال اسم صالح" : "Please enter a valid name");
+    const firstName = firstNameInput.trim();
+    const lastName = lastNameInput.trim();
+    if (!firstName) {
+      setSectionErrors((prev) => ({
+        ...prev,
+        profile: isRTL ? "الرجاء إدخال الاسم الأول" : "Please enter your first name.",
+      }));
       return;
     }
 
@@ -633,13 +698,13 @@ export function AccountPreferencesModal({
 
     try {
       await callUpdateBasicInfo(
-        { name: userNameInput.trim() },
+        { name: firstName, last_name: lastName },
         { apiClient, apiUrl, onUpdateUser }
       );
-      setCurrentUserName(userNameInput.trim());
+      setSavedUserName([firstName, lastName].filter(Boolean).join(" "));
       setIsEditingName(false);
       toast.success(isRTL ? "تم تحديث الاسم بنجاح" : "Name updated successfully");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Failed to save name:", err);
       setSectionErrors((prev) => ({
         ...prev,
@@ -701,15 +766,6 @@ export function AccountPreferencesModal({
       });
     }
 
-    list.push({
-      key: "security",
-      title: "Security & Sessions",
-      titleAr: "الأمان والجلسات",
-      description: "Account protection and authentication status",
-      descriptionAr: "حماية الحساب وحالة جلسات تسجيل الدخول",
-      icon: <Shield className="size-4 shrink-0 text-zinc-700 dark:text-zinc-300" />,
-    });
-
     return list;
   }, [shouldShowPlan, platformDisplayName]);
 
@@ -733,44 +789,80 @@ export function AccountPreferencesModal({
       }
     : undefined;
 
-  // Render detail contents for Profile
-  const renderProfileDetail = () => {
-    const error = sectionErrors.profile;
-    const loading = sectionLoading.profile;
+  const renderErrorBanner = (message: string, onRetry?: () => void) => (
+    <div
+      role="alert"
+      className="p-3 rounded-[12px] bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-center justify-between gap-3 text-xs sm:text-sm text-red-700 dark:text-red-300"
+    >
+      <div className="flex items-center gap-2 min-w-0">
+        <AlertCircle className="size-4 shrink-0" />
+        <span>{message}</span>
+      </div>
+      {onRetry && (
+        <button
+          type="button"
+          onClick={onRetry}
+          className="font-medium underline hover:text-red-900 dark:hover:text-red-100 flex items-center gap-1 shrink-0 cursor-pointer rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+        >
+          <RefreshCw className="size-3" />
+          <span>{isRTL ? "إعادة المحاولة" : "Retry"}</span>
+        </button>
+      )}
+    </div>
+  );
 
-    if (loading) {
+  // Loading and load-error states come from the host, which owns the section's data.
+  // Returns null when the section has data to show.
+  const renderSectionStatus = (key: SettingsSectionKey, hasData: boolean) => {
+    const status = sectionStatus?.[key];
+    if (status?.loading && !hasData) {
       return (
-        <div className="flex flex-col gap-4 p-4 sm:p-6">
+        <div
+          aria-busy="true"
+          aria-label={isRTL ? "جاري التحميل" : "Loading"}
+          className="flex flex-col gap-4 p-5 sm:p-6 bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle"
+        >
           <div className="flex items-center gap-4">
-            <Skeleton className="size-16 rounded-[16px] corner-squircle" />
+            <Skeleton className="size-14 rounded-[16px] corner-squircle" />
             <div className="flex flex-col gap-2 flex-1">
               <Skeleton className="h-5 w-40" />
-              <Skeleton className="h-4 w-56" />
+              <Skeleton className="h-4 w-56 max-w-full" />
             </div>
           </div>
-          <Skeleton className="h-12 w-full mt-4" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
         </div>
       );
     }
+    if (status?.error && !hasData) {
+      return renderErrorBanner(status.error, status.onRetry);
+    }
+    return null;
+  };
+
+  const renderEmptyState = (message: string) => (
+    <div className="p-8 text-center bg-white dark:bg-zinc-900 rounded-[16px] sm:rounded-[20px] corner-squircle border border-zinc-200/90 dark:border-zinc-800/90">
+      <p className="text-sm text-zinc-500 dark:text-zinc-400">{message}</p>
+    </div>
+  );
+
+  // Render detail contents for Profile
+  const renderProfileDetail = () => {
+    const statusView = renderSectionStatus("profile", hasUser);
+    if (statusView) return statusView;
+    if (!hasUser) {
+      return renderEmptyState(
+        isRTL ? "لا تتوفر بيانات الحساب حاليا" : "Your account details are not available right now."
+      );
+    }
+
+    const error = sectionErrors.profile;
+    const loadError = sectionStatus?.profile?.error;
 
     return (
       <div className="flex flex-col gap-5">
-        {error && (
-          <div className="p-3 rounded-[12px] bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-center justify-between text-xs text-red-700 dark:text-red-300">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="size-4 shrink-0" />
-              <span>{error}</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => handleSaveName()}
-              className="font-medium underline hover:text-red-900 dark:hover:text-red-100 flex items-center gap-1 cursor-pointer"
-            >
-              <RefreshCw className="size-3" />
-              <span>{isRTL ? "إعادة المحاولة" : "Retry"}</span>
-            </button>
-          </div>
-        )}
+        {loadError && renderErrorBanner(loadError, sectionStatus?.profile?.onRetry)}
+        {error && renderErrorBanner(error, isEditingName ? handleSaveName : undefined)}
 
         {/* User Card */}
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle p-5 sm:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
@@ -787,15 +879,11 @@ export function AccountPreferencesModal({
                 <span className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 truncate">
                   {userName}
                 </span>
-                <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
-                  {userEmail}
-                </span>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-[6px]">
-                    <Check className="size-3" />
-                    <span>{isRTL ? "حساب مفعل" : "Active account"}</span>
+                {userEmail && (
+                  <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                    {userEmail}
                   </span>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -808,78 +896,113 @@ export function AccountPreferencesModal({
               {isRTL ? "تفاصيل الحساب" : "Account Details"}
             </h4>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {isRTL ? "يمكنك تحديث اسمك وإدارة بياناتك هنا مباشرة" : "Update your name and view account settings directly here"}
+              {isRTL ? "يمكنك تحديث اسمك هنا مباشرة" : "Update your name directly here"}
             </p>
           </div>
 
           {/* Row: Display Name */}
-          <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="sm:w-36 shrink-0 text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "الاسم الكامل" : "Full Name"}
-            </div>
-
-            <div className="flex-1 min-w-0">
-              {isEditingName ? (
-                <div className="flex items-center gap-2">
+          {isEditingName ? (
+            <form
+              className="p-4 sm:px-6 sm:py-4 flex flex-col gap-3"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSaveName();
+              }}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor={`${nameFieldId}-first`}
+                    className="text-sm font-medium text-zinc-900 dark:text-zinc-100"
+                  >
+                    {isRTL ? "الاسم الأول" : "First name"}
+                  </label>
                   <input
+                    id={`${nameFieldId}-first`}
                     type="text"
-                    value={userNameInput}
-                    onChange={(e) => setUserNameInput(e.target.value)}
+                    autoComplete="given-name"
+                    value={firstNameInput}
+                    onChange={(e) => setFirstNameInput(e.target.value)}
                     disabled={isSavingName}
-                    className="flex-1 h-9 px-3 text-xs sm:text-sm rounded-[10px] corner-squircle border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                    placeholder="Enter full name"
+                    required
+                    aria-invalid={Boolean(sectionErrors.profile) && !firstNameInput.trim()}
+                    className="h-10 px-3 text-base sm:text-sm rounded-[10px] corner-squircle border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                     autoFocus
                   />
-                  <button
-                    type="button"
-                    onClick={handleSaveName}
-                    disabled={isSavingName}
-                    className="h-9 px-3.5 rounded-[10px] corner-squircle bg-[#183EC2] text-white text-xs font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer"
-                  >
-                    {isSavingName ? (isRTL ? "جاري الحفظ..." : "Saving...") : (isRTL ? "حفظ" : "Save")}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setUserNameInput(userName);
-                      setIsEditingName(false);
-                    }}
-                    disabled={isSavingName}
-                    className="h-9 px-3 rounded-[10px] corner-squircle border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
-                  >
-                    {isRTL ? "إلغاء" : "Cancel"}
-                  </button>
                 </div>
-              ) : (
-                <span className="text-xs sm:text-sm text-zinc-800 dark:text-zinc-200">
-                  {userName}
-                </span>
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor={`${nameFieldId}-last`}
+                    className="text-sm font-medium text-zinc-900 dark:text-zinc-100"
+                  >
+                    {isRTL ? "اسم العائلة" : "Last name"}
+                  </label>
+                  <input
+                    id={`${nameFieldId}-last`}
+                    type="text"
+                    autoComplete="family-name"
+                    value={lastNameInput}
+                    onChange={(e) => setLastNameInput(e.target.value)}
+                    disabled={isSavingName}
+                    className="h-10 px-3 text-base sm:text-sm rounded-[10px] corner-squircle border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFirstNameInput(user?.firstName ?? "");
+                    setLastNameInput(user?.lastName ?? "");
+                    setSectionErrors((prev) => ({ ...prev, profile: null }));
+                    setIsEditingName(false);
+                  }}
+                  disabled={isSavingName}
+                  className="h-10 px-3.5 rounded-[10px] corner-squircle border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                >
+                  {isRTL ? "إلغاء" : "Cancel"}
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingName}
+                  className="h-10 px-4 rounded-[10px] corner-squircle bg-[#183EC2] text-white text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                >
+                  {isSavingName ? (isRTL ? "جاري الحفظ..." : "Saving...") : (isRTL ? "حفظ" : "Save")}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="sm:w-36 shrink-0 text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {isRTL ? "الاسم الكامل" : "Full name"}
+              </div>
+              <div className="flex-1 min-w-0 text-sm text-zinc-800 dark:text-zinc-200 truncate">
+                {userName || "-"}
+              </div>
+              {canEditName && (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingName(true)}
+                  aria-label={isRTL ? "تعديل الاسم" : "Edit name"}
+                  className="text-sm font-medium text-[#183EC2] dark:text-blue-400 hover:underline shrink-0 cursor-pointer self-start sm:self-center rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                >
+                  {isRTL ? "تعديل" : "Edit"}
+                </button>
               )}
             </div>
-
-            {!isEditingName && (
-              <button
-                type="button"
-                onClick={() => setIsEditingName(true)}
-                className="text-xs font-medium text-[#183EC2] dark:text-blue-400 hover:underline shrink-0 cursor-pointer self-start sm:self-center"
-              >
-                {isRTL ? "تعديل" : "Edit"}
-              </button>
-            )}
-          </div>
+          )}
 
           {/* Row: Email (Read Only) */}
-          <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="sm:w-36 shrink-0 text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "البريد الإلكتروني" : "Email Address"}
+          {userEmail && (
+            <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="sm:w-36 shrink-0 text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {isRTL ? "البريد الإلكتروني" : "Email address"}
+              </div>
+              <div className="flex-1 min-w-0 text-sm text-zinc-600 dark:text-zinc-400 truncate">
+                {userEmail}
+              </div>
             </div>
-            <div className="flex-1 min-w-0 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 truncate">
-              {userEmail}
-            </div>
-            <span className="text-[11px] font-medium text-zinc-400 shrink-0">
-              {isRTL ? "أساسي" : "Primary"}
-            </span>
-          </div>
+          )}
 
           {/* Row: Advanced Settings Link */}
           <div className="p-4 sm:px-6 sm:py-4 flex items-center justify-between gap-3 bg-zinc-50/50 dark:bg-zinc-950/40">
@@ -908,7 +1031,16 @@ export function AccountPreferencesModal({
 
   // Render detail contents for General Preferences
   const renderPreferencesDetail = () => {
+    const statusView = renderSectionStatus("preferences", true);
+    if (statusView) return statusView;
+
     return (
+      <div className="flex flex-col gap-5">
+      {sectionErrors.preferences &&
+        renderErrorBanner(
+          sectionErrors.preferences,
+          failedPreference ? retryFailedPreference : undefined
+        )}
       <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden">
         <div className="p-4 sm:px-6 sm:py-4">
           <h3 className="text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
@@ -1011,22 +1143,25 @@ export function AccountPreferencesModal({
           </div>
         </div>
       </div>
+      </div>
     );
   };
 
   // Render detail contents for Current Plan
   const renderPlanDetail = () => {
-    if (!plan && !shouldShowPlan) {
-      return (
-        <div className="p-8 text-center bg-white dark:bg-zinc-900 rounded-[16px] border border-zinc-200 dark:border-zinc-800">
-          <p className="text-sm text-zinc-500">
-            {isRTL ? "لا توجد تفاصيل خطة نشطة متاحة" : "No active plan details available"}
-          </p>
-        </div>
+    const statusView = renderSectionStatus("plan", hasPlanData);
+    if (statusView) return statusView;
+    if (!hasPlanData) {
+      return renderEmptyState(
+        isRTL ? "لا توجد تفاصيل خطة نشطة متاحة" : "No active plan details available."
       );
     }
 
+    const loadError = sectionStatus?.plan?.error;
+
     return (
+      <div className="flex flex-col gap-5">
+      {loadError && renderErrorBanner(loadError, sectionStatus?.plan?.onRetry)}
       <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden">
         <div className="p-4 sm:px-6 sm:py-4">
           <h3 className="text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
@@ -1047,105 +1182,76 @@ export function AccountPreferencesModal({
           </div>
 
           <div className="flex items-center gap-2.5 flex-wrap flex-1">
-            <span className="text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200">
-              {planName}
+            <span className="text-sm font-normal text-zinc-800 dark:text-zinc-200">
+              {planName || "-"}
             </span>
-            <span className="bg-[#EEF2FF] dark:bg-blue-950/60 text-[#305DFD] dark:text-blue-400 text-[11px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-[8px] corner-squircle inline-flex items-center leading-none">
-              {planBadge}
-            </span>
+            {planBadge && (
+              <span className="bg-[#EEF2FF] dark:bg-blue-950/60 text-[#305DFD] dark:text-blue-400 text-xs font-semibold px-2.5 py-0.5 rounded-[8px] corner-squircle inline-flex items-center leading-none">
+                {planBadge}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Row 2: Next payment */}
-        <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0">
-            <CreditCard className="size-4 text-zinc-700 dark:text-zinc-300 shrink-0" />
-            <span className="text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "الدفع التالي" : "Next payment"}
-            </span>
-          </div>
+        {nextPaymentDate && (
+          <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2.5 sm:w-36 md:w-44 shrink-0">
+              <CreditCard className="size-4 text-zinc-700 dark:text-zinc-300 shrink-0" />
+              <span className="text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {isRTL ? "الدفع التالي" : "Next payment"}
+              </span>
+            </div>
 
-          <div className="text-xs sm:text-[13px] font-normal text-zinc-800 dark:text-zinc-200 flex-1">
-            {nextPaymentDate}
+            <div className="text-sm font-normal text-zinc-800 dark:text-zinc-200 flex-1">
+              {nextPaymentDate}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Row 3: Credits Usage */}
-        <div className="p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
-          <div className="flex items-center gap-2.5 md:w-44 shrink-0">
-            <Sliders className="size-4 text-zinc-700 dark:text-zinc-300 shrink-0" />
-            <span className="text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "الرصيد" : "Credits"}
-            </span>
-          </div>
-
-          <div className="flex-1 flex flex-col gap-1.5 w-full">
-            <div className="flex items-center justify-between text-xs font-medium">
-              <span className="text-zinc-700 dark:text-zinc-300">
-                {isRTL ? `المستخدم: ${usedCredits.toLocaleString()}` : `Used: ${usedCredits.toLocaleString()}`}
-              </span>
-              <span className="text-zinc-500 dark:text-zinc-400">
-                {isRTL ? `المتاح: ${availableCredits.toLocaleString()}` : `Available: ${availableCredits.toLocaleString()}`}
+        {(usedCredits !== undefined || availableCredits !== undefined) && (
+          <div className="p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+            <div className="flex items-center gap-2.5 md:w-44 shrink-0">
+              <Sliders className="size-4 text-zinc-700 dark:text-zinc-300 shrink-0" />
+              <span className="text-[13px] sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                {isRTL ? "الرصيد" : "Credits"}
               </span>
             </div>
 
-            <div className="w-full h-1.5 sm:h-2 bg-[#E5E7EB] dark:bg-zinc-800 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#183EC2] dark:bg-[#305DFD] rounded-full transition-all duration-500"
-                style={{ width: `${usagePercentage}%` }}
-              />
+            <div className="flex-1 flex flex-col gap-1.5 w-full">
+              <div className="flex items-center justify-between gap-3 text-xs sm:text-sm font-medium">
+                {usedCredits !== undefined && (
+                  <span className="text-zinc-700 dark:text-zinc-300">
+                    {isRTL ? `المستخدم: ${usedCredits.toLocaleString()}` : `Used: ${usedCredits.toLocaleString()}`}
+                  </span>
+                )}
+                {availableCredits !== undefined && (
+                  <span className="text-zinc-500 dark:text-zinc-400 ms-auto">
+                    {isRTL ? `المتاح: ${availableCredits.toLocaleString()}` : `Available: ${availableCredits.toLocaleString()}`}
+                  </span>
+                )}
+              </div>
+
+              {usagePercentage !== null && (
+                <div
+                  role="progressbar"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={usagePercentage}
+                  aria-label={isRTL ? "استخدام الرصيد" : "Credit usage"}
+                  className="w-full h-1.5 sm:h-2 bg-[#E5E7EB] dark:bg-zinc-800 rounded-full overflow-hidden"
+                >
+                  <div
+                    className="h-full bg-[#183EC2] dark:bg-[#305DFD] rounded-full transition-all duration-500"
+                    style={{ width: `${usagePercentage}%` }}
+                  />
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        )}
       </div>
-    );
-  };
-
-  // Render detail contents for Security
-  const renderSecurityDetail = () => {
-    return (
-      <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] sm:rounded-[20px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden">
-        <div className="p-4 sm:px-6 sm:py-4">
-          <h3 className="text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
-            {isRTL ? "الأمان والجلسات" : "Security & Sessions"}
-          </h3>
-          <p className="text-xs sm:text-[13px] text-zinc-500 dark:text-zinc-400 mt-0.5">
-            {isRTL ? "إدارة أمان الحساب وجلسات تسجيل الدخول النشطة" : "Account protection and active login sessions"}
-          </p>
-        </div>
-
-        {/* Row 1: Auth Status */}
-        <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex flex-col">
-            <span className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "حالة الأمان" : "Security Status"}
-            </span>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {isRTL ? "تسجيل دخول آمن بواسطة رموز الجلسات المعتمدة" : "Protected via authenticated browser tokens"}
-            </span>
-          </div>
-
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-[8px] self-start sm:self-center">
-            <Check className="size-3.5" />
-            <span>{isRTL ? "آمن ومحمي" : "Secure"}</span>
-          </span>
-        </div>
-
-        {/* Row 2: Active Session */}
-        <div className="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex flex-col">
-            <span className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-100">
-              {isRTL ? "الجلسة الحالية" : "Current Session"}
-            </span>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {isRTL ? "الجهاز الحالي نشط ومتصل بالنظام" : "This browser device is active and verified"}
-            </span>
-          </div>
-
-          <span className="text-xs text-zinc-600 dark:text-zinc-300 font-mono bg-zinc-100 dark:bg-zinc-800 px-2.5 py-1 rounded-[8px] self-start sm:self-center">
-            {resolvedAuthUser ? `Session: #${resolvedAuthUser}` : "Session: Default"}
-          </span>
-        </div>
       </div>
     );
   };
@@ -1155,9 +1261,12 @@ export function AccountPreferencesModal({
     return (
       <div className="flex flex-col gap-3 w-full">
         {/* User Mini Profile Card at the top */}
-        <div
+        {hasUser && (
+        <button
+          type="button"
           onClick={() => setActiveSection("profile")}
-          className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] corner-squircle p-4 flex items-center justify-between gap-3 active:scale-[0.99] transition-transform cursor-pointer"
+          aria-label={isRTL ? `فتح الملف الشخصي: ${userName || userEmail}` : `Open profile: ${userName || userEmail}`}
+          className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] corner-squircle p-4 flex items-center justify-between gap-3 active:scale-[0.99] transition-transform cursor-pointer text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
         >
           <div className="flex items-center gap-3 min-w-0">
             <Avatar className="size-12 !rounded-[12px] corner-squircle overflow-hidden shrink-0 border border-black/5 dark:border-white/10">
@@ -1176,7 +1285,8 @@ export function AccountPreferencesModal({
             </div>
           </div>
           <ChevronRight className={cn("size-5 text-zinc-400 shrink-0", isRTL && "rotate-180")} />
-        </div>
+        </button>
+        )}
 
         {/* Section List Items */}
         <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800/90 rounded-[16px] corner-squircle divide-y divide-zinc-200/80 dark:divide-zinc-800/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] overflow-hidden">
@@ -1185,7 +1295,7 @@ export function AccountPreferencesModal({
               key={section.key}
               type="button"
               onClick={() => setActiveSection(section.key)}
-              className="w-full p-4 flex items-center justify-between gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors text-start cursor-pointer"
+              className="w-full p-4 flex items-center justify-between gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors text-start cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-600"
             >
               <div className="flex items-center gap-3 min-w-0">
                 <div className="size-9 rounded-[10px] corner-squircle bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0">
@@ -1217,8 +1327,6 @@ export function AccountPreferencesModal({
         return renderPreferencesDetail();
       case "plan":
         return renderPlanDetail();
-      case "security":
-        return renderSecurityDetail();
       default:
         return renderProfileDetail();
     }

@@ -39,7 +39,7 @@ export interface UserAccountProps {
   accountPreferencesProps?: Partial<AccountPreferencesModalProps>;
   apiClient?: any;
   apiUrl?: string;
-  onUpdateUser?: (payload: { language?: string; display_mode?: 0 | 1 | 2 }) => Promise<any>;
+  onUpdateUser?: AccountPreferencesModalProps["onUpdateUser"];
 }
 
 export const UserAccount = ({
