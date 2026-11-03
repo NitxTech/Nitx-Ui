@@ -102,23 +102,11 @@
   }
 }
 
-@supports (corner-shape: superellipse(1.79)) {
-  .card,
-  [class*="card"],
-  [class*="border"],
-  [class*="rounded"],
-  button,
-  [role="button"],
-  dialog,
-  [role="dialog"],
-  input,
-  select,
-  textarea,
-  .corner-squircle,
-  .squircle {
-    corner-shape: superellipse(1.79);
-  }
-}
+/* `squircle` is the keyword for superellipse(2), the curve squircle.style
+   draws. A superellipse bends more gently than a circle, so it needs a
+   larger border-radius than a round corner to read the same: a 40px
+   control takes 12px, not 8px. Browsers without corner-shape keep the
+   plain border-radius, which is the intended fallback. */
 
 @layer utilities {
   .corner-squircle {
@@ -127,13 +115,5 @@
   .squircle {
     corner-shape: squircle;
     border-radius: 24px;
-  }
-  @supports (corner-shape: superellipse(1.79)) {
-    .corner-squircle {
-      corner-shape: superellipse(1.79);
-    }
-    .squircle {
-      corner-shape: superellipse(1.79);
-    }
   }
 }

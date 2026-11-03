@@ -4,15 +4,11 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   Check,
   Download,
-  FileText,
-  Globe,
-  Image as ImageIcon,
-  MoreHorizontal,
+  EllipsisVertical,
   Play,
   Trash2,
 } from "lucide-react";
 
-import { Card } from "../../ui/card";
 import { Input } from "../../ui/input";
 import {
   DropdownMenu,
@@ -32,7 +28,14 @@ import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import { useAssetsConfig } from "../context";
 import { useAssetsStore, type AssetsViewType } from "../hooks/use-assets-store";
-import { assetCardIconButtonClass } from "../lib/card-styles";
+import {
+  assetCardIconButtonClass,
+  assetCardOverlayButtonClass,
+  assetListCellMdClass,
+  assetListColumnsClass,
+  assetListRowClass,
+  formatAddedDate,
+} from "../lib/card-styles";
 import type { Asset } from "../types";
 import AssetThumbnail, { type AssetThumbnailKind } from "./AssetThumbnail";
 
@@ -54,18 +57,8 @@ export interface AssetCardProps {
   renderActions?: (asset: Asset) => React.ReactNode;
 }
 
-/**
- * Card geometry, kept in one place so the grid card, the list card and
- * their skeletons stay concentric: an inner radius is the outer radius minus
- * the padding between them, which is what makes nested corners read as one
- * shape instead of two.
- */
-const GRID_CARD_RADIUS = "rounded-[20px]";
-const LIST_CARD_RADIUS = "rounded-[16px]";
-/** List card padding is 8px, so 16 - 8 = 8. */
-const LIST_THUMB_RADIUS = "rounded-[8px]";
-/** List thumbnail: compact on a phone, the full 162x80 tile from `sm` up. */
-const LIST_THUMB_SIZE = "h-16 w-28 sm:h-20 sm:w-[162px]";
+/** Grid tile geometry from the design: a near-square photo with 8px corners. */
+const GRID_TILE_CLASS = "aspect-[8/7] w-full rounded-[14px]";
 
 const RenameIcon = (
   <svg
@@ -259,30 +252,44 @@ const AssetCard: React.FC<AssetCardProps> = ({
 
   const showPlayBadge = data.type === "video" && data.is_ready;
 
-  const renderTypeIcon = () => {
-    switch (data.type) {
-      case "image":
-        return <ImageIcon className="size-3.5 sm:size-4 text-white" aria-hidden />;
-      case "video":
-        return (
-          <Play
-            className="size-3 sm:size-3.5 fill-white text-white translate-x-[0.5px]"
-            aria-hidden
-          />
-        );
-      case "document":
-        return <FileText className="size-3.5 sm:size-4 text-white" aria-hidden />;
-      case "link":
-        return <Globe className="size-3.5 sm:size-4 text-white" aria-hidden />;
-      default:
-        return <FileText className="size-3.5 sm:size-4 text-white" aria-hidden />;
+  const sizeLabel =
+    (data.type === "image" && data.image?.size) ||
+    (data.type === "video" && data.video?.size) ||
+    (data.type === "document" && data.document?.size) ||
+    "";
+
+  const renderMedia = (variant: "grid" | "list") => {
+    const inGrid = variant === "grid";
+    if (thumbnail.processing) {
+      return (
+        <img
+          src={images.clock}
+          alt={data.name}
+          className={cn(
+            "size-full object-contain bg-amber-50 dark:bg-amber-900/20",
+            inGrid ? "p-8" : "p-1"
+          )}
+        />
+      );
     }
+    return (
+      <AssetThumbnail
+        src={thumbnail.src}
+        alt={data.name}
+        kind={thumbnail.kind}
+        className={cn(
+          "size-full object-cover",
+          inGrid && "transition-transform duration-300 group-hover:scale-[1.03]"
+        )}
+        iconClassName={inGrid ? "size-8 sm:size-10" : "size-3.5"}
+      />
+    );
   };
 
   const renderDropdownMenuItems = () => (
     <DropdownMenuContent
       align="end"
-      className="rounded-[16px] corner-squircle min-w-[160px] p-1.5"
+      className="rounded-[14px] corner-squircle min-w-[160px] p-1"
       onClick={(e) => e.stopPropagation()}
       onCloseAutoFocus={(event) => event.preventDefault()}
     >
@@ -293,7 +300,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
               e.stopPropagation();
               setRenamingItemId(data.uuid);
             }}
-            className="flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium"
+            className="flex gap-3 rounded-[8px] px-2.5 py-1.5 cursor-pointer text-xs"
           >
             {RenameIcon}
             <span>{t("assets.assetCard.rename")}</span>
@@ -304,7 +311,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
                 e.stopPropagation();
                 onMove(data.uuid, "asset");
               }}
-              className="flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium"
+              className="flex gap-3 rounded-[8px] px-2.5 py-1.5 cursor-pointer text-xs"
             >
               {MoveIcon}
               <span>{t("assets.assetCard.moveTo")}</span>
@@ -316,7 +323,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
                 e.stopPropagation();
                 onDownload(data);
               }}
-              className="flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium"
+              className="flex gap-3 rounded-[8px] px-2.5 py-1.5 cursor-pointer text-xs"
             >
               <Download className="size-4 stroke-[1.5]" />
               <span>{t("assets.assetCard.download")}</span>
@@ -330,7 +337,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
             e.preventDefault();
             navigation.toLinkEdit(data.link.uuid);
           }}
-          className="flex gap-3 rounded-[10px] px-3 py-2 cursor-pointer text-xs sm:text-sm font-medium"
+          className="flex gap-3 rounded-[8px] px-2.5 py-1.5 cursor-pointer text-xs"
         >
           {RenameIcon}
           <span>{t("assets.assetCard.edit")}</span>
@@ -342,7 +349,7 @@ const AssetCard: React.FC<AssetCardProps> = ({
           e.stopPropagation();
           onDelete?.();
         }}
-        className="flex gap-3 px-3 py-2 rounded-[10px] text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-950/40 cursor-pointer text-xs sm:text-sm font-medium"
+        className="flex gap-3 rounded-[8px] px-2.5 py-1.5 text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-950/40 cursor-pointer text-xs"
       >
         <Trash2 className="size-4 text-red-600" />
         <span>{t("assets.assetCard.delete")}</span>
@@ -350,22 +357,45 @@ const AssetCard: React.FC<AssetCardProps> = ({
     </DropdownMenuContent>
   );
 
-  // LIST / GRID-LIST VIEW
+  const renderMenu = (buttonClass: string) => (
+    <DropdownMenu
+      open={isMenuOpen}
+      onOpenChange={(value) => setOpenMenuId(value ? data.uuid : null)}
+    >
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger disabled={allowSelect} asChild>
+            <button
+              type="button"
+              className={buttonClass}
+              aria-label={t("assets.assetCard.moreOptions")}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <EllipsisVertical className="size-4" aria-hidden />
+            </button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{t("assets.assetCard.moreOptions")}</p>
+        </TooltipContent>
+      </Tooltip>
+      {renderDropdownMenuItems()}
+    </DropdownMenu>
+  );
+
+  // LIST / GRID-LIST VIEW: one 40px row on the shared column template.
   if (isListLike) {
     return (
       <TooltipProvider>
-        <Card
+        <div
           className={cn(
-            // `isolate` keeps the card's own z-indexed children inside the
-            // card. Without it they joined the page's stacking context and
-            // a card scrolled under the sticky search bar painted over it.
-            "group relative isolate bg-card corner-squircle p-2 cursor-pointer transition-all border shadow-xs",
-            LIST_CARD_RADIUS,
+            "group relative isolate cursor-pointer transition-colors ps-2 pe-1.5",
+            assetListRowClass,
+            assetListColumnsClass,
             selected
-              ? "border-primary bg-primary/10 dark:bg-primary/20 ring-1 ring-primary"
-              : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700",
-            "flex flex-row items-center gap-3 sm:gap-4",
-            isDragging && "opacity-50 scale-95"
+              ? "border-[#0000FF] bg-blue-50/60 dark:bg-blue-950/30"
+              : "hover:border-zinc-300 dark:hover:border-zinc-700",
+            isDragging && "opacity-50"
           )}
           onClick={!isRenaming && onClick ? onClick : undefined}
           data-asset-id={data.uuid}
@@ -373,143 +403,93 @@ const AssetCard: React.FC<AssetCardProps> = ({
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
         >
-          <div
-            className={cn(
-              "relative shrink-0 corner-squircle overflow-hidden bg-zinc-100 dark:bg-zinc-800",
-              LIST_THUMB_SIZE,
-              LIST_THUMB_RADIUS
-            )}
-          >
-            {thumbnail.processing ? (
-              <img
-                src={images.clock}
-                alt={data.name}
-                className={cn(
-                  "size-full object-contain p-4 bg-amber-50 dark:bg-amber-900/20",
-                  allowSelect && "brightness-75"
-                )}
-              />
-            ) : (
-              <AssetThumbnail
-                src={thumbnail.src}
-                alt={data.name}
-                kind={thumbnail.kind}
-                className={cn(
-                  "size-full object-cover shrink-0",
-                  allowSelect && "brightness-75"
-                )}
-                iconClassName="size-5"
-              />
-            )}
-            {showPlayBadge && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="size-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white">
-                  <Play className="size-3.5 fill-white text-white translate-x-[0.5px]" />
-                </div>
-              </div>
-            )}
+          {/* Name */}
+          <div className="flex items-center gap-2.5 min-w-0">
             {allowSelect && (
               <span
                 className={cn(
-                  "absolute top-2 start-2 size-4 shrink-0 rounded-[4px] flex items-center justify-center border",
+                  "size-4 shrink-0 rounded-[6px] border flex items-center justify-center",
                   selected
-                    ? "border-primary bg-primary text-white"
-                    : "border-white/80 bg-black/40 text-transparent"
+                    ? "border-[#0000FF] bg-[#0000FF] text-white"
+                    : "border-zinc-300 bg-white text-transparent dark:border-zinc-600 dark:bg-zinc-900"
                 )}
+                aria-hidden
               >
-                {selected && <Check className="size-3" />}
+                {selected && <Check className="size-3 stroke-[3]" />}
               </span>
+            )}
+            <div className="relative size-6 shrink-0 rounded-[6px] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+              {renderMedia("list")}
+            </div>
+            {isRenaming ? (
+              <Input
+                ref={inputRef}
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleBlur}
+                onFocus={(e) => e.currentTarget.select()}
+                className="h-7 rounded-[8px] px-2 text-sm"
+                maxLength={50}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate text-start pointer-events-none">
+                    {data.name}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-lg">
+                  {data.name}
+                </TooltipContent>
+              </Tooltip>
             )}
           </div>
 
-          <div className="w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0">
-            <div className="flex flex-col flex-1 min-w-0">
-              {isRenaming ? (
-                <Input
-                  ref={inputRef}
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onBlur={handleBlur}
-                  onFocus={(e) => e.currentTarget.select()}
-                  className="h-7 text-sm"
-                  maxLength={50}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              ) : (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <h2 className="text-xs sm:text-sm text-start font-semibold text-foreground truncate max-w-full pointer-events-none">
-                      {data.name}
-                    </h2>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-lg">
-                    {data.name}
-                  </TooltipContent>
-                </Tooltip>
-              )}
-              <p className="text-xs text-muted-foreground truncate max-w-32 pointer-events-none text-start">
-                {data.type === "image" && data.image?.size}
-                {data.type === "video" && data.video?.size}
-                {data.type === "document" && data.document?.size}
-              </p>
-            </div>
+          {/* Size */}
+          <span
+            className={cn(
+              assetListCellMdClass,
+              "text-xs text-zinc-600 dark:text-zinc-400 truncate"
+            )}
+          >
+            {sizeLabel}
+          </span>
 
-            <div
-              className="relative flex items-center shrink-0 gap-1.5 [&>button]:size-8 [&>button]:rounded-[8px] [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:text-zinc-700 dark:[&>button]:text-zinc-200 hover:[&>button]:bg-zinc-100 dark:hover:[&>button]:bg-zinc-800 transition-colors"
-              data-nitxui-card-actions=""
-              onClick={(e) => e.stopPropagation()}
-            >
-              {renderActions?.(data)}
+          {/* Added date */}
+          <span
+            className={cn(
+              assetListCellMdClass,
+              "text-xs text-zinc-600 dark:text-zinc-400 truncate"
+            )}
+          >
+            {formatAddedDate(data.created_at)}
+          </span>
 
-              <DropdownMenu
-                open={isMenuOpen}
-                onOpenChange={(value) => setOpenMenuId(value ? data.uuid : null)}
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <DropdownMenuTrigger
-                      disabled={allowSelect}
-                      className="disabled:text-muted-foreground focus:outline-none"
-                      asChild
-                    >
-                      <button
-                        type="button"
-                        className="flex size-8 shrink-0 items-center justify-center rounded-[8px] text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-                        aria-label={t("assets.assetCard.moreOptions")}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <MoreHorizontal className="size-4" aria-hidden />
-                      </button>
-                    </DropdownMenuTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{t("assets.assetCard.moreOptions")}</p>
-                  </TooltipContent>
-                </Tooltip>
-                {renderDropdownMenuItems()}
-              </DropdownMenu>
-            </div>
+          {/* Action */}
+          <div
+            className="flex items-center justify-end gap-1 shrink-0"
+            data-nitxui-card-actions=""
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderActions?.(data)}
+            {renderMenu(assetCardIconButtonClass)}
           </div>
-        </Card>
+        </div>
       </TooltipProvider>
     );
   }
 
-  // GRID VIEW (edge-to-edge media with a hover scrim)
+  // GRID VIEW: an edge-to-edge tile. The name and the menu live in a scrim
+  // that appears on hover (always, on a touch screen, which has no hover).
   return (
     <TooltipProvider>
-      <Card
+      <div
         className={cn(
-          // `isolate`: see the list card. The overlay below sits at z-20 and
-          // the checkbox at z-30, the same values as the sticky header, so
-          // without a stacking context of their own they won the paint order
-          // and rode over the search bar.
-          "group relative isolate aspect-[4/5] w-full corner-squircle overflow-hidden cursor-pointer select-none",
-          GRID_CARD_RADIUS,
-          "border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100 dark:bg-zinc-900 shadow-xs",
-          "transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-700",
-          selected && "ring-2 ring-primary ring-offset-2 border-primary",
+          "group relative isolate overflow-hidden cursor-pointer select-none",
+          GRID_TILE_CLASS,
+          "bg-zinc-100 dark:bg-zinc-900",
           isDragging && "opacity-50 scale-95"
         )}
         onClick={!isRenaming && onClick ? onClick : undefined}
@@ -518,151 +498,79 @@ const AssetCard: React.FC<AssetCardProps> = ({
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        {/* Media Fill Container */}
-        <div className="absolute inset-0 size-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-          {thumbnail.processing ? (
-            <img
-              src={images.clock}
-              alt={data.name}
-              className={cn(
-                "size-full object-contain p-8 bg-amber-50 dark:bg-amber-900/20",
-                allowSelect && "brightness-75"
-              )}
-            />
-          ) : (
-            <AssetThumbnail
-              src={thumbnail.src}
-              alt={data.name}
-              kind={thumbnail.kind}
-              className={cn(
-                "size-full object-cover transition-all duration-300",
-                "group-hover:scale-105 group-hover:blur-[1px]",
-                allowSelect && "brightness-75"
-              )}
-              iconClassName="size-8 sm:size-10"
-            />
-          )}
-
-          {showPlayBadge && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-transform duration-300 group-hover:scale-110">
-              <div className="size-11 sm:size-12 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white shadow-lg">
-                <Play className="size-5 fill-white text-white translate-x-0.5" />
-              </div>
-            </div>
-          )}
+        <div className="absolute inset-0 overflow-hidden">
+          {renderMedia("grid")}
         </div>
 
-        {/* Selection Checkbox (always visible when allowSelect is enabled) */}
+        {showPlayBadge && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+            <div className="size-9 rounded-full bg-black/55 backdrop-blur-sm flex items-center justify-center text-white">
+              <Play className="size-4 fill-white text-white translate-x-px" />
+            </div>
+          </div>
+        )}
+
+        {/* Selection: a white box with a dark tick at the top-start corner.
+            Unselected tiles reveal the empty box on hover. */}
         {allowSelect && (
           <span
             className={cn(
-              "absolute top-3 end-3 z-30 size-5 shrink-0 rounded-[6px] flex items-center justify-center border transition-all pointer-events-auto shadow-sm",
+              "absolute top-2.5 start-2.5 z-30 size-[18px] rounded-[6px] bg-white shadow-sm flex items-center justify-center transition-opacity",
               selected
-                ? "border-primary bg-primary text-white"
-                : "border-white/80 bg-black/45 text-transparent hover:border-white hover:bg-black/60"
+                ? "text-zinc-900"
+                : "border border-zinc-300 text-transparent opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
             )}
+            aria-hidden
           >
-            {selected && <Check className="size-3.5 stroke-[2.5]" />}
+            {selected && <Check className="size-3 stroke-[3]" />}
           </span>
         )}
 
-        {/* Hover / Active Overlay. A touch screen has no hover, so there it
-            is always on: the name and the actions were otherwise unreachable
-            on a phone. */}
         <div
           className={cn(
-            "absolute inset-0 z-20 flex flex-col justify-between p-3 transition-opacity duration-200 pointer-events-none",
+            "absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-2 p-2 pt-10",
+            "bg-gradient-to-t from-black/70 via-black/30 to-transparent",
+            "transition-opacity duration-200",
             isMenuOpen || isRenaming
               ? "opacity-100"
               : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
           )}
         >
-          {/* Top gradient scrim */}
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none" />
-
-          {/* Top Left: Type Icon + Title */}
-          <div className="relative z-10 flex items-center justify-between gap-2 w-full">
-            <div
-              className={cn(
-                "flex items-center gap-2 min-w-0 pointer-events-auto",
-                // Leave room for the selection checkbox beside the title.
-                allowSelect ? "max-w-[calc(100%-36px)]" : "max-w-full"
-              )}
-            >
-              <div className="size-7 sm:size-8 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center text-white shrink-0 shadow-sm">
-                {renderTypeIcon()}
-              </div>
-
-              {isRenaming ? (
-                <Input
-                  ref={inputRef}
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onBlur={handleBlur}
-                  onFocus={(e) => e.currentTarget.select()}
-                  className="h-7 text-xs sm:text-sm bg-black/60 backdrop-blur-md text-white border-white/30 focus-visible:ring-white/50 w-full max-w-[170px]"
-                  maxLength={50}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              ) : (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-full drop-shadow-sm select-none">
-                      {data.name}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-lg">
-                    {data.name}
-                  </TooltipContent>
-                </Tooltip>
-              )}
-            </div>
-          </div>
-
-          {/* Bottom gradient scrim */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
-
-          {/* Bottom Right: Actions (Send to Screen, Options) */}
-          <div className="relative z-10 flex items-center justify-end w-full gap-2 pointer-events-auto">
-            <div
-              className="relative flex items-center shrink-0 gap-2 [&>button]:size-8 [&>button]:rounded-full [&>button]:bg-black/50 [&>button]:text-white [&>button]:backdrop-blur-md [&>button]:border [&>button]:border-white/10 hover:[&>button]:bg-black/75 hover:[&>button]:scale-105 active:[&>button]:scale-95 transition-all shadow-sm"
-              data-nitxui-card-actions=""
+          {isRenaming ? (
+            <Input
+              ref={inputRef}
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={handleBlur}
+              onFocus={(e) => e.currentTarget.select()}
+              className="h-7 rounded-[8px] px-2 text-xs bg-black/60 backdrop-blur-sm text-white border-white/30 focus-visible:ring-white/50 min-w-0"
+              maxLength={50}
               onClick={(e) => e.stopPropagation()}
-            >
-              {renderActions?.(data)}
+            />
+          ) : (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs font-medium text-white truncate drop-shadow-sm min-w-0 pb-1">
+                  {data.name}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-lg">
+                {data.name}
+              </TooltipContent>
+            </Tooltip>
+          )}
 
-              <DropdownMenu
-                open={isMenuOpen}
-                onOpenChange={(value) => setOpenMenuId(value ? data.uuid : null)}
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <DropdownMenuTrigger
-                      disabled={allowSelect}
-                      className="disabled:opacity-40 focus:outline-none"
-                      asChild
-                    >
-                      <button
-                        type="button"
-                        className={assetCardIconButtonClass}
-                        aria-label={t("assets.assetCard.moreOptions")}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <MoreHorizontal className="size-4 text-white" aria-hidden />
-                      </button>
-                    </DropdownMenuTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{t("assets.assetCard.moreOptions")}</p>
-                  </TooltipContent>
-                </Tooltip>
-                {renderDropdownMenuItems()}
-              </DropdownMenu>
-            </div>
+          <div
+            className="flex items-center gap-1 shrink-0"
+            data-nitxui-card-actions=""
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderActions?.(data)}
+            {renderMenu(assetCardOverlayButtonClass)}
           </div>
         </div>
-      </Card>
+      </div>
     </TooltipProvider>
   );
 };
@@ -676,35 +584,33 @@ export const AssetCardSkeleton = ({
 
   if (isListLike) {
     return (
-      <Card
+      <div
         className={cn(
-          "relative bg-card corner-squircle p-2 transition-all border border-zinc-200/60 dark:border-zinc-800/60 flex flex-row items-center gap-3 sm:gap-4 shadow-xs",
-          LIST_CARD_RADIUS
+          assetListRowClass,
+          assetListColumnsClass,
+          "ps-2 pe-1.5 border-zinc-200/60 dark:border-zinc-800/60"
         )}
       >
-        <Skeleton
-          className={cn("corner-squircle shrink-0", LIST_THUMB_SIZE, LIST_THUMB_RADIUS)}
-        />
-        <div className="w-full flex-1 flex justify-between items-center gap-2 sm:gap-3 min-w-0">
-          <div className="flex flex-col gap-1.5 w-full min-w-0">
-            <Skeleton className="w-4/5 h-3 sm:h-4" />
-            <Skeleton className="w-3/5 h-2.5 sm:h-3" />
-          </div>
-          <Skeleton className="size-8 rounded-[8px] shrink-0" />
+        <div className="flex items-center gap-2.5 min-w-0">
+          <Skeleton className="size-6 rounded-[6px] shrink-0" />
+          <Skeleton className="h-3.5 w-40 max-w-[60%]" />
         </div>
-      </Card>
+        <Skeleton className={cn(assetListCellMdClass, "h-3 w-12")} />
+        <Skeleton className={cn(assetListCellMdClass, "h-3 w-20")} />
+        <div className="flex justify-end">
+          <Skeleton className="size-7 rounded-[8px]" />
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card
+    <Skeleton
       className={cn(
-        "relative aspect-[4/5] w-full corner-squircle overflow-hidden border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-100 dark:bg-zinc-900/60 shadow-xs",
-        GRID_CARD_RADIUS
+        GRID_TILE_CLASS,
+        "bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/60"
       )}
-    >
-      <Skeleton className="size-full" />
-    </Card>
+    />
   );
 };
 

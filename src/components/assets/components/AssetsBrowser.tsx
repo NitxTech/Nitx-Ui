@@ -10,6 +10,7 @@ import { useAssetsConfig } from "../context";
 import {
   useAssetsMenuDismiss,
   useAssetsStore,
+  type AssetsSortBy,
   type AssetsViewType,
 } from "../hooks/use-assets-store";
 import {
@@ -25,6 +26,10 @@ import {
   useRenameFolderMutation,
 } from "../hooks/use-assets-query";
 import { useLazyLoading } from "../hooks/use-lazy-loading";
+import {
+  assetListCellMdClass,
+  assetListColumnsClass,
+} from "../lib/card-styles";
 import type { Asset, Folder } from "../types";
 import AssetsTabbar from "./AssetsTabbar";
 import AssetsHeader from "./AssetsHeader";
@@ -84,6 +89,29 @@ const getExtensionFromMimeType = (mimeType: string): string => {
   return mimeToExt[mimeType] || "";
 };
 
+/** Orders folders or assets the way the header's Filter menu asks. */
+function sortItems<T extends { name: string; created_at?: string }>(
+  items: T[],
+  sortBy: AssetsSortBy
+): T[] {
+  const time = (item: T) => new Date(item.created_at ?? 0).getTime() || 0;
+  const byName = (a: T, b: T) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+
+  const sorted = [...items];
+  switch (sortBy) {
+    case "oldest":
+      return sorted.sort((a, b) => time(a) - time(b));
+    case "name_asc":
+      return sorted.sort(byName);
+    case "name_desc":
+      return sorted.sort((a, b) => byName(b, a));
+    case "last_added":
+    default:
+      return sorted.sort((a, b) => time(b) - time(a));
+  }
+}
+
 const saveBlob = (blob: Blob, fileName: string) => {
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -113,6 +141,7 @@ const AssetsBrowser = ({
   const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
   const viewType = useAssetsStore((s) => s.viewType);
   const setViewType = useAssetsStore((s) => s.setViewType);
+  const sortBy = useAssetsStore((s) => s.sortBy);
 
   // Closes an open card menu on any outside interaction.
   useAssetsMenuDismiss();
@@ -188,17 +217,20 @@ const AssetsBrowser = ({
         a.name.toLowerCase().includes(lowercased)
       );
     }
-    return filtered;
-  }, [assets, activeTab, searchTerm]);
+    return sortItems(filtered, sortBy);
+  }, [assets, activeTab, searchTerm, sortBy]);
 
   const filteredDirectories = React.useMemo(() => {
     if (!features.folders || activeTab !== "all") return [] as Folder[];
+    let filtered = folders;
     if (searchTerm) {
       const lowercased = searchTerm.toLowerCase();
-      return folders.filter((f) => f.name.toLowerCase().includes(lowercased));
+      filtered = folders.filter((f) =>
+        f.name.toLowerCase().includes(lowercased)
+      );
     }
-    return folders;
-  }, [folders, activeTab, searchTerm, features.folders]);
+    return sortItems(filtered, sortBy);
+  }, [folders, activeTab, searchTerm, features.folders, sortBy]);
 
   const {
     visibleItems: visibleAssets,
@@ -666,6 +698,33 @@ const AssetsBrowser = ({
   const isEmpty =
     !isFetching && !filteredAssets.length && !filteredDirectories.length;
 
+  const isList = viewType === "list" || viewType === "grid-list";
+
+  // Folders and assets each get their own grid so a short folder row never
+  // shares a track with a tall tile. In the list both are plain rows.
+  const gridClass = isList
+    ? "grid grid-cols-1 gap-1.5"
+    : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3";
+
+  const listHeader = isList && (
+    <div
+      className={cn(
+        assetListColumnsClass,
+        "ps-2 pe-1.5 pb-1 text-xs text-zinc-500 dark:text-zinc-400"
+      )}
+      aria-hidden
+    >
+      <span>{t("assets.assetList.columnName")}</span>
+      <span className={assetListCellMdClass}>
+        {t("assets.assetList.columnSize")}
+      </span>
+      <span className={assetListCellMdClass}>
+        {t("assets.assetList.columnAddedDate")}
+      </span>
+      <span className="text-end">{t("assets.assetList.columnAction")}</span>
+    </div>
+  );
+
   return (
     <div
       className={cn(
@@ -712,22 +771,22 @@ const AssetsBrowser = ({
         {isEmpty ? (
           <EmptyList image={emptyImage} />
         ) : (
-          <div className="w-full">
-            <div
-              className={cn(
-                "h-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4 pb-5",
-                // The selection bar is fixed over the viewport, so the last
-                // row needs room to clear it, plus whatever bottom chrome the
-                // host app reports in --nitx-bottom-inset, or it cannot be
-                // reached.
-                selected.length > 0 &&
-                  "pb-[calc(6rem_+_var(--nitx-bottom-inset,0px))] md:pb-[calc(8rem_+_var(--nitx-bottom-inset,0px))]",
-                viewType === "list" &&
-                  "grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-2 md:gap-3",
-                viewType === "grid-list" &&
-                  "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3"
-              )}
-            >
+          <div
+            className={cn(
+              "w-full flex flex-col pb-5",
+              isList ? "gap-1.5" : "gap-3",
+              // The selection bar is fixed over the viewport, so the last
+              // row needs room to clear it, plus whatever bottom chrome the
+              // host app reports in --nitx-bottom-inset, or it cannot be
+              // reached.
+              selected.length > 0 &&
+                "pb-[calc(6rem_+_var(--nitx-bottom-inset,0px))] md:pb-[calc(8rem_+_var(--nitx-bottom-inset,0px))]"
+            )}
+          >
+            {listHeader}
+
+            {filteredDirectories.length > 0 && (
+              <div className={gridClass}>
               {filteredDirectories.map((folder, i) => (
                 <div
                   key={folder.id}
@@ -768,6 +827,10 @@ const AssetsBrowser = ({
                   />
                 </div>
               ))}
+              </div>
+            )}
+
+            <div className={gridClass}>
               {visibleAssets.map((asset, i) => (
                 <div
                   key={asset.uuid}
@@ -806,13 +869,13 @@ const AssetsBrowser = ({
               )}
 
               {hasMore && !loadingMore && (
-                <div ref={observerRef} className="h-4 w-full" />
+                <div ref={observerRef} className="h-4 w-full col-span-full" />
               )}
 
               {isFetching &&
                 !filteredAssets.length &&
                 !filteredDirectories.length &&
-                [...Array(20)].map((_, i) => (
+                [...Array(18)].map((_, i) => (
                   <AssetCardSkeleton viewType={viewType} key={i} />
                 ))}
             </div>

@@ -724,6 +724,10 @@
       "video": "فيديو"
     },
     "assetList": {
+      "columnName": "الاسم",
+      "columnSize": "الحجم",
+      "columnAddedDate": "تاريخ الإضافة",
+      "columnAction": "الإجراء",
       "downloading": "جارٍ تنزيل \"{{name}}\"...",
       "downloadedSuccess": "تم تنزيل \"{{name}}\" بنجاح",
       "downloadFailed": "فشل تنزيل \"{{name}}\". يرجى إعادة المحاولة.",
@@ -775,7 +779,12 @@
       "gridView": "عرض شبكي",
       "listView": "عرض قائمة",
       "multiSelect": "تحديد متعدد",
-      "actions": "الإجراءات"
+      "actions": "الإجراءات",
+      "filter": "تصفية:",
+      "sortLastAdded": "آخر إضافة",
+      "sortOldest": "الأقدم",
+      "sortNameAsc": "الاسم (أ-ي)",
+      "sortNameDesc": "الاسم (ي-أ)"
     },
     "assetsPreview": {
       "of": "من",

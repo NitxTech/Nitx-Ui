@@ -1,10 +1,15 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Check, Download, FilePenLine, MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  Check,
+  Download,
+  EllipsisVertical,
+  FilePenLine,
+  Folder as FolderIcon,
+  Trash2,
+} from "lucide-react";
 
-import { Card, CardContent, CardHeader } from "../../ui/card";
-import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import {
   DropdownMenu,
@@ -21,8 +26,14 @@ import {
 } from "../../ui/tooltip";
 import { cn } from "../../../lib/utils";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
-import { useAssetsConfig } from "../context";
 import { useAssetsStore, type AssetsViewType } from "../hooks/use-assets-store";
+import {
+  assetCardIconButtonClass,
+  assetListCellMdClass,
+  assetListColumnsClass,
+  assetListRowClass,
+  formatAddedDate,
+} from "../lib/card-styles";
 import type { Folder } from "../types";
 
 const MoveIcon = (
@@ -69,6 +80,11 @@ interface FolderCardProps {
   renderMenuItems?: (folder: Folder) => React.ReactNode;
 }
 
+/**
+ * A folder is one 40px row in both views: a blue folder glyph, the name and
+ * the options menu. In the grid it occupies one cell; in the list it lays
+ * its cells out on the shared column template so it lines up with assets.
+ */
 const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
   (
     {
@@ -92,13 +108,13 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
     ref
   ) => {
     const { t } = useNitxUiTranslation();
-    const { images } = useAssetsConfig();
     const renamingItemId = useAssetsStore((s) => s.renamingItemId);
     const setRenamingItemId = useAssetsStore((s) => s.setRenamingItemId);
     // Menu open state is shared across cards so only one can be open at a time.
     const openMenuId = useAssetsStore((s) => s.openMenuId);
     const setOpenMenuId = useAssetsStore((s) => s.setOpenMenuId);
 
+    const isList = viewType !== "grid";
     const isRenaming = renamingItemId === data.id;
     const [newTitle, setNewTitle] = useState(data.name);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -157,20 +173,155 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
       isCancelledRef.current = false;
     }, [handleRename]);
 
+    const itemCount = `${data.assets_count || 0} ${
+      data.assets_count === 1
+        ? t("assets.folderCard.item")
+        : t("assets.folderCard.items")
+    }`;
+
+    const nameCell = (
+      <div className="flex items-center gap-2.5 min-w-0">
+        {allowSelect && (
+          <span
+            className={cn(
+              "size-4 shrink-0 rounded-[5px] border flex items-center justify-center",
+              selected
+                ? "border-[#0000FF] bg-[#0000FF] text-white"
+                : "border-zinc-300 bg-white text-transparent dark:border-zinc-600 dark:bg-zinc-900"
+            )}
+            aria-hidden
+          >
+            {selected && <Check className="size-3 stroke-[3]" />}
+          </span>
+        )}
+        <FolderIcon
+          className="size-5 shrink-0 fill-[#0000FF] text-[#0000FF] dark:fill-blue-400 dark:text-blue-400"
+          aria-hidden
+        />
+        {isRenaming ? (
+          <Input
+            ref={inputRef}
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
+            onFocus={(e) => e.currentTarget.select()}
+            maxLength={50}
+            className="h-7 rounded-[8px] px-2 text-sm"
+            onClick={(e) => e.stopPropagation()}
+          />
+        ) : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate text-start pointer-events-none">
+                {data.name}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {data.name} · {itemCount}
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </div>
+    );
+
+    const actionsCell = (
+      <div
+        className="flex items-center justify-end shrink-0"
+        data-nitxui-card-actions=""
+        // Card-level onClick navigates into the folder; the actions area must not trigger it.
+        onClick={(e) => e.stopPropagation()}
+      >
+        <DropdownMenu
+          open={openMenuId === data.id}
+          onOpenChange={(value) => setOpenMenuId(value ? data.id : null)}
+        >
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DropdownMenuTrigger disabled={allowSelect} asChild>
+                <button
+                  type="button"
+                  className={assetCardIconButtonClass}
+                  aria-label={t("assets.folderCard.moreOptions")}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <EllipsisVertical className="size-4" aria-hidden />
+                </button>
+              </DropdownMenuTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t("assets.folderCard.moreOptions")}</p>
+            </TooltipContent>
+          </Tooltip>
+          <DropdownMenuContent
+            align="end"
+            className="rounded-[14px] corner-squircle min-w-[160px] p-1"
+            onClick={(e) => e.stopPropagation()}
+            onCloseAutoFocus={(event) => event.preventDefault()}
+          >
+            {renderMenuItems?.(data)}
+            <DropdownMenuItem
+              className="flex gap-3 rounded-[8px] px-2.5 py-1.5 text-xs cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setRenamingItemId(data.id);
+              }}
+            >
+              <FilePenLine className="size-4 stroke-[1.5]" />
+              {t("assets.folderCard.rename")}
+            </DropdownMenuItem>
+            {onMove && (
+              <DropdownMenuItem
+                className="flex gap-3 rounded-[8px] px-2.5 py-1.5 text-xs cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onMove(data.id, "folder");
+                }}
+              >
+                {MoveIcon}
+                {t("assets.folderCard.moveTo")}
+              </DropdownMenuItem>
+            )}
+            {onDownload && (
+              <DropdownMenuItem
+                className="flex gap-3 rounded-[8px] px-2.5 py-1.5 text-xs cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDownload(data);
+                }}
+              >
+                <Download className="size-4 stroke-[1.5]" />
+                {t("assets.folderCard.download")}
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="flex gap-3 rounded-[8px] px-2.5 py-1.5 text-xs text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-950/40 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete?.();
+              }}
+            >
+              <Trash2 className="size-4" /> {t("assets.folderCard.delete")}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    );
+
     return (
       <TooltipProvider>
-        <Card
+        <div
           ref={ref}
           className={cn(
-            // `isolate` keeps the card's stacking context to itself so a
-            // hovered card never paints over the sticky search bar.
-            "group relative isolate bg-card rounded-[20px] corner-squircle p-2 cursor-pointer transition-all duration-300 border shadow-xs overflow-hidden",
+            "group relative isolate cursor-pointer transition-colors ps-3 pe-1.5",
+            assetListRowClass,
+            isList ? assetListColumnsClass : "flex items-center gap-2",
             selected
-              ? "border-primary bg-primary/10 dark:bg-primary/20 ring-2 ring-primary ring-offset-2"
-              : "border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-lg",
-            viewType !== "grid" && "flex items-center gap-3 sm:gap-4 rounded-[16px]",
+              ? "border-[#0000FF] bg-blue-50/60 dark:bg-blue-950/30"
+              : "hover:border-zinc-300 dark:hover:border-zinc-700",
             isDropTarget &&
-              "border-primary bg-primary/10 dark:bg-primary/20 border-2 border-dashed"
+              "border-[#0000FF] border-dashed bg-blue-50/60 dark:bg-blue-950/30"
           )}
           onClick={(e) => {
             if (!isRenaming && onClick) onClick(e, data);
@@ -182,168 +333,34 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
           onDragLeave={onDragLeave}
           onDrop={onDrop}
         >
-          <div
-            className={cn(
-              // Inner radius = outer radius - 8px padding, so the folder art
-              // sits concentric with the card: 12px inside 20px on the grid,
-              // 8px inside 16px on the list.
-              "size-full corner-squircle overflow-hidden",
-              viewType === "grid"
-                ? "flex flex-col rounded-[12px]"
-                : "flex flex-row justify-between rounded-[8px]"
-            )}
-          >
-            <CardHeader className="p-0 w-auto relative shrink-0">
-              <img
-                src={images.folder}
-                alt={data.name}
+          {isList ? (
+            <>
+              {nameCell}
+              <span
                 className={cn(
-                  "size-full object-cover corner-squircle bg-no-repeat inset-0 shrink-0 bg-[#D2ECF7] dark:bg-zinc-800/80 border border-transparent dark:border-zinc-700/50 transition-transform duration-300 group-hover:scale-[1.02]",
-                  allowSelect && "brightness-50",
-                  viewType === "grid"
-                    ? "h-40 rounded-[12px]"
-                    : "h-16 w-28 sm:h-20 sm:w-[162px] rounded-[8px]"
+                  assetListCellMdClass,
+                  "text-xs text-zinc-600 dark:text-zinc-400 truncate"
                 )}
-              />
-              {allowSelect && (
-                <span
-                  className={cn(
-                    "absolute top-2 start-3 size-4 shrink-0 rounded-[6px] flex items-center justify-center border border-border shadow-xs",
-                    selected && "border-primary bg-primary text-white"
-                  )}
-                >
-                  {selected && <Check className="size-3" />}
-                </span>
-              )}
-            </CardHeader>
-
-            <CardContent
-              className={cn(
-                "w-full flex justify-between items-center gap-2 sm:gap-3 min-w-0",
-                viewType === "grid" ? "p-3 pe-0" : "py-0 ps-1 pe-0 sm:ps-2"
-              )}
-            >
-              <div className="flex flex-col flex-1 min-w-0">
-                {isRenaming ? (
-                  <Input
-                    ref={inputRef}
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    onBlur={handleBlur}
-                    onFocus={(e) => e.currentTarget.select()}
-                    maxLength={50}
-                    className="h-7 text-sm"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                ) : (
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <h2 className="text-sm font-bold text-foreground truncate text-start max-w-full pointer-events-none">
-                        {data.name}
-                      </h2>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">{data.name}</TooltipContent>
-                  </Tooltip>
-                )}
-                <p className="text-xs text-muted-foreground truncate max-w-28 pointer-events-none text-start">
-                  {data.assets_count || 0}{" "}
-                  {data.assets_count === 1
-                    ? t("assets.folderCard.item")
-                    : t("assets.folderCard.items")}
-                </p>
-              </div>
-
-              <div
-                className="min-w-14 relative flex shrink-0"
-                data-nitxui-card-actions=""
-                // Card-level onClick navigates into the folder; the actions area must not trigger it.
-                onClick={(e) => e.stopPropagation()}
               >
-                <DropdownMenu
-                  open={openMenuId === data.id}
-                  onOpenChange={(value) => setOpenMenuId(value ? data.id : null)}
-                >
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger
-                        disabled={allowSelect}
-                        className="disabled:text-muted-foreground focus:outline-none"
-                        asChild
-                      >
-                        <Button
-                          type="button"
-                          size="icon"
-                          variant="ghost"
-                          className="flex gap-2 rounded-[8px] hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                          aria-label={t("assets.folderCard.moreOptions")}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <MoreHorizontal className="size-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t("assets.folderCard.moreOptions")}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <DropdownMenuContent
-                    align="end"
-                    className="rounded-[16px] corner-squircle min-w-[160px] p-1.5"
-                    onClick={(e) => e.stopPropagation()}
-                    onCloseAutoFocus={(event) => event.preventDefault()}
-                  >
-                    {renderMenuItems?.(data)}
-                    <DropdownMenuItem
-                      className="flex gap-4 rounded-[10px] px-4"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setRenamingItemId(data.id);
-                      }}
-                    >
-                      <FilePenLine className="size-4 stroke-[1.5]" />
-                      {t("assets.folderCard.rename")}
-                    </DropdownMenuItem>
-                    {onMove && (
-                      <DropdownMenuItem
-                        className="flex gap-4 rounded-[10px] px-4"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onMove(data.id, "folder");
-                        }}
-                      >
-                        {MoveIcon}
-                        {t("assets.folderCard.moveTo")}
-                      </DropdownMenuItem>
-                    )}
-                    {onDownload && (
-                      <DropdownMenuItem
-                        className="flex gap-4 rounded-[10px] px-4"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDownload(data);
-                        }}
-                      >
-                        <Download className="size-4 stroke-[1.5]" />
-                        {t("assets.folderCard.download")}
-                      </DropdownMenuItem>
-                    )}
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      className="flex gap-4 px-4 rounded-[7px] text-red-500 focus:text-red-600 cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onDelete?.();
-                      }}
-                    >
-                      <Trash2 className="size-4" /> {t("assets.folderCard.delete")}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </CardContent>
-          </div>
-        </Card>
+                {itemCount}
+              </span>
+              <span
+                className={cn(
+                  assetListCellMdClass,
+                  "text-xs text-zinc-600 dark:text-zinc-400 truncate"
+                )}
+              >
+                {formatAddedDate(data.created_at)}
+              </span>
+              {actionsCell}
+            </>
+          ) : (
+            <>
+              <div className="flex-1 min-w-0">{nameCell}</div>
+              {actionsCell}
+            </>
+          )}
+        </div>
       </TooltipProvider>
     );
   }

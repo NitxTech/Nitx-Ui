@@ -724,6 +724,10 @@
       "video": "video"
     },
     "assetList": {
+      "columnName": "Name",
+      "columnSize": "Size",
+      "columnAddedDate": "Added Date",
+      "columnAction": "Action",
       "downloading": "Downloading \"{{name}}\"...",
       "downloadedSuccess": "\"{{name}}\" has been downloaded successfully",
       "downloadFailed": "Failed to download \"{{name}}\". Please try again.",
@@ -773,7 +777,12 @@
       "gridView": "Grid View",
       "listView": "List View",
       "multiSelect": "Multi Select",
-      "actions": "Actions"
+      "actions": "Actions",
+      "filter": "Filter:",
+      "sortLastAdded": "Last Added",
+      "sortOldest": "Oldest",
+      "sortNameAsc": "Name (A-Z)",
+      "sortNameDesc": "Name (Z-A)"
     },
     "assetsPreview": {
       "of": "of",
