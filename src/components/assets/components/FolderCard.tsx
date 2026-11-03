@@ -316,7 +316,11 @@ const FolderCard = React.forwardRef<HTMLDivElement, FolderCardProps>(
           className={cn(
             "group relative isolate cursor-pointer transition-colors ps-3 pe-1.5",
             assetListRowClass,
-            isList ? assetListColumnsClass : "flex items-center gap-2",
+            // The grid card stands a touch taller than a list row, and the
+            // squircle radius grows with it (14px on 44px, like the tiles).
+            isList
+              ? assetListColumnsClass
+              : "h-11 rounded-[14px] flex items-center gap-2",
             selected
               ? "border-[#0000FF] bg-blue-50/60 dark:bg-blue-950/30"
               : "hover:border-zinc-300 dark:hover:border-zinc-700",

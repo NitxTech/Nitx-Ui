@@ -100,6 +100,12 @@
   .squircle {
     corner-shape: squircle;
   }
+
+  /* A pill or a circle stays a circle: a 50% radius under a superellipse
+     would turn every avatar, badge and round button into a squircle. */
+  [class*="rounded-full"] {
+    corner-shape: round;
+  }
 }
 
 /* `squircle` is the keyword for superellipse(2), the curve squircle.style

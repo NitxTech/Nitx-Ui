@@ -5,6 +5,9 @@ import {
   Check,
   Download,
   EllipsisVertical,
+  FileText,
+  Globe,
+  Image as ImageIcon,
   Play,
   Trash2,
 } from "lucide-react";
@@ -258,6 +261,27 @@ const AssetCard: React.FC<AssetCardProps> = ({
     (data.type === "document" && data.document?.size) ||
     "";
 
+  /** The glyph in the hover scrim's top-start badge: what kind of asset this is. */
+  const renderTypeIcon = () => {
+    const iconClass = "size-3.5 text-white";
+    switch (data.type) {
+      case "image":
+        return <ImageIcon className={iconClass} aria-hidden />;
+      case "video":
+        return (
+          <Play
+            className="size-3 fill-white text-white translate-x-px"
+            aria-hidden
+          />
+        );
+      case "link":
+        return <Globe className={iconClass} aria-hidden />;
+      case "document":
+      default:
+        return <FileText className={iconClass} aria-hidden />;
+    }
+  };
+
   const renderMedia = (variant: "grid" | "list") => {
     const inGrid = variant === "grid";
     if (thumbnail.processing) {
@@ -279,7 +303,10 @@ const AssetCard: React.FC<AssetCardProps> = ({
         kind={thumbnail.kind}
         className={cn(
           "size-full object-cover",
-          inGrid && "transition-transform duration-300 group-hover:scale-[1.03]"
+          // Hover softens the photo under the scrim: a touch of zoom and a
+          // 1px blur, so the name and the buttons read over busy images.
+          inGrid &&
+            "transition-all duration-300 group-hover:scale-[1.04] group-hover:blur-[1px]"
         )}
         iconClassName={inGrid ? "size-8 sm:size-10" : "size-3.5"}
       />
@@ -526,43 +553,69 @@ const AssetCard: React.FC<AssetCardProps> = ({
           </span>
         )}
 
+        {/* Hover scrim: type badge + name along the top, actions along the
+            bottom. Always on for touch screens, which have no hover. */}
         <div
           className={cn(
-            "absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-2 p-2 pt-10",
-            "bg-gradient-to-t from-black/70 via-black/30 to-transparent",
+            "absolute inset-0 z-20 flex flex-col justify-between p-2.5 pointer-events-none",
             "transition-opacity duration-200",
             isMenuOpen || isRenaming
               ? "opacity-100"
               : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
           )}
         >
-          {isRenaming ? (
-            <Input
-              ref={inputRef}
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onBlur={handleBlur}
-              onFocus={(e) => e.currentTarget.select()}
-              className="h-7 rounded-[8px] px-2 text-xs bg-black/60 backdrop-blur-sm text-white border-white/30 focus-visible:ring-white/50 min-w-0"
-              maxLength={50}
-              onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="text-xs font-medium text-white truncate drop-shadow-sm min-w-0 pb-1">
-                  {data.name}
-                </span>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" className="max-w-lg">
-                {data.name}
-              </TooltipContent>
-            </Tooltip>
-          )}
+          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/60 via-black/25 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
 
+          {/* Top: type badge + name. With multi-select on, the checkbox owns
+              the top-start corner, so the row steps past it. */}
           <div
-            className="flex items-center gap-1 shrink-0"
+            className={cn(
+              "relative z-10 flex items-center gap-2 min-w-0 pointer-events-auto",
+              allowSelect && "ps-7"
+            )}
+          >
+            {!allowSelect && (
+              <span className="size-7 shrink-0 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-sm">
+                {renderTypeIcon()}
+              </span>
+            )}
+            {isRenaming ? (
+              <Input
+                ref={inputRef}
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleBlur}
+                onFocus={(e) => e.currentTarget.select()}
+                className="h-7 rounded-[8px] px-2 text-xs bg-black/60 backdrop-blur-sm text-white border-white/30 focus-visible:ring-white/50 min-w-0"
+                maxLength={50}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-xs sm:text-[13px] font-medium text-white truncate drop-shadow-sm min-w-0">
+                    {data.name}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-lg">
+                  {data.name}
+                </TooltipContent>
+              </Tooltip>
+            )}
+          </div>
+
+          {/* Bottom-end: host actions (e.g. send to screen) + options. The
+              host styles its button with the exported light-theme class, so
+              the pill look is forced here: dark circle, white glyph, and a
+              darker circle (never a light one) on hover. */}
+          <div
+            className={cn(
+              "relative z-10 flex items-center justify-end gap-1.5 pointer-events-auto",
+              "[&>button]:size-7 [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:text-white [&>button]:backdrop-blur-sm",
+              "[&>button:hover]:bg-black/75 [&>button:hover]:text-white [&_svg]:text-white"
+            )}
             data-nitxui-card-actions=""
             onClick={(e) => e.stopPropagation()}
           >

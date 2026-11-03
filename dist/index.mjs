@@ -9966,6 +9966,9 @@ import {
   Check as Check9,
   Download,
   EllipsisVertical,
+  FileText as FileText2,
+  Globe as Globe3,
+  Image as ImageIcon,
   Play as Play2,
   Trash2 as Trash23
 } from "lucide-react";
@@ -10202,6 +10205,26 @@ var AssetCard = ({
   })();
   const showPlayBadge = data.type === "video" && data.is_ready;
   const sizeLabel = data.type === "image" && data.image?.size || data.type === "video" && data.video?.size || data.type === "document" && data.document?.size || "";
+  const renderTypeIcon = () => {
+    const iconClass = "size-3.5 text-white";
+    switch (data.type) {
+      case "image":
+        return /* @__PURE__ */ jsx63(ImageIcon, { className: iconClass, "aria-hidden": true });
+      case "video":
+        return /* @__PURE__ */ jsx63(
+          Play2,
+          {
+            className: "size-3 fill-white text-white translate-x-px",
+            "aria-hidden": true
+          }
+        );
+      case "link":
+        return /* @__PURE__ */ jsx63(Globe3, { className: iconClass, "aria-hidden": true });
+      case "document":
+      default:
+        return /* @__PURE__ */ jsx63(FileText2, { className: iconClass, "aria-hidden": true });
+    }
+  };
   const renderMedia = (variant) => {
     const inGrid = variant === "grid";
     if (thumbnail.processing) {
@@ -10225,7 +10248,9 @@ var AssetCard = ({
         kind: thumbnail.kind,
         className: cn(
           "size-full object-cover",
-          inGrid && "transition-transform duration-300 group-hover:scale-[1.03]"
+          // Hover softens the photo under the scrim: a touch of zoom and a
+          // 1px blur, so the name and the buttons read over busy images.
+          inGrid && "transition-all duration-300 group-hover:scale-[1.04] group-hover:blur-[1px]"
         ),
         iconClassName: inGrid ? "size-8 sm:size-10" : "size-3.5"
       }
@@ -10454,33 +10479,50 @@ var AssetCard = ({
           "div",
           {
             className: cn(
-              "absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-2 p-2 pt-10",
-              "bg-gradient-to-t from-black/70 via-black/30 to-transparent",
+              "absolute inset-0 z-20 flex flex-col justify-between p-2.5 pointer-events-none",
               "transition-opacity duration-200",
               isMenuOpen || isRenaming ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
             ),
             children: [
-              isRenaming ? /* @__PURE__ */ jsx63(
-                Input2,
-                {
-                  ref: inputRef,
-                  value: newTitle,
-                  onChange: (e) => setNewTitle(e.target.value),
-                  onKeyDown: handleKeyDown,
-                  onBlur: handleBlur,
-                  onFocus: (e) => e.currentTarget.select(),
-                  className: "h-7 rounded-[8px] px-2 text-xs bg-black/60 backdrop-blur-sm text-white border-white/30 focus-visible:ring-white/50 min-w-0",
-                  maxLength: 50,
-                  onClick: (e) => e.stopPropagation()
-                }
-              ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
-                /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63("span", { className: "text-xs font-medium text-white truncate drop-shadow-sm min-w-0 pb-1", children: data.name }) }),
-                /* @__PURE__ */ jsx63(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
-              ] }),
+              /* @__PURE__ */ jsx63("div", { className: "absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/60 via-black/25 to-transparent" }),
+              /* @__PURE__ */ jsx63("div", { className: "absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 via-black/25 to-transparent" }),
               /* @__PURE__ */ jsxs44(
                 "div",
                 {
-                  className: "flex items-center gap-1 shrink-0",
+                  className: cn(
+                    "relative z-10 flex items-center gap-2 min-w-0 pointer-events-auto",
+                    allowSelect && "ps-7"
+                  ),
+                  children: [
+                    !allowSelect && /* @__PURE__ */ jsx63("span", { className: "size-7 shrink-0 rounded-full bg-black/45 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-sm", children: renderTypeIcon() }),
+                    isRenaming ? /* @__PURE__ */ jsx63(
+                      Input2,
+                      {
+                        ref: inputRef,
+                        value: newTitle,
+                        onChange: (e) => setNewTitle(e.target.value),
+                        onKeyDown: handleKeyDown,
+                        onBlur: handleBlur,
+                        onFocus: (e) => e.currentTarget.select(),
+                        className: "h-7 rounded-[8px] px-2 text-xs bg-black/60 backdrop-blur-sm text-white border-white/30 focus-visible:ring-white/50 min-w-0",
+                        maxLength: 50,
+                        onClick: (e) => e.stopPropagation()
+                      }
+                    ) : /* @__PURE__ */ jsxs44(Tooltip, { children: [
+                      /* @__PURE__ */ jsx63(TooltipTrigger, { asChild: true, children: /* @__PURE__ */ jsx63("span", { className: "text-xs sm:text-[13px] font-medium text-white truncate drop-shadow-sm min-w-0", children: data.name }) }),
+                      /* @__PURE__ */ jsx63(TooltipContent, { side: "bottom", className: "max-w-lg", children: data.name })
+                    ] })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxs44(
+                "div",
+                {
+                  className: cn(
+                    "relative z-10 flex items-center justify-end gap-1.5 pointer-events-auto",
+                    "[&>button]:size-7 [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:text-white [&>button]:backdrop-blur-sm",
+                    "[&>button:hover]:bg-black/75 [&>button:hover]:text-white [&_svg]:text-white"
+                  ),
                   "data-nitxui-card-actions": "",
                   onClick: (e) => e.stopPropagation(),
                   children: [
@@ -10799,7 +10841,9 @@ var FolderCard = React32.forwardRef(
         className: cn(
           "group relative isolate cursor-pointer transition-colors ps-3 pe-1.5",
           assetListRowClass,
-          isList ? assetListColumnsClass : "flex items-center gap-2",
+          // The grid card stands a touch taller than a list row, and the
+          // squircle radius grows with it (14px on 44px, like the tiles).
+          isList ? assetListColumnsClass : "h-11 rounded-[14px] flex items-center gap-2",
           selected ? "border-[#0000FF] bg-blue-50/60 dark:bg-blue-950/30" : "hover:border-zinc-300 dark:hover:border-zinc-700",
           isDropTarget && "border-[#0000FF] border-dashed bg-blue-50/60 dark:bg-blue-950/30"
         ),
@@ -12721,7 +12765,9 @@ var AssetsBrowser = ({
           {
             className: cn(
               "w-full flex flex-col pb-5",
-              isList ? "gap-1.5" : "gap-3",
+              // The gap between the folder block and the asset block. In the
+              // list it stays a row gap so the table reads as one.
+              isList ? "gap-1.5" : "gap-6",
               // The selection bar is fixed over the viewport, so the last
               // row needs room to clear it, plus whatever bottom chrome the
               // host app reports in --nitx-bottom-inset, or it cannot be

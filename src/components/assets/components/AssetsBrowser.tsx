@@ -774,7 +774,9 @@ const AssetsBrowser = ({
           <div
             className={cn(
               "w-full flex flex-col pb-5",
-              isList ? "gap-1.5" : "gap-3",
+              // The gap between the folder block and the asset block. In the
+              // list it stays a row gap so the table reads as one.
+              isList ? "gap-1.5" : "gap-6",
               // The selection bar is fixed over the viewport, so the last
               // row needs room to clear it, plus whatever bottom chrome the
               // host app reports in --nitx-bottom-inset, or it cannot be
