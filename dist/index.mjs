@@ -3975,10 +3975,35 @@ function AccountPreferencesModal({
 
 // src/components/user-account/account.tsx
 import { Fragment, jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
+var assertAuthCallbackUrl = (value) => {
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(
+      "[nitxui] <UserAccount /> requires the 'authCallbackUrl' prop: an absolute URL (e.g. window.location.href) the auth service redirects back to after the user adds another account."
+    );
+  }
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(
+      `[nitxui] <UserAccount /> 'authCallbackUrl' must be an absolute http(s) URL, received "${value}".`
+    );
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(
+      `[nitxui] <UserAccount /> 'authCallbackUrl' must use http or https, received "${value}".`
+    );
+  }
+  return value;
+};
+var buildAddAccountHref = (authCallbackUrl, authUrl = process.env.NEXT_PUBLIC_AUTH_URL) => `${authUrl}?new_session=1&callback=${encodeURIComponent(
+  assertAuthCallbackUrl(authCallbackUrl)
+)}`;
 var UserAccount = ({
   accounts,
   isExpanded,
   auth_user,
+  authCallbackUrl,
   showPlan,
   platform,
   onOpenSettings,
@@ -4009,6 +4034,7 @@ var UserAccount = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
   if (!isMounted) return null;
+  const addAccountHref = buildAddAccountHref(authCallbackUrl);
   const sortedAccounts = [...accounts].sort(
     (a, b) => (b.active ? 1 : 0) - (a.active ? 1 : 0)
   );
@@ -4168,7 +4194,7 @@ var UserAccount = ({
                   Link2,
                   {
                     target: "_blank",
-                    href: `${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`,
+                    href: addAccountHref,
                     children: [
                       /* @__PURE__ */ jsx12(PlusSquare, { className: "w-4 h-4 stroke-[1.5]" }),
                       /* @__PURE__ */ jsx12("span", { children: t("userAccount.addAnotherAccount") })
@@ -15118,8 +15144,10 @@ export {
   TooltipTrigger,
   UploadModal_default as UploadModal,
   UserAccount,
+  assertAuthCallbackUrl,
   assetCardIconButtonClass,
   assetKeys,
+  buildAddAccountHref,
   buttonVariants,
   callUpdateBasicInfo,
   cn,
