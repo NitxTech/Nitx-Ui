@@ -63,14 +63,31 @@ const accounts = [
 ];
 
 export default function Example() {
-  return <UserAccount accounts={accounts} isExpanded={true} />;
+  return (
+    <UserAccount
+      accounts={accounts}
+      isExpanded={true}
+      auth_user={authUser}
+      // Absolute URL of the page the user is on. After "Add another account"
+      // the auth service redirects back here instead of its default (My Nitx).
+      // The guard keeps SSR safe; the component only reads it after mount.
+      authCallbackUrl={
+        typeof window !== "undefined" ? window.location.href : ""
+      }
+    />
+  );
 }
 ```
+
+See [docs/user-account-auth-callback.md](docs/user-account-auth-callback.md)
+for the full flow, the auth-side allowlist, and the per-dashboard rollout.
 
 #### Props
 
 - `accounts`: Array of user objects `{ id, name, email, imageUrl?, active }`
 - `isExpanded`: `boolean` — Show full details or just avatar
+- `auth_user`: Session id used for sign-out
+- `authCallbackUrl`: **Required.** Absolute `http(s)` URL the auth service sends the user back to after adding another account (sent as `?new_session=1&callback=…`). The component throws at render if it is missing or not an absolute URL. The host must be on the auth service's `NEXT_PUBLIC_TRUSTED_CALLBACK_HOSTS` allowlist.
 - `router?`: Optional. Pass a Next.js router or a mock for Storybook/testing
 
 ---

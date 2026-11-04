@@ -39,6 +39,7 @@ export const Expanded: Story = {
     accounts: mockAccounts,
     isExpanded: true,
     auth_user: "0",
+    authCallbackUrl: "https://signage.nitx.io",
   },
 };
 
@@ -47,5 +48,6 @@ export const Collapsed: Story = {
     accounts: mockAccounts,
     isExpanded: false,
     auth_user: "0",
+    authCallbackUrl: "https://signage.nitx.io",
   },
 };

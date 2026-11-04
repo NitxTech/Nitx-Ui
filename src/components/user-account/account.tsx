@@ -29,6 +29,22 @@ export interface UserAccountProps {
   }[];
   isExpanded: boolean;
   auth_user: string | number;
+  /**
+   * Absolute URL the auth service sends the user back to after they finish
+   * signing in to another account (the "Add another account" entry).
+   *
+   * REQUIRED. Each dashboard passes the page the user is on so they land back
+   * on the product they started from instead of the auth service's default
+   * landing page (My Nitx):
+   *
+   *   authCallbackUrl={typeof window !== "undefined" ? window.location.href : ""}
+   *
+   * The guard keeps SSR safe; the value is only read after mount, and the
+   * component throws then if it is missing or not an absolute http(s) URL.
+   * The host must be on nitx-auth's NEXT_PUBLIC_TRUSTED_CALLBACK_HOSTS.
+   * See docs/user-account-auth-callback.md.
+   */
+  authCallbackUrl: string;
   showPlan?: boolean;
   platform?: "studio" | "my-nitx" | "signage" | string;
   onOpenSettings?: () => void;
@@ -42,10 +58,49 @@ export interface UserAccountProps {
   onUpdateUser?: AccountPreferencesModalProps["onUpdateUser"];
 }
 
+/**
+ * Validates the post-login callback URL that every dashboard must provide.
+ * Throws so a missing/invalid value surfaces immediately during development
+ * and in CI instead of silently sending users to the auth default landing.
+ */
+export const assertAuthCallbackUrl = (value: unknown): string => {
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(
+      "[nitxui] <UserAccount /> requires the 'authCallbackUrl' prop: an absolute " +
+        "URL (e.g. window.location.href) the auth service redirects back to " +
+        "after the user adds another account."
+    );
+  }
+  let parsed: URL;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(
+      `[nitxui] <UserAccount /> 'authCallbackUrl' must be an absolute http(s) URL, received "${value}".`
+    );
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(
+      `[nitxui] <UserAccount /> 'authCallbackUrl' must use http or https, received "${value}".`
+    );
+  }
+  return value;
+};
+
+/** Builds the "Add another account" href understood by nitx-auth. */
+export const buildAddAccountHref = (
+  authCallbackUrl: string,
+  authUrl: string | undefined = process.env.NEXT_PUBLIC_AUTH_URL
+): string =>
+  `${authUrl}?new_session=1&callback=${encodeURIComponent(
+    assertAuthCallbackUrl(authCallbackUrl)
+  )}`;
+
 export const UserAccount = ({
   accounts,
   isExpanded,
   auth_user,
+  authCallbackUrl,
   showPlan,
   platform,
   onOpenSettings,
@@ -85,6 +140,13 @@ export const UserAccount = ({
   }, []);
 
   if (!isMounted) return null;
+
+  // Validated after mount (client only): the component renders nothing on
+  // the server, so dashboards can pass `window.location.href` behind a
+  // `typeof window` guard without crashing SSR. Fails loudly if a dashboard
+  // forgot the callback — otherwise the auth service falls back to its
+  // default landing (My Nitx) after login.
+  const addAccountHref = buildAddAccountHref(authCallbackUrl);
 
   // Sort accounts so the active one is at the top
   const sortedAccounts = [...accounts].sort(
@@ -257,7 +319,7 @@ export const UserAccount = ({
           >
             <Link
               target="_blank"
-              href={`${process.env.NEXT_PUBLIC_AUTH_URL}?new_session=1`}
+              href={addAccountHref}
             >
               <PlusSquare className="w-4 h-4 stroke-[1.5]" />
               <span>{t("userAccount.addAnotherAccount")}</span>
