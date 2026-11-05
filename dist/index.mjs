@@ -2922,6 +2922,18 @@ var SelectSeparator = React7.forwardRef(({ className, ...props }, ref) => /* @__
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+// src/components/user-account/avatar-url.ts
+var DEFAULT_AVATAR_BASE_URL = "https://nitx-v2.s3.eu-west-1.amazonaws.com";
+function resolveAvatarUrl(path, baseUrl = DEFAULT_AVATAR_BASE_URL) {
+  if (typeof path !== "string") return void 0;
+  const value = path.trim();
+  if (!value) return void 0;
+  if (/^(https?:)?\/\//i.test(value)) return value;
+  if (/^(data|blob):/i.test(value)) return value;
+  if (value.startsWith("/")) return value;
+  return `${baseUrl.replace(/\/+$/, "")}/${value.replace(/^\/+/, "")}`;
+}
+
 // src/components/user-account/account-preferences-modal.tsx
 import {
   Globe,
@@ -3114,6 +3126,16 @@ function writeLanguageCookie(lang) {
     );
   }
 }
+function splitDisplayName(name) {
+  const trimmed = (name ?? "").trim().replace(/\s+/g, " ");
+  if (!trimmed) return { firstName: "", lastName: "" };
+  const spaceAt = trimmed.indexOf(" ");
+  if (spaceAt === -1) return { firstName: trimmed, lastName: "" };
+  return {
+    firstName: trimmed.slice(0, spaceAt),
+    lastName: trimmed.slice(spaceAt + 1)
+  };
+}
 async function callUpdateBasicInfo(payload, options) {
   if (options?.onUpdateUser) {
     return await options.onUpdateUser(payload);
@@ -3189,19 +3211,21 @@ function AccountPreferencesModal({
   const [mounted, setMounted] = useState3(false);
   const [isMobile, setIsMobile] = useState3(false);
   const [activeSection, setActiveSection] = useState3(null);
+  const initialFirstName = user?.firstName ?? splitDisplayName(user?.name).firstName;
+  const initialLastName = user?.lastName ?? splitDisplayName(user?.name).lastName;
   const [isEditingName, setIsEditingName] = useState3(false);
-  const [firstNameInput, setFirstNameInput] = useState3(user?.firstName ?? "");
-  const [lastNameInput, setLastNameInput] = useState3(user?.lastName ?? "");
+  const [firstNameInput, setFirstNameInput] = useState3(initialFirstName);
+  const [lastNameInput, setLastNameInput] = useState3(initialLastName);
   const [savedUserName, setSavedUserName] = useState3(null);
   const [isSavingName, setIsSavingName] = useState3(false);
   const [sectionErrors, setSectionErrors] = useState3({});
   const [failedPreference, setFailedPreference] = useState3(null);
   const nameFieldId = useId();
   useEffect3(() => {
-    setFirstNameInput(user?.firstName ?? "");
-    setLastNameInput(user?.lastName ?? "");
+    setFirstNameInput(initialFirstName);
+    setLastNameInput(initialLastName);
     setSavedUserName(null);
-  }, [user?.name, user?.firstName, user?.lastName]);
+  }, [initialFirstName, initialLastName]);
   useEffect3(() => {
     setMounted(true);
     if (typeof document !== "undefined") {
@@ -3268,9 +3292,9 @@ function AccountPreferencesModal({
   const myNitxDashboardUrl = `${myNitxBaseUrl}/${encodeURIComponent(String(resolvedAuthUser))}`;
   const userName = savedUserName ?? (user?.name || [user?.firstName, user?.lastName].filter(Boolean).join(" "));
   const userEmail = user?.email ?? "";
-  const userImage = user?.imageUrl ?? null;
+  const userImage = resolveAvatarUrl(user?.imageUrl) ?? null;
   const hasUser = Boolean(userName || userEmail);
-  const canEditName = user?.firstName !== void 0;
+  const canEditName = user?.firstName !== void 0 || Boolean(user?.name?.trim());
   const planName = plan?.name;
   const planBadge = plan?.badgeText;
   const nextPaymentDate = plan?.nextPayment;
@@ -3435,6 +3459,13 @@ function AccountPreferencesModal({
       );
       setSavedUserName([firstName, lastName].filter(Boolean).join(" "));
       setIsEditingName(false);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("nitx-user-updated", {
+            detail: { name: firstName, last_name: lastName }
+          })
+        );
+      }
       toast.success(isRTL ? "\u062A\u0645 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0627\u0633\u0645 \u0628\u0646\u062C\u0627\u062D" : "Name updated successfully");
     } catch (err) {
       console.error("Failed to save name:", err);
@@ -4001,6 +4032,7 @@ var buildAddAccountHref = (authCallbackUrl, authUrl = process.env.NEXT_PUBLIC_AU
 )}`;
 var UserAccount = ({
   accounts,
+  avatarBaseUrl,
   isExpanded,
   auth_user,
   authCallbackUrl,
@@ -4068,7 +4100,7 @@ var UserAccount = ({
             "rounded-[10px] size-10 lg:size-[40px] overflow-clip cursor-pointer mx-auto"
           ),
           children: [
-            /* @__PURE__ */ jsx12(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+            /* @__PURE__ */ jsx12(AvatarImage, { src: resolveAvatarUrl(activeAccount?.imageUrl, avatarBaseUrl) }),
             /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-900 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
           ]
         }
@@ -4087,7 +4119,7 @@ var UserAccount = ({
                   "rounded-[10px] corner-squircle size-10 lg:size-12 overflow-clip shrink-0"
                 ),
                 children: [
-                  /* @__PURE__ */ jsx12(AvatarImage, { src: `${activeAccount?.imageUrl}` }),
+                  /* @__PURE__ */ jsx12(AvatarImage, { src: resolveAvatarUrl(activeAccount?.imageUrl, avatarBaseUrl) }),
                   /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white ", children: `${activeAccount.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
                 ]
               }
@@ -4132,7 +4164,7 @@ var UserAccount = ({
                         AvatarImage,
                         {
                           className: "rounded-[8px] size-8 overflow-clip",
-                          src: `${account.imageUrl}`
+                          src: resolveAvatarUrl(account.imageUrl, avatarBaseUrl)
                         }
                       ),
                       /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
@@ -4169,7 +4201,7 @@ var UserAccount = ({
                             AvatarImage,
                             {
                               className: "rounded-[8px] size-8 overflow-clip",
-                              src: `${account.imageUrl}`
+                              src: resolveAvatarUrl(account.imageUrl, avatarBaseUrl)
                             }
                           ),
                           /* @__PURE__ */ jsx12(AvatarFallback, { className: "rounded-none bg-primary dark:text-zinc-800 text-white text-xs", children: `${account.name.split(" ").slice(0, 2).map((n) => n?.[0]?.toUpperCase() || "").join("")}` })
@@ -4254,8 +4286,10 @@ var UserAccount = ({
         onUpdateUser: onUpdateUser ?? accountPreferencesProps?.onUpdateUser,
         user: activeAccount ? {
           name: activeAccount.name,
+          firstName: activeAccount.firstName ?? void 0,
+          lastName: activeAccount.lastName ?? void 0,
           email: activeAccount.email,
-          imageUrl: activeAccount.imageUrl
+          imageUrl: resolveAvatarUrl(activeAccount.imageUrl, avatarBaseUrl)
         } : void 0,
         ...accountPreferencesProps
       }
@@ -13706,6 +13740,16 @@ async function probeGeneralConnectivity(customUrl, timeoutMs = DEFAULT_TIMEOUT_M
 function result(partial, details) {
   return { ...partial, timestamp: Date.now(), details };
 }
+async function isBraveBrowser() {
+  if (typeof navigator === "undefined") return false;
+  const brave = navigator.brave;
+  if (!brave || typeof brave.isBrave !== "function") return false;
+  try {
+    return await brave.isBrave() === true;
+  } catch {
+    return false;
+  }
+}
 async function detectAdBlocker(options = {}) {
   if (typeof window === "undefined" || typeof document === "undefined") {
     return result({ isBlocked: false, isOffline: false, reason: "none" });
@@ -13716,10 +13760,11 @@ async function detectAdBlocker(options = {}) {
   const timeoutMs = options.timeoutMs || DEFAULT_TIMEOUT_MS;
   const baitUrls = options.baitUrls && options.baitUrls.length > 0 ? options.baitUrls : options.baitUrl ? [options.baitUrl] : DEFAULT_BAIT_URLS;
   const domHidden = testDomCosmeticFiltering();
-  const network = await Promise.all(
-    baitUrls.map((url) => probeUrl(url, timeoutMs))
-  );
-  const details = { domHidden, network };
+  const [network, braveShields] = await Promise.all([
+    Promise.all(baitUrls.map((url) => probeUrl(url, timeoutMs))),
+    isBraveBrowser()
+  ]);
+  const details = { domHidden, network, braveShields };
   const anyReachable = network.some((o) => o === "reachable");
   const allBlocked = network.length > 0 && network.every((o) => o === "blocked");
   if (anyReachable) {
@@ -13739,8 +13784,14 @@ async function detectAdBlocker(options = {}) {
         details
       );
     }
+    if (domHidden || braveShields) {
+      return result(
+        { isBlocked: true, isOffline: false, reason: "network_probe_blocked" },
+        details
+      );
+    }
     return result(
-      { isBlocked: true, isOffline: false, reason: "network_probe_blocked" },
+      { isBlocked: false, isOffline: false, reason: "inconclusive" },
       details
     );
   }
@@ -15058,6 +15109,7 @@ export {
   Checkbox,
   CustomTabbar,
   DEFAULT_ASSET_IMAGES,
+  DEFAULT_AVATAR_BASE_URL,
   Dialog,
   DialogClose,
   DialogContent,
@@ -15177,9 +15229,11 @@ export {
   readThemeCookie,
   recordSpaceUsage,
   removeSpaceRecent,
+  resolveAvatarUrl,
   searchShortcut,
   setSharedApiClient,
   sortSpacesByLastUsed,
+  splitDisplayName,
   testDomCosmeticFiltering,
   themeToDisplayMode,
   useAdBlocker,

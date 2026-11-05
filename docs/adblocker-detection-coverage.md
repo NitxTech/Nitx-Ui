@@ -38,6 +38,8 @@ The verdict is `isBlocked: true` only when nothing but a blocker explains the ev
      - `blocked`: rejected immediately, the way an extension, Brave Shields, tracking protection or a DNS sinkhole behaves.
      - `timeout`: no answer within `timeoutMs` (4s). A slow network, never a blocker. This was the main false positive in the field: a cold DNS and TLS handshake to the ad host on a slow connection outran the old 3.5s budget while the same-origin probe answered instantly, and a refresh "fixed" it because the handshake was then cached.
      - `csp`: the page's own Content Security Policy refused the request (detected through the `securitypolicyviolation` event). An app with a `connect-src` policy that omits the ad hosts can never be told apart from a blocker by a network probe, so it is `inconclusive`.
+   - **Refused ad hosts alone never produce a verdict.** Browser tracking protection refuses the very same hosts with no ad blocker installed: Safari's Advanced Tracking and Fingerprinting Protection on iOS (on by default in Private Browsing, optional everywhere, and reported as network-level blocking by default in Safari 27), Firefox ETP Strict, Edge Strict. Before this rule every iPhone user was shown the full-page notice while Android passed, because both Google ad hosts are on the tracker lists those browsers use. A network-only result is confirmed by one of two signals tracking protection cannot produce: the cosmetic DOM probe collapsing the bait (Vector A), or the browser identifying itself as Brave through `navigator.brave.isBrave()`, whose Shields refuse ad hosts without necessarily hiding a first-party bait in Standard mode. Without confirmation the result is `inconclusive` and `details.network` still shows the refusals for logging.
+   - Known cost: a DNS-level blocker (Pi-hole, AdGuard DNS) on a browser other than Brave is now `inconclusive` instead of `network_probe_blocked`. That is the same evidence a privacy setting produces, and a false lockout is far more expensive than a missed notice.
 
 3. **DOM Cosmetic Filtering (Vector A)**:
    - A bait element carrying the standard EasyList classes (`adsbox`, `pub_300x250`, `ad-banner`, ...) is inserted next to a control element identical in every way except the classes. The test is positive only when the bait collapses and the control does not, which rules out ancestor-level causes.
@@ -58,7 +60,9 @@ Run against the real detector in headless Chrome with `fetch` stubbed per scenar
 | Scenario | Verdict |
 | :--- | :--- |
 | No blocker, live network | not blocked (`none`) |
-| Extension blocking both endpoints, with or without cosmetic rules | blocked (`network_probe_blocked`) |
+| Extension blocking both endpoints with cosmetic rules (uBlock Origin, AdBlock Plus, AdGuard, Safari content blockers) | blocked (`network_probe_blocked`) |
+| Brave Shields: both endpoints refused, bait not collapsed, `navigator.brave` present | blocked (`network_probe_blocked`, `details.braveShields: true`) |
+| Tracking protection only (iOS Safari ATP, Firefox/Edge strict): both endpoints refused, no cosmetic rules, not Brave | not blocked (`inconclusive`) |
 | Cosmetic rules only, ad requests hang | blocked (`dom_probe_hidden`) |
 | Ad hosts slow, origin fast | not blocked (`inconclusive`) |
 | One endpoint fails, the other answers | not blocked (`none`) |

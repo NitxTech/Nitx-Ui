@@ -18,15 +18,34 @@ import {
   AccountPreferencesModal,
   AccountPreferencesModalProps,
 } from "./account-preferences-modal";
+import { resolveAvatarUrl } from "./avatar-url";
 
 export interface UserAccountProps {
   accounts: {
     id: string;
     name: string;
+    /**
+     * Separate first/last name from the session (`name` / `last_name`).
+     * Lets the settings modal edit the name on every product; without them
+     * the modal splits `name` on the first space.
+     */
+    firstName?: string | null;
+    lastName?: string | null;
     email: string;
+    /**
+     * The session's `img_path`: an absolute URL or a bare S3 object key.
+     * Keys are resolved against `avatarBaseUrl`. Empty/null shows the
+     * initials fallback without firing a request.
+     */
     imageUrl?: string | null;
     active: boolean;
   }[];
+  /**
+   * Base URL that bare `img_path` object keys are resolved against. Defaults
+   * to the Nitx S3 bucket; override only if a product stores pictures
+   * elsewhere.
+   */
+  avatarBaseUrl?: string;
   isExpanded: boolean;
   auth_user: string | number;
   /**
@@ -98,6 +117,7 @@ export const buildAddAccountHref = (
 
 export const UserAccount = ({
   accounts,
+  avatarBaseUrl,
   isExpanded,
   auth_user,
   authCallbackUrl,
@@ -189,7 +209,7 @@ export const UserAccount = ({
                 "rounded-[10px] size-10 lg:size-[40px] overflow-clip cursor-pointer mx-auto"
               )}
             >
-              <AvatarImage src={`${activeAccount?.imageUrl}`} />
+              <AvatarImage src={resolveAvatarUrl(activeAccount?.imageUrl, avatarBaseUrl)} />
               <AvatarFallback className="rounded-none bg-primary dark:text-zinc-900 text-white ">{`${activeAccount.name
                 .split(" ")
                 .slice(0, 2)
@@ -208,7 +228,7 @@ export const UserAccount = ({
                   "rounded-[10px] corner-squircle size-10 lg:size-12 overflow-clip shrink-0"
                 )}
               >
-                <AvatarImage src={`${activeAccount?.imageUrl}`} />
+                <AvatarImage src={resolveAvatarUrl(activeAccount?.imageUrl, avatarBaseUrl)} />
                 <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white ">{`${activeAccount.name
                   .split(" ")
                   .slice(0, 2)
@@ -258,7 +278,7 @@ export const UserAccount = ({
                 <Avatar className="rounded-[8px] corner-squircle size-8 shrink-0">
                   <AvatarImage
                     className="rounded-[8px] size-8 overflow-clip"
-                    src={`${account.imageUrl}`}
+                    src={resolveAvatarUrl(account.imageUrl, avatarBaseUrl)}
                   />
                   <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white text-xs">
                     {`${account.name
@@ -295,7 +315,7 @@ export const UserAccount = ({
                   <Avatar className="rounded-[8px] corner-squircle size-8 shrink-0">
                     <AvatarImage
                       className="rounded-[8px] size-8 overflow-clip"
-                      src={`${account.imageUrl}`}
+                      src={resolveAvatarUrl(account.imageUrl, avatarBaseUrl)}
                     />
                     <AvatarFallback className="rounded-none bg-primary dark:text-zinc-800 text-white text-xs">
                       {`${account.name
@@ -375,8 +395,10 @@ export const UserAccount = ({
           activeAccount
             ? {
                 name: activeAccount.name,
+                firstName: activeAccount.firstName ?? undefined,
+                lastName: activeAccount.lastName ?? undefined,
                 email: activeAccount.email,
-                imageUrl: activeAccount.imageUrl,
+                imageUrl: resolveAvatarUrl(activeAccount.imageUrl, avatarBaseUrl),
               }
             : undefined
         }
