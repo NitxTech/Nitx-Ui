@@ -43,7 +43,13 @@ interface AccountPreferencesModalProps {
     authUser?: string | number;
     user?: {
         name?: string;
-        /** First and last name are edited separately, matching the update-basic-info contract. Editing is enabled only when firstName is provided. */
+        /**
+         * First and last name are edited separately, matching the
+         * update-basic-info contract. Pass them when the host has them (the
+         * session carries `name` and `last_name`). When only `name` is given the
+         * modal splits it on the first space to pre-fill the fields, so editing
+         * is available on every product, not just those with a user-info fetch.
+         */
         firstName?: string;
         lastName?: string;
         email?: string;
@@ -78,6 +84,15 @@ declare function readThemeCookie(): "light" | "dark" | "system" | null;
 declare function writeThemeCookie(theme: "light" | "dark" | "system"): void;
 declare function readLanguageCookie(): "ar" | "en" | null;
 declare function writeLanguageCookie(lang: string): void;
+/**
+ * Splits a joined display name into first and last name on the first space.
+ * Used only when the host did not supply them separately; the user sees both
+ * fields pre-filled and can correct the split before saving.
+ */
+declare function splitDisplayName(name?: string | null): {
+    firstName: string;
+    lastName: string;
+};
 declare function callUpdateBasicInfo(payload: UpdateBasicInfoPayload, options?: {
     apiClient?: any;
     apiUrl?: string;
@@ -89,10 +104,28 @@ interface UserAccountProps {
     accounts: {
         id: string;
         name: string;
+        /**
+         * Separate first/last name from the session (`name` / `last_name`).
+         * Lets the settings modal edit the name on every product; without them
+         * the modal splits `name` on the first space.
+         */
+        firstName?: string | null;
+        lastName?: string | null;
         email: string;
+        /**
+         * The session's `img_path`: an absolute URL or a bare S3 object key.
+         * Keys are resolved against `avatarBaseUrl`. Empty/null shows the
+         * initials fallback without firing a request.
+         */
         imageUrl?: string | null;
         active: boolean;
     }[];
+    /**
+     * Base URL that bare `img_path` object keys are resolved against. Defaults
+     * to the Nitx S3 bucket; override only if a product stores pictures
+     * elsewhere.
+     */
+    avatarBaseUrl?: string;
     isExpanded: boolean;
     auth_user: string | number;
     /**
@@ -131,7 +164,27 @@ interface UserAccountProps {
 declare const assertAuthCallbackUrl: (value: unknown) => string;
 /** Builds the "Add another account" href understood by nitx-auth. */
 declare const buildAddAccountHref: (authCallbackUrl: string, authUrl?: string | undefined) => string;
-declare const UserAccount: ({ accounts, isExpanded, auth_user, authCallbackUrl, showPlan, platform, onOpenSettings, onSettingsClick, settingsHref, preferencesOpen, onPreferencesOpenChange, accountPreferencesProps, apiClient, apiUrl, onUpdateUser, }: UserAccountProps) => React$1.JSX.Element | null;
+declare const UserAccount: ({ accounts, avatarBaseUrl, isExpanded, auth_user, authCallbackUrl, showPlan, platform, onOpenSettings, onSettingsClick, settingsHref, preferencesOpen, onPreferencesOpenChange, accountPreferencesProps, apiClient, apiUrl, onUpdateUser, }: UserAccountProps) => React$1.JSX.Element | null;
+
+/**
+ * The API stores a user's picture as `img_path`, which is sometimes an
+ * absolute URL and sometimes a bare object key in the Nitx S3 bucket. Rendering
+ * the key as-is resolves it against the dashboard's own origin, 404s, and the
+ * avatar silently falls back to initials. Studio already resolves keys through
+ * this bucket; every other product rendered the raw value, which is why the
+ * picture "sometimes" did not show.
+ */
+declare const DEFAULT_AVATAR_BASE_URL = "https://nitx-v2.s3.eu-west-1.amazonaws.com";
+/**
+ * Turns an `img_path` value into something an `<img>` can load.
+ *
+ * - Empty / null / whitespace -> `undefined` (lets the initials fallback show
+ *   without firing a request for "/undefined").
+ * - Absolute (`http://`, `https://`, `//`), `data:` and `blob:` URLs, and
+ *   same-origin paths starting with `/` are returned untouched.
+ * - Anything else is treated as an object key under `baseUrl`.
+ */
+declare function resolveAvatarUrl(path: string | null | undefined, baseUrl?: string): string | undefined;
 
 type MemberRole = "owner" | "manager" | "editor" | "viewer";
 interface Member {
@@ -1114,8 +1167,10 @@ type AdBlockerStorageType = "session" | "local" | "memory";
 type AdBlockerDetectionReason = "network_probe_blocked" | "dom_probe_hidden" | "script_blocked"
 /**
  * The probes could not decide: the network was too slow to answer inside
- * the timeout, or the page's Content Security Policy refused the bait
- * requests. Never treated as a blocker.
+ * the timeout, the page's Content Security Policy refused the bait
+ * requests, or the ad hosts were refused without a cosmetic-filter hit
+ * (browser tracking protection such as Safari's on iOS looks exactly like
+ * that). Never treated as a blocker.
  */
  | "inconclusive" | "none";
 /** What happened to one probe request. */
@@ -1135,6 +1190,11 @@ interface AdBlockerDetectionResult {
         domHidden: boolean;
         /** One outcome per bait URL, in the order they were probed. */
         network: AdBlockerProbeOutcome[];
+        /**
+         * The browser identified itself as Brave, whose built-in Shields refuse
+         * ad hosts. Accepted as confirmation of a network-only result.
+         */
+        braveShields?: boolean;
     };
 }
 interface AdBlockerDetectorOptions {
@@ -1291,7 +1351,14 @@ declare function testDomCosmeticFiltering(): boolean;
  * 1. Offline, or a general connectivity probe that fails, is never a blocker.
  * 2. Every bait endpoint must be rejected outright. One reachable endpoint
  *    clears the check; a timeout or a CSP refusal makes it inconclusive.
- * 3. A cosmetic-filter hit on the DOM bait counts only while no ad endpoint
+ * 3. Refused ad hosts alone are not enough. Browser tracking protection
+ *    (Safari's Advanced Tracking Protection on iOS, Firefox and Edge strict
+ *    modes) refuses the same hosts with no ad blocker installed, and that
+ *    used to lock every iPhone out of the dashboards. The network vector is
+ *    confirmed only by a signal tracking protection cannot produce: a
+ *    cosmetic-filter hit on the DOM bait, or the browser being Brave (whose
+ *    Shields are the blocker). Otherwise the result is `inconclusive`.
+ * 4. A cosmetic-filter hit on the DOM bait counts only while no ad endpoint
  *    was reachable, since a reachable network means ad scripts will load.
  *
  * Safe in SSR and hydration environments.
@@ -1783,4 +1850,4 @@ declare function cx(...args: ClassValue[]): string;
 declare const setSharedApiClient: (client: any) => void;
 declare const getSharedApiClient: () => any;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, type SettingsSectionStatus, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, type UpdateBasicInfoPayload, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assertAuthCallbackUrl, assetCardIconButtonClass, assetKeys, buildAddAccountHref, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, DEFAULT_AVATAR_BASE_URL, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, type SettingsSectionStatus, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, type UpdateBasicInfoPayload, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assertAuthCallbackUrl, assetCardIconButtonClass, assetKeys, buildAddAccountHref, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, resolveAvatarUrl, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, splitDisplayName, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };

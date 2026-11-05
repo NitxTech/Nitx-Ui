@@ -8,8 +8,10 @@ export type AdBlockerDetectionReason =
   | "script_blocked"
   /**
    * The probes could not decide: the network was too slow to answer inside
-   * the timeout, or the page's Content Security Policy refused the bait
-   * requests. Never treated as a blocker.
+   * the timeout, the page's Content Security Policy refused the bait
+   * requests, or the ad hosts were refused without a cosmetic-filter hit
+   * (browser tracking protection such as Safari's on iOS looks exactly like
+   * that). Never treated as a blocker.
    */
   | "inconclusive"
   | "none";
@@ -32,6 +34,11 @@ export interface AdBlockerDetectionResult {
     domHidden: boolean;
     /** One outcome per bait URL, in the order they were probed. */
     network: AdBlockerProbeOutcome[];
+    /**
+     * The browser identified itself as Brave, whose built-in Shields refuse
+     * ad hosts. Accepted as confirmation of a network-only result.
+     */
+    braveShields?: boolean;
   };
 }
 
