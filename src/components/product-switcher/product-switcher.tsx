@@ -7,6 +7,7 @@ import {
 import { Button } from "../ui/button";
 import { ChevronRight, Grip } from "lucide-react";
 import ProductIcon from "./product-icon";
+import { DRIVE_TILE_DARK, DRIVE_TILE_LIGHT } from "./drive-tile-images";
 
 import { useEffect, useState } from "react";
 import { useNitxUiTranslation } from "../../i18n/nitxuilib";
@@ -86,8 +87,8 @@ export const ProductSwitcher = ({
           {
             id: "nitx-drive",
             title: "Nitx Drive",
-            image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/drive-icon.svg",
-            dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/drive-dark.svg",
+            image: DRIVE_TILE_LIGHT,
+            dark_image: DRIVE_TILE_DARK,
             url: `${process.env.NEXT_PUBLIC_NITX_DRIVE_URL}/${auth_user}`,
           },
         ]
