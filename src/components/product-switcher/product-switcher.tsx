@@ -79,6 +79,19 @@ export const ProductSwitcher = ({
       dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/reach-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#",
     },
+    // A product built without Drive's URL leaves the tile out instead of
+    // linking to "undefined".
+    ...(process.env.NEXT_PUBLIC_NITX_DRIVE_URL
+      ? [
+          {
+            id: "nitx-drive",
+            title: "Nitx Drive",
+            image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/drive-icon.svg",
+            dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/drive-dark.svg",
+            url: `${process.env.NEXT_PUBLIC_NITX_DRIVE_URL}/${auth_user}`,
+          },
+        ]
+      : []),
   ];
 
   return (
