@@ -2422,7 +2422,18 @@ var ProductSwitcher = ({
       image: "https://res.cloudinary.com/dj3rzny5p/image/upload/v1765777010/Nitx_Reach_Group_1_h6bsbj.svg",
       dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/reach-dark.svg",
       url: `${process.env.NEXT_PUBLIC_NITX_REACH_URL}/${auth_user}` || "#"
-    }
+    },
+    // A product built without Drive's URL leaves the tile out instead of
+    // linking to "undefined".
+    ...process.env.NEXT_PUBLIC_NITX_DRIVE_URL ? [
+      {
+        id: "nitx-drive",
+        title: "Nitx Drive",
+        image: "https://cdn-new.nitx.app/nitx-assets/ProductLight/drive-icon.svg",
+        dark_image: "https://cdn-new.nitx.app/nitx-assets/productsIconDark/drive-dark.svg",
+        url: `${process.env.NEXT_PUBLIC_NITX_DRIVE_URL}/${auth_user}`
+      }
+    ] : []
   ];
   return /* @__PURE__ */ jsxs3(DropdownMenu, { children: [
     /* @__PURE__ */ jsx5(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx5(Button, { size: "icon", variant: "outline", className: "shadow-none", children: /* @__PURE__ */ jsx5(Grip, { className: "w-6 h-6" }) }) }),
