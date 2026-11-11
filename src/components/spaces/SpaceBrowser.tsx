@@ -107,6 +107,7 @@ function renderSpaceList(
             id={space.space_uuid}
             name={space.name}
             members={getSpaceMemberCount(space)}
+            imageUrl={space.avatar || space.image || space.image_url || space.icon}
           />
         </div>
       ))}

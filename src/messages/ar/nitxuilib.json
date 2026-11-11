@@ -481,6 +481,15 @@
     "emptyDescription": "جرّب كلمة بحث مختلفة أو أنشئ مساحة جديدة.",
     "errorTitle": "تعذر تحميل المساحات"
   },
+  "spaceAvatar": {
+    "uploadImage": "تحميل صورة المساحة",
+    "changeImage": "تغيير صورة المساحة",
+    "removeImage": "إزالة الصورة",
+    "dragDropHint": "انقر أو اسحب صورة هنا",
+    "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميغابايت.",
+    "invalidType": "يرجى تحميل صورة صالحة: PNG أو JPEG أو WebP أو SVG.",
+    "uploadError": "فشل تحميل الصورة. يرجى المحاولة مرة أخرى."
+  },
   "spaceCard": {
     "members": "عضو",
     "rename": "إعادة التسمية",

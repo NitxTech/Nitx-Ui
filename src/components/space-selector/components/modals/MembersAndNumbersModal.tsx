@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useSpaceSelector } from "../../context";
 import { DrawerDialog } from "../../ui/drawer-dialog";
 import MembersAndNumbers from "../../../spaces/MembersAndNumbers";
+import { getSpaceImageUrl } from "../SpaceAvatar";
 
 const MembersAndNumbersModal = () => {
   const {
@@ -13,9 +14,24 @@ const MembersAndNumbersModal = () => {
     setModalProps: setProps,
     refreshSpaces,
     api,
+    spaces,
+    activeSpace,
+    setActiveSpace,
   } = useSpaceSelector();
 
   const spaceId = props?.manageSpaceMembers?.spaceId;
+
+  const targetSpace = useMemo(() => {
+    if (!spaceId) return undefined;
+    return spaces.find(
+      (s) =>
+        s.space_uuid === spaceId ||
+        s.proxyId === spaceId ||
+        s.uuid === spaceId
+    );
+  }, [spaces, spaceId]);
+
+  const spaceImage = props?.manageSpaceMembers?.spaceImage || getSpaceImageUrl(targetSpace);
 
   if (modal !== "membersAndNumbers" || !spaceId) return null;
 
@@ -30,6 +46,7 @@ const MembersAndNumbersModal = () => {
       <MembersAndNumbers
         spaceId={spaceId}
         spaceName={props?.manageSpaceMembers?.spaceName}
+        spaceImage={spaceImage}
         api={api}
         isOpen={modal === "membersAndNumbers"}
         onRefreshSpaces={refreshSpaces}
@@ -45,6 +62,20 @@ const MembersAndNumbersModal = () => {
               },
             };
           });
+        }}
+        onSpaceImageChange={(nextImage) => {
+          if (
+            activeSpace &&
+            (activeSpace.space_uuid === spaceId ||
+              activeSpace.proxyId === spaceId ||
+              activeSpace.uuid === spaceId)
+          ) {
+            setActiveSpace({
+              ...activeSpace,
+              avatar: nextImage,
+              image: nextImage,
+            });
+          }
         }}
       />
     </DrawerDialog>

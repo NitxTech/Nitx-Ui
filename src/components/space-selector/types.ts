@@ -7,6 +7,9 @@ export interface Member {
   email: string;
   role: MemberRole;
   imageURL?: string;
+  image?: string;
+  avatar?: string;
+  avatar_url?: string;
   joinedAt?: string;
 }
 
@@ -38,6 +41,9 @@ export interface ProxySpace {
   features?: SpaceFeature[];
   uuid?: string; // Sometimes used interchangeably
   avatar?: string;
+  image?: string;
+  image_url?: string;
+  icon?: string;
   last_used_at?: string | number | null;
 }
 
@@ -84,9 +90,10 @@ export interface SpaceSelectorProps {
 }
 
 export interface SpaceSelectorApi {
-  createSpace: (name: string) => Promise<ProxySpace>;
+  createSpace: (name: string, image?: File | string | null) => Promise<ProxySpace>;
   deleteSpace: (id: string) => Promise<void>;
-  renameSpace: (id: string, name: string) => Promise<void>;
+  renameSpace: (id: string, name: string, image?: File | string | null) => Promise<void>;
+  updateSpace?: (id: string, data: { name?: string; image?: File | string | null }) => Promise<void>;
   fetchMembers: (spaceId: string) => Promise<Member[]>;
   fetchInvitations: (spaceId: string) => Promise<Invitation[]>;
   inviteMembers: (spaceId: string, emails: string[], role: MemberRole) => Promise<void>;

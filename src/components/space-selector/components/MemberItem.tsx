@@ -53,8 +53,17 @@ const MemberItem = ({ member, onChange, onRemove }: MemberItemProps) => {
 
   return (
     <div className="w-full flex gap-2 items-center">
-      <Avatar className="rounded-full">
-        <AvatarImage src={(member as any).image || member.imageURL} />
+      <Avatar className="rounded-full overflow-hidden shrink-0">
+        <AvatarImage
+          src={
+            member.image ||
+            member.imageURL ||
+            member.avatar ||
+            member.avatar_url ||
+            (member as any).photo
+          }
+          className="h-full w-full object-cover"
+        />
         <AvatarFallback className="capitalize bg-primary dark:text-zinc-800 text-white">
           {isLoading ? (
             <Loader2 className="size-4 animate-spin" />

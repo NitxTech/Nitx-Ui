@@ -29,19 +29,23 @@ import { useNitxUiTranslation } from "../../i18n/nitxuilib";
 export interface MembersAndNumbersProps {
   spaceId: string;
   spaceName?: string;
+  spaceImage?: string | null;
   api?: SpaceSelectorApi;
   isOpen?: boolean;
   onRefreshSpaces?: () => void | Promise<void>;
   onSpaceNameChange?: (spaceName: string) => void;
+  onSpaceImageChange?: (imageUrl?: string) => void;
 }
 
 const MembersAndNumbers = ({
   spaceId,
   spaceName,
+  spaceImage,
   api,
   isOpen = true,
   onRefreshSpaces,
   onSpaceNameChange,
+  onSpaceImageChange,
 }: MembersAndNumbersProps) => {
   const { t } = useNitxUiTranslation();
 
@@ -61,6 +65,11 @@ const MembersAndNumbers = ({
   const [invitesCurrentPage, setInvitesCurrentPage] = useState(1);
   const [invitesRowsPerPage, setInvitesRowsPerPage] = useState(5);
   const [settingsSpaceName, setSettingsSpaceName] = useState("");
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [settingsSpaceImage, setSettingsSpaceImage] = useState<string | null>(
+    spaceImage || null
+  );
+  const [imageRemoved, setImageRemoved] = useState(false);
   const [savingSettings, setSavingSettings] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
 
@@ -69,6 +78,12 @@ const MembersAndNumbers = ({
       setSettingsSpaceName(spaceName);
     }
   }, [spaceName]);
+
+  useEffect(() => {
+    setSettingsSpaceImage(spaceImage || null);
+    setSelectedImageFile(null);
+    setImageRemoved(false);
+  }, [spaceImage]);
 
   const fetchData = async () => {
     if (!spaceId || !api) return;
@@ -121,16 +136,35 @@ const MembersAndNumbers = ({
     invitesCurrentPage * invitesRowsPerPage,
   );
 
+  const handleImageChange = (file: File | null, previewUrl: string | null) => {
+    setSelectedImageFile(file);
+    setSettingsSpaceImage(previewUrl);
+    setImageRemoved(file === null && previewUrl === null);
+  };
+
   const handleUpdateSpace = async () => {
     const nextSpaceName = settingsSpaceName.trim();
     if (!spaceId || !nextSpaceName || !api) return;
 
     setSavingSettings(true);
     try {
-      await api.renameSpace(spaceId, nextSpaceName);
+      const imageParam = selectedImageFile
+        ? selectedImageFile
+        : imageRemoved
+        ? null
+        : undefined;
+
+      await api.renameSpace(spaceId, nextSpaceName, imageParam);
       await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
+
+      if (settingsSpaceImage) {
+        onSpaceImageChange?.(settingsSpaceImage);
+      } else if (imageRemoved) {
+        onSpaceImageChange?.(undefined);
+      }
+
       toast.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
     } catch (error: any) {
       const renameErrorMessage =
@@ -314,8 +348,10 @@ const MembersAndNumbers = ({
             <SettingsTabContent
               title={t("manageMembersModal.settings")}
               spaceName={settingsSpaceName}
+              currentImageUrl={settingsSpaceImage}
               isSaving={savingSettings}
               onSpaceNameChange={setSettingsSpaceName}
+              onImageChange={handleImageChange}
               onSave={handleUpdateSpace}
             />
           }

@@ -9,17 +9,19 @@ import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
+import SpaceAvatarUpload from "../SpaceAvatarUpload";
+import { getSpaceImageUrl } from "../SpaceAvatar";
 
 type RenameModalView = "form" | "success" | "error";
-
-const getFallbackText = (value: string) => value.trim().slice(0, 2).toUpperCase();
 
 interface RenameSpaceFormStateProps {
   t: (key: string, options?: Record<string, unknown>) => string;
   spaceName: string;
   logoName: string;
+  currentImageUrl?: string | null;
   isSaving: boolean;
   onSpaceNameChange: (value: string) => void;
+  onImageChange: (file: File | null, previewUrl: string | null) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }
@@ -28,13 +30,13 @@ const RenameSpaceFormState = ({
   t,
   spaceName,
   logoName,
+  currentImageUrl,
   isSaving,
   onSpaceNameChange,
+  onImageChange,
   onSubmit,
   onCancel,
 }: RenameSpaceFormStateProps) => {
-  const logoText = getFallbackText(logoName || "SP");
-
   return (
     <div className="flex w-full flex-col gap-6 p-6">
       <div className="flex flex-col gap-2">
@@ -48,9 +50,13 @@ const RenameSpaceFormState = ({
 
       <div className="flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40">
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-          <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-neutral-900 text-lg font-semibold tracking-tight text-white shadow-sm dark:bg-secondary dark:text-white">
-            {logoText || "SP"}
-          </div>
+          <SpaceAvatarUpload
+            spaceName={spaceName || logoName}
+            currentImageUrl={currentImageUrl}
+            onImageChange={onImageChange}
+            disabled={isSaving}
+            size="xl"
+          />
 
           <div className="grid flex-1 items-center gap-1.5">
             <Label
@@ -212,6 +218,7 @@ const RenameSpaceModal = () => {
     modalProps,
     setModal,
     api,
+    spaces,
     activeSpace,
     setActiveSpace,
     refreshSpaces,
@@ -220,9 +227,27 @@ const RenameSpaceModal = () => {
   const renameProps = modalProps?.renameSpaceModalProps;
   const isOpen = activeModal === "renameSpace" && !!renameProps?.spaceId;
 
+  const targetSpace = useMemo(() => {
+    if (!renameProps?.spaceId) return undefined;
+    return spaces.find(
+      (s) =>
+        s.space_uuid === renameProps.spaceId ||
+        s.proxyId === renameProps.spaceId ||
+        s.uuid === renameProps.spaceId
+    );
+  }, [spaces, renameProps?.spaceId]);
+
+  const initialImageUrl = useMemo(
+    () => getSpaceImageUrl(targetSpace),
+    [targetSpace]
+  );
+
   const initialName = renameProps?.initialName ?? "";
   const [draftName, setDraftName] = useState(initialName);
   const [lastAttemptedName, setLastAttemptedName] = useState(initialName);
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(initialImageUrl || null);
+  const [imageRemoved, setImageRemoved] = useState(false);
   const [view, setView] = useState<RenameModalView>("form");
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -231,6 +256,9 @@ const RenameSpaceModal = () => {
     if (!isOpen) {
       setDraftName("");
       setLastAttemptedName("");
+      setSelectedImageFile(null);
+      setCurrentImageUrl(null);
+      setImageRemoved(false);
       setView("form");
       setIsSaving(false);
       setErrorMessage("");
@@ -239,10 +267,13 @@ const RenameSpaceModal = () => {
 
     setDraftName(initialName);
     setLastAttemptedName(initialName);
+    setSelectedImageFile(null);
+    setCurrentImageUrl(initialImageUrl || null);
+    setImageRemoved(false);
     setView("form");
     setIsSaving(false);
     setErrorMessage("");
-  }, [initialName, isOpen]);
+  }, [initialName, initialImageUrl, isOpen]);
 
   const logoName = useMemo(() => draftName.trim() || initialName || "Space", [
     draftName,
@@ -250,6 +281,12 @@ const RenameSpaceModal = () => {
   ]);
 
   const closeModal = () => setModal(null);
+
+  const handleImageChange = (file: File | null, previewUrl: string | null) => {
+    setSelectedImageFile(file);
+    setCurrentImageUrl(previewUrl);
+    setImageRemoved(file === null && previewUrl === null);
+  };
 
   const submitRename = async (nameToSubmit: string) => {
     if (!renameProps?.spaceId || !nameToSubmit.trim() || !api?.renameSpace) return;
@@ -260,7 +297,13 @@ const RenameSpaceModal = () => {
     setLastAttemptedName(nextName);
 
     try {
-      await api.renameSpace(renameProps.spaceId, nextName);
+      const imageParam = selectedImageFile
+        ? selectedImageFile
+        : imageRemoved
+        ? null
+        : undefined;
+
+      await api.renameSpace(renameProps.spaceId, nextName, imageParam);
       await refreshSpaces?.();
 
       if (
@@ -272,6 +315,11 @@ const RenameSpaceModal = () => {
         setActiveSpace({
           ...activeSpace,
           name: nextName,
+          ...(currentImageUrl
+            ? { avatar: currentImageUrl, image: currentImageUrl }
+            : imageRemoved
+            ? { avatar: undefined, image: undefined, image_url: undefined, icon: undefined }
+            : {}),
         });
       }
 
@@ -304,8 +352,10 @@ const RenameSpaceModal = () => {
               t={t}
               spaceName={draftName}
               logoName={logoName}
+              currentImageUrl={currentImageUrl}
               isSaving={isSaving}
               onSpaceNameChange={setDraftName}
+              onImageChange={handleImageChange}
               onSubmit={() => submitRename(draftName)}
               onCancel={closeModal}
             />

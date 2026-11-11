@@ -6,6 +6,7 @@ import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { toast } from "sonner";
 import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
+import SpaceAvatarUpload from "../SpaceAvatarUpload";
 
 const NewSpaceModal = () => {
   const { t } = useNitxUiTranslation();
@@ -20,6 +21,8 @@ const NewSpaceModal = () => {
   } = useSpaceSelector();
 
   const [name, setName] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const isModalOpen = activeModal === "newSpace";
@@ -27,6 +30,8 @@ const NewSpaceModal = () => {
   useEffect(() => {
     if (!isModalOpen) {
       setName("");
+      setImageFile(null);
+      setImagePreview(null);
       setIsLoading(false);
     }
   }, [isModalOpen]);
@@ -43,11 +48,16 @@ const NewSpaceModal = () => {
     try {
       if (!api?.createSpace) throw new Error("API not configured");
 
-      const spaceData = await api.createSpace(name);
+      const spaceData = await api.createSpace(name, imageFile);
 
       // Ensure space_uuid exists logic handled in API or here
       if (!spaceData.space_uuid && spaceData.uuid) {
         spaceData.space_uuid = spaceData.uuid;
+      }
+
+      if (imagePreview) {
+        spaceData.avatar = imagePreview;
+        spaceData.image = imagePreview;
       }
 
       refreshSpaces();
@@ -55,6 +65,8 @@ const NewSpaceModal = () => {
 
       toast.success(t("newSpaceModal.spaceCreatedSuccessfully"));
       setName("");
+      setImageFile(null);
+      setImagePreview(null);
       setModal(null);
     } catch (error: any) {
       console.error("Error creating space:", error);
@@ -83,16 +95,31 @@ const NewSpaceModal = () => {
           className="flex flex-col flex-1 justify-between gap-6"
           onSubmit={handleCreateSpace}
         >
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-3 mt-2">
-              <Label htmlFor="name">{t("newSpaceModal.typeName")}</Label>
-              <Input
-                id="name"
-                placeholder={t("newSpaceModal.spaceNamePlaceholder")}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
+          <div className="flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
+              <SpaceAvatarUpload
+                spaceName={name}
+                currentImageUrl={imagePreview}
+                onImageChange={(file, previewUrl) => {
+                  setImageFile(file);
+                  setImagePreview(previewUrl);
+                }}
+                disabled={isLoading}
+                size="xl"
               />
+
+              <div className="grid flex-1 items-center gap-1.5">
+                <Label htmlFor="name" className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                  {t("newSpaceModal.typeName")}
+                </Label>
+                <Input
+                  id="name"
+                  placeholder={t("newSpaceModal.spaceNamePlaceholder")}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
+                />
+              </div>
             </div>
           </div>
 
