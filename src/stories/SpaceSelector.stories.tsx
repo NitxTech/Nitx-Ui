@@ -10,6 +10,8 @@ const mockSpaces: ProxySpace[] = [
     name: "Main Headquarters",
     total_members: 12,
     role: "owner",
+    avatar:
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232563EB'/><circle cx='50' cy='50' r='30' fill='%23FFFFFF'/></svg>",
   },
   {
     space_uuid: "space-beta",
@@ -17,6 +19,8 @@ const mockSpaces: ProxySpace[] = [
     name: "Dubai Media City Display",
     total_members: 8,
     role: "editor",
+    avatar:
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23059669'/><path d='M25 75 L50 25 L75 75 Z' fill='%23FFFFFF'/></svg>",
   },
   {
     space_uuid: "space-gamma",

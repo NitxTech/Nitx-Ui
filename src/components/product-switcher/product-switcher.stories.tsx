@@ -12,9 +12,6 @@ const meta: Meta<typeof ProductSwitcher> = {
     },
   },
   tags: ["autodocs"],
-  argTypes: {
-    onLinkClick: { action: "Link Clicked" },
-  },
 };
 
 export default meta;

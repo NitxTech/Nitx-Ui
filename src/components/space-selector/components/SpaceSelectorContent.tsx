@@ -22,6 +22,7 @@ import { Skeleton } from "../ui/skeleton";
 import { useSpaceSelector } from "../context";
 import { ProxySpace } from "../types";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
+import SpaceAvatar, { getSpaceImageUrl } from "./SpaceAvatar";
 
 
 export const SpaceSelectorContent = () => {
@@ -48,6 +49,8 @@ export const SpaceSelectorContent = () => {
     setActiveSpace(space);
   };
 
+  const activeSpaceImage = getSpaceImageUrl(activeSpace);
+
   return (
     <>
       <div className="relative w-full">
@@ -67,7 +70,15 @@ export const SpaceSelectorContent = () => {
                 <>
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <div className="flex items-center justify-center shrink-0">
-                      <Building2 className="w-4 h-4 xl:w-5 xl:h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8] shrink-0" />
+                      {activeSpaceImage ? (
+                        <SpaceAvatar
+                          space={activeSpace}
+                          size="sm"
+                          className="size-6 xl:size-7 rounded-[6px]"
+                        />
+                      ) : (
+                        <Building2 className="w-4 h-4 xl:w-5 xl:h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8] shrink-0" />
+                      )}
                     </div>
                     <div className="flex flex-col justify-center min-w-0 flex-1">
                       <div className="text-sm xl:text-base w-full max-w-40 capitalize truncate">
@@ -87,7 +98,15 @@ export const SpaceSelectorContent = () => {
                 </>
               ) : (
                 <div className="flex items-center justify-center">
-                  <Building2 className="w-5 h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8]" />
+                  {activeSpaceImage ? (
+                    <SpaceAvatar
+                      space={activeSpace}
+                      size="sm"
+                      className="size-7 rounded-[8px]"
+                    />
+                  ) : (
+                    <Building2 className="w-5 h-5 text-zinc-600 dark:text-zinc-300 stroke-[1.8]" />
+                  )}
                 </div>
               )}
             </div>
@@ -118,13 +137,22 @@ export const SpaceSelectorContent = () => {
                 activeSpace &&
                 (activeSpace.proxyId === option.proxyId ||
                   (activeSpace.space_uuid && activeSpace.space_uuid === option.space_uuid));
+              const optionImage = getSpaceImageUrl(option);
               return (
                 <DropdownMenuItem
                   key={option.space_uuid || option.proxyId || key}
                   onClick={() => handleChange(option)}
                   className="w-full flex text-sm capitalize justify-start p-2 gap-3 items-center transition ease-in-out rounded-sm hover:bg-zinc-100/60 cursor-pointer"
                 >
-                  <Building2 className="w-4 h-4 stroke-[1.5]" />
+                  {optionImage ? (
+                    <SpaceAvatar
+                      space={option}
+                      size="xs"
+                      className="size-5 rounded-[4px] shrink-0 text-[10px]"
+                    />
+                  ) : (
+                    <Building2 className="w-4 h-4 stroke-[1.5] shrink-0" />
+                  )}
                   <p className="max-w-[8rem] truncate">{option.name}</p>
                   {isSelected && (
                     <CheckCircle className="ms-auto w-4 h-4 stroke-primary" />

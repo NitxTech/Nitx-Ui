@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import SearchInput from "../space-selector/ui/search-input";
 import { SquarePlusIcon } from "lucide-react";
 import SpaceCard, { SpaceCardSkeleton } from "../space-selector/components/SpaceCard";
+import { getSpaceImageUrl } from "../space-selector/components/SpaceAvatar";
 import EmptyList from "../space-selector/components/EmptyList";
 import ErrorState from "../ui/error-state";
 import { ProxySpace } from "../space-selector/types";
@@ -107,6 +108,7 @@ function renderSpaceList(
             id={space.space_uuid}
             name={space.name}
             members={getSpaceMemberCount(space)}
+            imageUrl={getSpaceImageUrl(space)}
           />
         </div>
       ))}

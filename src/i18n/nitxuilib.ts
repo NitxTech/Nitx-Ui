@@ -10,7 +10,7 @@ const NITX_UI_LIB_RESOURCES = {
 } as const;
 
 type SupportedLanguage = keyof typeof NITX_UI_LIB_RESOURCES;
-type TranslationOptions = Record<string, string | number | null | undefined>;
+export type TranslationOptions = Record<string, unknown>;
 
 const DEFAULT_LANGUAGE: SupportedLanguage = "en";
 

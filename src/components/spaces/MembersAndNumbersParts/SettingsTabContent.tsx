@@ -3,26 +3,32 @@ import { Loader2 } from "lucide-react";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
-import { getFallbackText } from "./constants";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
+import SpaceAvatarUpload from "../../space-selector/components/SpaceAvatarUpload";
+import SpaceAvatar from "../../space-selector/components/SpaceAvatar";
 
 interface SettingsTabContentProps {
   title: string;
   spaceName: string;
+  currentImageUrl?: string | null;
+  enableImageUpload?: boolean;
   isSaving: boolean;
   onSpaceNameChange: (value: string) => void;
+  onImageChange?: (file: File | null, previewUrl: string | null) => void;
   onSave: () => void;
 }
 
 const SettingsTabContent = ({
   title,
   spaceName,
+  currentImageUrl,
+  enableImageUpload,
   isSaving,
   onSpaceNameChange,
+  onImageChange,
   onSave,
 }: SettingsTabContentProps) => {
   const { t } = useNitxUiTranslation();
-  const logoText = getFallbackText(spaceName || "SP");
 
   return (
     <div className="flex-1 h-full min-h-0 flex flex-col gap-6 p-4 sm:p-8 overflow-y-auto pb-20">
@@ -30,9 +36,21 @@ const SettingsTabContent = ({
 
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-          <div className="w-[70px] h-[70px] shrink-0 rounded-2xl bg-neutral-900 text-white flex items-center justify-center text-lg font-semibold tracking-tight shadow-sm dark:bg-secondary dark:text-white">
-            {logoText}
-          </div>
+          {enableImageUpload ? (
+            <SpaceAvatarUpload
+              spaceName={spaceName}
+              currentImageUrl={currentImageUrl}
+              onImageChange={onImageChange || (() => {})}
+              disabled={isSaving}
+              size="lg"
+            />
+          ) : (
+            <SpaceAvatar
+              spaceName={spaceName}
+              imageUrl={currentImageUrl}
+              size="lg"
+            />
+          )}
 
           <div className="grid flex-1 items-center gap-1.5">
             <Label

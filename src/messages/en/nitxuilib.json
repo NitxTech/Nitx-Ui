@@ -481,6 +481,14 @@
     "emptyDescription": "Try a different search term or create a new space.",
     "errorTitle": "Couldn't load spaces"
   },
+  "spaceAvatar": {
+    "uploadImage": "Upload space image",
+    "changeImage": "Change space image",
+    "removeImage": "Remove image",
+    "fileTooLarge": "Image must be under 5MB.",
+    "invalidType": "Please upload a valid image: PNG, JPEG, or WebP.",
+    "uploadError": "Failed to load image. Please try again."
+  },
   "spaceCard": {
     "members": "members",
     "rename": "Rename",

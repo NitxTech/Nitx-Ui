@@ -44,6 +44,7 @@ interface SpaceSelectorContextType {
   // Utils
   authUser?: string | number;
   recentMap?: Record<string, number>;
+  enableImageUpload?: boolean;
 
   isLoading?: boolean;
   error?: string | null;
@@ -79,6 +80,7 @@ interface SpaceSelectorProviderProps {
   isExpanded?: boolean;
   className?: string;
   triggerClassName?: string;
+  enableImageUpload?: boolean;
   isLoading?: boolean;
   error?: string | null;
   onFail?: () => void;
@@ -95,6 +97,7 @@ export const SpaceSelectorProvider = ({
   isExpanded = true,
   className,
   triggerClassName,
+  enableImageUpload = false,
   isLoading = false,
   error = null,
   onFail = () => { },
@@ -172,6 +175,7 @@ export const SpaceSelectorProvider = ({
         api,
         authUser,
         recentMap,
+        enableImageUpload,
         isLoading,
         error,
         onFail,

@@ -193,6 +193,9 @@ interface Member {
     email: string;
     role: MemberRole;
     imageURL?: string;
+    image?: string;
+    avatar?: string;
+    avatar_url?: string;
     joinedAt?: string;
 }
 interface Invitation {
@@ -221,6 +224,9 @@ interface ProxySpace {
     features?: SpaceFeature[];
     uuid?: string;
     avatar?: string;
+    image?: string;
+    image_url?: string;
+    icon?: string;
     last_used_at?: string | number | null;
 }
 interface SpaceSelectorProps$1 {
@@ -256,11 +262,19 @@ interface SpaceSelectorProps$1 {
      * Whether the sidebar is expanded (visual mode)
      */
     isExpanded?: boolean;
+    /**
+     * Whether space image upload is enabled (defaults to false until backend persistence ships)
+     */
+    enableImageUpload?: boolean;
 }
 interface SpaceSelectorApi {
-    createSpace: (name: string) => Promise<ProxySpace>;
+    createSpace: (name: string, image?: File | string | null) => Promise<ProxySpace>;
     deleteSpace: (id: string) => Promise<void>;
-    renameSpace: (id: string, name: string) => Promise<void>;
+    renameSpace: (id: string, name: string, image?: File | string | null) => Promise<void>;
+    updateSpace?: (id: string, data: {
+        name?: string;
+        image?: File | string | null;
+    }) => Promise<void>;
     fetchMembers: (spaceId: string) => Promise<Member[]>;
     fetchInvitations: (spaceId: string) => Promise<Invitation[]>;
     inviteMembers: (spaceId: string, emails: string[], role: MemberRole) => Promise<void>;
@@ -329,6 +343,7 @@ interface SpaceSelectorProps {
     error?: string | null;
     onFail?: () => void;
     MembersManager?: MembersManagerProps;
+    enableImageUpload?: boolean;
 }
 declare const SpaceSelector: (props: SpaceSelectorProps) => React$1.JSX.Element;
 
@@ -350,6 +365,7 @@ interface SpaceSelectorContextType {
     api?: SpaceSelectorApi;
     authUser?: string | number;
     recentMap?: Record<string, number>;
+    enableImageUpload?: boolean;
     isLoading?: boolean;
     error?: string | null;
     onFail?: () => void;
@@ -367,11 +383,12 @@ interface SpaceSelectorProviderProps {
     isExpanded?: boolean;
     className?: string;
     triggerClassName?: string;
+    enableImageUpload?: boolean;
     isLoading?: boolean;
     error?: string | null;
     onFail?: () => void;
 }
-declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, className, triggerClassName, isLoading, error, onFail, }: SpaceSelectorProviderProps) => React__default.JSX.Element;
+declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, className, triggerClassName, enableImageUpload, isLoading, error, onFail, }: SpaceSelectorProviderProps) => React__default.JSX.Element;
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
@@ -413,15 +430,46 @@ declare function isSameSpace(a: ProxySpace | undefined | null, b: ProxySpace | u
  */
 declare function sortSpacesByLastUsed(spaces: ProxySpace[], recentMap?: Record<string, number>, activeSpace?: ProxySpace): ProxySpace[];
 
+declare const getSpaceImageUrl: (space?: Partial<ProxySpace> | null, overrideUrl?: string | null) => string | undefined;
+declare const getSpaceInitials: (name?: string | null) => string;
+
+interface SpaceAvatarProps {
+    space?: Partial<ProxySpace> | null;
+    name?: string;
+    spaceName?: string;
+    imageUrl?: string | null;
+    className?: string;
+    imageClassName?: string;
+    fallbackClassName?: string;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "custom";
+    fallbackType?: "initials" | "icon" | "cardBuilding";
+}
+
+declare const SpaceAvatar: ({ space, name, spaceName, imageUrl, className, imageClassName, fallbackClassName, size, fallbackType, }: SpaceAvatarProps) => React__default.JSX.Element;
+
+interface SpaceAvatarUploadProps {
+    currentImageUrl?: string | null;
+    spaceName?: string;
+    onImageChange: (file: File | null, previewUrl: string | null) => void;
+    disabled?: boolean;
+    className?: string;
+    size?: "md" | "lg" | "xl";
+    showRemoveButton?: boolean;
+}
+declare const SpaceAvatarUpload: ({ currentImageUrl, spaceName, onImageChange, disabled, className, size, showRemoveButton, }: SpaceAvatarUploadProps) => React__default.JSX.Element;
+
 interface MembersAndNumbersProps {
     spaceId: string;
     spaceName?: string;
+    spaceImage?: string | null;
+    enableImageUpload?: boolean;
     api?: SpaceSelectorApi;
     isOpen?: boolean;
     onRefreshSpaces?: () => void | Promise<void>;
     onSpaceNameChange?: (spaceName: string) => void;
+    onSpaceImageChange?: (imageUrl?: string) => void;
 }
-declare const MembersAndNumbers: ({ spaceId, spaceName, api, isOpen, onRefreshSpaces, onSpaceNameChange, }: MembersAndNumbersProps) => React$1.JSX.Element | null;
+declare const MembersAndNumbers: ({ spaceId, spaceName, spaceImage, enableImageUpload, api, isOpen, onRefreshSpaces, onSpaceNameChange, onSpaceImageChange, }: MembersAndNumbersProps) => React$1.JSX.Element | null;
 
 interface ErrorStateProps {
     /** Short description text shown below the icon */
@@ -1586,7 +1634,7 @@ declare function matchRank(text: string, query: string): number | null;
 declare function rankMatches<T>(items: readonly T[], query: string, getText: (item: T) => string): T[];
 
 declare const buttonVariants: (props?: ({
-    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -1850,4 +1898,4 @@ declare function cx(...args: ClassValue[]): string;
 declare const setSharedApiClient: (client: any) => void;
 declare const getSharedApiClient: () => any;
 
-export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, DEFAULT_AVATAR_BASE_URL, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, type SettingsSectionStatus, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, type UpdateBasicInfoPayload, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assertAuthCallbackUrl, assetCardIconButtonClass, assetKeys, buildAddAccountHref, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, resolveAvatarUrl, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, splitDisplayName, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
+export { ALLOWED_ASSET_UPLOAD_FILE_TYPES, AccountPreferencesModal, type AccountPreferencesModalProps, AdBlockerBadgeIcon, type AdBlockerDetectionReason, type AdBlockerDetectionResult, type AdBlockerDetectorOptions, AdBlockerInstructions, type AdBlockerInstructionsProps, AdBlockerNotice, type AdBlockerNoticeProps, AdBlockerPage, type AdBlockerPageProps, type AdBlockerProbeOutcome, type AdBlockerState, type AdBlockerStorageType, AddContentModal, type AddContentModalProps, type App, type AppInstance, type Asset, type AssetApp, type AssetCanvas, type AssetDocument, type AssetImage, type AssetImagesMap, type AssetLink, type AssetType, type AssetVideo, type AssetsApi, AssetsBrowser, type AssetsBrowserProps, type AssetsConfig, type AssetsDocumentPreviewConfig, type AssetsFeatureFlags, type AssetsNavigation, AssetsPath, AssetsProvider, type AssetsProviderProps, type AssetsSortBy, type AssetsTab, AssetsTabbar, type AssetsUploadConfig, AssetsUploadModal, type AssetsUploadModalProps, type AssetsViewType, Avatar, AvatarFallback, AvatarImage, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, type Channel, Checkbox, type Asset$1 as ContentAsset, type ContentBrowserApi, type Folder$1 as ContentFolder, type ContentItem, CustomTabbar, type CustomTabbarProps, DEFAULT_ASSET_IMAGES, DEFAULT_AVATAR_BASE_URL, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerDialog, type DrawerDialogProps, type DrawerDialogSize, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, ErrorState, type ErrorStateProps, FloatingBar, type FloatingBarProps, type Folder, GlobalSearchProvider, type GlobalSearchProviderProps, Input, type Invitation, Label, type Layout, type LinkDetail, LinkEditor, type LinkEditorProps, type LinkEditorTitleInfo, type LinkInput, type Member, type MemberRole, MembersAndNumbers, type MembersAndNumbersProps, MembersManager, type MembersManagerProps, DrawerDialog as Modal, DrawerDialog as ModalShell, NitxLogoWatermark, type NitxLogoWatermarkProps, type Path, ProductSwitcher, type ProxySpace, RAIL_CONTROL, RAIL_HOVER, SPACE_RECENT_EVENT_NAME, SPACE_RECENT_STORAGE_PREFIX, type SearchGroup, type SearchHit, SearchIconTrigger, SearchResultIcon, SearchResultRow, SearchResultText, type SearchResults, type SearchShortcut, type SearchSource, type SearchSourceState, SearchTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, type Sequence, SequenceDuration, type SequenceDurationProps, type SettingsSectionKey, type SettingsSectionStatus, SidebarBrandToggle, type SidebarBrandToggleProps, SidebarCreditsCard, type SidebarCreditsCardProps, type SidebarDirection, type SidebarLinkComponent, type SidebarLinkProps, SidebarNav, type SidebarNavGroup, SidebarNavItem, type SidebarNavItem$1 as SidebarNavItemModel, type SidebarNavItemProps, type SidebarNavProps, SidebarShell, type SidebarShellProps, SidebarToggle, type SidebarToggleProps, Skeleton, SpaceAvatar, type SpaceAvatarProps, SpaceAvatarUpload, type SpaceAvatarUploadProps, SpaceBrowser, type SpaceBrowserProps, type SpaceFeature, SpaceSelector, type SpaceSelectorApi, type SpaceSelectorProps$1 as SpaceSelectorProps, SpaceSelectorProvider, Switch, TabBar, type TabBarItem, type TabBarProps, type TabId, type TabItem, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, type UpdateBasicInfoPayload, UploadModal, type UploadModalProps, type UseAdBlockerOptions, UserAccount, type UserAccountProps, assertAuthCallbackUrl, assetCardIconButtonClass, assetKeys, buildAddAccountHref, buttonVariants, callUpdateBasicInfo, cn, cookieDomain, createAssetUploader, createAssetsApi, createContentBrowserApi, createSpaceSelectorApi, cx, detectAdBlocker, dialogOverlayClassName, displayModeToTheme, getRecentSpacesMap, getRecentSpacesStorageKey, getSharedApiClient, getSpaceIdentifier, getSpaceImageUrl, getSpaceInitials, getSpaceTimestamp, isApplePlatform, isBrowserOffline, isSameSpace, isSearchShortcut, matchRank, modalOverlayClassName, normalizeSearchText, rankMatches, readLanguageCookie, readThemeCookie, recordSpaceUsage, removeSpaceRecent, resolveAvatarUrl, searchShortcut, setSharedApiClient, sortSpacesByLastUsed, splitDisplayName, testDomCosmeticFiltering, themeToDisplayMode, useAdBlocker, useAssetsConfig, useAssetsQuery, useAssetsStore, useBulkDeleteFoldersMutation, useCreateFolderMutation, useDeleteAssetMutation, useDeleteFolderMutation, useGlobalSearch, useLazyLoading, useMoveAssetMutation, useMoveFolderMutation, useOptionalAssetsConfig, useOptionalSpaceSelector, useRenameAssetMutation, useRenameFolderMutation, useSearchEngine, useSpaceSelector, writeLanguageCookie, writeThemeCookie };
