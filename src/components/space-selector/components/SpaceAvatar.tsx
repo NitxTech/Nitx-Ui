@@ -9,6 +9,7 @@ import { ProxySpace } from "../types";
 export interface SpaceAvatarProps {
   space?: Partial<ProxySpace> | null;
   name?: string;
+  spaceName?: string;
   imageUrl?: string | null;
   className?: string;
   imageClassName?: string;
@@ -17,31 +18,12 @@ export interface SpaceAvatarProps {
   fallbackType?: "initials" | "icon" | "cardBuilding";
 }
 
-export const getSpaceImageUrl = (
-  space?: Partial<ProxySpace> | null,
-  overrideUrl?: string | null
-): string | undefined => {
-  if (overrideUrl) return overrideUrl;
-  if (!space) return undefined;
-  return (
-    space.avatar ||
-    space.image ||
-    space.image_url ||
-    space.icon ||
-    undefined
-  );
-};
+import {
+  getSpaceImageUrl,
+  getSpaceInitials,
+} from "../lib/space-avatar-utils";
 
-export const getSpaceInitials = (name?: string | null): string => {
-  if (!name) return "SP";
-  const trimmed = name.trim();
-  if (!trimmed) return "SP";
-  const words = trimmed.split(/\s+/).filter(Boolean);
-  if (words.length >= 2) {
-    return (words[0][0] + words[1][0]).toUpperCase();
-  }
-  return trimmed.slice(0, 2).toUpperCase();
-};
+export { getSpaceImageUrl, getSpaceInitials };
 
 const sizeClasses: Record<NonNullable<SpaceAvatarProps["size"]>, string> = {
   xs: "size-4 rounded-sm corner-squircle",
@@ -55,6 +37,7 @@ const sizeClasses: Record<NonNullable<SpaceAvatarProps["size"]>, string> = {
 export const SpaceAvatar = ({
   space,
   name,
+  spaceName,
   imageUrl,
   className,
   imageClassName,
@@ -62,7 +45,7 @@ export const SpaceAvatar = ({
   size = "md",
   fallbackType = "initials",
 }: SpaceAvatarProps) => {
-  const effectiveName = name || space?.name || "";
+  const effectiveName = name || spaceName || space?.name || "";
   const effectiveImageUrl = useMemo(
     () => getSpaceImageUrl(space, imageUrl),
     [space, imageUrl]
@@ -74,7 +57,10 @@ export const SpaceAvatar = ({
   return (
     <Avatar
       className={cn(
-        "relative shrink-0 overflow-hidden select-none bg-neutral-900 text-white flex items-center justify-center font-semibold tracking-tight shadow-sm dark:bg-secondary dark:text-white",
+        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight shadow-sm",
+        fallbackType === "cardBuilding"
+          ? "bg-[#007AFF1A] dark:bg-[#007AFF20]"
+          : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
       )}
@@ -89,7 +75,10 @@ export const SpaceAvatar = ({
 
       <AvatarFallback
         className={cn(
-          "h-full w-full flex items-center justify-center !rounded-none bg-neutral-900 text-white font-semibold dark:bg-secondary dark:text-white",
+          "h-full w-full flex items-center justify-center !rounded-none font-semibold",
+          fallbackType === "cardBuilding"
+            ? "bg-transparent text-primary"
+            : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
           fallbackClassName
         )}
       >

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import { Camera, ImagePlus, Loader2, Trash2, X } from "lucide-react";
+import { Camera, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
 import { SpaceAvatar } from "./SpaceAvatar";
 import { cn } from "../lib/utils";
@@ -12,7 +12,6 @@ const ALLOWED_MIME_TYPES = [
   "image/jpeg",
   "image/png",
   "image/webp",
-  "image/svg+xml",
 ];
 
 export interface SpaceAvatarUploadProps {
@@ -36,16 +35,29 @@ export const SpaceAvatarUpload = ({
 }: SpaceAvatarUploadProps) => {
   const { t } = useNitxUiTranslation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const createdUrlRef = useRef<string | null>(null);
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     currentImageUrl || null
   );
   const [isDragging, setIsDragging] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
+
+  const cleanupCreatedUrl = useCallback(() => {
+    if (createdUrlRef.current && createdUrlRef.current.startsWith("blob:")) {
+      URL.revokeObjectURL(createdUrlRef.current);
+      createdUrlRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     setPreviewUrl(currentImageUrl || null);
   }, [currentImageUrl]);
+
+  useEffect(() => {
+    return () => {
+      cleanupCreatedUrl();
+    };
+  }, [cleanupCreatedUrl]);
 
   const validateAndProcessFile = useCallback(
     (file: File) => {
@@ -59,21 +71,19 @@ export const SpaceAvatarUpload = ({
         return false;
       }
 
-      setIsProcessing(true);
       try {
+        cleanupCreatedUrl();
         const objectUrl = URL.createObjectURL(file);
+        createdUrlRef.current = objectUrl;
         setPreviewUrl(objectUrl);
         onImageChange(file, objectUrl);
         return true;
-      } catch (err) {
-        console.error("Failed to read image", err);
+      } catch {
         toast.error(t("spaceAvatar.uploadError"));
         return false;
-      } finally {
-        setIsProcessing(false);
       }
     },
-    [onImageChange, t]
+    [cleanupCreatedUrl, onImageChange, t]
   );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,13 +125,14 @@ export const SpaceAvatarUpload = ({
   };
 
   const handleClick = () => {
-    if (disabled || isProcessing) return;
+    if (disabled) return;
     fileInputRef.current?.click();
   };
 
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
+    cleanupCreatedUrl();
     setPreviewUrl(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -182,9 +193,7 @@ export const SpaceAvatarUpload = ({
               isDragging && "opacity-100"
             )}
           >
-            {isProcessing ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : hasImage ? (
+            {hasImage ? (
               <Camera className="w-5 h-5 stroke-[1.8]" />
             ) : (
               <ImagePlus className="w-5 h-5 stroke-[1.8]" />
@@ -199,7 +208,7 @@ export const SpaceAvatarUpload = ({
             onClick={handleRemove}
             title={t("spaceAvatar.removeImage")}
             aria-label={t("spaceAvatar.removeImage")}
-            className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border border-white dark:border-neutral-900 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer z-10"
+            className="absolute -top-1.5 -end-1.5 size-5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border border-white dark:border-neutral-900 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer z-10"
           >
             <X className="size-3 stroke-[2.5]" />
           </button>

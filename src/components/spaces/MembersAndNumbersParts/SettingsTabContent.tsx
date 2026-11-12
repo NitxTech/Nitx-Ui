@@ -5,11 +5,13 @@ import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { useNitxUiTranslation } from "../../../i18n/nitxuilib";
 import SpaceAvatarUpload from "../../space-selector/components/SpaceAvatarUpload";
+import SpaceAvatar from "../../space-selector/components/SpaceAvatar";
 
 interface SettingsTabContentProps {
   title: string;
   spaceName: string;
   currentImageUrl?: string | null;
+  enableImageUpload?: boolean;
   isSaving: boolean;
   onSpaceNameChange: (value: string) => void;
   onImageChange?: (file: File | null, previewUrl: string | null) => void;
@@ -20,6 +22,7 @@ const SettingsTabContent = ({
   title,
   spaceName,
   currentImageUrl,
+  enableImageUpload,
   isSaving,
   onSpaceNameChange,
   onImageChange,
@@ -33,13 +36,21 @@ const SettingsTabContent = ({
 
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-          <SpaceAvatarUpload
-            spaceName={spaceName}
-            currentImageUrl={currentImageUrl}
-            onImageChange={onImageChange || (() => {})}
-            disabled={isSaving}
-            size="lg"
-          />
+          {enableImageUpload ? (
+            <SpaceAvatarUpload
+              spaceName={spaceName}
+              currentImageUrl={currentImageUrl}
+              onImageChange={onImageChange || (() => {})}
+              disabled={isSaving}
+              size="lg"
+            />
+          ) : (
+            <SpaceAvatar
+              spaceName={spaceName}
+              imageUrl={currentImageUrl}
+              size="lg"
+            />
+          )}
 
           <div className="grid flex-1 items-center gap-1.5">
             <Label

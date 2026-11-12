@@ -485,9 +485,8 @@
     "uploadImage": "Upload space image",
     "changeImage": "Change space image",
     "removeImage": "Remove image",
-    "dragDropHint": "Click or drag an image here",
     "fileTooLarge": "Image must be under 5MB.",
-    "invalidType": "Please upload a valid image: PNG, JPEG, WebP, or SVG.",
+    "invalidType": "Please upload a valid image: PNG, JPEG, or WebP.",
     "uploadError": "Failed to load image. Please try again."
   },
   "spaceCard": {

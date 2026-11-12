@@ -17,6 +17,7 @@ const MembersAndNumbersModal = () => {
     spaces,
     activeSpace,
     setActiveSpace,
+    enableImageUpload,
   } = useSpaceSelector();
 
   const spaceId = props?.manageSpaceMembers?.spaceId;
@@ -47,6 +48,7 @@ const MembersAndNumbersModal = () => {
         spaceId={spaceId}
         spaceName={props?.manageSpaceMembers?.spaceName}
         spaceImage={spaceImage}
+        enableImageUpload={enableImageUpload}
         api={api}
         isOpen={modal === "membersAndNumbers"}
         onRefreshSpaces={refreshSpaces}
@@ -72,8 +74,8 @@ const MembersAndNumbersModal = () => {
           ) {
             setActiveSpace({
               ...activeSpace,
-              avatar: nextImage,
-              image: nextImage,
+              avatar: nextImage && !nextImage.startsWith("blob:") ? nextImage : undefined,
+              image: nextImage && !nextImage.startsWith("blob:") ? nextImage : undefined,
             });
           }
         }}

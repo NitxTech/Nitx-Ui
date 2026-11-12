@@ -30,6 +30,7 @@ export interface MembersAndNumbersProps {
   spaceId: string;
   spaceName?: string;
   spaceImage?: string | null;
+  enableImageUpload?: boolean;
   api?: SpaceSelectorApi;
   isOpen?: boolean;
   onRefreshSpaces?: () => void | Promise<void>;
@@ -41,6 +42,7 @@ const MembersAndNumbers = ({
   spaceId,
   spaceName,
   spaceImage,
+  enableImageUpload,
   api,
   isOpen = true,
   onRefreshSpaces,
@@ -84,6 +86,14 @@ const MembersAndNumbers = ({
     setSelectedImageFile(null);
     setImageRemoved(false);
   }, [spaceImage]);
+
+  useEffect(() => {
+    return () => {
+      if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:")) {
+        URL.revokeObjectURL(settingsSpaceImage);
+      }
+    };
+  }, [settingsSpaceImage]);
 
   const fetchData = async () => {
     if (!spaceId || !api) return;
@@ -137,6 +147,9 @@ const MembersAndNumbers = ({
   );
 
   const handleImageChange = (file: File | null, previewUrl: string | null) => {
+    if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:") && settingsSpaceImage !== previewUrl) {
+      URL.revokeObjectURL(settingsSpaceImage);
+    }
     setSelectedImageFile(file);
     setSettingsSpaceImage(previewUrl);
     setImageRemoved(file === null && previewUrl === null);
@@ -148,10 +161,12 @@ const MembersAndNumbers = ({
 
     setSavingSettings(true);
     try {
-      const imageParam = selectedImageFile
+      const imageParam = enableImageUpload
         ? selectedImageFile
-        : imageRemoved
-        ? null
+          ? selectedImageFile
+          : imageRemoved
+          ? null
+          : undefined
         : undefined;
 
       await api.renameSpace(spaceId, nextSpaceName, imageParam);
@@ -159,10 +174,16 @@ const MembersAndNumbers = ({
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
 
-      if (settingsSpaceImage) {
-        onSpaceImageChange?.(settingsSpaceImage);
-      } else if (imageRemoved) {
-        onSpaceImageChange?.(undefined);
+      if (enableImageUpload) {
+        if (settingsSpaceImage && !settingsSpaceImage.startsWith("blob:")) {
+          onSpaceImageChange?.(settingsSpaceImage);
+        } else if (imageRemoved) {
+          onSpaceImageChange?.(undefined);
+        }
+      }
+
+      if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:")) {
+        URL.revokeObjectURL(settingsSpaceImage);
       }
 
       toast.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
@@ -349,6 +370,7 @@ const MembersAndNumbers = ({
               title={t("manageMembersModal.settings")}
               spaceName={settingsSpaceName}
               currentImageUrl={settingsSpaceImage}
+              enableImageUpload={enableImageUpload}
               isSaving={savingSettings}
               onSpaceNameChange={setSettingsSpaceName}
               onImageChange={handleImageChange}

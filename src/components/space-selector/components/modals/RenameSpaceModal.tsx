@@ -10,7 +10,7 @@ import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { useNitxUiTranslation } from "../../../../i18n/nitxuilib";
 import SpaceAvatarUpload from "../SpaceAvatarUpload";
-import { getSpaceImageUrl } from "../SpaceAvatar";
+import SpaceAvatar, { getSpaceImageUrl } from "../SpaceAvatar";
 
 type RenameModalView = "form" | "success" | "error";
 
@@ -19,6 +19,7 @@ interface RenameSpaceFormStateProps {
   spaceName: string;
   logoName: string;
   currentImageUrl?: string | null;
+  enableImageUpload?: boolean;
   isSaving: boolean;
   onSpaceNameChange: (value: string) => void;
   onImageChange: (file: File | null, previewUrl: string | null) => void;
@@ -31,6 +32,7 @@ const RenameSpaceFormState = ({
   spaceName,
   logoName,
   currentImageUrl,
+  enableImageUpload,
   isSaving,
   onSpaceNameChange,
   onImageChange,
@@ -50,13 +52,21 @@ const RenameSpaceFormState = ({
 
       <div className="flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40">
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-          <SpaceAvatarUpload
-            spaceName={spaceName || logoName}
-            currentImageUrl={currentImageUrl}
-            onImageChange={onImageChange}
-            disabled={isSaving}
-            size="xl"
-          />
+          {enableImageUpload ? (
+            <SpaceAvatarUpload
+              spaceName={spaceName || logoName}
+              currentImageUrl={currentImageUrl}
+              onImageChange={onImageChange}
+              disabled={isSaving}
+              size="xl"
+            />
+          ) : (
+            <SpaceAvatar
+              spaceName={spaceName || logoName}
+              imageUrl={currentImageUrl}
+              size="xl"
+            />
+          )}
 
           <div className="grid flex-1 items-center gap-1.5">
             <Label
@@ -222,6 +232,7 @@ const RenameSpaceModal = () => {
     activeSpace,
     setActiveSpace,
     refreshSpaces,
+    enableImageUpload,
   } = useSpaceSelector();
 
   const renameProps = modalProps?.renameSpaceModalProps;
@@ -254,6 +265,9 @@ const RenameSpaceModal = () => {
 
   useEffect(() => {
     if (!isOpen) {
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
+      }
       setDraftName("");
       setLastAttemptedName("");
       setSelectedImageFile(null);
@@ -275,6 +289,14 @@ const RenameSpaceModal = () => {
     setErrorMessage("");
   }, [initialName, initialImageUrl, isOpen]);
 
+  useEffect(() => {
+    return () => {
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
+      }
+    };
+  }, [currentImageUrl]);
+
   const logoName = useMemo(() => draftName.trim() || initialName || "Space", [
     draftName,
     initialName,
@@ -283,6 +305,9 @@ const RenameSpaceModal = () => {
   const closeModal = () => setModal(null);
 
   const handleImageChange = (file: File | null, previewUrl: string | null) => {
+    if (currentImageUrl && currentImageUrl.startsWith("blob:") && currentImageUrl !== previewUrl) {
+      URL.revokeObjectURL(currentImageUrl);
+    }
     setSelectedImageFile(file);
     setCurrentImageUrl(previewUrl);
     setImageRemoved(file === null && previewUrl === null);
@@ -297,10 +322,12 @@ const RenameSpaceModal = () => {
     setLastAttemptedName(nextName);
 
     try {
-      const imageParam = selectedImageFile
+      const imageParam = enableImageUpload
         ? selectedImageFile
-        : imageRemoved
-        ? null
+          ? selectedImageFile
+          : imageRemoved
+          ? null
+          : undefined
         : undefined;
 
       await api.renameSpace(renameProps.spaceId, nextName, imageParam);
@@ -315,12 +342,18 @@ const RenameSpaceModal = () => {
         setActiveSpace({
           ...activeSpace,
           name: nextName,
-          ...(currentImageUrl
-            ? { avatar: currentImageUrl, image: currentImageUrl }
-            : imageRemoved
-            ? { avatar: undefined, image: undefined, image_url: undefined, icon: undefined }
+          ...(enableImageUpload
+            ? currentImageUrl && !currentImageUrl.startsWith("blob:")
+              ? { avatar: currentImageUrl, image: currentImageUrl }
+              : imageRemoved
+              ? { avatar: undefined, image: undefined, image_url: undefined, icon: undefined }
+              : {}
             : {}),
         });
+      }
+
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
       }
 
       setDraftName(nextName);
@@ -353,6 +386,7 @@ const RenameSpaceModal = () => {
               spaceName={draftName}
               logoName={logoName}
               currentImageUrl={currentImageUrl}
+              enableImageUpload={enableImageUpload}
               isSaving={isSaving}
               onSpaceNameChange={setDraftName}
               onImageChange={handleImageChange}

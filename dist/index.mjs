@@ -492,9 +492,8 @@ var nitxuilib_default = {
     uploadImage: "\u062A\u062D\u0645\u064A\u0644 \u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0633\u0627\u062D\u0629",
     changeImage: "\u062A\u063A\u064A\u064A\u0631 \u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0633\u0627\u062D\u0629",
     removeImage: "\u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u0635\u0648\u0631\u0629",
-    dragDropHint: "\u0627\u0646\u0642\u0631 \u0623\u0648 \u0627\u0633\u062D\u0628 \u0635\u0648\u0631\u0629 \u0647\u0646\u0627",
     fileTooLarge: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u062D\u062C\u0645 \u0627\u0644\u0635\u0648\u0631\u0629 \u0623\u0642\u0644 \u0645\u0646 5 \u0645\u064A\u063A\u0627\u0628\u0627\u064A\u062A.",
-    invalidType: "\u064A\u0631\u062C\u0649 \u062A\u062D\u0645\u064A\u0644 \u0635\u0648\u0631\u0629 \u0635\u0627\u0644\u062D\u0629: PNG \u0623\u0648 JPEG \u0623\u0648 WebP \u0623\u0648 SVG.",
+    invalidType: "\u064A\u0631\u062C\u0649 \u062A\u062D\u0645\u064A\u0644 \u0635\u0648\u0631\u0629 \u0635\u0627\u0644\u062D\u0629: PNG \u0623\u0648 JPEG \u0623\u0648 WebP.",
     uploadError: "\u0641\u0634\u0644 \u062A\u062D\u0645\u064A\u0644 \u0627\u0644\u0635\u0648\u0631\u0629. \u064A\u0631\u062C\u0649 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649."
   },
   spaceCard: {
@@ -1527,9 +1526,8 @@ var nitxuilib_default2 = {
     uploadImage: "Upload space image",
     changeImage: "Change space image",
     removeImage: "Remove image",
-    dragDropHint: "Click or drag an image here",
     fileTooLarge: "Image must be under 5MB.",
-    invalidType: "Please upload a valid image: PNG, JPEG, WebP, or SVG.",
+    invalidType: "Please upload a valid image: PNG, JPEG, or WebP.",
     uploadError: "Failed to load image. Please try again."
   },
   spaceCard: {
@@ -4465,6 +4463,7 @@ var SpaceSelectorProvider = ({
   isExpanded = true,
   className,
   triggerClassName,
+  enableImageUpload = false,
   isLoading = false,
   error = null,
   onFail = () => {
@@ -4535,6 +4534,7 @@ var SpaceSelectorProvider = ({
         api,
         authUser,
         recentMap,
+        enableImageUpload,
         isLoading,
         error,
         onFail
@@ -4804,7 +4804,8 @@ import { toast as toast2 } from "sonner";
 // src/components/space-selector/components/SpaceAvatar.tsx
 import { useMemo as useMemo4 } from "react";
 import { Building2 } from "lucide-react";
-import { jsx as jsx18, jsxs as jsxs12 } from "react/jsx-runtime";
+
+// src/components/space-selector/lib/space-avatar-utils.ts
 var getSpaceImageUrl = (space, overrideUrl) => {
   if (overrideUrl) return overrideUrl;
   if (!space) return void 0;
@@ -4820,6 +4821,9 @@ var getSpaceInitials = (name) => {
   }
   return trimmed.slice(0, 2).toUpperCase();
 };
+
+// src/components/space-selector/components/SpaceAvatar.tsx
+import { jsx as jsx18, jsxs as jsxs12 } from "react/jsx-runtime";
 var sizeClasses = {
   xs: "size-4 rounded-sm corner-squircle",
   sm: "size-6 rounded-md corner-squircle",
@@ -4831,6 +4835,7 @@ var sizeClasses = {
 var SpaceAvatar = ({
   space,
   name,
+  spaceName,
   imageUrl,
   className,
   imageClassName,
@@ -4838,7 +4843,7 @@ var SpaceAvatar = ({
   size = "md",
   fallbackType = "initials"
 }) => {
-  const effectiveName = name || space?.name || "";
+  const effectiveName = name || spaceName || space?.name || "";
   const effectiveImageUrl = useMemo4(
     () => getSpaceImageUrl(space, imageUrl),
     [space, imageUrl]
@@ -4849,7 +4854,8 @@ var SpaceAvatar = ({
     Avatar,
     {
       className: cn2(
-        "relative shrink-0 overflow-hidden select-none bg-neutral-900 text-white flex items-center justify-center font-semibold tracking-tight shadow-sm dark:bg-secondary dark:text-white",
+        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight shadow-sm",
+        fallbackType === "cardBuilding" ? "bg-[#007AFF1A] dark:bg-[#007AFF20]" : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
       ),
@@ -4866,7 +4872,8 @@ var SpaceAvatar = ({
           AvatarFallback,
           {
             className: cn2(
-              "h-full w-full flex items-center justify-center !rounded-none bg-neutral-900 text-white font-semibold dark:bg-secondary dark:text-white",
+              "h-full w-full flex items-center justify-center !rounded-none font-semibold",
+              fallbackType === "cardBuilding" ? "bg-transparent text-primary" : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
               fallbackClassName
             ),
             children: fallbackType === "initials" ? /* @__PURE__ */ jsx18("span", { children: initials }) : fallbackType === "icon" ? /* @__PURE__ */ jsx18(Building2, { className: "w-1/2 h-1/2 stroke-[1.8] text-white" }) : /* @__PURE__ */ jsxs12(
@@ -4958,7 +4965,8 @@ var SpaceCard = ({ id, name, members, className, imageUrl }) => {
               imageUrl: effectiveImageUrl,
               size: "md",
               fallbackType: "cardBuilding",
-              className: "rounded-lg bg-[#007AFF1A] dark:bg-[#007AFF20]"
+              className: "rounded-lg bg-[#007AFF1A] dark:bg-[#007AFF20]",
+              fallbackClassName: "bg-[#007AFF1A] dark:bg-[#007AFF20]"
             }
           ),
           /* @__PURE__ */ jsxs13("div", { className: "flex flex-col w-full", children: [
@@ -5213,7 +5221,7 @@ function renderSpaceList(filteredSpaces, spacesContainerStyle, spaceCardStyle, o
           id: space.space_uuid,
           name: space.name,
           members: getSpaceMemberCount(space),
-          imageUrl: space.avatar || space.image || space.image_url || space.icon
+          imageUrl: getSpaceImageUrl(space)
         }
       )
     },
@@ -5378,15 +5386,14 @@ import { toast as toast4 } from "sonner";
 
 // src/components/space-selector/components/SpaceAvatarUpload.tsx
 import { useRef, useState as useState8, useCallback as useCallback2, useEffect as useEffect7 } from "react";
-import { Camera, ImagePlus, Loader2, X as X2 } from "lucide-react";
+import { Camera, ImagePlus, X as X2 } from "lucide-react";
 import { toast as toast3 } from "sonner";
 import { jsx as jsx26, jsxs as jsxs17 } from "react/jsx-runtime";
 var MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
 var ALLOWED_MIME_TYPES = [
   "image/jpeg",
   "image/png",
-  "image/webp",
-  "image/svg+xml"
+  "image/webp"
 ];
 var SpaceAvatarUpload = ({
   currentImageUrl,
@@ -5399,14 +5406,25 @@ var SpaceAvatarUpload = ({
 }) => {
   const { t } = useNitxUiTranslation();
   const fileInputRef = useRef(null);
+  const createdUrlRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState8(
     currentImageUrl || null
   );
   const [isDragging, setIsDragging] = useState8(false);
-  const [isProcessing, setIsProcessing] = useState8(false);
+  const cleanupCreatedUrl = useCallback2(() => {
+    if (createdUrlRef.current && createdUrlRef.current.startsWith("blob:")) {
+      URL.revokeObjectURL(createdUrlRef.current);
+      createdUrlRef.current = null;
+    }
+  }, []);
   useEffect7(() => {
     setPreviewUrl(currentImageUrl || null);
   }, [currentImageUrl]);
+  useEffect7(() => {
+    return () => {
+      cleanupCreatedUrl();
+    };
+  }, [cleanupCreatedUrl]);
   const validateAndProcessFile = useCallback2(
     (file) => {
       if (!ALLOWED_MIME_TYPES.includes(file.type)) {
@@ -5417,21 +5435,19 @@ var SpaceAvatarUpload = ({
         toast3.error(t("spaceAvatar.fileTooLarge"));
         return false;
       }
-      setIsProcessing(true);
       try {
+        cleanupCreatedUrl();
         const objectUrl = URL.createObjectURL(file);
+        createdUrlRef.current = objectUrl;
         setPreviewUrl(objectUrl);
         onImageChange(file, objectUrl);
         return true;
-      } catch (err) {
-        console.error("Failed to read image", err);
+      } catch {
         toast3.error(t("spaceAvatar.uploadError"));
         return false;
-      } finally {
-        setIsProcessing(false);
       }
     },
-    [onImageChange, t]
+    [cleanupCreatedUrl, onImageChange, t]
   );
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -5465,12 +5481,13 @@ var SpaceAvatarUpload = ({
     setIsDragging(false);
   };
   const handleClick = () => {
-    if (disabled || isProcessing) return;
+    if (disabled) return;
     fileInputRef.current?.click();
   };
   const handleRemove = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    cleanupCreatedUrl();
     setPreviewUrl(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -5522,7 +5539,7 @@ var SpaceAvatarUpload = ({
                   !disabled && "group-hover:opacity-100",
                   isDragging && "opacity-100"
                 ),
-                children: isProcessing ? /* @__PURE__ */ jsx26(Loader2, { className: "w-5 h-5 animate-spin" }) : hasImage ? /* @__PURE__ */ jsx26(Camera, { className: "w-5 h-5 stroke-[1.8]" }) : /* @__PURE__ */ jsx26(ImagePlus, { className: "w-5 h-5 stroke-[1.8]" })
+                children: hasImage ? /* @__PURE__ */ jsx26(Camera, { className: "w-5 h-5 stroke-[1.8]" }) : /* @__PURE__ */ jsx26(ImagePlus, { className: "w-5 h-5 stroke-[1.8]" })
               }
             )
           ]
@@ -5535,7 +5552,7 @@ var SpaceAvatarUpload = ({
           onClick: handleRemove,
           title: t("spaceAvatar.removeImage"),
           "aria-label": t("spaceAvatar.removeImage"),
-          className: "absolute -top-1.5 -right-1.5 size-5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border border-white dark:border-neutral-900 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer z-10",
+          className: "absolute -top-1.5 -end-1.5 size-5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border border-white dark:border-neutral-900 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer z-10",
           children: /* @__PURE__ */ jsx26(X2, { className: "size-3 stroke-[2.5]" })
         }
       )
@@ -5566,7 +5583,8 @@ var NewSpaceModal = () => {
     api,
     setActiveSpace,
     authUser,
-    refreshSpaces
+    refreshSpaces,
+    enableImageUpload
   } = useSpaceSelector();
   const [name, setName] = useState9("");
   const [imageFile, setImageFile] = useState9(null);
@@ -5575,12 +5593,15 @@ var NewSpaceModal = () => {
   const isModalOpen = activeModal === "newSpace";
   useEffect8(() => {
     if (!isModalOpen) {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
       setName("");
       setImageFile(null);
       setImagePreview(null);
       setIsLoading(false);
     }
-  }, [isModalOpen]);
+  }, [isModalOpen, imagePreview]);
   if (!isModalOpen) return null;
   const handleCreateSpace = async (e) => {
     e.preventDefault();
@@ -5589,13 +5610,15 @@ var NewSpaceModal = () => {
     setIsLoading(true);
     try {
       if (!api?.createSpace) throw new Error("API not configured");
-      const spaceData = await api.createSpace(name, imageFile);
+      const spaceData = await api.createSpace(
+        name,
+        enableImageUpload ? imageFile : void 0
+      );
       if (!spaceData.space_uuid && spaceData.uuid) {
         spaceData.space_uuid = spaceData.uuid;
       }
-      if (imagePreview) {
-        spaceData.avatar = imagePreview;
-        spaceData.image = imagePreview;
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
       }
       refreshSpaces();
       setActiveSpace(spaceData);
@@ -5604,8 +5627,7 @@ var NewSpaceModal = () => {
       setImageFile(null);
       setImagePreview(null);
       setModal(null);
-    } catch (error) {
-      console.error("Error creating space:", error);
+    } catch {
       toast4.error(t("newSpaceModal.failedToCreateSpace"));
     } finally {
       setIsLoading(false);
@@ -5628,7 +5650,7 @@ var NewSpaceModal = () => {
             className: "flex flex-col flex-1 justify-between gap-6",
             onSubmit: handleCreateSpace,
             children: [
-              /* @__PURE__ */ jsx27("div", { className: "flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40", children: /* @__PURE__ */ jsxs18("div", { className: "flex flex-col items-start gap-3 sm:flex-row sm:gap-4", children: [
+              enableImageUpload ? /* @__PURE__ */ jsx27("div", { className: "flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40", children: /* @__PURE__ */ jsxs18("div", { className: "flex flex-col items-start gap-3 sm:flex-row sm:gap-4", children: [
                 /* @__PURE__ */ jsx27(
                   SpaceAvatarUpload_default,
                   {
@@ -5655,6 +5677,18 @@ var NewSpaceModal = () => {
                     }
                   )
                 ] })
+              ] }) }) : /* @__PURE__ */ jsx27("div", { className: "flex flex-col gap-5", children: /* @__PURE__ */ jsxs18("div", { className: "flex flex-col gap-3 mt-2", children: [
+                /* @__PURE__ */ jsx27(Label4, { htmlFor: "name", children: t("newSpaceModal.typeName") }),
+                /* @__PURE__ */ jsx27(
+                  Input,
+                  {
+                    id: "name",
+                    placeholder: t("newSpaceModal.spaceNamePlaceholder"),
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    className: "h-12 rounded-xl bg-neutral-50 dark:bg-black dark:text-neutral-50"
+                  }
+                )
               ] }) }),
               /* @__PURE__ */ jsxs18("div", { className: "flex justify-end gap-3", children: [
                 /* @__PURE__ */ jsx27(
@@ -5723,7 +5757,7 @@ var Label5 = React19.forwardRef(({ className, ...props }, ref) => /* @__PURE__ *
 Label5.displayName = LabelPrimitive2.Root.displayName;
 
 // src/components/spaces/MembersManager.tsx
-import { Loader2 as Loader22, X as X3 } from "lucide-react";
+import { Loader2, X as X3 } from "lucide-react";
 
 // node_modules/.pnpm/uuid@11.1.1/node_modules/uuid/dist/esm/stringify.js
 var byteToHex = [];
@@ -6089,7 +6123,7 @@ var MembersManager = ({
                 disabled: isButtonDisabled,
                 className: "w-full h-12 bg-primary dark:text-zinc-800 hover:bg-primary dark:text-zinc-800/90 text-white font-semibold text-base rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-50  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
                 children: [
-                  isLoading ? /* @__PURE__ */ jsx30(Loader22, { className: "w-5 h-5 animate-spin mr-2" }) : null,
+                  isLoading ? /* @__PURE__ */ jsx30(Loader2, { className: "w-5 h-5 animate-spin mr-2" }) : null,
                   isLoading ? t("membersManager.sendingInvites") : t("membersManager.sendInvite")
                 ]
               }
@@ -6890,12 +6924,13 @@ var RemoveMemberDialog = ({
 var RemoveMemberDialog_default = RemoveMemberDialog;
 
 // src/components/spaces/MembersAndNumbersParts/SettingsTabContent.tsx
-import { Loader2 as Loader23 } from "lucide-react";
+import { Loader2 as Loader22 } from "lucide-react";
 import { jsx as jsx44, jsxs as jsxs32 } from "react/jsx-runtime";
 var SettingsTabContent = ({
   title,
   spaceName,
   currentImageUrl,
+  enableImageUpload,
   isSaving,
   onSpaceNameChange,
   onImageChange,
@@ -6906,7 +6941,7 @@ var SettingsTabContent = ({
     /* @__PURE__ */ jsx44("h2", { className: "text-xl font-semibold capitalize mt-4", children: title }),
     /* @__PURE__ */ jsxs32("div", { className: "flex flex-1 flex-col gap-4", children: [
       /* @__PURE__ */ jsxs32("div", { className: "flex flex-col sm:flex-row items-start gap-3 sm:gap-4", children: [
-        /* @__PURE__ */ jsx44(
+        enableImageUpload ? /* @__PURE__ */ jsx44(
           SpaceAvatarUpload_default,
           {
             spaceName,
@@ -6914,6 +6949,13 @@ var SettingsTabContent = ({
             onImageChange: onImageChange || (() => {
             }),
             disabled: isSaving,
+            size: "lg"
+          }
+        ) : /* @__PURE__ */ jsx44(
+          SpaceAvatar_default,
+          {
+            spaceName,
+            imageUrl: currentImageUrl,
             size: "lg"
           }
         ),
@@ -6945,7 +6987,7 @@ var SettingsTabContent = ({
           onClick: onSave,
           disabled: isSaving || !spaceName.trim(),
           className: "bg-primary dark:text-zinc-800 h-11 hover:bg-primary  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800 text-white min-w-[120px]",
-          children: isSaving ? /* @__PURE__ */ jsx44(Loader23, { className: "w-4 h-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
+          children: isSaving ? /* @__PURE__ */ jsx44(Loader22, { className: "w-4 h-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       ) })
     ] })
@@ -6959,6 +7001,7 @@ var MembersAndNumbers = ({
   spaceId,
   spaceName,
   spaceImage,
+  enableImageUpload,
   api,
   isOpen = true,
   onRefreshSpaces,
@@ -6999,6 +7042,13 @@ var MembersAndNumbers = ({
     setSelectedImageFile(null);
     setImageRemoved(false);
   }, [spaceImage]);
+  useEffect10(() => {
+    return () => {
+      if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:")) {
+        URL.revokeObjectURL(settingsSpaceImage);
+      }
+    };
+  }, [settingsSpaceImage]);
   const fetchData = async () => {
     if (!spaceId || !api) return;
     setLoading(true);
@@ -7040,6 +7090,9 @@ var MembersAndNumbers = ({
     invitesCurrentPage * invitesRowsPerPage
   );
   const handleImageChange = (file, previewUrl) => {
+    if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:") && settingsSpaceImage !== previewUrl) {
+      URL.revokeObjectURL(settingsSpaceImage);
+    }
     setSelectedImageFile(file);
     setSettingsSpaceImage(previewUrl);
     setImageRemoved(file === null && previewUrl === null);
@@ -7049,15 +7102,20 @@ var MembersAndNumbers = ({
     if (!spaceId || !nextSpaceName || !api) return;
     setSavingSettings(true);
     try {
-      const imageParam = selectedImageFile ? selectedImageFile : imageRemoved ? null : void 0;
+      const imageParam = enableImageUpload ? selectedImageFile ? selectedImageFile : imageRemoved ? null : void 0 : void 0;
       await api.renameSpace(spaceId, nextSpaceName, imageParam);
       await onRefreshSpaces?.();
       onSpaceNameChange?.(nextSpaceName);
       setSettingsSpaceName(nextSpaceName);
-      if (settingsSpaceImage) {
-        onSpaceImageChange?.(settingsSpaceImage);
-      } else if (imageRemoved) {
-        onSpaceImageChange?.(void 0);
+      if (enableImageUpload) {
+        if (settingsSpaceImage && !settingsSpaceImage.startsWith("blob:")) {
+          onSpaceImageChange?.(settingsSpaceImage);
+        } else if (imageRemoved) {
+          onSpaceImageChange?.(void 0);
+        }
+      }
+      if (settingsSpaceImage && settingsSpaceImage.startsWith("blob:")) {
+        URL.revokeObjectURL(settingsSpaceImage);
       }
       toast6.success(t("membersAndNumbers.toasts.spaceNameUpdated"));
     } catch (error) {
@@ -7227,6 +7285,7 @@ var MembersAndNumbers = ({
             title: t("manageMembersModal.settings"),
             spaceName: settingsSpaceName,
             currentImageUrl: settingsSpaceImage,
+            enableImageUpload,
             isSaving: savingSettings,
             onSpaceNameChange: setSettingsSpaceName,
             onImageChange: handleImageChange,
@@ -7285,7 +7344,8 @@ var MembersAndNumbersModal = () => {
     api,
     spaces,
     activeSpace,
-    setActiveSpace
+    setActiveSpace,
+    enableImageUpload
   } = useSpaceSelector();
   const spaceId = props?.manageSpaceMembers?.spaceId;
   const targetSpace = useMemo5(() => {
@@ -7310,6 +7370,7 @@ var MembersAndNumbersModal = () => {
           spaceId,
           spaceName: props?.manageSpaceMembers?.spaceName,
           spaceImage,
+          enableImageUpload,
           api,
           isOpen: modal === "membersAndNumbers",
           onRefreshSpaces: refreshSpaces,
@@ -7329,8 +7390,8 @@ var MembersAndNumbersModal = () => {
             if (activeSpace && (activeSpace.space_uuid === spaceId || activeSpace.proxyId === spaceId || activeSpace.uuid === spaceId)) {
               setActiveSpace({
                 ...activeSpace,
-                avatar: nextImage,
-                image: nextImage
+                avatar: nextImage && !nextImage.startsWith("blob:") ? nextImage : void 0,
+                image: nextImage && !nextImage.startsWith("blob:") ? nextImage : void 0
               });
             }
           }
@@ -7433,7 +7494,7 @@ var DialogDescription2 = React23.forwardRef(({ className, ...props }, ref) => /*
 DialogDescription2.displayName = DialogPrimitive2.Description.displayName;
 
 // src/components/space-selector/components/modals/DeleteConfirmationModal.tsx
-import { Loader2 as Loader24, Trash2 as Trash23 } from "lucide-react";
+import { Loader2 as Loader23, Trash2 as Trash22 } from "lucide-react";
 import React24 from "react";
 import { jsx as jsx48, jsxs as jsxs35 } from "react/jsx-runtime";
 var DeleteConfirmationModal = () => {
@@ -7462,7 +7523,7 @@ var DeleteConfirmationModal = () => {
       overlayClassName: "z-[10010]",
       className: "sm:max-w-[400px] border-none shadow-none p-6 flex flex-col items-center text-center gap-4 text-neutral-900 bg-neutral-50 z-[10010] dark:text-neutral-50 dark:bg-neutral-900",
       children: [
-        /* @__PURE__ */ jsx48("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 dark:bg-red-500/10", children: /* @__PURE__ */ jsx48(Trash23, { className: "w-6 h-6" }) }),
+        /* @__PURE__ */ jsx48("div", { className: "w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-1 dark:bg-red-500/10", children: /* @__PURE__ */ jsx48(Trash22, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs35("div", { className: "flex flex-col gap-1", children: [
           /* @__PURE__ */ jsx48("h3", { className: "text-lg font-semibold text-neutral-900 dark:text-neutral-50", children: title || t("deleteConfirmation") }),
           /* @__PURE__ */ jsx48("p", { className: "text-sm text-neutral-500 max-w-[300px] mx-auto leading-relaxed dark:text-neutral-400", children: description })
@@ -7474,7 +7535,7 @@ var DeleteConfirmationModal = () => {
               onClick: handleConfirm,
               className: "w-full bg-red-500 hover:bg-red-600 !text-white font-medium rounded-lg h-11",
               disabled: isLoading,
-              children: isLoading ? /* @__PURE__ */ jsx48(Loader24, { className: "w-4 h-4 animate-spin" }) : t("remove")
+              children: isLoading ? /* @__PURE__ */ jsx48(Loader23, { className: "w-4 h-4 animate-spin" }) : t("remove")
             }
           ),
           /* @__PURE__ */ jsx48(
@@ -7496,13 +7557,14 @@ var DeleteConfirmationModal_default = DeleteConfirmationModal;
 
 // src/components/space-selector/components/modals/RenameSpaceModal.tsx
 import { useEffect as useEffect11, useMemo as useMemo6, useState as useState12 } from "react";
-import { Check as Check5, Loader2 as Loader25, RefreshCw as RefreshCw2, TriangleAlert } from "lucide-react";
+import { Check as Check5, Loader2 as Loader24, RefreshCw as RefreshCw2, TriangleAlert } from "lucide-react";
 import { Fragment as Fragment4, jsx as jsx49, jsxs as jsxs36 } from "react/jsx-runtime";
 var RenameSpaceFormState = ({
   t,
   spaceName,
   logoName,
   currentImageUrl,
+  enableImageUpload,
   isSaving,
   onSpaceNameChange,
   onImageChange,
@@ -7515,13 +7577,20 @@ var RenameSpaceFormState = ({
       /* @__PURE__ */ jsx49("p", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: t("renameSpaceModal.description") })
     ] }),
     /* @__PURE__ */ jsx49("div", { className: "flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-100/60 p-4 dark:border-neutral-800 dark:bg-neutral-950/40", children: /* @__PURE__ */ jsxs36("div", { className: "flex flex-col items-start gap-3 sm:flex-row sm:gap-4", children: [
-      /* @__PURE__ */ jsx49(
+      enableImageUpload ? /* @__PURE__ */ jsx49(
         SpaceAvatarUpload_default,
         {
           spaceName: spaceName || logoName,
           currentImageUrl,
           onImageChange,
           disabled: isSaving,
+          size: "xl"
+        }
+      ) : /* @__PURE__ */ jsx49(
+        SpaceAvatar_default,
+        {
+          spaceName: spaceName || logoName,
+          imageUrl: currentImageUrl,
           size: "xl"
         }
       ),
@@ -7566,7 +7635,7 @@ var RenameSpaceFormState = ({
           onClick: onSubmit,
           disabled: isSaving || !spaceName.trim(),
           className: "h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
-          children: isSaving ? /* @__PURE__ */ jsx49(Loader25, { className: "h-4 w-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
+          children: isSaving ? /* @__PURE__ */ jsx49(Loader24, { className: "h-4 w-4 animate-spin" }) : t("renameSpaceModal.saveChanges")
         }
       )
     ] })
@@ -7630,7 +7699,7 @@ var RenameSpaceErrorState = ({
           onClick: onRetry,
           disabled: isSaving,
           className: "h-11 min-w-[140px] rounded-xl bg-primary dark:text-zinc-800 px-5 text-white hover:bg-primary dark:text-zinc-800/90  dark:hover:bg-primary dark:text-zinc-800/90 dark:text-zinc-800",
-          children: isSaving ? /* @__PURE__ */ jsx49(Loader25, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs36(Fragment4, { children: [
+          children: isSaving ? /* @__PURE__ */ jsx49(Loader24, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsxs36(Fragment4, { children: [
             /* @__PURE__ */ jsx49(RefreshCw2, { className: "mr-2 h-4 w-4" }),
             t("renameSpaceModal.retry")
           ] })
@@ -7649,7 +7718,8 @@ var RenameSpaceModal = () => {
     spaces,
     activeSpace,
     setActiveSpace,
-    refreshSpaces
+    refreshSpaces,
+    enableImageUpload
   } = useSpaceSelector();
   const renameProps = modalProps?.renameSpaceModalProps;
   const isOpen = activeModal === "renameSpace" && !!renameProps?.spaceId;
@@ -7674,6 +7744,9 @@ var RenameSpaceModal = () => {
   const [errorMessage, setErrorMessage] = useState12("");
   useEffect11(() => {
     if (!isOpen) {
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
+      }
       setDraftName("");
       setLastAttemptedName("");
       setSelectedImageFile(null);
@@ -7693,12 +7766,22 @@ var RenameSpaceModal = () => {
     setIsSaving(false);
     setErrorMessage("");
   }, [initialName, initialImageUrl, isOpen]);
+  useEffect11(() => {
+    return () => {
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
+      }
+    };
+  }, [currentImageUrl]);
   const logoName = useMemo6(() => draftName.trim() || initialName || "Space", [
     draftName,
     initialName
   ]);
   const closeModal = () => setModal(null);
   const handleImageChange = (file, previewUrl) => {
+    if (currentImageUrl && currentImageUrl.startsWith("blob:") && currentImageUrl !== previewUrl) {
+      URL.revokeObjectURL(currentImageUrl);
+    }
     setSelectedImageFile(file);
     setCurrentImageUrl(previewUrl);
     setImageRemoved(file === null && previewUrl === null);
@@ -7709,15 +7792,18 @@ var RenameSpaceModal = () => {
     setIsSaving(true);
     setLastAttemptedName(nextName);
     try {
-      const imageParam = selectedImageFile ? selectedImageFile : imageRemoved ? null : void 0;
+      const imageParam = enableImageUpload ? selectedImageFile ? selectedImageFile : imageRemoved ? null : void 0 : void 0;
       await api.renameSpace(renameProps.spaceId, nextName, imageParam);
       await refreshSpaces?.();
       if (activeSpace && (activeSpace.space_uuid === renameProps.spaceId || activeSpace.proxyId === renameProps.spaceId || activeSpace.uuid === renameProps.spaceId)) {
         setActiveSpace({
           ...activeSpace,
           name: nextName,
-          ...currentImageUrl ? { avatar: currentImageUrl, image: currentImageUrl } : imageRemoved ? { avatar: void 0, image: void 0, image_url: void 0, icon: void 0 } : {}
+          ...enableImageUpload ? currentImageUrl && !currentImageUrl.startsWith("blob:") ? { avatar: currentImageUrl, image: currentImageUrl } : imageRemoved ? { avatar: void 0, image: void 0, image_url: void 0, icon: void 0 } : {} : {}
         });
+      }
+      if (currentImageUrl && currentImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(currentImageUrl);
       }
       setDraftName(nextName);
       setView("success");
@@ -7743,6 +7829,7 @@ var RenameSpaceModal = () => {
           spaceName: draftName,
           logoName,
           currentImageUrl,
+          enableImageUpload,
           isSaving,
           onSpaceNameChange: setDraftName,
           onImageChange: handleImageChange,
@@ -10559,7 +10646,7 @@ import {
   Globe as Globe3,
   Image as ImageIcon,
   Play as Play2,
-  Trash2 as Trash24
+  Trash2 as Trash23
 } from "lucide-react";
 
 // src/components/assets/components/AssetThumbnail.tsx
@@ -10921,7 +11008,7 @@ var AssetCard = ({
             },
             className: "flex gap-3 rounded-[8px] px-2.5 py-1.5 text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-950/40 cursor-pointer text-xs",
             children: [
-              /* @__PURE__ */ jsx65(Trash24, { className: "size-4 text-red-600" }),
+              /* @__PURE__ */ jsx65(Trash23, { className: "size-4 text-red-600" }),
               /* @__PURE__ */ jsx65("span", { children: t("assets.assetCard.delete") })
             ]
           }
@@ -11175,7 +11262,7 @@ import {
   EllipsisVertical as EllipsisVertical2,
   FilePenLine,
   Folder as FolderIcon2,
-  Trash2 as Trash25
+  Trash2 as Trash24
 } from "lucide-react";
 import { Fragment as Fragment9, jsx as jsx66, jsxs as jsxs47 } from "react/jsx-runtime";
 var MoveIcon2 = /* @__PURE__ */ jsxs47(
@@ -11412,7 +11499,7 @@ var FolderCard = React35.forwardRef(
                           onDelete?.();
                         },
                         children: [
-                          /* @__PURE__ */ jsx66(Trash25, { className: "size-4" }),
+                          /* @__PURE__ */ jsx66(Trash24, { className: "size-4" }),
                           " ",
                           t("assets.folderCard.delete")
                         ]
@@ -11494,7 +11581,7 @@ import {
   Download as Download3,
   ExternalLink as ExternalLink2,
   FileWarning,
-  Loader2 as Loader26,
+  Loader2 as Loader25,
   Lock,
   RefreshCw as RefreshCw3,
   ZoomIn,
@@ -11695,7 +11782,7 @@ var DocumentPreview = ({
     );
   }
   const loading = /* @__PURE__ */ jsxs48("div", { className: "flex flex-col items-center gap-3 text-white/80", children: [
-    /* @__PURE__ */ jsx67(Loader26, { className: "size-8 animate-spin", "aria-hidden": true }),
+    /* @__PURE__ */ jsx67(Loader25, { className: "size-8 animate-spin", "aria-hidden": true }),
     /* @__PURE__ */ jsx67("p", { className: "text-sm", children: t("assets.assetsPreview.documentLoading") })
   ] });
   if (!pdf) {
@@ -12668,7 +12755,7 @@ var NewLinkModal_default = NewLinkModal;
 import {
   CheckCheck,
   FolderSymlink,
-  Trash2 as Trash26,
+  Trash2 as Trash25,
   X as X6
 } from "lucide-react";
 
@@ -12777,7 +12864,7 @@ var SelectionBar = ({
             onClick: onDelete,
             className: "shrink-0 gap-2 rounded-[8px] px-2 text-sm font-normal text-rose-600 hover:bg-rose-50 hover:text-rose-700 sm:px-3 dark:text-rose-400 dark:hover:bg-rose-950/40 dark:hover:text-rose-300",
             children: [
-              /* @__PURE__ */ jsx78(Trash26, { className: "size-4 shrink-0" }),
+              /* @__PURE__ */ jsx78(Trash25, { className: "size-4 shrink-0" }),
               /* @__PURE__ */ jsx78("span", { className: "hidden sm:inline", children: t("assets.assetList.delete") })
             ]
           }
@@ -15007,7 +15094,7 @@ import * as React51 from "react";
 // src/components/search/search-dialog.tsx
 import * as React50 from "react";
 import * as DialogPrimitive3 from "@radix-ui/react-dialog";
-import { Loader2 as Loader27, Search as Search2, X as X8 } from "lucide-react";
+import { Loader2 as Loader26, Search as Search2, X as X8 } from "lucide-react";
 
 // src/components/ui/kbd.tsx
 import { jsx as jsx91 } from "react/jsx-runtime";
@@ -15319,7 +15406,7 @@ function SearchPanel({
       )) }),
       isLoading && /* @__PURE__ */ jsxs67("div", { className: "flex items-center gap-2.5 px-3 py-3", children: [
         /* @__PURE__ */ jsx93(
-          Loader27,
+          Loader26,
           {
             "aria-hidden": true,
             className: "size-4 animate-spin text-muted-foreground"

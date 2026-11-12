@@ -99,6 +99,7 @@ const SpaceCard = ({ id, name, members, className, imageUrl }: SpaceCardProps) =
           size="md"
           fallbackType="cardBuilding"
           className="rounded-lg bg-[#007AFF1A] dark:bg-[#007AFF20]"
+          fallbackClassName="bg-[#007AFF1A] dark:bg-[#007AFF20]"
         />
         <div className="flex flex-col w-full">
           <p className="text-sm max-w-[10rem] truncate">{name}</p>

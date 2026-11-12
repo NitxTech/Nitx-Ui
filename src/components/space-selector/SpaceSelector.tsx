@@ -31,7 +31,8 @@ interface SpaceSelectorProps {
   error?: string | null,
   onFail?: () => void,
 
-  MembersManager?: MembersManagerProps,
+  MembersManager?: MembersManagerProps;
+  enableImageUpload?: boolean;
 }
 
 

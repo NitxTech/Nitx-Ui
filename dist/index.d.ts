@@ -209,6 +209,10 @@ interface SpaceSelectorProps$1 {
      * Whether the sidebar is expanded (visual mode)
      */
     isExpanded?: boolean;
+    /**
+     * Whether space image upload is enabled (defaults to false until backend persistence ships)
+     */
+    enableImageUpload?: boolean;
 }
 interface SpaceSelectorApi {
     createSpace: (name: string, image?: File | string | null) => Promise<ProxySpace>;
@@ -286,6 +290,7 @@ interface SpaceSelectorProps {
     error?: string | null;
     onFail?: () => void;
     MembersManager?: MembersManagerProps;
+    enableImageUpload?: boolean;
 }
 declare const SpaceSelector: (props: SpaceSelectorProps) => React$1.JSX.Element;
 
@@ -307,6 +312,7 @@ interface SpaceSelectorContextType {
     api?: SpaceSelectorApi;
     authUser?: string | number;
     recentMap?: Record<string, number>;
+    enableImageUpload?: boolean;
     isLoading?: boolean;
     error?: string | null;
     onFail?: () => void;
@@ -324,11 +330,12 @@ interface SpaceSelectorProviderProps {
     isExpanded?: boolean;
     className?: string;
     triggerClassName?: string;
+    enableImageUpload?: boolean;
     isLoading?: boolean;
     error?: string | null;
     onFail?: () => void;
 }
-declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, className, triggerClassName, isLoading, error, onFail, }: SpaceSelectorProviderProps) => React__default.JSX.Element;
+declare const SpaceSelectorProvider: ({ children, activeSpace, spaces, onSpaceSelect, onRefreshSpaces, authUser, api, isExpanded, className, triggerClassName, enableImageUpload, isLoading, error, onFail, }: SpaceSelectorProviderProps) => React__default.JSX.Element;
 
 declare const createSpaceSelectorApi: (client: any) => SpaceSelectorApi;
 
@@ -370,9 +377,13 @@ declare function isSameSpace(a: ProxySpace | undefined | null, b: ProxySpace | u
  */
 declare function sortSpacesByLastUsed(spaces: ProxySpace[], recentMap?: Record<string, number>, activeSpace?: ProxySpace): ProxySpace[];
 
+declare const getSpaceImageUrl: (space?: Partial<ProxySpace> | null, overrideUrl?: string | null) => string | undefined;
+declare const getSpaceInitials: (name?: string | null) => string;
+
 interface SpaceAvatarProps {
     space?: Partial<ProxySpace> | null;
     name?: string;
+    spaceName?: string;
     imageUrl?: string | null;
     className?: string;
     imageClassName?: string;
@@ -380,9 +391,8 @@ interface SpaceAvatarProps {
     size?: "xs" | "sm" | "md" | "lg" | "xl" | "custom";
     fallbackType?: "initials" | "icon" | "cardBuilding";
 }
-declare const getSpaceImageUrl: (space?: Partial<ProxySpace> | null, overrideUrl?: string | null) => string | undefined;
-declare const getSpaceInitials: (name?: string | null) => string;
-declare const SpaceAvatar: ({ space, name, imageUrl, className, imageClassName, fallbackClassName, size, fallbackType, }: SpaceAvatarProps) => React__default.JSX.Element;
+
+declare const SpaceAvatar: ({ space, name, spaceName, imageUrl, className, imageClassName, fallbackClassName, size, fallbackType, }: SpaceAvatarProps) => React__default.JSX.Element;
 
 interface SpaceAvatarUploadProps {
     currentImageUrl?: string | null;
@@ -399,13 +409,14 @@ interface MembersAndNumbersProps {
     spaceId: string;
     spaceName?: string;
     spaceImage?: string | null;
+    enableImageUpload?: boolean;
     api?: SpaceSelectorApi;
     isOpen?: boolean;
     onRefreshSpaces?: () => void | Promise<void>;
     onSpaceNameChange?: (spaceName: string) => void;
     onSpaceImageChange?: (imageUrl?: string) => void;
 }
-declare const MembersAndNumbers: ({ spaceId, spaceName, spaceImage, api, isOpen, onRefreshSpaces, onSpaceNameChange, onSpaceImageChange, }: MembersAndNumbersProps) => React$1.JSX.Element | null;
+declare const MembersAndNumbers: ({ spaceId, spaceName, spaceImage, enableImageUpload, api, isOpen, onRefreshSpaces, onSpaceNameChange, onSpaceImageChange, }: MembersAndNumbersProps) => React$1.JSX.Element | null;
 
 interface ErrorStateProps {
     /** Short description text shown below the icon */

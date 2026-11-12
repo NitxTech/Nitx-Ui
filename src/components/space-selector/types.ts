@@ -87,6 +87,11 @@ export interface SpaceSelectorProps {
    * Whether the sidebar is expanded (visual mode)
    */
   isExpanded?: boolean;
+
+  /**
+   * Whether space image upload is enabled (defaults to false until backend persistence ships)
+   */
+  enableImageUpload?: boolean;
 }
 
 export interface SpaceSelectorApi {

@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { getSpaceImageUrl, getSpaceInitials } from "../../lib/space-avatar-utils.ts";
 
 // Read messages JSON files directly
 const enMessages = JSON.parse(
@@ -9,30 +10,6 @@ const enMessages = JSON.parse(
 const arMessages = JSON.parse(
   fs.readFileSync(new URL("../../../../messages/ar/nitxuilib.json", import.meta.url), "utf8")
 );
-
-// Space image helper logic verification
-const getSpaceImageUrl = (space, overrideUrl) => {
-  if (overrideUrl) return overrideUrl;
-  if (!space) return undefined;
-  return (
-    space.avatar ||
-    space.image ||
-    space.image_url ||
-    space.icon ||
-    undefined
-  );
-};
-
-const getSpaceInitials = (name) => {
-  if (!name) return "SP";
-  const trimmed = name.trim();
-  if (!trimmed) return "SP";
-  const words = trimmed.split(/\s+/).filter(Boolean);
-  if (words.length >= 2) {
-    return (words[0][0] + words[1][0]).toUpperCase();
-  }
-  return trimmed.slice(0, 2).toUpperCase();
-};
 
 test("getSpaceImageUrl correctly extracts image URL with priority and fallbacks", () => {
   // Override takes priority
