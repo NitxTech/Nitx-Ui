@@ -84,7 +84,8 @@ for the full flow, the auth-side allowlist, and the per-dashboard rollout.
 
 #### Props
 
-- `accounts`: Array of user objects `{ id, name, email, imageUrl?, active }`
+- `accounts`: Array of user objects `{ id, name, firstName?, lastName?, email, imageUrl?, active }`. Pass `firstName`/`lastName` from the session (`name` / `last_name`) so the settings modal can edit the name; `imageUrl` is the session's `img_path` and may be a bare S3 key, which the component resolves (see `avatarBaseUrl`).
+- `avatarBaseUrl?`: Base URL for bare `img_path` keys. Defaults to the Nitx S3 bucket.
 - `isExpanded`: `boolean` — Show full details or just avatar
 - `auth_user`: Session id used for sign-out
 - `authCallbackUrl`: **Required.** Absolute `http(s)` URL the auth service sends the user back to after adding another account (sent as `?new_session=1&callback=…`). The component throws at render if it is missing or not an absolute URL. The host must be on the auth service's `NEXT_PUBLIC_TRUSTED_CALLBACK_HOSTS` allowlist.

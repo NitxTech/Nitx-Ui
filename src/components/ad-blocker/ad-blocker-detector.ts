@@ -192,6 +192,26 @@ function result(
 }
 
 /**
+ * Brave ships Shields on by default and exposes itself through
+ * `navigator.brave.isBrave()`. Shields refuses ad hosts at the network level
+ * without necessarily collapsing a first-party bait element (Standard mode
+ * only hides elements that carry third-party content), so the browser's own
+ * signal stands in for the cosmetic probe there.
+ */
+async function isBraveBrowser(): Promise<boolean> {
+  if (typeof navigator === "undefined") return false;
+  const brave = (navigator as Navigator & {
+    brave?: { isBrave?: () => Promise<boolean> };
+  }).brave;
+  if (!brave || typeof brave.isBrave !== "function") return false;
+  try {
+    return (await brave.isBrave()) === true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Performs a multi-vector ad blocker detection check.
  *
  * The verdict is `isBlocked: true` only when the evidence cannot be
@@ -200,7 +220,14 @@ function result(
  * 1. Offline, or a general connectivity probe that fails, is never a blocker.
  * 2. Every bait endpoint must be rejected outright. One reachable endpoint
  *    clears the check; a timeout or a CSP refusal makes it inconclusive.
- * 3. A cosmetic-filter hit on the DOM bait counts only while no ad endpoint
+ * 3. Refused ad hosts alone are not enough. Browser tracking protection
+ *    (Safari's Advanced Tracking Protection on iOS, Firefox and Edge strict
+ *    modes) refuses the same hosts with no ad blocker installed, and that
+ *    used to lock every iPhone out of the dashboards. The network vector is
+ *    confirmed only by a signal tracking protection cannot produce: a
+ *    cosmetic-filter hit on the DOM bait, or the browser being Brave (whose
+ *    Shields are the blocker). Otherwise the result is `inconclusive`.
+ * 4. A cosmetic-filter hit on the DOM bait counts only while no ad endpoint
  *    was reachable, since a reachable network means ad scripts will load.
  *
  * Safe in SSR and hydration environments.
@@ -228,10 +255,11 @@ export async function detectAdBlocker(
 
   // 2. Both vectors run together; the DOM probe is synchronous.
   const domHidden = testDomCosmeticFiltering();
-  const network = await Promise.all(
-    baitUrls.map((url) => probeUrl(url, timeoutMs))
-  );
-  const details = { domHidden, network };
+  const [network, braveShields] = await Promise.all([
+    Promise.all(baitUrls.map((url) => probeUrl(url, timeoutMs))),
+    isBraveBrowser(),
+  ]);
+  const details = { domHidden, network, braveShields };
 
   const anyReachable = network.some((o) => o === "reachable");
   const allBlocked =
@@ -259,8 +287,18 @@ export async function detectAdBlocker(
         details
       );
     }
+    // Refused ad hosts on a working network. Call it a blocker only with a
+    // signal that host-based tracking protection cannot produce; otherwise
+    // this is indistinguishable from Safari/Firefox/Edge privacy settings
+    // (or a DNS sinkhole) and must stay inconclusive.
+    if (domHidden || braveShields) {
+      return result(
+        { isBlocked: true, isOffline: false, reason: "network_probe_blocked" },
+        details
+      );
+    }
     return result(
-      { isBlocked: true, isOffline: false, reason: "network_probe_blocked" },
+      { isBlocked: false, isOffline: false, reason: "inconclusive" },
       details
     );
   }

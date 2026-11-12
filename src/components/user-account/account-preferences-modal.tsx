@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { resolveAvatarUrl } from "./avatar-url";
 import {
   Globe,
   Sun,
@@ -54,7 +55,13 @@ export interface AccountPreferencesModalProps {
   authUser?: string | number;
   user?: {
     name?: string;
-    /** First and last name are edited separately, matching the update-basic-info contract. Editing is enabled only when firstName is provided. */
+    /**
+     * First and last name are edited separately, matching the
+     * update-basic-info contract. Pass them when the host has them (the
+     * session carries `name` and `last_name`). When only `name` is given the
+     * modal splits it on the first space to pre-fill the fields, so editing
+     * is available on every product, not just those with a user-info fetch.
+     */
     firstName?: string;
     lastName?: string;
     email?: string;
@@ -230,6 +237,25 @@ export function writeLanguageCookie(lang: string) {
   }
 }
 
+/**
+ * Splits a joined display name into first and last name on the first space.
+ * Used only when the host did not supply them separately; the user sees both
+ * fields pre-filled and can correct the split before saving.
+ */
+export function splitDisplayName(name?: string | null): {
+  firstName: string;
+  lastName: string;
+} {
+  const trimmed = (name ?? "").trim().replace(/\s+/g, " ");
+  if (!trimmed) return { firstName: "", lastName: "" };
+  const spaceAt = trimmed.indexOf(" ");
+  if (spaceAt === -1) return { firstName: trimmed, lastName: "" };
+  return {
+    firstName: trimmed.slice(0, spaceAt),
+    lastName: trimmed.slice(spaceAt + 1),
+  };
+}
+
 export async function callUpdateBasicInfo(
   payload: UpdateBasicInfoPayload,
   options?: {
@@ -339,10 +365,15 @@ export function AccountPreferencesModal({
   // Active section: on mobile null represents the section list; on desktop defaults to "profile"
   const [activeSection, setActiveSection] = useState<SettingsSectionKey | null>(null);
 
-  // In-modal profile editing state
+  // In-modal profile editing state. Hosts without a user-info fetch only
+  // have the joined display name, so derive first/last from it.
+  const initialFirstName =
+    user?.firstName ?? splitDisplayName(user?.name).firstName;
+  const initialLastName =
+    user?.lastName ?? splitDisplayName(user?.name).lastName;
   const [isEditingName, setIsEditingName] = useState(false);
-  const [firstNameInput, setFirstNameInput] = useState(user?.firstName ?? "");
-  const [lastNameInput, setLastNameInput] = useState(user?.lastName ?? "");
+  const [firstNameInput, setFirstNameInput] = useState(initialFirstName);
+  const [lastNameInput, setLastNameInput] = useState(initialLastName);
   // Name shown after a successful save, until the host passes fresh user data
   const [savedUserName, setSavedUserName] = useState<string | null>(null);
   const [isSavingName, setIsSavingName] = useState(false);
@@ -355,10 +386,10 @@ export function AccountPreferencesModal({
   const nameFieldId = useId();
 
   useEffect(() => {
-    setFirstNameInput(user?.firstName ?? "");
-    setLastNameInput(user?.lastName ?? "");
+    setFirstNameInput(initialFirstName);
+    setLastNameInput(initialLastName);
     setSavedUserName(null);
-  }, [user?.name, user?.firstName, user?.lastName]);
+  }, [initialFirstName, initialLastName]);
 
   useEffect(() => {
     setMounted(true);
@@ -457,9 +488,15 @@ export function AccountPreferencesModal({
     (user?.name ||
       [user?.firstName, user?.lastName].filter(Boolean).join(" "));
   const userEmail = user?.email ?? "";
-  const userImage = user?.imageUrl ?? null;
+  // Hosts may pass a bare S3 key (see avatar-url.ts); resolving an already
+  // absolute URL is a no-op.
+  const userImage = resolveAvatarUrl(user?.imageUrl) ?? null;
   const hasUser = Boolean(userName || userEmail);
-  const canEditName = user?.firstName !== undefined;
+  // Editable on every product: either the host supplied first/last name, or
+  // a display name exists to split. Saving falls back to the shared API
+  // client / NEXT_PUBLIC_API_URL when the host passes no onUpdateUser.
+  const canEditName =
+    user?.firstName !== undefined || Boolean(user?.name?.trim());
 
   const planName = plan?.name;
   const planBadge = plan?.badgeText;
@@ -703,6 +740,15 @@ export function AccountPreferencesModal({
       );
       setSavedUserName([firstName, lastName].filter(Boolean).join(" "));
       setIsEditingName(false);
+      // Let the host refresh its account list / session without needing an
+      // onUpdateUser prop (same pattern as "nitx-language-change").
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("nitx-user-updated", {
+            detail: { name: firstName, last_name: lastName },
+          })
+        );
+      }
       toast.success(isRTL ? "تم تحديث الاسم بنجاح" : "Name updated successfully");
     } catch (err) {
       console.error("Failed to save name:", err);
