@@ -57,10 +57,10 @@ export const SpaceAvatar = ({
   return (
     <Avatar
       className={cn(
-        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight shadow-sm",
+        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight",
         fallbackType === "cardBuilding"
-          ? "bg-[#007AFF1A] dark:bg-[#007AFF20]"
-          : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
+          ? "bg-transparent shadow-none"
+          : "shadow-sm bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
       )}
@@ -93,7 +93,7 @@ export const SpaceAvatar = ({
             height="55"
             viewBox="0 0 55 55"
             fill="none"
-            className="w-full h-full p-2"
+            className="w-full h-full"
           >
             <rect width="55" height="55" rx="13" fill="#007AFF" fillOpacity="0.1" />
             <path

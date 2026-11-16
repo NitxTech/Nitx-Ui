@@ -201,6 +201,20 @@ export const SpaceAvatarUpload = ({
           </div>
         </div>
 
+        {/* Touch-friendly visible edit hint badge when no remove badge covers it, or at bottom corner */}
+        {!disabled && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-1 -end-1 size-5 rounded-full bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs z-10 group-hover:opacity-0 transition-opacity duration-200"
+          >
+            {hasImage ? (
+              <Camera className="size-3 stroke-[2]" />
+            ) : (
+              <ImagePlus className="size-3 stroke-[2]" />
+            )}
+          </span>
+        )}
+
         {/* Quick remove button badge on top corner when image exists */}
         {hasImage && !disabled && showRemoveButton && (
           <button

@@ -4908,8 +4908,8 @@ var SpaceAvatar = ({
     Avatar,
     {
       className: cn2(
-        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight shadow-sm",
-        fallbackType === "cardBuilding" ? "bg-[#007AFF1A] dark:bg-[#007AFF20]" : "bg-neutral-900 text-white dark:bg-secondary dark:text-white",
+        "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight",
+        fallbackType === "cardBuilding" ? "bg-transparent shadow-none" : "shadow-sm bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
       ),
@@ -4938,7 +4938,7 @@ var SpaceAvatar = ({
                 height: "55",
                 viewBox: "0 0 55 55",
                 fill: "none",
-                className: "w-full h-full p-2",
+                className: "w-full h-full",
                 children: [
                   /* @__PURE__ */ jsx18("rect", { width: "55", height: "55", rx: "13", fill: "#007AFF", fillOpacity: "0.1" }),
                   /* @__PURE__ */ jsx18(
@@ -5018,9 +5018,7 @@ var SpaceCard = ({ id, name, members, className, imageUrl }) => {
               name,
               imageUrl: effectiveImageUrl,
               size: "md",
-              fallbackType: "cardBuilding",
-              className: "rounded-lg bg-[#007AFF1A] dark:bg-[#007AFF20]",
-              fallbackClassName: "bg-[#007AFF1A] dark:bg-[#007AFF20]"
+              fallbackType: "cardBuilding"
             }
           ),
           /* @__PURE__ */ jsxs13("div", { className: "flex flex-col w-full", children: [
@@ -5597,6 +5595,14 @@ var SpaceAvatarUpload = ({
               }
             )
           ]
+        }
+      ),
+      !disabled && /* @__PURE__ */ jsx26(
+        "span",
+        {
+          "aria-hidden": "true",
+          className: "pointer-events-none absolute -bottom-1 -end-1 size-5 rounded-full bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shadow-xs z-10 group-hover:opacity-0 transition-opacity duration-200",
+          children: hasImage ? /* @__PURE__ */ jsx26(Camera, { className: "size-3 stroke-[2]" }) : /* @__PURE__ */ jsx26(ImagePlus, { className: "size-3 stroke-[2]" })
         }
       ),
       hasImage && !disabled && showRemoveButton && /* @__PURE__ */ jsx26(
@@ -6851,7 +6857,7 @@ var MembersTable = ({
               title: member.name,
               subtitle: member.email,
               fallbackValue: member.name,
-              avatarSrc: member.image || member.imageURL || member.avatar || member.avatar_url || member.photo
+              avatarSrc: member.image || member.imageURL
             }
           ),
           /* @__PURE__ */ jsx40("div", { className: "ml-14 sm:ml-0", children: /* @__PURE__ */ jsx40(
