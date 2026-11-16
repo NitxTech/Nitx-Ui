@@ -233,13 +233,7 @@ const MembersTable = ({
               title={member.name}
               subtitle={member.email}
               fallbackValue={member.name}
-              avatarSrc={
-                member.image ||
-                member.imageURL ||
-                member.avatar ||
-                member.avatar_url ||
-                (member as any).photo
-              }
+              avatarSrc={(member as any).image || member.imageURL}
             />
 
             <div className="ml-14 sm:ml-0">
