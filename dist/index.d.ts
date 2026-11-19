@@ -193,9 +193,6 @@ interface Member {
     email: string;
     role: MemberRole;
     imageURL?: string;
-    image?: string;
-    avatar?: string;
-    avatar_url?: string;
     joinedAt?: string;
 }
 interface Invitation {
