@@ -4909,7 +4909,7 @@ var SpaceAvatar = ({
     {
       className: cn2(
         "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight",
-        fallbackType === "cardBuilding" ? "bg-transparent shadow-none" : "shadow-sm bg-neutral-900 text-white dark:bg-secondary dark:text-white",
+        fallbackType === "cardBuilding" ? "bg-[#007AFF1A] shadow-none" : "shadow-sm bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
       ),
@@ -6425,8 +6425,8 @@ var TablePersonCell = ({
   avatarSrc
 }) => {
   return /* @__PURE__ */ jsxs24("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsxs24(Avatar, { className: "size-10 h-12 w-12 rounded-full overflow-hidden shrink-0", children: [
-      /* @__PURE__ */ jsx35(AvatarImage, { src: avatarSrc, className: "h-full w-full object-cover" }),
+    /* @__PURE__ */ jsxs24(Avatar, { className: "size-10 h-12 w-12 rounded-full", children: [
+      /* @__PURE__ */ jsx35(AvatarImage, { src: avatarSrc }),
       /* @__PURE__ */ jsx35(AvatarFallback, { className: "bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full font-semibold", children: getFallbackText(fallbackValue) })
     ] }),
     /* @__PURE__ */ jsxs24("div", { className: "flex flex-col", children: [
