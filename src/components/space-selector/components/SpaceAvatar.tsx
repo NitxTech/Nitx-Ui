@@ -59,7 +59,7 @@ export const SpaceAvatar = ({
       className={cn(
         "relative shrink-0 overflow-hidden select-none flex items-center justify-center font-semibold tracking-tight",
         fallbackType === "cardBuilding"
-          ? "bg-transparent shadow-none"
+          ? "bg-[#007AFF1A] shadow-none"
           : "shadow-sm bg-neutral-900 text-white dark:bg-secondary dark:text-white",
         sizeClass,
         className
