@@ -24,6 +24,10 @@ interface ProductSwitcherProps {
   profileName?: string;
 }
 
+// The Nitx desktop app adds this to its user agent. Its own sidebar switches
+// between products, so the switcher here would be a second one.
+const isNitxDesktopApp = () => navigator.userAgent.includes("NitxDesktop/");
+
 export const ProductSwitcher = ({
   auth_user,
   profileImage,
@@ -36,7 +40,7 @@ export const ProductSwitcher = ({
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) return null;
+  if (!isMounted || isNitxDesktopApp()) return null;
 
   const profile = {
     name: t("productSwitcher.manageMyAccount"),
